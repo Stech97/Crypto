@@ -20,7 +20,7 @@ namespace DBRepository.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DBRepository.Models.Comment", b =>
+            modelBuilder.Entity("Models.Comment", b =>
                 {
                     b.Property<int>("CommentId")
                         .ValueGeneratedOnAdd();
@@ -40,7 +40,7 @@ namespace DBRepository.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("DBRepository.Models.Post", b =>
+            modelBuilder.Entity("Models.Post", b =>
                 {
                     b.Property<int>("PostId")
                         .ValueGeneratedOnAdd();
@@ -56,7 +56,7 @@ namespace DBRepository.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("DBRepository.Models.Tag", b =>
+            modelBuilder.Entity("Models.Tag", b =>
                 {
                     b.Property<int>("TagId")
                         .ValueGeneratedOnAdd();
@@ -72,14 +72,16 @@ namespace DBRepository.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("DBRepository.Models.User", b =>
+            modelBuilder.Entity("Models.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Login");
+                    b.Property<string>("Login")
+                        .IsRequired();
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .IsRequired();
 
                     b.Property<bool>("isAdmin");
 
@@ -88,17 +90,17 @@ namespace DBRepository.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DBRepository.Models.Comment", b =>
+            modelBuilder.Entity("Models.Comment", b =>
                 {
-                    b.HasOne("DBRepository.Models.Post")
+                    b.HasOne("Models.Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DBRepository.Models.Tag", b =>
+            modelBuilder.Entity("Models.Tag", b =>
                 {
-                    b.HasOne("DBRepository.Models.Post")
+                    b.HasOne("Models.Post")
                         .WithMany("Tags")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade);

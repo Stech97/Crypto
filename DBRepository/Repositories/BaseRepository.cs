@@ -1,5 +1,4 @@
 ﻿using DBRepository.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace DBRepository.Repositories
 {
