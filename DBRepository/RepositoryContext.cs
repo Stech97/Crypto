@@ -13,6 +13,7 @@ namespace DBRepository
 		public DbSet<User> Users { get; set; }
 		public DbSet<UserRole> UserRoles { get; set; }
 		public DbSet<UserToUserRole> UserToUserRoles { get; set; }
+		public DbSet<Investment> Investments { get; set; }
 
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -29,6 +30,10 @@ namespace DBRepository
 			modelBuilder.Entity<UserToUserRole>().HasKey(u => new { u.UserId, u.UserRoleID });
 			modelBuilder.Entity<UserToUserRole>().Property(u => u.UserId).IsRequired();
 			modelBuilder.Entity<UserToUserRole>().Property(u => u.UserRoleID).IsRequired();
+
+			modelBuilder.Entity<Investment>().ToTable("Investment");
+			modelBuilder.Entity<Investment>().Property(i => i.Name).IsRequired();
+			modelBuilder.Entity<Investment>().Property(i => i.Description).IsRequired();
 		}
 	}
 }
