@@ -7,7 +7,7 @@
       "sslPort": 0
     },
     "iisExpress": {
-      "applicationUrl": "http://localhost:50307/",
+      "applicationUrl": "http://localhost:50",
       "sslPort": 0
     }
   },
@@ -15,7 +15,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:50307/Crypto",
+      "launchUrl": "http://localhost:50/Crypto",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -23,11 +23,11 @@
     "Crypto": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:50308",
+      "launchUrl": "http://localhost:51",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:50308"
+      "applicationUrl": "http://localhost:51"
     }
   }
 }

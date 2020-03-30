@@ -15,9 +15,8 @@ namespace DBRepository
 			{
 				context.Users.Add(new Models.User()
 				{
-					Login = "admin",
-					Password = "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=",
-					isAdmin = true
+					Username = "admin",
+					Password = "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg="
 				});
 				context.Posts.Add(new Models.Post()
 				{

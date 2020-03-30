@@ -13,7 +13,7 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				return await context.Users.FirstOrDefaultAsync(u => u.Login == userName);
+				return await context.Users.FirstOrDefaultAsync(u => u.Username == userName);
 			}
 		}
 	}
