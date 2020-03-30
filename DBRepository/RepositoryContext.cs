@@ -10,10 +10,12 @@ namespace DBRepository
 		public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
 		public DbSet<Tag> Tags { get; set; }
+
+		public DbSet<Investment> Investments { get; set; }
+		public DbSet<Team> Teams { get; set; }
 		public DbSet<User> Users { get; set; }
 		public DbSet<UserRole> UserRoles { get; set; }
 		public DbSet<UserToUserRole> UserToUserRoles { get; set; }
-		public DbSet<Investment> Investments { get; set; }
 
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -34,6 +36,8 @@ namespace DBRepository
 			modelBuilder.Entity<Investment>().ToTable("Investment");
 			modelBuilder.Entity<Investment>().Property(i => i.Name).IsRequired();
 			modelBuilder.Entity<Investment>().Property(i => i.Description).IsRequired();
+
+			modelBuilder.Entity<Team>().ToTable("Team");
 		}
 	}
 }
