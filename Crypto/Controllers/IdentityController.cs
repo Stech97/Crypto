@@ -59,16 +59,18 @@ namespace Crypto.Controllers
 		private async Task<ClaimsIdentity> GetIdentity(string userName, string password)
 		{
 			ClaimsIdentity identity = null;
-			var user = await _service.GetUser(userName);
+			object user = await _service.GetUser(userName);
 			if (user != null)
 			{
 				var sha256 = new SHA256Managed();
 				var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(password)));
-				if (passwordHash == user.Password)
+				string passwordUser = user.GetType().GetProperty("Password").GetValue(user).ToString();
+				string username = user.GetType().GetProperty("Username").GetValue(user).ToString();
+				if (passwordHash == passwordUser)
 				{
 					var claims = new List<Claim>
 					{
-						new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
+						new Claim(ClaimsIdentity.DefaultNameClaimType, username),
 					};
 					identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 				}

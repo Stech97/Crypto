@@ -5,6 +5,6 @@ namespace Crypto.Services.Interfaces
 {
 	public interface IIdentityService
     {
-		Task<User> GetUser(string userName);
+		Task<dynamic> GetUser(string userName);
 	}
 }

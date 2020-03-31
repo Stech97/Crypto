@@ -14,7 +14,7 @@ namespace Crypto.Services.Implementation
 			_repository = repository;
 		}
 
-		public async Task<User> GetUser(string userName)
+		public async Task<dynamic> GetUser(string userName)
 		{
 			return await _repository.GetUser(userName);
 		}
