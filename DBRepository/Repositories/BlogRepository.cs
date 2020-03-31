@@ -78,8 +78,8 @@ namespace DBRepository.Repositories
 	    {
 		    using (var context = ContextFactory.CreateDbContext(ConnectionString))
 		    {
-			    var coomment = new Comment() { CommentId = commentId };
-			    context.Comments.Remove(coomment);
+			    var comment = new Comment() { CommentId = commentId };
+			    context.Comments.Remove(comment);
 			    await context.SaveChangesAsync();
 		    }
 	    }
