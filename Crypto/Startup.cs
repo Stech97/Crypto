@@ -49,12 +49,18 @@ namespace Crypto
 			services.AddAutoMapper();
 
 			services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
+
 			services.AddScoped<IBlogRepository>(provider => new BlogRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
+
 			services.AddScoped<IIdentityRepository>(provider => new IdentityRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
+
+			services.AddScoped<IInvestmentRepository>(provider => new InvestmentRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
+
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-			services.AddSingleton<IConfiguration>(Configuration);
+			services.AddSingleton(Configuration);
 			services.AddScoped<IBlogService, BlogService>();
 			services.AddScoped<IIdentityService, IdentityService>();
+			services.AddScoped<IInvestmentService, InvestmentService>();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

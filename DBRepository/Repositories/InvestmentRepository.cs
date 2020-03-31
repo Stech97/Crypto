@@ -5,7 +5,7 @@ using Models;
 
 namespace DBRepository.Repositories
 {
-	public class InvestmentRepository : BaseRepository
+	public class InvestmentRepository : BaseRepository, IInvestmentRepository
 	{
 		public InvestmentRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
@@ -15,7 +15,7 @@ namespace DBRepository.Repositories
 				return await context.Investments.FirstOrDefaultAsync(i => i.Name == name);
 		}
 
-		public async void AddInvestment(Investment investment)
+		public async Task AddInvestment(Investment investment)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -24,7 +24,7 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async void DeleteInvestment(int investID)
+		public async Task DeleteInvestment(int investID)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
