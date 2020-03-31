@@ -1,5 +1,4 @@
-﻿using Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Crypto.Services.Interfaces
 {

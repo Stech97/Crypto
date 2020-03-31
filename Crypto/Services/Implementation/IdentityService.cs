@@ -1,6 +1,5 @@
 ﻿using Crypto.Services.Interfaces;
 using System.Threading.Tasks;
-using Models;
 using DBRepository.Interfaces;
 
 namespace Crypto.Services.Implementation

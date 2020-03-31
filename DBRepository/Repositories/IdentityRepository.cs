@@ -1,7 +1,6 @@
 ﻿using DBRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
-using Models;
 using System.Threading.Tasks;
 using System.Linq;
 
