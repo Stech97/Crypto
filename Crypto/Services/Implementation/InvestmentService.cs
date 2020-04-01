@@ -10,9 +10,9 @@ namespace Crypto.Services.Implementation
 {
 	public class InvestmentService : IInvestmentService
 	{
-		IInvestmentRepository _repository;
-		IConfiguration _config;
-		IMapper _mapper;
+		readonly IInvestmentRepository _repository;
+		readonly IConfiguration _config;
+		readonly IMapper _mapper;
 
 		public InvestmentService(IInvestmentRepository repository, IConfiguration configuration, IMapper mapper)
 		{
@@ -20,7 +20,13 @@ namespace Crypto.Services.Implementation
 			_config = configuration;
 			_mapper = mapper;
 		}
-
+		public async Task<Page<InvestmentViewModel>> GetInvestments(int pageIndex, string investment)
+		{
+			var pageSize = _config.GetValue<int>("pageSize");
+			var page = await _repository.GetPosts(pageIndex, pageSize, investment);
+			var result = _mapper.ToMappedPage<Investment, InvestmentViewModel>(page);
+			return result;
+		}
 		public async Task<Investment> GetInvestment(string name)
 		{
 			return await _repository.GetInvestment(name);

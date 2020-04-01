@@ -41,6 +41,9 @@ class Header extends React.Component {
                             <Link to="/blog">Блог</Link>
                         </li>
                         <li>
+                            <Link to="/investment">Инвистиции</Link>
+                        </li>
+                        <li>
                             <a href="https://github.com/Stech97">Github</a>
                         </li>
                         <li>

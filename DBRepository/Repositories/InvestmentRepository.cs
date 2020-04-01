@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Models;
+using System.Linq;
 
 namespace DBRepository.Repositories
 {
@@ -13,6 +14,25 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 				return await context.Investments.FirstOrDefaultAsync(i => i.Name == name);
+		}
+
+		public async Task<Page<Investment>> GetPosts(int index, int pageSize, string investment = null)
+		{
+			var result = new Page<Investment>() { CurrentPage = index, PageSize = pageSize };
+
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var query = context.Investments.AsQueryable();
+				if (!string.IsNullOrWhiteSpace(investment))
+				{
+					query = query.Where(i => i.Name == investment);
+				}
+
+				result.TotalPages = await query.CountAsync();
+				result.Records = await query.OrderByDescending(i => i.CreatedDate).Skip(index * pageSize).Take(pageSize).ToListAsync();
+			}
+
+			return result;
 		}
 
 		public async Task AddInvestment(Investment investment)

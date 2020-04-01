@@ -11,9 +11,9 @@ namespace Crypto.Services.Implementation
 {
 	public class BlogService : IBlogService
 	{
-		IBlogRepository _repository;
-		IConfiguration _config;
-		IMapper _mapper;
+		readonly IBlogRepository _repository;
+		readonly IConfiguration _config;
+		readonly IMapper _mapper;
 
 		public BlogService(IBlogRepository repository, IConfiguration configuration, IMapper mapper)
 		{

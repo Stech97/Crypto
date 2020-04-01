@@ -6,5 +6,6 @@
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public string Profit { get; set; }
+		public System.DateTime CreatedDate { get; set; }
 	}
 }

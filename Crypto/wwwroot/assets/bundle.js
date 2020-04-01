@@ -36734,6 +36734,15 @@ var Header = function (_React$Component) {
                             'li',
                             null,
                             _react2.default.createElement(
+                                _reactRouterDom.Link,
+                                { to: '/investment' },
+                                '\u0418\u043D\u0432\u0438\u0441\u0442\u0438\u0446\u0438\u0438'
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            null,
+                            _react2.default.createElement(
                                 'a',
                                 { href: 'https://github.com/Stech97' },
                                 'Github'

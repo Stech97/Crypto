@@ -11,7 +11,7 @@ namespace Crypto.Controllers
 	[Route("api/[controller]")]
     public class BlogController : Controller
     {
-		IBlogService _blogService;
+		readonly IBlogService _blogService;
 
 		public BlogController(IBlogService blogService)
         {
