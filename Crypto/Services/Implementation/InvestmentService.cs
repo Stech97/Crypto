@@ -20,16 +20,16 @@ namespace Crypto.Services.Implementation
 			_config = configuration;
 			_mapper = mapper;
 		}
-		public async Task<Page<InvestmentViewModel>> GetInvestments(int pageIndex, string investment)
+		public async Task<Page<InvestmentViewModel>> GetInvestments(int pageIndex)
 		{
 			var pageSize = _config.GetValue<int>("pageSize");
-			var page = await _repository.GetPosts(pageIndex, pageSize, investment);
+			var page = await _repository.GetPosts(pageIndex, pageSize);
 			var result = _mapper.ToMappedPage<Investment, InvestmentViewModel>(page);
 			return result;
 		}
-		public async Task<Investment> GetInvestment(string name)
+		public async Task<Investment> GetInvestment(int investID)
 		{
-			return await _repository.GetInvestment(name);
+			return await _repository.GetInvestment(investID);
 		}
 		public async Task AddInvestment(InvestmentViewModel request)
 		{

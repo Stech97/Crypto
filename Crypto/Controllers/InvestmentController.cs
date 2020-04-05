@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Crypto.Services.Interfaces;
 using Crypto.ViewModels;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Crypto.Controllers
@@ -17,13 +16,21 @@ namespace Crypto.Controllers
 			_investmentService = investmentService;
 		}
 
-		public async Task<Page<InvestmentViewModel>> GetInvestments(int pageIndex, string name)
+		[Route("investPage")]
+		[HttpGet]
+		public async Task<Page<InvestmentViewModel>> GetInvestments(int pageIndex)
 		{
-			return await _investmentService.GetInvestments(pageIndex, name);
+			return await _investmentService.GetInvestments(pageIndex);
 		}
 
-		[Authorize]
 		[Route("investment")]
+		[HttpGet]
+		public async Task<Investment> GetInvestment(int investId)
+		{
+			return await _investmentService.GetInvestment(investId);
+		}
+		[Authorize]
+		[Route("invest")]
 		[HttpPost]
 		public async Task AddInvestment([FromBody] InvestmentViewModel request)
 		{
@@ -31,7 +38,7 @@ namespace Crypto.Controllers
 		}
 
 		[Authorize]
-		[Route("investment")]
+		[Route("invest")]
 		[HttpDelete]
 		public async Task DeleteInvestment(int InvestmenttId)
 		{

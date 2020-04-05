@@ -10,23 +10,19 @@ namespace DBRepository.Repositories
 	{
 		public InvestmentRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
-		public async Task<Investment> GetInvestment(string name)
+		public async Task<Investment> GetInvestment(int investID)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-				return await context.Investments.FirstOrDefaultAsync(i => i.Name == name);
+				return await context.Investments.FirstOrDefaultAsync(i => i.InvestmentID == investID);
 		}
 
-		public async Task<Page<Investment>> GetPosts(int index, int pageSize, string investment = null)
+		public async Task<Page<Investment>> GetPosts(int index, int pageSize)
 		{
 			var result = new Page<Investment>() { CurrentPage = index, PageSize = pageSize };
 
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var query = context.Investments.AsQueryable();
-				if (!string.IsNullOrWhiteSpace(investment))
-				{
-					query = query.Where(i => i.Name == investment);
-				}
 
 				result.TotalPages = await query.CountAsync();
 				result.Records = await query.OrderByDescending(i => i.CreatedDate).Skip(index * pageSize).Take(pageSize).ToListAsync();

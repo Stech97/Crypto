@@ -71,7 +71,8 @@ namespace Crypto
 
 	        if (env.IsDevelopment())
 	        {
-		        app.UseWebpackDevMiddleware();
+				app.UseDeveloperExceptionPage();
+				app.UseWebpackDevMiddleware();
 	        }
 
 			app.UseAuthentication();
