@@ -15,7 +15,7 @@ class Investment extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getInvestments(0);
+        this.getInvestments();
     }
 
     deleteInvestment(investmentId) {
@@ -44,11 +44,11 @@ class Investment extends React.Component {
     }
 
     render() {
-        const total = this.props.investment.totalPages;
-        const pageSize = this.props.investment.pageSize;
+        //const total = this.props.investment.TotalPages;
+        //const pageSize = this.props.investment.pageSize;
         const pageNumbers = [];
         let queryTrailer = '';
-        for (let i = 1; i <= Math.ceil(total / pageSize); i++) {
+        for (let i = 1; i <= Math.ceil(1 / 1); i++) {
             pageNumbers.push(i);
         }
 

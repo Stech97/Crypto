@@ -8,8 +8,6 @@ using Crypto.Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using Crypto.Helpers;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 using System.Security.Cryptography;
 using System.Text;
 using Crypto.ViewModels;
@@ -19,7 +17,7 @@ namespace Crypto.Controllers
 	[Route("api/[controller]")]
 	public class IdentityController : Controller
     {
-		IIdentityService _service;
+		readonly IIdentityService _service;
 
 		public IdentityController(IIdentityService service)
 		{

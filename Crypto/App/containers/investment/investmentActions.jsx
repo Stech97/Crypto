@@ -5,7 +5,7 @@ import "isomorphic-fetch"
 export function getInvestments(pageIndex = 0) {
     return (dispatch) => {
         let queryTrailer = '?pageIndex=' + pageIndex;
-        fetch(constants.investPage + queryTrailer)
+        fetch(window.constants.investPage + queryTrailer)
             .then((response) => {
                 return response.json()
             }).then((data) => {

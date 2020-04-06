@@ -260,3 +260,7 @@ paket-files/
 __pycache__/
 *.pyc
 /PersonalPortal/wwwroot/assets
+
+Crypto/wwwroot/assets/bundle.js.map
+
+Crypto/wwwroot/assets/bundle.js

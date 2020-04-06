@@ -9,6 +9,5 @@ namespace Crypto.ViewModels
 		public string Description { get; set; }
 		public string Profit { get; set; }
 		public DateTime CreatedDate { get; set; }
-		public int InvesmentCount { get; set; }
 	}
 }

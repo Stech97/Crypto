@@ -18,6 +18,9 @@ namespace Crypto
 				.ForMember(m => m.TagName, opt => opt.MapFrom(m => m));
 			CreateMap<AddPostRequest, Post>()
 				.ForMember(m => m.CreatedDate, opt => opt.MapFrom(m => DateTime.Now));
+			CreateMap<Investment, InvestmentViewModel>()
+				.ForMember(m => m.Name, opt => opt.MapFrom(m => m.Name))
+				.ForMember(m => m.CreatedDate, opt => opt.MapFrom(m => DateTime.Now));
 		}
 	}
 }
