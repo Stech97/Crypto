@@ -57,7 +57,7 @@ namespace Crypto.Controllers
 		private async Task<ClaimsIdentity> GetIdentity(string userName, string password)
 		{
 			ClaimsIdentity identity = null;
-			object user = await _service.GetUser(userName);
+			var user = await _service.GetUser(userName);
 			if (user != null)
 			{
 				var sha256 = new SHA256Managed();

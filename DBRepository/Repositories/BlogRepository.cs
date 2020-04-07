@@ -46,12 +46,15 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task AddComment(Comment comment)
+		public async Task AddComment(Comment comment, User user)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				context.Comments.Add(comment);
-				await context.SaveChangesAsync();
+				if (user.IsAdmin)
+				{
+					context.Comments.Add(comment);
+					await context.SaveChangesAsync();
+				}
 			}
 		}
 

@@ -25,7 +25,8 @@ namespace Crypto.Services.Implementation
 		public async Task AddComment(AddCommentRequest request)
 		{
 			var comment = _mapper.Map<AddCommentRequest, Comment>(request);
-			await _repository.AddComment(comment);
+			var user = new User();
+			await _repository.AddComment(comment, user);
 		}
 
 		public async Task AddPost(AddPostRequest request)

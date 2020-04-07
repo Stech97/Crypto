@@ -1,6 +1,7 @@
 ﻿using Crypto.Services.Interfaces;
 using System.Threading.Tasks;
 using DBRepository.Interfaces;
+using Models;
 
 namespace Crypto.Services.Implementation
 {
@@ -13,7 +14,7 @@ namespace Crypto.Services.Implementation
 			_repository = repository;
 		}
 
-		public async Task<dynamic> GetUser(string userName)
+		public async Task<User> GetUser(string userName)
 		{
 			return await _repository.GetUser(userName);
 		}

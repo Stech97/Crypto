@@ -5,6 +5,6 @@ namespace DBRepository.Interfaces
 {
     public interface IIdentityRepository
     {
-        Task<dynamic> GetUser(string userName);
+        Task<User> GetUser(string userName);
     }
 }
