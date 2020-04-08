@@ -7,7 +7,7 @@ namespace Crypto.Services.Implementation
 {
 	public class IdentityService : IIdentityService
 	{
-		IIdentityRepository _repository;
+		readonly IIdentityRepository _repository;
 
 		public IdentityService(IIdentityRepository repository)
 		{

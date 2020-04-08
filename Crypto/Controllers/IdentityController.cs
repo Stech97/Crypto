@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -62,8 +61,8 @@ namespace Crypto.Controllers
 			{
 				var sha256 = new SHA256Managed();
 				var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(password)));
-				string passwordUser = user.GetType().GetProperty("Password").GetValue(user).ToString();
-				string username = user.GetType().GetProperty("Username").GetValue(user).ToString();
+				var passwordUser = user.Password;
+				var username = user.Username;
 				if (passwordHash == passwordUser)
 				{
 					var claims = new List<Claim>

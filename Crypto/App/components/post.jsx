@@ -12,7 +12,7 @@ export default class Post extends React.Component {
         });
 
         let commentBlock;
-        if (!this.props.isFull) {
+        if (!this.props.isFull && this.props.isLogged) {
             commentBlock =
                 <Link className="link" to={"/blog/post?postId=" + this.props.data.postId}>Комментарии {this.props.data.commentCount}</Link>;
         }

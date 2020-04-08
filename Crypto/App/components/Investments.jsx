@@ -2,7 +2,7 @@
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 
-export default class Post extends React.Component {
+export default class Investment extends React.Component {
 
     render() {
 

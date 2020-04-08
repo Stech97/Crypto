@@ -11,57 +11,60 @@ namespace Crypto.Services.Implementation
 {
 	public class BlogService : IBlogService
 	{
-		readonly IBlogRepository _repository;
+		readonly IBlogRepository _BlogRepository;
+		readonly IIdentityRepository _IdentityRepository;
 		readonly IConfiguration _config;
-		readonly IMapper _mapper;
+		readonly IMapper _mapper; 
 
-		public BlogService(IBlogRepository repository, IConfiguration configuration, IMapper mapper)
+
+		public BlogService(IBlogRepository blogRepository, IConfiguration configuration, IMapper mapper, IIdentityRepository identityRepository)
 		{
-			_repository = repository;
+			_BlogRepository = blogRepository;
+			_IdentityRepository = identityRepository;
 			_config = configuration;
 			_mapper = mapper;
 		}
 
-		public async Task AddComment(AddCommentRequest request)
+		public async Task AddComment(AddCommentRequest request, string userName)
 		{
 			var comment = _mapper.Map<AddCommentRequest, Comment>(request);
-			var user = new User();
-			await _repository.AddComment(comment, user);
+			var user = await _IdentityRepository.GetUser(userName);
+			await _BlogRepository.AddComment(comment, user);
 		}
 
 		public async Task AddPost(AddPostRequest request)
 		{
 			var post = _mapper.Map<AddPostRequest, Post>(request);
-			await _repository.AddPost(post);
+			await _BlogRepository.AddPost(post);
 		}
 
 		public async Task<Post> GetPost(int postId)
 		{
-			var result = await _repository.GetPost(postId);
+			var result = await _BlogRepository.GetPost(postId);
 			return result;
 		}
 
 		public async Task DeletePost(int postId)
 		{
-			await _repository.DeletePost(postId);
+			await _BlogRepository.DeletePost(postId);
 		}
 
 		public async Task DeleteComment(int commentId)
 		{
-			await _repository.DeleteComment(commentId);
+			await _BlogRepository.DeleteComment(commentId);
 		}
 
 		public async Task<Page<PostLiteViewModel>> GetPosts(int pageIndex, string tag)
 		{
 			var pageSize = _config.GetValue<int>("pageSize");
-			var page = await _repository.GetPosts(pageIndex, pageSize, tag);
+			var page = await _BlogRepository.GetPosts(pageIndex, pageSize, tag);
 			var result = _mapper.ToMappedPage<Post, PostLiteViewModel>(page);
 			return result;
 		}
 
 		public async Task<List<string>> GetTags()
 		{
-			var result = await _repository.GetAllTagNames();
+			var result = await _BlogRepository.GetAllTagNames();
 			return result;
 		}
 	}

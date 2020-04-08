@@ -33,11 +33,15 @@ export function getPost(postId) {
 export function addComment(author, comment, postId) {
 	return (dispatch) => {
 		if (author && comment) {
+			let token = AuthHelper.getToken();
+			let login = AuthHelper.getLogin();
 			fetch(window.constants.comment,
 				{
 					method: 'POST',
 					headers: {
-						'Content-Type': 'application/json'
+						'Content-Type': 'application/json',
+						'Authorization': 'Bearer ' + token,
+						'login': login
 					},
 					body: JSON.stringify({ author: author, comment: comment, postId: postId })
 				}).then((response) => {

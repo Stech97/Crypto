@@ -32,11 +32,12 @@ namespace Crypto.Controllers
 			return await _blogService.GetPost(postId);
 		}
 
+		[Authorize]
 		[Route("comment")]
 		[HttpPost]
-		public async Task AddComment([FromBody] AddCommentRequest request)
+		public async Task AddComment([FromBody] AddCommentRequest request, [FromHeader] string login)
 		{
-			await _blogService.AddComment(request);
+			await _blogService.AddComment(request, login);
 		}
 
 	    [Authorize]
