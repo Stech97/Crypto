@@ -300,3 +300,33 @@ ul.pagingNumber {
 .marginRight30 {
     margin-right: 30px;
 }
+
+#investments {
+    width: 100%;
+    height: 100%;
+}
+
+#investment {
+    width: 79%;
+    display: inline-block;
+    padding-right: 1%;
+}
+
+.invest {
+    width: 100%;
+    margin-top: 20px;
+}
+
+    .post .footer {
+        padding-top: 10px;
+    }
+
+    .post .actionBlock {
+        display: inline-block;
+        float: right;
+    }
+
+        .post .actionBlock .deleteBlock {
+            display: inline-block;
+            margin-right: 10px;
+        }

@@ -44,18 +44,18 @@ class Investment extends React.Component {
     }
 
     render() {
-        //const total = this.props.investment.TotalPages;
-        //const pageSize = this.props.investment.pageSize;
+        const total = this.props.investment.totalPages;
+        const pageSize = this.props.investment.pageSize;
         const pageNumbers = [];
         let queryTrailer = '';
-        for (let i = 1; i <= Math.ceil(1 / 1); i++) {
+        for (let i = 1; i <= Math.ceil(total / pageSize); i++) {
             pageNumbers.push(i);
         }
 
         const renderPageNumbers = pageNumbers.map(number => {
             return (
                 <li key={number}>
-                    <Link className="link" to={"/investPage?pageIndex=" + (number - 1) + queryTrailer}>{number}</Link>
+                    <Link className="link" to={"/investment?pageIndex=" + (number - 1) + queryTrailer}>{number}</Link>
                 </li>
             );
         });

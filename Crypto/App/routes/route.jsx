@@ -6,7 +6,6 @@ import About from '../containers/about/about.jsx';
 import Comments from '../containers/comments/comments.jsx';
 import NewPost from '../containers/newPost/newPost.jsx';
 import Investment from '../containers/investment/investment.jsx'
-import Investments from '../components/Investments.jsx'
 
 export default class Routing extends React.Component {
 
@@ -19,7 +18,6 @@ export default class Routing extends React.Component {
                     <Route path="/blog/post" component={Comments} />
                     <Route path="/blog" component={Blog} />
                     <Route path="/investment" component={Investment} />
-                    <Route path="/investment/invest" component={Investments} />
                     <Route exact path="/" render={() => (<Redirect to="/blog" />)} />
                 </Switch>
             </main>

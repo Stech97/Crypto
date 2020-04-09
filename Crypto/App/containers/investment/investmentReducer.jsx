@@ -8,7 +8,7 @@ const initialState = {
 export default function investment(state = initialState, action) {
     switch (action.type) {
         case GET_INVESTMENT_SUCCESS:
-            return { ...state, data: action.investment, error: '' }
+            return { ...state, data: action.payload, error: '' }
 
         case GET_INVESTMENT_ERROR:
             return { ...state, error: action.error }
