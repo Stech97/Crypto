@@ -25,9 +25,9 @@ namespace Crypto.Controllers
 
 		[Route("investment")]
 		[HttpGet]
-		public async Task<Investment> GetInvestment(int investId)
+		public async Task<Investment> GetInvestment(int investmentId)
 		{
-			return await _investmentService.GetInvestment(investId);
+			return await _investmentService.GetInvestment(investmentId);
 		}
 		[Authorize]
 		[Route("invest")]
