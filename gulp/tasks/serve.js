@@ -19,7 +19,8 @@ module.exports = function serve(cb) {
         server: 'build',
         notify: false,
         open: true,
-        cors: true
+        cors: true,
+        startPath: "/comingsoon.html"
     })
 
     gulp.watch('src/img/*/*.{gif,png,jpg,svg,webp}', gulp.series(imageMinify, readyReload))

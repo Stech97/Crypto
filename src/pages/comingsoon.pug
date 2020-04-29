@@ -1,0 +1,24 @@
+doctype html
+html(lang="ru")
+    block head
+        head
+            meta(charset="utf-8")
+            title Defima
+            meta(content="width=device-width, initial-scale=1" name="viewport")
+            meta(content="ie=edge" http-equiv="x-ua-compatible")
+            link(rel="stylesheet" type="text/css" href="css/style.min.css")
+    body
+      section.comingsoon
+        .wrapper
+          .comingsoon-grid-container
+            .comingsoon-logobox
+              img(src="img/defimaLogo.png", alt="defimaLogo")
+            .comingsoon-h1-box
+              h1 We Will Launch Soon.
+            .comingsoon-h2-box
+              h2 Subscribe to get notification as soon as we launch.
+            form(class="comingsoon-form-box" action="POST")
+                input(class="commingsoon-input-text" type="text" required placeholder="maxmustter@hotmail.com")
+                input(type="button" class="comingsoon-input-button" value="Notify Me")
+
+

@@ -1,0 +1,27 @@
+doctype html
+html(lang="ru")
+    block head
+        head
+            meta(charset="utf-8")
+            title Defima
+            meta(content="width=device-width, initial-scale=1" name="viewport")
+            meta(content="ie=edge" http-equiv="x-ua-compatible")
+            link(rel="stylesheet" type="text/css" href="css/style.min.css")
+    body
+        block header
+            include common/header
+        block content
+            include includes/main/homescreen.pug
+            include includes/main/ourmission.pug
+            include includes/main/howitworks.pug
+            include includes/main/portfolio.pug
+            include includes/main/career.pug
+            include includes/main/tokens.pug
+            include includes/main/ourteam.pug
+            include includes/main/joinus.pug
+            include includes/main/faq.pug
+            include includes/main/feedback.pug
+        block footer
+            include common/footer
+        block scripts
+            script(src='js/main.min.js')

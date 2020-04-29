@@ -1,0 +1,16 @@
+header {
+  background-color: linear-gradient(61deg, #001029 4%, #235fc8 98%);
+  opacity: 1;
+}
+
+.homescreen {
+  .wrapper {
+      background-image: url(../img/waveimage.png) 248.9px -120px no-repeat, linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat;
+      background-clip: padding-box;
+  }
+}
+
+.header-grid-container {
+  background-color: #ffffff;
+}
+
