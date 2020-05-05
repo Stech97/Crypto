@@ -6,9 +6,9 @@ namespace Crypto.Services.Interfaces
 {
 	public interface IInvestmentService
 	{
-		Task<Page<InvestmentViewModel>> GetInvestments(int pageIndex);
+		//Task<Page<InvestmentViewModel>> GetInvestments(int pageIndex);
 		Task<Investment> GetInvestment(int investId);
-		Task AddInvestment(InvestmentViewModel request);
+		//Task AddInvestment(InvestmentViewModel request);
 		Task DeleteInvestment(int investID);
 	}
 }

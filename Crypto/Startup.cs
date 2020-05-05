@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using DBRepository.Interfaces;
 using DBRepository.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -14,19 +13,16 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Crypto.Helpers;
 using System;
+using Microsoft.Extensions.Hosting;
 
 namespace Crypto
 {
     public class Startup
     {
-		public Startup(IConfiguration configuration)
-		{
-			Configuration = configuration;
-		}
+		public Startup(IConfiguration configuration) => Configuration = configuration;
 
 		public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -45,12 +41,10 @@ namespace Crypto
 						};
 					});
 
-			services.AddMvc();
+			services.AddControllers();
 			services.AddAutoMapper();
 
 			services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
-
-			services.AddScoped<IBlogRepository>(provider => new BlogRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
 
 			services.AddScoped<IIdentityRepository>(provider => new IdentityRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
 
@@ -58,34 +52,26 @@ namespace Crypto
 
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddSingleton(Configuration);
-			services.AddScoped<IBlogService, BlogService>();
 			services.AddScoped<IIdentityService, IdentityService>();
 			services.AddScoped<IInvestmentService, InvestmentService>();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
-	        if (env.IsDevelopment())
-	        {
-				app.UseDeveloperExceptionPage();
-				app.UseWebpackDevMiddleware();
-	        }
-
-			app.UseAuthentication();
-			app.UseStaticFiles();
-			app.UseMvc(routes =>
+			if (env.IsDevelopment())
 			{
-				routes.MapRoute(
-					name: "default",
-					template: "{controller=Home}/{action=Index}/{id?}");
-				routes.MapRoute(
+				app.UseDeveloperExceptionPage();
+			}
+
+			app.UseHttpsRedirection();
+			app.UseRouting();
+			app.UseAuthorization();
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllerRoute(
 					name: "DefaultApi",
-					template: "api/{controller}/{action}/{id?}");
-				routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
+					pattern: "api/{controller}/{action}/{id?}");
 			});
 		}
     }

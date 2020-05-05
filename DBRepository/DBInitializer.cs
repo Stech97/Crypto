@@ -18,12 +18,6 @@ namespace DBRepository
 					Username = "admin",
 					Password = "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg="
 				});
-				context.Posts.Add(new Models.Post()
-				{
-					Header = "Учетная запись админа",
-					Body = "Login/Password: admin/admin",
-					CreatedDate = DateTime.Now
-				});
 
 				await context.SaveChangesAsync().ConfigureAwait(false);
 			}

@@ -25,7 +25,7 @@ namespace Crypto.Controllers
 
 		[Route("token")]
 		[HttpPost]
-		public async Task<IActionResult> Token([FromBody]IdentityViewModel model)
+		public async Task<IActionResult> Token([FromBody] IdentityViewModel model)
 		{
 			var identity = await GetIdentity(model.Username, model.Password);
 			if (identity == null)
