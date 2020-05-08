@@ -15,7 +15,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:50/Crypto",
+      "launchUrl": "http://localhost:50/api",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

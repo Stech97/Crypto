@@ -1,15 +1,15 @@
-﻿using Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Crypto.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Crypto.Services.Interfaces;
-using Crypto.ViewModels;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using Models;
 
 namespace Crypto.Controllers
 {
+	[ApiController]
 	[Route("api/[controller]")]
-	public class InvestmentController
+	public class InvestmentController : Controller
 	{
 		readonly IInvestmentService _investmentService;
 		public InvestmentController(IInvestmentService investmentService)
@@ -17,6 +17,11 @@ namespace Crypto.Controllers
 			_investmentService = investmentService;
 		}
 
+		[HttpGet]
+		public IEnumerable<string> Get()
+		{
+			return new string[] { "value1", "value2" };
+		}
 		/*[Route("GetInvestments")]
 		[HttpGet]
 		public async Task<List<InvestmentViewModel>> GetInvestments()
@@ -26,9 +31,9 @@ namespace Crypto.Controllers
 
 		[Route("GetInvestment")]
 		[HttpGet]
-		public async Task<Investment> GetInvestment(int investmentId)
+		public async Task<Investment> GetInvestment(int InvestmentId)
 		{
-			return await _investmentService.GetInvestment(investmentId);
+			return await _investmentService.GetInvestment(InvestmentId);
 		}
 
 		[Authorize]

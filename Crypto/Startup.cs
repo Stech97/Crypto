@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Crypto.Helpers;
 using System;
-using Microsoft.Extensions.Hosting;
 
 namespace Crypto
 {
@@ -56,22 +55,14 @@ namespace Crypto
 			services.AddScoped<IInvestmentService, InvestmentService>();
 		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
-
-			app.UseHttpsRedirection();
+			app.UseDeveloperExceptionPage();
 			app.UseRouting();
 			app.UseAuthorization();
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapControllerRoute(
-					name: "DefaultApi",
-					pattern: "api/{controller}/{action}/{id?}");
+				endpoints.MapControllers();
 			});
 		}
     }

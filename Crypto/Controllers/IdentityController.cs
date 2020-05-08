@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using Crypto.Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
-using Crypto.Helpers;
-using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
+using Crypto.Helpers;
+using Crypto.Services.Interfaces;
 using Crypto.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Crypto.Controllers
 {
-	[Route("api/[controller]")]
-	public class IdentityController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class IdentityController : ControllerBase
     {
 		readonly IIdentityService _service;
 
