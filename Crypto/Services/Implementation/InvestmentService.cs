@@ -12,10 +12,12 @@ namespace Crypto.Services.Implementation
 	public class InvestmentService : IInvestmentService
 	{
 		readonly IInvestmentRepository _repository;
+		readonly IMapper _mapper;
 
-		public InvestmentService(IInvestmentRepository repository)
+		public InvestmentService(IInvestmentRepository repository, IMapper mapper)
 		{
 			_repository = repository;
+			_mapper = mapper;
 		}
 		public async Task<List<Investment>> GetInvestments()
 		{
@@ -24,6 +26,11 @@ namespace Crypto.Services.Implementation
 		public async Task<Investment> GetInvestment(int investID)
 		{
 			return await _repository.GetInvestment(investID);
+		}
+		public async Task AddInvestment(InvestmentViewModel request)
+		{
+			var investment = _mapper.Map<InvestmentViewModel, Investment>(request);
+			await _repository.AddInvestment(investment);
 		}
 		public async Task DeleteInvestment(int investID)
 		{
