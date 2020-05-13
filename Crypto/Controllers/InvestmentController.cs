@@ -17,17 +17,12 @@ namespace Crypto.Controllers
 			_investmentService = investmentService;
 		}
 
+		[Route("GetInvestments")]
 		[HttpGet]
-		public IEnumerable<string> Get()
-		{
-			return new string[] { "value1", "value2" };
-		}
-		/*[Route("GetInvestments")]
-		[HttpGet]
-		public async Task<List<InvestmentViewModel>> GetInvestments()
+		public async Task<List<Investment>> GetInvestments()
 		{
 			return await _investmentService.GetInvestments();
-		}*/
+		}
 
 		[Route("GetInvestment")]
 		[HttpGet]
