@@ -11,6 +11,8 @@ namespace Crypto
 		{
 			CreateMap<InvestmentViewModel, Investment>()
 				.ForMember(m => m.CreatedDate, opt => opt.MapFrom(m => DateTime.Now));
+			CreateMap<EmailViewModel, Email>()
+				.ForMember(m => m.EmailAdress, opt => opt.MapFrom(m => m.email));
 		}
 	}
 }

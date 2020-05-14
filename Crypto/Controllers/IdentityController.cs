@@ -15,7 +15,7 @@ namespace Crypto.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class IdentityController : ControllerBase
+    public class IdentityController : Controller
     {
 		readonly IIdentityService _service;
 

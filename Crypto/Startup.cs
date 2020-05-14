@@ -48,10 +48,13 @@ namespace Crypto
 
 			services.AddScoped<IInvestmentRepository>(provider => new InvestmentRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
 
+			services.AddScoped<IEmailRepository>(provider => new EmailRepository (Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
+
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddSingleton(Configuration);
 			services.AddScoped<IIdentityService, IdentityService>();
 			services.AddScoped<IInvestmentService, InvestmentService>();
+			services.AddScoped<IEmailService, EmailService>();
 		}
 
         public void Configure(IApplicationBuilder app)

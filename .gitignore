@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /Crypto/wwwroot/assets
+
+Crypto/Properties/

@@ -4,7 +4,6 @@ using Crypto.Services.Interfaces;
 using DBRepository.Interfaces;
 using AutoMapper;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
 using Crypto.ViewModels;
 
 namespace Crypto.Services.Implementation

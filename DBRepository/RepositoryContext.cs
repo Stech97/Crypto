@@ -9,6 +9,7 @@ namespace DBRepository
 
 		public DbSet<Investment> Investments { get; set; }
 		public DbSet<User> Users { get; set; }
+		public DbSet<Email> Emails { get; set; }
 
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,6 +22,8 @@ namespace DBRepository
 			modelBuilder.Entity<Investment>().ToTable("Investment");
 			modelBuilder.Entity<Investment>().Property(i => i.Name).IsRequired();
 			modelBuilder.Entity<Investment>().Property(i => i.Description).IsRequired();
+
+			modelBuilder.Entity<Email>().Property(e => e.EmailAdress).IsRequired();
 		}
 	}
 }
