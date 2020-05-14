@@ -1,8 +1,6 @@
 ﻿using DBRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using System.Threading.Tasks;
-using System.Linq;
 using Models;
 
 namespace DBRepository.Repositories
