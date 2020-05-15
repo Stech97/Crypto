@@ -54,6 +54,18 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
+		[Route("Login")]
+		[HttpPost]
+		public async Task<IActionResult> Login(LoginViewModel login)
+		{
+			using (SHA256Managed sha256 = new SHA256Managed())
+			{
+				login.Password = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(login.Password)));
+			}
+			await _service.AddUser(login);
+			return Ok();
+		}
+
 		private async Task<ClaimsIdentity> GetIdentity(string userName, string password)
 		{
 			ClaimsIdentity identity = null;
