@@ -1,6 +1,6 @@
 @media (max-width: 767.98px) {
     .comingsoon {
-        width: 100vw;
+        width: 100%;
         .wrapper {
             border-bottom-left-radius: 73.7px;
             border: none;
@@ -20,7 +20,7 @@
                 grid-area: comingsoon-logobox;
                 align-self: end;
                 img {
-                    width: 70vw;
+                    width: 70%;
                 }
             }
 
@@ -29,7 +29,7 @@
                 grid-area: comingsoon-h1-box;
                 align-self: end;
                 h1 {
-                  width: 75vw;
+                  width: 75%;
                   margin: 0;
                   font-family: IBMPlexSans;
                   font-size: 20px;
@@ -48,7 +48,7 @@
                 grid-area: comingsoon-h2-box;
                 h2 {
                   margin: 0;
-                  width: 72vw;
+                  width: 72%;
                   font-family: IBMPlexSans;
                   font-size: 20px;
                   font-weight: 300;
@@ -65,7 +65,7 @@
                 grid-area: comingsoon-form-box;
                 align-items: center;
                 justify-items: center;
-                width: 80.5vw;
+                width: 80.5%;
                 height: 100%;
                 display: grid;
                 grid-template-columns: 1fr;
@@ -126,10 +126,10 @@
     .comingsoon {
         width: 100%;
         .wrapper {
-            border-bottom-left-radius: 143px;
+            border-bottom-left-radius: 150px;
             border: none;
             height: 100vh;
-            background: url(../img/waveimage.png) 10.9vw -60px/78.2vw auto no-repeat, linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat;
+            background: url(../img/waveimage.png) 10.9% -60px/78.2% auto no-repeat, linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat;
             background-clip: padding-box;
             .comingsoon-grid-container {
                 display: grid;

@@ -20,7 +20,7 @@ module.exports = function serve(cb) {
         notify: false,
         open: true,
         cors: true,
-        startPath: "/comingsoon.html"
+        startPath: "/main.html"
     })
 
     gulp.watch('src/img/*/*.{gif,png,jpg,svg,webp}', gulp.series(imageMinify, readyReload))

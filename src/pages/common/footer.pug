@@ -1,2 +1,37 @@
 footer
-    p Footer
+  .footer-wrapper
+    .footer-logo
+      img(src="img/Logo-footer.png", alt="logo-footer")
+    .footer-nav
+      .footer-nav-company
+        h3 Company
+        a(href="")
+          p Get started
+        a(href="")
+          p Our mission
+        a(href="")
+          p Team
+        a(href="")
+          p Terms of Service
+        a(href="")
+          p Privacy Policy
+      .footer-nav-news
+        h3 News
+        a(href="")
+          p Blog
+        a(href="")
+          p News Channel
+      .footer-nav-help
+        h3 Help &amp; Support
+        a(href="")
+          p Email
+        a(href="")
+          p Telegram
+        a(href="")
+          p Presentatiom
+    .footer-newsletter
+      .footer-newsletter-header
+        h2 Newsletter
+      form(class="footer-newsletter-form-box" action="POST")
+        input(class="footer-newsletter-input-email" type="text" required placeholder="maxmustter@hotmail.com")
+        input(type="button" class="footer-newsletter-input-button" value="Notify Me")
