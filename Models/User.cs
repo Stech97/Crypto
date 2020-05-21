@@ -16,5 +16,6 @@ namespace Models
 		public string Description { get; set; }
 		public int Type { get; set; }
 		public bool IsAdmin { get; set; }
+		public Balance Balance { get; set; }
 	}
 }

@@ -41,5 +41,11 @@ namespace DBRepository.Repositories
 				await context.SaveChangesAsync();
 			}
 		}
+
+		public async Task<Balance> GetBalance(string UserName)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+				return await context.Balances.FirstOrDefaultAsync(b => b.User.Username == UserName);
+		}
 	}
 }

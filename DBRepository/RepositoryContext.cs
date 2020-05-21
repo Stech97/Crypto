@@ -10,7 +10,7 @@ namespace DBRepository
 		public DbSet<Investment> Investments { get; set; }
 		public DbSet<User> Users { get; set; }
 		public DbSet<Email> Emails { get; set; }
-
+		public DbSet<Balance> Balances { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -23,7 +23,11 @@ namespace DBRepository
 			modelBuilder.Entity<Investment>().Property(i => i.Name).IsRequired();
 			modelBuilder.Entity<Investment>().Property(i => i.Description).IsRequired();
 
+			modelBuilder.Entity<Email>().ToTable("Email");
 			modelBuilder.Entity<Email>().Property(e => e.EmailAdress).IsRequired();
+
+			modelBuilder.Entity<Balance>().ToTable("Balance");
+			modelBuilder.Entity<Balance>().Property(b => b.USDBalance).IsRequired();
 		}
 	}
 }

@@ -49,5 +49,13 @@ namespace Crypto.Controllers
 			await _investmentService.DeleteInvestment(InvestmentId);
 			return NoContent();
 		}
+
+		//[Authorize]
+		[Route("GetBalance")]
+		[HttpGet]
+		public async Task<BalanceViewModel> GetBalance(string Username)
+		{
+			return await _investmentService.GetBalance(Username);
+		}
 	}
 }

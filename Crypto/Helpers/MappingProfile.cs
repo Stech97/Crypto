@@ -19,6 +19,7 @@ namespace Crypto
 				.ForMember(m => m.Email, opt => opt.MapFrom(m => m.Email))
 				.ForMember(m => m.Username, opt => opt.MapFrom(m => m.Username))
 				.ForMember(m => m.Password, opt => opt.MapFrom(m => m.Password));
+			CreateMap<Balance, BalanceViewModel>();
 		}
 	}
 }
