@@ -8,5 +8,6 @@ namespace DBRepository.Interfaces
     {
         Task<Balance> GetBalance(string UserName);
         Task<List<LoginHistory>> GetLoginHistory(string Username);
+        Task SetLoginHistory(LoginHistory loginHistory);
     }
 }

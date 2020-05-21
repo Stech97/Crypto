@@ -2,6 +2,6 @@
 {
 	public class EmailViewModel
 	{
-		public string email { get; set; }
+		public string EmailAdress { get; set; }
 	}
 }

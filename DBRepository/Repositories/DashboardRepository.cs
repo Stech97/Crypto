@@ -23,5 +23,14 @@ namespace DBRepository.Repositories
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
                 return await context.LoginHistories.Where(lh => lh.User.Username == Username).ToListAsync();
         }
+
+        public async Task SetLoginHistory(LoginHistory loginHistory)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                context.LoginHistories.Add(loginHistory);
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }
