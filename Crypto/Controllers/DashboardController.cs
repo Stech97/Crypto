@@ -26,9 +26,11 @@ namespace Crypto.Controllers
             return await _dashboardService.GetBalance(Id);
         }
 
+        [Route("GetTime")]
+        [HttpGet]
         public string GetServerTime()
         {
-            return System.DateTime.Now.ToShortTimeString();
+            return System.DateTime.Now.ToLongTimeString();
         }
 
         //[Authorize]
