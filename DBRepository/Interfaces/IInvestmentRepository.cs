@@ -10,6 +10,5 @@ namespace DBRepository.Interfaces
 		Task<Investment> GetInvestment(int investID);
 		Task AddInvestment(Investment investment);
 		Task DeleteInvestment(int investID);
-		Task<Balance> GetBalance(string UserName);
 	}
 }

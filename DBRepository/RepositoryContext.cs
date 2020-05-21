@@ -11,6 +11,7 @@ namespace DBRepository
 		public DbSet<User> Users { get; set; }
 		public DbSet<Email> Emails { get; set; }
 		public DbSet<Balance> Balances { get; set; }
+		public DbSet<LoginHistory> LoginHistories { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -28,6 +29,9 @@ namespace DBRepository
 
 			modelBuilder.Entity<Balance>().ToTable("Balance");
 			modelBuilder.Entity<Balance>().Property(b => b.USDBalance).IsRequired();
+
+			modelBuilder.Entity<LoginHistory>().ToTable("LoginHistory");
+			modelBuilder.Entity<LoginHistory>().Property(lh => lh.IP).IsRequired();
 		}
 	}
 }

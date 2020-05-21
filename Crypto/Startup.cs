@@ -42,20 +42,31 @@ namespace Crypto
 			services.AddControllers();
 			services.AddAutoMapper();
 
-			services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
+            #region Repository
+            services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
+			services.AddScoped<IIdentityRepository>(provider => 
+			new IdentityRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
+			
+			services.AddScoped<IInvestmentRepository>(provider => 
+			new InvestmentRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
+			
+			services.AddScoped<IEmailRepository>(provider => 
+			new EmailRepository (Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
 
-			services.AddScoped<IIdentityRepository>(provider => new IdentityRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
+			services.AddScoped<IDashboardRepository>(provider => 
+			new DashboardRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
+            #endregion
 
-			services.AddScoped<IInvestmentRepository>(provider => new InvestmentRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
-
-			services.AddScoped<IEmailRepository>(provider => new EmailRepository (Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
-
-			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddSingleton(Configuration);
+
+			#region Service
 			services.AddScoped<IIdentityService, IdentityService>();
 			services.AddScoped<IInvestmentService, InvestmentService>();
 			services.AddScoped<IEmailService, EmailService>();
-		}
+			services.AddScoped<IDashboardService, DashboardService>();
+            #endregion
+        }
 
         public void Configure(IApplicationBuilder app)
         {

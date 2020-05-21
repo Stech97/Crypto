@@ -17,5 +17,6 @@ namespace Models
 		public int Type { get; set; }
 		public bool IsAdmin { get; set; }
 		public Balance Balance { get; set; }
+		public List<LoginHistory> LoginHistories { get; set; }
 	}
 }

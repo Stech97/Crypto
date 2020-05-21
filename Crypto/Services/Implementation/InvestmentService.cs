@@ -35,11 +35,5 @@ namespace Crypto.Services.Implementation
 		{
 			await _repository.DeleteInvestment(investID);
 		}
-
-		public async Task<BalanceViewModel> GetBalance(string UserName)
-		{
-			var balance = await _repository.GetBalance(UserName);
-			return _mapper.Map<Balance, BalanceViewModel>(balance);
-		}
 	}
 }
