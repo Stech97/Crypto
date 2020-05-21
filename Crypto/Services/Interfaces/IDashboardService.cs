@@ -6,10 +6,10 @@ namespace Crypto.Services.Interfaces
 {
     public interface IDashboardService
     {
-        Task<BalanceViewModel> GetBalance(string Username);
-        Task<RefLinkViewModel> GetRefLink(string Username);
-        Task<List<LoginHistoryViewModel>> GetLoginHistory(string Username);
-        Task SetLoginHistory(LoginHistoryViewModel request, string Username);
+        Task<BalanceViewModel> GetBalance(int Id);
+        Task<RefLinkViewModel> GetRefLink(int Id);
+        Task<List<LoginHistoryViewModel>> GetLoginHistory(int Id);
+        Task SetLoginHistory(LoginHistoryViewModel request, int Id);
 
     }
 }

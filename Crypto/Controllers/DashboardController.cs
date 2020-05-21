@@ -21,9 +21,9 @@ namespace Crypto.Controllers
         //[Authorize]
         [Route("GetBalance")]
         [HttpGet]
-        public async Task<BalanceViewModel> GetBalance(string Username)
+        public async Task<BalanceViewModel> GetBalance(int Id)
         {
-            return await _dashboardService.GetBalance(Username);
+            return await _dashboardService.GetBalance(Id);
         }
 
         public string GetServerTime()
@@ -34,17 +34,17 @@ namespace Crypto.Controllers
         //[Authorize]
         [Route("GetLoginHistory")]
         [HttpGet]
-        public async Task<List<LoginHistoryViewModel>> GetLoginHistory(string Username)
+        public async Task<List<LoginHistoryViewModel>> GetLoginHistory(int Id)
         {
-            return await _dashboardService.GetLoginHistory(Username);
+            return await _dashboardService.GetLoginHistory(Id);
         }
 
         //[Authorize]
         [Route("GetRefLink")]
         [HttpGet]
-        public async Task<RefLinkViewModel> GetRefLink(string Username)
+        public async Task<RefLinkViewModel> GetRefLink(int Id)
         {
-            var RefLink = await _dashboardService.GetRefLink(Username);
+            var RefLink = await _dashboardService.GetRefLink(Id);
             RefLink.RefId = "www.defima.io/" + RefLink.RefId;
             RefLink.RefString = "www.defima.io/" + RefLink.RefString;
             return RefLink;
@@ -53,9 +53,9 @@ namespace Crypto.Controllers
         //[Authorize]
         [Route("SetLoginHistory")]
         [HttpPost]
-        public async Task<IActionResult> SetLoginHistory([FromBody] LoginHistoryViewModel request, string Username)
+        public async Task<IActionResult> SetLoginHistory([FromBody] LoginHistoryViewModel request, int Id)
         {
-            await _dashboardService.SetLoginHistory(request, Username);
+            await _dashboardService.SetLoginHistory(request, Id);
             return Ok();
         }
     }

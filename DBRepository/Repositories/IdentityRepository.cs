@@ -17,6 +17,14 @@ namespace DBRepository.Repositories
 			}
 		}
 
+		public async Task<User> GetUser(int Id)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				return await context.Users.FirstOrDefaultAsync(u => u.UserId == Id);
+			}
+		}
+
 		public async Task AddUser(User user)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))

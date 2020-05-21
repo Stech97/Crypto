@@ -12,16 +12,16 @@ namespace DBRepository.Repositories
         public DashboardRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory)
         { }
 
-        public async Task<Balance> GetBalance(string Username)
+        public async Task<Balance> GetBalance(int Id)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
-                return await context.Balances.FirstOrDefaultAsync(b => b.User.Username == Username);
+                return await context.Balances.FirstOrDefaultAsync(b => b.UserId == Id);
         }
 
-        public async Task<List<LoginHistory>> GetLoginHistory(string Username)
+        public async Task<List<LoginHistory>> GetLoginHistory(int Id)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
-                return await context.LoginHistories.Where(lh => lh.User.Username == Username).ToListAsync();
+                return await context.LoginHistories.Where(lh => lh.UserId == Id).ToListAsync();
         }
 
         public async Task SetLoginHistory(LoginHistory loginHistory)

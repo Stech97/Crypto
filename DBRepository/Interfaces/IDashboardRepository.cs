@@ -6,8 +6,8 @@ namespace DBRepository.Interfaces
 {
     public interface IDashboardRepository
     {
-        Task<Balance> GetBalance(string UserName);
-        Task<List<LoginHistory>> GetLoginHistory(string Username);
+        Task<Balance> GetBalance(int Id);
+        Task<List<LoginHistory>> GetLoginHistory(int Id);
         Task SetLoginHistory(LoginHistory loginHistory);
     }
 }

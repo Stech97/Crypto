@@ -21,29 +21,28 @@ namespace Crypto.Services.Implementation
             _mapper = mapper;
         }
 
-        public async Task<BalanceViewModel> GetBalance(string Username)
+        public async Task<BalanceViewModel> GetBalance(int Id)
         {
-            var balance = await _repositoryDashboard.GetBalance(Username);
+            var balance = await _repositoryDashboard.GetBalance(Id);
             return _mapper.Map<Balance, BalanceViewModel>(balance);
         }
 
-        public async Task<List<LoginHistoryViewModel>> GetLoginHistory(string Username)
+        public async Task<List<LoginHistoryViewModel>> GetLoginHistory(int Id)
         {
-            var LoginHistory = await _repositoryDashboard.GetLoginHistory(Username);
+            var LoginHistory = await _repositoryDashboard.GetLoginHistory(Id);
             return _mapper.Map<List<LoginHistory>, List<LoginHistoryViewModel>>(LoginHistory);
         }
 
-        public async Task<RefLinkViewModel> GetRefLink(string Username)
+        public async Task<RefLinkViewModel> GetRefLink(int Id)
         {
-            var user =  await _repositorIidentity.GetUser(Username);
+            var user =  await _repositorIidentity.GetUser(Id);
             return _mapper.Map<User, RefLinkViewModel>(user);
         }
 
-        public async Task SetLoginHistory(LoginHistoryViewModel request, string Username)
+        public async Task SetLoginHistory(LoginHistoryViewModel request, int Id)
         {
             var loginHistory = _mapper.Map<LoginHistoryViewModel, LoginHistory>(request);
-            var user = await _repositorIidentity.GetUser(Username);
-            loginHistory.UserId = user.UserId;
+            loginHistory.UserId = Id;
 
             await _repositoryDashboard.SetLoginHistory(loginHistory);
         }
