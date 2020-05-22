@@ -13,8 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Crypto.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+	[ApiController]
+	[Route("api/[controller]")]
     public class IdentityController : Controller
     {
 		readonly IIdentityService _service;
@@ -28,11 +28,25 @@ namespace Crypto.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Token([FromBody] IdentityViewModel model)
 		{
-			var identity = await GetIdentity(model.Username, model.Password);
-			if (identity == null)
+			ClaimsIdentity identity = null;
+			var user = await _service.GetUser(model.Username);
+			if (user != null)
 			{
-				return Unauthorized();
+				var sha256 = new SHA256Managed();
+				var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(model.Password)));
+				var passwordUser = user.Password;
+				var username = user.Username;
+				if (passwordHash == passwordUser)
+				{
+					var claims = new List<Claim>
+					{
+						new Claim(ClaimsIdentity.DefaultNameClaimType, username),
+					};
+					identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+				}
 			}
+			if (identity == null)
+				return Unauthorized();
 
 			var now = DateTime.UtcNow;
 			// создаем JWT-токен
@@ -66,26 +80,5 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-		private async Task<ClaimsIdentity> GetIdentity(string userName, string password)
-		{
-			ClaimsIdentity identity = null;
-			var user = await _service.GetUser(userName);
-			if (user != null)
-			{
-				var sha256 = new SHA256Managed();
-				var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(password)));
-				var passwordUser = user.Password;
-				var username = user.Username;
-				if (passwordHash == passwordUser)
-				{
-					var claims = new List<Claim>
-					{
-						new Claim(ClaimsIdentity.DefaultNameClaimType, username),
-					};
-					identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-				}
-			}
-			return identity;
-		}
 	}
 }

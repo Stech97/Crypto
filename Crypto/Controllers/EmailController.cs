@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Crypto.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class EmailController : Controller
     {
         readonly IEmailService _email;
