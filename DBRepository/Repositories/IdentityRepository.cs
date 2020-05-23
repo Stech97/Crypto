@@ -56,7 +56,7 @@ namespace DBRepository.Repositories
         {
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var currentSession = new CurrentSession() { Id = Id };
+				var currentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == Id);
 				context.CurrentSessions.Remove(currentSession);
 				await context.SaveChangesAsync();
 			}

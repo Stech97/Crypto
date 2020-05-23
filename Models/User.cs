@@ -19,5 +19,6 @@ namespace Models
 		public string RefLink { get; set; }
 		public Balance Balance { get; set; }
 		public List<LoginHistory> LoginHistories { get; set; }
+		public List<CurrentSession>  CurrentSessions { get; set; }
 	}
 }

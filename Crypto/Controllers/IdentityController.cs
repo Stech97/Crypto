@@ -49,6 +49,7 @@ namespace Crypto.Controllers
 				{
 					IP = model.IP,
 					LoginTime = DateTime.Now,
+					UserId = user.UserId
 				};
 				await _identityService.SetLoginHistory(request, AuthOptions.LIFETIME);
 			}
@@ -88,8 +89,8 @@ namespace Crypto.Controllers
 		}
 
 		//[Authorize]
-		[Route("CreateLogin")]
-		[HttpPost]
+		[Route("SignOut")]
+		[HttpDelete]
 		public async Task<IActionResult> SignOut(int Id)
 		{
 			await _identityService.SignOut(Id);
