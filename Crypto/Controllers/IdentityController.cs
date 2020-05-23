@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Crypto.Helpers;
 using Crypto.Services.Interfaces;
 using Crypto.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -48,9 +49,8 @@ namespace Crypto.Controllers
 				{
 					IP = model.IP,
 					LoginTime = DateTime.Now,
-					UserId = user.UserId
 				};
-				await _identityService.SetLoginHistory(request);
+				await _identityService.SetLoginHistory(request, AuthOptions.LIFETIME);
 			}
 			if (identity == null)
 				return Unauthorized();
@@ -86,5 +86,15 @@ namespace Crypto.Controllers
 			await _identityService.AddUser(login);
 			return Ok();
 		}
+
+		//[Authorize]
+		[Route("CreateLogin")]
+		[HttpPost]
+		public async Task<IActionResult> SignOut(int Id)
+		{
+			await _identityService.SignOut(Id);
+			return NoContent();
+		}
+
 	}
 }

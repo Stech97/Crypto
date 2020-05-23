@@ -12,6 +12,7 @@ namespace DBRepository
 		public DbSet<Email> Emails { get; set; }
 		public DbSet<Balance> Balances { get; set; }
 		public DbSet<LoginHistory> LoginHistories { get; set; }
+		public DbSet<CurrentSession>  CurrentSessions { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -32,6 +33,10 @@ namespace DBRepository
 
 			modelBuilder.Entity<LoginHistory>().ToTable("LoginHistory");
 			modelBuilder.Entity<LoginHistory>().Property(lh => lh.IP).IsRequired();
+
+			modelBuilder.Entity<CurrentSession>().ToTable("CurrentSession");
+			modelBuilder.Entity<CurrentSession>().Property(cs => cs.LoginTime).IsRequired();
+			modelBuilder.Entity<CurrentSession>().Property(cs => cs.LogoutTime).IsRequired();
 		}
 	}
 }

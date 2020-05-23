@@ -15,6 +15,8 @@ namespace Crypto
 
 			CreateMap<LoginHistoryViewModel, LoginHistory>();
 
+			CreateMap<LoginHistoryViewModel, CurrentSession>();
+
 			CreateMap<User, RefLinkViewModel>()
 				.ForMember(m => m.RefId, opt => opt.MapFrom(x => x.UserId))
 				.ForMember(m => m.RefString, opt => opt.MapFrom(x => x.Username));

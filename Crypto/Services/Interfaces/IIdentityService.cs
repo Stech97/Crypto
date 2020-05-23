@@ -8,6 +8,7 @@ namespace Crypto.Services.Interfaces
     {
 		Task<User> GetUser(string userName);
 		Task AddUser(LoginViewModel request);
-		Task SetLoginHistory(LoginHistoryViewModel request);
+		Task SetLoginHistory(LoginHistoryViewModel request, int LifeTime);
+		Task SignOut(int Id);
 	}
 }

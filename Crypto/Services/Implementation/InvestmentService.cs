@@ -10,8 +10,8 @@ namespace Crypto.Services.Implementation
 {
 	public class InvestmentService : IInvestmentService
 	{
-		readonly IInvestmentRepository _repository;
-		readonly IMapper _mapper;
+		private readonly IInvestmentRepository _repository;
+		private readonly IMapper _mapper;
 
 		public InvestmentService(IInvestmentRepository repository, IMapper mapper)
 		{

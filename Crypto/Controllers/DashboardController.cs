@@ -21,9 +21,9 @@ namespace Crypto.Controllers
         //[Authorize]
         [Route("GetBalance")]
         [HttpGet]
-        public async Task<BalanceViewModel> GetBalance(int Id)
+        public async Task<IActionResult> GetBalance(int Id)
         {
-            return await _dashboardService.GetBalance(Id);
+            return Ok(await _dashboardService.GetBalance(Id));
         }
 
         [Route("GetTime")]
@@ -36,9 +36,9 @@ namespace Crypto.Controllers
         //[Authorize]
         [Route("GetLoginHistory")]
         [HttpGet]
-        public async Task<List<LoginHistoryViewModel>> GetLoginHistory(int Id)
+        public async Task<IActionResult> GetLoginHistory(int Id)
         {
-            return await _dashboardService.GetLoginHistory(Id);
+            return Ok(await _dashboardService.GetLoginHistory(Id));
         }
 
         //[Authorize]

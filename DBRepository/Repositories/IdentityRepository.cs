@@ -42,5 +42,24 @@ namespace DBRepository.Repositories
 				await context.SaveChangesAsync();
 			}
 		}
-	}
+		
+		public async Task SetCurrentSession(CurrentSession currentSession)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				context.CurrentSessions.Add(currentSession);
+				await context.SaveChangesAsync();
+			}
+		}
+
+        public async Task SignOut(int Id)
+        {
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var currentSession = new CurrentSession() { Id = Id };
+				context.CurrentSessions.Remove(currentSession);
+				await context.SaveChangesAsync();
+			}
+		}
+    }
 }
