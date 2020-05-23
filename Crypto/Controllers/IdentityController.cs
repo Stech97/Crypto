@@ -17,11 +17,11 @@ namespace Crypto.Controllers
 	[Route("api/[controller]")]
     public class IdentityController : Controller
     {
-		readonly IIdentityService _service;
+        private readonly IIdentityService _identityService;
 
-		public IdentityController(IIdentityService service)
+		public IdentityController(IIdentityService identityService)
 		{
-			_service = service;
+			_identityService = identityService;
 		}
 
 		[Route("token")]
@@ -29,21 +29,28 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> Token([FromBody] IdentityViewModel model)
 		{
 			ClaimsIdentity identity = null;
-			var user = await _service.GetUser(model.Username);
+			var user = await _identityService.GetUser(model.Username);
 			if (user != null)
 			{
 				var sha256 = new SHA256Managed();
 				var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(model.Password)));
 				var passwordUser = user.Password;
 				var username = user.Username;
-				if (passwordHash == passwordUser)
+                if (passwordHash == passwordUser)
+                {
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimsIdentity.DefaultNameClaimType, username),
+                    };
+                    identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                }
+				LoginHistoryViewModel request = new LoginHistoryViewModel
 				{
-					var claims = new List<Claim>
-					{
-						new Claim(ClaimsIdentity.DefaultNameClaimType, username),
-					};
-					identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-				}
+					IP = model.IP,
+					LoginTime = DateTime.Now,
+					UserId = user.UserId
+				};
+				await _identityService.SetLoginHistory(request);
 			}
 			if (identity == null)
 				return Unauthorized();
@@ -76,9 +83,8 @@ namespace Crypto.Controllers
 			{
 				login.Password = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(login.Password)));
 			}
-			await _service.AddUser(login);
+			await _identityService.AddUser(login);
 			return Ok();
 		}
-
 	}
 }

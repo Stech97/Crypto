@@ -38,13 +38,5 @@ namespace Crypto.Services.Implementation
             var user =  await _repositorIidentity.GetUser(Id);
             return _mapper.Map<User, RefLinkViewModel>(user);
         }
-
-        public async Task SetLoginHistory(LoginHistoryViewModel request, int Id)
-        {
-            var loginHistory = _mapper.Map<LoginHistoryViewModel, LoginHistory>(request);
-            loginHistory.UserId = Id;
-
-            await _repositoryDashboard.SetLoginHistory(loginHistory);
-        }
     }
 }

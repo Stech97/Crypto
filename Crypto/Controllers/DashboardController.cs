@@ -51,14 +51,5 @@ namespace Crypto.Controllers
             RefLink.RefString = "www.defima.io/" + RefLink.RefString;
             return RefLink;
         }
-
-        //[Authorize]
-        [Route("SetLoginHistory")]
-        [HttpPost]
-        public async Task<IActionResult> SetLoginHistory([FromBody] LoginHistoryViewModel request, int Id)
-        {
-            await _dashboardService.SetLoginHistory(request, Id);
-            return Ok();
-        }
     }
 }

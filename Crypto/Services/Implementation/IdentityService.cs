@@ -27,5 +27,11 @@ namespace Crypto.Services.Implementation
 			var login = _mapper.Map<LoginViewModel, User>(request);
 			await _repository.AddUser(login);
 		}
+		public async Task SetLoginHistory(LoginHistoryViewModel request)
+		{
+			var loginHistory = _mapper.Map<LoginHistoryViewModel, LoginHistory>(request);
+
+			await _repository.SetLoginHistory(loginHistory);
+		}
 	}
 }
