@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Crypto.ViewModels
+﻿namespace Crypto.ViewModels
 {
 	public class InvestmentViewModel
 	{

@@ -10,5 +10,6 @@ namespace DBRepository.Interfaces
 		Task<Investment> GetInvestment(int investID);
 		Task AddInvestment(Investment investment);
 		Task DeleteInvestment(int investID);
+		Task UpdateInvestment(Investment investment, int Id);
 	}
 }

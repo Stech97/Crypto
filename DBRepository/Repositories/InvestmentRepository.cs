@@ -31,6 +31,18 @@ namespace DBRepository.Repositories
 				await context.SaveChangesAsync();
 			}
 		}
+		public async Task UpdateInvestment(Investment investment, int Id)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var investmentNew = await context.Investments.FirstOrDefaultAsync(i => i.InvestmentID == Id);
+				investmentNew.Name = investment.Name;
+				investmentNew.Description = investment.Description;
+				investmentNew.Profit = investment.Profit;
+				context.Investments.Update(investmentNew);
+				await context.SaveChangesAsync();
+			}
+		}
 
 		public async Task DeleteInvestment(int investID)
 		{

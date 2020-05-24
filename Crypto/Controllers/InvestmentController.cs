@@ -34,6 +34,15 @@ namespace Crypto.Controllers
 		}
 
 		//[Authorize]
+		[Route("UpdateInvestment")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateInvestment([FromBody] InvestmentViewModel request, int Id)
+		{
+			await _investmentService.UpdateInvestment(request, Id);
+			return Ok();
+		}
+
+		//[Authorize]
 		[Route("AddInvestment")]
 		[HttpPost]
 		public async Task<IActionResult> AddInvestment([FromBody] InvestmentViewModel request)
