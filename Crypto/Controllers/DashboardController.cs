@@ -26,6 +26,14 @@ namespace Crypto.Controllers
             return Ok(await _dashboardService.GetBalance(Id));
         }
 
+        //[Authorize]
+        [Route("UpdateBalance")]
+        [HttpPatch]
+        public async Task UpdateBalance([FromBody] BalanceViewModel request)
+        {
+            await _dashboardService.UpdateBalance(request);
+        }
+
         [Route("GetTime")]
         [HttpGet]
         public string GetServerTime()

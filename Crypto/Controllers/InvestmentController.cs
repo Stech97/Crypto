@@ -18,13 +18,14 @@ namespace Crypto.Controllers
 			_investmentService = investmentService;
 		}
 
+		//[Authorize]
 		[Route("GetInvestments")]
 		[HttpGet]
 		public async Task<List<Investment>> GetInvestments()
 		{
 			return await _investmentService.GetInvestments();
 		}
-
+		//[Authorize]
 		[Route("GetInvestment")]
 		[HttpGet]
 		public async Task<Investment> GetInvestment(int InvestmentId)

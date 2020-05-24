@@ -13,6 +13,8 @@ namespace Crypto
 			CreateMap<InvestmentViewModel, Investment>()
 				.ForMember(m => m.CreatedDate, opt => opt.MapFrom(x => DateTime.Now));
 
+			CreateMap<BalanceViewModel, Balance>();
+
 			CreateMap<LoginHistoryViewModel, LoginHistory>();
 
 			CreateMap<LoginHistoryViewModel, CurrentSession>();
