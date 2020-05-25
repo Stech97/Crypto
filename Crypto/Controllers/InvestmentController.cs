@@ -25,12 +25,13 @@ namespace Crypto.Controllers
 		{
 			return await _investmentService.GetInvestments();
 		}
+		
 		//[Authorize]
 		[Route("GetInvestment")]
 		[HttpGet]
-		public async Task<Investment> GetInvestment(int InvestmentId)
+		public async Task<Investment> GetInvestment(int Id)
 		{
-			return await _investmentService.GetInvestment(InvestmentId);
+			return await _investmentService.GetInvestment(Id);
 		}
 
 		//[Authorize]
@@ -54,9 +55,9 @@ namespace Crypto.Controllers
 		//[Authorize]
 		[Route("DeleteInvestment")]
 		[HttpDelete]
-		public async Task<IActionResult> DeleteInvestment(int InvestmentId)
+		public async Task<IActionResult> DeleteInvestment(int Id)
 		{
-			await _investmentService.DeleteInvestment(InvestmentId);
+			await _investmentService.DeleteInvestment(Id);
 			return NoContent();
 		}
 	}

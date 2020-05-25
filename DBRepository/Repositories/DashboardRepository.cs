@@ -18,11 +18,11 @@ namespace DBRepository.Repositories
                 return await context.Balances.FirstOrDefaultAsync(b => b.UserId == Id);
         }
 
-        public async Task UpdateBalance(Balance balance)
+        public async Task UpdateBalance(Balance balance, int Id)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var balanceNew = await context.Balances.FirstOrDefaultAsync(b => b.UserId == balance.UserId);
+                var balanceNew = await context.Balances.FirstOrDefaultAsync(b => b.UserId == Id);
                 balanceNew.BitcoinBalance = balance.BitcoinBalance;
                 balanceNew.DefimaBalance = balance.DefimaBalance;
                 balanceNew.USDBalance = balance.USDBalance;

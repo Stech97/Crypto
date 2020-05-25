@@ -29,9 +29,9 @@ namespace Crypto.Controllers
         //[Authorize]
         [Route("UpdateBalance")]
         [HttpPatch]
-        public async Task UpdateBalance([FromBody] BalanceViewModel request)
+        public async Task UpdateBalance([FromBody] BalanceViewModel request, int Id)
         {
-            await _dashboardService.UpdateBalance(request);
+            await _dashboardService.UpdateBalance(request, Id);
         }
 
         [Route("GetTime")]
