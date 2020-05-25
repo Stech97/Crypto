@@ -27,10 +27,10 @@ namespace Crypto.Services.Implementation
             return _mapper.Map<Balance, BalanceViewModel>(balance);
         }
 
-        public async Task UpdateBalance(BalanceViewModel request)
+        public async Task UpdateBalance(BalanceViewModel request, int Id)
         {
             var balanceOld = _mapper.Map<BalanceViewModel, Balance>(request);
-            await _repositoryDashboard.UpdateBalance(balanceOld);
+            await _repositoryDashboard.UpdateBalance(balanceOld, Id);
         }
 
         public async Task<List<LoginHistoryViewModel>> GetLoginHistory(int Id)
