@@ -10,5 +10,6 @@ namespace Crypto.Services.Interfaces
 		Task AddUser(LoginViewModel request);
 		Task SetLoginHistory(LoginHistoryViewModel request, int LifeTime);
 		Task SignOut(int Id);
+		Task ChangePassword(ChangePasswordViewModel request, int Id);
 	}
 }

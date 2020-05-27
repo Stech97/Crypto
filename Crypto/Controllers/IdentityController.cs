@@ -97,5 +97,18 @@ namespace Crypto.Controllers
 			return NoContent();
 		}
 
+		//[Authorize]
+		[Route("ChangePassword")]
+		[HttpPatch]
+		public async Task<IActionResult> ChangePassword([FromBody]ChangePasswordViewModel request, int Id)
+		{
+			using (SHA256Managed sha256 = new SHA256Managed())
+			{
+				request.Password = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(request.Password)));
+			}
+			await _identityService.ChangePassword(request, Id);
+			return Ok();
+		}
+
 	}
 }

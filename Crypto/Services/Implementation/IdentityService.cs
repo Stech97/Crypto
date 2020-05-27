@@ -40,5 +40,11 @@ namespace Crypto.Services.Implementation
 		{
 			await _repository.SignOut(Id);
 		}
+
+		public async Task ChangePassword(ChangePasswordViewModel request, int Id)
+		{
+			var newPassword = _mapper.Map<ChangePasswordViewModel, User>(request);
+			await _repository.ChangePassword(newPassword, Id);
+		}
 	}
 }
