@@ -23,6 +23,13 @@ namespace Crypto
 
         public void ConfigureServices(IServiceCollection services)
         {
+			services.AddCors(options =>
+			{
+				options.AddPolicy("CorsPolicy",
+					builder => builder.AllowAnyOrigin()
+						.AllowAnyMethod()
+						.AllowAnyHeader());
+			});
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 					.AddJwtBearer(options =>
 					{
@@ -73,6 +80,7 @@ namespace Crypto
 			app.UseDeveloperExceptionPage();
 			app.UseRouting();
 			app.UseAuthorization();
+			app.UseCors("CorsPolicy");
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();

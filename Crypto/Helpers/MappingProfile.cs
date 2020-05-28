@@ -17,6 +17,8 @@ namespace Crypto
 
 			CreateMap<LoginHistoryViewModel, LoginHistory>();
 
+			CreateMap<EmailViewModel, EMAIL>();
+
 			CreateMap<LoginHistoryViewModel, CurrentSession>();
 
 			CreateMap<ChangePasswordViewModel, User>();

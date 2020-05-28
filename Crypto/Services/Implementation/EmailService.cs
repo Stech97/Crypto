@@ -19,7 +19,7 @@ namespace Crypto.Services.Implementation
 
 		public async Task AddEmail(EmailViewModel Email)
 		{
-			var email = _mapper.Map<EmailViewModel, Email>(Email);
+			var email = _mapper.Map<EmailViewModel, EMAIL>(Email);
 			await _repository.AddEmail(email);
 		}
 	}

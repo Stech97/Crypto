@@ -1,8 +1,8 @@
 ﻿namespace Models
 {
-	public class Email
+	public class EMAIL
 	{
 		public int Id { get; set; }
-		public string EmailAdress { get; set; }
+		public string Email { get; set; }
 	}
 }

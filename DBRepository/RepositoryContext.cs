@@ -9,7 +9,7 @@ namespace DBRepository
 
 		public DbSet<Investment> Investments { get; set; }
 		public DbSet<User> Users { get; set; }
-		public DbSet<Email> Emails { get; set; }
+		public DbSet<EMAIL> Emails { get; set; }
 		public DbSet<Balance> Balances { get; set; }
 		public DbSet<LoginHistory> LoginHistories { get; set; }
 		public DbSet<CurrentSession>  CurrentSessions { get; set; }
@@ -25,8 +25,8 @@ namespace DBRepository
 			modelBuilder.Entity<Investment>().Property(i => i.Name).IsRequired();
 			modelBuilder.Entity<Investment>().Property(i => i.Description).IsRequired();
 
-			modelBuilder.Entity<Email>().ToTable("Email");
-			modelBuilder.Entity<Email>().Property(e => e.EmailAdress).IsRequired();
+			modelBuilder.Entity<EMAIL>().ToTable("Email");
+			modelBuilder.Entity<EMAIL>().Property(e => e.Email).IsRequired();
 
 			modelBuilder.Entity<Balance>().ToTable("Balance");
 			modelBuilder.Entity<Balance>().Property(b => b.USDBalance).IsRequired();
