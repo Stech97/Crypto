@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form';
-import { updateViewSuccess, updateViewError } from '../actions/ComingsoonForm'
-import emailjs from 'emailjs-com'
-
+import { updateView } from '../actions/ComingsoonForm'
 
 const renderField = ({ input, placeholder, className, type }) => {
 	return (
@@ -12,13 +10,8 @@ const renderField = ({ input, placeholder, className, type }) => {
 
 class ComingSoonForm extends Component {
 
-	sendFeedback (templateId, variables) {
-		
-	}
-
 	render() {		
-		const templateId = 'test'
-		const { handleSubmit, submitting, sendError, placeholder} = this.props
+		const { handleSubmit, submitting, reset, sendError, placeholder} = this.props
         const submit = (values) => {
         	/*
         	window.alert(JSON.stringify({
@@ -28,8 +21,8 @@ class ComingSoonForm extends Component {
             	},
 				body: JSON.stringify({ Email : 'test' + values.email })
 			}))
-			*/
-			/*
+			
+			let variables = {message_html: values.email};
 			fetch("http://10.0.0.50/api/Email/AddEmail", {
 				method: 'post',
 				headers: {
@@ -45,8 +38,7 @@ class ComingSoonForm extends Component {
 	        }).catch((ex) => {
 	    		alert('Ъуъ')
 	        })
-	        */
-	        let variables = {message_html: values.email};
+
 			emailjs.send(
 			  	'gmail', templateId,
 			  	variables, 'user_jIExVfMX1Oha7HaXMmsBs'
@@ -59,6 +51,9 @@ class ComingSoonForm extends Component {
 		  		console.error('Oh well, you failed. Here some thoughts on the error that occured:', err)
 				this.props.dispatch(updateViewError())
 			})
+			*/
+			this.props.dispatch(updateView(), values.email)
+			this.props.reset()
 		}
 
 		return (

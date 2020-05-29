@@ -33,7 +33,7 @@ class ComingSoon extends Component {
 					    <div className={ ComingSoon.visibility ? "comingsoon-h2-box" : "none"}>
 					        <h2>Subscribe to get notification as soon as we launch.</h2>
 					    </div>
-					    <ComingSoonForm updateViewSuccess={ComingSoon.updateViewSuccess} sendError={ComingSoon.visibility} placeholder={ComingSoon.placeholder}/>
+					    <ComingSoonForm updateView={ComingSoon.updateView} sendError={ComingSoon.visibility} placeholder={ComingSoon.placeholder}/>
 			            <div className={ !ComingSoon.visibility ? "comingsoon-thanks-box" : "none" }>
 			                <p>Thank you for your subscription.</p>
 			            </div>
@@ -54,8 +54,7 @@ const mapStateToProps = store => {
 /*
 const mapDispatchToProps = dispatch => {
   return {
-  	updateViewError: dispatch(updateViewError()),
-    updateViewSuccess: dispatch(updateViewSuccess()),
+  	updateView: email => dispatch(updateView(email)),
   }
 }
 */

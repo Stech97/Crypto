@@ -9,6 +9,24 @@ button:focus {
     background: transparent;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border-width: 0 0 2px 0;
+  border-bottom-color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+  background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,174,255,0.04) 50%,rgba(255,255,255,0) 51%,rgba(0,174,255,0.03) 100%);  
+}
+
 @media (max-width: 767.98px) {
   .comingsoon {
     width: 100%;
@@ -196,7 +214,7 @@ button:focus {
         grid-area: comingsoon-form-box;
         align-self: center;
         .commingsoon-input-text {
-          min-width: 312px;
+          min-width: 400px;
           background: none;
           height: 38px;
           font-family: IBMPlexSans;
