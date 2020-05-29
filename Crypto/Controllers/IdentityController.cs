@@ -49,8 +49,10 @@ namespace Crypto.Controllers
 				{
 					IP = model.IP,
 					LoginTime = DateTime.Now,
-					UserId = user.UserId
+					UserId = user.UserId,
+					Country = model.Country
 				};
+
 				await _identityService.SetLoginHistory(request, AuthOptions.LIFETIME);
 			}
 			if (identity == null)

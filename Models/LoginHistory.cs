@@ -5,6 +5,7 @@
         public int Id { get; set; }
         public string IP { get; set; }
         public System.DateTime LoginTime { get; set;}
+        public string Country { get; set; }
         public User User { get; set; }
         public int UserId { get; set; }
     }
