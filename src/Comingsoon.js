@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import './styles/comingsoon.scss'
 import { connect } from 'react-redux'
-import { SubmissionError } from 'redux-form';
-import { updateView } from './actions/ComingsoonForm'
 import ComingSoonForm from './components/ComingsoonForm'
-import ComingSoonStore from './reducers/comingsoon'
-import { COMINGSOON_ERROR, COMINGSOON_SUCCESS } from './actions/ComingsoonForm'
 
 const ComingSoonLogo = () => {
 	return (
@@ -25,45 +21,22 @@ const ComingSoonH1 = () => {
 
 class ComingSoon extends Component {
 
-	handleSubmit = (values) => {
-		window.alert('action worked')
-		return (dispatch) => {
-			fetch("http://10.0.0.50/api/Email/AddEmail", {
-				method: 'post',
-				body: JSON.stringify("test_" + values.email)
-			}).then(function(response) {
-				if (response.ok) {
-					dispatch({
-						type: COMINGSOON_SUCCESS,
-						payload: true,
-					})
-	            } else {
-	                alert('Ошибка отправки')
-	                dispatch({
-	                	type: COMINGSOON_ERROR,
-	                	payload: false
-	            	})
-	            }
-	        }).catch((ex) => {
-	    		alert('Ъуъ')
-	            dispatch({
-	            	type: COMINGSOON_ERROR,
-	            	payload: false
-	            })
-	        })
-	    }
-	}
 	render () {
+		const { ComingSoon } = this.props
+		console.log(ComingSoon.visibility)
 		return (
 			<section className="comingsoon">
 				<div className="comingsoon-wrapper">
 				    <div className="comingsoon-grid-container">
 					    <ComingSoonLogo />
 					    <ComingSoonH1 />
-					    <div className={ !this.props.error ? "comingsoon-h2-box" : "none"}>
+					    <div className={ ComingSoon.visibility ? "comingsoon-h2-box" : "none"}>
 					        <h2>Subscribe to get notification as soon as we launch.</h2>
 					    </div>
-					    <ComingSoonForm onSubmit={this.handleSubmit}/>
+					    <ComingSoonForm updateViewSuccess={ComingSoon.updateViewSuccess} sendError={ComingSoon.visibility} placeholder={ComingSoon.placeholder}/>
+			            <div className={ !ComingSoon.visibility ? "comingsoon-thanks-box" : "none" }>
+			                <p>Thank you for your subscription.</p>
+			            </div>
 				    </div>
 			  	</div>
 			</section>
@@ -71,22 +44,21 @@ class ComingSoon extends Component {
 	}	
 }
 
-/*
+
 const mapStateToProps = store => {
+	console.log(store)
   return {
-    sendError: store.sendError
+    ComingSoon: store.ComingSoon
   }
 }
-
+/*
 const mapDispatchToProps = dispatch => {
   return {
-    updateView: sendError => dispatch(updateView(sendError))
+  	updateViewError: dispatch(updateViewError()),
+    updateViewSuccess: dispatch(updateViewSuccess()),
   }
 }
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(ComingSoon)
 */
-export default ComingSoon
+export default connect(
+	mapStateToProps
+)(ComingSoon)

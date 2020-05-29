@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form';
-import { COMINGSOON_ERROR, COMINGSOON_SUCCESS } from '../actions/ComingsoonForm'
+import { updateViewSuccess, updateViewError } from '../actions/ComingsoonForm'
+import emailjs from 'emailjs-com'
+
 
 const renderField = ({ input, placeholder, className, type }) => {
 	return (
@@ -10,9 +12,15 @@ const renderField = ({ input, placeholder, className, type }) => {
 
 class ComingSoonForm extends Component {
 
+	sendFeedback (templateId, variables) {
+		
+	}
+
 	render() {		
+		const templateId = 'test'
 		const { handleSubmit, submitting, sendError, placeholder} = this.props
         const submit = (values) => {
+        	/*
         	window.alert(JSON.stringify({
 				method: 'post',
 				headers: {
@@ -20,6 +28,8 @@ class ComingSoonForm extends Component {
             	},
 				body: JSON.stringify({ Email : 'test' + values.email })
 			}))
+			*/
+			/*
 			fetch("http://10.0.0.50/api/Email/AddEmail", {
 				method: 'post',
 				headers: {
@@ -31,16 +41,29 @@ class ComingSoonForm extends Component {
 	                alert('Успех!')			
 	            } else {
 	                alert(response.e)
-
 	            }
 	        }).catch((ex) => {
 	    		alert('Ъуъ')
 	        })
+	        */
+	        let variables = {message_html: values.email};
+			emailjs.send(
+			  	'gmail', templateId,
+			  	variables, 'user_jIExVfMX1Oha7HaXMmsBs'
+		  	).then(res => {
+		    	console.log('Email successfully sent!')
+				this.props.dispatch(updateViewSuccess())
+		  	})
+		  	// Handle errors here however you like, or use a React error boundary
+		  	.catch(err => {
+		  		console.error('Oh well, you failed. Here some thoughts on the error that occured:', err)
+				this.props.dispatch(updateViewError())
+			})
 		}
-       
+
 		return (
 		    <form
-		    	className={ !sendError ? "comingsoon-form-box" : "none" }
+		    	className={ sendError ? "comingsoon-form-box" : "none" }
 		    	onSubmit={handleSubmit(submit)}
 		    >
 		        <Field
@@ -48,10 +71,9 @@ class ComingSoonForm extends Component {
 		          name="email"
 		          className="commingsoon-input-text"
 		          type="email"
-		          placeholder={!sendError ? "maxmustter@hotmail.com" : "Wrong E-Mail. Please try again."}
+		          placeholder={placeholder}
 		        />
 		        <button
-		        	onClick={handleSubmit(submit)}
 		        	type="submit"
 		        	disabled={submitting}
 		        	className="comingsoon-input-button"
@@ -62,5 +84,5 @@ class ComingSoonForm extends Component {
 }
 
 export default reduxForm({
-  form: 'ComingSoonForm' // a unique identifier for this form
+  form: 'TESTFORM' // a unique identifier for this form
 })(ComingSoonForm)

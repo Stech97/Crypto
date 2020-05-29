@@ -6,6 +6,7 @@ select:focus,
 textarea:focus,
 button:focus {
     outline: none;
+    background: transparent;
 }
 
 @media (max-width: 767.98px) {
