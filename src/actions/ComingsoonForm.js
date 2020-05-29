@@ -27,7 +27,7 @@ export function updateView(email) {
 	const templateId = 'test'
 	return (dispatch) => {
 		let variables = {message_html: email};
-		fetch("http://10.0.0.50/api/Email/AddEmail", {
+		fetch("http://defima.io:88/api/Email/AddEmail", {
 			method: 'post',
 			headers: {
             	'Content-Type': 'application/json',
