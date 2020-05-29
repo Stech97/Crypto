@@ -110,5 +110,15 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
+		[Route("CheckInfo")]
+		[HttpPost]
+		public async Task<IActionResult> CheckInfo([FromBody] CheckViewModel request)
+		{
+			var result = await _identityService.CheckInfo(request);
+			if (result == null)
+				return NoContent();
+			else
+				return Ok(result);
+		}
 	}
 }

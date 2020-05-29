@@ -22,11 +22,13 @@ namespace Crypto.Services.Implementation
 		{
 			return await _repository.GetUser(userName);
 		}
+		
 		public async Task AddUser(LoginViewModel request)
 		{
 			var login = _mapper.Map<LoginViewModel, User>(request);
 			await _repository.AddUser(login);
 		}
+		
 		public async Task SetLoginHistory(LoginHistoryViewModel request, int LifeTime)
 		{
 			var loginHistory = _mapper.Map<LoginHistoryViewModel, LoginHistory>(request);
@@ -36,6 +38,7 @@ namespace Crypto.Services.Implementation
 			await _repository.SetLoginHistory(loginHistory);
 			await _repository.SetCurrentSession(currentSession);
 		}
+		
 		public async Task SignOut(int Id)
 		{
 			await _repository.SignOut(Id);
@@ -45,6 +48,13 @@ namespace Crypto.Services.Implementation
 		{
 			var newPassword = _mapper.Map<ChangePasswordViewModel, User>(request);
 			await _repository.ChangePassword(newPassword, Id);
+		}
+
+		public async Task<CheckViewModel> CheckInfo(CheckViewModel request)
+		{
+			var check = _mapper.Map<CheckViewModel, User>(request);
+			var result = await _repository.CheckInfo(check);
+			return _mapper.Map<User, CheckViewModel>(result);
 		}
 	}
 }

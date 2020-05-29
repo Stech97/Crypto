@@ -12,5 +12,6 @@ namespace DBRepository.Interfaces
         Task SetCurrentSession(CurrentSession currentSession);
         Task SignOut(int Id);
         Task ChangePassword(User user, int Id);
+        Task<User> CheckInfo(User user);
     }
 }

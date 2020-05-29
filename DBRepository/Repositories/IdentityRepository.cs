@@ -5,7 +5,7 @@ using Models;
 
 namespace DBRepository.Repositories
 {
-    public class IdentityRepository : BaseRepository, IIdentityRepository
+	public class IdentityRepository : BaseRepository, IIdentityRepository
 	{
 		public IdentityRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
@@ -42,7 +42,7 @@ namespace DBRepository.Repositories
 				await context.SaveChangesAsync();
 			}
 		}
-		
+
 		public async Task SetCurrentSession(CurrentSession currentSession)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
@@ -52,8 +52,8 @@ namespace DBRepository.Repositories
 			}
 		}
 
-        public async Task SignOut(int Id)
-        {
+		public async Task SignOut(int Id)
+		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var currentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == Id);
@@ -72,5 +72,11 @@ namespace DBRepository.Repositories
 				await context.SaveChangesAsync();
 			}
 		}
-    }
+
+		public async Task<User> CheckInfo(User user)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+                return await context.Users.FirstOrDefaultAsync(u => u.Username == user.Username || u.Email == user.Email);
+		}
+	}
 }

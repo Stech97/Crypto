@@ -23,6 +23,10 @@ namespace Crypto
 
 			CreateMap<ChangePasswordViewModel, User>();
 
+			CreateMap<CheckViewModel, User>();
+
+			CreateMap<User, CheckViewModel>();
+
 			CreateMap<User, RefLinkViewModel>()
 				.ForMember(m => m.RefId, opt => opt.MapFrom(x => x.UserId))
 				.ForMember(m => m.RefString, opt => opt.MapFrom(x => x.Username));
