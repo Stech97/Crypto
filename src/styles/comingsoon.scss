@@ -1,41 +1,15 @@
 @import "utils/normalize";
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap');
-
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    outline: none;
-    background: transparent;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus
-input:-webkit-autofill, 
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  border-width: 0 0 2px 0;
-  border-bottom-color: #ffffff;
-  -webkit-text-fill-color: #ffffff;
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
-  transition: background-color 5000s ease-in-out 0s;
-  background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,174,255,0.04) 50%,rgba(255,255,255,0) 51%,rgba(0,174,255,0.03) 100%);  
-}
 
 @media (max-width: 767.98px) {
   .comingsoon {
     width: 100%;
 
-    &-wrapper {
+    .wrapper {
       border-bottom-left-radius: 73.7px;
       border: none;
       height: 100vh;
-      background: url(./utils/img/waveimage.png) 40% 10% / auto 80% no-repeat, linear-gradient(61deg, #001029 4%, #235fc8 98%) left top/100% 100%;
+      background: url({waveimage}) 40% 10% / auto 80% no-repeat,
+        linear-gradient(61deg, #001029 4%, #235fc8 98%) left top/100% 100%;
       .comingsoon-grid-container {
         display: grid;
         height: 100%;
@@ -46,7 +20,6 @@ select:-webkit-autofill:focus {
         gap: 0px 0px;
         grid-template-areas: "comingsoon-logobox" "comingsoon-h1-box" "comingsoon-h2-box" "comingsoon-form-box";
       }
-
       .comingsoon-logobox {
         grid-area: comingsoon-logobox;
         align-self: end;
@@ -62,7 +35,7 @@ select:-webkit-autofill:focus {
         h1 {
           width: 75%;
           margin: 0;
-          font-family: IBMPlexSans;
+          font-family: "IBM Plex Sans";
           font-size: 20px;
           font-size: 40px;
           font-weight: 500;
@@ -80,7 +53,7 @@ select:-webkit-autofill:focus {
         h2 {
           margin: 0;
           width: 72%;
-          font-family: IBMPlexSans;
+          font-family: "IBM Plex Sans";
           font-size: 20px;
           font-weight: 300;
           font-stretch: normal;
@@ -105,7 +78,7 @@ select:-webkit-autofill:focus {
           min-width: 312px;
           background: none;
           height: 38px;
-          font-family: IBMPlexSans;
+          font-family: "IBM Plex Sans";
           font-size: 20px;
           font-weight: 500;
           font-stretch: normal;
@@ -132,7 +105,7 @@ select:-webkit-autofill:focus {
           border-radius: 30px;
           border-width: 0;
           background-color: #ed7102;
-          font-family: IBMPlexSans;
+          font-family: "IBM Plex Sans";
           font-size: 25px;
           font-weight: 500;
           font-stretch: normal;
@@ -147,15 +120,16 @@ select:-webkit-autofill:focus {
     }
   }
 }
-
 @media (min-width: 767.98px) {
+  /* Стили для устройств с шириной viewport, находящейся в диапазоне 992px - 1199px */
   .comingsoon {
     width: 100%;
-    .comingsoon-wrapper {
+    .wrapper {
       border-bottom-left-radius: 150px;
       border: none;
       height: 100vh;
-      background: url(./utils/img/waveimage.png) 10.9% -60px/78.2% auto no-repeat, linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat;
+      background: url({waveimage}) 10.9% -60px/78.2% auto no-repeat,
+        linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat;
       background-clip: padding-box;
       .comingsoon-grid-container {
         display: grid;
@@ -163,7 +137,7 @@ select:-webkit-autofill:focus {
         margin: 0;
         justify-items: center;
         grid-template-columns: 1fr;
-        grid-template-rows: 33.9% 20.8% 3.1% min-content;
+        grid-template-rows: 33.9% 20.8% 3.1% auto;
         gap: 0px 0px;
         grid-template-areas: "comingsoon-logobox" "comingsoon-h1-box" "comingsoon-h2-box" "comingsoon-form-box";
       }
@@ -180,9 +154,9 @@ select:-webkit-autofill:focus {
         align-self: end;
         h1 {
           margin: 0;
-          font-family: IBMPlexSans;
+          font-family: "IBM Plex Sans";
           font-size: 60px;
-          font-weight: 500;
+          font-weight: 600;
           font-stretch: normal;
           font-style: normal;
           line-height: 1.32;
@@ -197,9 +171,9 @@ select:-webkit-autofill:focus {
         h2 {
           margin: 0;
 
-          font-family: IBMPlexSans;
+          font-family: "IBM Plex Sans";
           font-size: 25px;
-          font-weight: 300;
+          font-weight: 400;
           font-stretch: normal;
           font-style: normal;
           line-height: 1.32;
@@ -210,14 +184,13 @@ select:-webkit-autofill:focus {
       }
 
       .comingsoon-form-box {
-        margin-top: 90px;
         grid-area: comingsoon-form-box;
         align-self: center;
         .commingsoon-input-text {
           min-width: 400px;
           background: none;
           height: 38px;
-          font-family: IBMPlexSans;
+          font-family: "IBM Plex Sans";
           font-size: 25px;
           font-weight: 500;
           font-stretch: normal;
@@ -244,7 +217,7 @@ select:-webkit-autofill:focus {
           border-radius: 30px;
           border-width: 0;
           background-color: #ed7102;
-          font-family: "IBMPlexSans";
+          font-family: ""IBM Plex Sans"";
           font-size: 25px;
           font-weight: 500;
           font-stretch: normal;

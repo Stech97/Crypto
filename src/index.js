@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { store } from './store/configureStore'
-import ComingSoon from './Comingsoon';
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
 	<Provider store={store}>
-		<ComingSoon />
+		<App />
 	</Provider>,
   document.getElementById('root')
 );

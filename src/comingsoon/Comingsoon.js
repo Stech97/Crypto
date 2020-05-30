@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './styles/comingsoon.scss'
+import '../styles/comingsoon.scss'
 import { connect } from 'react-redux'
 import ComingSoonForm from './components/ComingsoonForm'
 

@@ -1,0 +1,82 @@
+$header-height: 11vh;
+
+header {
+    width: 100%;
+    height: $header-height;
+}
+
+.header-grid-container {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) 1fr;
+    grid-template-rows: $header-height;
+    gap: 0px 0px;
+    grid-template-areas: "top-logo-box top-nav-box";
+    border-bottom-right-radius: 60px;
+    border: none;
+    background-color: #ffffff;
+}
+
+.top-logo-box {
+    grid-area: top-logo-box;
+    align-self: center;
+    height: 50%;
+    img {
+    height: 100%;
+    object-fit: contain;
+    }
+}
+
+.top-nav-box {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(134px, 1fr)) minmax(220px, 2fr);
+    grid-template-rows: 1fr;
+    gap: 0;
+    grid-template-areas: "nav-about nav-team nav-blog nav-login nav-signup";
+    grid-area: top-nav-box;
+    justify-items: center;
+    align-items: center;
+}
+
+.nav-signup { grid-area: nav-signup; }
+
+.nav-about { grid-area: nav-about; }
+
+.nav-team { grid-area: nav-team; }
+
+.nav-blog { grid-area: nav-blog; }
+
+.nav-login { grid-area: nav-login; }
+
+.nav-bar {
+  a {
+    font-family: "IBM Plex Sans";
+    @include fontsize(28);
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.32;
+    letter-spacing: normal;
+    text-align: center;
+    color: #005c9f;
+  }
+}
+.nav-signup {
+    align-self: center;
+
+    .button-signup {
+        $button-signup-width: $header-height*1.66;
+        $button-signup-height: $header-height*0.5;
+        @include button($button-signup-width, $button-signup-height, $header-font-size);
+        @include button-light();
+    }
+    .button-main-inversed {
+        font-family: "IBM Plex Sans";
+        text-align: center;
+        color: #ed7102;
+        background-color: #ffffff;
+        &:hover {
+          color: #ffffff;
+          background-color: #ed7102;
+        }
+    }
+}

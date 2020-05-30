@@ -1,41 +1,28 @@
 import React, { Component } from 'react'
-import './styles/style.scss'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { store } from './store/configureStore'
+import ComingSoon from './comingsoon/Comingsoon'
+import MainPage from './main/Main'
+import LoginPage from './login/Login'
 import waveimage from './styles/utils/img/waveimage.png'
 import stealthlogo from './styles/utils/img/stealth-logo.png'
 import worldmap2 from './styles/utils/img/worldmap2.png'
 import joinusbackground from './styles/utils/img/joinus.png'
-import Header from './components/Header.js'
-import Homescreen from './components/Homescreen.js'
-import Ourmission from './components/Ourmission.js'
-import Howitworks from './components/Howitworks.js'
-import Portfolio from './components/Portfolio.js'
-import Career from './components/Career.js'
-import DefimaToken from './components/Defimatoken.js'
-import Ourteam from './components/Ourteam.js'
-import Joinus from './components/Joinus.js'
+// Create an enhanced history that syncs navigation events with the store
 
 class App extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <Header />
-        <Homescreen />
-        <Ourmission />
-        <Howitworks />
-        <Portfolio />
-        <Career />
-        <DefimaToken />
-        <Ourteam />
-        <Joinus />
-      </React.Fragment>
-    )
-  }
+    render() {
+        return (
+            <Router>
+            	<Switch>
+	                <Route path="/comingsoon" component = { ComingSoon } />
+	                <Route path="/main" component = { MainPage } />
+	                <Route path="/login" component = { LoginPage } />
+ 	            </Switch>
+            </Router>
+        )
+    }
 }
 
 export default App
 
-/*
-        <Faq />
-        <Feedback />
-        <Footer />
-*/
