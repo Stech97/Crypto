@@ -12,31 +12,50 @@ namespace DBRepository
 		public DbSet<EMAIL> Emails { get; set; }
 		public DbSet<Balance> Balances { get; set; }
 		public DbSet<LoginHistory> LoginHistories { get; set; }
-		public DbSet<CurrentSession>  CurrentSessions { get; set; }
+		public DbSet<CurrentSession> CurrentSessions { get; set; }
+        public DbSet<News> News { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+            #region User
 			modelBuilder.Entity<User>().ToTable("UserInfo");
 			modelBuilder.Entity<User>().Property(u => u.Email).IsRequired();
 			modelBuilder.Entity<User>().Property(u => u.Username).IsRequired();
 			modelBuilder.Entity<User>().Property(u => u.Password).IsRequired();
+            #endregion
 
-			modelBuilder.Entity<Investment>().ToTable("Investment");
-			modelBuilder.Entity<Investment>().Property(i => i.Name).IsRequired();
-			modelBuilder.Entity<Investment>().Property(i => i.Description).IsRequired();
+            #region Investment
+            modelBuilder.Entity<Investment>().ToTable("Investment");
+            //modelBuilder.Entity<Investment>().Property(i => i.Name).IsRequired();
+            //modelBuilder.Entity<Investment>().Property(i => i.Description).IsRequired();
+            #endregion
 
-			modelBuilder.Entity<EMAIL>().ToTable("Email");
+            #region Email
+            modelBuilder.Entity<EMAIL>().ToTable("Email");
 			modelBuilder.Entity<EMAIL>().Property(e => e.Email).IsRequired();
+            #endregion
 
-			modelBuilder.Entity<Balance>().ToTable("Balance");
+            #region Balance
+            modelBuilder.Entity<Balance>().ToTable("Balance");
 			modelBuilder.Entity<Balance>().Property(b => b.USDBalance).IsRequired();
+            #endregion
 
-			modelBuilder.Entity<LoginHistory>().ToTable("LoginHistory");
+            #region Login History
+            modelBuilder.Entity<LoginHistory>().ToTable("LoginHistory");
 			modelBuilder.Entity<LoginHistory>().Property(lh => lh.IP).IsRequired();
+            #endregion
 
-			modelBuilder.Entity<CurrentSession>().ToTable("CurrentSession");
+            #region Current Session
+            modelBuilder.Entity<CurrentSession>().ToTable("CurrentSession");
 			modelBuilder.Entity<CurrentSession>().Property(cs => cs.LoginTime).IsRequired();
 			modelBuilder.Entity<CurrentSession>().Property(cs => cs.LogoutTime).IsRequired();
-		}
-	}
+            #endregion
+
+            #region News
+            modelBuilder.Entity<News>().ToTable("News");
+            modelBuilder.Entity<News>().Property(n => n.Header).IsRequired();
+            modelBuilder.Entity<News>().Property(n => n.Description).IsRequired();
+            #endregion
+        }
+    }
 }

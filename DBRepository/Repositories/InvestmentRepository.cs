@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Models;
-using System.Linq;
 using System.Collections.Generic;
 
 namespace DBRepository.Repositories
@@ -14,7 +13,7 @@ namespace DBRepository.Repositories
 		public async Task<Investment> GetInvestment(int investID)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-				return await context.Investments.FirstOrDefaultAsync(i => i.InvestmentID == investID);
+				return await context.Investments.FirstOrDefaultAsync(i => i.Id == investID);
 		}
 
 		public async Task <List<Investment>> GetInvestments()
@@ -35,21 +34,11 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var investmentNew = await context.Investments.FirstOrDefaultAsync(i => i.InvestmentID == Id);
-				investmentNew.Name = investment.Name;
+				var investmentNew = await context.Investments.FirstOrDefaultAsync(i => i.Id == Id);
+				/*investmentNew.Name = investment.Name;
 				investmentNew.Description = investment.Description;
-				investmentNew.Profit = investment.Profit;
+				investmentNew.Profit = investment.Profit;*/
 				context.Investments.Update(investmentNew);
-				await context.SaveChangesAsync();
-			}
-		}
-
-		public async Task DeleteInvestment(int investID)
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var invest = new Investment() { InvestmentID = investID };
-				context.Investments.Remove(invest);
 				await context.SaveChangesAsync();
 			}
 		}

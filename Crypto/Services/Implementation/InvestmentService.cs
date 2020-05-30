@@ -36,9 +36,5 @@ namespace Crypto.Services.Implementation
 			var investment = _mapper.Map<InvestmentViewModel, Investment>(request);
 			await _repository.UpdateInvestment(investment, Id);
 		}
-		public async Task DeleteInvestment(int investID)
-		{
-			await _repository.DeleteInvestment(investID);
-		}
 	}
 }

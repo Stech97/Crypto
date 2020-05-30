@@ -5,7 +5,6 @@ using DBRepository.Interfaces;
 using Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace Crypto.Services.Implementation
 {
@@ -43,6 +42,13 @@ namespace Crypto.Services.Implementation
         {
             var user =  await _repositorIidentity.GetUser(Id);
             return _mapper.Map<User, RefLinkViewModel>(user);
+        }
+        
+        public async Task<List<NewsViewModel>> GetNews(int Take, int Skip)
+        {
+            var news = await _repositoryDashboard.GetNews(Take, Skip);
+
+            return _mapper.Map<List<News>, List<NewsViewModel>>(news);
         }
     }
 }

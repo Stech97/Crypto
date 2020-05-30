@@ -29,16 +29,17 @@ namespace Crypto.Controllers
         //[Authorize]
         [Route("UpdateBalance")]
         [HttpPatch]
-        public async Task UpdateBalance([FromBody] BalanceViewModel request, int Id)
+        public async Task<IActionResult> UpdateBalance([FromBody] BalanceViewModel request, int Id)
         {
             await _dashboardService.UpdateBalance(request, Id);
+            return Ok();
         }
 
         [Route("GetTime")]
         [HttpGet]
-        public string GetServerTime()
+        public IActionResult GetServerTime()
         {
-            return System.DateTime.Now.ToLongTimeString();
+            return Ok(System.DateTime.Now.ToLongTimeString());
         }
 
         //[Authorize]
@@ -52,12 +53,21 @@ namespace Crypto.Controllers
         //[Authorize]
         [Route("GetRefLink")]
         [HttpGet]
-        public async Task<RefLinkViewModel> GetRefLink(int Id)
+        public async Task<IActionResult> GetRefLink(int Id)
         {
             var RefLink = await _dashboardService.GetRefLink(Id);
             RefLink.RefId = "www.defima.io/" + RefLink.RefId;
             RefLink.RefString = "www.defima.io/" + RefLink.RefString;
-            return RefLink;
+            return Ok(RefLink);
         }
+
+        //[Authorize]
+        [Route("GetNews")]
+        [HttpGet]
+        public async Task<IActionResult> GetNews(int Take, int Skip)
+        {
+            return Ok(await _dashboardService.GetNews(Take, Skip));
+        }
+
     }
 }

@@ -10,7 +10,6 @@ namespace Crypto.Services.Interfaces
 		Task<List<Investment>> GetInvestments();
 		Task<Investment> GetInvestment(int investId);
 		Task AddInvestment(InvestmentViewModel request);
-		Task DeleteInvestment(int investID);
 		Task UpdateInvestment(InvestmentViewModel request, int Id);
 	}
 }

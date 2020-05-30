@@ -17,8 +17,11 @@ namespace Models
 		public string Adress { get; set; }
 		public int Zip { get; set; }
 		public string RefLink { get; set; }
+		public bool IsVerification { get; set; }
 		public Balance Balance { get; set; }
 		public List<LoginHistory> LoginHistories { get; set; }
 		public List<CurrentSession>  CurrentSessions { get; set; }
+
+		public List<Investment> Investments { get; set; }
 	}
 }

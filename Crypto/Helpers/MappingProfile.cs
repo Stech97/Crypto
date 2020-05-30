@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Models;
 using Crypto.ViewModels;
-using System;
-using System.Collections.Generic;
+
 
 namespace Crypto
 {
@@ -10,26 +9,34 @@ namespace Crypto
 	{
 		public MappingProfile()
 		{
-			CreateMap<InvestmentViewModel, Investment>()
-				.ForMember(m => m.CreatedDate, opt => opt.MapFrom(x => DateTime.Now));
+			CreateMap<Balance, BalanceViewModel>();
 
 			CreateMap<BalanceViewModel, Balance>();
 
-			CreateMap<LoginHistoryViewModel, LoginHistory>();
+			CreateMap<LoginHistory, LoginHistoryViewModel>();
 
+			CreateMap<User, RefLinkViewModel>()
+				.ForMember(m => m.RefId, opt => opt.MapFrom(x => x.UserId))
+				.ForMember(m => m.RefString, opt => opt.MapFrom(x => x.Username));
+			
 			CreateMap<EmailViewModel, EMAIL>();
+
+			CreateMap<LoginViewModel, User>();
+
+			CreateMap<LoginHistoryViewModel, LoginHistory>();
 
 			CreateMap<LoginHistoryViewModel, CurrentSession>();
 
 			CreateMap<ChangePasswordViewModel, User>();
 
 			CreateMap<CheckViewModel, User>();
-
+			
 			CreateMap<User, CheckViewModel>();
 
-			CreateMap<User, RefLinkViewModel>()
-				.ForMember(m => m.RefId, opt => opt.MapFrom(x => x.UserId))
-				.ForMember(m => m.RefString, opt => opt.MapFrom(x => x.Username));
+			CreateMap<InvestmentViewModel, Investment>();
+
+			CreateMap<News, NewsViewModel>();
+
 		}
 	}
 }

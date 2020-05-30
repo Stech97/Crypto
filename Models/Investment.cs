@@ -2,10 +2,9 @@
 {
 	public class Investment
 	{
-		public int InvestmentID { get; set; }
-		public string Name { get; set; }
-		public string Description { get; set; }
-		public string Profit { get; set; }
-		public System.DateTime CreatedDate { get; set; }
+		public int Id { get; set; }
+		
+		public int UserId { get; set; }
+		public User User { get; set; }
 	}
 }
