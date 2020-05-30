@@ -23,9 +23,21 @@ export function updateViewError() {
 	}
 }
 */
+export function updateViewError() {
+	return (dispatch) => {
+		dispatch({
+			type: COMINGSOON_ERROR,
+		   	payload: true,
+			placeholder: "Wrong email. Please try again.",
+		})
+	}
+}
+
+
 export function updateView(email) {
 	const templateId = 'test'
 	return (dispatch) => {
+		  // Validate email
 		let variables = {message_html: email};
 		fetch("http://defima.io:88/api/Email/AddEmail", {
 			method: 'post',

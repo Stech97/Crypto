@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form';
-import { updateView } from '../actions/ComingsoonForm'
+import { updateView, updateViewError } from '../actions/ComingsoonForm'
 
 const renderField = ({ input, placeholder, className, type }) => {
 	return (
@@ -12,6 +12,12 @@ class ComingSoonForm extends Component {
 
 	render() {		
 		const { handleSubmit, submitting, reset, sendError, placeholder} = this.props
+
+		const validateEmail = (check) => {
+			const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+		  	return re.test(String(check).toLowerCase())
+		}
+
         const submit = (values) => {
         	/*
         	window.alert(JSON.stringify({
@@ -52,7 +58,12 @@ class ComingSoonForm extends Component {
 				this.props.dispatch(updateViewError())
 			})
 			*/
-			this.props.dispatch(updateView(), values.email)
+			console.log(values.email, validateEmail(values.email))
+			if (validateEmail(values.email)) {
+				this.props.dispatch(updateView(), values.email)	
+			} else {
+				this.props.dispatch(updateViewError())
+			}
 			this.props.reset()
 		}
 
@@ -65,7 +76,7 @@ class ComingSoonForm extends Component {
 		          component={renderField}
 		          name="email"
 		          className="commingsoon-input-text"
-		          type="email"
+		          type="text"
 		          placeholder={placeholder}
 		        />
 		        <button
