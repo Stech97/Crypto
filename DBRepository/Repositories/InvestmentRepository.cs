@@ -22,14 +22,6 @@ namespace DBRepository.Repositories
 				return await context.Investments.ToListAsync();
 		}
 
-		public async Task AddInvestment(Investment investment)
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				context.Investments.Add(investment);
-				await context.SaveChangesAsync();
-			}
-		}
 		public async Task UpdateInvestment(Investment investment, int Id)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))

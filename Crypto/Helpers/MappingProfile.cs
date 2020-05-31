@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Models;
 using Crypto.ViewModels;
-
+using System;
 
 namespace Crypto
 {
@@ -36,6 +36,10 @@ namespace Crypto
 			CreateMap<InvestmentViewModel, Investment>();
 
 			CreateMap<News, NewsViewModel>();
+
+			CreateMap<NewsViewModel, News>()
+				.ForMember(m => m.CreateDate, opt => opt.MapFrom(m => DateTime.Now))
+				.ForMember(m => m.LastChangeDate, opt => opt.MapFrom(m => DateTime.Now));
 
 		}
 	}

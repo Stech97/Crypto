@@ -9,7 +9,6 @@ namespace Crypto.Services.Interfaces
 	{
 		Task<List<Investment>> GetInvestments();
 		Task<Investment> GetInvestment(int investId);
-		Task AddInvestment(InvestmentViewModel request);
 		Task UpdateInvestment(InvestmentViewModel request, int Id);
 	}
 }

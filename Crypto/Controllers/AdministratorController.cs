@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Crypto.Services.Interfaces;
+using Crypto.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crypto.Controllers
@@ -19,7 +16,7 @@ namespace Crypto.Controllers
 			_administratorService = administratorService;
 		}
 
-		//[Authorize]
+		[Authorize]
 		[Route("DeleteInvestment")]
 		[HttpDelete]
 		public async Task<IActionResult> DeleteInvestment(int Id)
@@ -27,5 +24,24 @@ namespace Crypto.Controllers
 			await _administratorService.DeleteInvestment(Id);
 			return NoContent();
 		}
+
+		//[Authorize]
+		[Route("AddInvestment")]
+		[HttpPost]
+		public async Task<IActionResult> AddInvestment([FromBody] InvestmentViewModel request)
+		{
+			await _administratorService.AddInvestment(request);
+			return Ok();
+		}
+
+		//[Authorize]
+		[Route("AddNews")]
+		[HttpPost]
+		public async Task<IActionResult> AddNews(NewsViewModel request)
+		{
+			await _administratorService.AddNews(request);
+			return Ok();
+		}
+
 	}
 }

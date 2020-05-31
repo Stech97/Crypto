@@ -43,7 +43,7 @@ namespace DBRepository.Repositories
             {
                 var LastMonths = DateTime.Today.AddMonths(-1);
                 return await context.News
-                    .Where(n=>n.LastChangeDate >= LastMonths).OrderByDescending(n => n.Id)
+                    .Where(n=>n.LastChangeDate >= LastMonths).OrderByDescending(n => n.LastChangeDate)
                     .Skip(Skip).Take(Take).ToListAsync();
             }
         }

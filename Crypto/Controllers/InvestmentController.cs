@@ -43,14 +43,5 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-		//[Authorize]
-		[Route("AddInvestment")]
-		[HttpPost]
-		public async Task<IActionResult> AddInvestment([FromBody] InvestmentViewModel request)
-		{
-			await _investmentService.AddInvestment(request);
-			return Ok();
-		}
-
 	}
 }

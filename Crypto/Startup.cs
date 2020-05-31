@@ -62,9 +62,12 @@ namespace Crypto
 
 			services.AddScoped<IDashboardRepository>(provider => 
 			new DashboardRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
-            #endregion
+            
+			services.AddScoped<IAdministratorRepository>(provider =>
+			new AdminstratorRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
+			#endregion
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddSingleton(Configuration);
 
 			#region Service
@@ -72,6 +75,7 @@ namespace Crypto
 			services.AddScoped<IInvestmentService, InvestmentService>();
 			services.AddScoped<IEmailService, EmailService>();
 			services.AddScoped<IDashboardService, DashboardService>();
+			services.AddScoped<IAdministratorService, AdministratorService>();
             #endregion
         }
 
