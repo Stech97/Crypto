@@ -1,0 +1,117 @@
+.login {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - $header-height);
+
+    background: url(../img/waveimage.png) center -11vh/78.2% auto no-repeat,
+        linear-gradient(61deg, #001029 4%, #235fc8 98%) left -11vh/100% 100vh no-repeat;
+    &:before {
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        top: -11vh;
+    }
+
+    &-wrapper {
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 2fr 2fr 1fr 1fr;
+        grid-template-areas: "login-header" "login-form" "login-forgot" "login-footer";
+        justify-items: center;
+    }
+
+    &-header {
+        grid-area: login-header;
+        align-self: end;
+        padding-bottom: 73px;
+        h1 {
+            // Style for "Login to d"
+            color: #ffffff;
+            font-family: "IBM Plex Sans";
+            @include fontsize(60);
+            font-weight: 500;
+        }
+    }
+
+    &-form {
+        grid-area: login-form;
+        width: 30%;
+        display: grid;
+        grid-template-rows: 28% 28% 44%;
+        grid-template-columns: 1fr;
+        grid-template-areas: "user" "password" "login";
+        justify-items: center;
+        input {
+            width: 100%;
+            background: none;
+            height: 38px;
+            font-family: "IBM Plex Sans";
+            @include fontsize(25);
+            font-weight: 500;
+            text-align: left;
+            color: #ffffff;
+            opacity: 0.5;
+            padding: 0 0 10px 0;
+            border-width: 0 0 1px 0;
+            border-bottom-color: #ffffff;
+            ::placeholder {
+                color: #ffffff;
+                opacity: 0.5;
+            }
+            ::-webkit-input-placeholder {
+                color: #ffffff;
+                opacity: 0.5;
+            }
+        }
+
+        &-user {
+            grid-area: user;
+            align-self: start;
+        }
+        &-password {
+            grid-area: password;
+            align-self: end;
+        }
+        &-button {
+            grid-area: login;
+            @include button(220px, $button-height, $button-font-size);
+            @include button-dark();
+            margin-top: 36.5px;
+        }
+    }
+
+    &-forgot {
+        grid-area: login-forgot;
+        p {
+            // Style for "Forgot you"
+            color: #ffffff;
+            font-family: "IBM Plex Sans";
+            @include fontsize(20);
+            line-height: 50px;
+            font-weight: 400;
+            // Text style for "Restore it"
+            a {
+                color: #ffffff;
+                font-family: "IBM Plex Sans";
+                font-weight: 700;
+                text-decoration: underline;
+            }
+        }
+    }
+    .sign-footer {
+        grid-area: login-footer;
+        max-height: 77px;
+        height: 8.3vh;
+        align-self: center;
+        a {
+            // Style for "Terms of u"
+            color: #ffffff;
+            font-family: "IBM Plex Sans";
+            @include fontsize(20);
+            font-weight: 400;
+            line-height: 50px;
+            margin: 8px;
+        }
+    }
+}

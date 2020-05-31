@@ -1,26 +1,15 @@
-<header>
-  <div class="header-grid-container">
-    <div class="top-logo-box">
-      img(class=Logo src="img/logo.png" srcset="img/logo@2x.png 2x, img/logo@3x.png 3x" alt="Logo")
-    </div>
-
-    <div class="top-nav-box">
-      <div class="nav-bar nav-about">
-        <a href="">About</a>
-      </div>
-      <div class="nav-bar nav-team">
-        <a href="">Team</a>
-      </div>
-      <div class="nav-bar nav-blog">
-        <a href="">Blog</a>
-      </div>
-      <div class="nav-bar nav-login">
-        <a href="">Login</a>
-      </div>
-      <div class="nav-bar nav-signup">
-        <a href="#" class="button-main-inversed button-signup">Sign Up</a>
-      </div>
-    </div>
-  </div>
-</header>
-
+.header
+    .header-wrapper
+        .header-logo
+            img(class=Logo src="img/logo.png" srcset="img/logo@2x.png 2x, img/logo@3x.png 3x" alt="Logo")
+        .header.header-nav
+            .header-nav-bar.header-nav-about
+                a(href='') About
+            .header-nav-bar.header-nav-team
+                a(href='') Team
+            .header-nav-bar.header-nav-blog
+                a(href='') Blog
+            .header-nav-bar.header-nav-login
+                a(href='') Login
+            .header-nav-bar.header-nav-signup
+                a.button-main-inversed.button-signup(href='#') Sign Up

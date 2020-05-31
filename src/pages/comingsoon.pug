@@ -6,10 +6,12 @@ html(lang="ru")
             title Defima
             meta(content="width=device-width, initial-scale=1" name="viewport")
             meta(content="ie=edge" http-equiv="x-ua-compatible")
-            link(rel="stylesheet" type="text/css" href="css/style.min.css")
+            link(rel="stylesheet" type="text/css" href="css/comingsoon.min.css")
+            link(href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap" rel="stylesheet")
+            link(href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap" rel="stylesheet")
     body
       section.comingsoon
-        .wrapper
+        .comingsoon-wrapper
           .comingsoon-grid-container
             .comingsoon-logobox
               img(src="img/defimaLogo.png", alt="defimaLogo")
@@ -17,8 +19,8 @@ html(lang="ru")
               h1 We Will Launch Soon.
             .comingsoon-h2-box
               h2 Subscribe to get notification as soon as we launch.
-            form(class="comingsoon-form-box" action="POST")
+            form(class="comingsoon-form-box none" action="POST")
                 input(class="commingsoon-input-text" type="text" required placeholder="maxmustter@hotmail.com")
                 input(type="button" class="comingsoon-input-button" value="Notify Me")
-
-
+            .coming-thanks-box
+                p Thank you for your subscription.

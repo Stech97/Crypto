@@ -1,0 +1,15 @@
+.sign-footer {
+    display: grid;
+    max-height: 77px;
+    height: 8.3vh;
+    align-self: center;
+    a {
+        // Style for "Terms of u"
+        color: #ffffff;
+        font-family: "IBM Plex Sans";
+        @include fontsize(20);
+        font-weight: 400;
+        line-height: 50px;
+        margin: 8px;
+    }
+}

@@ -1,0 +1,72 @@
+.ourmission {
+
+  .wrapper {
+    padding-top: 92px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 117px 1fr;
+    gap: 0px 0px;
+    grid-template-areas: "ourmission-header ." "ourmission-text ourmission-icons";
+  }
+  .ourmission-header {
+    grid-area: ourmission-header;
+    h1 {
+      margin: 0;
+      font-family: "IBM Plex Sans";
+      font-size: 50px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: 1.3;
+      letter-spacing: normal;
+      text-align: left;
+      color: #005c9f;
+    }
+    h2 {
+      margin: 0;
+      font-family: "IBM Plex Sans";
+      font-size: 40px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: italic;
+      line-height: 1.3;
+      letter-spacing: normal;
+      text-align: left;
+      color: #005c9f;
+    }
+  }
+  .ourmission-text {
+    grid-area: ourmission-text;
+    p {
+        max-width: 835px;
+        font-family: "IBM Plex Sans";
+        font-size: 25px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.32;
+        letter-spacing: normal;
+        text-align: left;
+        color: #838383;
+    }
+  }
+  .ourmission-icons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0px 0px;
+    grid-template-areas: "ourmission-iconbox-1 ourmission-iconbox-3" "ourmission-iconbox-2 ourmission-iconbox-4";
+    grid-area: ourmission-icons;
+    align-items: start;
+    justify-items: center;
+  }
+
+  .ourmission-iconbox-1 {
+    grid-area: ourmission-iconbox-1;
+  }
+
+  .ourmission-iconbox-2 { grid-area: ourmission-iconbox-2; }
+
+  .ourmission-iconbox-3 { grid-area: ourmission-iconbox-3; }
+
+  .ourmission-iconbox-4 { grid-area: ourmission-iconbox-4; }
+}

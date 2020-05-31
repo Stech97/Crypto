@@ -1,0 +1,47 @@
+.feedback {
+  &-wrapper {
+    padding-top: 89px;
+    padding-bottom: 91px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: fit-content(68px) fit-content(60px);
+    grid-template-areas: "feedback-header" "feedback-button";
+    justify-items: center;
+    gap: 31px 0;
+  }
+  &-header {
+    grid-area: feedback-header;
+    h1 {
+      font-family: "IBM Plex Sans";
+      font-size: 50px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.3;
+      letter-spacing: normal;
+      text-align: center;
+      color: #ffffff;
+    }
+  }
+  &-button {
+    grid-area: feedback-button;
+    a {
+      padding-top: 10px;
+      display: block;
+      width: 220px;
+      height: 60px;
+      border-radius: 30px;
+      border: solid 3px #ffffff;
+
+      font-family: "IBM Plex Sans";
+      font-size: 25px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.32;
+      letter-spacing: normal;
+      text-align: center;
+      color: #ffffff;
+    }
+  }
+}

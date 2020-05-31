@@ -1,0 +1,139 @@
+.signup {
+    position: relative;
+    width: 100%;
+    $signup-height: 100vh - $header-height;
+    height: $signup-height;
+    background: url(../img/waveimage.png) center -11vh/78.2% auto no-repeat,
+        linear-gradient(61deg, #001029 4%, #235fc8 98%) left -11vh/100% 100vh no-repeat;
+
+    &-wrapper {
+        height: 100%;
+        width: 100%;
+        display: grid;
+        margin: 0 28.75%;
+        grid-template-columns: 42.5%;
+        $signup-header: 26.25%;
+        $signup-form: 52.29%;
+        $signup-signin: 6.77%;
+        $sign-footer: 8.02%;
+        grid-template-rows:  $signup-header $signup-form $signup-signin $sign-footer;
+        grid-template-areas: "signup-header" "signup-form" "signup-signin" "signup-footer";
+        justify-items: center;
+
+    }
+
+    &-header {
+        grid-area: signup-header;
+        align-self: end;
+        padding-bottom: 7.8125%;
+        h1 {
+            // Style for "Login to d"
+            color: #ffffff;
+            font-family: "IBM Plex Sans";
+            @include fontsize(60);
+            font-weight: 500;
+        }
+    }
+
+    &-form {
+        grid-area: signup-form;
+        width: 100%;
+        display: grid;
+        grid-template-rows: 25% 25% 20.72% 16.73% 11.95%;
+        grid-template-columns: 49% 49%;
+        gap: 0 2%;
+        grid-template-areas: "firstname lastname" "email username" "password repeatpassword" "termsagree countrycheck" "signup-button signup-button";
+        justify-items: center;
+        align-items: start;
+        input[type="text"] {
+            width: 100%;
+            background: none;
+            height: 38px;
+            font-family: "IBM Plex Sans";
+            @include fontsize(25);
+            font-weight: 500;
+            text-align: left;
+            color: #ffffff;
+            opacity: 0.5;
+            padding: 0 0 10px 0;
+            border-width: 0 0 1px 0;
+            border-bottom-color: #ffffff;
+            ::placeholder {
+                color: #ffffff;
+                opacity: 0.5;
+            }
+            ::-webkit-input-placeholder {
+                color: #ffffff;
+                opacity: 0.5;
+            }
+        }
+        input[type="checkbox"] {
+            height: 1.5625vw;
+            width: 1.5625vw;
+            border: 3px solid #f5fbff;
+            background: transparent;
+        }
+
+        $inputs: firstname, lastname, email, username, password, repeatpassword, termsagree, countrycheck;
+        @each $area in $inputs {
+            @include grid-area($area) {
+                width: 100%;
+            }
+        }
+
+        &-termsagree, &-countrycheck {
+            span {
+                // Style for "I agree wi"
+                color: #ffffff;
+                font-family: "IBM Plex Sans";
+                @include fontsize(20);
+                font-weight: 500;
+                line-height: 50px;
+                // Text style for "Terms and"
+                a {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        &-button {
+            grid-area: signup-button;
+            @include button(220px, $button-height, $button-font-size);
+            @include button-dark();
+            margin-top: 36.5px;
+        }
+    }
+    &-signin {
+        grid-area: signup-signin;
+        p {
+            // Style for "Forgot you"
+            color: #ffffff;
+            font-family: "IBM Plex Sans";
+            @include fontsize(20);
+            line-height: 50px;
+            font-weight: 400;
+            // Text style for "Restore it"
+            a {
+                color: #ffffff;
+                font-family: "IBM Plex Sans";
+                font-weight: 700;
+                text-decoration: underline;
+            }
+        }
+    }
+    .sign-footer {
+        grid-area: signup-footer;
+        max-height: 77px;
+        height: 8.3vh;
+        align-self: center;
+        a {
+            // Style for "Terms of u"
+            color: #ffffff;
+            font-family: "IBM Plex Sans";
+            @include fontsize(20);
+            font-weight: 400;
+            line-height: 50px;
+            margin: 8px;
+        }
+    }
+}

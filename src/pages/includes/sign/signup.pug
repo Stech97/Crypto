@@ -1,0 +1,25 @@
+section.signup
+    .signup-wrapper
+        .signup-header
+            h1 Create an Account
+        .signup-form
+            input(type="text" class="signup-form-firstname" placeholder="First Name")
+            input(type="text" class="signup-form-lastname" placeholder="Last Name")
+            input(type="text" class="signup-form-email" placeholder="E-Mail")
+            input(type="text" class="signup-form-username" placeholder="Username")
+            input(type="text" class="signup-form-password" placeholder="Password")
+            input(type="text" class="signup-form-repeatpassword" placeholder="Repeat Password")
+            label(for="termsAgree" class="signup-form-termsagree")
+                input(type="checkbox" id="termsAgree")
+                span I agree with
+                  a(href="") Terms and conditions
+            label(for="countryCheck" class="signup-form-countrycheck")
+                input(type="checkbox" id="countryCheck")
+                span I am NOT an USA or CANADA Citizen
+            button(type="submit" class="signup-form-button") Create an account
+        .signup-signin
+            p Already have an account?
+                a(href="") Sign in
+        .sign-footer
+            a(href="#") Terms of use
+            a(href="#") Privacy policy

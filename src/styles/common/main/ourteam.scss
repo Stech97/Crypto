@@ -1,0 +1,136 @@
+$section: "ourteam";
+$sub-section: "member";
+.#{$section} {
+  &-wrapper {
+    padding-top: 70px;
+    padding-bottom: 75.5px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 117px 1fr;
+    gap: 0;
+    grid-template-areas: $section+"-header" $section+"-"+$sub-section;
+  }
+
+  &-#{$sub-section} {
+    padding-top: 53px;
+    grid-area: #{$section+"-"+$sub-section};
+    justify-self: center;
+    width: calc(100% + 236px);
+    display: grid;
+    grid-template-columns: auto repeat(3, 21.5%) auto;
+    grid-template-rows: 2.57fr 1fr;
+
+    background: linear-gradient(0deg,#ed7102 100%,#ed7102 100%) left calc(53px + 47%)/calc(100% + 234px) calc(100% * 2.57 / 7.14) no-repeat;
+    margin-left: -140px;
+    margin-right: -96px;
+    padding-left: 140px;
+    padding-right: 96px;
+
+    $row1: ". ";
+    $row2: ". ";
+    @for $j from 1 through 3 {
+      $row1: $row1 + $section + "-" + $sub-section + "-photo-"+$j+" ";
+      $row2: $row2 + $section + "-" + $sub-section + "-caption-"+$j+" ";
+    }
+    $row1: $row1 + " .";
+      $row2: $row2 + " .";
+
+    grid-template-areas: $row1 $row2;
+    gap: 0 3.15%;
+
+    align-items: center;
+    justify-items: center;
+
+    @for $i from 1 through 3 {
+      &-photo-#{$i} {
+        grid-area: #{$section+"-"+$sub-section+"-photo-"+$i};
+
+        padding: 10% 0;
+      }
+      &-caption-#{$i} {
+        grid-area: #{$section+"-"+$sub-section+"-caption-"+$i};
+        height: 100%;
+        width: 72%;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+
+    &-name {
+      margin-top: 23px;
+      margin-bottom: 0;
+      p {
+        margin: 0;
+        font-family: "IBM Plex Sans";
+        font-size: 25px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.32;
+        letter-spacing: normal;
+        text-align: center;
+        color: #005c9f;
+      }
+    }
+    &-post {
+      margin-top: 10px;
+      padding-bottom: 18.5px;
+      border-bottom: 1px solid #838383;
+      width: 100%;
+      p {
+        margin: 0;
+        font-family: "IBM Plex Sans";
+        font-size: 25px;
+        font-weight: 300;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.32;
+        letter-spacing: normal;
+        text-align: center;
+        color: #838383;
+      }
+    }
+    &-mailbutton {
+      margin: 18.5px calc(50% - 30px);
+      a {
+        display: block;
+        padding: 17px 17px;
+        border-radius: 30px;
+        width: 60px;
+        height:60px;
+        background-color: #ed7102;
+        font-size: 25px;
+        color: #ffffff;
+        text-align: center;
+        line-height: 0px;
+      }
+    }
+  }
+
+  &-header {
+    grid-area: ourteam-header;
+    h1 {
+      font-family: "IBM Plex Sans";
+      font-size: 50px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: 1.3;
+      letter-spacing: normal;
+      text-align: left;
+      color: #005c9f;
+    }
+    h2 {
+      font-family: "IBM Plex Sans";
+      font-size: 40px;
+      font-weight: 400;
+      font-stretch: normal;
+      font-style: italic;
+      line-height: 1.3;
+      letter-spacing: normal;
+      text-align: left;
+      color: #005c9f;
+    }
+  }
+}

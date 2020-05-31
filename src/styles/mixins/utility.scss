@@ -1,0 +1,43 @@
+@mixin fontsize($size) {
+    font-size: $size*0.052vw;
+}
+
+@mixin button($width, $height, $fontsize) {
+    width: $width;
+    height: $height;
+    padding: $height*0.2 $width*0.21 $height*0.2 $width*0.21;
+    @include fontsize($fontsize);
+    font-weight: 500;
+    line-height: 1.31;
+    border-radius: $height*0.6;
+    border: solid 3px #ed7102;
+}
+
+@mixin button-light() {
+    font-family: "IBM Plex Sans";
+    text-align: center;
+    color: #ed7102;
+    background-color: #ffffff;
+    &:hover {
+        color: #ffffff;
+        background-color: #ed7102;
+    }
+}
+
+@mixin button-dark() {
+    font-family: "IBM Plex Sans";
+    text-align: center;
+    color: #ffffff;
+    background-color: #ed7102;
+    &:hover {
+        color: #ed7102;
+        background-color: inherit;
+    }
+}
+
+@mixin grid-area($class) {
+    &-#{$class} {
+        grid-area: $class;
+        @content;
+    }
+}

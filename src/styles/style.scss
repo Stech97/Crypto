@@ -1,31 +1,31 @@
-@import "utils/backgrounds";
+@import "common/main/backgrounds";
 
 @import "utils/fonts";
 
-@import "common/comingsoon";
+@import "utils/normalize";
 
-@import "common/global";
+@import "common/main/global";
 
-@import "common/header";
+@import "common/main/header";
 
-@import "common/homescreen";
+@import "common/main/homescreen";
 
-@import "common/ourmission";
+@import "common/main/ourmission";
 
-@import "common/howitworks";
+@import "common/main/howitworks";
 
-@import "common/portfolio";
+@import "common/main/portfolio";
 
-@import "common/career";
+@import "common/main/career";
 
-@import "common/defimatoken";
+@import "common/main/defimatoken";
 
-@import "common/ourteam";
+@import "common/main/ourteam";
 
-@import "common/joinus";
+@import "common/main/joinus";
 
-@import "common/faq";
+@import "common/main/faq";
 
-@import "common/feedback";
+@import "common/main/feedback";
 
-@import "common/footer";
+@import "common/main/footer";
