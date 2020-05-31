@@ -124,11 +124,11 @@
   /* Стили для устройств с шириной viewport, находящейся в диапазоне 992px - 1199px */
   .comingsoon {
     width: 100%;
-    .wrapper {
+    &-wrapper {
       border-bottom-left-radius: 150px;
       border: none;
       height: 100vh;
-      background: url({waveimage}) 10.9% -60px/78.2% auto no-repeat,
+      background: url({waveimage}) center -60px/78.2% auto no-repeat,
         linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat;
       background-clip: padding-box;
       .comingsoon-grid-container {

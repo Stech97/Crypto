@@ -16,10 +16,10 @@ class App extends Component {
         return (
             <Router>
             	<Switch>
+            		<Route path="/comingsoon" component = { ComingSoon } />
 	                <Route path="/main" component = { MainPage } />
 	                <Route path="/login" component = { LoginPage } />
 	                <Route path="/" component = { Dashboard } />
-
  	            </Switch>
             </Router>
         )
