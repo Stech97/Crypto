@@ -9,7 +9,7 @@ const gulpStylelint = require('gulp-stylelint')
 const rename = require("gulp-rename")
 
 module.exports = function styles() {
-  return gulp.src('src/styles/dashboard.scss')
+  return gulp.src('src/styles/*.scss')
     .pipe(plumber())
     .pipe(gulpStylelint({
       failAfterError: false,

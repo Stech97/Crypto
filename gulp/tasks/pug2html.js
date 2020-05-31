@@ -8,7 +8,7 @@ const pretty = require('gulp-pretty-html')
 const config = require('../config')
 
 module.exports = function pug2html(cb) {
-	return gulp.src('src/pages/dashboard.pug')
+	return gulp.src('src/pages/*.pug')
 		.pipe(plumber())
 		.pipe(pugLinter({ reporter: 'default' }))
 		.pipe(pug())
