@@ -26,12 +26,6 @@ namespace Crypto.Services.Implementation
             return _mapper.Map<Balance, BalanceViewModel>(balance);
         }
 
-        public async Task UpdateBalance(BalanceViewModel request, int Id)
-        {
-            var balanceOld = _mapper.Map<BalanceViewModel, Balance>(request);
-            await _repositoryDashboard.UpdateBalance(balanceOld, Id);
-        }
-
         public async Task<List<LoginHistoryViewModel>> GetLoginHistory(int Id)
         {
             var LoginHistory = await _repositoryDashboard.GetLoginHistory(Id);
@@ -49,6 +43,13 @@ namespace Crypto.Services.Implementation
             var news = await _repositoryDashboard.GetNews(Take, Skip);
 
             return _mapper.Map<List<News>, List<NewsViewModel>>(news);
+        }
+
+        public async Task<BalanceViewModel> ExchangeBalance(BalanceViewModel request, int UserId)
+        {
+            var balanceOld = _mapper.Map<BalanceViewModel, Balance>(request);
+            var balanceNew = await _repositoryDashboard.ExchangeBalance(balanceOld, UserId);
+            return  _mapper.Map<Balance, BalanceViewModel>(balanceNew);
         }
     }
 }

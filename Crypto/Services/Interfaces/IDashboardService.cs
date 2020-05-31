@@ -9,7 +9,7 @@ namespace Crypto.Services.Interfaces
         Task<BalanceViewModel> GetBalance(int Id);
         Task<RefLinkViewModel> GetRefLink(int Id);
         Task<List<LoginHistoryViewModel>> GetLoginHistory(int Id);
-        Task UpdateBalance(BalanceViewModel request, int Id);
         Task<List<NewsViewModel>> GetNews(int Take, int Skip);
+        Task<BalanceViewModel> ExchangeBalance(BalanceViewModel request, int UserId);
     }
 }

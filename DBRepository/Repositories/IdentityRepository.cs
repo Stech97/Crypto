@@ -13,7 +13,7 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				return await context.Users.FirstOrDefaultAsync(u => u.Username == userName);
+				return await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == userName);
 			}
 		}
 
@@ -21,7 +21,7 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				return await context.Users.FirstOrDefaultAsync(u => u.Id == Id);
+				return await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Id);
 			}
 		}
 
@@ -76,7 +76,7 @@ namespace DBRepository.Repositories
 		public async Task<User> CheckInfo(User user)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-                return await context.Users.FirstOrDefaultAsync(u => u.Username == user.Username || u.Email == user.Email);
+                return await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == user.Username || u.Email == user.Email);
 		}
 	}
 }

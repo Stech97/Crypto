@@ -26,15 +26,6 @@ namespace Crypto.Controllers
             return Ok(await _dashboardService.GetBalance(Id));
         }
 
-        //[Authorize]
-        [Route("UpdateBalance")]
-        [HttpPatch]
-        public async Task<IActionResult> UpdateBalance([FromBody] BalanceViewModel request, int Id)
-        {
-            await _dashboardService.UpdateBalance(request, Id);
-            return Ok();
-        }
-
         [Route("GetTime")]
         [HttpGet]
         public IActionResult GetServerTime()
@@ -67,6 +58,14 @@ namespace Crypto.Controllers
         public async Task<IActionResult> GetNews(int Take, int Skip)
         {
             return Ok(await _dashboardService.GetNews(Take, Skip));
+        }
+
+        //[Authorize]
+        [Route("Exchange")]
+        [HttpPatch]
+        public async Task<IActionResult> Exchange([FromBody]BalanceViewModel request, int UserId)
+        {
+            return Ok(await _dashboardService.ExchangeBalance(request, UserId));
         }
 
     }
