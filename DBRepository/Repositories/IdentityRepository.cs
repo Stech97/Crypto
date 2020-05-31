@@ -21,7 +21,7 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				return await context.Users.FirstOrDefaultAsync(u => u.UserId == Id);
+				return await context.Users.FirstOrDefaultAsync(u => u.Id == Id);
 			}
 		}
 
@@ -66,7 +66,7 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var newPassword = await context.Users.FirstOrDefaultAsync(u => u.UserId == Id && u.Username == user.Username);
+				var newPassword = await context.Users.FirstOrDefaultAsync(u => u.Id == Id && u.Username == user.Username);
 				newPassword.Password = user.Password;
 				context.Users.Update(newPassword);
 				await context.SaveChangesAsync();

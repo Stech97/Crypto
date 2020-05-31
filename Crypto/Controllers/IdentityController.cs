@@ -49,7 +49,7 @@ namespace Crypto.Controllers
 				{
 					IP = model.IP,
 					LoginTime = DateTime.Now,
-					UserId = user.UserId,
+					UserId = user.Id,
 					Country = model.Country
 				};
 
@@ -69,10 +69,11 @@ namespace Crypto.Controllers
 					signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-			var response = new
+			UserViewModel response = new UserViewModel
 			{
-				access_token = encodedJwt,
-				username = identity.Name
+				Id = user.Id,
+				Username = user.Username,
+				Token = encodedJwt
 			};
 
 			return Ok(response);
