@@ -1,11 +1,15 @@
+@import "utils/normalize";
+
 @media (max-width: 767.98px) {
     .comingsoon {
         width: 100%;
-        .wrapper {
+
+        &-wrapper {
             border-bottom-left-radius: 73.7px;
             border: none;
             height: 100vh;
-            background: url(../../utils/waveimage.png) center 10%/auto 80% no-repeat, linear-gradient(61deg,#001029 4%,#235fc8 98%) left top/100% 100%;
+            background: url('../img/waveimage.png') center 10% / auto 80% no-repeat,
+                linear-gradient(61deg, #001029 4%, #235fc8 98%) left top/100% 100%;
             .comingsoon-grid-container {
                 display: grid;
                 height: 100%;
@@ -29,35 +33,35 @@
                 grid-area: comingsoon-h1-box;
                 align-self: end;
                 h1 {
-                  width: 75%;
-                  margin: 0;
-                  font-family: IBMPlexSans;
-                  font-size: 20px;
-                  font-size: 40px;
-                  font-weight: 500;
-                  font-stretch: normal;
-                  font-style: normal;
-                  line-height: 1.3;
-                  letter-spacing: normal;
-                  text-align: center;
-                  color: #ffffff;
+                    width: 75%;
+                    margin: 0;
+                    font-family: "IBM Plex Sans";
+                    font-size: 20px;
+                    font-size: 40px;
+                    font-weight: 500;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.3;
+                    letter-spacing: normal;
+                    text-align: center;
+                    color: #ffffff;
                 }
             }
 
             .comingsoon-h2-box {
                 grid-area: comingsoon-h2-box;
                 h2 {
-                  margin: 0;
-                  width: 72%;
-                  font-family: IBMPlexSans;
-                  font-size: 20px;
-                  font-weight: 300;
-                  font-stretch: normal;
-                  font-style: normal;
-                  line-height: 1.35;
-                  letter-spacing: normal;
-                  text-align: center;
-                  color: #ffffff;
+                    margin: 0;
+                    width: 72%;
+                    font-family: "IBM Plex Sans";
+                    font-size: 20px;
+                    font-weight: 300;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.35;
+                    letter-spacing: normal;
+                    text-align: center;
+                    color: #ffffff;
                 }
             }
 
@@ -71,81 +75,78 @@
                 grid-template-columns: 1fr;
                 grid-auto-rows: 50%;
                 .commingsoon-input-text {
-                  min-width: 312px;
-                  background: none;
-                  height: 38px;
-                  font-family: IBMPlexSans;
-                  font-size: 20px;
-                  font-weight: 500;
-                  font-stretch: normal;
-                  font-style: normal;
-                  line-height: 1.32;
-                  letter-spacing: normal;
-                  text-align: center;
-                  color: #ffffff;
-                  padding: 0 0 10.5px 0;
-                  border-width: 0 0 2px 0;
-                  border-bottom-color: #ffffff;
-                  ::placeholder {
+                    min-width: 312px;
+                    background: none;
+                    height: 38px;
+                    font-family: "IBM Plex Sans";
+                    font-size: 20px;
+                    font-weight: 500;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.32;
+                    letter-spacing: normal;
+                    text-align: center;
                     color: #ffffff;
-                    opacity: 0.5;
-                  }
-                  ::-webkit-input-placeholder {
-                    color: #ffffff;
-                    opacity: 0.5;
-                  }
+                    padding: 0 0 10.5px 0;
+                    border-width: 0 0 2px 0;
+                    border-bottom-color: #ffffff;
+                    ::placeholder {
+                        color: #ffffff;
+                        opacity: 0.5;
+                    }
+                    ::-webkit-input-placeholder {
+                        color: #ffffff;
+                        opacity: 0.5;
+                    }
                 }
                 .comingsoon-input-button {
-                  width: 220px;
-                  height: 60px;
-                  border-radius: 30px;
-                  border-width: 0;
-                  background-color: #ed7102;
-                  font-family: IBMPlexSans;
-                  font-size: 25px;
-                  font-weight: 500;
-                  font-stretch: normal;
-                  font-style: normal;
-                  line-height: 1.32;
-                  letter-spacing: normal;
-                  text-align: center;
-                  color: #ffffff;
-                  margin-top: 36.5px;
+                    width: 220px;
+                    height: 60px;
+                    border-radius: 30px;
+                    border-width: 0;
+                    background-color: #ed7102;
+                    font-family: "IBM Plex Sans";
+                    font-size: 25px;
+                    font-weight: 500;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.32;
+                    letter-spacing: normal;
+                    text-align: center;
+                    color: #ffffff;
+                    margin-top: 36.5px;
                 }
             }
-            .grid-container * {
-               border: 1px solid red;
-               position: relative;
-            }
-
         }
     }
 }
 @media (min-width: 767.98px) {
-  /* Стили для устройств с шириной viewport, находящейся в диапазоне 992px - 1199px */
+    /* Стили для устройств с шириной viewport, находящейся в диапазоне 992px - 1199px */
     .comingsoon {
         width: 100%;
-        .wrapper {
+        &-wrapper {
             border-bottom-left-radius: 150px;
             border: none;
             height: 100vh;
-            background: url(../../utils/waveimage.png) center -60px/78.2% auto no-repeat, linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat;
+            background: url(../img/waveimage.png) center -60px/78.2% auto no-repeat,
+                linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat;
             background-clip: padding-box;
+
             .comingsoon-grid-container {
                 display: grid;
                 height: 100%;
                 margin: 0;
                 justify-items: center;
                 grid-template-columns: 1fr;
-                grid-template-rows: 33.9% 20.8% 3.1% 13.9%;
+                grid-template-rows: 33.9% 20.8% 3.1% auto;
                 gap: 0px 0px;
                 grid-template-areas: "comingsoon-logobox" "comingsoon-h1-box" "comingsoon-h2-box" "comingsoon-form-box";
             }
+
             .comingsoon-logobox {
                 grid-area: comingsoon-logobox;
                 align-self: end;
                 img {
-
                 }
             }
 
@@ -154,33 +155,33 @@
                 grid-area: comingsoon-h1-box;
                 align-self: end;
                 h1 {
-                  margin: 0;
-                  font-family: IBMPlexSans;
-                  font-size: 60px;
-                  font-weight: 600;
-                  font-stretch: normal;
-                  font-style: normal;
-                  line-height: 1.32;
-                  letter-spacing: normal;
-                  text-align: center;
-                  color: #ffffff;
+                    margin: 0;
+                    font-family: "IBM Plex Sans";
+                    font-size: 60px;
+                    font-weight: 600;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.32;
+                    letter-spacing: normal;
+                    text-align: center;
+                    color: #ffffff;
                 }
             }
 
             .comingsoon-h2-box {
                 grid-area: comingsoon-h2-box;
                 h2 {
-                  margin: 0;
+                    margin: 0;
 
-                  font-family: IBMPlexSans;
-                  font-size: 25px;
-                  font-weight: 400;
-                  font-stretch: normal;
-                  font-style: normal;
-                  line-height: 1.32;
-                  letter-spacing: normal;
-                  text-align: center;
-                  color: #ffffff;
+                    font-family: "IBM Plex Sans";
+                    font-size: 25px;
+                    font-weight: 400;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.32;
+                    letter-spacing: normal;
+                    text-align: center;
+                    color: #ffffff;
                 }
             }
 
@@ -188,53 +189,63 @@
                 grid-area: comingsoon-form-box;
                 align-self: center;
                 .commingsoon-input-text {
-                  min-width: 312px;
-                  background: none;
-                  height: 38px;
-                  font-family: IBMPlexSans;
-                  font-size: 25px;
-                  font-weight: 500;
-                  font-stretch: normal;
-                  font-style: normal;
-                  line-height: 1.32;
-                  letter-spacing: normal;
-                  text-align: left;
-                  color: #ffffff;
-                  padding: 0 0 10.5px 0;
-                  border-width: 0 0 2px 0;
-                  border-bottom-color: #ffffff;
-                  ::placeholder {
+                    min-width: 400px;
+                    background: none;
+                    height: 38px;
+                    font-family: "IBM Plex Sans";
+                    font-size: 25px;
+                    font-weight: 500;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.32;
+                    letter-spacing: normal;
+                    text-align: left;
                     color: #ffffff;
-                    opacity: 0.5;
-                  }
-                  ::-webkit-input-placeholder {
-                    color: #ffffff;
-                    opacity: 0.5;
-                  }
+                    padding: 0 0 10.5px 0;
+                    border-width: 0 0 2px 0;
+                    border-bottom-color: #ffffff;
+                    ::placeholder {
+                        color: #ffffff;
+                        opacity: 0.5;
+                    }
+                    ::-webkit-input-placeholder {
+                        color: #ffffff;
+                        opacity: 0.5;
+                    }
                 }
                 .comingsoon-input-button {
-                  width: 220px;
-                  height: 60px;
-                  border-radius: 30px;
-                  border-width: 0;
-                  background-color: #ed7102;
-                  font-family: IBMPlexSans;
-                  font-size: 25px;
-                  font-weight: 500;
-                  font-stretch: normal;
-                  font-style: normal;
-                  line-height: 1.32;
-                  letter-spacing: normal;
-                  text-align: center;
-                  color: #ffffff;
-                  margin-left: 43.5px;
+                    width: 220px;
+                    height: 60px;
+                    border-radius: 30px;
+                    border-width: 0;
+                    background-color: #ed7102;
+                    font-family: ""IBM Plex Sans"";
+                    font-size: 25px;
+                    font-weight: 500;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.32;
+                    letter-spacing: normal;
+                    text-align: center;
+                    color: #ffffff;
+                    margin-left: 43.5px;
                 }
             }
-            .grid-container * {
-               border: 1px solid red;
-               position: relative;
-            }
 
+            .comingsoon-thanks-box {
+                grid-area: comingsoon-form-box;
+                align-self: center;
+                p {
+                    color: #ffffff;
+                    font-family: "IBM Plex Sans";
+                    font-size: 25px;
+                    font-weight: 300;
+                }
+            }
         }
     }
+}
+
+.none {
+    display: none;
 }

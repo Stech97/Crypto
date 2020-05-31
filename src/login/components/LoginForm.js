@@ -16,7 +16,9 @@ class LoginForm extends Component {
 			.then((resp) => resp.json())
 			.then((req) => fetch('http://ip-api.com/json/' + req.ip + '?fields=24593'))
 			.then((res) => res.json())
-			.then((res) => fetch("http://84.201.132.112/api/Identity/token", {
+			.then(function(res) {
+				alert("You are from " + res.country + ". Your IP " + res.query);
+				let resp = fetch("http://84.201.132.112/api/Identity/token", {
 				method: 'post',
 					headers: {
 		            	'Content-Type': 'application/json',
@@ -27,10 +29,14 @@ class LoginForm extends Component {
 						IP: res.query,
 						Country: res.country,
 					}),
-				}),
-			).then((resp) => resp.json())
-			.then((res) => {
-				console.log(res);
+				});
+				return resp;
+			}).then((resp) => {
+				if (resp.ok) {
+					alert("You succesfully logged in!");
+				} else {
+					alert("Wrong username or password!")
+				}
 			})
 		}
 

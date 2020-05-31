@@ -18,8 +18,8 @@ class App extends Component {
             	<Switch>
 	                <Route path="/main" component = { MainPage } />
 	                <Route path="/login" component = { LoginPage } />
-	                <Route path="/dashboard" component = { Dashboard } />
-	            
+	                <Route path="/" component = { Dashboard } />
+
  	            </Switch>
             </Router>
         )
