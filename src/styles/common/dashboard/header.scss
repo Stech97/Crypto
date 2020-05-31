@@ -1,0 +1,58 @@
+.dash-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100%;
+    gap: 1px 1px;
+    grid-template-areas: "dash-header-logo dash-header-user";
+    grid-area: header;
+    align-items: center;
+    padding: 0 120px;
+
+    &-logo {
+        grid-area: dash-header-logo;
+        img {
+            max-height: 61px;
+            height: 5vh;
+            width: auto;
+        }
+    }
+
+    &-user {
+        justify-self: end;
+        grid-area: dash-header-user;
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-rows: 100%;
+        grid-auto-flow: row;
+        align-items: center;
+        &-icon {
+            height: 76px;
+            width: 76px;
+            border-radius: 38px;
+            background-image: linear-gradient(50deg, #123273 0%, #005c9f 100%);
+            img {
+                max-width: 34px;
+                margin: 17px 21px;
+            }
+        }
+        &-name {
+            margin: 0 22px;
+            h2 {
+                // Style for "username"
+                color: #123273;
+                font-family: "IBM Plex Sans";
+                font-size: 28px;
+                font-weight: 500;
+            }
+        }
+
+        &-arrow {
+            img {
+                // Style for "Group 620"
+                width: 22px;
+                height: 11px;
+            }
+        }
+    }
+}
+

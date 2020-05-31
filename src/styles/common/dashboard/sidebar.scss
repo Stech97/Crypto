@@ -1,0 +1,66 @@
+.sidebar {
+    display: grid;
+    grid-template-columns: calc(100% - 50px);
+    grid-template-rows: 75px 75px 75px 75px 75px 75px 75px 75px;
+    gap: 13px 0px;
+    grid-template-areas: "sidebar-burger" "sidebar-dash" "sidebar-investment" "sidebar-team" "sidebar-marketing" "sidebar-history" "sidebar-support" "sidebar-time";
+    grid-area: sidebar;
+
+    padding-left: 25px;
+    padding-right: 25px;
+
+    background-image: linear-gradient(19deg, #0b1f48 0%, #005c9f 100%);
+    
+    p {
+        // Style for "Server Tim"
+        margin: 0;
+        color: #ffffff;
+        font-family: "IBM Plex Sans";
+        font-size: 25px;
+        font-weight: 400;
+    }
+    .sidebar-burger { grid-area: sidebar-burger; }
+
+    .sidebar-dash { grid-area: sidebar-dash; }
+
+    .sidebar-investment { grid-area: sidebar-investment; }
+
+    .sidebar-team { grid-area: sidebar-team; }
+
+    .sidebar-marketing { grid-area: sidebar-marketing; }
+
+    .sidebar-history { grid-area: sidebar-history; }
+
+    .sidebar-support { grid-area: sidebar-support; }
+
+    .sidebar-time { grid-area: sidebar-time; }
+
+    .sidebar-bar {
+        display: grid;
+        grid-template-rows: 100%;
+        grid-template-columns: 1fr 3fr 1fr;
+        grid-auto-flow: row;
+        align-items: center;
+
+        padding-left: 23px;
+        padding-right: 27px;
+        border-radius: 15px;
+        &:hover {
+            background-color: #ffffff;
+                h3 {
+                    color: #123273;
+                }
+            color: #123273;
+        }
+
+        &-arrow {
+            justify-self: end;
+        }
+    }
+    .sidebar-bar-selected {
+        background-color: #ffffff;
+        h3 {
+            color: #123273;
+        }
+    }
+}

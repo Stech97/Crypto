@@ -1,0 +1,83 @@
+.content {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: min-content min-content min-content min-content;
+  gap: 60px 0px;
+  grid-template-areas: "content-balance" "content-earnings" "content-links" "content-newslog";
+  background-color: #f5fbff;
+  &-balance {
+    display: grid;
+    grid-template-columns: 17.10% 6.18% 17.1% 6.18% 17.1%;
+    grid-template-rows: 33px 260px;
+    gap: 25px 30px;
+    grid-template-areas: "btc-header btc-dol dol-header dol-coin coin-header" "btc-square btc-dol dol-square dol-coin coin-square";
+    grid-area: content-balance;
+
+    &-btc-header { grid-area: btc-header; }
+
+    &-btc-square { grid-area: btc-square; }
+
+    &-btc-dol { grid-area: btc-dol; }
+
+    &-dol-header { grid-area: dol-header; }
+
+    &-dol-square { grid-area: dol-square; }
+
+    &-dol-coin { grid-area: dol-coin; }
+
+    &-coin-header { grid-area: dol-header; }
+
+    &-coin-square { grid-area: dol-square; }
+  }
+
+    &-earnings {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 158px 158px;
+      gap: 40px 16px;
+      grid-template-areas: "content-earnings-total-invmemb content-earnings-profteam content-earnings-totalprof content-earnings-graph" ". . . .";
+      grid-area: content-earnings;
+
+      &-total-invmemb { grid-area: content-earnings-total-invmemb; }
+
+      &-profteam { grid-area: content-earnings-profteam; }
+
+      &-totalprof { grid-area: content-earnings-totalprof; }
+
+      &-graph { grid-area: content-earnings-graph; }
+    }
+
+
+  &-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 70px 70px;
+    gap: 38px 1px;
+    grid-template-areas: "refbyid refbyid refbyid refbyusername refbyusername refbyusername" "presentation-link presentation-link image-video-link image-video-link tutorial-link tutorial-link";
+    grid-area: content-links;
+
+    .refbyid { grid-area: refbyid; }
+
+    .refbyusername { grid-area: refbyusername; }
+
+    .presentation-link { grid-area: presentation-link; }
+
+    .image-video-link { grid-area: image-video-link; }
+
+    .tutorial-link { grid-area: tutorial-link; }
+  }
+
+  &-newslog {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 623px;
+    gap: 0px 16px;
+    grid-template-areas: "content-newslog-news content-newslog-loginhistory";
+    grid-area: content-newslog;
+
+
+    &-news { grid-area: content-newslog-news; }
+
+    &-loginhistory { grid-area: content-newslog-loginhistory; }
+  }
+}
