@@ -81,7 +81,7 @@ namespace Crypto.Controllers
 
 		[Route("CreateLogin")]
 		[HttpPost]
-		public async Task<IActionResult> CreateLogin(LoginViewModel login)
+		public async Task<IActionResult> CreateLogin([FromBody]LoginViewModel login)
 		{
 			using (SHA256Managed sha256 = new SHA256Managed())
 			{

@@ -33,7 +33,7 @@ namespace Crypto
 			
 			CreateMap<User, CheckViewModel>();
 
-			CreateMap<InvestmentViewModel, Investment>();
+			CreateMap<Investment, InvestmentViewModel>();
 
 			CreateMap<News, NewsViewModel>();
 

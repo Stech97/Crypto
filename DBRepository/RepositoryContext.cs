@@ -26,8 +26,8 @@ namespace DBRepository
 
             #region Investment
             modelBuilder.Entity<Investment>().ToTable("Investment");
-            //modelBuilder.Entity<Investment>().Property(i => i.Name).IsRequired();
-            //modelBuilder.Entity<Investment>().Property(i => i.Description).IsRequired();
+            modelBuilder.Entity<Investment>().Property(i => i.AddCash).IsRequired();
+            modelBuilder.Entity<Investment>().Property(i => i.DateInvestment).IsRequired();
             #endregion
 
             #region Email

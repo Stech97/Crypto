@@ -19,20 +19,20 @@ namespace Crypto.Services.Implementation
 			_mapper = mapper;
 		}
 
-		public async Task<List<Investment>> GetInvestments()
+		public async Task<List<InvestmentViewModel>> GetInvestments(int UserId, int Take)
 		{
-			return await _repository.GetInvestments();
+			var investments = await _repository.GetInvestments(UserId, Take);
+			return _mapper.Map<List<Investment>, List<InvestmentViewModel>>(investments);
 		}
 
-		public async Task<Investment> GetInvestment(int investID)
+		public async Task<double> GetTotalInvestment(int UserId)
 		{
-			return await _repository.GetInvestment(investID);
+			return await _repository.GetTotalInvestment(UserId);
 		}
 
-		public async Task UpdateInvestment(InvestmentViewModel request, int Id)
+		public async Task<double> GetLastDayInvestment(int UserId)
 		{
-			var investment = _mapper.Map<InvestmentViewModel, Investment>(request);
-			await _repository.UpdateInvestment(investment, Id);
+			return await _repository.GetLastDayInvestment(UserId);
 		}
 	}
 }

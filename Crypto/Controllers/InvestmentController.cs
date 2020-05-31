@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Crypto.Services.Interfaces;
 using Crypto.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -21,27 +20,25 @@ namespace Crypto.Controllers
 		//[Authorize]
 		[Route("GetInvestments")]
 		[HttpGet]
-		public async Task<List<Investment>> GetInvestments()
+		public async Task<IActionResult> GetInvestments(int UserId, int Take)
 		{
-			return await _investmentService.GetInvestments();
+			return Ok(await _investmentService.GetInvestments(UserId, Take));
 		}
 		
 		//[Authorize]
-		[Route("GetInvestment")]
+		[Route("GetTotalInvestment")]
 		[HttpGet]
-		public async Task<IActionResult> GetInvestment(int Id)
+		public async Task<IActionResult> GetTotalInvestment(int UserId)
 		{
-			return Ok(await _investmentService.GetInvestment(Id));
+			return Ok(await _investmentService.GetTotalInvestment(UserId));
 		}
 
 		//[Authorize]
-		[Route("UpdateInvestment")]
-		[HttpPatch]
-		public async Task<IActionResult> UpdateInvestment([FromBody] InvestmentViewModel request, int Id)
+		[Route("GetLastDayInvestment")]
+		[HttpGet]
+		public async Task<IActionResult> GetLastDayInvestment(int UserId)
 		{
-			await _investmentService.UpdateInvestment(request, Id);
-			return Ok();
+			return Ok(await _investmentService.GetLastDayInvestment(UserId));
 		}
-
 	}
 }

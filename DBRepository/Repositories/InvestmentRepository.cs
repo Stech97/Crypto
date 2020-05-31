@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DBRepository.Repositories
 {
@@ -10,30 +11,27 @@ namespace DBRepository.Repositories
 	{
 		public InvestmentRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
-		public async Task<Investment> GetInvestment(int investID)
+		public async Task<double> GetTotalInvestment(int UserId)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-				return await context.Investments.FirstOrDefaultAsync(i => i.Id == investID);
+				return await context.Investments.Where(i => i.UserId == UserId).SumAsync(i => i.AddCash);
 		}
 
-		public async Task <List<Investment>> GetInvestments()
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-				return await context.Investments.ToListAsync();
-		}
-
-		public async Task UpdateInvestment(Investment investment, int Id)
+		public async Task<double> GetLastDayInvestment(int UserId)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var investmentNew = await context.Investments.FirstOrDefaultAsync(i => i.Id == Id);
-				/*investmentNew.Name = investment.Name;
-				investmentNew.Description = investment.Description;
-				investmentNew.Profit = investment.Profit;*/
-				context.Investments.Update(investmentNew);
-				await context.SaveChangesAsync();
+				var LastDay = System.DateTime.Now.AddDays(-1);
+				return await context.Investments
+					.Where(i => i.DateInvestment >= LastDay && i.UserId == UserId).SumAsync(i => i.AddCash);
 			}
 		}
 
+		public async Task <List<Investment>> GetInvestments(int UserId, int Take)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+				return await context.Investments.Where(i => i.UserId == UserId)
+					.OrderByDescending(i => i.DateInvestment).Take(Take).ToListAsync();
+		}
 	}
 }
