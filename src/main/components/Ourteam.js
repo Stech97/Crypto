@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 const OurteamHeader = () => {
 	return (
-	    <div className="ourteam-header">
+	    <div id="Team" className="ourteam-header">
 		    <h1>About Us</h1>
 		    <h2>Employee Spotlight</h2>
 	    </div>

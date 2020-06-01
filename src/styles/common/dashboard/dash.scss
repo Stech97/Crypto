@@ -1,0 +1,41 @@
+.dash {
+    width: 100%;
+    .dash-wrapper {
+        margin: 0;
+        h3 {
+            // Style for "Investment"
+            color: #f5fbff;
+            font-family: "IBM Plex Sans";
+            @include fontsize(22);
+            font-weight: 500;
+            margin: 0;
+        }
+
+        display: grid;
+        grid-template-columns: 15% 85%;
+        grid-template-rows: 10vh 1fr;
+        gap: 0;
+        grid-template-areas: "header header" "sidebar dash-content";
+    }
+
+    .dash-wrapper-closed {
+        display: grid;
+        grid-template-columns: 5% 95%;
+        grid-template-rows: 10vh 1fr;
+        gap: 0;
+        grid-template-areas: "header header" "sidebar dash-content";
+    }
+
+    .dash-header {
+        grid-area: header;
+    }
+
+    .sidebar-wrapper,
+    .sidebar-wrapper-closed {
+        grid-area: sidebar;
+    }
+
+    .content {
+        grid-area: dash-content;
+    }
+}

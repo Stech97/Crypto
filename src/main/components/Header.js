@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 
 const HeaderLogo = () => {
   return (
@@ -12,16 +13,16 @@ const HeaderNav = () => {
   return (
     <div className='top-nav-box'>
         <div className='nav-bar nav-about'>
-            <a href='#'>About</a>
+            <a href='#OurMission'>About</a>
         </div>
         <div className='nav-bar nav-team'>
-            <a href='#'>Team</a>
+            <a href='#Team'>Team</a>
         </div>
         <div className='nav-bar nav-blog'>
-            <a href='#'>Blog</a>
+            <a href='https://medium.com/'>Blog</a>
         </div>
         <div className='nav-bar nav-login'>
-            <a href='#'>Login</a>
+            <Link to={'/login'}>Login</Link>
         </div>
         <div className='nav-bar nav-signup'>
             <a href='#' className='button-main-inversed button-signup'>Sign Up</a>

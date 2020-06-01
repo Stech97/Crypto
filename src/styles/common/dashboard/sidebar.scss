@@ -1,123 +1,179 @@
+.sidebar-wrapper {
+    background-image: linear-gradient(19deg, #0b1f48 0%, #005c9f 100%);
+    min-height: 89.9vh;
+    padding: 0 25px;
+    box-sizing: padding-box;
+}
+
 .sidebar {
     display: grid;
-    grid-template-columns: calc(100% - 50px);
+    grid-template-columns: 100%;
     grid-template-rows: 75px 75px 75px 75px 75px 75px 75px 75px;
     gap: 13px 0px;
     grid-template-areas: "sidebar-burger" "sidebar-dash" "sidebar-investment" "sidebar-team" "sidebar-marketing" "sidebar-history" "sidebar-support" "sidebar-time";
     grid-area: sidebar;
 
-    padding-left: 25px;
-    padding-right: 25px;
 
-    background-image: linear-gradient(19deg, #0b1f48 0%, #005c9f 100%);
-    
-    p {
-        // Style for "Server Tim"
-        margin: 0;
-        color: #ffffff;
-        font-family: "IBM Plex Sans";
-        font-size: 25px;
-        font-weight: 400;
-    }
-    .sidebar-burger {
+    &-burger {
         grid-area: sidebar-burger;
         align-self: center;
     }
 
-    .sidebar-dash { grid-area: sidebar-dash; }
+    &-dash {
+        grid-area: sidebar-dash;
+        width: 100%;
+    }
 
-    .sidebar-investment { grid-area: sidebar-investment; }
+    &-investment {
+        grid-area: sidebar-investment;
+        width: 100%;
+    }
 
-    .sidebar-team { grid-area: sidebar-team; }
+    &-team {
+        grid-area: sidebar-team;
+        width: 100%;
+    }
 
-    .sidebar-marketing { grid-area: sidebar-marketing; }
+    &-marketing {
+        grid-area: sidebar-marketing;
+        width: 100%;
+    }
 
-    .sidebar-history { grid-area: sidebar-history; }
+    &-history {
+        grid-area: sidebar-history;
+        width: 100%;
+    }
 
-    .sidebar-support { grid-area: sidebar-support; }
+    &-support {
+        grid-area: sidebar-support;
+        width: 100%;
+    }
 
-    .sidebar-time { grid-area: sidebar-time; }
+    &-time {
+        grid-area: sidebar-time;
+        width: 100%;
+        p {
+            // Style for "Server Tim"
+            color: #ffffff;
+            font-family: "IBM Plex Sans";
+            @include fontsize(18);
+            font-weight: 400;
+        }
+    }
 
-    .sidebar-bar {
+    &-bar {
         display: grid;
         grid-template-rows: 100%;
-        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-columns: 20% 60% 20%;
         grid-auto-flow: row;
         align-items: center;
-
-        padding-left: 23px;
-        padding-right: 27px;
+        justify-items: center;
         border-radius: 15px;
         &:hover {
             background-color: #ffffff;
-                h3 {
-                    color: #123273;
-                }
+            h3 {
+                color: #123273;
+            }
             color: #123273;
         }
-
-        &-arrow {
-            justify-self: end;
-        }
     }
-    .sidebar-bar-selected {
+    &-bar-selected {
         background-color: #ffffff;
         h3 {
-            color: #123273;
+            color: #123273!important;
         }
+        color: #123273;
     }
 }
+
+.sidebar-wrapper-closed {
+    background-image: linear-gradient(19deg, #0b1f48 0%, #005c9f 100%);
+    min-height: 89.9vh;
+    padding: 0;
+    box-sizing: padding-box;
+}
+
 .sidebar-closed {
     display: grid;
-    grid-template-columns: calc(100% - 50px);
+    grid-template-columns: 100%;
     grid-template-rows: 75px 75px 75px 75px 75px 75px 75px 75px;
     gap: 13px 0px;
     grid-template-areas: "sidebar-burger" "sidebar-dash" "sidebar-investment" "sidebar-team" "sidebar-marketing" "sidebar-history" "sidebar-support" "sidebar-time";
     grid-area: sidebar;
-
-    padding-left: 25px;
-    padding-right: 25px;
-
-    background-image: linear-gradient(19deg, #0b1f48 0%, #005c9f 100%);
+    justify-items: center;
 
     .sidebar-burger {
         grid-area: sidebar-burger;
         align-self: center;
     }
-    
-    .sidebar-dash { grid-area: sidebar-dash; }
 
-    .sidebar-investment { grid-area: sidebar-investment; }
+    .sidebar-dash {
+        grid-area: sidebar-dash;
+        width: 100%;
+    }
 
-    .sidebar-team { grid-area: sidebar-team; }
+    .sidebar-investment {
+        grid-area: sidebar-investment;
+        width: 100%;
+    }
 
-    .sidebar-marketing { grid-area: sidebar-marketing; }
+    .sidebar-team {
+        grid-area: sidebar-team;
+        width: 100%;
+    }
 
-    .sidebar-history { grid-area: sidebar-history; }
+    .sidebar-marketing {
+        grid-area: sidebar-marketing;
+        width: 100%;
+    }
 
-    .sidebar-support { grid-area: sidebar-support; }
+    .sidebar-history {
+        grid-area: sidebar-history;
+        width: 100%;
+    }
 
-    .sidebar-time { grid-area: sidebar-time; }
+    .sidebar-support {
+        grid-area: sidebar-support;
+        width: 100%;
+    }
 
-    .sidebar-bar {
+    .sidebar-time {
+        grid-area: sidebar-time;
+        width: 100%;
+        p {
+            display: none;
+            // Style for "Server Tim"
+            color: #ffffff;
+            font-family: "IBM Plex Sans";
+            @include fontsize(18);
+            font-weight: 400;
+        }
+    }
+
+    .sidebar-bar-closed {
         display: grid;
         grid-template-rows: 100%;
-        grid-template-columns: 1fr;
+        grid-template-columns: 100%;
         grid-auto-flow: row;
         align-items: center;
-
-        padding-left: 23px;
-        padding-right: 27px;
-        border-radius: 15px;
+        justify-items: center;
         &:hover {
             background-color: #ffffff;
+            h3 {
+                color: #123273;
+            }
+            color: #123273;
         }
-        &-text,
-        &-arrow {
+        .sidebar-bar-arrow,
+        .sidebar-bar-text {
             display: none;
         }
     }
-    .sidebar-bar-selected {
+    .sidebar-bar-closed-selected {
         background-color: #ffffff;
+        h3 {
+            color: #123273!important;
+        }
+        color: #123273;
     }
 }

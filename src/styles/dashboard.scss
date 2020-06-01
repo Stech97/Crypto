@@ -1,36 +1,15 @@
-html, body, .dash-wrapper { height: 100%; margin: 0; }
+html,
+body {
+    height: 100%;
+    margin: 0;
+    width: 100%;
+}
 
 @import "utils/normalize";
 
-.dash-wrapper {
+@import "mixins/utility";
 
-    h3 {
-        // Style for "Investment"
-        color: #f5fbff;
-        font-family: "IBM Plex Sans";
-        font-size: 25px;
-        font-weight: 500;
-        margin: 0;
-    }
-
-    display: grid;
-    grid-template-columns: 20.83% 79.77%;
-    grid-template-rows: 10vh 90%;
-    gap: 1px 1px;
-    grid-template-areas: "header header" "sidebar dash-content";
-}
-
-.dash-header {
-    grid-area: header;
-}
-
-.sidebar {
-    grid-area: sidebar;
-}
-
-.content {
-    grid-area: dash-content;
-}
+@import "common/dashboard/dash";
 
 @import "common/dashboard/header";
 

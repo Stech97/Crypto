@@ -3,31 +3,40 @@ import DashHeader from './components/header'
 import Sidebar from './components/sidebar'
 import DashContent from './components/content'
 import '../styles/dashboard.scss'
+import { connect } from 'react-redux';
+import { toggleSidebar } from './actions/toggleSidebar'
 
 class Dashboard extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {isClosed: false};
+    state = {
+      isClosed: false
+    };
 
-      // Эта привязка обязательна для работы `this` в колбэке.
-      this.handleClick = this.handleClick.bind(this);
-  }
-  
-  handleClick() {
-      this.setState(state => ({
-        isToggleOn: !state.isClosed,
-      }));
+    toggle = (value) => {
+      this.setState({ isClosed: !value })
     }
-
+    
   render() {
     return (
-      <div className={this.state.isClosed ? "dash-wrapper-closed" : "dash-wrapper"}>
-        <DashHeader />
-        <Sidebar isClosed={this.state.isClosed} handleClick={this.handleClick}/>
-        <DashContent />
+      <div className="dash">
+        <div className={this.state.isClosed ? "dash-wrapper-closed" : "dash-wrapper"}>
+          <DashHeader />
+          <Sidebar isClosed={this.state.isClosed} toggle={this.toggle}/>
+          <DashContent />
+        </div>
       </div>
     )
   }
 }
+/*
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+    Sidebar: state.Sidebar
+  }
+}
 
+const mapDispatchToProps = (dispatch) => ({
+    toggleSidebar: (isClosed) => dispatch(toggleSidebar(), isClosed),
+})
+*/
 export default Dashboard

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 const OurmissionHeader = () => {
   return (
-    <div className="ourmission-header">
+    <div id="OurMission" className="ourmission-header">
         <h1>Our Mission</h1>
         <h2>The World Of Financial Freedom</h2>
     </div>
