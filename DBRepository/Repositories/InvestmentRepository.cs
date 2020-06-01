@@ -28,11 +28,19 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task <List<Investment>> GetInvestments(int UserId, int Take)
+		public async Task<List<Investment>> GetInvestments(int UserId, int Take)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 				return await context.Investments.AsNoTracking()
 					.Where(i => i.UserId == UserId).OrderByDescending(i => i.DateInvestment).Take(Take).ToListAsync();
+		}
+
+		public async Task BuyInvestment(Investment investment, Balance balance, int UserId)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var x = context.Balances.FirstOrDefault(b => b.UserId == UserId);
+			}
 		}
 	}
 }
