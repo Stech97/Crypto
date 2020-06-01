@@ -8,7 +8,7 @@ namespace DBRepository.Repositories
 	{
 		public EmailRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
-		public async Task AddEmail(EMAIL email)
+		public async Task AddEmail(EmailAddres email)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{

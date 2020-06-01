@@ -5,6 +5,6 @@ namespace DBRepository.Interfaces
 {
 	public interface IEmailRepository
 	{
-		Task AddEmail(EMAIL email);
+		Task AddEmail(EmailAddres email);
 	}
 }

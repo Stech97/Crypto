@@ -9,7 +9,7 @@ namespace DBRepository
 
 		public DbSet<Investment> Investments { get; set; }
 		public DbSet<User> Users { get; set; }
-		public DbSet<EMAIL> Emails { get; set; }
+		public DbSet<EmailAddres> Emails { get; set; }
 		public DbSet<Balance> Balances { get; set; }
 		public DbSet<LoginHistory> LoginHistories { get; set; }
 		public DbSet<CurrentSession> CurrentSessions { get; set; }
@@ -31,8 +31,8 @@ namespace DBRepository
             #endregion
 
             #region Email
-            modelBuilder.Entity<EMAIL>().ToTable("Email");
-			modelBuilder.Entity<EMAIL>().Property(e => e.Email).IsRequired();
+            modelBuilder.Entity<EmailAddres>().ToTable("Email");
+			modelBuilder.Entity<EmailAddres>().Property(e => e.Email).IsRequired();
             #endregion
 
             #region Balance

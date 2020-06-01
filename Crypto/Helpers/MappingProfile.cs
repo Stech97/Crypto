@@ -19,7 +19,7 @@ namespace Crypto
 				.ForMember(m => m.RefId, opt => opt.MapFrom(x => x.Id))
 				.ForMember(m => m.RefString, opt => opt.MapFrom(x => x.Username));
 			
-			CreateMap<EmailViewModel, EMAIL>();
+			CreateMap<EmailViewModel, EmailAddres>();
 
 			CreateMap<LoginViewModel, User>();
 
