@@ -15,7 +15,7 @@ const LoginForgot = () => {
 	return(
 		<div className="login-forgot">
 		    <p>
-	        	Forgot your password? <a href="#">Restore it.</a>
+	        	Forgot your password? <a href="#">Restore it</a>
 	    	</p>
 	    </div>
 	)

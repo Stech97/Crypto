@@ -12,7 +12,7 @@ class DashHeader extends Component {
 			        <img src="img/user-icon.png" alt="usericon" />
 			      </div>
 			      <div className="dash-header-user-name">
-			        <h2>Roland</h2>
+			        <h2>User</h2>
 			      </div>
 			      <div className="dash-header-user-arrow">
 			        <img src="img/arrow-down.png" alt="arrow-down" />
