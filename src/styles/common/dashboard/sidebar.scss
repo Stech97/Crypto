@@ -69,12 +69,23 @@
         align-items: center;
         justify-items: center;
         border-radius: 15px;
+
+        &-icon {
+            img {
+                fill: #ffffff;
+            }
+        }
         &:hover {
             background-color: #ffffff;
             h3 {
                 color: #123273;
             }
             color: #123273;
+            >&-icon {
+                >img {
+                    fill: #123273;
+                }
+            }
         }
     }
     &-bar-selected {

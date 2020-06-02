@@ -1,83 +1,426 @@
+.content-text-blue {
+    font-family: "IBM Plex Sans";
+    text-align: center;
+    color: #123273;
+    font-size: 25px;
+}
+
+.content-text-grey {
+    font-family: "IBM Plex Sans";
+    text-align: center;
+    color: #838383;
+    font-size: 20px;
+}
+
+/* добавляются в div ко всем белым блокам */
+.content-whitebox-balance {
+    border-radius: 50px;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+    align-items: center;
+    justify-items: center;
+    border: 1px solid #efefef;
+}
+
+.content-whitebox-earnings {
+    border-radius: 25px;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+    align-items: center;
+    justify-items: center;
+    border: 1px solid #efefef;
+}
+
+.content-whitebox-links {
+    border-radius: 13px;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+    align-items: center;
+    justify-items: center;
+    border: 1px solid #efefef;
+}
+
+.content-whitebox-news {
+    border-radius: 60px;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+    align-items: center;
+    justify-items: left;
+    border: 1px solid #efefef;
+}
+
 .content {
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: min-content min-content min-content min-content;
-  gap: 60px 0px;
-  grid-template-areas: "content-balance" "content-earnings" "content-links" "content-newslog";
-  background-color: #f5fbff;
-  &-balance {
     display: grid;
-    grid-template-columns: 17.10% 6.18% 17.1% 6.18% 17.1%;
+    grid-template-columns: 100%;
+    grid-template-rows: min-content min-content min-content min-content;
+    gap: 60px 0px;
+    grid-template-areas: "content-balance" "content-earnings" "content-links" "content-newslog";
+    
+}
+
+.content-balance {
+    display: grid;
+    grid-template-columns: 17.1% 6.18% 17.1% 6.18% 17.1%;
     grid-template-rows: 33px 260px;
     gap: 25px 30px;
     grid-template-areas: "btc-header btc-dol dol-header dol-coin coin-header" "btc-square btc-dol dol-square dol-coin coin-square";
     grid-area: content-balance;
+    
+}
 
-    &-btc-header { grid-area: btc-header; }
+.content-balance-btc-header {
+    grid-area: btc-header;
+}
 
-    &-btc-square { grid-area: btc-square; }
-
-    &-btc-dol { grid-area: btc-dol; }
-
-    &-dol-header { grid-area: dol-header; }
-
-    &-dol-square { grid-area: dol-square; }
-
-    &-dol-coin { grid-area: dol-coin; }
-
-    &-coin-header { grid-area: dol-header; }
-
-    &-coin-square { grid-area: dol-square; }
-  }
-
-    &-earnings {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-template-rows: 158px 158px;
-      gap: 40px 16px;
-      grid-template-areas: "content-earnings-total-invmemb content-earnings-profteam content-earnings-totalprof content-earnings-graph" ". . . .";
-      grid-area: content-earnings;
-
-      &-total-invmemb { grid-area: content-earnings-total-invmemb; }
-
-      &-profteam { grid-area: content-earnings-profteam; }
-
-      &-totalprof { grid-area: content-earnings-totalprof; }
-
-      &-graph { grid-area: content-earnings-graph; }
-    }
-
-
-  &-links {
+.content-balance-btc-square {
+    grid-area: btc-square;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 60% 40%;
+    grid-template-areas: "btc-square-text" "btc-square-calc";
+}
+
+.content-balance-btc-square-text {
+    grid-area: btc-square-text;
+    line-height: 0.9;
+} /*line-height: 0.9;*/
+
+.content-balance-btc-square-text p {
+    margin-bottom: 0;
+} /**/
+
+.content-balance-btc-square-calc {
+    grid-area: btc-square-calc;
+    display: grid;
+    border-radius: 0 0 50px 50px;
+    background-image: linear-gradient(232deg, #005c9f 0%, #123273 100%);
+    grid-template-rows: 102px;
+    grid-template-columns: 127px 2px 127px;
+    align-items: center;
+    justify-items: center;
+    grid-template-areas: "calc-plus calc-line calc-minus";
+}
+
+.content-balance-btc-square-calc-plus {
+    grid-area: calc-plus;
+}
+
+.content-balance-btc-square-calc-line {
+    grid-area: calc-line;
+}
+
+.content-balance-btc-square-calc-minus {
+    grid-area: calc-minus;
+}
+
+.content-balance-btc-dol {
+    grid-area: btc-dol;
+    margin-top: 163px;
+}
+
+.content-balance-dol-header {
+    grid-area: dol-header;
+}
+
+.content-balance-dol-square {
+    grid-area: dol-square;
+    line-height: 0.9;
+} /*line-height: 0.9;*/
+
+.content-balance-dol-square p {
+    grid-area: dol-square;
+    margin-top: 90px;
+    margin-bottom: 0;
+}
+
+.content-balance-dol-coin {
+    grid-area: dol-coin;
+    margin-top: 163px;
+}
+
+.content-balance-coin-header {
+    grid-area: coin-header;
+}
+
+.content-balance-coin-square p {
+    grid-area: coin-square;
+    margin-top: 102px;
+    margin-bottom: 0;
+    line-height: 0.9;
+} /*line-height: 0.9;*/
+
+.content-earnings {
+    display: grid;
+    grid-template-columns: 259px 259px 259px 263px;
+    grid-template-rows: 356px;
+    gap: 16px;
+    grid-template-areas: "content-earnings-total-invmemb content-earnings-profteam content-earnings-totalprof content-earnings-graph";
+    grid-area: content-earnings;
+}
+
+.content-earnings-total-invmemb {
+    grid-area: content-earnings-total-invmemb;
+    display: grid;
+    grid-template-rows: min-content 100px 18px 100px;
+    gap: 40px 16px;
+    grid-template-areas: "invmemb-invheader" "invmemb-investments" "invmemb-membersheader" "invmemb-members";
+}
+
+.content-earnings-total-invmemb-invheader {
+    grid-area: invmemb-invheader;
+}
+
+.content-earnings-total-invmemb-investments {
+    grid-area: invmemb-investments;
+    line-height: 0.9;
+}
+
+.content-earnings-total-invmemb-membersheader {
+    grid-area: invmemb-membersheader;
+}
+
+.content-earnings-total-invmemb-members {
+    grid-area: invmemb-members;
+}
+
+.content-earnings-profteam {
+    grid-area: content-earnings-profteam;
+    display: grid;
+    grid-template-rows: min-content 100px 18px 100px;
+    gap: 40px 16px;
+    grid-template-areas: "profteam-profheader" "profteam-profinvestments" "profteam-totalheader" "profteam-totalteam";
+}
+
+.content-earnings-profteam-profheader {
+    grid-area: profteam-profheader;
+}
+
+.content-earnings-profteam-profinvestments {
+    grid-area: profteam-profinvestments;
+    line-height: 0.9;
+}
+
+.content-earnings-profteam-totalheader {
+    grid-area: profteam-totalheader;
+}
+
+.content-earnings-profteam-totalteam {
+    grid-area: profteam-totalteam;
+    line-height: 0.9;
+}
+
+.content-earnings-totalprof {
+    grid-area: content-earnings-totalprof;
+    display: grid;
+    grid-template-rows: min-content 298px;
+    gap: 40px 16px;
+    grid-template-areas: "totalprof-totalprofheader" "totalprof-totalprofsquare";
+}
+
+.content-earnings-total-totalprof-totalprofheader {
+    grid-area: totalprof-totalprofheader;
+}
+
+.content-earnings-total-totalprof-totalprofsquare {
+    grid-area: totalprof-totalprofsquare;
+    line-height: 0.9;
+}
+
+.content-earnings-total-totalprof-totalprofsquare p {
+    margin-bottom: 66px;
+}
+
+.content-earnings-graph {
+    grid-area: content-earnings-graph;
+    margin-top: 67px;
+    line-height: 0.92;
+} /* к сожалению так и не понял как сделать лучше этот блок */
+
+.content-links {
+    display: grid;
     grid-template-rows: 70px 70px;
     gap: 38px 1px;
-    grid-template-areas: "refbyid refbyid refbyid refbyusername refbyusername refbyusername" "presentation-link presentation-link image-video-link image-video-link tutorial-link tutorial-link";
+    grid-template-areas: "links-ref" "links-links";
     grid-area: content-links;
+}
 
-    .refbyid { grid-area: refbyid; }
-
-    .refbyusername { grid-area: refbyusername; }
-
-    .presentation-link { grid-area: presentation-link; }
-
-    .image-video-link { grid-area: image-video-link; }
-
-    .tutorial-link { grid-area: tutorial-link; }
-  }
-
-  &-newslog {
+.content-links-ref {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 623px;
+    grid-template-columns: 543px 543px;
+    gap: 38px 1px;
+    grid-template-areas: "refbyid refbyusername";
+    grid-area: links-ref;
+}
+
+.refbyid {
+    grid-area: refbyid;
+    font-size: 20px;
+}
+
+.refbyusername {
+    grid-area: refbyusername;
+    font-size: 20px;
+}
+
+.content-links-links {
+    display: grid;
+    grid-template-columns: 362px 362px 362px;
+    gap: 38px 1px;
+    grid-template-areas: "presentation-link image-video-link tutorial-link";
+    grid-area: links-links;
+}
+
+.presentation-link {
+    grid-area: presentation-link;
+    font-size: 20px;
+}
+
+.image-video-link {
+    grid-area: image-video-link;
+    font-size: 20px;
+}
+
+.tutorial-link {
+    grid-area: tutorial-link;
+    font-size: 20px;
+}
+
+.content-newslog {
+    display: grid;
+    grid-template-columns: 536px 536px;
+    grid-template-rows: 96 px 623px;
     gap: 0px 16px;
-    grid-template-areas: "content-newslog-news content-newslog-loginhistory";
+    grid-template-areas: "content-newslog-newslogheadings content-newslog-historyheadings" "content-newslog-news content-newslog-loginhistory";
     grid-area: content-newslog;
+}
 
+.content-text-blue-newslogheadings {
+    font-family: "IBM Plex Sans";
+    text-align: left;
+    color: #123273;
+    margin-bottom: 30px;
+}
 
-    &-news { grid-area: content-newslog-news; }
+.content-newslog-newslogheadings {
+    grid-area: content-newslog-newslogheadings;
+    font-size: 50px;
+    margin-left: 30px;
+}
 
-    &-loginhistory { grid-area: content-newslog-loginhistory; }
-  }
+.content-newslog-historyheadings {
+    grid-area: content-newslog-historyheadings;
+    font-size: 25px;
+    margin-top: 25px;
+    margin-left: 60px;
+}
+
+.content-newslog-news {
+    grid-area: content-newslog-news;
+    display: grid;
+    grid-template-rows: 1fr 1fr 60px 60px 1fr 1fr 60px;
+    gap: 0px 16px;
+    grid-template-areas: "news-heading1" "news-text1" "news-button1" "news-line" "news-heading2" "news-text2" "news-button2";
+}
+
+.content-newslog-news-heading1 {
+    grid-area: news-heading1;
+    text-align: left;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.content-newslog-news-text1 {
+    grid-area: news-text1;
+    text-align: left;
+    margin-left: 30px;
+    padding-right: 30px;
+}
+
+.content-newslog-news-button1 {
+    grid-area: news-button1;
+    border-radius: 30px;
+    border: 3px solid #ed7102;
+    color: #ed7102;
+    margin-left: 30px;
+}
+
+.content-newslog-news-line {
+    grid-area: news-line;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.content-newslog-news-heading2 {
+    grid-area: news-heading2;
+    text-align: left;
+    margin-left: 30px;
+}
+
+.content-newslog-news-text2 {
+    grid-area: news-text2;
+    text-align: left;
+    margin-left: 30px;
+    margin-bottom: 50px;
+    padding-right: 30px;
+}
+
+.content-newslog-news-button2 {
+    grid-area: news-button2;
+    border-radius: 30px;
+    border: 3px solid #ed7102;
+    color: #ed7102;
+    margin-left: 30px;
+    margin-bottom: 60px;
+}
+
+.content-newslog-news-button-text {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
+    font-family: "IBM Plex Sans";
+    font-size: 25px;
+}
+
+.content-newslog-loginhistory {
+    grid-area: content-newslog-loginhistory;
+    display: grid;
+    border-radius: 60px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+    background-image: linear-gradient(40deg, #123273 0%, #005c9f 100%);
+    grid-template-rows: 33px 33px 33px 33px;
+    grid-template-columns: 135px 135px 135px;
+    gap: 0px 16px;
+    grid-template-areas: ". . ." "loginhistory-timeheader loginhistory-ipheader loginhistory-countryheader" "loginhistory-time loginhistory-ip loginhistory-country" ". . . ";
+}
+
+.content-newslog-loginhistory-text {
+    color: #ffffff;
+    font-family: "IBM Plex Sans";
+    font-size: 25px;
+    text-align: center;
+    margin-left: 60px;
+}
+
+.content-newslog-loginhistory-timeheader {
+    grid-area: loginhistory-timeheader;
+}
+
+.content-newslog-loginhistory-ipheader {
+    grid-area: loginhistory-ipheader;
+}
+
+.content-newslog-loginhistory-countryheader {
+    grid-area: loginhistory-countryheader;
+}
+
+.content-newslog-loginhistory-time {
+    grid-area: loginhistory-time;
+}
+
+.content-newslog-loginhistory-ip {
+    grid-area: loginhistory-ip;
+}
+
+.content-newslog-loginhistory-country {
+    grid-area: loginhistory-country;
 }

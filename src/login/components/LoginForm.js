@@ -14,10 +14,10 @@ class LoginForm extends Component {
 		const submit = (values) => {
 			fetch('https://api.ipify.org?format=json', { mode: 'cors' })
 			.then((resp) => resp.json())
-			.then((req) => fetch('http://ip-api.com/json/' + req.ip + '?fields=24593'))
+			.then((req) => fetch('https://ipinfo.io/' + req.ip + '/?token=7a04a322ea8440'))
 			.then((res) => res.json())
-			.then(function(res) {
-				alert("You are from " + res.country + ". Your IP " + res.query);
+			.then((res) => {
+				alert("You are from " + res.country + ". Your IP " + res.ip);
 				let resp = fetch("http://84.201.132.112/api/Identity/token", {
 				method: 'post',
 					headers: {
@@ -26,7 +26,7 @@ class LoginForm extends Component {
 					body: JSON.stringify({ 
 						username : 'admin',
 						password: 'admin',
-						IP: res.query,
+						IP: res.ip,
 						Country: res.country,
 					}),
 				});

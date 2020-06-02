@@ -21,6 +21,7 @@ $section: "career";
       letter-spacing: normal;
       text-align: left;
       color: #005c9f;
+      margin: 0;
     }
     h2 {
       font-family: IBMPlexSans;
@@ -36,7 +37,6 @@ $section: "career";
   }
   &-scheme {
     grid-area: #{$section+"-scheme"};
-    padding-top: 40px;
     img {
       width: 100%;
     }

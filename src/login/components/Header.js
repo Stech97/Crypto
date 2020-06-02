@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 const HeaderLogo = () => {
 	return(
@@ -17,16 +18,16 @@ class HeaderNav extends Component {
 		return(
 			<div className="top-nav-box">
 				<div className="nav-bar nav-about">
-					<a href>About</a>
+ 		           <Link to={'/main#OurMission'}>About</Link>
 				</div>
 				<div className="nav-bar nav-team">
-					<a href>Team</a>
+ 		           <Link to={'/main#Team'}>Team</Link>
 				</div>
 				<div className="nav-bar nav-blog">
-					<a href>Blog</a>
+		            <a href='https://medium.com/'>Blog</a>
 				</div>
 				<div className="nav-bar nav-login">
-					<a href>Login</a>
+ 		           <Link to={'/login'}>Login</Link>
 				</div>
 				<div className="nav-bar nav-signup">
 					<a href="#" className="button-main-inversed button-signup">
