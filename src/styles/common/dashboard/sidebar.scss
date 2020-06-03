@@ -17,6 +17,10 @@
     &-burger {
         grid-area: sidebar-burger;
         align-self: center;
+        width: 36px;
+        height: 36px;
+        fill: #ffffff;
+        stroke: #ffffff;
     }
 
     &-dash {
@@ -69,23 +73,24 @@
         align-items: center;
         justify-items: center;
         border-radius: 15px;
-
-        &-icon {
-            img {
-                fill: #ffffff;
-            }
-        }
         &:hover {
             background-color: #ffffff;
             h3 {
                 color: #123273;
             }
             color: #123273;
-            >&-icon {
-                >img {
-                    fill: #123273;
-                }
+            >.sidebar-bar-icon,
+            >.sidebar-bar-arrow {
+                fill: #123273;
+                stroke: #123273;
             }
+        }
+        &-icon,
+        &-arrow {
+            width: 36px;
+            height: 36px;
+            fill: #ffffff;
+            stroke: #ffffff;
         }
     }
     &-bar-selected {
@@ -94,6 +99,14 @@
             color: #123273!important;
         }
         color: #123273;
+
+        .sidebar-bar-icon,
+        .sidebar-bar-arrow {
+            width: 36px;
+            height: 36px;
+            fill: #123273;
+            stroke: #123273;
+        }
     }
 }
 
@@ -116,6 +129,10 @@
     .sidebar-burger {
         grid-area: sidebar-burger;
         align-self: center;
+        width: 36px;
+        height: 36px;
+        fill: #ffffff;
+        stroke: #ffffff;
     }
 
     .sidebar-dash {
@@ -168,16 +185,27 @@
         grid-auto-flow: row;
         align-items: center;
         justify-items: center;
+
         &:hover {
             background-color: #ffffff;
             h3 {
                 color: #123273;
             }
             color: #123273;
+            >.sidebar-bar-icon {
+                fill: #123273;
+                stroke: #123273;
+            }
         }
         .sidebar-bar-arrow,
         .sidebar-bar-text {
             display: none;
+        }
+        .sidebar-bar-icon {
+            width: 36px;
+            height: 36px;
+            fill: #ffffff;
+            stroke: #ffffff;
         }
     }
     .sidebar-bar-closed-selected {
@@ -186,5 +214,11 @@
             color: #123273!important;
         }
         color: #123273;
+        .sidebar-bar-icon {
+            width: 36px;
+            height: 36px;
+            fill: #123273;
+            stroke: #123273;
+        }
     }
 }
