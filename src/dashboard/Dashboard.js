@@ -19,7 +19,7 @@ class Dashboard extends Component {
     return (
       <div className="dash">
           <svg
-            style={{ diplay: "none" }}
+            className = "none"
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
           >
