@@ -2,8 +2,8 @@
 {
 	public class BalanceViewModel
 	{
-        public double BitcoinBalance { get; set; }
-        public int USDBalance { get; set; }
-        public int DefimaBalance { get; set; }
+        public double Bitcoin { get; set; }
+        public int USD { get; set; }
+        public int Defima { get; set; }
     }
 }

@@ -81,7 +81,7 @@ namespace Crypto.Controllers
 
 		[Route("CreateLogin")]
 		[HttpPost]
-		public async Task<IActionResult> CreateLogin([FromBody]LoginViewModel login)
+		public async Task<IActionResult> CreateLogin([FromBody] LoginViewModel login)
 		{
 			using (SHA256Managed sha256 = new SHA256Managed())
 			{
@@ -103,7 +103,7 @@ namespace Crypto.Controllers
 		//[Authorize]
 		[Route("ChangePassword")]
 		[HttpPatch]
-		public async Task<IActionResult> ChangePassword([FromBody]ChangePasswordViewModel request, int Id)
+		public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel request, int Id)
 		{
 			using (SHA256Managed sha256 = new SHA256Managed())
 			{

@@ -21,7 +21,8 @@ namespace DBRepository.Repositories
         public async Task<List<LoginHistory>> GetLoginHistory(int Id)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
-                return await context.LoginHistories.AsNoTracking().Where(lh => lh.UserId == Id).ToListAsync();
+                return await context.LoginHistories.AsNoTracking()
+                    .OrderByDescending(lh => lh.LoginTime).Where(lh => lh.UserId == Id).ToListAsync();
         }
 
         public async Task<List<News>> GetNews(int Take, int Skip)
