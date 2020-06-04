@@ -43,5 +43,13 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
+		//[Authorize]
+		[Route("UpdateRate")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateRate(RateViewModel request)
+		{
+			return Ok(await _administratorService.UpdateRate(request));
+		}
+
 	}
 }

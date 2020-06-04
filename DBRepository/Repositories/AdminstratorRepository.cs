@@ -1,5 +1,8 @@
 ﻿using DBRepository.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Extensions.Internal;
 using Models;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace DBRepository.Repositories
@@ -35,5 +38,15 @@ namespace DBRepository.Repositories
 				await context.SaveChangesAsync();
 			}
 		}
-	}
+
+        public async Task<Balance> UpdateRate(Balance balance)
+        {
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				await context.Balances.ForEachAsync(x => { x.RateUSD_DEF = balance.RateUSD_DEF; });
+				await context.SaveChangesAsync();
+				return await context.Balances.AsNoTracking().FirstOrDefaultAsync();
+			}
+		}
+    }
 }

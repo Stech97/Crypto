@@ -8,5 +8,6 @@ namespace Crypto.Services.Interfaces
         Task DeleteInvestment(int investID);
         Task AddNews(NewsViewModel request);
         Task AddInvestment(InvestmentViewModel request);
+        Task<RateViewModel> UpdateRate(RateViewModel request);
     }
 }

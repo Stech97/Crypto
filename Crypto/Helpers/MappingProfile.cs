@@ -52,6 +52,12 @@ namespace Crypto
 			CreateMap<NewsViewModel, News>()
 				.ForMember(m => m.CreateDate, opt => opt.MapFrom(m => DateTime.Now))
 				.ForMember(m => m.LastChangeDate, opt => opt.MapFrom(m => DateTime.Now));
+			
+			CreateMap<RateViewModel, Balance>()
+				.ForMember(m => m.RateUSD_DEF, opt => opt.MapFrom(m => m.RateDef));
+
+			CreateMap<Balance, RateViewModel>()
+				.ForMember(m => m.RateDef, opt => opt.MapFrom(m => m.RateUSD_DEF));
 
 		}
 	}

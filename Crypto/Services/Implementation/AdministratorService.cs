@@ -34,5 +34,12 @@ namespace Crypto.Services.Implementation
 			var news = _mapper.Map<NewsViewModel, News>(request);
 			await _repository.AddNews(news);
 		}
-	}
+
+        public async Task<RateViewModel> UpdateRate(RateViewModel request)
+        {
+			var rate = _mapper.Map<RateViewModel, Balance>(request);
+			var newRate = await _repository.UpdateRate(rate);
+			return _mapper.Map<Balance, RateViewModel>(newRate);
+        }
+    }
 }
