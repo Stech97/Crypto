@@ -71,6 +71,23 @@ namespace DBRepository.Repositories
 
             return balanceNew;
         }
+
+        public async Task<Balance> CashBTC(Balance balance, int UserId)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var balanceOld = await context.Balances.FirstOrDefaultAsync(b => b.UserId == UserId);
+                if ((Math.Abs(balanceOld.BitcoinBalance) < Math.Abs(balance.BitcoinBalance)) && (balance.BitcoinBalance < 0) )
+                    return null;
+                else
+                {
+                    balanceOld.BitcoinBalance += balance.BitcoinBalance;
+                    context.Balances.Update(balanceOld);
+                    await context.SaveChangesAsync();
+                    return balanceOld;
+                }
+            }    
+        }
     }
 }
                                                                                                                                                         

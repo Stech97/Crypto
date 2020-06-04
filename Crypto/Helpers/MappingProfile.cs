@@ -19,6 +19,12 @@ namespace Crypto
 				.ForMember(m => m.DefimaBalance , opt => opt.MapFrom(x => x.Defima))
 				.ForMember(m => m.USDBalance, opt => opt.MapFrom(x => x.USD));
 
+			CreateMap<Balance, CashBTCViewModel>()
+				.ForMember(m => m.BTC, opt => opt.MapFrom(x => x.BitcoinBalance));
+
+			CreateMap<CashBTCViewModel, Balance>()
+				.ForMember(m => m.BitcoinBalance, opt => opt.MapFrom(x => x.BTC));
+
 			CreateMap<LoginHistory, LoginHistoryViewModel>();
 
 			CreateMap<User, RefLinkViewModel>()

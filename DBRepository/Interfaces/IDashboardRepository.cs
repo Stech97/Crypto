@@ -10,5 +10,6 @@ namespace DBRepository.Interfaces
         Task<List<LoginHistory>> GetLoginHistory(int Id);
         Task<List<News>> GetNews(int Take, int Skip);
         Task<Balance> ExchangeBalance(Balance balance, int UserId);
+        Task<Balance> CashBTC(Balance balance, int UserId);
     }
 }

@@ -30,7 +30,12 @@ namespace Crypto.Controllers
         [HttpGet]
         public IActionResult GetServerTime()
         {
-            return Ok(System.DateTime.Now.ToLongTimeString());
+            var time = new
+            {
+                Time = System.DateTime.Now.ToLongTimeString()
+            };
+
+            return Ok(time);
         }
 
         //[Authorize]
@@ -68,5 +73,19 @@ namespace Crypto.Controllers
             return Ok(await _dashboardService.ExchangeBalance(request, Id));
         }
 
+        #region Fake
+        //[Authorize]
+        [Route("CashBTC")]
+        [HttpPatch]
+        public async Task<IActionResult> CashBTC([FromBody] CashBTCViewModel request, int Id)
+        {
+            var balance = await _dashboardService.CashBTC(request, Id);
+            if (balance != null)
+                return Ok(balance);
+            else
+                return NoContent();
+        }
+
+        #endregion
     }
 }
