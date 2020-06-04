@@ -33,6 +33,7 @@ class LoginForm extends Component {
 				return resp;
 			}).then((resp) => {
 				if (resp.ok) {
+					console.log(resp.id)
 					alert("You succesfully logged in!");
 				} else {
 					alert("Wrong username or password!")

@@ -39,7 +39,7 @@ export function updateView(email) {
 	return (dispatch) => {
 		  // Validate email
 		let variables = {message_html: email};
-		fetch("http://defima.io:88/api/Email/AddEmail", {
+		fetch("https://back.defima.io/api/Email/AddEmail", {
 			method: 'post',
 			headers: {
             	'Content-Type': 'application/json',

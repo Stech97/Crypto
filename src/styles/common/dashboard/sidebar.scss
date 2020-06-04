@@ -3,6 +3,14 @@
     min-height: 89.9vh;
     padding: 0 25px;
     box-sizing: padding-box;
+    h3 {
+        // Style for "Investment"
+        color: #f5fbff;
+        font-family: "IBM Plex Sans";
+        @include fontsize(22);
+        font-weight: 500;
+        margin: 0;
+    }
 }
 
 .sidebar {
@@ -17,8 +25,9 @@
     &-burger {
         grid-area: sidebar-burger;
         align-self: center;
-        width: 36px;
-        height: 36px;
+        width: 1em;
+        height: auto;
+        font-size: 2rem;
         fill: #ffffff;
         stroke: #ffffff;
     }
@@ -85,10 +94,19 @@
                 stroke: #123273;
             }
         }
-        &-icon,
+        &-icon {
+            justify-self: end;
+            height: 1em;
+            width: 1em;
+            font-size: 1.6rem;
+            fill: #ffffff;
+            stroke: #ffffff;
+        }
+
         &-arrow {
-            width: 36px;
-            height: 36px;
+            height: 1em;
+            width: 1em;
+            font-size: 2.2rem;
             fill: #ffffff;
             stroke: #ffffff;
         }
@@ -100,10 +118,18 @@
         }
         color: #123273;
 
-        .sidebar-bar-icon,
+        .sidebar-bar-icon {
+            height: 1em;
+            width: 1em;
+            font-size: 1.6rem;
+            fill: #123273;
+            stroke: #123273;
+        }
+
         .sidebar-bar-arrow {
-            width: 36px;
-            height: 36px;
+            height: 1em;
+            width: 1em;
+            font-size: 2.2rem;
             fill: #123273;
             stroke: #123273;
         }
@@ -129,8 +155,9 @@
     .sidebar-burger {
         grid-area: sidebar-burger;
         align-self: center;
-        width: 36px;
-        height: 36px;
+        width: 1em;
+        height: auto;
+        font-size: 2rem;
         fill: #ffffff;
         stroke: #ffffff;
     }
@@ -202,8 +229,10 @@
             display: none;
         }
         .sidebar-bar-icon {
-            width: 36px;
-            height: 36px;
+            justify-self: center;
+            height: 1em;
+            width: 1em;
+            font-size: 1.6rem;
             fill: #ffffff;
             stroke: #ffffff;
         }
@@ -215,8 +244,9 @@
         }
         color: #123273;
         .sidebar-bar-icon {
-            width: 36px;
-            height: 36px;
+            height: 1em;
+            width: 1em;
+            font-size: 1.6rem;
             fill: #123273;
             stroke: #123273;
         }
