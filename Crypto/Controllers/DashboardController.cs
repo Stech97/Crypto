@@ -73,6 +73,14 @@ namespace Crypto.Controllers
             return Ok(await _dashboardService.ExchangeBalance(request, Id));
         }
 
+        //[Authorize]
+        [Route("GetRate")]
+        [HttpPost]
+        public async Task<IActionResult> GetRate([FromBody] BalanceViewModel request)
+        {
+            return Ok();
+        }
+
         #region Fake
         //[Authorize]
         [Route("CashBTC")]

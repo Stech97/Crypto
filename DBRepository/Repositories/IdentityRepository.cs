@@ -1,7 +1,9 @@
 ﻿using DBRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System.Linq;
 using Models;
+using Microsoft.EntityFrameworkCore.Extensions.Internal;
 
 namespace DBRepository.Repositories
 {
@@ -31,6 +33,24 @@ namespace DBRepository.Repositories
 			{
 				context.Users.Add(user);
 				await context.SaveChangesAsync();
+
+				var newUser = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == user.Username);
+				var rateBTC = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_BTC).FirstAsync();
+				var rateDEF = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_DEF).FirstAsync();
+				var newWallet = new Balance
+				{
+					USDBalance = 0,
+					BitcoinBalance = 0,
+					DefimaBalance = 0,
+					RateUSD_BTC = rateBTC,
+					RateUSD_DEF = rateDEF,
+					User = newUser,
+					UserId = newUser.Id
+				};
+
+				context.Balances.Add(newWallet);
+				await context.SaveChangesAsync();
+
 			}
 		}
 
