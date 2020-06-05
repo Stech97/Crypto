@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Crypto.Services.Interfaces;
-using Crypto.ViewModels;
+using Crypto.ViewModels.Administrator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,7 +46,7 @@ namespace Crypto.Controllers
 		//[Authorize]
 		[Route("UpdateRate")]
 		[HttpPatch]
-		public async Task<IActionResult> UpdateRate(RateViewModel request)
+		public async Task<IActionResult> UpdateRate(ViewModels.Administrator.RateViewModel request)
 		{
 			return Ok(await _administratorService.UpdateRate(request));
 		}

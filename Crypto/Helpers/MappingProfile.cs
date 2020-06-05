@@ -2,6 +2,8 @@
 using Models;
 using Crypto.ViewModels;
 using System;
+using Crypto.ViewModels.Identity;
+using Crypto.ViewModels.Dashdoard;
 
 namespace Crypto
 {
@@ -25,7 +27,7 @@ namespace Crypto
 			CreateMap<CashBTCViewModel, Balance>()
 				.ForMember(m => m.BitcoinBalance, opt => opt.MapFrom(x => x.BTC));
 
-			CreateMap<LoginHistory, LoginHistoryViewModel>();
+			CreateMap<LoginHistory, ViewModels.Dashdoard.LoginHistoryViewModel>();
 
 			CreateMap<User, RefLinkViewModel>()
 				.ForMember(m => m.RefId, opt => opt.MapFrom(x => x.Id))
@@ -35,9 +37,9 @@ namespace Crypto
 
 			CreateMap<LoginViewModel, User>();
 
-			CreateMap<LoginHistoryViewModel, LoginHistory>();
+			CreateMap<ViewModels.Identity.LoginHistoryViewModel, LoginHistory>();
 
-			CreateMap<LoginHistoryViewModel, CurrentSession>();
+			CreateMap<ViewModels.Identity.LoginHistoryViewModel, CurrentSession>();
 
 			CreateMap<ChangePasswordViewModel, User>();
 
@@ -45,11 +47,11 @@ namespace Crypto
 			
 			CreateMap<User, CheckViewModel>();
 
-			CreateMap<Investment, InvestmentViewModel>();
+			CreateMap<Investment, ViewModels.Investment.InvestmentViewModel>();
 
 			CreateMap<News, NewsViewModel>();
 
-			CreateMap<NewsViewModel, News>()
+			CreateMap<ViewModels.Administrator.NewsViewModel, News>()
 				.ForMember(m => m.CreateDate, opt => opt.MapFrom(m => DateTime.Now))
 				.ForMember(m => m.LastChangeDate, opt => opt.MapFrom(m => DateTime.Now));
 			

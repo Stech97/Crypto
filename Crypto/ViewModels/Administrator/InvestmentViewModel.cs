@@ -1,4 +1,4 @@
-﻿namespace Crypto.ViewModels.Investment
+﻿namespace Crypto.ViewModels.Administrator
 {
 	public class InvestmentViewModel
 	{

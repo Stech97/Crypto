@@ -1,8 +1,8 @@
-﻿namespace Crypto.ViewModels
+﻿namespace Crypto.ViewModels.Dashdoard
 {
     public class RateViewModel
     {
-       public string  CurrencyStart { get; set; }
-       public string CurrencyEnd { get; set; }
+       public string  CurrencyFrom { get; set; }
+       public string CurrencyTo { get; set; }
     }
 }

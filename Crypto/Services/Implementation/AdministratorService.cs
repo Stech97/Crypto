@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Crypto.Services.Interfaces;
-using Crypto.ViewModels;
+using Crypto.ViewModels.Administrator;
 using DBRepository.Interfaces;
 using Models;
 using System.Threading.Tasks;

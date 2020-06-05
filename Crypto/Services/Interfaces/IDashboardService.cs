@@ -1,4 +1,4 @@
-﻿using Crypto.ViewModels;
+﻿using Crypto.ViewModels.Dashdoard;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

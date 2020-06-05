@@ -1,4 +1,4 @@
-﻿using Crypto.ViewModels;
+﻿using Crypto.ViewModels.Identity;
 using Models;
 using System.Threading.Tasks;
 

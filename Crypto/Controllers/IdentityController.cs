@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Crypto.Helpers;
 using Crypto.Services.Interfaces;
-using Crypto.ViewModels;
+using Crypto.ViewModels.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;

@@ -1,4 +1,5 @@
 ﻿using Crypto.ViewModels;
+using Crypto.ViewModels.Investment;
 using Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;

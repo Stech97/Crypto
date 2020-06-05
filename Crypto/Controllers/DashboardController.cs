@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Crypto.Services.Interfaces;
-using Crypto.ViewModels;
+using Crypto.ViewModels.Dashdoard;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -76,7 +74,7 @@ namespace Crypto.Controllers
         //[Authorize]
         [Route("GetRate")]
         [HttpPost]
-        public async Task<IActionResult> GetRate([FromBody] BalanceViewModel request)
+        public async Task<IActionResult> GetRate([FromBody] RateViewModel request)
         {
             return Ok();
         }

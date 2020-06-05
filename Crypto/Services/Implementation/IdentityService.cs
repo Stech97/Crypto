@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DBRepository.Interfaces;
 using Models;
-using Crypto.ViewModels;
+using Crypto.ViewModels.Identity;
 using AutoMapper;
 using System;
 

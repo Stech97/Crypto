@@ -1,4 +1,4 @@
-﻿namespace Crypto.ViewModels.Dashdoard
+﻿namespace Crypto.ViewModels.Administrator
 {
     public class NewsViewModel
     {

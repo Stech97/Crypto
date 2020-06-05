@@ -5,6 +5,7 @@ using DBRepository.Interfaces;
 using AutoMapper;
 using System.Collections.Generic;
 using Crypto.ViewModels;
+using Crypto.ViewModels.Investment;
 
 namespace Crypto.Services.Implementation
 {

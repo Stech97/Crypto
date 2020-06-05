@@ -1,4 +1,4 @@
-﻿using Crypto.ViewModels;
+﻿using Crypto.ViewModels.Administrator;
 using System.Threading.Tasks;
 
 namespace Crypto.Services.Interfaces

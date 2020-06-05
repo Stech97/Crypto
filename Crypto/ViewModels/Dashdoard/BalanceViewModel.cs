@@ -1,4 +1,4 @@
-﻿namespace Crypto.ViewModels
+﻿namespace Crypto.ViewModels.Dashdoard
 {
 	public class BalanceViewModel
 	{

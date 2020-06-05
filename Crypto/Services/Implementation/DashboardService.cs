@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Crypto.Services.Interfaces;
-using Crypto.ViewModels;
+using Crypto.ViewModels.Dashdoard;
 using DBRepository.Interfaces;
 using Models;
 using System.Collections.Generic;

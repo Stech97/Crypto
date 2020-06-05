@@ -1,4 +1,4 @@
-﻿namespace Crypto.ViewModels
+﻿namespace Crypto.ViewModels.Identity
 {
     public class ChangePasswordViewModel
     {

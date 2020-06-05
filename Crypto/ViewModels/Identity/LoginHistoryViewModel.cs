@@ -1,4 +1,4 @@
-﻿namespace Crypto.ViewModels.Dashdoard
+﻿namespace Crypto.ViewModels.Identity
 {
     public class LoginHistoryViewModel
     {
