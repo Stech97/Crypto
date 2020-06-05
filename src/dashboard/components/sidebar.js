@@ -12,14 +12,14 @@ class SidebarTime extends Component {
             } else {
                 console.log(res.e);
             }
-        }).then((res) => this.setState({ time: res.time })
+        }).then(res => this.setState({ time: res.time })
         ).catch(err => this.setState({ time: err }))
     }
 
     constructor(props) {
         super(props);
 
-        this.state = { time: "mmmmm" };
+        this.state = { time: "" };
     }
 
     componentDidMount() {

@@ -1,5 +1,33 @@
 import React, { Component } from 'react'
 
+const Graph = () => {
+  return (
+    <svg
+      width={260}
+      height={163}
+      viewBox="0 0 260 163"
+    >
+      <defs>
+        <linearGradient
+          id="r9nta"
+          x1={238.6}
+          x2={30.56}
+          y1={10.3}
+          y2={151.31}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0} stopColor="#005c9f" />
+          <stop offset={1} stopColor="#123273" />
+        </linearGradient>
+      </defs>
+      <path
+        fill="url(#r9nta)"
+        d="M25 163c-13.807 0-25-11.193-25-25V18.62s53.31 13.227 77.597-8.787c24.287-22.014 47.314 1.93 71.62 8.787 24.307 6.855 37.564.783 49.76-8.787 12.199-9.57 45.708 6.59 60.944 8.787l.08.012V138c0 13.807-11.194 25-25.001 25z"
+      />
+    </svg>
+  );
+}
+
 class DashContent extends Component {
   render() {
     return (
@@ -12,49 +40,46 @@ class DashContent extends Component {
             <div className="content-balance-btc-square content-whitebox-balance">
               <div className="content-balance-btc-square-text content-text-blue">
                 <h3>BTC 1.023</h3>
-                <br />
                 <span className="content-text-grey">USD 7,012</span>
               </div>
               <div className="content-balance-btc-square-calc">
-                <div className="content-balance-btc-square-calc-plus">
-                  <svg preserveAspectRatio="xMinYMid slice"><use href="#plus" /></svg>
-                </div>
+                <svg className="content-balance-btc-square-calc-plus" preserveAspectRatio="xMinYMid slice" viewBox="0 0 47 44">
+                  <use href="#plus" />
+                </svg>
                 <div className="content-balance-btc-square-calc-line">
-                  <svg preserveAspectRatio="xMinYMid slice"><use href="#line" /></svg>
+                  <div className="content-balance-btc-square-calc-line-border"></div>
                 </div>
-                <div className="content-balance-btc-square-calc-minus">
-                  <svg preserveAspectRatio="xMinYMid slice"><use href="#minus" /></svg>
-                </div>
+                <svg className="content-balance-btc-square-calc-minus" preserveAspectRatio="xMinYMid slice" viewBox="0 0 46 6">
+                  <use href="#minus" />
+                </svg>
               </div>
             </div>
             <div className="content-balance-btc-dol">
-              <div className="content-balance-arrow-left">
-                <svg preserveAspectRatio="xMinYMid slice"><use href="#arrow-left" /></svg>
-              </div>
-              <div className="content-balance-arrow-right">
-                <svg preserveAspectRatio="xMinYMid slice"><use href="#arrow-right" /></svg>
-              </div>
+              <svg className="content-balance-arrow-left" viewBox="0 0 31 56">
+                <use href="#arrow-left" />
+              </svg>
+              <svg className="content-balance-arrow-right" viewBox="0 0 31 56">
+                <use href="#arrow-right" />
+              </svg>
             </div>
             <div className="content-balance-dol-header content-text-blue">
               <h3>USD Balance</h3>
             </div>
             <div className="content-balance-dol-square content-whitebox-balance content-text-blue">
               <h3>USD 467</h3>
-              <br />
               <span className="content-text-grey">
                 BTC 0,12
-                <br />
                 <br />
                 DET 467
               </span>
             </div>
             <div className="content-balance-dol-coin">
-              <div className="content-balance-arrow-left">
-                <svg preserveAspectRatio="xMinYMid slice"><use href="#arrow-left" /></svg>
-              </div>
-              <div className="content-balance-arrow-right">
-                <svg preserveAspectRatio="xMinYMid slice"><use href="#arrow-right" /></svg>
-              </div>
+              <svg className="content-balance-arrow-left" viewBox="0 0 31 56">
+                <use href="#arrow-left" />
+              </svg>
+              <svg className="content-balance-arrow-right" viewBox="0 0 31 56">
+                <use href="#arrow-right" />
+              </svg>
             </div>
             <div className="content-balance-coin-header content-text-blue">
               <h3>DEFIMA Token Balance</h3>
@@ -71,7 +96,6 @@ class DashContent extends Component {
               </div>
               <div className="content-earnings-total-invmemb-investments content-whitebox-earnings content-text-blue">
                 <h3>BTC 1.023</h3>
-                <br />
                 <span className="content-text-grey">USD 7,012</span>
                 <p />
               </div>
@@ -89,7 +113,6 @@ class DashContent extends Component {
               </div>
               <div className="content-earnings-profteam-profinvestments content-whitebox-earnings content-text-blue">
                 <h3>DET 423</h3>
-                <br />
                 <span className="content-text-grey">USD 423</span>
               </div>
               <div className="content-earnings-profteam-totalheader content-text-blue">
@@ -97,9 +120,7 @@ class DashContent extends Component {
               </div>
               <div className="content-earnings-profteam-totalteam content-whitebox-earnings content-text-blue">
                 <h3>DET 423</h3>
-                <br />
                 <span className="content-text-grey">USD 423</span>
-                <p />
               </div>
             </div>
             <div className="content-earnings-totalprof">
@@ -107,19 +128,32 @@ class DashContent extends Component {
                 <h3>Total Profits</h3>
               </div>
               <div className="content-earnings-total-totalprof-totalprofsquare content-whitebox-earnings content-text-blue">
-                <h3>DET 1000</h3>
-                <span className="content-text-grey">USD 1000</span>
-                <h3>Last 24h</h3>
-                <h3>DET 360</h3>
-                <span className="content-text-grey">USD 360</span>
+                <div className="content-earnings-total-totalprof-totalprofsquare-total content-text-blue">
+                  <h3>DET 1000</h3>
+                  <span className="content-text-grey">USD 1000</span>
+                </div>
+                <div className="content-earnings-total-totalprof-totalprofsquare-header content-text-blue">
+                  <h3>Last 24h</h3>
+                </div>
+                <div className="content-earnings-total-totalprof-totalprofsquare-hours content-text-blue">
+                  <h3>DET 360</h3>
+                  <span className="content-text-grey">USD 360</span>
+                </div>
               </div>
             </div>
-            <div className="content-earnings-graph content-whitebox-earnings content-text-blue">
-              <br />
-              <h3>300% Rule</h3>
-              <br />
-              <br />
-              <svg preserveAspectRatio="xMinYMid slice"><use href="#graph" /></svg>
+            <div className="content-earnings-graph content-text-blue">
+              <div className="content-earnings-graph-rule content-text-blue">
+                <h3>300% Rule</h3>
+              </div>
+              <div className="content-earnings-graph-line">
+                <div className="content-earnings-graph-line-border"></div>
+              </div>
+              <div className="content-earnings-graph-reached">
+                <Graph />
+                <div className="content-earnings-graph-reached-text">
+                  <h3>167% Reached</h3>
+                </div>
+              </div>
             </div>
           </div>
           <div className="content-links  content-text-blue">
@@ -141,48 +175,56 @@ class DashContent extends Component {
               Login History
             </div>
             <div className="content-newslog-news content-whitebox-news">
-              <div className="content-text-blue content-newslog-news-heading1 ">
-                <h3>Heading</h3>
-              </div>
-              <div className="content-newslog-news-text1 content-text-grey">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </div>
-              <div className="content-newslog-news-button1 ">
-                <div className="content-newslog-news-button-text">View More</div>
+              <div className="content-newslog-news-news1 content-newslog-news-style">
+                <div className="content-newslog-news-news1-heading content-text-blue content-newslog-news-heading-style">
+                  <h3>Heading</h3>
+                </div>
+                <div className="content-newslog-news-news1-text content-text-grey content-newslog-news-text-style">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div>
+                <div className="content-newslog-news-news1-button content-newslog-news-button-style">
+                  <div className="content-newslog-news-button-text">View More</div>
+                </div>
               </div>
               <div className="content-newslog-news-line">
-                <img src="Line_news.svg" />
+                <div className="content-newslog-news-line-border"></div>
               </div>
-              <div className="content-newslog-news-heading2 content-text-blue">
-                <h3>Heading</h3>
-              </div>
-              <div className="content-newslog-news-text2 content-text-grey">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </div>
-              <div className="content-newslog-news-button2 ">
-                <div className="content-newslog-news-button-text">View More</div>
+              <div className="content-newslog-news-news2 content-newslog-news-style">
+                <div className="content-newslog-news-news2-heading content-text-blue content-newslog-news-heading-style">
+                  <h3>Heading</h3>
+                </div>
+                <div className="content-newslog-news-news2-text content-text-grey content-newslog-news-text-style">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div>
+                <div className="content-newslog-news-news2-button content-newslog-news-button-style">
+                  <div className="content-newslog-news-button-text">View More</div>
+                </div>
               </div>
             </div>
             <div className="content-newslog-loginhistory">
-              <div className="content-newslog-loginhistory-timeheader content-newslog-loginhistory-text">
-                Date/Time
+              <div className="content-newslog-loginhistory-header">
+                <div className="content-newslog-loginhistory-timeheader content-newslog-loginhistory-text">
+                  Date/Time
+                </div>
+                <div className="content-newslog-loginhistory-ipheader content-newslog-loginhistory-text">
+                  IP
+                </div>
+                <div className="content-newslog-loginhistory-countryheader content-newslog-loginhistory-text">
+                  Country
+                </div>
               </div>
-              <div className="content-newslog-loginhistory-ipheader content-newslog-loginhistory-text">
-                IP
-              </div>
-              <div className="content-newslog-loginhistory-countryheader content-newslog-loginhistory-text">
-                Country
-              </div>
-              <div className="content-newslog-loginhistory-time content-newslog-loginhistory-text">
-                21.04/15:00
-              </div>
-              <div className="content-newslog-loginhistory-ip content-newslog-loginhistory-text">
-                12.122.21
-              </div>
-              <div className="content-newslog-loginhistory-country content-newslog-loginhistory-text">
-                Germany
+              <div className="content-newslog-loginhistory-row">
+                <div className="content-newslog-loginhistory-time content-newslog-loginhistory-text">
+                  21.04/15:00
+                </div>
+                <div className="content-newslog-loginhistory-ip content-newslog-loginhistory-text">
+                  12.122.21
+                </div>
+                <div className="content-newslog-loginhistory-country content-newslog-loginhistory-text">
+                  Germany
+                </div>
               </div>
             </div>
           </div>

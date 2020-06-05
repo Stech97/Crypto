@@ -7,6 +7,7 @@ import { routerReducer } from 'react-router-redux'
 export const rootReducer = combineReducers({
 	form: reduxFormReducer, // mounted under "form"
 	ComingSoon: formReducer,
+	FooterNewsletter: formReducer,
 	routing: routerReducer,
 	Dashboard: sidebarReducer, 
 })

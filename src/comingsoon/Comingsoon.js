@@ -23,7 +23,6 @@ class ComingSoon extends Component {
 
 	render () {
 		const { ComingSoon } = this.props
-		console.log(ComingSoon.visibility)
 		return (
 			<section className="comingsoon">
 				<div className="comingsoon-wrapper">

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { HashLink } from 'react-router-hash-link'
 
 const HeaderLogo = () => {
 	return(
@@ -18,10 +19,10 @@ class HeaderNav extends Component {
 		return(
 			<div className="top-nav-box">
 				<div className="nav-bar nav-about">
- 		           <Link to={'/main#OurMission'}>About</Link>
+ 		           <HashLink to={'/main#OurMission'}>About</HashLink>
 				</div>
 				<div className="nav-bar nav-team">
- 		           <Link to={'/main#Team'}>Team</Link>
+ 		           <HashLink to={'/main#Team'}>Team</HashLink>
 				</div>
 				<div className="nav-bar nav-blog">
 		            <a href='https://medium.com/'>Blog</a>
