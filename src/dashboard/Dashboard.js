@@ -210,7 +210,7 @@ class Dashboard extends Component {
           </svg>
         <div className={this.state.isClosed ? "dash-wrapper-closed" : "dash-wrapper"}>
           <DashHeader />
-          <Sidebar isClosed={this.state.isClosed} toggle={this.toggle}/>
+          <Sidebar isClosed={this.state.isClosed} toggle={this.toggle} />
           <DashContent />
         </div>
       </div>
