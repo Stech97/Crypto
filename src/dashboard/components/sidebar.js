@@ -4,7 +4,7 @@ import cn from 'classnames'
 class SidebarTime extends Component {
     
     getTime() {
-        fetch("http://84.201.132.112/api/Dashboard/GetTime")
+        fetch("https://back.defima.io/api/Dashboard/GetTime")
 		.then((res) => {
 			if (res.ok) {
 				console.log(res);

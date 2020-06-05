@@ -49,7 +49,7 @@ class DashHeader extends Component {
 					  		onClick={() => this.toggle(this.state.isClosed)}
 					  		role="img"
 					  		className={"dash-header-user-arrow" + (this.state.isClosed ? "-closed" : "") }
-					  		preserveAspectRatio="xMinyMin slice" viewBox="0 0 25 15"
+					  		preserveAspectRatio="xMinYMin slice" viewBox="0 0 25 15"
 					  	>
 					    	<use href="#arrow-down" />
 					  	</svg>
