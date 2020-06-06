@@ -48,7 +48,7 @@ namespace DBRepository.Repositories
                     switch (exchnge)
                     {
                         case "BTCUSD":
-                            if (balanceNew.BitcoinBalance > amount)
+                            if (balanceNew.BitcoinBalance >= amount)
                             {
                                 balanceNew.BitcoinBalance -= amount;
                                 balanceNew.USDBalance += (amount * (await GetRate(exchnge)));
@@ -57,7 +57,7 @@ namespace DBRepository.Repositories
                                 return null;
                             break;
                         case "USDBTC":
-                            if (balanceNew.USDBalance > amount)
+                            if (balanceNew.USDBalance >= amount)
                             {
                                 balanceNew.USDBalance -= amount;
                                 balanceNew.BitcoinBalance += (amount * (await GetRate(exchnge)));
@@ -66,7 +66,7 @@ namespace DBRepository.Repositories
                                 return null;
                             break;
                         case "USDDET":
-                            if (balanceNew.USDBalance > amount)
+                            if (balanceNew.USDBalance >= amount)
                             {
                                 balanceNew.USDBalance -= amount;
                                 balanceNew.DefimaBalance += (amount * (await GetRate(exchnge)));
@@ -75,7 +75,7 @@ namespace DBRepository.Repositories
                                 return null;
                             break;
                         case "DETUSD":
-                            if (balanceNew.DefimaBalance > amount)
+                            if (balanceNew.DefimaBalance >= amount)
                             {
                                 balanceNew.DefimaBalance -= amount;
                                 balanceNew.USDBalance += (amount * (await GetRate(exchnge)));

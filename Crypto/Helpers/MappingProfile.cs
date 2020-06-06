@@ -12,6 +12,11 @@ namespace Crypto
 	{
 		public MappingProfile()
 		{
+			CreateMap<Balance, BalanceViewModel>()
+				.ForMember(m => m.BTC, opt => opt.MapFrom(x => x.BitcoinBalance))
+				.ForMember(m => m.USD, opt => opt.MapFrom(x => x.USDBalance))
+				.ForMember(m => m.DET, opt => opt.MapFrom(x => x.DefimaBalance));
+
 			CreateMap<Balance, CashBTCViewModel>()
 				.ForMember(m => m.BTC, opt => opt.MapFrom(x => x.BitcoinBalance));
 
