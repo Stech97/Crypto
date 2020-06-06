@@ -2,7 +2,7 @@
 {
     public class RateViewModel
     {
-       public string  CurrencyFrom { get; set; }
+       public string CurrencyFrom { get; set; }
        public string CurrencyTo { get; set; }
     }
 }

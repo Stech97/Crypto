@@ -58,6 +58,12 @@ namespace Crypto.Services.Implementation
             var balanceNew = await _repositoryDashboard.CashBTC(balanceOld, Id);
             return _mapper.Map<Balance, CashBTCViewModel>(balanceNew);
         }
+        public async Task<double> GetRate(RateViewModel request)
+        {
+            var rate = request.CurrencyFrom + request.CurrencyTo;
+            return await _repositoryDashboard.GetRate(rate);
+
+        }
 
     }
 }

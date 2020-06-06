@@ -88,6 +88,36 @@ namespace DBRepository.Repositories
                 }
             }    
         }
+        
+        public async Task<double> GetRate(string rate)
+        {
+            double OutRate;
+
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                switch (rate)
+                {
+                    case "BTCUSD":
+                        OutRate = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_BTC).FirstAsync();
+                        break;
+                    case "USDBTC":
+                        OutRate = 1 / await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_BTC).FirstAsync();
+                        break;
+                    case "USDDET":
+                        OutRate = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_DEF).FirstAsync();
+                        break;
+                    case "DETUSD":
+                        OutRate = 1 / await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_DEF).FirstAsync();
+                        break;
+                    default:
+                        OutRate = 0;
+                        break;
+                }
+            }
+
+            return OutRate;
+        }
+    
     }
 }
                                                                                                                                                         

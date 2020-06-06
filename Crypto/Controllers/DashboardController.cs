@@ -76,7 +76,11 @@ namespace Crypto.Controllers
         [HttpPost]
         public async Task<IActionResult> GetRate([FromBody] RateViewModel request)
         {
-            return Ok();
+            var Rate = new
+            {
+                rate = await _dashboardService.GetRate(request)
+            };
+            return Ok(Rate);
         }
 
         #region Fake

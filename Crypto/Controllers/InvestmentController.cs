@@ -41,9 +41,9 @@ namespace Crypto.Controllers
 			return Ok(await _investmentService.GetLastDayInvestment(UserId));
 		}
 
-		public async Task<IActionResult> BuyInvestment()
+		/*public async Task<IActionResult> BuyInvestment()
 		{
 			return Ok();
-		}
+		}*/
 	}
 }
