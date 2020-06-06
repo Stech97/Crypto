@@ -4,6 +4,7 @@ using Crypto.ViewModels;
 using System;
 using Crypto.ViewModels.Identity;
 using Crypto.ViewModels.Dashdoard;
+using Crypto.ViewModels.Administrator;
 
 namespace Crypto
 {
@@ -49,16 +50,18 @@ namespace Crypto
 
 			CreateMap<Investment, ViewModels.Investment.InvestmentViewModel>();
 
-			CreateMap<News, NewsViewModel>();
+			CreateMap<News, ViewModels.Dashdoard.NewsViewModel>();
 
 			CreateMap<ViewModels.Administrator.NewsViewModel, News>()
 				.ForMember(m => m.CreateDate, opt => opt.MapFrom(m => DateTime.Now))
 				.ForMember(m => m.LastChangeDate, opt => opt.MapFrom(m => DateTime.Now));
 			
-			CreateMap<ViewModels.Administrator.RateViewModel, Balance>()
+			CreateMap<RateDETViewModel, Balance>()
 				.ForMember(m => m.RateUSD_DEF, opt => opt.MapFrom(m => m.RateDef));
+			CreateMap<string, Balance>()
+				.ForMember(m => m.RateBTC_USD, opt => opt.MapFrom(m => m));
 
-			CreateMap<Balance, ViewModels.Administrator.RateViewModel>()
+			CreateMap<Balance, RateDETViewModel>()
 				.ForMember(m => m.RateDef, opt => opt.MapFrom(m => m.RateUSD_DEF));
 
 		}

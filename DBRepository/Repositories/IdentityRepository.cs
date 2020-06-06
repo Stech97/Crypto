@@ -35,14 +35,14 @@ namespace DBRepository.Repositories
 				await context.SaveChangesAsync();
 
 				var newUser = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == user.Username);
-				var rateBTC = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_BTC).FirstAsync();
+				var rateBTC = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateBTC_USD).FirstAsync();
 				var rateDEF = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_DEF).FirstAsync();
 				var newWallet = new Balance
 				{
 					USDBalance = 0,
 					BitcoinBalance = 0,
 					DefimaBalance = 0,
-					RateUSD_BTC = rateBTC,
+					RateBTC_USD = rateBTC,
 					RateUSD_DEF = rateDEF,
 					User = newUser,
 					UserId = newUser.Id

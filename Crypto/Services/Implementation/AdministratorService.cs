@@ -3,6 +3,7 @@ using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Administrator;
 using DBRepository.Interfaces;
 using Models;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Crypto.Services.Implementation
@@ -35,11 +36,27 @@ namespace Crypto.Services.Implementation
 			await _repository.AddNews(news);
 		}
 
-        public async Task<RateViewModel> UpdateRate(RateViewModel request)
+        public async Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request)
         {
-			var rate = _mapper.Map<RateViewModel, Balance>(request);
-			var newRate = await _repository.UpdateRate(rate);
-			return _mapper.Map<Balance, RateViewModel>(newRate);
+			var rate = _mapper.Map<RateDETViewModel, Balance>(request);
+			var newRate = await _repository.UpdateDETRate(rate);
+			return _mapper.Map<Balance, RateDETViewModel>(newRate);
         }
-    }
+
+		public async void UpdateBTCRate()
+		{
+			var uri = "https://blockchain.info/tobtc?currency=USD&value=1";
+
+			WebClient client = new WebClient();
+			{
+				client.UseDefaultCredentials = true;
+			}
+
+			var data =  client.DownloadString(uri);
+			data = data.Replace(".", ",");
+			var rate = _mapper.Map<string, Balance>(data);
+			await _repository.UpdateBTCRate(rate);
+		}
+
+	}
 }

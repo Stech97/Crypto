@@ -98,10 +98,10 @@ namespace DBRepository.Repositories
                 switch (rate)
                 {
                     case "BTCUSD":
-                        OutRate = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_BTC).FirstAsync();
+                        OutRate = 1 /  await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateBTC_USD).FirstAsync();
                         break;
                     case "USDBTC":
-                        OutRate = 1 / await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_BTC).FirstAsync();
+                        OutRate =  await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateBTC_USD).FirstAsync();
                         break;
                     case "USDDET":
                         OutRate = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_DEF).FirstAsync();

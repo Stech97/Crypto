@@ -1,6 +1,6 @@
 ﻿namespace Crypto.ViewModels.Administrator
 {
-    public class RateViewModel
+    public class RateDETViewModel
     {
         public double RateDef { get; set; }
     }

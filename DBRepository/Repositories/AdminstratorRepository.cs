@@ -39,7 +39,7 @@ namespace DBRepository.Repositories
 			}
 		}
 
-        public async Task<Balance> UpdateRate(Balance balance)
+        public async Task<Balance> UpdateDETRate(Balance balance)
         {
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -48,5 +48,14 @@ namespace DBRepository.Repositories
 				return await context.Balances.AsNoTracking().FirstOrDefaultAsync();
 			}
 		}
-    }
+
+		public async Task UpdateBTCRate(Balance balance)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				await context.Balances.ForEachAsync(x => { x.RateBTC_USD = balance.RateBTC_USD; });
+				await context.SaveChangesAsync();
+			}
+		}
+	}
 }

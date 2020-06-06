@@ -1,4 +1,5 @@
-﻿using DBRepository;
+﻿using Crypto.Services.Interfaces;
+using DBRepository;
 using DBRepository.Interfaces;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -30,6 +31,9 @@ namespace Crypto
 				{
 					await DbInitializer.Initialize(context);
 				}
+
+				var adminService = services.GetRequiredService<IAdministratorService>();
+				Helpers.TaskScheduler.Instance.ScheduleTask(0, 0, 24, () => { adminService.UpdateBTCRate(); });
 			}
 
 			host.Run();

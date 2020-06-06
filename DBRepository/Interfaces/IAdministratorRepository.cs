@@ -8,6 +8,7 @@ namespace DBRepository.Interfaces
         Task DeleteInvestment(int investID);
         Task AddNews(News news); 
         Task AddInvestment(Investment investment);
-        Task<Balance> UpdateRate(Balance balance);
+        Task<Balance> UpdateDETRate(Balance balance);
+        Task UpdateBTCRate(Balance balance);
     }
 }

@@ -46,9 +46,9 @@ namespace Crypto.Controllers
 		//[Authorize]
 		[Route("UpdateRate")]
 		[HttpPatch]
-		public async Task<IActionResult> UpdateRate(ViewModels.Administrator.RateViewModel request)
+		public async Task<IActionResult> UpdateRate(ViewModels.Administrator.RateDETViewModel request)
 		{
-			return Ok(await _administratorService.UpdateRate(request));
+			return Ok(await _administratorService.UpdateDETRate(request));
 		}
 
 	}
