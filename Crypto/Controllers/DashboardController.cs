@@ -66,9 +66,14 @@ namespace Crypto.Controllers
         //[Authorize]
         [Route("Exchange")]
         [HttpPatch]
-        public async Task<IActionResult> Exchange([FromBody] BalanceViewModel request, int Id)
+        public async Task<IActionResult> Exchange([FromBody] ExchangeViewModel request, int Id)
         {
-            return Ok(await _dashboardService.ExchangeBalance(request, Id));
+            var ret = await _dashboardService.ExchangeBalance(request, Id);
+            if (ret != null)
+                return Ok();
+            else
+                return NoContent();
+
         }
 
         //[Authorize]

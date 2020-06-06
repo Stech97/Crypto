@@ -10,7 +10,7 @@ namespace Crypto.Services.Interfaces
         Task<RefLinkViewModel> GetRefLink(int Id);
         Task<List<LoginHistoryViewModel>> GetLoginHistory(int Id);
         Task<List<NewsViewModel>> GetNews(int Take, int Skip);
-        Task<BalanceViewModel> ExchangeBalance(BalanceViewModel request, int UserId);
+        Task<object> ExchangeBalance(ExchangeViewModel request, int UserId);
         Task<CashBTCViewModel> CashBTC(CashBTCViewModel request, int Id);
         Task<double> GetRate(RateViewModel request);
     }

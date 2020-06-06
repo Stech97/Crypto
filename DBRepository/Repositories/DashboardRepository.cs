@@ -36,40 +36,62 @@ namespace DBRepository.Repositories
             }
         }
 
-        public async Task<Balance> ExchangeBalance(Balance balance, int UserId)
+        public async Task<object> ExchangeBalance(string exchnge, double amount, int UserId)
         {
-            Balance balanceNew = new Balance();
-
-            using (var context = ContextFactory.CreateDbContext(ConnectionString))
-                balanceNew = await context.Balances.AsNoTracking()
-                    .FirstOrDefaultAsync(b => b.UserId == UserId);
-
-            if (balance.BitcoinBalance != 0)
+           using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                if (balance.USDBalance != 0)
+                object ret = "xcxcx";
+                var balanceNew = await context.Balances.FirstOrDefaultAsync(b => b.UserId == UserId);
+
+                if (amount > 0)
                 {
-                    balanceNew.BitcoinBalance = balance.BitcoinBalance;
-                    balanceNew.USDBalance = balance.USDBalance;
+                    switch (exchnge)
+                    {
+                        case "BTCUSD":
+                            if (balanceNew.BitcoinBalance > amount)
+                            {
+                                balanceNew.BitcoinBalance -= amount;
+                                balanceNew.USDBalance += (amount * (await GetRate(exchnge)));
+                            }
+                            else
+                                return null;
+                            break;
+                        case "USDBTC":
+                            if (balanceNew.USDBalance > amount)
+                            {
+                                balanceNew.USDBalance -= amount;
+                                balanceNew.BitcoinBalance += (amount * (await GetRate(exchnge)));
+                            }
+                            else
+                                return null;
+                            break;
+                        case "USDDET":
+                            if (balanceNew.USDBalance > amount)
+                            {
+                                balanceNew.USDBalance -= amount;
+                                balanceNew.DefimaBalance += (amount * (await GetRate(exchnge)));
+                            }
+                            else
+                                return null;
+                            break;
+                        case "DETUSD":
+                            if (balanceNew.DefimaBalance > amount)
+                            {
+                                balanceNew.DefimaBalance -= amount;
+                                balanceNew.USDBalance += (amount * (await GetRate(exchnge)));
+                            }
+                            else
+                                return null;
+                            break;
+                    }
+
+                    context.Balances.Update(balanceNew);
+                    await context.SaveChangesAsync();
+                    return ret;
                 }
                 else
-                {
-                    balanceNew.BitcoinBalance = balance.BitcoinBalance;
-                    balanceNew.DefimaBalance = balance.DefimaBalance;
-                }
+                    return null;
             }
-            else
-            {
-                balanceNew.DefimaBalance = balance.DefimaBalance;
-                balanceNew.USDBalance = balance.USDBalance;
-            }
-
-            using (var context = ContextFactory.CreateDbContext(ConnectionString))
-            {
-                context.Balances.Update(balanceNew);
-                await context.SaveChangesAsync();
-            }
-
-            return balanceNew;
         }
 
         public async Task<Balance> CashBTC(Balance balance, int UserId)

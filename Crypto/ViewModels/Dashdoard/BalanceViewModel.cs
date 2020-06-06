@@ -1,9 +1,9 @@
 ﻿namespace Crypto.ViewModels.Dashdoard
 {
-	public class BalanceViewModel
-	{
-        public double Bitcoin { get; set; }
-        public int USD { get; set; }
-        public int Defima { get; set; }
+    public class BalanceViewModel
+    {
+        public string BTC { get; set; }
+        public string USD { get; set; }
+        public string DET { get; set; }
     }
 }

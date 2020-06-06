@@ -45,11 +45,10 @@ namespace Crypto.Services.Implementation
             return _mapper.Map<List<News>, List<NewsViewModel>>(news);
         }
 
-        public async Task<BalanceViewModel> ExchangeBalance(BalanceViewModel request, int UserId)
+        public async Task<object> ExchangeBalance(ExchangeViewModel request, int UserId)
         {
-            var balanceOld = _mapper.Map<BalanceViewModel, Balance>(request);
-            var balanceNew = await _repositoryDashboard.ExchangeBalance(balanceOld, UserId);
-            return  _mapper.Map<Balance, BalanceViewModel>(balanceNew);
+            string exchange = request.From + request.To;
+            return await _repositoryDashboard.ExchangeBalance(exchange, request.Amount, UserId);
         }
 
         public async Task<CashBTCViewModel> CashBTC(CashBTCViewModel request, int Id)
@@ -60,7 +59,7 @@ namespace Crypto.Services.Implementation
         }
         public async Task<double> GetRate(RateViewModel request)
         {
-            var rate = request.CurrencyFrom + request.CurrencyTo;
+            var rate = request.From + request.To;
             return await _repositoryDashboard.GetRate(rate);
 
         }
