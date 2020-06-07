@@ -37,6 +37,12 @@
     width: 63px;
     border-radius: 31px;
     background-image: linear-gradient(50deg, #123273 0%, #005c9f 100%);
+    &:hover {
+      &>svg {
+        fill: #ed7102;
+        stroke: #ed7102;
+      }
+    }
   }
   .dash-header-user-icon>svg{
     height: 1em;
@@ -58,22 +64,45 @@
   
   .dash-header-user-arrow {
     grid-area: user-arrow;
+    &:hover {
+      &>svg {
+        fill: #ed7102;
+        stroke: #ed7102;
+      }
+    }
   }
   
-  .dash-header-user-arrow-closed>svg {
-    width: auto;
-    height: 1em;
-    font-size: 1rem;
-    fill: #123273;
-    stroke: #123273;
+  .dash-header-user-arrow-closed {
+    &>svg {
+      width: auto;
+      height: 1em;
+      font-size: 1rem;
+      fill: #123273;
+      stroke: #123273;
+    }
+
+    &:hover {
+      &>svg {
+        fill: #ed7102;
+        stroke: #ed7102;
+      }
+    }
   }
   
-  .dash-header-user-arrow>svg {
-    width: auto;
-    height: 1em;
-    font-size: 1rem;
-    fill: #123273;
-    stroke: #123273;
+  .dash-header-user-arrow {
+    &>svg {
+      width: auto;
+      height: 1em;
+      font-size: 1rem;
+      fill: #123273;
+      stroke: #123273;
+    }
+    &:hover {
+      &>svg {
+        fill: #ed7102;
+        stroke: #ed7102;
+      }
+    }
   }
   
   .dash-header-user-menu-closed {

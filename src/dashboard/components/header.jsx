@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
+import API from '../../config'
+import { connect } from 'react-redux'
+import { setUser } from '../actions/header'
 
 class DashHeader extends Component {
 
 	state = {
-		isClosed: true
+		isClosed: true,
 	};
 
 	toggle = (value) => {
     	this.setState({ isClosed: !value })
     }
+
+    componentDidMount() {
+    	this.props.setUserAction();
+    } 
 
 	render() {
 		return (
@@ -42,7 +49,7 @@ class DashHeader extends Component {
 					</svg>
 				</div>
 				<div className="dash-header-user-name">
-					<h2>Username</h2>
+					<h2>{ this.props.user.isFetching ? "Loading..." : this.props.user.username }</h2>
 				</div>
 				    <div className="dash-header-user-arrow"> 
 					  	<svg 
@@ -60,4 +67,20 @@ class DashHeader extends Component {
 	}
 }
 
-export default DashHeader
+const mapStateToProps = store => {
+	console.log(store)
+	return {
+		user: store.DashHeader
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setUserAction: username => dispatch(setUser(username)),
+  }
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(DashHeader)

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { getFormValues, reduxForm, Field } from 'redux-form';
+import { API_URL } from '../../config'
 
 const renderField = ({ input, placeholder, className, type }) => {
 	return (
@@ -18,14 +19,14 @@ class LoginForm extends Component {
 			.then((res) => res.json())
 			.then((res) => {
 				alert("You are from " + res.country + ". Your IP " + res.ip);
-				let resp = fetch("http://84.201.132.112/api/Identity/token", {
+				let resp = fetch( API_URL + "Identity/token", {
 				method: 'post',
 					headers: {
 		            	'Content-Type': 'application/json',
 		        	},
 					body: JSON.stringify({ 
-						username : 'admin',
-						password: 'admin',
+						username : 'Username',
+						password: 'Username',
 						IP: res.ip,
 						Country: res.country,
 					}),
@@ -36,6 +37,7 @@ class LoginForm extends Component {
 					console.log(resp.id)
 					alert("You succesfully logged in!");
 				} else {
+					console.log(resp)
 					alert("Wrong username or password!")
 				}
 			})

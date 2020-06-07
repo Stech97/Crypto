@@ -1,25 +1,28 @@
 import React, { Component } from 'react'
 import cn from 'classnames'
+import { API } from '../../config'
 
 class SidebarTime extends Component {
     
-    getTime() {
-        fetch("https://back.defima.io/api/Dashboard/GetTime")
+    async getTime() {
+       	const response = await API('/Dashboard/GetTime');
+       	this.setState({ time: response.data.time });
+ 
+/*       
 		.then((res) => {
 			if (res.ok) {
-				console.log(res);
-                return res.json();
+                this.setState({ time: res.time });
             } else {
                 console.log(res.e);
             }
-        }).then(res => this.setState({ time: res.time })
-        ).catch(err => this.setState({ time: err }))
+        }).catch(err => this.setState({ time: err }))
+*/
     }
 
     constructor(props) {
         super(props);
 
-        this.state = { time: "" };
+        this.state = { time: "Loading..." };
     }
 
     componentDidMount() {

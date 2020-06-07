@@ -1,4 +1,5 @@
 import emailjs from 'emailjs-com'
+import { API_URL } from '../../config'
 
 export const COMINGSOON_ERROR = 'COMINGSOON_ERROR'
 export const COMINGSOON_SUCCESS = 'COMINGSOON_SUCCESS'		
@@ -39,7 +40,7 @@ export function updateView(email) {
 	return (dispatch) => {
 		  // Validate email
 		let variables = {message_html: email};
-		fetch("https://back.defima.io/api/Email/AddEmail", {
+		fetch(API_URL + "Email/AddEmail", {
 			method: 'post',
 			headers: {
             	'Content-Type': 'application/json',

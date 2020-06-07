@@ -7,6 +7,8 @@ body {
 
 @import "utils/normalize";
 
+@import "utils/variables";
+
 @import "mixins/utility";
 
 @import "common/dashboard/dash";
@@ -16,3 +18,6 @@ body {
 @import "common/dashboard/sidebar";
 
 @import "common/dashboard/content";
+
+@import "common/dashboard/modals";
+
