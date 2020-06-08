@@ -110,8 +110,28 @@ namespace DBRepository.Repositories
 
 		public async Task<User> CheckInfo(User user)
 		{
+			User outUser = new User();
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-                return await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == user.Username || u.Email == user.Email);
+			{
+				var tempUser = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == user.Username);
+				if (tempUser != null)
+				{
+					outUser.Username = tempUser.Username;
+					tempUser = null;
+				}
+				else
+					outUser.Username = "";
+				tempUser = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == user.Email);
+				if (tempUser != null)
+					outUser.Email = tempUser.Email;
+				else
+					outUser.Email = "";
+
+				if (outUser.Email == "" && outUser.Username == "")
+					outUser = null;
+
+			}
+			return outUser;
 		}
 
 		private string GetMd5Hash(MD5 md5Hash, string input)
