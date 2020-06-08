@@ -262,3 +262,7 @@ __pycache__/
 /Crypto/wwwroot/assets
 
 Crypto/Properties/
+
+Crypto/appsettings.json
+
+Crypto/web.config
