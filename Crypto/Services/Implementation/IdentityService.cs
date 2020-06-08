@@ -29,11 +29,10 @@ namespace Crypto.Services.Implementation
 			return  await _repository.AddUser(login);
 		}
 		
-		public async Task SetLoginHistory(LoginHistoryViewModel request, int LifeTime)
+		public async Task SetLoginHistory(LoginHistoryViewModel request)
 		{
 			var loginHistory = _mapper.Map<LoginHistoryViewModel, LoginHistory>(request);
 			var currentSession = _mapper.Map<LoginHistoryViewModel, CurrentSession>(request);
-			currentSession.LogoutTime = currentSession.LoginTime.Add(TimeSpan.FromMinutes(LifeTime));
 
 			await _repository.SetLoginHistory(loginHistory);
 			await _repository.SetCurrentSession(currentSession);

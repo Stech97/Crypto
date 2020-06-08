@@ -46,15 +46,6 @@ namespace Crypto.Controllers
                     };
                     identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                 }
-				LoginHistoryViewModel request = new LoginHistoryViewModel
-				{
-					IP = model.IP,
-					LoginTime = DateTime.Now,
-					UserId = user.Id,
-					Country = model.Country
-				};
-
-				await _identityService.SetLoginHistory(request, AuthOptions.LIFETIME);
 			}
 			if (identity == null)
 				return Unauthorized();
@@ -69,6 +60,17 @@ namespace Crypto.Controllers
 					expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
 					signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+			
+			LoginHistoryViewModel request = new LoginHistoryViewModel
+			{
+				IP = model.IP,
+				LoginTime = DateTime.Now,
+				UserId = user.Id,
+				Country = model.Country,
+				Token = encodedJwt
+			};
+
+			await _identityService.SetLoginHistory(request);
 
 			UserViewModel response = new UserViewModel
 			{
@@ -77,7 +79,9 @@ namespace Crypto.Controllers
 				Token = encodedJwt,
 				IsVerification = user.IsVerification				
 			};
-
+			var timeOut = DateTime.Now.AddMinutes(AuthOptions.LIFETIME);
+			Helpers.TaskScheduler.Instance.ScheduleTask
+				(timeOut.Hour, timeOut.Minute, timeOut.Second, timeOut.Millisecond, 0, () => { _identityService.SignOut(8); });
 			return Ok(response);
 		}
 

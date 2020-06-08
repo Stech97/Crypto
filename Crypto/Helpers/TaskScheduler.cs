@@ -26,5 +26,18 @@ namespace Crypto.Helpers
 
             timers.Add(timer);
         }
+        public void ScheduleTask(int hour, int min, int sec, int milsec, double intervalInHour, Action task)
+        {
+            DateTime now = DateTime.Now;
+            DateTime firstRun = new DateTime(now.Year, now.Month, now.Day, hour, min, sec, milsec);
+
+            TimeSpan timeToGo = firstRun - now;
+            if (timeToGo <= TimeSpan.Zero)
+                timeToGo = TimeSpan.Zero;
+
+            var timer = new Timer(x => { task.Invoke(); }, null, timeToGo, TimeSpan.FromHours(intervalInHour));
+
+            timers.Add(timer);
+        }
     }
 }

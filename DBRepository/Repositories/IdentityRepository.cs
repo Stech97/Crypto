@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Linq;
 using Models;
-using Microsoft.EntityFrameworkCore.Extensions.Internal;
-using System;
 using System.Security.Cryptography;
 using System.Text;
 
