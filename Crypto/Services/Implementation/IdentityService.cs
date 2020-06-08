@@ -23,10 +23,10 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetUser(userName);
 		}
 		
-		public async Task AddUser(LoginViewModel request)
+		public async Task<string> AddUser(LoginViewModel request)
 		{
 			var login = _mapper.Map<LoginViewModel, User>(request);
-			await _repository.AddUser(login);
+			return  await _repository.AddUser(login);
 		}
 		
 		public async Task SetLoginHistory(LoginHistoryViewModel request, int LifeTime)

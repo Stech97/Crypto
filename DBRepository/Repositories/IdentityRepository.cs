@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using System.Linq;
 using Models;
 using Microsoft.EntityFrameworkCore.Extensions.Internal;
+using System;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace DBRepository.Repositories
 {
@@ -27,7 +30,7 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task AddUser(User user)
+		public async Task<string> AddUser(User user)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -47,10 +50,22 @@ namespace DBRepository.Repositories
 					User = newUser,
 					UserId = newUser.Id
 				};
-
 				context.Balances.Add(newWallet);
 				await context.SaveChangesAsync();
 
+				ConfirmEmail confirmEmail = new ConfirmEmail
+				{
+					Email = newUser.Email,
+					User = newUser,
+					UserId = newUser.Id
+				};
+				context.ConfirmEmails.Add(confirmEmail);
+				await context.SaveChangesAsync();
+				
+				string hash = "";
+				using (MD5 md5Hash = MD5.Create())		
+					hash = GetMd5Hash(md5Hash, newUser.Email);
+				return hash;
 			}
 		}
 
@@ -97,6 +112,17 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
                 return await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == user.Username || u.Email == user.Email);
+		}
+
+		private string GetMd5Hash(MD5 md5Hash, string input)
+		{
+			byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+			StringBuilder sBuilder = new StringBuilder();
+			for (int i = 0; i < data.Length; i++)
+				sBuilder.Append(data[i].ToString("x2"));
+
+			return sBuilder.ToString();
 		}
 	}
 }

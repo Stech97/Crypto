@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -73,7 +74,8 @@ namespace Crypto.Controllers
 			{
 				Id = user.Id,
 				Username = user.Username,
-				Token = encodedJwt
+				Token = encodedJwt,
+				IsVerification = user.IsVerification				
 			};
 
 			return Ok(response);
@@ -87,8 +89,12 @@ namespace Crypto.Controllers
 			{
 				login.Password = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(login.Password)));
 			}
-			await _identityService.AddUser(login);
-			return Ok();
+			
+			var ConfirmEmail = new
+			{
+				hash = await _identityService.AddUser(login)
+			};
+			return Ok(ConfirmEmail);
 		}
 
 		//[Authorize]
@@ -118,10 +124,19 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> CheckInfo([FromBody] CheckViewModel request)
 		{
 			var result = await _identityService.CheckInfo(request);
-			if (result == null)
-				return NoContent();
-			else
+			if (result != null)
 				return Ok(result);
+			else
+				return Ok();
+
+		}
+
+		[Route("ConfirmEmail")]
+		[HttpGet]
+		public async Task<IActionResult> ConfirmEmail(string Id)
+		{
+			var x = Id;
+			return Ok();
 		}
 	}
 }

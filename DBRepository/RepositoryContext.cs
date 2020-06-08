@@ -14,6 +14,7 @@ namespace DBRepository
 		public DbSet<LoginHistory> LoginHistories { get; set; }
 		public DbSet<CurrentSession> CurrentSessions { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<ConfirmEmail> ConfirmEmails { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -55,6 +56,11 @@ namespace DBRepository
             modelBuilder.Entity<News>().ToTable("News");
             modelBuilder.Entity<News>().Property(n => n.Header).IsRequired();
             modelBuilder.Entity<News>().Property(n => n.Description).IsRequired();
+            #endregion
+
+            #region ConfirmEmail
+            modelBuilder.Entity<ConfirmEmail>().ToTable("ConfirmEmail");
+            modelBuilder.Entity<ConfirmEmail>().Property(ce => ce.Email).IsRequired();
             #endregion
         }
     }

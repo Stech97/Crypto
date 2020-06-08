@@ -19,9 +19,9 @@ namespace Models
 		public string RefLink { get; set; }
 		public bool IsVerification { get; set; }
 		public Balance Balance { get; set; }
+		public ConfirmEmail ConfirmEmail { get; set; }
 		public List<LoginHistory> LoginHistories { get; set; }
 		public List<CurrentSession>  CurrentSessions { get; set; }
-
 		public List<Investment> Investments { get; set; }
 	}
 }

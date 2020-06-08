@@ -7,7 +7,7 @@ namespace DBRepository.Interfaces
     {
         Task<User> GetUser(string userName);
         Task<User> GetUser(int Id);
-        Task AddUser(User user);
+        Task<string> AddUser(User user);
         Task SetLoginHistory(LoginHistory loginHistory);
         Task SetCurrentSession(CurrentSession currentSession);
         Task SignOut(int Id);
