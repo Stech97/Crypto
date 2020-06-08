@@ -3,7 +3,7 @@ using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Administrator;
 using DBRepository.Interfaces;
 using Models;
-using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Crypto.Services.Implementation
@@ -47,12 +47,9 @@ namespace Crypto.Services.Implementation
 		{
 			var uri = "https://blockchain.info/tobtc?currency=USD&value=1";
 
-			WebClient client = new WebClient();
-			{
-				client.UseDefaultCredentials = true;
-			}
+			HttpClient client = new HttpClient();
+			string data = await client.GetStringAsync(uri);
 
-			var data =  client.DownloadString(uri);
 			data = data.Replace(".", ",");
 			var rate = _mapper.Map<string, Balance>(data);
 			await _repository.UpdateBTCRate(rate);
