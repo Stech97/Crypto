@@ -55,5 +55,10 @@ namespace Crypto.Services.Implementation
 			var result = await _repository.CheckInfo(check);
 			return _mapper.Map<User, CheckViewModel>(result);
 		}
+
+		public async Task<object> ConfirmEmail(string Id)
+		{
+			return await _repository.ConfirmEmail(Id);
+		}
 	}
 }

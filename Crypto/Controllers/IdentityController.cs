@@ -81,7 +81,7 @@ namespace Crypto.Controllers
 			};
 			var timeOut = DateTime.Now.AddMinutes(AuthOptions.LIFETIME);
 			Helpers.TaskScheduler.Instance.ScheduleTask
-				(timeOut.Hour, timeOut.Minute, timeOut.Second, timeOut.Millisecond, 0, () => { _identityService.SignOut(8); });
+				(timeOut.Hour, timeOut.Minute, timeOut.Second, timeOut.Millisecond, 0, () => { _identityService.SignOut(user.Id); });
 			return Ok(response);
 		}
 
@@ -139,8 +139,7 @@ namespace Crypto.Controllers
 		[HttpGet]
 		public async Task<IActionResult> ConfirmEmail(string Id)
 		{
-			var x = Id;
-			return Ok();
+			return Ok(await _identityService.ConfirmEmail(Id));
 		}
 	}
 }

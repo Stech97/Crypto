@@ -12,5 +12,6 @@ namespace Crypto.Services.Interfaces
 		Task SignOut(int Id);
 		Task ChangePassword(ChangePasswordViewModel request, int Id);
 		Task<CheckViewModel> CheckInfo(CheckViewModel request);
+		Task<object> ConfirmEmail(string Id);
 	}
 }

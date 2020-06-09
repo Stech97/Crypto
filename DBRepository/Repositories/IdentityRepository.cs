@@ -132,6 +132,68 @@ namespace DBRepository.Repositories
 			return outUser;
 		}
 
+		public async Task<object> ConfirmEmail(string Id)
+		{
+			object confirmEmail = null;
+
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				int confirmUserId = 0;
+
+				var Emails = await context.ConfirmEmails.AsNoTracking().ToListAsync();
+				foreach (var email in Emails)
+				{
+					using (MD5 md5Hash = MD5.Create())
+					{
+						var tempEmail = GetMd5Hash(md5Hash, email.Email);
+						if (tempEmail == Id)
+						{
+							confirmUserId = email.UserId;
+							context.ConfirmEmails.Remove(email);
+							break;
+						}
+					}
+				}
+
+				if (confirmUserId != 0)
+				{
+					var confirmUser = await context.Users.FirstOrDefaultAsync(u => u.Id == confirmUserId);
+					confirmUser.IsVerification = true;
+					context.Users.Update(confirmUser);
+					await context.SaveChangesAsync();
+
+
+					var currentSession = await context.CurrentSessions.AsNoTracking().FirstOrDefaultAsync(cs => cs.UserId == confirmUserId);
+					if (currentSession != null)
+						confirmEmail = new
+						{
+							Id = confirmUserId,
+							Username = confirmUser.Username,
+							Token = currentSession.Token,
+							IsVerification = confirmUser.IsVerification
+						};
+					else
+						confirmEmail = new
+						{
+							Id = confirmUserId,
+							Username = confirmUser.Username,
+							Token = "No login",
+							IsVerification = confirmUser.IsVerification
+						};
+				}
+				else
+					confirmEmail = new
+					{
+						Id = "",
+						Username = "",
+						Token = "",
+						IsVerification = ""
+					};
+			}
+
+			return confirmEmail;
+		}
+
 		private string GetMd5Hash(MD5 md5Hash, string input)
 		{
 			byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));

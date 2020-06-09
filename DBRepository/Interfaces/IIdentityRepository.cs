@@ -13,5 +13,6 @@ namespace DBRepository.Interfaces
         Task SignOut(int Id);
         Task ChangePassword(User user, int Id);
         Task<User> CheckInfo(User user);
+        Task<object> ConfirmEmail(string Id);
     }
 }
