@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { getFormValues, reduxForm, Field } from 'redux-form';
-import { API_URL } from '../../config'
+import { userPostFetch } from '../actions/signin'
+import { connect } from 'react-redux'
+import {API_URL} from '../../config'
 
 const renderField = ({ input, placeholder, className, type }) => {
 	return (
@@ -25,8 +27,8 @@ class LoginForm extends Component {
 		            	'Content-Type': 'application/json',
 		        	},
 					body: JSON.stringify({ 
-						username : 'Username',
-						password: 'Username',
+						username : values.username,
+						password: values.password,
 						IP: res.ip,
 						Country: res.country,
 					}),
@@ -41,6 +43,11 @@ class LoginForm extends Component {
 					alert("Wrong username or password!")
 				}
 			})
+			/*this.props.userPostFetch({
+				username: values.username,
+				password: values.password,
+			})
+			*/
 		}
 
 		return(
@@ -67,11 +74,27 @@ class LoginForm extends Component {
 			    	type="submit"
 			    	disabled={ pristine || submitting }
 			    >Login</button>
+			    { this.props.error && <p>this.props.error</p> }
 		    </form>
 		)
 	}
 }
+/*
+const mapStateToProps = store => {
+	return {
+		user: store.user
+	}
+}
 
+const mapDispatchToProps = dispatch => ({
+  userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
+})
+
+LoginForm = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(LoginForm)
+*/
 export default reduxForm({
   form: 'LoginForm' // a unique identifier for this form
 })(LoginForm)

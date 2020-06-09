@@ -1,4 +1,3 @@
-import API from '../../config'
 import { GET_USER_REQUEST, GET_USER_SUCCESS } from '../actions/header'
 
 const initialState = {
