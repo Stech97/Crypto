@@ -159,7 +159,7 @@ namespace DBRepository.Repositories
 				if (confirmUserId != 0)
 				{
 					var confirmUser = await context.Users.FirstOrDefaultAsync(u => u.Id == confirmUserId);
-					confirmUser.IsVerification = true;
+					confirmUser.IsVerified = true;
 					context.Users.Update(confirmUser);
 					await context.SaveChangesAsync();
 
@@ -171,7 +171,7 @@ namespace DBRepository.Repositories
 							Id = confirmUserId,
 							Username = confirmUser.Username,
 							Token = currentSession.Token,
-							IsVerification = confirmUser.IsVerification,
+							IsVerification = confirmUser.IsVerified,
 							Status = "Ok"
 						};
 					else
@@ -180,7 +180,7 @@ namespace DBRepository.Repositories
 							Id = confirmUserId,
 							Username = confirmUser.Username,
 							Token = "No login",
-							IsVerification = confirmUser.IsVerification,
+							IsVerification = confirmUser.IsVerified,
 							Status = "No login"
 
 						};
@@ -199,6 +199,91 @@ namespace DBRepository.Repositories
 			return confirmEmail;
 		}
 
+		public async Task<object> FogotPassword(User user)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var findUser = await context.Users.FirstOrDefaultAsync(u => u.Username == user.Username && u.Email == user.Email);
+
+				if (findUser != null)
+				{
+					findUser.IsFogotPassword = true;
+					context.Users.Update(findUser);
+					await context.SaveChangesAsync();
+
+					var fogot = findUser.Username + " " + findUser.Email;
+					string hash = "";
+					using (MD5 md5Hash = MD5.Create())
+						hash = GetMd5Hash(md5Hash, fogot);
+
+					var fogotPassword = new
+					{
+						Hash = hash,
+						Email = findUser.Email,
+						Status = "Ok"
+
+					};
+
+					return fogotPassword;
+				}
+				else
+				{
+					var fogotPassword = new
+					{
+						Hash = "No found",
+						Email = user.Email,
+						Status = "No found"
+					};
+
+					return fogotPassword;
+				}
+			}
+		}
+
+        public async Task<object> AcceptFogot(string Id)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var fogotUsers = await context.Users.AsNoTracking().Where(u => u.IsFogotPassword).ToListAsync();
+				
+				var ConfirmFogot = new
+				{
+					Username = "",
+					Status = ""
+				};
+
+				if (fogotUsers != null)
+				{
+					foreach (var fogotUser in fogotUsers)
+					{
+						var fogot = fogotUser.Username + " " + fogotUser.Email;
+						string hash = "";
+						using (MD5 md5Hash = MD5.Create())
+							hash = GetMd5Hash(md5Hash, fogot);
+						if (hash == Id)
+						{
+							ConfirmFogot = new
+							{
+								Username = fogotUser.Username,
+								Status = "Ok"
+							};
+							break;
+						}
+					}
+					return ConfirmFogot;
+				}
+				else
+				{
+					ConfirmFogot = new
+					{
+						Username = "",
+						Status = "Not found"
+					};
+					return ConfirmFogot;
+				}
+			}
+		}
+
 		private string GetMd5Hash(MD5 md5Hash, string input)
 		{
 			byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
@@ -209,5 +294,6 @@ namespace DBRepository.Repositories
 
 			return sBuilder.ToString();
 		}
-	}
+
+    }
 }

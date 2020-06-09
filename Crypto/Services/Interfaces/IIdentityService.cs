@@ -13,5 +13,7 @@ namespace Crypto.Services.Interfaces
 		Task ChangePassword(ChangePasswordViewModel request, int Id);
 		Task<CheckViewModel> CheckInfo(CheckViewModel request);
 		Task<object> ConfirmEmail(string Id);
+		Task<object> FogotPassword(CheckViewModel request);
+		Task<object> AcceptFogot(string Id);
 	}
 }

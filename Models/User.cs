@@ -17,7 +17,8 @@ namespace Models
 		public string Adress { get; set; }
 		public int Zip { get; set; }
 		public string RefLink { get; set; }
-		public bool IsVerification { get; set; }
+		public bool IsVerified { get; set; }
+		public bool IsFogotPassword { get; set; }
 		public Balance Balance { get; set; }
 		public ConfirmEmail ConfirmEmail { get; set; }
 		public List<LoginHistory> LoginHistories { get; set; }

@@ -4,7 +4,7 @@ using DBRepository.Interfaces;
 using Models;
 using Crypto.ViewModels.Identity;
 using AutoMapper;
-using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Crypto.Services.Implementation
 {
@@ -60,5 +60,16 @@ namespace Crypto.Services.Implementation
 		{
 			return await _repository.ConfirmEmail(Id);
 		}
-	}
+
+		public async Task<object> FogotPassword([FromBody] CheckViewModel request)
+		{
+			var fogotPassword = _mapper.Map<CheckViewModel, User>(request);
+			return await _repository.FogotPassword(fogotPassword);
+		}
+
+		public async Task<object> AcceptFogot(string Id)
+		{
+			return await _repository.AcceptFogot(Id);
+		}
+    }
 }

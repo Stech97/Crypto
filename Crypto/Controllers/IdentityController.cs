@@ -17,9 +17,9 @@ namespace Crypto.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]
-    public class IdentityController : Controller
-    {
-        private readonly IIdentityService _identityService;
+	public class IdentityController : Controller
+	{
+		private readonly IIdentityService _identityService;
 
 		public IdentityController(IIdentityService identityService)
 		{
@@ -38,14 +38,14 @@ namespace Crypto.Controllers
 				var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(model.Password)));
 				var passwordUser = user.Password;
 				var username = user.Username;
-                if (passwordHash == passwordUser)
-                {
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimsIdentity.DefaultNameClaimType, username),
-                    };
-                    identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-                }
+				if (passwordHash == passwordUser)
+				{
+					var claims = new List<Claim>
+					{
+						new Claim(ClaimsIdentity.DefaultNameClaimType, username),
+					};
+					identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+				}
 			}
 			if (identity == null)
 				return Unauthorized();
@@ -60,7 +60,7 @@ namespace Crypto.Controllers
 					expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
 					signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-			
+
 			LoginHistoryViewModel request = new LoginHistoryViewModel
 			{
 				IP = model.IP,
@@ -76,8 +76,11 @@ namespace Crypto.Controllers
 			{
 				Id = user.Id,
 				Username = user.Username,
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+				Email = user.Email,
 				Token = encodedJwt,
-				IsVerification = user.IsVerification				
+				IsVerified = user.IsVerified
 			};
 			var timeOut = DateTime.Now.AddMinutes(AuthOptions.LIFETIME);
 			Helpers.TaskScheduler.Instance.ScheduleTask
@@ -93,7 +96,7 @@ namespace Crypto.Controllers
 			{
 				login.Password = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(login.Password)));
 			}
-			
+
 			var ConfirmEmail = new
 			{
 				hash = await _identityService.AddUser(login)
@@ -140,6 +143,20 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> ConfirmEmail(string Id)
 		{
 			return Ok(await _identityService.ConfirmEmail(Id));
+		}
+
+		[Route("FogotPassword")]
+		[HttpPost]
+		public async Task<IActionResult> FogotPassword(CheckViewModel request)
+		{
+			return Ok(await _identityService.FogotPassword(request));
+		}
+
+		[Route("AcceptFogot")]
+		[HttpGet]
+		public async Task<IActionResult> AcceptFogot(string Id)
+		{
+			return Ok(await _identityService.AcceptFogot(Id));
 		}
 	}
 }
