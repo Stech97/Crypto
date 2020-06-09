@@ -171,7 +171,8 @@ namespace DBRepository.Repositories
 							Id = confirmUserId,
 							Username = confirmUser.Username,
 							Token = currentSession.Token,
-							IsVerification = confirmUser.IsVerification
+							IsVerification = confirmUser.IsVerification,
+							Status = "Ok"
 						};
 					else
 						confirmEmail = new
@@ -179,7 +180,9 @@ namespace DBRepository.Repositories
 							Id = confirmUserId,
 							Username = confirmUser.Username,
 							Token = "No login",
-							IsVerification = confirmUser.IsVerification
+							IsVerification = confirmUser.IsVerification,
+							Status = "No login"
+
 						};
 				}
 				else
@@ -188,7 +191,8 @@ namespace DBRepository.Repositories
 						Id = "",
 						Username = "",
 						Token = "",
-						IsVerification = ""
+						IsVerification = "",
+						Status = "No user"
 					};
 			}
 
