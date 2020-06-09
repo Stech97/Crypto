@@ -150,6 +150,7 @@ namespace DBRepository.Repositories
 						{
 							confirmUserId = email.UserId;
 							context.ConfirmEmails.Remove(email);
+							await context.SaveChangesAsync();
 							break;
 						}
 					}
