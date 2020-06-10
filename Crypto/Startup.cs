@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DBRepository.Interfaces;
@@ -81,10 +81,11 @@ namespace Crypto
 
         public void Configure(IApplicationBuilder app)
         {
-			app.UseDeveloperExceptionPage();
+			app.UseDeveloperExceptionPage(); 
+			app.UseAuthentication(); 
+			app.UseCors("CorsPolicy");
 			app.UseRouting();
 			app.UseAuthorization();
-			app.UseCors("CorsPolicy");
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();

@@ -16,7 +16,7 @@ namespace Crypto.Controllers
 			_administratorService = administratorService;
 		}
 
-		[Authorize]
+        [Authorize(Roles = "Client")]
 		[Route("DeleteInvestment")]
 		[HttpDelete]
 		public async Task<IActionResult> DeleteInvestment(int Id)

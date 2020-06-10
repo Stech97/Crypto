@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Runtime.CompilerServices;
@@ -43,6 +43,7 @@ namespace Crypto.Controllers
 					var claims = new List<Claim>
 					{
 						new Claim(ClaimsIdentity.DefaultNameClaimType, username),
+						new Claim(ClaimsIdentity.DefaultRoleClaimType, "admin")
 					};
 					identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 				}
