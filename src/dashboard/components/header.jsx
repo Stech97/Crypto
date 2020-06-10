@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import API from '../../config'
 import { connect } from 'react-redux'
 import { setUser } from '../actions/header'
+import { userLogoutGet } from '../actions/logout'
 
 class DashHeader extends Component {
 
@@ -17,7 +18,13 @@ class DashHeader extends Component {
     	this.props.setUserAction();
     } 
 
+    
+
 	render() {
+		const { user, getUserLogoutAction } = this.props
+		const clickLogout = () => {
+    		getUserLogoutAction(user.id);
+	    }
 		return (
 			<div className="dash-header">
 				<div className="dash-header-logo">
@@ -38,7 +45,7 @@ class DashHeader extends Component {
 							<svg className="dash-header-user-menu-logout-icon" preserveAspectRatio="xMinYMid slice" viewBox="0 0 37 37">
 								<use href="#dashboards-icon-white" />
 							</svg>
-							<div className="dash-header-user-menu-logout-text">
+							<div onClick={ clickLogout } className="dash-header-user-menu-logout-text">
 								<p>Logout</p>
 							</div>
 						</div>
@@ -77,6 +84,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     setUserAction: username => dispatch(setUser(username)),
+    getUserLogoutAction: ID => dispatch(userLogoutGet(ID))
   }
 }
 

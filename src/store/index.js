@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
 import { userReducer } from '../login/reducers/login'
+import { signupReducer } from '../signup/reducers/signup'
 import { formReducer } from '../comingsoon/reducers/comingsoon'
 import { routerReducer } from 'react-router-redux'
 import { dashHeaderReducer } from '../dashboard/reducers/header'
@@ -15,6 +16,7 @@ export const rootReducer = combineReducers({
 	FooterNewsletter: formReducer,
 	routing: routerReducer,
 	user: userReducer,
+	createUser: signupReducer,
 	DashHeader: dashHeaderReducer, 
 	ContentBalanceContainer: BalanceReducer,
 	BTCSquare: BTCRateReducer,

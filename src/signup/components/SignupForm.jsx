@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { getFormValues, reduxForm, Field } from 'redux-form';
 import { API } from '../../config'
 import { Link } from 'react-router-dom'
-import emailjs from 'emailjs-com'
+import { createUserPostFetch } from '../actions/signup'
+import { connect } from 'react-redux'
 
 const SignupHeader = () => {
 	return(
@@ -22,7 +23,7 @@ const textField = ({ input, placeholder, className, type, error }) => {
 		        required
 		        placeholder={placeholder}
 		    />
-		    { error.type==className && <p className="signup-box-error">{error.message}</p>}
+		    { error && error.type==className && <p className="signup-box-error">{error.message}</p>}
 	    </div>
 	)
 }
@@ -47,131 +48,11 @@ const checkField = ({ input, className, type, id, link, linktext, text }) => {
 
 class SignupForm extends Component {
 
-	state = {
-		errors: [
-			{
-				type: "username",
-				message: "",
-			},
-			{
-				type: "password",
-				message: "",
-			},
-			{
-				type: "password2",
-				message: "",
-			},
-			{
-				type: "email",
-				message: "",
-			},
-			{
-				type: "server",
-				message: "",
-			},
-		]
-	}
-
-	validateEmail = (check) => {
-		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-	  	return re.test(String(check).toLowerCase())
-	}
-
-	validateLogin = (login) => {
-		const re = /^[a-zA-z]{1}[a-zA-Z1-9]{3,20}$/
-		return re.test(String(login))
-	}
-
-
-
-	validatePassword = (password) => {
-		/* Описываем, что должно быть в пароле, с меткой НЕ (^). 
-		По уму, эту строку надо вынести из функции в глобальную область, чтобы регулярное выражение создавалось только
-		 один раз, будет шустрее.
-		*/
-		  var r=/[^A-Z-a-z-0-9]/g; 
-		  var error = ""
-		  if(r.test(password)){
-		      error = " Only latin symbols and numbers allowed!";
-		      return (error);
-		  }
-		  if (password.length<6){
-		      error = " At least 6 symbols!";
-		      return (error);
-		  }
-		  if (password.length>20){
-		      error = " Max 20 symbols!";
-		      return (error);
-		  }
-		  return(true);
-	}
-
 	render() {
-		const { handleSubmit, reset, pristine, submitting } = this.props
+		const { handleSubmit, reset, pristine, submitting, createUser } = this.props
 
-		const submit = async(values) => {
-
-			if (this.validateLogin(values.username)) {
-				if (this.validateEmail(values.email)) {
-					let response = await API('/Identity/CheckInfo', 'post', {
-						Username: values.username,
-						Email: values.email
-					})
-					if (response.username) {
-						this.setState(state => {
-							let errors = state.errors.map(error => {
-								if (error.type === "username") {
-									error.message = 'Username is taken. Try another.'
-								}
-							})
-							return { errors, }
-						})
-						alert(this.state.errors.filter(error => error.type === "username").message)
-					} else if (response.email) {
-						alert('Email is taken. Try another.')						
-					} else {
-						if (!this.validatePassword(values.password)) {
-							alert(this.validatePassword(values.password))
-						} else if (!(values.password == values.password2)) {
-							alert('Passwords must match!')
-						} else {
-							let resp = await API('/Identity/CreateLogin', 'post', {
-								username: values.username,
-								password: values.password,
-								Email: values.email,
-								FirstName: values.firstname,
-								LastName: values.lastname,
-							})
-							if (resp.ok) {
-								alert('done')
-								let confirmLink = 'https://defima.io/confirmEmail/'+resp.hash
-								emailjs.send(
-									'gmail',
-									'confirmEmail',
-									{
-										to_name: values.firstname + " " + values.lastname,
-										message_html: confirmLink,
-										send_to: values.email
-									},
-									'user_jIExVfMX1Oha7HaXMmsBs'
-								).then((res) => {
-									if (res.ok) {
-										alert('Email successfully sent!')
-									} else {
-										alert('Mail error: ', res)
-									}
-								})
-							} else {
-								alert('server error: ', resp)
-							}
-						}
-					}
-				} else {
-					alert('email is wrong')
-				}
-			} else {
-				alert('username is wrong')
-			}
+		const submit = values => {
+			this.props.createUserPostFetch(values)
 		}
 
 		return(
@@ -187,10 +68,7 @@ class SignupForm extends Component {
 				    	placeholder = "First Name"
 				    	className = "firstname"
 				    	type = "text"
-				    	error = {{
-				    		type: "fuuu",
-				    		message: "tvoya mama"
-				    	}}
+				    	error = { createUser.error }
 				    />
 				    <Field
 				        component = { textField }
@@ -198,10 +76,7 @@ class SignupForm extends Component {
 				    	placeholder = "Last Name"
 				    	className = "lastname"
 				    	type = "text"
-				    	error = {{
-				    		type: "fuuu",
-				    		message: "tvoya mama"
-				    	}}
+				    	error = { createUser.error }
 				    />
 				    <Field
 				        component = { textField }
@@ -209,10 +84,7 @@ class SignupForm extends Component {
 				    	placeholder = "E-Mail"
 				    	className = "email"
 				    	type = "text"
-				    	error = {{
-				    		type: "email",
-				    		message: "tvoya mama"
-				    	}}
+				    	error = { createUser.error }
 				    />
 				    <Field
 				        component = { textField }
@@ -220,10 +92,7 @@ class SignupForm extends Component {
 				    	placeholder = "Username"
 				    	className = "username"
 				    	type = "text"
-				    	error = {{
-				    		type: "fuuu",
-				    		message: "tvoya mama"
-				    	}}
+				    	error = { createUser.error }
 				    />
 				    <Field
 				        component = { textField }
@@ -231,10 +100,7 @@ class SignupForm extends Component {
 				    	placeholder = "Password"
 				    	className = "password"
 				    	type = "password"
-				    	error = {{
-				    		type: "fuuu",
-				    		message: "tvoya mama"
-				    	}}
+				    	error = { createUser.error }
 				    />
 				    <Field
 				        component = { textField }
@@ -242,10 +108,7 @@ class SignupForm extends Component {
 				    	placeholder = "Repeat Password"
 				    	className = "repeatpassword"
 				    	type = "password"
-				    	error = {{
-				    		type: "fuuu",
-				    		message: "tvoya mama"
-				    	}}
+				    	error = { createUser.error }
 				    />
 				    <Field
 				    	component = { checkField }
@@ -290,6 +153,21 @@ class SignupForm extends Component {
 		)
 	}
 }
+
+const mapStateToProps = store => {
+	return {
+		createUser: store.createUser
+	}
+}
+
+const mapDispatchToProps = dispatch => ({
+  createUserPostFetch: userInfo => dispatch(createUserPostFetch(userInfo))
+})
+
+SignupForm = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(SignupForm)
 
 export default reduxForm({
   form: 'SignupForm' // a unique identifier for this form

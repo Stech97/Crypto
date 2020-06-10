@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { getFormValues, reduxForm, Field } from 'redux-form';
 import { userPostFetch } from '../actions/signin'
 import { connect } from 'react-redux'
-import {API_URL} from '../../config'
+import { Redirect, useHistory } from "react-router-dom";
 
 const renderField = ({ input, placeholder, className, type }) => {
 	return (
@@ -15,7 +15,7 @@ class LoginForm extends Component {
 		const { handleSubmit, reset, pristine, submitting } = this.props
 
 		const submit = (values) => {
-			fetch('https://api.ipify.org?format=json', { mode: 'cors' })
+			/*fetch('https://api.ipify.org?format=json', { mode: 'cors' })
 			.then((resp) => resp.json())
 			.then((req) => fetch('https://ipinfo.io/' + req.ip + '/?token=7a04a322ea8440'))
 			.then((res) => res.json())
@@ -42,12 +42,11 @@ class LoginForm extends Component {
 					console.log(resp)
 					alert("Wrong username or password!")
 				}
-			})
-			/*this.props.userPostFetch({
+			})*/
+			this.props.userPostFetch({
 				username: values.username,
 				password: values.password,
 			})
-			*/
 		}
 
 		return(
@@ -79,7 +78,7 @@ class LoginForm extends Component {
 		)
 	}
 }
-/*
+
 const mapStateToProps = store => {
 	return {
 		user: store.user
@@ -94,7 +93,7 @@ LoginForm = connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(LoginForm)
-*/
+
 export default reduxForm({
   form: 'LoginForm' // a unique identifier for this form
 })(LoginForm)
