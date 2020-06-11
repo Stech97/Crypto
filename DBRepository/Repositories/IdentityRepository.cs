@@ -5,6 +5,7 @@ using System.Linq;
 using Models;
 using System.Security.Cryptography;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace DBRepository.Repositories
 {
@@ -20,11 +21,25 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<User> GetUser(int Id)
+		public async Task<object> GetUser(int Id)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				return await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Id);
+				var UserViewModel = await context.Users.AsNoTracking().Join(context.CurrentSessions,
+					u => u.Id,
+					cs => cs.UserId,
+					(u, cs) => new
+					{
+						Id = u.Id,
+						Username = u.Username,
+						FirstName = u.FirstName,
+						LastName = u.LastName,
+						Email = u.Email,
+						Token = cs.Token,
+						IsVerified = u.IsVerified,
+					}).FirstOrDefaultAsync(u => u.Id == Id);
+				return UserViewModel;
+
 			}
 		}
 

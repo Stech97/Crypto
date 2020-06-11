@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -87,6 +86,13 @@ namespace Crypto.Controllers
 			Helpers.TaskScheduler.Instance.ScheduleTask
 				(timeOut.Hour, timeOut.Minute, timeOut.Second, timeOut.Millisecond, 0, () => { _identityService.SignOut(user.Id); });
 			return Ok(response);
+		}
+
+		[Route("GetUser")]
+		[HttpGet]
+		public async Task<IActionResult> GetUser(int Id)
+		{
+			return Ok(await _identityService.GetUser(Id));
 		}
 
 		[Route("CreateLogin")]

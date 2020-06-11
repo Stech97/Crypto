@@ -139,7 +139,14 @@ namespace DBRepository.Repositories
 
             return OutRate;
         }
-    
+
+        public async Task<User> GetRefLink(int Id)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                return await context.Users.FirstOrDefaultAsync(u => u.Id == Id);
+            }
+        }
     }
 }
                                                                                                                                                         

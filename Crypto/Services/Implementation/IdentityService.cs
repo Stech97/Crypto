@@ -22,7 +22,12 @@ namespace Crypto.Services.Implementation
 		{
 			return await _repository.GetUser(userName);
 		}
-		
+		public async Task<UserViewModel> GetUser(int Id)
+		{
+			var userViewModel = await  _repository.GetUser(Id);
+			return _mapper.Map<object, UserViewModel>(userViewModel);
+		}
+
 		public async Task<string> AddUser(LoginViewModel request)
 		{
 			var login = _mapper.Map<LoginViewModel, User>(request);

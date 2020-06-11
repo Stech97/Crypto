@@ -34,7 +34,7 @@ namespace Crypto.Services.Implementation
 
         public async Task<RefLinkViewModel> GetRefLink(int Id)
         {
-            var user =  await _repositorIidentity.GetUser(Id);
+            var user =  await _repositoryDashboard.GetRefLink(Id);
             return _mapper.Map<User, RefLinkViewModel>(user);
         }
         

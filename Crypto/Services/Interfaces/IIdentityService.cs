@@ -7,6 +7,7 @@ namespace Crypto.Services.Interfaces
 	public interface IIdentityService
     {
 		Task<User> GetUser(string userName);
+		Task<UserViewModel> GetUser(int Id);
 		Task<string> AddUser(LoginViewModel request);
 		Task SetLoginHistory(LoginHistoryViewModel request);
 		Task SignOut(int Id);
