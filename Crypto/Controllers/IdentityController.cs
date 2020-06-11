@@ -165,5 +165,13 @@ namespace Crypto.Controllers
 		{
 			return Ok(await _identityService.AcceptFogot(Id));
 		}
+
+		[Route("UpdateInfo")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateInfo([FromBody] UpdateInfoViewModel request, int Id)
+		{
+			await _identityService.UpdateInfo(request, Id);
+			return Ok();
+		}
 	}
 }

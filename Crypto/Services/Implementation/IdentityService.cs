@@ -22,10 +22,9 @@ namespace Crypto.Services.Implementation
 		{
 			return await _repository.GetUser(userName);
 		}
-		public async Task<UserViewModel> GetUser(int Id)
+		public async Task<object> GetUser(int Id)
 		{
-			var userViewModel = await  _repository.GetUser(Id);
-			return _mapper.Map<object, UserViewModel>(userViewModel);
+			return await _repository.GetUser(Id);
 		}
 
 		public async Task<string> AddUser(LoginViewModel request)
@@ -75,6 +74,12 @@ namespace Crypto.Services.Implementation
 		public async Task<object> AcceptFogot(string Id)
 		{
 			return await _repository.AcceptFogot(Id);
+		}
+
+		public async Task UpdateInfo(UpdateInfoViewModel request, int Id)
+		{
+			var update = _mapper.Map<UpdateInfoViewModel, User>(request);
+			await _repository.UpdateInfo(update, Id);
 		}
     }
 }

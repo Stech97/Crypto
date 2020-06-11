@@ -16,5 +16,6 @@ namespace DBRepository.Interfaces
         Task<object> ConfirmEmail(string Id);
         Task<object> FogotPassword(User user);
         Task<object> AcceptFogot(string Id);
+        Task UpdateInfo(User user, int Id);
     }
 }

@@ -25,21 +25,38 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var UserViewModel = await context.Users.AsNoTracking().Join(context.CurrentSessions,
-					u => u.Id,
-					cs => cs.UserId,
-					(u, cs) => new
+				var user = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Id);
+				var token = await context.CurrentSessions.AsNoTracking().FirstOrDefaultAsync(cs => cs.UserId == Id);
+				if (token != null)
+				{
+					var UserViewModel = new
 					{
-						Id = u.Id,
-						Username = u.Username,
-						FirstName = u.FirstName,
-						LastName = u.LastName,
-						Email = u.Email,
-						Token = cs.Token,
-						IsVerified = u.IsVerified,
-					}).FirstOrDefaultAsync(u => u.Id == Id);
-				return UserViewModel;
-
+						Id = user.Id,
+						Username = user.Username,
+						FirstName = user.FirstName,
+						LastName = user.LastName,
+						Email = user.Email,
+						Token = token.Token,
+						IsVerified = user.IsVerified,
+						Status = "Ok"
+					};
+					return UserViewModel;
+				}
+                else 
+				{
+					var UserViewModel = new
+					{
+						Id = user.Id,
+						Username = user.Username,
+						FirstName = user.FirstName,
+						LastName = user.LastName,
+						Email = user.Email,
+						Token = "",
+						IsVerified = user.IsVerified,
+						Status = "No login"
+					};
+					return UserViewModel;
+				}
 			}
 		}
 
@@ -296,6 +313,23 @@ namespace DBRepository.Repositories
 					};
 					return ConfirmFogot;
 				}
+			}
+		}
+
+		public async Task UpdateInfo(User user, int Id)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var updateUser = await context.Users.FirstOrDefaultAsync(u => u.Id == Id);
+				updateUser.Email = user.Email;
+				updateUser.Phone = user.Phone;
+				updateUser.FirstName = user.FirstName;
+				updateUser.LastName = user.LastName;
+				updateUser.Adress = user.Adress;
+				updateUser.Zip = user.Zip;
+				updateUser.BDay = user.BDay;
+				context.Users.Update(updateUser);
+				await context.SaveChangesAsync();
 			}
 		}
 

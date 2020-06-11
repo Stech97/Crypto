@@ -7,7 +7,7 @@ namespace Crypto.Services.Interfaces
 	public interface IIdentityService
     {
 		Task<User> GetUser(string userName);
-		Task<UserViewModel> GetUser(int Id);
+		Task<object> GetUser(int Id);
 		Task<string> AddUser(LoginViewModel request);
 		Task SetLoginHistory(LoginHistoryViewModel request);
 		Task SignOut(int Id);
@@ -16,5 +16,6 @@ namespace Crypto.Services.Interfaces
 		Task<object> ConfirmEmail(string Id);
 		Task<object> FogotPassword(CheckViewModel request);
 		Task<object> AcceptFogot(string Id);
+		Task UpdateInfo(UpdateInfoViewModel request, int Id);
 	}
 }
