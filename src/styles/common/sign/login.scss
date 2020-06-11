@@ -21,6 +21,14 @@
         justify-items: center;
     }
 
+    &-forgot-button {
+        @include button(300px, $button-height, $button-font-size);
+        @include button-dark();
+        grid-area: login-form;
+        align-self: center;
+        justify-self: center;
+    }
+
     &-header {
         grid-area: login-header;
         align-self: end;

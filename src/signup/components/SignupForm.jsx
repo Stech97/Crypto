@@ -38,7 +38,7 @@ const checkField = ({ input, className, type, id, link, linktext, text }) => {
 			        id={id}
 			        required
 		        />
-                <span className="checkmark2"></span>
+                <span className={"checkmark-" + className}></span>
 		        <span>{text}{ link && <a href="#">{linktext}</a>}</span> 
 	        </label>
 	    </div>

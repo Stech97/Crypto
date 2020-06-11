@@ -13,6 +13,7 @@ import worldmap2 from './styles/utils/img/worldmap2.png'
 import joinusbackground from './styles/utils/img/joinus.png'
 import ConfirmEmail from './signup/ConfirmEmail'
 import Checkmail from './signup/Checkmail'
+import { ForgotPassword } from './signup/ForgotPassword'
 // Create an enhanced history that syncs navigation events with the store
 
 const PrivateRoute = ({ component: Component, Authed, Verified, ...rest }) => {
@@ -75,9 +76,10 @@ class App extends Component {
                                 : <SignupPage {...props} />
                         )}
                     />
-                    <Route path="/confirmEmail/:hash" >
+                    <Route path="/confirmEmail/:id" >
                         <ConfirmEmail />
                     </Route> 
+                    <Route path="/forgot" component = { ForgotPassword } />
 	                <Route path="/" component = { ComingSoon } />
  	            </Switch>
             </Router>

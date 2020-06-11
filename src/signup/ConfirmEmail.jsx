@@ -3,47 +3,43 @@ import { useParams, Redirect } from 'react-router-dom'
 import { API } from '../config'
 import Header from './components/Header'
 import '../styles/login.scss'
-
-const ConfirmRedirect = async(redirects) => {
-
-	let { hash } = useParams()
-	let response = await API('/Identity/ConfirmEmail?Id=' + hash)
-	if (response.ok) {
-		switch (response.data.status) {
-			case "Ok":
-				redirects.redirectOk(response.id)
-			case "No login": 
-				redirects.redirectLogin()
-			default:
-				return (
-					<h1>Link has expired</h1>
-				)
-		}
-	}
-}
-
-class ConfirmEmail extends Component {
+import { confirmEmail } from './actions/confirmEmail'
+import { connect } from 'react-redux'
+/*
+function ConfirmEmailHook(confirmEmail) {
 	
-	state = {
-		redirect: null
-	}
+	return(
+			
+	)
+}
+*/
 
-	redirectOk = (id) => {
-		this.setState({ redirect: "/dashboard/?Id="+id})
-	}
+function ConfirmEmail (props) {
+	let { id } = useParams()
+	localStorage.setItem('hash', id)
+	return (
+		<Fragment>
+			<Header />
+			<section className="login">
+				<div className="login-wrapper wrapper">
+					<button className="login-forgot-button" onClick={() => props.confirmEmailAction(localStorage.getItem('hash'))}>Confirm Email</button>
+				</div>
+			</section>		
+		</Fragment>
+	)
+}							
 
-	redirectLogin = () => {
-		this.setState({ redirect: "/login" })
-	}
-
-	render() {
-		return (
-			<Fragment>
-				<Header />
-				<ConfirmRedirect redirects={() => this.redirectOk(), () => this.redirectLogin()}/>
-			</Fragment>
-		)
+const mapStateToProps = store => {
+	return {
+		user: store.user
 	}
 }
 
-export default ConfirmEmail
+const mapDispatchToProps = dispatch => ({
+  confirmEmailAction: () => dispatch(confirmEmail())
+})
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(ConfirmEmail)

@@ -27,8 +27,8 @@ export const userPostFetch = user => {
 		.then(req => axios.get('https://ipinfo.io/' + req.data.ip + '/?token=7a04a322ea8440'))
 		.then(res => {
 			let resp = API('/Identity/token', 'post', {
-				"username" : "Username",
-				"password": "Username",
+				"username" : user.username,
+				"password": user.password,
 				"IP": res.data.ip,
 				"Country": res.data.country
 			}).then(res => {
@@ -43,7 +43,8 @@ export const userPostFetch = user => {
 					isVerified: res.data.isVerified,
 				}
 				localStorage.setItem("token", res.data.token)
-				localStorage.setItem("Authed", true)				
+				localStorage.setItem("Authed", true)
+				localStorage.setItem("id", res.data.id)				
 				dispatch(loginUserSuccess(userObj))
 			}).catch(error => {
 				dispatch(loginUserError(error))

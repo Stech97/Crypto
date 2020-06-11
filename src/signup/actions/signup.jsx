@@ -1,6 +1,5 @@
 import { API } from '../../config'
 import emailjs from 'emailjs-com'
-import React from 'react'
 
 export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST'
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS'
@@ -60,6 +59,7 @@ const checkUserGetFetch = async(user) => {
 
 const createUserPostRequest = async(user) => {
 	let response = await API('/Identity/CreateLogin', 'post', user)
+	console.log(response)
 	return response
 }
 
@@ -100,9 +100,9 @@ export const createUserPostFetch = values => {
 								FirstName: values.firstname,
 								LastName: values.lastname,
 							}
-							createUserPostRequest(userObj)
-							.then((response) => {
-								let confirmLink = 'https://defima.io/confirmEmail/'+response.hash
+							let response = createUserPostRequest(userObj)
+							.then(response => {
+								let confirmLink = 'https://defima.io/confirmEmail/'+response.data.hash
 								emailjs.send(
 									'gmail',
 									'confirmEmail',
@@ -112,7 +112,8 @@ export const createUserPostFetch = values => {
 										send_to: values.email
 									},
 									'user_jIExVfMX1Oha7HaXMmsBs'
-								).then((userObj, res) => {
+								)
+								.then((userObj, res) => {
 									dispatch(createUserSuccess(userObj))
 								}).catch(error => {
 									dispatch(createUserError({ type: 'confirmEmail', message: error.message }))

@@ -1,5 +1,6 @@
 import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR } from '../actions/signin'
 import { GET_LOGOUT_REQUEST, GET_LOGOUT_SUCCESS, GET_LOGOUT_ERROR } from '../../dashboard/actions/logout'
+import { CONFIRM_EMAIL_REQUEST, CONFIRM_EMAIL_SUCCESS, CONFIRM_EMAIL_ERROR } from '../../signup/actions/confirmEmail'
 
 const initialState = {
 	user: {
@@ -52,7 +53,26 @@ export const userReducer = (state = initialState, action) => {
 			...state,
 			isFetching: false,
 		}
+		
+		case CONFIRM_EMAIL_REQUEST: return {
+			...state,
+			isFetching: true,
+		}
 
+		case CONFIRM_EMAIL_ERROR: return {
+			...state,
+			isFetching: false,
+			error: action.payload,
+		}
+		
+		case CONFIRM_EMAIL_SUCCESS: return {
+			...state,
+			isFetching: false,
+			user: {
+				...state.user,
+				isVerified: action.payload,
+			}
+		}
 		default: 
 			return state
 	}

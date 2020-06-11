@@ -176,7 +176,7 @@ button {
 		width: 0;
 		&:checked {
 			~ {
-				.checkmark1 {
+				.checkmark-termsagree {
 					background-color: #ffffff;
 				}
 			}
@@ -197,14 +197,14 @@ button {
 	&:hover {
 		input {
 			~ {
-				.checkmark1 {
+				.checkmark-termsagree {
 					background: rgba(245,251,255,0.2);
 				}
 			}
 		}
 	}
 }
-.checkmark1 {
+.checkmark-termsagree {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -228,7 +228,7 @@ button {
 		width: 0;
 		&:checked {
 			~ {
-				.checkmark2 {
+				.checkmark-countrycheck {
 					background-color: #ffffff;
 				}
 			}
@@ -246,14 +246,14 @@ button {
 	&:hover {
 		input {
 			~ {
-				.checkmark2 {
+				.checkmark-countrycheck {
 					background: rgba(245,251,255,0.2);
 				}
 			}
 		}
 	}
 }
-.checkmark2 {
+.checkmark-countrycheck {
 	position: absolute;
 	top: 0;
 	left: 0;
