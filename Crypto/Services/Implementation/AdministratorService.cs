@@ -55,5 +55,10 @@ namespace Crypto.Services.Implementation
 			await _repository.UpdateBTCRate(rate);
 		}
 
+		public async Task DelUser(int Id)
+		{
+			await _repository.DelUser(Id);
+		}
+
 	}
 }

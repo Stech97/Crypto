@@ -5,7 +5,6 @@ using System.Linq;
 using Models;
 using System.Security.Cryptography;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 
 namespace DBRepository.Repositories
 {

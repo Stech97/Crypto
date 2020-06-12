@@ -10,5 +10,6 @@ namespace Crypto.Services.Interfaces
         Task AddInvestment(InvestmentViewModel request);
         Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request);
         void UpdateBTCRate();
+        Task DelUser(int Id);
     }
 }

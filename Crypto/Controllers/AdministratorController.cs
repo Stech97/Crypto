@@ -37,7 +37,7 @@ namespace Crypto.Controllers
 		//[Authorize]
 		[Route("AddNews")]
 		[HttpPost]
-		public async Task<IActionResult> AddNews(NewsViewModel request)
+		public async Task<IActionResult> AddNews([FromBody] NewsViewModel request)
 		{
 			await _administratorService.AddNews(request);
 			return Ok();
@@ -46,9 +46,17 @@ namespace Crypto.Controllers
 		//[Authorize]
 		[Route("UpdateRate")]
 		[HttpPatch]
-		public async Task<IActionResult> UpdateRate(ViewModels.Administrator.RateDETViewModel request)
+		public async Task<IActionResult> UpdateRate([FromBody] RateDETViewModel request)
 		{
 			return Ok(await _administratorService.UpdateDETRate(request));
+		}
+
+		[Route("DelUser")]
+		[HttpGet]
+		public async Task<IActionResult> DelUser(int Id)
+		{
+			await _administratorService.DelUser(Id);
+			return Ok();
 		}
 
 	}

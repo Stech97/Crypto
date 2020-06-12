@@ -57,5 +57,15 @@ namespace DBRepository.Repositories
 				await context.SaveChangesAsync();
 			}
 		}
+
+		public async Task DelUser(int Id)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = new User() { Id = Id };
+				context.Remove(user);
+				await context.SaveChangesAsync();
+			}
+		}
 	}
 }

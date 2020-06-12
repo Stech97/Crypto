@@ -88,6 +88,7 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
+		//[Authorize]
 		[Route("GetUser")]
 		[HttpGet]
 		public async Task<IActionResult> GetUser(int Id)
@@ -166,6 +167,7 @@ namespace Crypto.Controllers
 			return Ok(await _identityService.AcceptFogot(Id));
 		}
 
+		//[Authorize]
 		[Route("UpdateInfo")]
 		[HttpPatch]
 		public async Task<IActionResult> UpdateInfo([FromBody] UpdateInfoViewModel request, int Id)
