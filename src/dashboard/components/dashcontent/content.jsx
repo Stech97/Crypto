@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ContentContainer from '../containers/ContentContainer'
+import ContentContainer from '../../containers/ContentContainer'
 
 class DashContent extends Component {
 

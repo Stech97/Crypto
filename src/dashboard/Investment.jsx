@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import DashHeader from './components/header'
 import Sidebar from './components/sidebar'
-import DashContent from './components/dashcontent/content'
+import InvestmentContent from './components/investment/content'
 import '../styles/dashboard.scss'
 import { SvgSprite }  from './svg/icons'
 
-class Dashboard extends Component {
+class Investment extends Component {
 	
 	state = {
 		isClosed: false
@@ -22,7 +22,7 @@ class Dashboard extends Component {
 				<div className={this.state.isClosed ? "dash-wrapper-closed" : "dash-wrapper"}>
 					<DashHeader />
 					<Sidebar isClosed={this.state.isClosed} toggle={this.toggle} />
-					<DashContent />
+					<InvestmentContent />
 				</div>
 			</div>
 		)
@@ -40,4 +40,4 @@ const mapDispatchToProps = (dispatch) => ({
 		toggleSidebar: (isClosed) => dispatch(toggleSidebar(), isClosed),
 })
 */
-export default Dashboard
+export default Investment

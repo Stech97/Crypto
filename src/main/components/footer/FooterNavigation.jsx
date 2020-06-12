@@ -12,7 +12,7 @@ class RenderLink extends Component {
 			case "file": return <a to={path}><p>{text}</p></a> //TODO file download
 			case "outsource": return <a href={path}><p>{text}</p></a>
 			case "popup": return <a href={path}><p>{text}</p></a> // TODO popup link
-			
+			default: return <Link to={path}><p>{text}</p></Link>
 		}
 	}
 }

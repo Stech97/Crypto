@@ -4,16 +4,84 @@
 		"selected_items":
 		[
 			[
+				"for",
+				"forgotPasswordLink"
+			],
+			[
+				"re",
+				"removeItem"
+			],
+			[
+				"align",
+				"align-self\tproperty"
+			],
+			[
+				"f",
+				"ForgotPassword.jsx"
+			],
+			[
+				"s",
+				"signup/"
+			],
+			[
+				"For",
+				"ForgotPasswordForm"
+			],
+			[
+				"user",
+				"user"
+			],
+			[
+				"map",
+				"mapDispatchToProps"
+			],
+			[
+				"ma",
+				"mapDispatchToProps"
+			],
+			[
+				"Co",
+				"ConfirmEmailHook"
+			],
+			[
+				"conf",
+				"confirmEmail"
+			],
+			[
+				"use",
+				"useParams"
+			],
+			[
+				"is",
+				"isConfirmed"
+			],
+			[
+				"C",
+				"CONFIRM_EMAIL_SUCCESS"
+			],
+			[
+				"co",
+				"confirmEmail"
+			],
+			[
+				"d",
+				"dispatch"
+			],
+			[
+				"confirm",
+				"confirmEmailRequest"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
 				"email",
 				"email"
 			],
 			[
 				"pas",
 				"password"
-			],
-			[
-				"use",
-				"username"
 			],
 			[
 				"pass",
@@ -35,6 +103,81 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "src/App.jsx",
+			"settings":
+			{
+				"buffer_size": 3666,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/signup/ConfirmEmail.jsx",
+			"settings":
+			{
+				"buffer_size": 1026,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "import { API } from '../../config'\n\nexport const CONFIRM_EMAIL_REQUEST = 'CONFIRM_EMAIL_REQUEST'\nexport const CONFIRM_EMAIL_SUCCESS = 'CONFIRM_EMAIL_SUCCESS'\nexport const CONFIRM_EMAIL_ERROR = 'CONFIRM_EMAIL_ERROR'\n\nconst confirmEmailGet = async(hash) => {\n\tlet response = await API('/Identity/ConfirmEmail?Id=' + hash)\n\treturn response\n}\n\nconst confirmEmailSuccess = isVerified => ({\n\ttype: CONFIRM_EMAIL_SUCCESS,\n\tpayload: isVerified,\n})\n\nconst confirmEmailError = error => ({\n\ttype: CONFIRM_EMAIL_ERROR,\n\tpayload: error,\n})\n\nconst confirmEmailRequest = () => ({\n\ttype: CONFIRM_EMAIL_REQUEST,\n\tpayload: \"Loading...\",\n})\n\nexport const confirmEmail = hash => {\n\treturn dispatch => {\n\t\tdispatch(confirmEmailRequest)\n\t\tlet res = confirmEmailGet(hash.hash)\n\t\t.then(res => {\n\t\t\tif (res.ok) {\n\t\t\t\tconsole.log(res)\n\t\t\t\tswitch(res.data.status) {\n\t\t\t\t\tcase 'Ok':\n\t\t\t\t\t\tdispatch(confirmEmailSuccess(true))\n\t\t\t\t\tcase 'No login':\n\t\t\t\t\t\tdispatch(confirmEmailSuccess(true))\n\t\t\t\t\tcase 'No user':\n\t\t\t\t\t\tlocalStorage.removeItem('hash')\n\t\t\t\t\t\tdispatch(confirmEmailError({\n\t\t\t\t\t\t\ttype: 'user',\n\t\t\t\t\t\t\tmessage: 'Link has expired'\n\t\t\t\t\t\t}))\n\t\t\t\t\tdefault:\n\t\t\t\t\t\tdispatch(confirmEmailError({\n\t\t\t\t\t\t\ttype: 'server',\n\t\t\t\t\t\t\tmessage: 'Unknown error'\n\t\t\t\t\t\t}))\n\n\t\t\t\t}\n\t\t\t}\n\t\t}).catch(error => {\n\t\t\tdispatch(confirmEmailError({\n\t\t\t\ttype: 'server',\n\t\t\t\tmessage: error.message,\n\t\t\t}))\n\t\t})\n\t}\n}\n",
+			"file": "src/signup/actions/confirmEmail.jsx",
+			"file_size": 1442,
+			"file_write_time": 132364442522720442,
+			"settings":
+			{
+				"buffer_size": 1366,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/signup/actions/signup.jsx",
+			"settings":
+			{
+				"buffer_size": 3963,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/dashboard/actions/logout.jsx",
+			"settings":
+			{
+				"buffer_size": 815,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "import { API } from '../../config'\nimport emailjs from 'emailjs-com'\n\nexport const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST'\nexport const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS'\nexport const FORGOT_PASSWORD_ERROR = 'FORGOT_PASSWORD_ERROR'\n\nconst forgotPasswordSuccess = () => ({\n\ttype: GET_LOGOUT_SUCCESS,\n\tpayload: false\n})\n\nconst forgotPasswordRequest = () => ({\n\ttype: GET_LOGOUT_REQUEST,\n\tpayload: \"Loading...\"\n})\n\nconst forgotPasswordError = error => ({\n\ttype: GET_LOGOUT_ERROR,\n\tpayload: error\n})\n\nconst forgotPasswordPost = async(data) => {\n\tlet response = await API('/Identity/ForgotPassword', 'post', data)\n\treturn response\n}\n\nconst forgotPasswordLink = async(data) => {\n\tlet confirmLink = 'https://defima.io/confirmEmail/'+data.hash\n\tlet response = emailjs.send(\n\t\t'gmail',\n\t\t'confirmEmail',\n\t\t{\n\t\t\tto_name: \"User\",\n\t\t\tmessage_html: confirmLink,\n\t\t\tsend_to: data.email\n\t\t},\n\t\t'user_jIExVfMX1Oha7HaXMmsBs'\n\t)\n\treturn response\n}\n\nexport const forgotPassword = data => {\n\treturn dispatch => {\n\t\tlet res = forgotPasswordPost({\n\t\t\tusername: data.username,\n\t\t\temail: data.email,\n\t\t}).then(res => {\n\t\t\tif (res.data) {\n\t\t\t\tswitch (res.data.status) {\n\t\t\t\t\tcase 'Ok':\n\t\t\t\t\t\tlet mail = forgotPasswordLink({\n\t\t\t\t\t\t\thash: res.data.hash,\n\t\t\t\t\t\t\temail: res.data.email,\n\t\t\t\t\t\t}).then(mail => {\n\t\t\t\t\t\t\tdispatch()\n\t\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t}\n\t\t})\n\t}\n}",
+			"file": "src/signup/actions/forgotpassword.jsx",
+			"file_size": 0,
+			"file_write_time": 132364416171597034,
+			"settings":
+			{
+				"buffer_size": 1357,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/login/actions/signin.jsx",
+			"settings":
+			{
+				"buffer_size": 1584,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/signup/reducers/forgotpassword.jsx",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -76,10 +219,32 @@
 	},
 	"expanded_folders":
 	[
-		"/home/mozg1694/workspace/crypto-react"
+		"/home/mozg1694/workspace/crypto-react",
+		"/home/mozg1694/workspace/crypto-react/src",
+		"/home/mozg1694/workspace/crypto-react/src/login",
+		"/home/mozg1694/workspace/crypto-react/src/login/actions",
+		"/home/mozg1694/workspace/crypto-react/src/login/components",
+		"/home/mozg1694/workspace/crypto-react/src/login/reducers",
+		"/home/mozg1694/workspace/crypto-react/src/signup",
+		"/home/mozg1694/workspace/crypto-react/src/signup/actions",
+		"/home/mozg1694/workspace/crypto-react/src/signup/components",
+		"/home/mozg1694/workspace/crypto-react/src/signup/reducers"
 	],
 	"file_history":
 	[
+		"/home/mozg1694/workspace/crypto-react/src/signup/actions/confirmEmail.jsx",
+		"/home/mozg1694/workspace/crypto-react/src/login/components/Content.jsx",
+		"/home/mozg1694/workspace/crypto-react/src/signup/ForgotPassword.jsx",
+		"/home/mozg1694/workspace/crypto-react/src/config.js",
+		"/home/mozg1694/workspace/crypto-react/src/signup/actions/signup.jsx",
+		"/home/mozg1694/workspace/crypto-react/src/login/actions/signin.jsx",
+		"/home/mozg1694/workspace/crypto-react/src/dashboard/actions/header.jsx",
+		"/home/mozg1694/workspace/crypto-react/src/styles/common/sign/signup.scss",
+		"/home/mozg1694/workspace/crypto-react/src/styles/common/sign/login.scss",
+		"/home/mozg1694/workspace/crypto-react/src/signup/components/ForgotPasswordForm.jsx",
+		"/home/mozg1694/workspace/crypto-react/src/signup/reducers/signup.jsx",
+		"/home/mozg1694/workspace/crypto-react/src/login/components/LoginForm.jsx",
+		"/home/mozg1694/workspace/crypto-react/src/login/reducers/login.jsx",
 		"/home/mozg1694/workspace/crypto-react/crypto-react.sublime-project",
 		"/home/mozg1694/workspace/crypto-react/src/App.js",
 		"/home/hast/workspace/crypto-react/src/signup/components/Content.jsx",
@@ -128,6 +293,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			",\n"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -145,6 +311,938 @@
 	"groups":
 	[
 		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/App.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3666,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3251,
+								3251
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										3251,
+										3252
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/double_quote.png",
+										"region.greenish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										3231,
+										3232
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 624.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/signup/ConfirmEmail.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1026,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								50,
+								50
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										49,
+										50
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/single_quote.png",
+										"region.greenish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										43,
+										44
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/signup/actions/confirmEmail.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1366,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								771,
+								771
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										1249,
+										1250
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/curly_bracket.png",
+										"region.purplish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										769,
+										770
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/signup/actions/signup.jsx",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 3963,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3269,
+								3269
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										3279,
+										3280
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/curly_bracket.png",
+										"region.purplish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										3138,
+										3139
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1209.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"file": "src/dashboard/actions/logout.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 815,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								445,
+								445
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										444,
+										445
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/round_bracket.png",
+										"region.yellowish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										399,
+										400
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 39.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/signup/actions/forgotpassword.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1357,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1326,
+								1326
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										1326,
+										1327
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/round_bracket.png",
+										"region.yellowish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										1325,
+										1326
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"open_with_edit": true,
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 312.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/login/actions/signin.jsx",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1584,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 156.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/signup/reducers/forgotpassword.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"open_with_edit": true,
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		},
+		{
 			"sheets":
 			[
 			]
@@ -156,7 +1254,7 @@
 	},
 	"input":
 	{
-		"height": 34.0
+		"height": 36.0
 	},
 	"layout":
 	{
@@ -167,20 +1265,44 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.464429699849,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
+			0.711362502154,
 			1.0
 		]
 	},
 	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
@@ -219,7 +1341,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
@@ -227,7 +1349,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 166.0,
+	"side_bar_width": 194.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

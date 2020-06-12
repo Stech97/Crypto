@@ -20,21 +20,21 @@ const validatePassword = (password) => {
 	По уму, эту строку надо вынести из функции в глобальную область, чтобы регулярное выражение создавалось только
 	 один раз, будет шустрее.
 	*/
-	  var r=/[^A-Z-a-z-0-9]/g; 
-	  var error = ""
-	  if(r.test(password)){
-	      error = "Only latin symbols and numbers allowed!";
-	      return (error);
-	  }
-	  if (password.length<6){
-	      error = "At least 6 symbols!";
-	      return (error);
-	  }
-	  if (password.length>20){
-	      error = "Max 20 symbols!";
-	      return (error);
-	  }
-	  return(true);
+	var r=/[^A-Z-a-z-0-9]/g; 
+	var error = ""
+	if(r.test(password)){
+		error = "Only latin symbols and numbers allowed!";
+	  	return (error);
+	}
+	if (password.length<6){
+	  	error = "At least 6 symbols!";
+	  	return (error);
+	}
+	if (password.length>20){
+	  	error = "Max 20 symbols!";
+	  	return (error);
+	}
+	return(true);
 }
 
 const createUserSuccess = userObj => ({

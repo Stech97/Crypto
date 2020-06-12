@@ -3,6 +3,7 @@ import { reducer as reduxFormReducer } from 'redux-form';
 import { userReducer } from '../login/reducers/login'
 import { signupReducer } from '../signup/reducers/signup'
 import { formReducer } from '../comingsoon/reducers/comingsoon'
+import { forgotPasswordReducer } from '../signup/reducers/forgotpassword'
 import { routerReducer } from 'react-router-redux'
 import { dashHeaderReducer } from '../dashboard/reducers/header'
 import { BalanceReducer } from '../dashboard/reducers/contentBalance'
@@ -17,6 +18,7 @@ export const rootReducer = combineReducers({
 	routing: routerReducer,
 	user: userReducer,
 	createUser: signupReducer,
+	forgot: forgotPasswordReducer,
 	DashHeader: dashHeaderReducer, 
 	ContentBalanceContainer: BalanceReducer,
 	BTCSquare: BTCRateReducer,

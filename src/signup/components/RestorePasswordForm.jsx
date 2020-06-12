@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { getFormValues, reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux'
-import { forgotPassword } from '../actions/forgotpassword'
+
 
 const renderField = ({ input, placeholder, className, type }) => {
 	return (
@@ -9,14 +9,15 @@ const renderField = ({ input, placeholder, className, type }) => {
 	)
 }
 
-class ForgotPasswordForm extends Component {
+class RestorePasswordForm extends Component {
 	render() {
 		const { handleSubmit, reset, pristine, submitting } = this.props
 
 		const submit = (values) => {
-			this.props.forgotPasswordAction({
-				username: values.username,
-				email: values.email,
+
+			this.props.restorePasswordAction({
+				password: values.password,
+				password2: values.password2,
 			})
 		}
 
@@ -27,17 +28,17 @@ class ForgotPasswordForm extends Component {
 		    >
 		    	<Field
 					component={renderField}		    	
-		    		name="username"
+		    		name="password2"
 		    		className="login-form-user"
-		    		type="text"
-		    		placeholder="Username"
+		    		type="password"
+		    		placeholder="New Password"
 		    	/>
 		    	<Field
 		    		component={renderField}
-		    		name="email"
+		    		name="password2"
 			        className="login-form-password"
-			        type="email"
-			        placeholder="Email"
+			        type="password"
+			        placeholder="Repeat New Password"
 		      	/>
 			    <button
 			    	className="login-form-button"
@@ -57,14 +58,13 @@ const mapStateToProps = store => {
 }
 
 const mapDispatchToProps = dispatch => ({
-	forgotPasswordAction: data => dispatch(forgotPassword(data))
+	restorePasswordAction: data => dispatch(restorePassword(data))
 })
 
-ForgotPasswordForm = connect(
+RestorePasswordForm = connect(
 	mapStateToProps,
-	mapDispatchToProps,
-)(ForgotPasswordForm)
+)(RestorePasswordForm)
 
 export default reduxForm({
-  form: 'ForgotPassword' // a unique identifier for this form
-})(ForgotPasswordForm)
+  form: 'RestorePassword' // a unique identifier for this form
+})(RestorePasswordForm)

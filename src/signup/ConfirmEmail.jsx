@@ -15,14 +15,20 @@ function ConfirmEmailHook(confirmEmail) {
 */
 
 function ConfirmEmail (props) {
-	let { id } = useParams()
-	localStorage.setItem('hash', id)
+	const { hash } = useParams()
+	props = {
+		...props,
+		hash,
+	}
 	return (
 		<Fragment>
 			<Header />
 			<section className="login">
 				<div className="login-wrapper wrapper">
-					<button className="login-forgot-button" onClick={() => props.confirmEmailAction(localStorage.getItem('hash'))}>Confirm Email</button>
+					<button
+						className="login-forgot-button"
+						onClick={hash => props.confirmEmailAction(props.hash)}
+					>Confirm Email</button>
 				</div>
 			</section>		
 		</Fragment>
@@ -36,7 +42,7 @@ const mapStateToProps = store => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  confirmEmailAction: () => dispatch(confirmEmail())
+  confirmEmailAction: hash => dispatch(confirmEmail(hash))
 })
 
 export default connect(

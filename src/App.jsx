@@ -7,6 +7,7 @@ import MainPage from './main/Main'
 import LoginPage from './login/Login'
 import SignupPage from './signup/Signup'
 import Dashboard from './dashboard/Dashboard'
+import Investment from './dashboard/Investment'
 import waveimage from './styles/utils/img/waveimage.png'
 import stealthlogo from './styles/utils/img/stealth-logo.png'
 import worldmap2 from './styles/utils/img/worldmap2.png'
@@ -47,6 +48,12 @@ class App extends Component {
                         Authed = { localStorage.getItem("Authed") }
                         Verified = {true}
                     />
+                    <PrivateRoute
+                        path="/investment"
+                        component = { Investment }
+                        Authed = { localStorage.getItem("Authed") }
+                        Verified = { true }
+                    />
 	                <Route path="/main" component = { MainPage } />
 	                <Route
                         path="/login"
@@ -76,7 +83,7 @@ class App extends Component {
                                 : <SignupPage {...props} />
                         )}
                     />
-                    <Route path="/confirmEmail/:id" >
+                    <Route path="/confirmEmail/:hash" >
                         <ConfirmEmail />
                     </Route> 
                     <Route path="/forgot" component = { ForgotPassword } />

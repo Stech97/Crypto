@@ -27,6 +27,7 @@ export const userLogoutGet = ID => {
 		.then(response => {
 			localStorage.removeItem('token')
 			localStorage.removeItem('Authed')
+			localStorage.removeItem('id')
 			dispatch(getLogoutSuccess())
 		})
 		.catch(error => dispatch(getLogoutError(error.message)))

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL_PROD = "https://back.defima.io/api/"
+const API_URL_PROD = "https://back.defima.io/"
 const API_URL_TEST = "http://84.201.132.112/api/"
 export const API_URL = API_URL_PROD
 
