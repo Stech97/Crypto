@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Crypto.Services.Interfaces;
-using Crypto.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -8,7 +7,7 @@ using Models;
 namespace Crypto.Controllers
 {
 	[ApiController]
-	[Route("api/[controller]")]
+	[Route("[controller]")]
 	public class InvestmentController : Controller
 	{
 		readonly IInvestmentService _investmentService;

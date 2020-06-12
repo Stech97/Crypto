@@ -15,7 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace Crypto.Controllers
 {
 	[ApiController]
-	[Route("api/[controller]")]
+	[Route("[controller]")]
 	public class IdentityController : Controller
 	{
 		private readonly IIdentityService _identityService;

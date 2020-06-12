@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Crypto.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class DashboardController : Controller
     {
         readonly IDashboardService _dashboardService;
