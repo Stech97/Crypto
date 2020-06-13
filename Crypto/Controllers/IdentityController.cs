@@ -166,30 +166,40 @@ namespace Crypto.Controllers
 		{
 			var fogotUser = await _identityService.AcceptFogot(Id);
 			string username = (string)fogotUser.GetType().GetProperty("Username").GetValue(fogotUser, null);
+			string status = (string)fogotUser.GetType().GetProperty("Status").GetValue(fogotUser, null);
 
-			var claims = new List<Claim>
+			var encodedJwt = "";
+
+			if (status == "Ok")
+			{
+				var claims = new List<Claim>
 					{
 						new Claim(ClaimsIdentity.DefaultNameClaimType, username),
 						new Claim(ClaimsIdentity.DefaultRoleClaimType, "Client")
 					};
-			ClaimsIdentity identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+				ClaimsIdentity identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 
-			var now = DateTime.UtcNow;
-			// создаем JWT-токен
-			var jwt = new JwtSecurityToken(
-					issuer: AuthOptions.ISSUER,
-					audience: AuthOptions.AUDIENCE,
-					notBefore: now,
-					claims: identity.Claims,
-					expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-					signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+				var now = DateTime.UtcNow;
+				// создаем JWT-токен
+				var jwt = new JwtSecurityToken(
+						issuer: AuthOptions.ISSUER,
+						audience: AuthOptions.AUDIENCE,
+						notBefore: now,
+						claims: identity.Claims,
+						expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+						signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+				encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+			}
+			else
+				encodedJwt = "";
 
 			var response = new
 			{
 				Id =(int)fogotUser.GetType().GetProperty("Id").GetValue(fogotUser, null),
 				Username = username,
-				Token = encodedJwt
+				Token = encodedJwt,
+				Status = status
+
 			};
 
 			return Ok(response);

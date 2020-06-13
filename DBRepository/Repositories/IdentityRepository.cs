@@ -284,7 +284,7 @@ namespace DBRepository.Repositories
 					Status = ""
 				};
 
-				if (fogotUsers != null)
+				if (fogotUsers.Count != 0)
 				{
 					foreach (var fogotUser in fogotUsers)
 					{
