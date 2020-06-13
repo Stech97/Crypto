@@ -275,10 +275,11 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var fogotUsers = await context.Users.AsNoTracking().Where(u => u.IsFogotPassword).ToListAsync();
+				var fogotUsers = await context.Users.Where(u => u.IsFogotPassword).ToListAsync();
 				
 				var ConfirmFogot = new
 				{
+					Id = 0,
 					Username = "",
 					Status = ""
 				};
@@ -295,9 +296,13 @@ namespace DBRepository.Repositories
 						{
 							ConfirmFogot = new
 							{
+								Id = fogotUser.Id,
 								Username = fogotUser.Username,
 								Status = "Ok"
 							};
+							fogotUser.IsFogotPassword = false;
+							context.Users.Update(fogotUser);
+							await context.SaveChangesAsync();
 							break;
 						}
 					}
@@ -307,6 +312,7 @@ namespace DBRepository.Repositories
 				{
 					ConfirmFogot = new
 					{
+						Id = 0,
 						Username = "",
 						Status = "Not found"
 					};

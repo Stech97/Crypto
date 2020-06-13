@@ -1,8 +1,6 @@
 ﻿using DBRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Extensions.Internal;
 using Models;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace DBRepository.Repositories
