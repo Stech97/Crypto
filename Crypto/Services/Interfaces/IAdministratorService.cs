@@ -1,4 +1,5 @@
 ﻿using Crypto.ViewModels.Administrator;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Crypto.Services.Interfaces
@@ -11,5 +12,6 @@ namespace Crypto.Services.Interfaces
         Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request);
         void UpdateBTCRate();
         Task DelUser(int Id);
+        Task<List<RefUserViewModel>> GetRef(int Ref);
     }
 }

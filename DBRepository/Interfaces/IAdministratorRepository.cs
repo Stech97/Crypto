@@ -1,4 +1,5 @@
 ﻿using Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DBRepository.Interfaces
@@ -11,5 +12,6 @@ namespace DBRepository.Interfaces
         Task<Balance> UpdateDETRate(Balance balance);
         Task UpdateBTCRate(Balance balance);
         Task DelUser(int Id);
+        Task<List<User>> GetRef(int Ref);
     }
 }

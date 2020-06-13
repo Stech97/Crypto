@@ -1,6 +1,9 @@
 ﻿using DBRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace DBRepository.Repositories
@@ -64,6 +67,49 @@ namespace DBRepository.Repositories
 				context.Remove(user);
 				await context.SaveChangesAsync();
 			}
+		}
+
+		public async Task<List<User>> GetRef(int Ref)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var RefUsers = await context.Users.Where(u => u.Id == Ref)
+					.Select(u => new User
+					{
+						Id = u.Id,
+						ParentId = u.ParentId ?? 0,
+						RefLink = u.RefLink
+					}).ToListAsync();
+				foreach (var RefUser in RefUsers)
+				{
+					RefUser.Children = GetChildrenByParentId(RefUser.Id);
+				}
+				return RefUsers;
+			}
+		}
+
+		private IEnumerable<User> GetChildrenByParentId(int parentId)
+		{
+			var children = new List<User>();
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var RefUsers = context.Users.Where(u => u.ParentId == parentId);
+
+				foreach (var Ref in RefUsers)
+				{
+					var thread = new User
+					{
+						Id = Ref.Id,
+						ParentId = Ref.ParentId ?? 0,
+						RefLink = Ref.RefLink,
+						Children = GetChildrenByParentId(Ref.Id)
+					};
+
+					children.Add(thread);
+				}
+			}
+
+			return children;
 		}
 	}
 }

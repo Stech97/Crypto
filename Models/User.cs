@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 
 namespace Models
 {
@@ -19,6 +18,9 @@ namespace Models
 		public string RefLink { get; set; }
 		public bool IsVerified { get; set; }
 		public bool IsFogotPassword { get; set; }
+		public int? ParentId { get; set; }
+		public IEnumerable<User> Children { get; set; }
+
 		public Balance Balance { get; set; }
 		public ConfirmEmail ConfirmEmail { get; set; }
 		public List<LoginHistory> LoginHistories { get; set; }

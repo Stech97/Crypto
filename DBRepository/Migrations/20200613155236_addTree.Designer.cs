@@ -11,9 +11,10 @@ using System;
 namespace DBRepository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20200613155236_addTree")]
+    partial class addTree
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,7 +181,7 @@ namespace DBRepository.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<int?>("ParentId");
+                    b.Property<string>("ParentRef");
 
                     b.Property<string>("Password")
                         .IsRequired();
@@ -189,16 +190,12 @@ namespace DBRepository.Migrations
 
                     b.Property<string>("RefLink");
 
-                    b.Property<int?>("UserId");
-
                     b.Property<string>("Username")
                         .IsRequired();
 
                     b.Property<int>("Zip");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("UserInfo");
                 });
@@ -241,13 +238,6 @@ namespace DBRepository.Migrations
                         .WithMany("LoginHistories")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Models.User", b =>
-                {
-                    b.HasOne("Models.User")
-                        .WithMany("Children")
-                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

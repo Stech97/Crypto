@@ -3,6 +3,7 @@ using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Administrator;
 using DBRepository.Interfaces;
 using Models;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -58,6 +59,12 @@ namespace Crypto.Services.Implementation
 		public async Task DelUser(int Id)
 		{
 			await _repository.DelUser(Id);
+		}
+
+		public async Task<List<RefUserViewModel>> GetRef(int Ref)
+		{
+			var response = await _repository.GetRef(Ref);
+			return _mapper.Map<List<User>, List<RefUserViewModel>>(response);
 		}
 
 	}
