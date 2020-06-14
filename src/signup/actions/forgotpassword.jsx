@@ -1,4 +1,4 @@
-import { API } from '../../config'
+import { API, DOMAIN_URL } from '../../config'
 import emailjs from 'emailjs-com'
 
 export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST'
@@ -26,7 +26,7 @@ const forgotPasswordPost = async(data) => {
 }
 
 const forgotPasswordLink = async(data) => {
-	let confirmLink = 'https://defima.io/RestorePassword/'+data.hash
+	let confirmLink = DOMAIN_URL + '/restorePassword/' + data.hash
 	let response = emailjs.send(
 		'gmail',
 		'confirmEmail',
@@ -49,29 +49,28 @@ export const forgotPassword = data => {
 			email: data.email,
 		}).then(res => {
 			if (res.data) {
-				switch (res.data.status) {
-					case 'Ok':
-						let mail = forgotPasswordLink({
-							hash: res.data.hash,
-							email: res.data.email,
-						}).then(mail => {
-							dispatch(forgotPasswordSuccess())
-						}).catch(error => {
-							dispatch(forgotPasswordError({
-								type: 'mail',
-								message: error.message,
-							}))
-						})
-					case 'No found':
+				if (res.data.status === 'Ok') {
+					let mail = forgotPasswordLink({
+						hash: res.data.hash,
+						email: res.data.email,
+					}).then(mail => {
+						dispatch(forgotPasswordSuccess())
+					}).catch(error => {
 						dispatch(forgotPasswordError({
-							type: 'incorrect data',
-							message: 'Email or username not found'
+							type: 'mail',
+							message: error.message,
 						}))
-					default:
-						dispatch(forgotPasswordError({
-							type: 'incorrect data',
-							message: 'Email or username not found'
-						}))
+					})
+				} else if (res.data.status === 'No found') { 
+					dispatch(forgotPasswordError({
+						type: 'incorrect data',
+						message: 'Email or username not found'
+					}))
+				} else {
+					dispatch(forgotPasswordError({
+						type: 'unknown',
+						message: 'Email or username not found'
+					}))
 				}
 			} else {
 				dispatch(forgotPasswordError({

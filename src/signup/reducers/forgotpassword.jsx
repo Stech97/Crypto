@@ -1,4 +1,5 @@
 import { FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_ERROR } from '../actions/forgotpassword'
+import { RESTORE_PASSWORD_REQUEST, RESTORE_PASSWORD_SUCCESS, RESTORE_PASSWORD_ERROR } from '../actions/restorepassword'
 
 const initialState = {
 	isFetching: false,
@@ -20,19 +21,38 @@ export const forgotPasswordReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isFetching: false,
+				error: {
+					type: "",
+					message: "",
+				}
 			} 
 		
 		case FORGOT_PASSWORD_ERROR:
 			return {
 				...state,
 				isFetching: false,
-				error: {
-					...state.error,
-					type: action.payload.type,
-					message: action.payload.message,
-				}
+				error: action.payload,
 			}
 		
+		case RESTORE_PASSWORD_REQUEST:
+			return {
+				...state,
+				isFetching: true,
+			}
+
+		case RESTORE_PASSWORD_SUCCESS:
+			return {
+				...state,
+				isFetching: false,
+			}
+
+		case RESTORE_PASSWORD_ERROR:
+			return {
+				...state,
+				isFetching: false,
+				error: action.payload,
+			}
+
 		default:
 			return state
 	}

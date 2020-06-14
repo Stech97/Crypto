@@ -15,34 +15,6 @@ class LoginForm extends Component {
 		const { handleSubmit, reset, pristine, submitting } = this.props
 
 		const submit = (values) => {
-			/*fetch('https://api.ipify.org?format=json', { mode: 'cors' })
-			.then((resp) => resp.json())
-			.then((req) => fetch('https://ipinfo.io/' + req.ip + '/?token=7a04a322ea8440'))
-			.then((res) => res.json())
-			.then((res) => {
-				alert("You are from " + res.country + ". Your IP " + res.ip);
-				let resp = fetch( API_URL + "Identity/token", {
-				method: 'post',
-					headers: {
-		            	'Content-Type': 'application/json',
-		        	},
-					body: JSON.stringify({ 
-						username : values.username,
-						password: values.password,
-						IP: res.ip,
-						Country: res.country,
-					}),
-				});
-				return resp;
-			}).then((resp) => {
-				if (resp.ok) {
-					console.log(resp.id)
-					alert("You succesfully logged in!");
-				} else {
-					console.log(resp)
-					alert("Wrong username or password!")
-				}
-			})*/
 			this.props.userPostFetch({
 				username: values.username,
 				password: values.password,

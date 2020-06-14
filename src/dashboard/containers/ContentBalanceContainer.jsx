@@ -9,7 +9,7 @@ import { getBalance } from '../actions/getBalance'
 class ContentBalanceContainer extends Component {
 
 	componentDidMount() {
-    	this.props.getBalanceAction(this.props.user.id);
+    	this.props.getBalanceAction(localStorage.getItem('id'));
     } 
 
 	render() {

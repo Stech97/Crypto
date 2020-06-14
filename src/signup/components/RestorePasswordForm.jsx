@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { getFormValues, reduxForm, Field } from 'redux-form';
+import { restorePassword } from '../actions/restorepassword'
+import { getFormValues, reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 
 
@@ -11,11 +12,12 @@ const renderField = ({ input, placeholder, className, type }) => {
 
 class RestorePasswordForm extends Component {
 	render() {
-		const { handleSubmit, reset, pristine, submitting } = this.props
+		const { handleSubmit, reset, pristine, submitting, hash} = this.props
 
 		const submit = (values) => {
 
 			this.props.restorePasswordAction({
+				hash: hash,
 				password: values.password,
 				password2: values.password2,
 			})
@@ -28,7 +30,7 @@ class RestorePasswordForm extends Component {
 		    >
 		    	<Field
 					component={renderField}		    	
-		    		name="password2"
+		    		name="password"
 		    		className="login-form-user"
 		    		type="password"
 		    		placeholder="New Password"
@@ -63,6 +65,7 @@ const mapDispatchToProps = dispatch => ({
 
 RestorePasswordForm = connect(
 	mapStateToProps,
+	mapDispatchToProps,
 )(RestorePasswordForm)
 
 export default reduxForm({

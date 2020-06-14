@@ -20,13 +20,13 @@ const restorePasswordError = error => ({
 	payload: error
 })
 
-const changePasswordPatch = async(data) => {
-	let response = await API('/Identity/ChangePassword?Id=' + data.id, 'post', data)
+const changePasswordPatch = async({data, id}) => {
+	let response = await API('/Identity/ChangePassword?Id=' + id, 'patch', data)
 	return response
 }
 
 const acceptPasswordGet = async(hash) => {
-	let response = await API('https://defima.io/AcceptForgot?Id=' + hash)
+	let response = await API('/Identity/AcceptFogot?Id=' + hash)
 	return response
 }
 
@@ -38,9 +38,32 @@ export const restorePassword = data => {
 		.then(res => {
 			switch (res.data.status) {
 				case 'Ok':
-					let change = changePasswordPatch()
-					break
-				case 'No found':
+					if (data.password === data.password2) {
+						console.log('RESULT: ####',res)
+						localStorage.setItem('token', res.data.token)
+						localStorage.setItem('id', res.data.id)
+						let change = changePasswordPatch({
+							data: {
+								username: res.data.username,
+								password: data.password,
+							},
+							id: res.data.id,
+						}).then(resp => {
+							dispatch(restorePasswordSuccess())
+						}).catch(error => {
+							dispatch(restorePasswordError({
+								type: 'server',
+								error: error.message,
+							}))
+						})
+						break
+					} else {
+						dispatch(restorePasswordError({
+							type: 'password2',
+							message: 'Passwords must match!'
+						}))
+					}
+				case 'Not found':
 					dispatch(restorePasswordError({
 						type: 'not found',
 						message: 'Link has expired'
@@ -48,26 +71,13 @@ export const restorePassword = data => {
 					break
 				default:
 					dispatch(restorePasswordError({
-						type: 'not found',
+						type: 'Unknown',
 						message: 'Link has expired'
 					}))
 			}
 		}).catch(error => {
 			dispatch(restorePasswordError({
-				type: 'server',
-				message: error.message,
-			}))
-		})
-
-
-		let res = changePasswordPost({
-			username: data.username,
-			email: data.password,
-		}).then(res => {
-			
-		}).catch(error => {
-			dispatch(restorePasswordError({
-				type: 'server',
+				type: 'server accept forgot',
 				message: error.message,
 			}))
 		})

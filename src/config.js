@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+export const DOMAIN_URL = "https://defima.io"
 const API_URL_PROD = "https://back.defima.io/"
 const API_URL_TEST = "http://84.201.132.112/api/"
 export const API_URL = API_URL_PROD
@@ -45,6 +46,7 @@ export const API = async(path, mode = "get", body = null) => {
 			    }
 	    		console.log(error);
 			}
+			break
 		case 'post':
 			try {
 				console.log(body)
@@ -77,6 +79,7 @@ export const API = async(path, mode = "get", body = null) => {
 			    }
 	    		console.log(error);
 	    	}
+	    	break
 	    case 'patch':
 			try {
 				console.log(body)
@@ -109,6 +112,7 @@ export const API = async(path, mode = "get", body = null) => {
 			    }
 	    		console.log(error);
 	    	}
+	    	break
 	    default:
 	    	return "Ъуъ"
 	}

@@ -15,6 +15,7 @@ import joinusbackground from './styles/utils/img/joinus.png'
 import ConfirmEmail from './signup/ConfirmEmail'
 import Checkmail from './signup/Checkmail'
 import { ForgotPassword } from './signup/ForgotPassword'
+import { RestorePassword } from './signup/RestorePassword'
 // Create an enhanced history that syncs navigation events with the store
 
 const PrivateRoute = ({ component: Component, Authed, Verified, ...rest }) => {
@@ -45,20 +46,20 @@ class App extends Component {
             		<PrivateRoute
                         path="/dashboard"
                         component = { Dashboard }
-                        Authed = { localStorage.getItem("Authed") }
+                        Authed = { localStorage.getItem("token") }
                         Verified = {true}
                     />
                     <PrivateRoute
                         path="/investment"
                         component = { Investment }
-                        Authed = { localStorage.getItem("Authed") }
+                        Authed = { localStorage.getItem("token") }
                         Verified = { true }
                     />
 	                <Route path="/main" component = { MainPage } />
 	                <Route
                         path="/login"
                         render = { props => (
-                            !localStorage.getItem("Authed")
+                            !localStorage.getItem("token")
                                 ? <LoginPage {...props} />
                                 : <Redirect
                                         to = {{
@@ -71,7 +72,7 @@ class App extends Component {
                     <Route
                         path="/signup"
                         render = { props => (
-                            localStorage.getItem("Authed")
+                            localStorage.getItem("token")
                                 ? true
                                     ? <Redirect
                                         to = {{
@@ -85,7 +86,10 @@ class App extends Component {
                     />
                     <Route path="/confirmEmail/:hash" >
                         <ConfirmEmail />
-                    </Route> 
+                    </Route>
+                    <Route path="/restorePassword/:hash">
+                        <RestorePassword />    
+                    </Route>
                     <Route path="/forgot" component = { ForgotPassword } />
 	                <Route path="/" component = { ComingSoon } />
  	            </Switch>

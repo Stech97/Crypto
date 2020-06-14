@@ -33,20 +33,24 @@ class DashHeader extends Component {
 				<div className="dash-header-user">
 					<div className={"dash-header-user-menu" + (this.state.isClosed ? "-closed" : "") }>
 						<div className={"dash-header-user-menu" + (this.state.isClosed ? "-closed" : "-opened")}>
-							<svg className="dash-header-user-menu-settings-icon" preserveAspectRatio="xMinYMid slice" viewBox="0 0 37 37">
-								<use href="#settings" />
-							</svg>
-							<div className="dash-header-user-menu-settings-text">
-								<p>Settings</p>
+							<div className="dash-header-user-menu-settings">
+								<svg className="dash-header-user-menu-settings-icon" preserveAspectRatio="xMinYMid slice" viewBox="0 0 37 37">
+									<use href="#settings" />
+								</svg>
+								<div className="dash-header-user-menu-settings-text">
+									<p>Settings</p>
+								</div>
 							</div>
 							<svg className="dash-header-user-menu-line">
 								<hr />
 							</svg>
-							<svg className="dash-header-user-menu-logout-icon" preserveAspectRatio="xMinYMid slice" viewBox="0 0 37 37">
-								<use href="#dashboards-icon-white" />
-							</svg>
-							<div onClick={ clickLogout } className="dash-header-user-menu-logout-text">
-								<p>Logout</p>
+							<div className="dash-header-user-menu-logout" onClick={ clickLogout }>
+								<svg className="dash-header-user-menu-logout-icon" preserveAspectRatio="xMinYMid slice" viewBox="0 0 37 37">
+									<use href="#dashboards-icon-white" />
+								</svg>
+								<div className="dash-header-user-menu-logout-text">
+									<p>Logout</p>
+								</div>
 							</div>
 						</div>
 					</div>

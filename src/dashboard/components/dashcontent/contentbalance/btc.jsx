@@ -27,25 +27,31 @@ class ContentBalanceBTCSquare extends Component {
 						<span className="content-text-grey">USD {BTC.isFetching ? "" : BTC.usd}</span>
 					</div>
 					<div className="content-balance-btc-square-calc">
-						<svg
+						<div
 							className="content-balance-btc-square-calc-plus"
-							preserveAspectRatio="xMinYMid slice"
-							viewBox="0 0 47 44"
 							onClick={ () => this.handleClick() }
 						>
-							<use href="#plus" />
-						</svg>
+							<svg
+								preserveAspectRatio="xMinYMid slice"
+								viewBox="0 0 47 44"
+							>
+								<use href="#plus" />
+							</svg>
+						</div>
 						<div className="content-balance-btc-square-calc-line">
 							<div className={"content-balance-btc-square-calc-line-border"}></div>
 						</div>
-						<svg
+						<div
 							className="content-balance-btc-square-calc-minus"
-							preserveAspectRatio="xMinYMid slice"
-							viewBox="0 0 46 6"
 							onClick={ () => this.handleClick() }
 						>
-							<use href="#minus" />
-						</svg>
+							<svg
+								preserveAspectRatio="xMinYMid slice"
+								viewBox="0 0 46 6"
+							>
+								<use href="#minus" />
+							</svg>
+						</div>
 					</div>
 				</div>
 				<TestAddFunds

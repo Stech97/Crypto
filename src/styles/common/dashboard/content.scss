@@ -119,11 +119,18 @@
   
   .content-balance-btc-square-calc-plus {
     grid-area: calc-plus;
-    fill: #ffffff;
-    stroke: #ffffff;
-    height: 1em;
-    width: auto;
-    font-size: 2.5625rem;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    svg {
+      fill: #ffffff;
+      stroke: #ffffff;
+      height: 1em;
+      width: auto;
+      font-size: 2.5625rem;
+    }
   }
   
   .content-balance-btc-square-calc-line {
@@ -140,11 +147,19 @@
   
   .content-balance-btc-square-calc-minus {
     grid-area: calc-minus;
-    fill: #ffffff;
-    stroke: #ffffff;
-    height: auto;
-    width: 1em;
-    font-size: 2.5625rem;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    svg {
+      fill: #ffffff;
+      stroke: #ffffff;
+      height: auto;
+      width: 1em;
+      font-size: 2.5625rem;
+      align-self: center;
+    }
   }
   
   .content-balance-btc-dol {

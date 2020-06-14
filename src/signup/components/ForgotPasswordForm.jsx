@@ -19,34 +19,43 @@ class ForgotPasswordForm extends Component {
 				email: values.email,
 			})
 		}
+		
+		if (this.props.forgot.error.type === "") {
+			
+			return(
+				<h2>Request has been sent succesfully</h2> 
+			)
 
-		return(
-		    <form
-		    	className="login-form"
-		    	onSubmit={handleSubmit(submit)}
-		    >
-		    	<Field
-					component={renderField}		    	
-		    		name="username"
-		    		className="login-form-user"
-		    		type="text"
-		    		placeholder="Username"
-		    	/>
-		    	<Field
-		    		component={renderField}
-		    		name="email"
-			        className="login-form-password"
-			        type="email"
-			        placeholder="Email"
-		      	/>
-			    <button
-			    	className="login-form-button"
-			    	type="submit"
-			    	disabled={ pristine || submitting }
-			    >Restore</button>
-			    { this.props.error && <p>this.props.error</p> }
-		    </form>
-		)
+		} else {
+
+			return(
+			    <form
+			    	className="login-form"
+			    	onSubmit={handleSubmit(submit)}
+			    >
+			    	<Field
+						component={renderField}		    	
+			    		name="username"
+			    		className="login-form-user"
+			    		type="text"
+			    		placeholder="Username"
+			    	/>
+			    	<Field
+			    		component={renderField}
+			    		name="email"
+				        className="login-form-password"
+				        type="email"
+				        placeholder="Email"
+			      	/>
+				    <button
+				    	className="login-form-button"
+				    	type="submit"
+				    	disabled={ pristine || submitting }
+				    >Restore</button>
+				    { this.props.error && <p>this.props.error</p> }
+			    </form>
+			)
+		}
 	}
 }
 

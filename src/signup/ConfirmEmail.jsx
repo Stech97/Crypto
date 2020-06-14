@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { useParams, Redirect } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { API } from '../config'
 import Header from './components/Header'
 import '../styles/login.scss'

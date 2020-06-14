@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../../styles/login.scss'
 import { connect } from 'react-redux'
 import LoginForm from './LoginForm'
+import { Link } from 'react-router-dom'
 
 const LoginHeader = () => {
 	return(
@@ -15,7 +16,7 @@ const LoginForgot = () => {
 	return(
 		<div className="login-forgot">
 		    <p>
-	        	Forgot your password? <a href="#">Restore it</a>
+	        	Forgot your password? <Link to="/forgot">Restore it</Link>
 	    	</p>
 	    </div>
 	)

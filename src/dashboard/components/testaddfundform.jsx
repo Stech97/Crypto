@@ -15,8 +15,8 @@ class TestAddFundsForm extends Component {
 		const { handleSubmit, reset, pristine, submitting, user, balance } = this.props
 
 		const submit = async(values) => {
-			if (Number(values.amount) > this.props.balance.btc) {
-				let response = await API('Dashboard/CashBTC?Id='+this.props.user.id, 'patch', { "BTC" : values.amount })
+			if (( Number(values.amount) + Number(this.props.balance.btc)) >= 0 ) {
+				let response = await API('Dashboard/CashBTC?Id='+localStorage.getItem('id'), 'patch', { "BTC" : values.amount })
 				.then((res) => {
 					if (res.ok) {
 						values.amount = ""
@@ -25,7 +25,7 @@ class TestAddFundsForm extends Component {
 						console.log(res)
 					}
 				})
-				this.props.getBalanceAction(this.props.user.id)
+				this.props.getBalanceAction(localStorage.getItem('id'))
 			} else {
 				alert("Not enough currency!!!")
 			}

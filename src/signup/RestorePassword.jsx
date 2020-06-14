@@ -1,8 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import Header from './components/Header'
 import RestorePasswordForm from './components/RestorePasswordForm'
+import { useParams } from 'react-router-dom'
 
-export const RestorePassword = () => {
+export function RestorePassword (props) {
+	const { hash } = useParams()
+	props = {
+		...props,
+		hash,
+	}
 	return(
 		<Fragment>
 			<Header />
@@ -11,7 +17,7 @@ export const RestorePassword = () => {
 					<div className="login-header">
 				    	<h1>Create new password</h1>
 				    </div>
-					<RestorePasswordForm />
+					<RestorePasswordForm hash = { props.hash }/>
 				</div>
 			</section>
 		</Fragment>
