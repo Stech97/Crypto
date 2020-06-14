@@ -11,5 +11,6 @@ namespace Crypto.Services.Interfaces
 		Task<List<InvestmentViewModel>> GetInvestments(int UserId, int Take);
 		Task<double> GetTotalInvestment(int UserId);
 		Task<double> GetLastDayInvestment(int UserId);
+		Task<object> BuyInvestment(BuyInvestmentViewModel request, int Id);
 	}
 }

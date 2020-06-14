@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 
 namespace DBRepository.Repositories
 {
@@ -35,12 +36,66 @@ namespace DBRepository.Repositories
 					.Where(i => i.UserId == UserId).OrderByDescending(i => i.DateInvestment).Take(Take).ToListAsync();
 		}
 
-		/*public async Task BuyInvestment(Investment investment, Balance balance, int UserId)
+		public async Task<object> BuyInvestment(Investment investment, string cur, int UserId)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var x = context.Balances.FirstOrDefault(b => b.UserId == UserId);
+				var balance = context.Balances.FirstOrDefault(b => b.UserId == UserId);
+				switch (cur)
+				{
+					case "BTC":
+						if (balance.BitcoinBalance >= investment.AddCash)
+						{
+							balance.BitcoinBalance -= investment.AddCash;
+							investment.UserId = UserId;
+							context.Investments.Add(investment);
+							context.Balances.Update(balance);
+							await context.SaveChangesAsync();
+							var response = new { response = "Ok" };
+							return response;
+						}
+						else
+                        {
+							var response = new { response = "Balance less" };
+							return response;
+						}						
+					case "USD":
+						if (balance.USDBalance >= investment.AddCash)
+						{
+							balance.USDBalance -= investment.AddCash;
+							investment.UserId = UserId;
+							context.Investments.Add(investment);
+							context.Balances.Update(balance);
+							await context.SaveChangesAsync();
+							var response = new { response = "Ok" };
+							return response;
+						}
+						else
+						{
+							var response = new { response = "Balance less" };
+							return response;
+						}
+					case "DET":
+						if (balance.DefimaBalance >= investment.AddCash)
+						{
+							balance.DefimaBalance -= investment.AddCash;
+							investment.UserId = UserId;
+							context.Investments.Add(investment);
+							context.Balances.Update(balance);
+							await context.SaveChangesAsync();
+							var response = new { response = "Ok" };
+							return response;
+						}
+						else
+						{
+							var response = new { response = "Balance less" };
+							return response;
+						}
+					default:
+						var res = new { response = "No found" };
+						return res;
+				}
 			}
-		}*/
+		}
 	}
 }

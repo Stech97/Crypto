@@ -5,6 +5,7 @@ using System;
 using Crypto.ViewModels.Identity;
 using Crypto.ViewModels.Dashdoard;
 using Crypto.ViewModels.Administrator;
+using Crypto.ViewModels.Investment;
 
 namespace Crypto
 {
@@ -60,6 +61,11 @@ namespace Crypto
 				.ForMember(m => m.RateDef, opt => opt.MapFrom(m => m.RateUSD_DEF));
 
 			CreateMap<UpdateInfoViewModel, User>();
+
+			CreateMap<BuyInvestmentViewModel, Investment>()
+				.ForMember(m => m.Type, opt => opt.MapFrom(m => m.Type))
+				.ForMember(m => m.AddCash, opt => opt.MapFrom(m => m.SumInvestment))
+				.ForMember(m => m.DateInvestment, opt => opt.MapFrom(m => DateTime.Now));
 
 		}
 	}

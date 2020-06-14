@@ -56,16 +56,22 @@ namespace Crypto.Services.Implementation
 			await _repository.UpdateBTCRate(rate);
 		}
 
-		public async Task DelUser(int Id)
-		{
-			await _repository.DelUser(Id);
-		}
-
 		public async Task<List<RefUserViewModel>> GetRef(int Ref)
 		{
 			var response = await _repository.GetRef(Ref);
 			return _mapper.Map<List<User>, List<RefUserViewModel>>(response);
 		}
+        #region Dev
+        public async Task<List<UserViewModel>> GetUsers()
+		{
+			var response = await _repository.GetUsers();
+			return _mapper.Map<List<object>, List<UserViewModel>>(response);
+		}
+		public async Task DelUser(int Id)
+		{
+			await _repository.DelUser(Id);
+		}
+        #endregion
 
-	}
+    }
 }

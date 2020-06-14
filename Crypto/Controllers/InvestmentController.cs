@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Crypto.Services.Interfaces;
+using Crypto.ViewModels.Investment;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Models;
+
 
 namespace Crypto.Controllers
 {
@@ -40,9 +41,12 @@ namespace Crypto.Controllers
 			return Ok(await _investmentService.GetLastDayInvestment(UserId));
 		}
 
-		/*public async Task<IActionResult> BuyInvestment()
+		//[Authorize]
+		[Route("BuyInvestment")]
+		[HttpPost]
+		public async Task<IActionResult> BuyInvestment([FromBody] BuyInvestmentViewModel request, int Id)
 		{
-			return Ok();
-		}*/
+			return Ok(await _investmentService.BuyInvestment(request, Id));
+		}
 	}
 }

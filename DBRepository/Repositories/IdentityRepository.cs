@@ -30,13 +30,13 @@ namespace DBRepository.Repositories
 				{
 					var UserViewModel = new
 					{
-						Id = user.Id,
-						Username = user.Username,
-						FirstName = user.FirstName,
-						LastName = user.LastName,
-						Email = user.Email,
-						Token = token.Token,
-						IsVerified = user.IsVerified,
+                        user.Id,
+                        user.Username,
+                        user.FirstName,
+                        user.LastName,
+                        user.Email,
+                        token.Token,
+                        user.IsVerified,
 						Status = "Ok"
 					};
 					return UserViewModel;
@@ -44,14 +44,14 @@ namespace DBRepository.Repositories
                 else 
 				{
 					var UserViewModel = new
-					{
-						Id = user.Id,
-						Username = user.Username,
-						FirstName = user.FirstName,
-						LastName = user.LastName,
-						Email = user.Email,
+                    {
+                        user.Id,
+                        user.Username,
+                        user.FirstName,
+                        user.LastName,
+                        user.Email,
 						Token = "",
-						IsVerified = user.IsVerified,
+                        user.IsVerified,
 						Status = "No login"
 					};
 					return UserViewModel;
@@ -200,8 +200,8 @@ namespace DBRepository.Repositories
 						confirmEmail = new
 						{
 							Id = confirmUserId,
-							Username = confirmUser.Username,
-							Token = currentSession.Token,
+                            confirmUser.Username,
+                            currentSession.Token,
 							IsVerification = confirmUser.IsVerified,
 							Status = "Ok"
 						};
@@ -209,7 +209,7 @@ namespace DBRepository.Repositories
 						confirmEmail = new
 						{
 							Id = confirmUserId,
-							Username = confirmUser.Username,
+                            confirmUser.Username,
 							Token = "No login",
 							IsVerification = confirmUser.IsVerified,
 							Status = "No login"
@@ -250,7 +250,7 @@ namespace DBRepository.Repositories
 					var fogotPassword = new
 					{
 						Hash = hash,
-						Email = findUser.Email,
+                        findUser.Email,
 						Status = "Ok"
 
 					};
@@ -262,7 +262,7 @@ namespace DBRepository.Repositories
 					var fogotPassword = new
 					{
 						Hash = "No found",
-						Email = user.Email,
+                        user.Email,
 						Status = "No found"
 					};
 
@@ -296,8 +296,8 @@ namespace DBRepository.Repositories
 						{
 							ConfirmFogot = new
 							{
-								Id = fogotUser.Id,
-								Username = fogotUser.Username,
+                                fogotUser.Id,
+                                fogotUser.Username,
 								Status = "Ok"
 							};
 							fogotUser.IsFogotPassword = false;

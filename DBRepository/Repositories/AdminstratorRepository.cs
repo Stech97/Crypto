@@ -59,7 +59,8 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task DelUser(int Id)
+        #region Dev
+        public async Task DelUser(int Id)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -69,7 +70,51 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<List<User>> GetRef(int Ref)
+		public async Task<List<object>> GetUsers()
+		{
+			List<object> response = new List<object>();
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var Users = await context.Users.AsNoTracking().ToListAsync();
+				foreach (var user in Users)
+				{
+					var token = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == user.Id);
+					if (token != null)
+					{
+						var Res = new
+						{
+							user.Id,
+							user.Username,
+							user.FirstName,
+							user.LastName,
+							user.Email,
+							user.IsVerified,
+							token.Token
+						};
+						response.Add(Res);
+					}
+					else
+					{
+						var Res = new
+						{
+							user.Id,
+							user.Username,
+							user.FirstName,
+							user.LastName,
+							user.Email,
+							user.IsVerified,
+							token = ""
+						};
+						response.Add(Res);
+					}
+				}
+				return response;
+			}
+
+		}
+        #endregion
+
+        public async Task<List<User>> GetRef(int Ref)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{

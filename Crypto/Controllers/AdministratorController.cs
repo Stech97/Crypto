@@ -50,16 +50,25 @@ namespace Crypto.Controllers
 		{
 			return Ok(await _administratorService.UpdateDETRate(request));
 		}
+        #region Dev
 
-		[Route("DelUser")]
+        [Route("DelUser")]
 		[HttpGet]
 		public async Task<IActionResult> DelUser(int Id)
 		{
 			await _administratorService.DelUser(Id);
 			return Ok();
 		}
+		[Route("GetUsers")]
+		[HttpGet]
+		public async Task<IActionResult> GetUsers()
+		{
+			return Ok(await _administratorService.GetUsers());
+		}
 
-		[Route("RefUser")]
+        #endregion
+
+        [Route("RefUser")]
 		[HttpGet]
 		public async Task<IActionResult> RefUser(int Ref)
 		{

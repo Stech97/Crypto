@@ -153,9 +153,9 @@ namespace Crypto.Controllers
 			return Ok(await _identityService.ConfirmEmail(Id));
 		}
 
-		[Route("FogotPassword")]
+		[Route("ForgotPassword")]
 		[HttpPost]
-		public async Task<IActionResult> FogotPassword(CheckViewModel request)
+		public async Task<IActionResult> ForgotPassword(CheckViewModel request)
 		{
 			return Ok(await _identityService.FogotPassword(request));
 		}
@@ -168,9 +168,9 @@ namespace Crypto.Controllers
 			string username = (string)fogotUser.GetType().GetProperty("Username").GetValue(fogotUser, null);
 			string status = (string)fogotUser.GetType().GetProperty("Status").GetValue(fogotUser, null);
 
-			var encodedJwt = "";
+            string encodedJwt;
 
-			if (status == "Ok")
+            if (status == "Ok")
 			{
 				var claims = new List<Claim>
 					{
