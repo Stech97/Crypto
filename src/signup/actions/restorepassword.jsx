@@ -26,7 +26,7 @@ const changePasswordPatch = async({data, id}) => {
 }
 
 const acceptPasswordGet = async(hash) => {
-	let response = await API('/Identity/AcceptFogot?Id=' + hash)
+	let response = await API('/Identity/AcceptForgot?Id=' + hash)
 	return response
 }
 
