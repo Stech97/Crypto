@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace Models
+﻿namespace Models
 {
     public class ConfirmEmail
     {
         public int Id { get; set; }
-        public string Email { get; set; }
+        public System.DateTime TimeConfirm { get; set; }
         public User User { get; set; }
         public int UserId { get; set; }
     }

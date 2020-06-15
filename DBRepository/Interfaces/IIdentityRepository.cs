@@ -14,8 +14,9 @@ namespace DBRepository.Interfaces
         Task ChangePassword(User user, int Id);
         Task<User> CheckInfo(User user);
         Task<object> ConfirmEmail(string Id);
-        Task<object> FogotPassword(User user);
-        Task<object> AcceptFogot(string Id);
+        Task<object> ForgotPassword(User user);
+        Task<object> AcceptForgot(string Id);
         Task UpdateInfo(User user, int Id);
+        Task RecoveryPassword(User user, int Id);
     }
 }

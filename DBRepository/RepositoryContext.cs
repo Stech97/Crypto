@@ -15,6 +15,7 @@ namespace DBRepository
 		public DbSet<CurrentSession> CurrentSessions { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<ConfirmEmail> ConfirmEmails { get; set; }
+        public DbSet<ForgotPassword> ForgotPasswords { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -58,9 +59,16 @@ namespace DBRepository
             modelBuilder.Entity<News>().Property(n => n.Description).IsRequired();
             #endregion
 
-            #region ConfirmEmail
+            #region Confirm Email
             modelBuilder.Entity<ConfirmEmail>().ToTable("ConfirmEmail");
-            modelBuilder.Entity<ConfirmEmail>().Property(ce => ce.Email).IsRequired();
+            modelBuilder.Entity<ConfirmEmail>().Property(ce => ce.TimeConfirm).IsRequired();
+            #endregion
+
+            #region Forgot Password
+            modelBuilder.Entity<ForgotPassword>().ToTable("ForgotPassword");
+            modelBuilder.Entity<ForgotPassword>().Property(fp => fp.TimeForgot).IsRequired();
+            modelBuilder.Entity<ForgotPassword>().Property(fp => fp.Username).IsRequired();
+            modelBuilder.Entity<ForgotPassword>().Property(fp => fp.Email).IsRequired();
             #endregion
         }
     }

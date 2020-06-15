@@ -68,12 +68,12 @@ namespace Crypto.Services.Implementation
 		public async Task<object> FogotPassword([FromBody] CheckViewModel request)
 		{
 			var fogotPassword = _mapper.Map<CheckViewModel, User>(request);
-			return await _repository.FogotPassword(fogotPassword);
+			return await _repository.ForgotPassword(fogotPassword);
 		}
 
 		public async Task<object> AcceptFogot(string Id)
 		{
-			return await _repository.AcceptFogot(Id);
+			return await _repository.AcceptForgot(Id);
 		}
 
 		public async Task UpdateInfo(UpdateInfoViewModel request, int Id)
@@ -81,5 +81,11 @@ namespace Crypto.Services.Implementation
 			var update = _mapper.Map<UpdateInfoViewModel, User>(request);
 			await _repository.UpdateInfo(update, Id);
 		}
-    }
+		public async Task RecoveryPassword(ChangePasswordViewModel request, int Id)
+		{
+			var newPassword = _mapper.Map<ChangePasswordViewModel, User>(request);
+			await _repository.RecoveryPassword(newPassword, Id);
+		}
+
+	}
 }

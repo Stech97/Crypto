@@ -17,5 +17,6 @@ namespace Crypto.Services.Interfaces
 		Task<object> FogotPassword(CheckViewModel request);
 		Task<object> AcceptFogot(string Id);
 		Task UpdateInfo(UpdateInfoViewModel request, int Id);
+		Task RecoveryPassword(ChangePasswordViewModel request, int Id);
 	}
 }

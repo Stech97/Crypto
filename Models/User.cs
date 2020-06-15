@@ -21,10 +21,13 @@ namespace Models
 		public int? ParentId { get; set; }
 		public IEnumerable<User> Children { get; set; }
 
+		#region Dependencces
 		public Balance Balance { get; set; }
 		public ConfirmEmail ConfirmEmail { get; set; }
+		public ForgotPassword ForgotPassword { get; set; }
 		public List<LoginHistory> LoginHistories { get; set; }
 		public List<CurrentSession>  CurrentSessions { get; set; }
 		public List<Investment> Investments { get; set; }
-	}
+        #endregion
+    }
 }

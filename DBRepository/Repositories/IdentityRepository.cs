@@ -84,7 +84,7 @@ namespace DBRepository.Repositories
 
 				ConfirmEmail confirmEmail = new ConfirmEmail
 				{
-					Email = newUser.Email,
+					TimeConfirm = System.DateTime.UtcNow,
 					User = newUser,
 					UserId = newUser.Id
 				};
@@ -92,8 +92,8 @@ namespace DBRepository.Repositories
 				await context.SaveChangesAsync();
 				
 				string hash = "";
-				using (MD5 md5Hash = MD5.Create())		
-					hash = GetMd5Hash(md5Hash, newUser.Email);
+				using (MD5 md5Hash = MD5.Create())
+					hash = GetMd5Hash(md5Hash, confirmEmail.TimeConfirm.ToString());
 				return hash;
 			}
 		}
@@ -176,7 +176,7 @@ namespace DBRepository.Repositories
 				{
 					using (MD5 md5Hash = MD5.Create())
 					{
-						var tempEmail = GetMd5Hash(md5Hash, email.Email);
+						var tempEmail = GetMd5Hash(md5Hash, email.TimeConfirm.ToString());
 						if (tempEmail == Id)
 						{
 							confirmUserId = email.UserId;
@@ -230,19 +230,28 @@ namespace DBRepository.Repositories
 			return confirmEmail;
 		}
 
-		public async Task<object> FogotPassword(User user)
+		public async Task<object> ForgotPassword(User user)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var findUser = await context.Users.FirstOrDefaultAsync(u => u.Username == user.Username && u.Email == user.Email);
 
-				if (findUser != null)
+				if (findUser != null && !findUser.IsFogotPassword)
 				{
 					findUser.IsFogotPassword = true;
+					ForgotPassword forgotPassword = new ForgotPassword()
+					{
+						TimeForgot = System.DateTime.Now,
+						Username = findUser.Username,
+						Email = findUser.Email,
+						User = findUser,
+						UserId = findUser.Id
+					};
+					context.ForgotPasswords.Add(forgotPassword);
 					context.Users.Update(findUser);
 					await context.SaveChangesAsync();
 
-					var fogot = findUser.Username + " " + findUser.Email;
+					var fogot = forgotPassword.Username + " " + forgotPassword.Email + " " + forgotPassword.TimeForgot.ToString();
 					string hash = "";
 					using (MD5 md5Hash = MD5.Create())
 						hash = GetMd5Hash(md5Hash, fogot);
@@ -271,24 +280,24 @@ namespace DBRepository.Repositories
 			}
 		}
 
-        public async Task<object> AcceptFogot(string Id)
+        public async Task<object> AcceptForgot(string Id)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var fogotUsers = await context.Users.Where(u => u.IsFogotPassword).ToListAsync();
-				
+			{				
 				var ConfirmFogot = new
 				{
 					Id = 0,
 					Username = "",
-					Status = ""
+					Status = "Not found"
 				};
 
-				if (fogotUsers.Count != 0)
+				var forgotPassword = await context.ForgotPasswords.AsNoTracking().ToListAsync();
+				
+				if (forgotPassword.Count != 0)
 				{
-					foreach (var fogotUser in fogotUsers)
-					{
-						var fogot = fogotUser.Username + " " + fogotUser.Email;
+					foreach (var fogotUser in forgotPassword)
+					{			
+						var fogot = fogotUser.Username + " " + fogotUser.Email + " " + fogotUser.TimeForgot.ToString();
 						string hash = "";
 						using (MD5 md5Hash = MD5.Create())
 							hash = GetMd5Hash(md5Hash, fogot);
@@ -296,28 +305,29 @@ namespace DBRepository.Repositories
 						{
 							ConfirmFogot = new
 							{
-                                fogotUser.Id,
-                                fogotUser.Username,
+								Id = fogotUser.UserId,
+								fogotUser.Username,
 								Status = "Ok"
 							};
-							fogotUser.IsFogotPassword = false;
-							context.Users.Update(fogotUser);
-							await context.SaveChangesAsync();
-							break;
+							return ConfirmFogot;
 						}
 					}
-					return ConfirmFogot;
 				}
-				else
-				{
-					ConfirmFogot = new
-					{
-						Id = 0,
-						Username = "",
-						Status = "Not found"
-					};
-					return ConfirmFogot;
-				}
+				return ConfirmFogot;
+			}
+		}
+		public async Task RecoveryPassword(User user, int Id)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var newPassword = await context.Users.FirstOrDefaultAsync(u => u.Id == Id);
+				newPassword.Username = user.Username;
+				newPassword.Password = user.Password;
+				newPassword.IsFogotPassword = false;
+				var forgotPassword = await context.ForgotPasswords.FirstOrDefaultAsync(fp => fp.UserId == Id);
+				context.ForgotPasswords.Remove(forgotPassword);
+				context.Users.Update(newPassword);
+				await context.SaveChangesAsync();
 			}
 		}
 
@@ -348,6 +358,5 @@ namespace DBRepository.Repositories
 
 			return sBuilder.ToString();
 		}
-
     }
 }

@@ -25,13 +25,61 @@ namespace Crypto.Controllers
 			_identityService = identityService;
 		}
 
+		#region No Authorize
+
+		#region Confirm
+		[Route("ConfirmEmail")]
+		[HttpGet]
+		public async Task<IActionResult> ConfirmEmail(string Id)
+		{
+			return Ok(await _identityService.ConfirmEmail(Id));
+		}
+
+		[Route("ForgotPassword")]
+		[HttpPost]
+		public async Task<IActionResult> ForgotPassword(CheckViewModel request)
+		{
+			return Ok(await _identityService.FogotPassword(request));
+		}
+
+		[Route("AcceptForgot")]
+		[HttpGet]
+		public async Task<IActionResult> AcceptForgot(string Id)
+		{
+			var fogotUser = await _identityService.AcceptFogot(Id);
+			string username = (string)fogotUser.GetType().GetProperty("Username").GetValue(fogotUser, null);
+			string status = (string)fogotUser.GetType().GetProperty("Status").GetValue(fogotUser, null);
+
+			var response = new
+			{
+				Id = (int)fogotUser.GetType().GetProperty("Id").GetValue(fogotUser, null),
+				Username = username,
+				Status = status
+			};
+
+			return Ok(response);
+		}
+
+		[Route("RecoveryPassword")]
+		[HttpPost]
+		public async Task<IActionResult> RecoveryPassword([FromBody] ChangePasswordViewModel request, int Id)
+		{
+			using (SHA256Managed sha256 = new SHA256Managed())
+			{
+				request.Password = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(request.Password)));
+			}
+			await _identityService.RecoveryPassword(request, Id);
+			return Ok();
+		}
+		#endregion
+
 		[Route("token")]
 		[HttpPost]
 		public async Task<IActionResult> Token([FromBody] IdentityViewModel model)
 		{
 			ClaimsIdentity identity = null;
 			var user = await _identityService.GetUser(model.Username);
-			if (user != null)
+			if (user != null && !user.IsFogotPassword)
 			{
 				var sha256 = new SHA256Managed();
 				var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(model.Password)));
@@ -88,14 +136,6 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
-		//[Authorize]
-		[Route("GetUser")]
-		[HttpGet]
-		public async Task<IActionResult> GetUser(int Id)
-		{
-			return Ok(await _identityService.GetUser(Id));
-		}
-
 		[Route("CreateLogin")]
 		[HttpPost]
 		public async Task<IActionResult> CreateLogin([FromBody] LoginViewModel login)
@@ -110,6 +150,29 @@ namespace Crypto.Controllers
 				hash = await _identityService.AddUser(login)
 			};
 			return Ok(ConfirmEmail);
+		}
+
+		//Проверка на наличие в БД Username и Email
+		[Route("CheckInfo")]
+		[HttpPost]
+		public async Task<IActionResult> CheckInfo([FromBody] CheckViewModel request)
+		{
+			var result = await _identityService.CheckInfo(request);
+			if (result != null)
+				return Ok(result);
+			else
+				return Ok();
+
+		}
+		#endregion
+
+		#region Authorize
+		//[Authorize]
+		[Route("GetUser")]
+		[HttpGet]
+		public async Task<IActionResult> GetUser(int Id)
+		{
+			return Ok(await _identityService.GetUser(Id));
 		}
 
 		//[Authorize]
@@ -134,77 +197,6 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-		[Route("CheckInfo")]
-		[HttpPost]
-		public async Task<IActionResult> CheckInfo([FromBody] CheckViewModel request)
-		{
-			var result = await _identityService.CheckInfo(request);
-			if (result != null)
-				return Ok(result);
-			else
-				return Ok();
-
-		}
-
-		[Route("ConfirmEmail")]
-		[HttpGet]
-		public async Task<IActionResult> ConfirmEmail(string Id)
-		{
-			return Ok(await _identityService.ConfirmEmail(Id));
-		}
-
-		[Route("ForgotPassword")]
-		[HttpPost]
-		public async Task<IActionResult> ForgotPassword(CheckViewModel request)
-		{
-			return Ok(await _identityService.FogotPassword(request));
-		}
-
-		[Route("AcceptFogot")]
-		[HttpGet]
-		public async Task<IActionResult> AcceptFogot(string Id)
-		{
-			var fogotUser = await _identityService.AcceptFogot(Id);
-			string username = (string)fogotUser.GetType().GetProperty("Username").GetValue(fogotUser, null);
-			string status = (string)fogotUser.GetType().GetProperty("Status").GetValue(fogotUser, null);
-
-            string encodedJwt;
-
-            if (status == "Ok")
-			{
-				var claims = new List<Claim>
-					{
-						new Claim(ClaimsIdentity.DefaultNameClaimType, username),
-						new Claim(ClaimsIdentity.DefaultRoleClaimType, "Client")
-					};
-				ClaimsIdentity identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-
-				var now = DateTime.UtcNow;
-				// создаем JWT-токен
-				var jwt = new JwtSecurityToken(
-						issuer: AuthOptions.ISSUER,
-						audience: AuthOptions.AUDIENCE,
-						notBefore: now,
-						claims: identity.Claims,
-						expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-						signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-				encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-			}
-			else
-				encodedJwt = "";
-
-			var response = new
-			{
-				Id =(int)fogotUser.GetType().GetProperty("Id").GetValue(fogotUser, null),
-				Username = username,
-				Token = encodedJwt,
-				Status = status
-
-			};
-
-			return Ok(response);
-		}
-
 		//[Authorize]
 		[Route("UpdateInfo")]
 		[HttpPatch]
@@ -213,5 +205,6 @@ namespace Crypto.Controllers
 			await _identityService.UpdateInfo(request, Id);
 			return Ok();
 		}
-	}
+        #endregion
+    }
 }
