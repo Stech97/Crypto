@@ -31,9 +31,7 @@ class HeaderNav extends Component {
  		           <Link to={'/login'}>Login</Link>
 				</div>
 				<div className="nav-bar nav-signup">
-					<a href="#" className="button-main-inversed button-signup">
-					  Sign Up
-					</a>
+            		<Link to={'/signup'} className='button-main-inversed button-signup'>Sign Up</Link>
 				</div>
 		    </div>
 		)

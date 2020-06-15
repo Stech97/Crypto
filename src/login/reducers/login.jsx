@@ -13,7 +13,10 @@ const initialState = {
 		isVerified: false,
 	},
 	isFetching: false,
-	error: "",
+	error: {
+		type: "",
+		message: "",
+	},
 }
 
 export const userReducer = (state = initialState, action) => {

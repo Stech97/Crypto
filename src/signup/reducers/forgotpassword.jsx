@@ -22,7 +22,7 @@ export const forgotPasswordReducer = (state = initialState, action) => {
 				...state,
 				isFetching: false,
 				error: {
-					type: "",
+					type: "none",
 					message: "",
 				}
 			} 

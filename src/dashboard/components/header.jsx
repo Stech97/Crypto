@@ -3,7 +3,6 @@ import API from '../../config'
 import { connect } from 'react-redux'
 import { setUser } from '../actions/header'
 import { userLogoutGet } from '../actions/logout'
-
 class DashHeader extends Component {
 
 	state = {
@@ -28,7 +27,7 @@ class DashHeader extends Component {
 		return (
 			<div className="dash-header">
 				<div className="dash-header-logo">
-					<img src="img/logo.png" />
+					<img src="/img/logo.png" />
 				</div>
 				<div className="dash-header-user">
 					<div className={"dash-header-user-menu" + (this.state.isClosed ? "-closed" : "") }>

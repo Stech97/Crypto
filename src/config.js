@@ -1,4 +1,19 @@
 import axios from 'axios'
+import ComingSoon from './comingsoon/Comingsoon'
+import MainPage from './main/Main'
+import LoginPage from './login/Login'
+import SignupPage from './signup/Signup'
+import DashContent from './dashboard/components/dashcontent/content'
+import InvestmentContent from './dashboard/components/investment/content'
+import waveimage from './styles/utils/img/waveimage.png'
+import stealthlogo from './styles/utils/img/stealth-logo.png'
+import worldmap2 from './styles/utils/img/worldmap2.png'
+import joinusbackground from './styles/utils/img/joinus.png'
+import ConfirmEmail from './signup/ConfirmEmail'
+import AccountPage from './dashboard/Account'
+import { ForgotPassword } from './signup/ForgotPassword'
+import { RestorePassword } from './signup/RestorePassword'
+
 
 export const DOMAIN_URL = "https://defima.io"
 const API_URL_PROD = "https://back.defima.io/"
@@ -117,3 +132,58 @@ export const API = async(path, mode = "get", body = null) => {
 	    	return "Ъуъ"
 	}
 }
+
+export const routes = [
+    {
+        path: "/main",
+        component: MainPage,
+        Private: false,
+    },
+    {
+        path: "/account",
+        component: AccountPage,
+        Private: true,
+        routes: [
+            {
+                path: "/account/dashboard",
+                component: DashContent,
+                Private: true,
+            },
+            {
+                path: "/account/investment",
+                component: InvestmentContent,
+                Private: true,
+            }
+        ]
+    },
+    {
+        path: "/login",
+        component: LoginPage,
+        Private: false,
+    },
+    {
+        path: "/signup",
+        component: SignupPage,
+        Private: false,
+    },
+    {
+        path: "/confirmEmail/:hash",
+        component: ConfirmEmail,
+        Private: false,
+    },
+    {
+        path: "/restorePassword/:hash",
+        component: RestorePassword,
+        Private: false,
+    },
+    {
+        path: "/forgot",
+        component: ForgotPassword,
+        Private: false,
+    },
+    {
+        path: "/",
+        component: ComingSoon,
+        Private: false,        
+    }
+]

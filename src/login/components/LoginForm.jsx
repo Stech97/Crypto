@@ -45,7 +45,7 @@ class LoginForm extends Component {
 			    	type="submit"
 			    	disabled={ pristine || submitting }
 			    >Login</button>
-			    { this.props.error && <p>this.props.error</p> }
+			    { this.props.error && <p>{this.props.error}</p> }
 		    </form>
 		)
 	}

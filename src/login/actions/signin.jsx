@@ -47,11 +47,11 @@ export const userPostFetch = user => {
 				localStorage.setItem("id", res.data.id)				
 				dispatch(loginUserSuccess(userObj))
 			}).catch(error => {
-				dispatch(loginUserError(error))
+				dispatch(loginUserError({type: error.status, message: error.message }))
 				localStorage.setItem("Authed", false)
 			})
 		}).catch(error => {
-			dispatch(loginUserError(error))
+			dispatch(loginUserError({type: error.status, message: error.message }))
 			localStorage.setItem("Authed", false)
 		})
 	}

@@ -11,7 +11,7 @@ class ContentBalanceUSDSquare extends Component {
 					<h3>USD Balance</h3>
 				</div>
 				<div className="content-balance-dol-square content-whitebox-balance content-text-blue">
-					<h3>USD { isFetching ? "Laoding..." : amount }</h3>
+					<h3>USD { isFetching ? "Loading..." : amount }</h3>
 					<span className="content-text-grey">
 						BTC {USD.isFetching ? "" : USD.btc}
 						<br />

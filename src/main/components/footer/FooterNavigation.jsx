@@ -52,7 +52,7 @@ class FooterNav extends Component {
 					{
 						id: 1,
 						text: "Get started",
-						path: "/main",
+						path: "/signup",
 						type: "link",
 					},
 					{

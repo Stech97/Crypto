@@ -20,7 +20,7 @@ class ForgotPasswordForm extends Component {
 			})
 		}
 		
-		if (this.props.forgot.error.type === "") {
+		if (this.props.forgot.error.type === "none") {
 			
 			return(
 				<h2>Request has been sent succesfully</h2> 
