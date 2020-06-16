@@ -21,7 +21,7 @@ const restorePasswordError = error => ({
 })
 
 const changePasswordPatch = async({data, id}) => {
-	let response = await API('/Identity/ChangePassword?Id=' + id, 'patch', data)
+	let response = await API('/Identity/RecoveryPassword?Id=' + id, 'patch', data)
 	return response
 }
 

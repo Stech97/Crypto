@@ -43,7 +43,7 @@ export const userReducer = (state = initialState, action) => {
 
 		case USER_LOGIN_ERROR: return {
 			...state,
-			error: action.payload.message,
+			error: action.payload,
 			isFetching: false,
 		}
 

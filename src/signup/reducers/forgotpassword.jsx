@@ -44,6 +44,10 @@ export const forgotPasswordReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isFetching: false,
+				error: {
+					...state.error,
+					type: 'done',
+				}
 			}
 
 		case RESTORE_PASSWORD_ERROR:

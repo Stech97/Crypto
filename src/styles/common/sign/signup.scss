@@ -110,17 +110,21 @@ button {
 .signup-box {
 	display: grid;
 	grid-template-columns: 407px 407px;
-	grid-template-rows: 77px 45px 45px 45px 45px 216px;
-	gap: 75px 20px;
-	align-items: center;
+	grid-template-rows: 67px 17px 80px 80px 80px 80px 216px;
+	gap: 40px 20px;
+	align-items: start;
 	justify-items: center;
-	grid-template-areas: "box-header box-header" "box-firstname box-lastname" "box-email box-username" "box-password box-repeatpassword" "box-termsagree box-countrycheck" "box-bottomcontainer box-bottomcontainer";
+	grid-template-areas: "box-header box-header" ". ." "box-firstname box-lastname" "box-email box-username" "box-password box-repeatpassword" "box-termsagree box-countrycheck" "box-bottomcontainer box-bottomcontainer";
 	grid-area: signup-box;
 	&-error {
-		color: red;
-		font-family: "IBM Plex Sans";
-		font-weight: 400;
-		font-size: 1rem;
+		grid-template-rows: 45px 20px;
+		gap: 10px;
+		grid-template-columns: 100%;
+		grid-template-areas: "input" "error";
+	}
+	.error {
+		grid-area: error;
+		margin-top: 10px;
 	}
 }
 .signup-box-header {
@@ -144,6 +148,7 @@ button {
 	font-size: 2rem;
 	text-align: left;
 	font-family: "IBM Plex Sans";
+	grid-area: input;
 }
 .signup-box-firstname {
 	grid-area: box-firstname;

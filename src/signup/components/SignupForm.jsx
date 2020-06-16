@@ -15,7 +15,7 @@ const SignupHeader = () => {
 
 const textField = ({ input, placeholder, className, type, error }) => {
 	return (
-		<div className={"signup-box-" + className}>
+		<div className={"signup-box-error signup-box-" + className}>
 		    <input
 		    	{...input}
 		        className={"signup-form signup-form-" + className}
@@ -23,7 +23,7 @@ const textField = ({ input, placeholder, className, type, error }) => {
 		        required
 		        placeholder={placeholder}
 		    />
-		    { error && error.type==className && <p className="signup-box-error">{error.message}</p>}
+		    { error && error.type==className && <p className="error">{error.message}</p>}
 	    </div>
 	)
 }
@@ -54,103 +54,116 @@ class SignupForm extends Component {
 		const submit = values => {
 			this.props.createUserPostFetch(values)
 		}
-
-		return(
-			<section className="signup-wrapper">
-			    <form
-			    	className="signup-box"
-			    	onSubmit={handleSubmit(submit)}
-			    >
-			   		<SignupHeader />  
-				    <Field
-				        component = { textField }
-				    	name = "firstname"
-				    	placeholder = "First Name"
-				    	className = "firstname"
-				    	type = "text"
-				    	error = { createUser.error }
-				    />
-				    <Field
-				        component = { textField }
-				    	name = "lastname"
-				    	placeholder = "Last Name"
-				    	className = "lastname"
-				    	type = "text"
-				    	error = { createUser.error }
-				    />
-				    <Field
-				        component = { textField }
-				    	name = "email"
-				    	placeholder = "E-Mail"
-				    	className = "email"
-				    	type = "text"
-				    	error = { createUser.error }
-				    />
-				    <Field
-				        component = { textField }
-				    	name = "username"
-				    	placeholder = "Username"
-				    	className = "username"
-				    	type = "text"
-				    	error = { createUser.error }
-				    />
-				    <Field
-				        component = { textField }
-				    	name = "password"
-				    	placeholder = "Password"
-				    	className = "password"
-				    	type = "password"
-				    	error = { createUser.error }
-				    />
-				    <Field
-				        component = { textField }
-				    	name = "password2"
-				    	placeholder = "Repeat Password"
-				    	className = "repeatpassword"
-				    	type = "password"
-				    	error = { createUser.error }
-				    />
-				    <Field
-				    	component = { checkField }
-				    	name = "termsagree"
-				    	className = "termsagree"
-				    	id = "termsAgree"
-				    	type = "checkbox"
-				    	text = "I agree with "
-				    	link = {true}
-				    	linktext = "Terms and conditions"
-				    />
-				    <Field
-				    	component = { checkField }
-				    	name = "countrycheck"
-				    	className = "countrycheck"
-				    	id = "countryCheck"
-				    	type = "checkbox"
-				    	text = "I am NOT an USA or CANADA Citizen"
-				    	link = {false}
-				    	linktext = "linktext"
-				    />
-				    <div className="signup-box-bottomcontainer">
-				        <div className="signup-box-bottomcontainer-button">
-					        <button
-					        	className="signup-form-button"
-					        	type="submit"
-					        >
-					        	Create an account
-					        </button>
-				        </div>
-						<div className="signup-box-bottomcontainer-signin">
-							<p>
-								Already have an account? <Link to={'/Login'}>Sign in</Link>
-							</p>
-						</div>
-						<div className="signup-box-bottomcontainer-footer">
-							<a href="#">Terms of use</a>&nbsp;<a href="#">Privacy policy</a>
-						</div>
-				    </div>
-			    </form>
-		    </section>
-		)
+		
+		if (createUser.error.type === 'done' ) {
+			return(
+				<section className="signup-wrapper">
+					<form className="signup-box">
+						<h2 class="signup-box-header">
+							Thanks for creating your defima account, please go to your email inbox and confirm your registration
+						</h2>
+					</form>
+				</section>
+			)
+		} else {
+			return(
+				<section className="signup-wrapper">
+				    <form
+				    	className="signup-box"
+				    	onSubmit={handleSubmit(submit)}
+				    >
+				   		<SignupHeader />
+				   		{ createUser.error && (createUser.error.type === 'server') && <p className="error">{createUser.error.message}</p> } 
+					    <Field
+					        component = { textField }
+					    	name = "firstname"
+					    	placeholder = "First Name"
+					    	className = "firstname"
+					    	type = "text"
+					    	error = { createUser.error }
+					    />
+					    <Field
+					        component = { textField }
+					    	name = "lastname"
+					    	placeholder = "Last Name"
+					    	className = "lastname"
+					    	type = "text"
+					    	error = { createUser.error }
+					    />
+					    <Field
+					        component = { textField }
+					    	name = "email"
+					    	placeholder = "E-Mail"
+					    	className = "email"
+					    	type = "text"
+					    	error = { createUser.error }
+					    />
+					    <Field
+					        component = { textField }
+					    	name = "username"
+					    	placeholder = "Username"
+					    	className = "username"
+					    	type = "text"
+					    	error = { createUser.error }
+					    />
+					    <Field
+					        component = { textField }
+					    	name = "password"
+					    	placeholder = "Password"
+					    	className = "password"
+					    	type = "password"
+					    	error = { createUser.error }
+					    />
+					    <Field
+					        component = { textField }
+					    	name = "password2"
+					    	placeholder = "Repeat Password"
+					    	className = "repeatpassword"
+					    	type = "password"
+					    	error = { createUser.error }
+					    />
+					    <Field
+					    	component = { checkField }
+					    	name = "termsagree"
+					    	className = "termsagree"
+					    	id = "termsAgree"
+					    	type = "checkbox"
+					    	text = "I agree with "
+					    	link = {true}
+					    	linktext = "Terms and conditions"
+					    />
+					    <Field
+					    	component = { checkField }
+					    	name = "countrycheck"
+					    	className = "countrycheck"
+					    	id = "countryCheck"
+					    	type = "checkbox"
+					    	text = "I am NOT an USA or CANADA Citizen"
+					    	link = {false}
+					    	linktext = "linktext"
+					    />
+					    <div className="signup-box-bottomcontainer">
+					        <div className="signup-box-bottomcontainer-button">
+						        <button
+						        	className="signup-form-button"
+						        	type="submit"
+						        >
+						        	Create an account
+						        </button>
+					        </div>
+							<div className="signup-box-bottomcontainer-signin">
+								<p>
+									Already have an account? <Link to={'/Login'}>Sign in</Link>
+								</p>
+							</div>
+							<div className="signup-box-bottomcontainer-footer">
+								<a href="#">Terms of use</a>&nbsp;<a href="#">Privacy policy</a>
+							</div>
+					    </div>
+				    </form>
+			    </section>
+			)
+		}
 	}
 }
 

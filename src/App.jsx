@@ -15,58 +15,6 @@ class App extends Component {
                         <RouteWithSubRoutes key={i} {...route} />
                     ))}
                 </Switch>
-
-            	{/*<Switch>
-            		<PrivateRoute
-                        path="/dashboard"
-                        component = { Dashboard }
-                        Authed = { localStorage.getItem("token") }
-                        Verified = {true}
-                    />
-                    <PrivateRoute
-                        path="/investment"
-                        component = { Investment }
-                        Authed = { localStorage.getItem("token") }
-                        Verified = { true }
-                    />
-	                <Route path="/main" component = { MainPage } />
-	                <Route
-                        path="/login"
-                        render = { props => (
-                            !localStorage.getItem("token")
-                                ? <LoginPage {...props} />
-                                : <Redirect
-                                        to = {{
-                                            pathname: '/dashboard',
-                                            state: { from: props.location }
-                                        }}
-                                    />
-                        )}
-                    />
-                    <Route
-                        path="/signup"
-                        render = { props => (
-                            localStorage.getItem("token")
-                                ? true
-                                    ? <Redirect
-                                        to = {{
-                                            pathname: '/dashboard',
-                                            state: { from: props.location }
-                                        }}
-                                    />
-                                    : <Checkmail {...props} />
-                                : <SignupPage {...props} />
-                        )}
-                    />
-                    <Route path="/confirmEmail/:hash" >
-                        <ConfirmEmail />
-                    </Route>
-                    <Route path="/restorePassword/:hash">
-                        <RestorePassword />    
-                    </Route>
-                    <Route path="/forgot" component = { ForgotPassword } />
-	                <Route path="/" component = { ComingSoon } />
- 	            </Switch>*/}
             </Router>
         )
     }

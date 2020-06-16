@@ -71,16 +71,19 @@ export const createUserPostFetch = values => {
 					Username: values.username,
 					Email: values.email
 				}).then(response => {
-					if (response.username) {
-						dispatch(createUserError({
-							type: 'username',
-							message: 'Username is already used. Try another.'
-						}))
-					} else if (response.email) {
-						dispatch(createUserError({
-							type: 'email',
-							message: 'Email is already used. Try another.'
-						}))
+					console.log(response)
+					if (response.data) {
+						if (response.data.username) {
+							dispatch(createUserError({
+								type: 'username',
+								message: 'Username is already used. Try another.'
+							}))
+						} else {
+							dispatch(createUserError({
+								type: 'email',
+								message: 'Email is already used. Try another.'
+							}))
+						}
 					} else {
 						if (!validatePassword(values.password)) {
 							dispatch(createUserError({
@@ -127,10 +130,10 @@ export const createUserPostFetch = values => {
 					dispatch(createUserError({ type: 'server', message: error.message }))
 				})
 			} else {
-				dispatch(createUserError({ type: 'server', message: 'Email is wrong' }))
+				dispatch(createUserError({ type: 'email', message: 'Email is wrong' }))
 			}
 		} else {
-			dispatch(createUserError({ type: 'server', message: 'Username is wrong' }))
+			dispatch(createUserError({ type: 'username', message: 'Username is wrong' }))
 		}
 	}
 }

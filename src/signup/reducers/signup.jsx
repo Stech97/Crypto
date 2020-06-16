@@ -19,6 +19,10 @@ export const signupReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isFetching: false,
+				error: {
+					...state.error,
+					type: 'done',
+				}
 			}
 		case CREATE_USER_ERROR:
 			return {
