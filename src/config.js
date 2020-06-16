@@ -11,6 +11,7 @@ import worldmap2 from './styles/utils/img/worldmap2.png'
 import joinusbackground from './styles/utils/img/joinus.png'
 import ConfirmEmail from './signup/ConfirmEmail'
 import AccountPage from './dashboard/Account'
+import InDevelopment from './dashboard/components/inDevelopment'
 import { ForgotPassword } from './signup/ForgotPassword'
 import { RestorePassword } from './signup/RestorePassword'
 
@@ -153,6 +154,11 @@ export const routes = [
                 path: "/account/investment",
                 component: InvestmentContent,
                 Private: true,
+            },
+            {
+            	path: "/account/development",
+            	component: InDevelopment,
+            	Private: true,
             }
         ]
     },

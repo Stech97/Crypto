@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import cn from 'classnames'
 import { API } from '../../config'
+import { NavLink } from 'react-router-dom'
 
 class SidebarTime extends Component {
     
@@ -47,20 +48,20 @@ class SidebarTime extends Component {
 class SidebarBar extends Component {
 
 	render() {
-		const { isClosed, name, isSelected } = this.props
+		const { isClosed, name, isSelected, path } = this.props
 
 		return (
-		    <div className={cn('sidebar-' + name.toLowerCase() , 'sidebar-bar' + isClosed, 'sidebar-bar' + isClosed + (isSelected ? "-selected" : ""))}>
+		    <NavLink activeClassName="sidebar-bar-selected" to={"/account/" + path } className={cn('sidebar-' + name.toLowerCase() , 'sidebar-bar' + isClosed)}>
 		    	<svg className={cn("sidebar-bar-icon")} preserveAspectRatio="xMinYMid slice" viewBox="0 0 37 37">
 			    	<use href={ "#" + name.toLowerCase() + "-icon-white" } />
 		      	</svg>
-		      	<div className={cn("sidebar-bar-text")}>
+				<div className={cn("sidebar-bar-text")}>
 		    	 	<h3>{ name }</h3>
 		      	</div>
 		      	<svg className={cn("sidebar-bar-arrow")} preserveAspectRatio="xMinYMid slice" viewBox="0 -10 350 75">
 		        	<use href="#arrow-right" />
 		      	</svg>
-		    </div>
+			</NavLink>
 		)
 	}
 }
@@ -86,26 +87,32 @@ class Sidebar extends Component {
 				{
 					id: 1,
 					name: "Dashboards",
+					path: "dashboard",
 				},
 				{
 					id: 2,
 					name: "Investment",
+					path: "investment"
 				},
 				{
 					id: 3,
 					name: "Team",
+					path: "development"
 				},
 				{
 					id: 4,
 					name: "Marketing",
+					path: "development"
 				},
 				{
 					id: 5,
 					name: "History",
+					path: "development"
 				},
 				{
 					id: 6,
 					name: "Support",
+					path: "development"
 				}
 			],
 		}
@@ -122,6 +129,7 @@ class Sidebar extends Component {
 				    	<SidebarBar
 				    		key = { tab.id }
 				    		name = { tab.name }
+				    		path = { tab.path }
 				    		isClosed = { statClosed(isClosed) }
 				    		isSelected = { statSelection(tab.id) }
 				    	/>
