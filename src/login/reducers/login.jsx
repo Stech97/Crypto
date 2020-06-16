@@ -71,6 +71,10 @@ export const userReducer = (state = initialState, action) => {
 		case CONFIRM_EMAIL_SUCCESS: return {
 			...state,
 			isFetching: false,
+			error: {
+				type: "done",
+				message: "",
+			},
 			user: {
 				...state.user,
 				isVerified: action.payload,

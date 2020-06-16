@@ -20,19 +20,32 @@ function ConfirmEmail (props) {
 		...props,
 		hash,
 	}
-	return (
-		<Fragment>
-			<Header />
-			<section className="login">
-				<div className="login-wrapper wrapper">
-					<button
-						className="login-forgot-button"
-						onClick={hash => props.confirmEmailAction(props.hash)}
-					>Confirm Email</button>
-				</div>
-			</section>		
-		</Fragment>
-	)
+	if (this.props.user.error.type === 'done') {
+		return (
+			<Fragment>
+				<Header />
+				<section className="login">
+					<div className="login-wrapper wrapper">
+						<h2>Thank you, you can now login to the defima dashboard</h2>
+					</div>
+				</section>		
+			</Fragment>
+		)		
+	} else {
+		return (
+			<Fragment>
+				<Header />
+				<section className="login">
+					<div className="login-wrapper wrapper">
+						<button
+							className="login-forgot-button"
+							onClick={hash => props.confirmEmailAction(props.hash)}
+						>Confirm Email</button>
+					</div>
+				</section>		
+			</Fragment>
+		)
+	}
 }							
 
 const mapStateToProps = store => {
