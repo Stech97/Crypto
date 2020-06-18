@@ -144,12 +144,21 @@ namespace Crypto.Controllers
 			{
 				login.Password = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(login.Password)));
 			}
-
-			var ConfirmEmail = new
+			var result = await _identityService.AddUser(login);
+			if (result != null)
 			{
-				hash = await _identityService.AddUser(login)
-			};
-			return Ok(ConfirmEmail);
+				var ConfirmEmail = new
+				{
+					hash = result
+				};
+				return Ok(ConfirmEmail);
+			}
+			else
+			{
+				string res = "Username or Email already exists";
+				return BadRequest(res);
+			}
+			
 		}
 
 		//Проверка на наличие в БД Username и Email
@@ -158,10 +167,10 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> CheckInfo([FromBody] CheckViewModel request)
 		{
 			var result = await _identityService.CheckInfo(request);
-			if (result != null)
-				return Ok(result);
-			else
+			if (result == null)
 				return Ok();
+			else
+				return BadRequest(result);
 
 		}
 		#endregion

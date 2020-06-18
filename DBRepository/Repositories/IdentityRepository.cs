@@ -61,41 +61,47 @@ namespace DBRepository.Repositories
 
 		public async Task<string> AddUser(User user)
 		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			var check = await CheckInfo(user);
+			if (check == null)
 			{
-				context.Users.Add(user);
-				await context.SaveChangesAsync();
-
-				var newUser = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == user.Username);
-				var rateBTC = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateBTC_USD).FirstAsync();
-				var rateDEF = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_DEF).FirstAsync();
-				var newWallet = new Balance
+				using (var context = ContextFactory.CreateDbContext(ConnectionString))
 				{
-					USDBalance = 0,
-					BitcoinBalance = 0,
-					DefimaBalance = 0,
-					RateBTC_USD = rateBTC,
-					RateUSD_DEF = rateDEF,
-					User = newUser,
-					UserId = newUser.Id
-				};
-				context.Balances.Add(newWallet);
-				await context.SaveChangesAsync();
+					context.Users.Add(user);
+					await context.SaveChangesAsync();
 
-				ConfirmEmail confirmEmail = new ConfirmEmail
-				{
-					TimeConfirm = System.DateTime.UtcNow,
-					User = newUser,
-					UserId = newUser.Id
-				};
-				context.ConfirmEmails.Add(confirmEmail);
-				await context.SaveChangesAsync();
-				
-				string hash = "";
-				using (MD5 md5Hash = MD5.Create())
-					hash = GetMd5Hash(md5Hash, confirmEmail.TimeConfirm.ToString());
-				return hash;
+					var newUser = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == user.Username);
+					var rateBTC = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateBTC_USD).FirstAsync();
+					var rateDEF = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_DEF).FirstAsync();
+					var newWallet = new Balance
+					{
+						USDBalance = 0,
+						BitcoinBalance = 0,
+						DefimaBalance = 0,
+						RateBTC_USD = rateBTC,
+						RateUSD_DEF = rateDEF,
+						User = newUser,
+						UserId = newUser.Id
+					};
+					context.Balances.Add(newWallet);
+					await context.SaveChangesAsync();
+
+					ConfirmEmail confirmEmail = new ConfirmEmail
+					{
+						TimeConfirm = System.DateTime.UtcNow,
+						User = newUser,
+						UserId = newUser.Id
+					};
+					context.ConfirmEmails.Add(confirmEmail);
+					await context.SaveChangesAsync();
+
+					string hash = "";
+					using (MD5 md5Hash = MD5.Create())
+						hash = GetMd5Hash(md5Hash, confirmEmail.TimeConfirm.ToString());
+					return hash;
+				}
 			}
+			else
+				return null;
 		}
 
 		public async Task SetLoginHistory(LoginHistory loginHistory)

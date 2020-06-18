@@ -61,8 +61,9 @@ namespace Crypto.Services.Implementation
 			var response = await _repository.GetRef(Ref);
 			return _mapper.Map<List<User>, List<RefUserViewModel>>(response);
 		}
-        #region Dev
-        public async Task<List<UserViewModel>> GetUsers()
+
+		#region Dev
+		public async Task<List<UserViewModel>> GetUsers()
 		{
 			var response = await _repository.GetUsers();
 			return _mapper.Map<List<object>, List<UserViewModel>>(response);
