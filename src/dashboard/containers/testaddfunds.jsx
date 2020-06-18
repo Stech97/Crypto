@@ -13,7 +13,7 @@ class TestAddFunds extends Component {
 						<h2>Add Funds</h2>
 					</div>
 					<div className="test-add-funds-close">
-						<img onClick={() => handleClick() } src="img/close-icon.png" />
+						<img onClick={() => handleClick()} src="/img/close-icon.png" />
 					</div>
 					<div className="test-add-funds-text">
 						<p>To deposit bitcoin to this wallet, please
@@ -22,7 +22,7 @@ class TestAddFunds extends Component {
 						balance after 1 confirmation.</p>
 					</div>
 					<div className="test-add-funds-min">
-						<img src="img/add-funds-icon.png" alt="add-funds" />
+						<img src="/img/add-funds-icon.png" alt="add-funds" />
 						<p>Min. amount for product $100</p>
 					</div>
 					<TestAddFundsForm

@@ -12,13 +12,14 @@ import joinusbackground from './styles/utils/img/joinus.png'
 import ConfirmEmail from './signup/ConfirmEmail'
 import AccountPage from './dashboard/Account'
 import InDevelopment from './dashboard/components/inDevelopment'
+import FaqsContent from './dashboard/components/FAQs/content'
 import { ForgotPassword } from './signup/ForgotPassword'
 import { RestorePassword } from './signup/RestorePassword'
 
 
 export const DOMAIN_URL = "https://defima.io"
 const API_URL_PROD = "https://back.defima.io/"
-const API_URL_TEST = "http://84.201.132.112/api/"
+const API_URL_TEST = "http://84.201.132.112/"
 export const API_URL = API_URL_PROD
 
 const requestTemplate = axios.create({
@@ -153,6 +154,11 @@ export const routes = [
             {
                 path: "/account/investment",
                 component: InvestmentContent,
+                Private: true,
+            },
+            {
+                path: "/account/faq",
+                component: FaqsContent,
                 Private: true,
             },
             {

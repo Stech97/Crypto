@@ -92,7 +92,7 @@ export const createUserPostFetch = values => {
 							}))
 						} else if (!(values.password == values.password2)) {
 							dispatch(createUserError({
-								type: 'password2',
+								type: 'repeatpassword',
 								message: 'Passwords must match!',
 							}))
 						} else {

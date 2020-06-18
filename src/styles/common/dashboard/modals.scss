@@ -3,7 +3,7 @@
 	top: 0;
 	left: 0;
 	width: 100vw;
-	height: 100vh;
+	height: 100%;
 	overflow: hidden;
     background-image: linear-gradient(233deg, rgba(0, 92, 159, 0.8) 0%, rgba(18, 50, 115, 0.8) 100%);	opacity: 1;
 	z-index: 1;
@@ -121,3 +121,126 @@
 		}
 	}
 }
+
+.exchangebox {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 99vw;
+	height: 100%;
+	overflow: hidden;
+    background-image: linear-gradient(233deg, rgba(0, 92, 159, 0.8) 0%, rgba(18, 50, 115, 0.8) 100%);	opacity: 1;
+	z-index: 1;
+	content: "";
+	grid-template-areas: ". . ." ". exchangeusdtobtc ." ". . .";
+}
+
+.exchangeusdtobtc {
+	border-radius: 50px; 
+	left: calc(50% - 21.145vw);
+	top: calc(50% - 41.5vh);
+	position: fixed;
+	width: 42.29vw;
+	height: 83vh;
+	overflow: hidden;
+	z-index: 2;
+	background: #ffffff;
+	display: grid;
+	grid-template-columns: 2fr 268px 268px 1fr 1fr;
+	grid-template-rows: 50px 65px 65px 65px 65px 65px 65px 65px 65px 65px ;
+	grid-area: exchangeusdtobtc;
+	grid-template-areas: 
+	". . . . ." 
+	". exchangeusdtobtc-header . exchangeusdtobtc-closeimg ." 
+	". exchangeusdtobtc-usdtobtc exchangeusdtobtc-rate . ." 
+	". exchangeusdtobtc-usdammountheader . . ." 
+	". exchangeusdtobtc-usdammount exchangeusdtobtc-usdammount . ." 
+	". exchangeusdtobtc-exchangeimg exchangeusdtobtc-exchangeimg . ."
+	". exchangeusdtobtc-btcammountheader . . ."
+	". exchangeusdtobtc-btcammount exchangeusdtobtc-btcammount . ."
+	". exchangeusdtobtc-exchangebutton  . . ."
+	". . . . .";
+}
+
+.exchange-bluetext {
+    font-family: "IBM Plex Sans";
+    text-align: center;
+    color: #123273;
+  }
+
+  .exchange-greytext {
+    font-family: "IBM Plex Sans";
+    text-align: center;
+    color: #838383;
+  }
+
+.exchangeusdtobtc-header {
+	grid-area: exchangeusdtobtc-header;
+}
+
+.exchangeusdtobtc-closeimg {
+	grid-area: exchangeusdtobtc-closeimg;
+}
+
+.exchangeusdtobtc-usdtobtc {
+	grid-area: exchangeusdtobtc-usdtobtc;
+}
+
+.exchangeusdtobtc-rate {
+	grid-area: exchangeusdtobtc-rate;
+}
+
+.exchangeusdtobtc-usdammountheader {
+	grid-area: exchangeusdtobtc-usdammountheader;
+}
+
+.exchangeusdtobtc-usdammount {
+	grid-area: exchangeusdtobtc-usdammount;
+}
+
+.exchangeusdtobtc-exchangeimg {
+	grid-area: exchangeusdtobtc-exchangeimg;
+}
+
+.exchangeusdtobtc-btcammountheader {
+	grid-area: exchangeusdtobtc-btcammountheader;
+}
+
+.exchangeusdtobtc-btcammount {
+	grid-area: exchangeusdtobtc-btcammount;
+}
+
+.exchangeusdtobtc-exchangebutton {
+  width: 214px;
+  border-radius: 30px;
+  border: 3px solid #ed7102;
+  color: #ed7102;
+  grid-area: exchangeusdtobtc-exchangebutton;
+}
+
+.exchangeusdtobtc-exchangebutton:hover {
+  background-color: #ed7102;
+  color: #ffffff;
+}
+
+.exchangeusdtobtc-exchangebutton-text {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-align: center;
+  font-family: "IBM Plex Sans";
+}
+
+.exchange-form {
+    background-color: #ebebeb;;
+    border-radius: 10px;
+    border: none;
+    height: 45px;
+    width: 407px;
+    color: #838383;
+    font-size: 2rem;
+    text-align: left;
+    font-family: "IBM Plex Sans";
+}    
+

@@ -8,3 +8,9 @@ $header-font-size: 28;
 
 $button-font-size: 25;
 $button-height: 3.125vw;
+
+$gap: 100vw / 42;
+$column: $gap * 2.5;
+$padding: $gap / 2;
+
+$account-header-height: 51px;

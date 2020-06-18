@@ -51,7 +51,7 @@ class SidebarBar extends Component {
 		const { isClosed, name, isSelected, path } = this.props
 
 		return (
-		    <NavLink activeClassName="sidebar-bar-selected" to={"/account/" + path } className={cn('sidebar-' + name.toLowerCase() , 'sidebar-bar' + isClosed)}>
+		    <NavLink activeClassName={"sidebar-bar-selected sidebar-bar" + isClosed + "-selected"} to={"/account/" + path } className={cn('sidebar-' + name.toLowerCase(), cn('sidebar-bar' + isClosed))}>
 		    	<svg className={cn("sidebar-bar-icon")} preserveAspectRatio="xMinYMid slice" viewBox="0 0 37 37">
 			    	<use href={ "#" + name.toLowerCase() + "-icon-white" } />
 		      	</svg>
@@ -112,7 +112,7 @@ class Sidebar extends Component {
 				{
 					id: 6,
 					name: "Support",
-					path: "development"
+					path: "faq"
 				}
 			],
 		}

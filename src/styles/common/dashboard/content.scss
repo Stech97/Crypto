@@ -1,595 +1,602 @@
 .content-text-blue {
-    font-family: "IBM Plex Sans";
-    text-align: center;
-    color: #123273;
-    font-size: 25px;
-  }
-  
-  .content-text-blue h3 {
-    font-family: "IBM Plex Sans";
-    text-align: center;
-    color: #123273;
-    font-size: 25px;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-  }
-  
-  .content-text-grey {
-    font-family: "IBM Plex Sans";
-    text-align: center;
-    color: #838383;
-    font-size: 20px;
-  }
-  
-  .content-whitebox-balance {
-    border-radius: 50px;
-    background-color: #ffffff;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
-    align-items: center;
-    justify-items: center;
-    border: 1px solid #efefef;
-  }
-  
-  .content-whitebox-earnings {
-    border-radius: 25px;
-    background-color: #ffffff;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
-    align-items: center;
-    justify-items: center;
-    border: 1px solid #efefef;
-  }
-  
-  .content-whitebox-links {
-    border-radius: 13px;
-    background-color: #ffffff;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
-    align-items: center;
-    justify-items: center;
-    border: 1px solid #efefef;
-  }
-  
-  .content-whitebox-news {
-    border-radius: 60px;
-    background-color: #ffffff;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
-    align-items: center;
-    justify-items: left;
-    border: 1px solid #efefef;
-    padding: 0 25px 0 35px;
-  }
-  
-  .content-whitebox-news h3 {
-    text-align: left;
-  }
-  
-  .contentbox {
-    display: grid;
-    grid-template-columns: 1fr 1088px 2fr;
-    grid-template-areas: ". contentbox .";
-    grid-area: dash-content;
-    background-color: #f5fbff;
-    padding-top: 88px;
-  }
-  
-  .content {
-    display: grid;
-    grid-template-rows: min-content min-content min-content min-content;
-    gap: 60px 0px;
-    grid-template-areas: "content-balance" "content-earnings" "content-links" "content-newslog";
-    grid-area: contentbox;
-  }
-  
-  .content-balance {
-    display: grid;
-    grid-template-columns: 260px 93px 260px 93px 260px;
-    grid-template-rows: 33px 260px;
-    gap: 25px 30px;
-    grid-template-areas: "btc-header btc-dol dol-header dol-coin coin-header" "btc-square btc-dol dol-square dol-coin coin-square";
-    grid-area: content-balance;
-  }
-  
-  .content-balance-btc-header {
-    grid-area: btc-header;
-  }
-  
-  .content-balance-btc-square {
-    grid-area: btc-square;
-    display: grid;
-    grid-template-rows: 60% 40%;
-    grid-template-areas: "btc-square-text" "btc-square-calc";
-  }
-  
-  .content-balance-btc-square-text {
-    grid-area: btc-square-text;
-  }
-  
-  .content-balance-btc-square-calc {
-    grid-area: btc-square-calc;
-    display: grid;
-    border-radius: 0 0 50px 50px;
-    background-image: linear-gradient(232deg, #005c9f 0%, #123273 100%);
-    grid-template-rows: 102px;
-    grid-template-columns: 126px 3px 126px;
-    align-items: center;
-    justify-items: center;
-    grid-template-areas: "calc-plus calc-line calc-minus";
-  }
-  
-  .content-balance-btc-square-calc-plus {
-    grid-area: calc-plus;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    svg {
-      fill: #ffffff;
-      stroke: #ffffff;
-      height: 1em;
-      width: auto;
-      font-size: 2.5625rem;
-    }
-  }
-  
-  .content-balance-btc-square-calc-line {
-    grid-area: calc-line;
-    position: relative;
-  }
-  
-  .content-balance-btc-square-calc-line-border {
-    border-left: 3px solid #ffffff;
-    height: 102px;
-    position: absolute;
-    top: -51px;
-  }
-  
-  .content-balance-btc-square-calc-minus {
-    grid-area: calc-minus;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    svg {
-      fill: #ffffff;
-      stroke: #ffffff;
-      height: auto;
-      width: 1em;
-      font-size: 2.5625rem;
-      align-self: center;
-    }
-  }
-  
-  .content-balance-btc-dol {
-    grid-area: btc-dol;
-    display: grid;
-    grid-template-columns: 46px 46px;
-    gap: 0px 10px;
-    grid-template-areas: "arrow-left arrow-right";
-  }
-  
-  .content-balance-arrow-left {
-    grid-area: arrow-left;
-    margin-top: 163px;
-    fill: #ed7102;
-    stroke: #ed7102;
-    height: 1em;
-    width: auto;
-    font-size: 3.5rem;
-  }
-  
-  .content-balance-arrow-right {
-    grid-area: arrow-right;
-    margin-top: 163px;
-    fill: #ed7102;
-    stroke: #ed7102;
-    height: 1em;
-    width: auto;
-    font-size: 3.5rem;
-  }
-  
-  .content-balance-dol-header {
-    grid-area: dol-header;
-  }
-  
-  .content-balance-dol-square {
-    grid-area: dol-square;
-    padding-top: 75px;
-  }
-  
-  .content-balance-dol-coin {
-    grid-area: dol-coin;
-    display: grid;
-    grid-template-columns: 46px 46px;
-    gap: 0px 10px;
-    grid-template-areas: "arrow-left arrow-right";
-  }
-  
-  .content-balance-coin-header {
-    grid-area: coin-header;
-  }
-  
-  .content-balance-coin-square {
-    grid-area: coin-square;
-    padding-top: 95px;
-  }
-  
-  .content-earnings {
-    display: grid;
-    grid-template-columns: 259px 259px 259px 263px;
-    grid-template-rows: 356px;
-    gap: 16px;
-    grid-template-areas: "content-earnings-total-invmemb content-earnings-profteam content-earnings-totalprof content-earnings-graph";
-    grid-area: content-earnings;
-  }
-  
-  .content-earnings-total-invmemb {
-    grid-area: content-earnings-total-invmemb;
-    display: grid;
-    grid-template-rows: min-content 100px 18px 100px;
-    gap: 40px 16px;
-    grid-template-areas: "invmemb-invheader" "invmemb-investments" "invmemb-membersheader" "invmemb-members";
-  }
-  
-  .content-earnings-total-invmemb-invheader {
-    grid-area: invmemb-invheader;
-  }
-  
-  .content-earnings-total-invmemb-investments {
-    grid-area: invmemb-investments;
-    padding-top: 15px;
-  }
-  
-  .content-earnings-total-invmemb-membersheader {
-    grid-area: invmemb-membersheader;
-  }
-  
-  .content-earnings-total-invmemb-members {
-    grid-area: invmemb-members;
-  }
-  
-  .content-earnings-profteam {
-    grid-area: content-earnings-profteam;
-    display: grid;
-    grid-template-rows: min-content 100px 18px 100px;
-    gap: 40px 16px;
-    grid-template-areas: "profteam-profheader" "profteam-profinvestments" "profteam-totalheader" "profteam-totalteam";
-  }
-  
-  .content-earnings-profteam-profheader {
-    grid-area: profteam-profheader;
-  }
-  
-  .content-earnings-profteam-profinvestments {
-    grid-area: profteam-profinvestments;
-    padding-top: 15px;
-  }
-  
-  .content-earnings-profteam-totalheader {
-    grid-area: profteam-totalheader;
-  }
-  
-  .content-earnings-profteam-totalteam {
-    grid-area: profteam-totalteam;
-    padding-top: 15px;
-  }
-  
-  .content-earnings-totalprof {
-    grid-area: content-earnings-totalprof;
-    display: grid;
-    grid-template-rows: min-content 298px;
-    gap: 40px 16px;
-    grid-template-areas: "totalprof-totalprofheader" "totalprof-totalprofsquare";
-  }
-  
-  .content-earnings-total-totalprof-totalprofheader {
-    grid-area: totalprof-totalprofheader;
-  }
-  
-  .content-earnings-total-totalprof-totalprofsquare {
-    grid-area: totalprof-totalprofsquare;
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    grid-template-rows: 90px 98px 110px;
-    grid-template-areas: "totalprofsquare-total" "totalprofsquare-header" "totalprofsquare-hours";
-  }
-  
-  .content-earnings-total-totalprof-totalprofsquare-total {
-    grid-area: totalprofsquare-total;
-  }
-  
-  .content-earnings-total-totalprof-totalprofsquare-24header {
-    grid-area: totalprofsquare-header;
-  }
-  
-  .content-earnings-total-totalprof-totalprofsquare-24hours {
-    grid-area: totalprofsquare-hours;
-  }
-  
-  .content-earnings-graph {
-    grid-area: content-earnings-graph;
-    margin-top: 73px;
-    display: grid;
-    border-radius: 25px;
-    background-color: #d1e5f2;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
-    border: 1px solid #efefef;
-    grid-template-rows: 70px 3px 227px;
-    grid-template-areas: "graph-rule" "graph-line" "graph-reached";
-  }
-  
-  .content-earnings-graph-rule {
-    grid-area: graph-rule;
-    padding-top: 17px;
-  }
-  
-  .content-earnings-graph-line {
-    grid-area: graph-line;
-    position: relative;
-  }
-  
-  .content-earnings-graph-line-border {
-    border-bottom: 3px dashed #123273;
-    width: 259px;
-    position: absolute;
-    top: 0px;
-  }
-  
-  .content-earnings-graph-reached {
-    grid-area: graph-reached;
-    position: relative;
-    margin-top: 60px;
-  }
-  
-  .content-earnings-graph-reached-text {
-    position: absolute;
-    top: 75px;
-    left: 45px;
-    z-index: 1;
-  }
-  
-  .content-earnings-graph-reached-text h3 {
-    font-family: "IBM Plex Sans";
-    text-align: center;
-    color: #f5fbff;
-    font-size: 25px;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-  }
-  
-  .content-links {
-    display: grid;
-    grid-template-rows: 70px 70px;
-    gap: 38px 1px;
-    grid-template-areas: "links-ref" "links-links";
-    grid-area: content-links;
-  }
-  
-  .content-links-ref {
-    display: grid;
-    grid-template-columns: 543px 543px;
-    gap: 38px 1px;
-    grid-template-areas: "refbyid refbyusername";
-    grid-area: links-ref;
-  }
-  
-  .refbyid {
-    grid-area: refbyid;
-    font-size: 20px;
-  }
-  
-  .refbyusername {
-    grid-area: refbyusername;
-    font-size: 20px;
-  }
-  
-  .content-links-links {
-    display: grid;
-    grid-template-columns: 362px 362px 362px;
-    gap: 38px 1px;
-    grid-template-areas: "presentation-link image-video-link tutorial-link";
-    grid-area: links-links;
-  }
-  
-  .presentation-link {
-    grid-area: presentation-link;
-    font-size: 20px;
-  }
-  
-  .image-video-link {
-    grid-area: image-video-link;
-    font-size: 20px;
-  }
-  
-  .tutorial-link {
-    grid-area: tutorial-link;
-    font-size: 20px;
-  }
-  
-  .content-newslog {
-    display: grid;
-    grid-template-columns: 536px 536px;
-    grid-template-rows: 96px 623px;
-    gap: 0px 16px;
-    grid-template-areas: "content-newslog-newslogheadings content-newslog-historyheadings" "content-newslog-news content-newslog-loginhistory";
-    grid-area: content-newslog;
-  }
-  
-  .content-text-blue-newslogheadings {
-    font-family: "IBM Plex Sans";
-    text-align: left;
-    color: #123273;
-    margin-bottom: 30px;
-  }
-  
-  .content-newslog-newslogheadings {
-    grid-area: content-newslog-newslogheadings;
-    font-size: 50px;
-    margin-left: 30px;
-  }
-  
-  .content-newslog-historyheadings {
-    grid-area: content-newslog-historyheadings;
-    font-size: 25px;
-    margin-top: 25px;
-    margin-left: 60px;
-  }
-  
-  .content-newslog-news {
-    grid-area: content-newslog-news;
-    display: grid;
-    grid-template-rows: 1fr 3px 1fr;
-    gap: 0px 16px;
-    grid-template-areas: "news-news1" "news-line" "news-news2";
-  }
-  
-  .content-newslog-news-news1 {
-    grid-area: news-news1;
-    grid-template-areas: "news1-heading" "news1-text" "news1-button";
-  }
-  
-  .content-newslog-news-news2 {
-    grid-area: news-news2;
-    grid-template-areas: "news2-heading" "news2-text" "news2-button";
-  }
-  
-  .content-newslog-news-news1-heading {
-    grid-area: news1-heading;
-  }
-  
-  .content-newslog-news-news2-heading {
-    grid-area: news2-heading;
-  }
-  
-  .content-newslog-news-news1-text {
-    grid-area: news1-text;
-  }
-  
-  .content-newslog-news-news2-text {
-    grid-area: news2-text;
-  }
-  
-  .content-newslog-news-news1-button {
-    grid-area: news1-button;
-  }
-  
-  .content-newslog-news-news2-button {
-    grid-area: news2-button;
-  }
-  
-  .content-newslog-news-style {
-    display: grid;
-    grid-template-rows: 1fr 3fr 60px;
-    gap: 0px 16px;
-    align-items: center;
-    padding: 20px 0 30px 0;
-  } /**/
-  
-  .content-newslog-news-heading-style {
-    margin-top: 15px;
-  }
-  
-  .content-newslog-news-text-style {
-    text-align: left;
-  }
-  
-  .content-newslog-news-button-style {
-    width: 214px;
-    border-radius: 30px;
-    border: 3px solid #ed7102;
-    color: #ed7102;
-  }
-  
-  .content-newslog-news-line {
-    grid-area: news-line;
-    position: relative;
-  }
-  
-  .content-newslog-news-line-border {
-    border-bottom: 3px solid #cccccc;
-    width: 441px;
-    position: absolute;
-    top: 0px;
-  }
-  
-  .content-newslog-news-news1-button:hover,
-  .content-newslog-news-news2-button:hover {
-    background-color: #ed7102;
-    color: #ffffff;
-  }
-  
-  .content-newslog-news-button-text {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 30px;
-    margin-right: 30px;
-    text-align: center;
-    font-family: "IBM Plex Sans";
-    font-size: 25px;
-  }
-  
-  .content-newslog-loginhistory-text {
-    color: #ffffff;
-    font-family: "IBM Plex Sans";
-    font-size: 25px;
-  }
-  
-  .content-newslog-loginhistory {
-    grid-area: content-newslog-loginhistory;
-    display: grid;
-    border-radius: 60px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
-    background-image: linear-gradient(40deg, #123273 0%, #005c9f 100%);
-    grid-template-rows: 33px 33px;
-    grid-template-columns: 405px;
-    gap: 5px 0px;
-    padding: 50px 30px 20px 30px;
-    grid-template-areas: "loginhistory-header" "loginhistory-row";
-  }
-  
-  .content-newslog-loginhistory-header {
-    grid-area: loginhistory-header;
-    display: grid;
-    grid-template-rows: 33px;
-    grid-template-columns: 135px 135px 135px;
-    gap: 0px 28px;
-    grid-template-areas: "loginhistory-timeheader loginhistory-ipheader loginhistory-countryheader";
-  }
-  
-  .content-newslog-loginhistory-row {
-    grid-area: loginhistory-row;
-    display: grid;
-    grid-template-rows: 33px;
-    grid-template-columns: 135px 135px 135px;
-    gap: 0px 28px;
-    grid-template-areas: "loginhistory-time loginhistory-ip loginhistory-country";
-  }
-  
-  .content-newslog-loginhistory-timeheader {
-    grid-area: loginhistory-timeheader;
-  }
-  
-  .content-newslog-loginhistory-ipheader {
-    grid-area: loginhistory-ipheader;
-  }
-  
-  .content-newslog-loginhistory-countryheader {
-    grid-area: loginhistory-countryheader;
-  }
-  
-  .content-newslog-loginhistory-time {
-    grid-area: loginhistory-time;
-  }
-  
-  .content-newslog-loginhistory-ip {
-    grid-area: loginhistory-ip;
-  }
-  
-  .content-newslog-loginhistory-country {
-    grid-area: loginhistory-country;
-  }
+	font-family: "IBM Plex Sans";
+	text-align: center;
+	color: #123273;
+	font-size: 25px;
+}
+	
+.content-text-blue h3 {
+	font-family: "IBM Plex Sans";
+	text-align: center;
+	color: #123273;
+	font-size: 25px;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 0;
+	margin-right: 0;
+}
+	
+.content-text-grey {
+	font-family: "IBM Plex Sans";
+	text-align: center;
+	color: #838383;
+	font-size: 20px;
+}
+
+.content-whitebox {
+	background-color: #ffffff;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+	align-items: center;
+	justify-items: center;
+	border: 1px solid #efefef;
+}
+	
+.content-whitebox-balance {
+	border-radius: 50px;
+	background-color: #ffffff;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+	align-items: center;
+	justify-items: center;
+	border: 1px solid #efefef;
+}
+	
+.content-whitebox-earnings {
+	border-radius: 25px;
+	background-color: #ffffff;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+	align-items: center;
+	justify-items: center;
+	border: 1px solid #efefef;
+}
+	
+.content-whitebox-links {
+	border-radius: 13px;
+	background-color: #ffffff;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+	align-items: center;
+	justify-items: center;
+	border: 1px solid #efefef;
+}
+
+.content-whitebox-news {
+	border-radius: 60px;
+	background-color: #ffffff;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+	align-items: center;
+	justify-items: left;
+	border: 1px solid #efefef;
+	padding: 0 25px 0 35px;
+}
+	
+.content-whitebox-news h3 {
+	text-align: left;
+}
+	
+.content {
+	display: grid;
+	width: 100%;
+	grid-template-columns: repeat(8, $column);
+	grid-template-rows: min-content min-content min-content min-content;
+	grid-row-gap: 60px;
+	grid-column-gap: $gap;
+	grid-row: 1 / 11;
+	grid-template-areas: "cb" "ce" "cl" "cn";
+	
+	&-balance {
+		display: grid;
+		grid-template-columns: subgrid;
+		grid-template-rows: min-content (2*$column+$gap);
+		gap: 25px 30px;
+		grid-template-areas: "btc-header btc-header . dol-header dol-header . coin-header coin-header"
+							 "btc-square btc-square btc-dol dol-square dol-square dol-coin coin-square coin-square";
+		grid-area: cb;
+		
+		&-btc-header {
+			grid-area: btc-header;
+		}
+		
+		&-btc-square {
+			grid-area: btc-square;
+			display: grid;
+			grid-template-rows: 60% 40%;
+			grid-template-areas: "btc-square-text" "btc-square-calc";
+		
+			&-text {
+			grid-area: btc-square-text;
+			}
+			
+			&-calc {
+				grid-area: btc-square-calc;
+				display: grid;
+				border-radius: 0 0 50px 50px;
+				background-image: linear-gradient(232deg, #005c9f 0%, #123273 100%);
+				grid-template-rows: 102px;
+				grid-template-columns: 126px 3px 126px;
+				align-items: center;
+				justify-items: center;
+				grid-template-areas: "calc-plus calc-line calc-minus";
+				
+				&-plus {
+					grid-area: calc-plus;
+					width: 100%;
+					height: 100%;
+					display: grid;
+					justify-items: center;
+					align-items: center;
+					svg {
+					fill: #ffffff;
+					stroke: #ffffff;
+					height: 1em;
+					width: auto;
+					font-size: 2.5625rem;
+					}
+				}
+				
+				&-line {
+					grid-area: calc-line;
+					position: relative;
+				
+					&-border {
+					border-left: 3px solid #ffffff;
+					height: 102px;
+					position: absolute;
+					top: -51px;
+					}
+				}
+				
+				&-minus {
+					grid-area: calc-minus;
+					width: 100%;
+					height: 100%;
+					display: grid;
+					justify-items: center;
+					align-items: center;
+					svg {
+					fill: #ffffff;
+					stroke: #ffffff;
+					height: auto;
+					width: 1em;
+					font-size: 2.5625rem;
+					align-self: center;
+					}
+				}
+			}
+		}
+
+		&-btc-dol {
+			grid-area: btc-dol;
+			display: grid;
+			grid-template-columns: 46px 46px;
+			gap: 0px 10px;
+			grid-template-areas: "arrow-left arrow-right";
+		}
+		
+		&-arrow-left {
+			grid-area: arrow-left;
+			margin-top: 163px;
+			>svg {
+				fill: #ed7102;
+				stroke: #ed7102;
+				height: 1em;
+				width: auto;
+				font-size: 3.5rem;
+			}
+		}
+		
+		&-arrow-right {
+			grid-area: arrow-right;
+			margin-top: 163px;
+			>svg{
+			fill: #ed7102;
+			stroke: #ed7102;
+			height: 1em;
+			width: auto;
+			font-size: 3.5rem;
+			}
+		}
+		
+		&-dol-header {
+			grid-area: dol-header;
+		}
+		
+		&-dol-square {
+			grid-area: dol-square;
+			padding-top: 75px;
+		}
+		
+		&-dol-coin {
+			grid-area: dol-coin;
+			display: grid;
+			grid-template-columns: 46px 46px;
+			gap: 0px 10px;
+			grid-template-areas: "arrow-left arrow-right";
+		}
+		
+		&-coin-header {
+			grid-area: coin-header;
+		}
+		
+		&-coin-square {
+			grid-area: coin-square;
+			padding-top: 95px;
+		}
+	}
+
+	.content-earnings {
+	display: grid;
+	grid-template-columns: 259px 259px 259px 263px;
+	grid-template-rows: 356px;
+	gap: 16px;
+	grid-template-areas: "content-earnings-total-invmemb content-earnings-profteam content-earnings-totalprof content-earnings-graph";
+	grid-area: ce;
+	}
+	
+	.content-earnings-total-invmemb {
+	grid-area: content-earnings-total-invmemb;
+	display: grid;
+	grid-template-rows: min-content 100px 18px 100px;
+	gap: 40px 16px;
+	grid-template-areas: "invmemb-invheader" "invmemb-investments" "invmemb-membersheader" "invmemb-members";
+	}
+	
+	.content-earnings-total-invmemb-invheader {
+	grid-area: invmemb-invheader;
+	}
+	
+	.content-earnings-total-invmemb-investments {
+	grid-area: invmemb-investments;
+	padding-top: 15px;
+	}
+	
+	.content-earnings-total-invmemb-membersheader {
+	grid-area: invmemb-membersheader;
+	}
+	
+	.content-earnings-total-invmemb-members {
+	grid-area: invmemb-members;
+	}
+	
+	.content-earnings-profteam {
+	grid-area: content-earnings-profteam;
+	display: grid;
+	grid-template-rows: min-content 100px 18px 100px;
+	gap: 40px 16px;
+	grid-template-areas: "profteam-profheader" "profteam-profinvestments" "profteam-totalheader" "profteam-totalteam";
+	}
+	
+	.content-earnings-profteam-profheader {
+	grid-area: profteam-profheader;
+	}
+	
+	.content-earnings-profteam-profinvestments {
+	grid-area: profteam-profinvestments;
+	padding-top: 15px;
+	}
+	
+	.content-earnings-profteam-totalheader {
+	grid-area: profteam-totalheader;
+	}
+	
+	.content-earnings-profteam-totalteam {
+	grid-area: profteam-totalteam;
+	padding-top: 15px;
+	}
+	
+	.content-earnings-totalprof {
+	grid-area: content-earnings-totalprof;
+	display: grid;
+	grid-template-rows: min-content 298px;
+	gap: 40px 16px;
+	grid-template-areas: "totalprof-totalprofheader" "totalprof-totalprofsquare";
+	}
+	
+	.content-earnings-total-totalprof-totalprofheader {
+	grid-area: totalprof-totalprofheader;
+	}
+	
+	.content-earnings-total-totalprof-totalprofsquare {
+	grid-area: totalprof-totalprofsquare;
+	display: grid;
+	align-items: center;
+	justify-items: center;
+	grid-template-rows: 90px 98px 110px;
+	grid-template-areas: "totalprofsquare-total" "totalprofsquare-header" "totalprofsquare-hours";
+	}
+	
+	.content-earnings-total-totalprof-totalprofsquare-total {
+	grid-area: totalprofsquare-total;
+	}
+	
+	.content-earnings-total-totalprof-totalprofsquare-24header {
+	grid-area: totalprofsquare-header;
+	}
+	
+	.content-earnings-total-totalprof-totalprofsquare-24hours {
+	grid-area: totalprofsquare-hours;
+	}
+	
+	.content-earnings-graph {
+	grid-area: content-earnings-graph;
+	margin-top: 73px;
+	display: grid;
+	border-radius: 25px;
+	background-color: #d1e5f2;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+	border: 1px solid #efefef;
+	grid-template-rows: 70px 3px 227px;
+	grid-template-areas: "graph-rule" "graph-line" "graph-reached";
+	}
+	
+	.content-earnings-graph-rule {
+	grid-area: graph-rule;
+	padding-top: 17px;
+	}
+	
+	.content-earnings-graph-line {
+	grid-area: graph-line;
+	position: relative;
+	}
+	
+	.content-earnings-graph-line-border {
+	border-bottom: 3px dashed #123273;
+	width: 259px;
+	position: absolute;
+	top: 0px;
+	}
+	
+	.content-earnings-graph-reached {
+	grid-area: graph-reached;
+	position: relative;
+	margin-top: 60px;
+	}
+	
+	.content-earnings-graph-reached-text {
+	position: absolute;
+	top: 75px;
+	left: 45px;
+	z-index: 1;
+	}
+	
+	.content-earnings-graph-reached-text h3 {
+	font-family: "IBM Plex Sans";
+	text-align: center;
+	color: #f5fbff;
+	font-size: 25px;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 0;
+	margin-right: 0;
+	}
+	
+	.content-links {
+	display: grid;
+	grid-template-rows: 70px 70px;
+	gap: 38px 1px;
+	grid-template-areas: "links-ref" "links-links";
+	grid-area: cl;
+	}
+	
+	.content-links-ref {
+	display: grid;
+	grid-template-columns: 543px 543px;
+	gap: 38px 1px;
+	grid-template-areas: "refbyid refbyusername";
+	grid-area: links-ref;
+	}
+	
+	.refbyid {
+	grid-area: refbyid;
+	font-size: 20px;
+	}
+	
+	.refbyusername {
+	grid-area: refbyusername;
+	font-size: 20px;
+	}
+	
+	.content-links-links {
+	display: grid;
+	grid-template-columns: 362px 362px 362px;
+	gap: 38px 1px;
+	grid-template-areas: "presentation-link image-video-link tutorial-link";
+	grid-area: links-links;
+	}
+	
+	.presentation-link {
+	grid-area: presentation-link;
+	font-size: 20px;
+	}
+	
+	.image-video-link {
+	grid-area: image-video-link;
+	font-size: 20px;
+	}
+	
+	.tutorial-link {
+	grid-area: tutorial-link;
+	font-size: 20px;
+	}
+	
+	.content-newslog {
+	display: grid;
+	grid-template-columns: 536px 536px;
+	grid-template-rows: 96px 623px;
+	gap: 0px 16px;
+	grid-template-areas: "content-newslog-newslogheadings content-newslog-historyheadings" "content-newslog-news content-newslog-loginhistory";
+	grid-area: cn;
+	}
+	
+	.content-text-blue-newslogheadings {
+	font-family: "IBM Plex Sans";
+	text-align: left;
+	color: #123273;
+	margin-bottom: 30px;
+	}
+	
+	.content-newslog-newslogheadings {
+	grid-area: content-newslog-newslogheadings;
+	font-size: 50px;
+	margin-left: 30px;
+	}
+	
+	.content-newslog-historyheadings {
+	grid-area: content-newslog-historyheadings;
+	font-size: 25px;
+	margin-top: 25px;
+	margin-left: 60px;
+	}
+	
+	.content-newslog-news {
+	grid-area: content-newslog-news;
+	display: grid;
+	grid-template-rows: 1fr 3px 1fr;
+	gap: 0px 16px;
+	grid-template-areas: "news-news1" "news-line" "news-news2";
+	}
+	
+	.content-newslog-news-news1 {
+	grid-area: news-news1;
+	grid-template-areas: "news1-heading" "news1-text" "news1-button";
+	}
+	
+	.content-newslog-news-news2 {
+	grid-area: news-news2;
+	grid-template-areas: "news2-heading" "news2-text" "news2-button";
+	}
+	
+	.content-newslog-news-news1-heading {
+	grid-area: news1-heading;
+	}
+	
+	.content-newslog-news-news2-heading {
+	grid-area: news2-heading;
+	}
+	
+	.content-newslog-news-news1-text {
+	grid-area: news1-text;
+	}
+	
+	.content-newslog-news-news2-text {
+	grid-area: news2-text;
+	}
+	
+	.content-newslog-news-news1-button {
+	grid-area: news1-button;
+	}
+	
+	.content-newslog-news-news2-button {
+	grid-area: news2-button;
+	}
+	
+	.content-newslog-news-style {
+	display: grid;
+	grid-template-rows: 1fr 3fr 60px;
+	gap: 0px 16px;
+	align-items: center;
+	padding: 20px 0 30px 0;
+	} /**/
+	
+	.content-newslog-news-heading-style {
+	margin-top: 15px;
+	}
+	
+	.content-newslog-news-text-style {
+	text-align: left;
+	}
+	
+	.content-newslog-news-button-style {
+	width: 214px;
+	border-radius: 30px;
+	border: 3px solid #ed7102;
+	color: #ed7102;
+	}
+	
+	.content-newslog-news-line {
+	grid-area: news-line;
+	position: relative;
+	}
+	
+	.content-newslog-news-line-border {
+	border-bottom: 3px solid #cccccc;
+	width: 441px;
+	position: absolute;
+	top: 0px;
+	}
+	
+	.content-newslog-news-news1-button:hover,
+	.content-newslog-news-news2-button:hover {
+	background-color: #ed7102;
+	color: #ffffff;
+	}
+	
+	.content-newslog-news-button-text {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 30px;
+	margin-right: 30px;
+	text-align: center;
+	font-family: "IBM Plex Sans";
+	font-size: 25px;
+	}
+	
+	.content-newslog-loginhistory-text {
+	color: #ffffff;
+	font-family: "IBM Plex Sans";
+	font-size: 25px;
+	}
+	
+	.content-newslog-loginhistory {
+	grid-area: content-newslog-loginhistory;
+	display: grid;
+	border-radius: 60px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+	background-image: linear-gradient(40deg, #123273 0%, #005c9f 100%);
+	grid-template-rows: 33px 33px;
+	grid-template-columns: 405px;
+	gap: 5px 0px;
+	padding: 50px 30px 20px 30px;
+	grid-template-areas: "loginhistory-header" "loginhistory-row";
+	}
+	
+	.content-newslog-loginhistory-header {
+	grid-area: loginhistory-header;
+	display: grid;
+	grid-template-rows: 33px;
+	grid-template-columns: 135px 135px 135px;
+	gap: 0px 28px;
+	grid-template-areas: "loginhistory-timeheader loginhistory-ipheader loginhistory-countryheader";
+	}
+	
+	.content-newslog-loginhistory-row {
+	grid-area: loginhistory-row;
+	display: grid;
+	grid-template-rows: 33px;
+	grid-template-columns: 135px 135px 135px;
+	gap: 0px 28px;
+	grid-template-areas: "loginhistory-time loginhistory-ip loginhistory-country";
+	}
+	
+	.content-newslog-loginhistory-timeheader {
+	grid-area: loginhistory-timeheader;
+	}
+	
+	.content-newslog-loginhistory-ipheader {
+	grid-area: loginhistory-ipheader;
+	}
+	
+	.content-newslog-loginhistory-countryheader {
+	grid-area: loginhistory-countryheader;
+	}
+	
+	.content-newslog-loginhistory-time {
+	grid-area: loginhistory-time;
+	}
+	
+	.content-newslog-loginhistory-ip {
+	grid-area: loginhistory-ip;
+	}
+	
+	.content-newslog-loginhistory-country {
+	grid-area: loginhistory-country;
+	}
+}

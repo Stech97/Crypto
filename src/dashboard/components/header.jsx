@@ -54,7 +54,7 @@ class DashHeader extends Component {
 						</div>
 					</div>
 				<div className="dash-header-user-icon">
-					<svg preserveAspectRatio="xMinYMid slice" viewBox="0 0 37 37">
+					<svg preserveAspectRatio="xMinYMid slice" viewBox="-1 0 35 37">
 						<use href="#dashboards-icon-white"/>
 					</svg>
 				</div>

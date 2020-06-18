@@ -36,10 +36,10 @@ export function updateViewError() {
 
 
 export function updateView(email) {
-	const templateId = 'test'
+	const templateId = 'confirmEmail'
 	return (dispatch) => {
 		  // Validate email
-		let variables = {message_html: email};
+		let variables = {message_html: email, send_to: email};
 		fetch(API_URL + "Email/AddEmail", {
 			method: 'post',
 			headers: {
