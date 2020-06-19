@@ -59,8 +59,8 @@ const faq = [
 const FaqLink = ({ id, header, linktext}) => {
 	return(
 		<div className="faq-links-linkbox">
-			<h2>{header}</h2>
-			<a>{linktext}</a>
+			<h5 className="blue-text">{header}</h5>
+			<a className="white-text"><h5>{linktext}</h5></a>
 		</div>
 	)
 }
@@ -81,11 +81,11 @@ class FaqTab extends Component {
 		return(
 			<div className={"content-whitebox " + (this.state.isOpened ? "faq-questions-tab" : "faq-questions-tab-closed")}>
 				<div className="faq-questions-tab-panel">
-					<h2>{question}</h2>
+					<h5 className="lightblue-text">{question}</h5>
 				  	<svg 
 				  		onClick={() => this.handleClick()}
 				  		role="img"
-				  		className={"dash-header-user-arrow" + (this.state.isClosed ? "-closed" : "") }
+				  		className={"arrow" + (this.state.isOpened ? "" : "-closed") }
 				  		preserveAspectRatio="xMinYMin slice" viewBox="0 0 25 15"
 				  	>
 				    	<use href="#arrow-down" />
@@ -103,30 +103,28 @@ class FaqsContent extends Component {
 
 	render() {
 		return (
-				<div className="contentbox">
-					<div className="faq-box">
-						<div className="faq-links">
-							{links.map(link => (
-								<FaqLink
-									key={link.id}
-									id={link.id}
-									header={link.header}
-									linktext={link.linktext}
-								/>
-							))}
-						</div>
-						<div className="faq-questions">
-							<h1 className="faq-questions-header">FAQ's</h1>
-							{faq.map(tab => (
-								<FaqTab
-									key={tab.id}
-									question={tab.question}
-									answer={tab.answer}
-								/>
-							))}
-						</div>
-					</div>
+			<div className="faq-box">
+				<div className="faq-links">
+					{links.map(link => (
+						<FaqLink
+							key={link.id}
+							id={link.id}
+							header={link.header}
+							linktext={link.linktext}
+						/>
+					))}
 				</div>
+				<div className="faq-questions">
+					<h2 className="faq-questions-header">FAQ's</h2>
+					{faq.map(tab => (
+						<FaqTab
+							key={tab.id}
+							question={tab.question}
+							answer={tab.answer}
+						/>
+					))}
+				</div>
+			</div>
 		)
 	}
 }

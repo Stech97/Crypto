@@ -8,15 +8,15 @@ class ContentBalanceUSDSquare extends Component {
 		return (
 			<Fragment>
 				<div className="content-balance-dol-header content-text-blue">
-					<h3>USD Balance</h3>
+					<h5>USD Balance</h5>
 				</div>
 				<div className="content-balance-dol-square content-whitebox-balance content-text-blue">
-					<h3>USD { isFetching ? "Loading..." : amount }</h3>
-					<span className="content-text-grey">
+					<h5>USD { isFetching ? "Loading..." : amount }</h5>
+					<h6 className="content-text-grey">
 						BTC {USD.isFetching ? "" : USD.btc}
 						<br />
 						DET {USD.isFetching ? "" : USD.det}
-					</span>
+					</h6>
 				</div>
 			</Fragment>
 		)

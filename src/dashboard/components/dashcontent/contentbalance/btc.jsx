@@ -19,12 +19,12 @@ class ContentBalanceBTCSquare extends Component {
 		return(
 			<Fragment>
 				<div className="content-balance-btc-header content-text-blue">
-					<h3>Bitcoin Balance</h3>
+					<h5>Bitcoin Balance</h5>
 				</div>
 				<div className="content-balance-btc-square content-whitebox-balance">
 					<div className="content-balance-btc-square-text content-text-blue">
-						<h3>BTC { isFetching ? "Loading..." : amount }</h3>
-						<span className="content-text-grey">USD {BTC.isFetching ? "" : BTC.usd}</span>
+						<h5>BTC { isFetching ? "Loading..." : amount }</h5>
+						<h6 className="content-text-grey">USD {BTC.isFetching ? "" : BTC.usd}</h6>
 					</div>
 					<div className="content-balance-btc-square-calc">
 						<div
@@ -37,9 +37,6 @@ class ContentBalanceBTCSquare extends Component {
 							>
 								<use href="#plus" />
 							</svg>
-						</div>
-						<div className="content-balance-btc-square-calc-line">
-							<div className={"content-balance-btc-square-calc-line-border"}></div>
 						</div>
 						<div
 							className="content-balance-btc-square-calc-minus"

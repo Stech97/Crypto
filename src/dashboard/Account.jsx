@@ -23,11 +23,13 @@ class AccountPage extends Component {
 				<div className={this.state.isClosed ? "dash-wrapper-closed" : "dash-wrapper"}>
 					<DashHeader />
 					<Sidebar isClosed={this.state.isClosed} toggle={this.toggle} />
-					<Switch>
-						{this.props.routes.map((route, i) => (
-							<RouteWithSubRoutes key={i} {...route} />
-						))}
-					</Switch>
+					<div className={this.state.isClosed ? "contentbox-closed" : "contentbox"}>
+						<Switch>
+							{this.props.routes.map((route, i) => (
+								<RouteWithSubRoutes key={i} {...route} />
+							))}
+						</Switch>						
+					</div>		
 				</div>
 			</div>
 		)

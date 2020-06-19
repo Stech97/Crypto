@@ -36,58 +36,56 @@ class ContentEarnings extends Component {
 			<div className="content-earnings">
 				<div className="content-earnings-total-invmemb">
 					<div className="content-earnings-total-invmemb-invheader content-text-blue">
-						<h3>Total Investments</h3>
+						<h5>Total Investments</h5>
 					</div>
 					<div className="content-earnings-total-invmemb-investments content-whitebox-earnings content-text-blue">
-						<h3>BTC 1.023</h3>
-						<span className="content-text-grey">USD 7,012</span>
-						<p />
+						<h5>BTC 1.023</h5>
+						<h6 className="content-text-grey">USD 7,012</h6>
 					</div>
 					<div className="content-earnings-total-invmemb-membersheader content-text-blue">
-						<h3>Total Team Members</h3>
+						<h5>Total Team Members</h5>
 					</div>
 					<div className="content-earnings-total-invmemb-members content-whitebox-earnings content-text-blue">
-						<br />
-						<h3>300 Members</h3>
+						<h5>300 Members</h5>
 					</div>
 				</div>
 				<div className="content-earnings-profteam">
 					<div className="content-earnings-profteam-profheader content-text-blue">
-						<h3>Profit from Invest</h3>
+						<h5>Profit from Invest</h5>
 					</div>
 					<div className="content-earnings-profteam-profinvestments content-whitebox-earnings content-text-blue">
-						<h3>DET 423</h3>
-						<span className="content-text-grey">USD 423</span>
+						<h5>DET 423</h5>
+						<h6 className="content-text-grey">USD 423</h6>
 					</div>
 					<div className="content-earnings-profteam-totalheader content-text-blue">
-						<h3>Total Team Earnings</h3>
+						<h5>Total Team Earnings</h5>
 					</div>
 					<div className="content-earnings-profteam-totalteam content-whitebox-earnings content-text-blue">
-						<h3>DET 423</h3>
-						<span className="content-text-grey">USD 423</span>
+						<h5>DET 423</h5>
+						<h6 className="content-text-grey">USD 423</h6>
 					</div>
 				</div>
 				<div className="content-earnings-totalprof">
-					<div className="content-earnings-total-totalprof-totalprofheader content-text-blue">
-						<h3>Total Profits</h3>
+					<div className="content-earnings-totalprof-header content-text-blue">
+						<h5>Total Profits</h5>
 					</div>
-					<div className="content-earnings-total-totalprof-totalprofsquare content-whitebox-earnings content-text-blue">
-						<div className="content-earnings-total-totalprof-totalprofsquare-total content-text-blue">
-							<h3>DET 1000</h3>
-							<span className="content-text-grey">USD 1000</span>
+					<div className="content-earnings-totalprof-square content-whitebox-earnings content-text-blue">
+						<div className="content-earnings-totalprof-square-total content-text-blue">
+							<h5>DET 1000</h5>
+							<h6 className="content-text-grey">USD 1000</h6>
 						</div>
-						<div className="content-earnings-total-totalprof-totalprofsquare-header content-text-blue">
-							<h3>Last 24h</h3>
+						<div className="content-earnings-totalprof-square-header content-text-blue">
+							<h5>Last 24h</h5>
 						</div>
-						<div className="content-earnings-total-totalprof-totalprofsquare-hours content-text-blue">
-							<h3>DET 360</h3>
-							<span className="content-text-grey">USD 360</span>
+						<div className="content-earnings-totalprof-square-hours content-text-blue">
+							<h5>DET 360</h5>
+							<h6 className="content-text-grey">USD 360</h6>
 						</div>
 					</div>
 				</div>
 				<div className="content-earnings-graph content-text-blue">
 					<div className="content-earnings-graph-rule content-text-blue">
-						<h3>300% Rule</h3>
+						<h5>300% Rule</h5>
 					</div>
 					<div className="content-earnings-graph-line">
 						<div className="content-earnings-graph-line-border"></div>
@@ -95,7 +93,7 @@ class ContentEarnings extends Component {
 					<div className="content-earnings-graph-reached">
 						<Graph />
 						<div className="content-earnings-graph-reached-text">
-							<h3>167% Reached</h3>
+							<h5>167% Reached</h5>
 						</div>
 					</div>
 				</div>

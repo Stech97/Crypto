@@ -1,7 +1,39 @@
+.white-text {
+	color: #f5fbff;
+}
+
+.blue-text {
+	color: #123273;
+}
+
+.lightblue-text {
+	color: #16428d;
+}
+
+.gray-text {
+	color: #838383;
+}
+
 .contentbox {
-    h2 {
-		color: #16428d;
+    h5 {
 		font-family: "IBM Plex Sans";
+		font-weight: 500;
+		font-size: 1.2rem;
+		margin: 0;
+	}
+
+	h6 {
+		font-family: "IBM Plex Sans";
+		font-weight: 500;
+		font-size: 1rem;
+		margin: 0;
+	}
+
+	h2 {
+		// Style for "FAQ’s"
+		color: #123273;
+		font-family: "IBM Plex Sans";
+		font-size: 33px;
 		font-weight: 500;
 	}
 }
@@ -12,7 +44,7 @@
 		display: grid;
 		grid-template-rows: min-content min-content;
 		grid-template-columns: repeat(8, $column);
-		grid-column-gap: $gap;
+		grid-gap: 30px $gap;
 		grid-template-areas: "links" "questions";
 	}
 
@@ -56,42 +88,73 @@
 		display: grid;
 		grid-column: 1 / -1;
 		grid-template-columns: 100%;
-		grid-auto-rows: 100px;
+		grid-auto-rows: min-content;
 		gap: 30px 0; 
 
 		&-tab,
 		&-tab-closed {
 			display: grid;
+			grid-template-columns: 100%;
+			grid-auto-rows: 100px min-content;
 			align-items: center;
 			justify-items: center;
 			border-radius: 15px;
 			width: 100%;
 			height: 100%;
+		
+			&-panel {
+				width: 100%;
+				display: grid;
+				grid-template-columns: repeat(8, $column);
+				grid-column-gap: $gap;
+				grid-template-rows: fit-content(100px);
+				grid-template-areas: "q q q q q q q d";
+				align-items: center;
+
+				h5 {
+					grid-area: q;
+					margin: 0;
+					margin-left: $gap;
+				}
+
+				.arrow,
+				.arrow-closed {
+					grid-area: d;
+					fill: #707070;
+					stroke: #707070;
+					height: 1em;
+					width: auto;
+					font-size: 0.8rem;
+					justify-self: center;
+				}
+
+				.arrow {
+					transform: rotate(180deg);
+				}
+			}
 		}
-		&-tab-panel {
-			width: 100%;
-			display: grid;
-			grid-template-columns: repeat(8, $column);
-			grid-column-gap: $gap;
-			grid-template-rows: 100%;
-			grid-template-areas: "q q q q q q q a";
-			align-items: center;
 
-			h2 {
-				grid-area: q;
-				margin: 0;
-				margin-left: $gap;
-			}
+		&-tab {
+			&-answer {
+				width: 100%;
+				display: grid;
+				justify-items: center;
+				align-items: center;
+				text-align: justify;
+				padding: 0 $column;
 
-			svg {
-				grid-area: a;
-				fill: #707070;
-				stroke: #707070;
-				height: 1em;
-				width: auto;
-				font-size: 0.8rem;
-				justify-self: center;
+				>p {
+					margin: 0;
+					padding: 25px 0;
+					border-top: 2px solid #ebebeb;
+					// Style for "Anyone can"
+					color: #838383;
+					font-family: "IBM Plex Sans";
+					font-size: 16px;
+					font-weight: 300;
+				}
 			}
-		}	
+		}
+
 	}	
 }

@@ -8,11 +8,11 @@ class ContentBalanceDETSquare extends Component {
 		return(
 			<Fragment>
 				<div className="content-balance-coin-header content-text-blue">
-					<h3>DEFIMA Token Balance</h3>
+					<h5>DEFIMA Token Balance</h5>
 				</div>
 				<div className="content-balance-coin-square content-whitebox-balance content-text-blue">
-					<h3>DET { isFetching ? "Loading..." : amount }</h3>
-					<span className="content-text-grey">DET/USD {DET.isFetching ? "wait..." : DET.rate}</span>
+					<h5>DET { isFetching ? "Loading..." : amount }</h5>
+					<h6 className="content-text-grey">DET/USD {DET.isFetching ? "wait..." : DET.rate}</h6>
 				</div>
 			</Fragment>
 		)

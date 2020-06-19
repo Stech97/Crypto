@@ -1,4 +1,5 @@
 .dash {
+    overflow-x: hidden;
     &-wrapper,
     &-wrapper-closed {
         padding: 0 $padding;
@@ -29,17 +30,25 @@
         grid-area: s;
     }
 
-    .contentbox {
+    .contentbox,
+    .contentbox-closed {
         margin: 0 $gap * (-1); 
-        padding: 0 $gap;
+        padding-left: $gap;
+        padding-top: 88px;
         background-color: #f5fbff;
         grid-area: c;
         display: grid;
         grid-template-columns: repeat(10, $column);
         grid-column-gap: $gap;
         grid-template-rows: 100%; 
+    }
+
+    .contentbox-closed {
+        grid-column: 2 / 13;
+    }
+    
+    .contentbox {
         grid-column: 3 / 13;
-        padding-top: 88px;
     }
 
     .investments-wrapper {

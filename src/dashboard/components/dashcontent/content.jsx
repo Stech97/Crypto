@@ -5,9 +5,7 @@ class DashContent extends Component {
 
 	render() {
 		return (
-			<div className="contentbox">
-				<ContentContainer />
-			</div>
+			<ContentContainer />
 		)
 	}
 }

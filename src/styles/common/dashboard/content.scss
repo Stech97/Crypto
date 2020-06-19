@@ -41,7 +41,7 @@
 }
 	
 .content-whitebox-earnings {
-	border-radius: 25px;
+	border-radius: 15px;
 	background-color: #ffffff;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
 	align-items: center;
@@ -79,45 +79,49 @@
 	grid-template-rows: min-content min-content min-content min-content;
 	grid-row-gap: 60px;
 	grid-column-gap: $gap;
-	grid-row: 1 / 11;
+	grid-column: 2 / -2;
 	grid-template-areas: "cb" "ce" "cl" "cn";
 	
 	&-balance {
+		width: 100%;
 		display: grid;
-		grid-template-columns: subgrid;
+		grid-template-columns: repeat(8, $column);
 		grid-template-rows: min-content (2*$column+$gap);
-		gap: 25px 30px;
-		grid-template-areas: "btc-header btc-header . dol-header dol-header . coin-header coin-header"
-							 "btc-square btc-square btc-dol dol-square dol-square dol-coin coin-square coin-square";
+		gap: 29px $gap;
 		grid-area: cb;
 		
 		&-btc-header {
-			grid-area: btc-header;
+			grid-column: 1 / 3;
+			grid-row: 1 / 2;
 		}
 		
 		&-btc-square {
-			grid-area: btc-square;
+			grid-column: 1 / 3;
+			grid-row: 2 / 3;
 			display: grid;
 			grid-template-rows: 60% 40%;
 			grid-template-areas: "btc-square-text" "btc-square-calc";
 		
 			&-text {
-			grid-area: btc-square-text;
+				grid-area: btc-square-text;
 			}
 			
 			&-calc {
+				height: 100%;
+				width: 100%;
 				grid-area: btc-square-calc;
 				display: grid;
 				border-radius: 0 0 50px 50px;
 				background-image: linear-gradient(232deg, #005c9f 0%, #123273 100%);
-				grid-template-rows: 102px;
-				grid-template-columns: 126px 3px 126px;
+				grid-template-rows: 100%;
+				grid-template-columns: 50% 50%;
 				align-items: center;
 				justify-items: center;
-				grid-template-areas: "calc-plus calc-line calc-minus";
+				grid-template-areas: "calc-plus calc-minus";
 				
 				&-plus {
 					grid-area: calc-plus;
+					border-right: 1.5px solid #ffffff;
 					width: 100%;
 					height: 100%;
 					display: grid;
@@ -131,21 +135,10 @@
 					font-size: 2.5625rem;
 					}
 				}
-				
-				&-line {
-					grid-area: calc-line;
-					position: relative;
-				
-					&-border {
-					border-left: 3px solid #ffffff;
-					height: 102px;
-					position: absolute;
-					top: -51px;
-					}
-				}
-				
+
 				&-minus {
 					grid-area: calc-minus;
+					border-left: 1.5px solid #ffffff;
 					width: 100%;
 					height: 100%;
 					display: grid;
@@ -164,16 +157,16 @@
 		}
 
 		&-btc-dol {
-			grid-area: btc-dol;
+			grid-column: 3 / 4;
+			grid-row: 2 / 3;
 			display: grid;
-			grid-template-columns: 46px 46px;
-			gap: 0px 10px;
+			grid-template-columns: 50% 50%;
 			grid-template-areas: "arrow-left arrow-right";
 		}
 		
-		&-arrow-left {
-			grid-area: arrow-left;
-			margin-top: 163px;
+		&-arrow-left,
+		&-arrow-right {
+			align-self: center;
 			>svg {
 				fill: #ed7102;
 				stroke: #ed7102;
@@ -183,191 +176,216 @@
 			}
 		}
 		
+		&-arrow-left {
+			grid-area: arrow-left;
+			justify-self: start;
+		}
+
 		&-arrow-right {
 			grid-area: arrow-right;
-			margin-top: 163px;
-			>svg{
-			fill: #ed7102;
-			stroke: #ed7102;
-			height: 1em;
-			width: auto;
-			font-size: 3.5rem;
-			}
+			justify-self: end;
 		}
 		
 		&-dol-header {
-			grid-area: dol-header;
+			grid-column: 4 / 6;
+			grid-row: 1 / 2;
 		}
 		
 		&-dol-square {
-			grid-area: dol-square;
-			padding-top: 75px;
+			display: grid;
+			grid-column: 4 / 6;
+			grid-row: 2 / 3;
+			height: 100%;
+			>h5 {
+				align-self: end;
+			}
+			>h6 {
+				align-self: start;
+			}
 		}
 		
 		&-dol-coin {
-			grid-area: dol-coin;
+			grid-column: 6 / 7;
+			grid-row: 2 / 3;
 			display: grid;
-			grid-template-columns: 46px 46px;
-			gap: 0px 10px;
+			grid-template-columns: 50% 50%;
 			grid-template-areas: "arrow-left arrow-right";
 		}
 		
 		&-coin-header {
-			grid-area: coin-header;
+			grid-column: 7 / 9;
+			grid-row: 1 / 2;
 		}
 		
 		&-coin-square {
-			grid-area: coin-square;
-			padding-top: 95px;
+			grid-column: 7 / 9;
+			grid-row: 2 / 3;
+			display: grid;
+			justify-items: center;
+			width: 100%;
+			height: 100%;
+			>h5 {
+				align-self: end;
+			}
+			>h6 {
+				align-self: start;
+			}
 		}
 	}
 
-	.content-earnings {
-	display: grid;
-	grid-template-columns: 259px 259px 259px 263px;
-	grid-template-rows: 356px;
-	gap: 16px;
-	grid-template-areas: "content-earnings-total-invmemb content-earnings-profteam content-earnings-totalprof content-earnings-graph";
-	grid-area: ce;
+	&-earnings {
+		display: grid;
+		grid-template-columns: repeat(8, $column);
+		grid-template-rows: min-content;
+		gap: 0 $gap;
+		grid-template-areas:"ti ti pt pt tp tp gr gr";
+		grid-area: ce;
+
+		&-total-invmemb,
+		&-profteam,
+		&-totalprof,
+		&-graph {
+			display: grid;
+			grid-template-rows: 1.2rem 65px 1.2rem 65px ;
+			gap: 30px 0;
+		}
+
+		&-total-invmemb {
+			grid-area: ti;
+			grid-template-areas: "invmemb-invheader" "invmemb-investments" "invmemb-membersheader" "invmemb-members";
+		
+			&-invheader {
+				grid-area: invmemb-invheader;
+			}
+			
+			&-investments {
+				grid-area: invmemb-investments;
+				display: grid;
+				height: 100%;
+				>h5 {
+					align-self: end;
+				}
+				>h6 {
+					align-self: start;
+				}
+			}
+			
+			&-membersheader {
+				grid-area: invmemb-membersheader;
+			}
+			
+			&-members {
+				grid-area: invmemb-members;
+				display: grid;
+				height: 100%;
+				>h5 {
+					align-self: center;
+				}
+			}
+		}
+		
+		&-profteam {
+			grid-area: pt;
+			grid-template-areas: "profteam-profheader" "profteam-profinvestments" "profteam-totalheader" "profteam-totalteam";
+		
+			&-profheader {
+				grid-area: profteam-profheader;
+			}
+			
+			&-profinvestments {
+				grid-area: profteam-profinvestments;
+				padding-top: 15px;
+			}
+			
+			&-totalheader {
+				grid-area: profteam-totalheader;
+			}
+			
+			&-totalteam {
+				grid-area: profteam-totalteam;
+				padding-top: 15px;
+			}
+		}
+		
+		&-totalprof {
+			grid-area: tp;
+			height: 100%;
+			grid-template-areas:"totalprof-totalprofheader"
+								"totalprof-totalprofsquare"
+								"totalprof-totalprofsquare"
+								"totalprof-totalprofsquare";
+				
+			&-header {
+				grid-area: totalprof-totalprofheader;
+			}
+			
+			&-square {
+				grid-area: totalprof-totalprofsquare;
+				display: grid;
+				align-items: center;
+				justify-items: center;
+				grid-template-areas: "totalprofsquare-total" "totalprofsquare-header" "totalprofsquare-hours";
+			
+				&-total {
+					grid-area: totalprofsquare-total;
+				}
+				
+				&-header {
+					grid-area: totalprofsquare-header;
+				}
+				
+				&-hours {
+					grid-area: totalprofsquare-hours;
+				}
+			}
+		}
+
+		&-graph {
+			grid-area: gr;
+			grid-template-areas: "." "graph-rule" "graph-line" "graph-reached";
+
+			&-rule {
+				grid-area: graph-rule;
+				padding-top: 17px;
+			}
+			
+			&-line {
+				grid-area: graph-line;
+				position: relative;
+			
+				&-border {
+					border-bottom: 3px dashed #123273;
+					width: 259px;
+					position: absolute;
+					top: 0px;
+				}
+			}
+			
+			&-reached {
+				grid-area: graph-reached;
+				position: relative;
+				margin-top: 60px;
+			
+				&-text {
+					position: absolute;
+					top: 75px;
+					left: 45px;
+					z-index: 1;
+				}
+				
+				&-text h3 {
+					font-family: "IBM Plex Sans";
+					text-align: center;
+					color: #f5fbff;
+					font-size: 25px;
+					margin-top: 0;
+					margin-bottom: 0;
+					margin-left: 0;
+					margin-right: 0;
+				}
+			}
+		}
 	}
-	
-	.content-earnings-total-invmemb {
-	grid-area: content-earnings-total-invmemb;
-	display: grid;
-	grid-template-rows: min-content 100px 18px 100px;
-	gap: 40px 16px;
-	grid-template-areas: "invmemb-invheader" "invmemb-investments" "invmemb-membersheader" "invmemb-members";
-	}
-	
-	.content-earnings-total-invmemb-invheader {
-	grid-area: invmemb-invheader;
-	}
-	
-	.content-earnings-total-invmemb-investments {
-	grid-area: invmemb-investments;
-	padding-top: 15px;
-	}
-	
-	.content-earnings-total-invmemb-membersheader {
-	grid-area: invmemb-membersheader;
-	}
-	
-	.content-earnings-total-invmemb-members {
-	grid-area: invmemb-members;
-	}
-	
-	.content-earnings-profteam {
-	grid-area: content-earnings-profteam;
-	display: grid;
-	grid-template-rows: min-content 100px 18px 100px;
-	gap: 40px 16px;
-	grid-template-areas: "profteam-profheader" "profteam-profinvestments" "profteam-totalheader" "profteam-totalteam";
-	}
-	
-	.content-earnings-profteam-profheader {
-	grid-area: profteam-profheader;
-	}
-	
-	.content-earnings-profteam-profinvestments {
-	grid-area: profteam-profinvestments;
-	padding-top: 15px;
-	}
-	
-	.content-earnings-profteam-totalheader {
-	grid-area: profteam-totalheader;
-	}
-	
-	.content-earnings-profteam-totalteam {
-	grid-area: profteam-totalteam;
-	padding-top: 15px;
-	}
-	
-	.content-earnings-totalprof {
-	grid-area: content-earnings-totalprof;
-	display: grid;
-	grid-template-rows: min-content 298px;
-	gap: 40px 16px;
-	grid-template-areas: "totalprof-totalprofheader" "totalprof-totalprofsquare";
-	}
-	
-	.content-earnings-total-totalprof-totalprofheader {
-	grid-area: totalprof-totalprofheader;
-	}
-	
-	.content-earnings-total-totalprof-totalprofsquare {
-	grid-area: totalprof-totalprofsquare;
-	display: grid;
-	align-items: center;
-	justify-items: center;
-	grid-template-rows: 90px 98px 110px;
-	grid-template-areas: "totalprofsquare-total" "totalprofsquare-header" "totalprofsquare-hours";
-	}
-	
-	.content-earnings-total-totalprof-totalprofsquare-total {
-	grid-area: totalprofsquare-total;
-	}
-	
-	.content-earnings-total-totalprof-totalprofsquare-24header {
-	grid-area: totalprofsquare-header;
-	}
-	
-	.content-earnings-total-totalprof-totalprofsquare-24hours {
-	grid-area: totalprofsquare-hours;
-	}
-	
-	.content-earnings-graph {
-	grid-area: content-earnings-graph;
-	margin-top: 73px;
-	display: grid;
-	border-radius: 25px;
-	background-color: #d1e5f2;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
-	border: 1px solid #efefef;
-	grid-template-rows: 70px 3px 227px;
-	grid-template-areas: "graph-rule" "graph-line" "graph-reached";
-	}
-	
-	.content-earnings-graph-rule {
-	grid-area: graph-rule;
-	padding-top: 17px;
-	}
-	
-	.content-earnings-graph-line {
-	grid-area: graph-line;
-	position: relative;
-	}
-	
-	.content-earnings-graph-line-border {
-	border-bottom: 3px dashed #123273;
-	width: 259px;
-	position: absolute;
-	top: 0px;
-	}
-	
-	.content-earnings-graph-reached {
-	grid-area: graph-reached;
-	position: relative;
-	margin-top: 60px;
-	}
-	
-	.content-earnings-graph-reached-text {
-	position: absolute;
-	top: 75px;
-	left: 45px;
-	z-index: 1;
-	}
-	
-	.content-earnings-graph-reached-text h3 {
-	font-family: "IBM Plex Sans";
-	text-align: center;
-	color: #f5fbff;
-	font-size: 25px;
-	margin-top: 0;
-	margin-bottom: 0;
-	margin-left: 0;
-	margin-right: 0;
-	}
-	
 	.content-links {
 	display: grid;
 	grid-template-rows: 70px 70px;
