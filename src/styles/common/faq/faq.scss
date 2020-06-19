@@ -14,37 +14,6 @@
 	color: #838383;
 }
 
-.contentbox {
-	h2 {
-		// Style for "FAQ’s"
-		color: #123273;
-		font-family: "IBM Plex Sans";
-		font-size: 33px;
-		font-weight: 500;
-	}
-	h4 {
-		font-family: "IBM Plex Sans";
-		font-weight: 400;
-		font-size: 1.3rem;
-		margin: 0;
-	}
-    h5 {
-		font-family: "IBM Plex Sans";
-		font-weight: 500;
-		font-size: 1.2rem;
-		margin: 0;
-	}
-
-	h6 {
-		font-family: "IBM Plex Sans";
-		font-weight: 500;
-		font-size: 1rem;
-		margin: 0;
-	}
-
-	padding-bottom: 20px;
-}
-
 .faq {
 	&-box {
 		grid-column: 2 / -2;
