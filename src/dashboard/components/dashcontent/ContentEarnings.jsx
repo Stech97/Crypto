@@ -1,34 +1,33 @@
 import React, { Component } from 'react'
 
-const Graph = () => {
-	return (
-		<svg
-			width={260}
-			height={163}
-			viewBox="0 0 260 163"
-		>
-			<defs>
-				<linearGradient
-					id="r9nta"
-					x1={238.6}
-					x2={30.56}
-					y1={10.3}
-					y2={151.31}
-					gradientUnits="userSpaceOnUse"
-				>
-					<stop offset={0} stopColor="#005c9f" />
-					<stop offset={1} stopColor="#123273" />
-				</linearGradient>
-			</defs>
-			<path
-				fill="url(#r9nta)"
-				d="M25 163c-13.807 0-25-11.193-25-25V18.62s53.31 13.227 77.597-8.787c24.287-22.014 47.314 1.93 71.62 8.787 24.307 6.855 37.564.783 49.76-8.787 12.199-9.57 45.708 6.59 60.944 8.787l.08.012V138c0 13.807-11.194 25-25.001 25z"
-			/>
-		</svg>
-	)
+function Graph() {
+  return (
+    <svg
+      className="content-earnings-graph-plot-reached-svg"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMidYMin slice"
+      viewBox="0 0 170 106"
+    >
+      <defs>
+        <linearGradient
+          id="p70ca"
+          x1="160"
+          x2="9.1"
+          y1="0.69"
+          y2="106"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stopColor="#005c9f"></stop>
+          <stop offset="1" stopColor="#253771"></stop>
+        </linearGradient>
+      </defs>
+      <path
+        fill="url(#p70ca)"
+        d="M.599 12.286s34.548 8.572 50.288-5.695c15.74-14.267 30.663 1.252 46.416 5.695 15.751 4.443 24.343.508 32.248-5.695 7.904-6.202 29.621 4.272 39.495 5.695l.052.008v77.36c0 .606-.033 1.204-.098 1.792V106H0V16h.599z"
+      ></path>
+    </svg>
+  )
 }
-
-
 
 class ContentEarnings extends Component {
 	render() {
@@ -84,15 +83,14 @@ class ContentEarnings extends Component {
 					</div>
 				</div>
 				<div className="content-earnings-graph content-text-blue">
-					<div className="content-earnings-graph-rule content-text-blue">
-						<h5>300% Rule</h5>
-					</div>
-					<div className="content-earnings-graph-line">
-						<div className="content-earnings-graph-line-border"></div>
-					</div>
-					<div className="content-earnings-graph-reached">
-						<Graph />
-						<div className="content-earnings-graph-reached-text">
+					<div className="content-earnings-graph-plot">
+						<div className="content-earnings-graph-plot-rule content-text-blue">
+							<h5>300% Rule</h5>
+						</div>
+						<div
+							className="content-earnings-graph-plot-reached"
+						>
+							<Graph />
 							<h5>167% Reached</h5>
 						</div>
 					</div>

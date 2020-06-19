@@ -9,6 +9,12 @@ class ContentNewslog extends Component {
 	render() {
 		return (
 			<div className="content-newslog">
+				<div className="content-newslog-newslogheadings content-text-blue-newslogheadings">
+					News
+				</div>
+				<div className="content-newslog-historyheadings content-text-blue-newslogheadings">
+					Login History
+				</div>
 				<ContentNews />
 				<ContentLoginHistory />
 			</div>

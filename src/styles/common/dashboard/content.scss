@@ -65,7 +65,6 @@
 	align-items: center;
 	justify-items: left;
 	border: 1px solid #efefef;
-	padding: 0 25px 0 35px;
 }
 	
 .content-whitebox-news h3 {
@@ -80,7 +79,10 @@
 	grid-row-gap: 60px;
 	grid-column-gap: $gap;
 	grid-column: 2 / -2;
-	grid-template-areas: "cb" "ce" "cl" "cn";
+	grid-template-areas:"cb cb cb cb cb cb cb cb"
+						"ce ce ce ce ce ce ce ce"
+						"cl cl cl cl cl cl cl cl"
+						"cn cn cn cn cn cn cn cn";
 	
 	&-balance {
 		width: 100%;
@@ -342,279 +344,268 @@
 
 		&-graph {
 			grid-area: gr;
-			grid-template-areas: "." "graph-rule" "graph-line" "graph-reached";
+			grid-template-areas: "." "graph" "graph" "graph";
+			
+			&-plot {
+				grid-area: graph;
+				display: grid;
+				grid-template-rows: 46px calc(100% - 46px);
+				grid-template-columns: 100%;
+				grid-template-areas: "graph-rule" "graph-reached";
+				
+				box-shadow: 0 0 23px rgba(0, 0, 0, 0.06);
+				background-color: #d1e5f1;
+				border-radius: 20px;
 
-			&-rule {
-				grid-area: graph-rule;
-				padding-top: 17px;
-			}
-			
-			&-line {
-				grid-area: graph-line;
-				position: relative;
-			
-				&-border {
-					border-bottom: 3px dashed #123273;
-					width: 259px;
-					position: absolute;
-					top: 0px;
-				}
-			}
-			
-			&-reached {
-				grid-area: graph-reached;
-				position: relative;
-				margin-top: 60px;
-			
-				&-text {
-					position: absolute;
-					top: 75px;
-					left: 45px;
-					z-index: 1;
+				&-rule {
+					grid-area: graph-rule;
+					border-bottom: 3px solid #253771;
+					display: grid;
+					align-items: center;
+					justify-items: center;
+					height: 100%;
 				}
 				
-				&-text h3 {
-					font-family: "IBM Plex Sans";
-					text-align: center;
-					color: #f5fbff;
-					font-size: 25px;
-					margin-top: 0;
-					margin-bottom: 0;
-					margin-left: 0;
-					margin-right: 0;
+				&-reached {
+					grid-area: graph-reached;
+					display: grid;
+					justify-items: center;
+					align-items: center;
+					position: relative;
+					height: 100%;
+
+					&-svg {
+						position: absolute;
+						bottom: 0;
+						left: 0;
+						width: 2*$column + $gap;
+						height: 90%;
+						border-bottom-left-radius: 20px;
+						border-bottom-right-radius: 20px;
+						z-index: 1;
+						content: "";
+					}
+									
+					h5 {
+						position: absolute;
+						z-index: 2;
+						font-family: "IBM Plex Sans";
+						text-align: center;
+						color: #f5fbff;
+						font-size: 25px;
+					}
 				}
+			}		
+		}
+	}
+	&-links {
+		display: grid;
+		grid-template-rows: 70px 70px;
+		grid-template-columns: repeat(8, $column);
+		gap: 38px $gap;
+		grid-template-areas:"r r r r r r r r"
+							"l l l l l l l l";
+		grid-area: cl;
+	
+		&-ref {
+			display: grid;
+			grid-template-columns: repeat(8, $column);
+			grid-column-gap: $gap;
+			grid-template-areas: "refbyid refbyid refbyid refbyid refbyusername refbyusername refbyusername refbyusername";
+			grid-area: r;
+		}
+
+		.refbyid {
+			grid-area: refbyid;
+			font-size: 20px;
+		}
+		
+		.refbyusername {
+			grid-area: refbyusername;
+			font-size: 20px;
+		}
+	
+		&-links {
+			display: grid;
+			grid-template-columns: repeat(8, $column);
+			grid-column-gap: $gap;
+			grid-template-areas: "p p p i i t t t";
+			grid-area: l;
+		
+			.presentation-link {
+				grid-area: p;
+				font-size: 20px;
+			}
+			
+			.image-video-link {
+				grid-area: i;
+				font-size: 20px;
+			}
+			
+			.tutorial-link {
+				grid-area: t;
+				font-size: 20px;
 			}
 		}
 	}
-	.content-links {
-	display: grid;
-	grid-template-rows: 70px 70px;
-	gap: 38px 1px;
-	grid-template-areas: "links-ref" "links-links";
-	grid-area: cl;
-	}
 	
-	.content-links-ref {
-	display: grid;
-	grid-template-columns: 543px 543px;
-	gap: 38px 1px;
-	grid-template-areas: "refbyid refbyusername";
-	grid-area: links-ref;
-	}
-	
-	.refbyid {
-	grid-area: refbyid;
-	font-size: 20px;
-	}
-	
-	.refbyusername {
-	grid-area: refbyusername;
-	font-size: 20px;
-	}
-	
-	.content-links-links {
-	display: grid;
-	grid-template-columns: 362px 362px 362px;
-	gap: 38px 1px;
-	grid-template-areas: "presentation-link image-video-link tutorial-link";
-	grid-area: links-links;
-	}
-	
-	.presentation-link {
-	grid-area: presentation-link;
-	font-size: 20px;
-	}
-	
-	.image-video-link {
-	grid-area: image-video-link;
-	font-size: 20px;
-	}
-	
-	.tutorial-link {
-	grid-area: tutorial-link;
-	font-size: 20px;
-	}
-	
-	.content-newslog {
-	display: grid;
-	grid-template-columns: 536px 536px;
-	grid-template-rows: 96px 623px;
-	gap: 0px 16px;
-	grid-template-areas: "content-newslog-newslogheadings content-newslog-historyheadings" "content-newslog-news content-newslog-loginhistory";
-	grid-area: cn;
-	}
-	
-	.content-text-blue-newslogheadings {
-	font-family: "IBM Plex Sans";
-	text-align: left;
-	color: #123273;
-	margin-bottom: 30px;
-	}
-	
-	.content-newslog-newslogheadings {
-	grid-area: content-newslog-newslogheadings;
-	font-size: 50px;
-	margin-left: 30px;
-	}
-	
-	.content-newslog-historyheadings {
-	grid-area: content-newslog-historyheadings;
-	font-size: 25px;
-	margin-top: 25px;
-	margin-left: 60px;
-	}
-	
-	.content-newslog-news {
-	grid-area: content-newslog-news;
-	display: grid;
-	grid-template-rows: 1fr 3px 1fr;
-	gap: 0px 16px;
-	grid-template-areas: "news-news1" "news-line" "news-news2";
-	}
-	
-	.content-newslog-news-news1 {
-	grid-area: news-news1;
-	grid-template-areas: "news1-heading" "news1-text" "news1-button";
-	}
-	
-	.content-newslog-news-news2 {
-	grid-area: news-news2;
-	grid-template-areas: "news2-heading" "news2-text" "news2-button";
-	}
-	
-	.content-newslog-news-news1-heading {
-	grid-area: news1-heading;
-	}
-	
-	.content-newslog-news-news2-heading {
-	grid-area: news2-heading;
-	}
-	
-	.content-newslog-news-news1-text {
-	grid-area: news1-text;
-	}
-	
-	.content-newslog-news-news2-text {
-	grid-area: news2-text;
-	}
-	
-	.content-newslog-news-news1-button {
-	grid-area: news1-button;
-	}
-	
-	.content-newslog-news-news2-button {
-	grid-area: news2-button;
-	}
-	
-	.content-newslog-news-style {
-	display: grid;
-	grid-template-rows: 1fr 3fr 60px;
-	gap: 0px 16px;
-	align-items: center;
-	padding: 20px 0 30px 0;
-	} /**/
-	
-	.content-newslog-news-heading-style {
-	margin-top: 15px;
-	}
-	
-	.content-newslog-news-text-style {
-	text-align: left;
-	}
-	
-	.content-newslog-news-button-style {
-	width: 214px;
-	border-radius: 30px;
-	border: 3px solid #ed7102;
-	color: #ed7102;
-	}
-	
-	.content-newslog-news-line {
-	grid-area: news-line;
-	position: relative;
-	}
-	
-	.content-newslog-news-line-border {
-	border-bottom: 3px solid #cccccc;
-	width: 441px;
-	position: absolute;
-	top: 0px;
-	}
-	
-	.content-newslog-news-news1-button:hover,
-	.content-newslog-news-news2-button:hover {
-	background-color: #ed7102;
-	color: #ffffff;
-	}
-	
-	.content-newslog-news-button-text {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	margin-left: 30px;
-	margin-right: 30px;
-	text-align: center;
-	font-family: "IBM Plex Sans";
-	font-size: 25px;
-	}
-	
-	.content-newslog-loginhistory-text {
-	color: #ffffff;
-	font-family: "IBM Plex Sans";
-	font-size: 25px;
-	}
-	
-	.content-newslog-loginhistory {
-	grid-area: content-newslog-loginhistory;
-	display: grid;
-	border-radius: 60px;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
-	background-image: linear-gradient(40deg, #123273 0%, #005c9f 100%);
-	grid-template-rows: 33px 33px;
-	grid-template-columns: 405px;
-	gap: 5px 0px;
-	padding: 50px 30px 20px 30px;
-	grid-template-areas: "loginhistory-header" "loginhistory-row";
-	}
-	
-	.content-newslog-loginhistory-header {
-	grid-area: loginhistory-header;
-	display: grid;
-	grid-template-rows: 33px;
-	grid-template-columns: 135px 135px 135px;
-	gap: 0px 28px;
-	grid-template-areas: "loginhistory-timeheader loginhistory-ipheader loginhistory-countryheader";
-	}
-	
-	.content-newslog-loginhistory-row {
-	grid-area: loginhistory-row;
-	display: grid;
-	grid-template-rows: 33px;
-	grid-template-columns: 135px 135px 135px;
-	gap: 0px 28px;
-	grid-template-areas: "loginhistory-time loginhistory-ip loginhistory-country";
-	}
-	
-	.content-newslog-loginhistory-timeheader {
-	grid-area: loginhistory-timeheader;
-	}
-	
-	.content-newslog-loginhistory-ipheader {
-	grid-area: loginhistory-ipheader;
-	}
-	
-	.content-newslog-loginhistory-countryheader {
-	grid-area: loginhistory-countryheader;
-	}
-	
-	.content-newslog-loginhistory-time {
-	grid-area: loginhistory-time;
-	}
-	
-	.content-newslog-loginhistory-ip {
-	grid-area: loginhistory-ip;
-	}
-	
-	.content-newslog-loginhistory-country {
-	grid-area: loginhistory-country;
+	&-newslog {
+		width: 100%;
+		display: grid;
+		grid-template-rows: min-content min-content;
+		grid-template-columns: repeat(8, $column);
+		grid-column-gap: $gap;
+		grid-row-gap: 20px;
+		grid-template-areas:". nh nh . . lh lh ."
+							"n n n n l l l l";
+		grid-area: cn;
+		align-items: center;
+		justify-items: center;
+
+		.content-text-blue-newslogheadings {
+			font-family: "IBM Plex Sans";
+			text-align: left;
+			color: #123273;
+		}
+		
+		&-newslogheadings {
+			grid-area: nh;
+			font-size: 50px;
+		}
+		
+		&-historyheadings {
+			grid-area: lh;
+			font-size: 25px;
+		}
+		
+		&-news {
+			grid-area: n;
+			display: grid;
+			grid-template-columns: 100%;
+			grid-auto-rows: fit-content(200px);
+			grid-auto-flow: row;
+
+			&-tab {
+				display: grid;
+				grid-template-columns: $column - $gap repeat(2, $column) $column - $gap;
+				grid-column-gap: $gap;
+				grid-row-gap: 22px;
+				padding: $gap;
+				grid-template-areas:"h h h ."
+									"t t t ."
+									"b b b .";
+				justify-items: start;
+				align-items: center;
+				width: 100%;
+				border-bottom: 3px solid #cccccc;
+				&-heading {
+					grid-area: h;
+					margin: 0;
+				}
+
+				&-text {
+					grid-area: t;
+					text-align: left;
+				}
+
+				&-button {
+					grid-area: b;
+					display: grid;
+					justify-items: center;
+					align-items: center;
+					font-family: "IBM Plex Sans";
+					font-size: 25px;
+					color: #eb7324;
+					// Style for "news-butto"
+					
+					width: 2*$column - $gap;
+					height: 40px;
+					border: 3px solid #eb7324;
+					border-radius: 20px;
+					
+					&:hover {
+						background-color: #ed7102;
+						color: #ffffff;
+					}
+				}
+			}
+
+			&-tab:last-child {
+				border: none;
+			}
+		}	
+		
+		&-loginhistory {
+			grid-area: l;
+			border-radius: 60px;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+			background-image: linear-gradient(40deg, #123273 0%, #005c9f 100%);
+			height: 100%;
+
+			display: grid;
+			grid-template-columns: $column - $gap repeat(2, $column) $column - $gap;
+			grid-auto-rows: fit-content(50px);
+			gap: 20px $gap;
+			padding: $gap;
+
+			&-header {
+				grid-column: 1 / 5;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				justify-items: stretch;
+				gap: 0px 10px;
+				grid-template-areas: "timeheader ipheader countryheader";
+
+				>h4 {
+					color: #ffffff;
+					font-weight: 400;
+				}
+			}
+
+			&-timeheader {
+				grid-area: timeheader;
+				justify-self: start;
+			}
+			
+			&-ipheader {
+				grid-area: ipheader;
+				justify-self: center;
+			}
+			
+			&-countryheader {
+				justify-self: end;
+				grid-area: countryheader;
+			}
+
+			&-row {
+				grid-column: 1 / 5;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				justify-items: stretch;
+				gap: 0px 10px;
+				grid-template-areas: "time ip country";
+				align-items: center;
+				
+				>h5 {
+					color: #ffffff;
+					font-weight: 400;
+				}
+
+				&-time {
+					justify-self: start;
+					grid-area: time;
+				}
+				
+				&-ip {
+					justify-self: center;					
+					grid-area: ip;
+				}
+				
+				&-country {
+					justify-self: end;
+					grid-area: country;
+				}
+			}
+		}
 	}
 }
