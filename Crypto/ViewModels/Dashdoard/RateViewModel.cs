@@ -1,8 +1,12 @@
-﻿namespace Crypto.ViewModels.Dashdoard
+﻿using Crypto.Validate;
+
+namespace Crypto.ViewModels.Dashdoard
 {
     public class RateViewModel
     {
-       public string From { get; set; }
-       public string To { get; set; }
+        [BuyInvestmentValidate(new string[] { "BTC", "USD", "DET" })]
+        public string From { get; set; }
+        [BuyInvestmentValidate(new string[] { "BTC", "USD", "DET" })]
+        public string To { get; set; }
     }
 }
