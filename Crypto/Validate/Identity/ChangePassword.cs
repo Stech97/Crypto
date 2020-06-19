@@ -3,10 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Crypto.Validate
 {
-    public class ChangePassworValidated : ValidationAttribute
-    {
-        //private string[] = new //добавить массив имен недопустимых
-        public ChangePassworValidated()
+    public class ChangePasswordValidated : ValidationAttribute
+    { 
+        public ChangePasswordValidated()
         {
             ErrorMessage = "Username and password must not match!";
         }

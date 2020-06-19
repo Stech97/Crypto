@@ -6,7 +6,6 @@ namespace Crypto.Validate
 {
     public class CreateAccountValidate : ValidationAttribute
     {
-        //private string[] = new //добавить массив имен недопустимых
         public CreateAccountValidate()
         {
             ErrorMessage = "Username and password must not match!";

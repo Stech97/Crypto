@@ -3,11 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Crypto.ViewModels.Identity
 {
-    [ChangePassworValidated]
+    [ChangePasswordValidated]
     public class ChangePasswordViewModel
     {
         [Required] 
         [StringLength(15, MinimumLength = 6)]
+        //[UsernameValidate(new string[] { "Admin","admin", "test", "Test", "root", "Root"})]
         public string Username { get; set; }
         [Required]
         [StringLength(15, MinimumLength = 6)]
