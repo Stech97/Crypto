@@ -23,7 +23,7 @@ namespace Crypto.Services.Implementation
 		{
 			return await _repository.GetUser(userName);
 		}
-		public async Task<object> GetUser(int Id)
+		public async Task<Dictionary<string, object>> GetUser(int Id)
 		{
 			return await _repository.GetUser(Id);
 		}

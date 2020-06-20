@@ -40,9 +40,9 @@ namespace Crypto.Controllers
 				case "Ok":
 					return Ok(response[Keys]);
 				case "No login":
-					return BadRequest(response[Keys]);
-				case "No user":
 					return NotFound(response[Keys]);
+				case "No user":
+					return BadRequest(response[Keys]);
 				default:
 					return NoContent();
 			}
@@ -203,7 +203,17 @@ namespace Crypto.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetUser(int Id)
 		{
-			return Ok(await _identityService.GetUser(Id));
+			var response = await _identityService.GetUser(Id);
+			string Keys = response.ElementAt(0).Key;
+			switch (Keys)
+			{
+				case "Ok":
+					return Ok(response[Keys]);
+				case "No login":
+					return NotFound(response[Keys]);
+				default:
+					return NoContent();
+			}
 		}
 
 		//[Authorize]

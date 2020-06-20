@@ -21,8 +21,10 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<object> GetUser(int Id)
+		public async Task<Dictionary<string, object>> GetUser(int Id)
 		{
+			Dictionary<string, object> response = new Dictionary<string, object>(1);
+
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var user = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Id);
@@ -38,9 +40,8 @@ namespace DBRepository.Repositories
                         user.Email,
                         token.Token,
                         user.IsVerified,
-						Status = "Ok"
 					};
-					return UserViewModel;
+					response.Add("Ok", UserViewModel);
 				}
                 else 
 				{
@@ -53,10 +54,10 @@ namespace DBRepository.Repositories
                         user.Email,
 						Token = "",
                         user.IsVerified,
-						Status = "No login"
 					};
-					return UserViewModel;
+					response.Add("No login", UserViewModel);
 				}
+				return response;
 			}
 		}
 
