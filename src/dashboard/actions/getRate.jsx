@@ -23,8 +23,8 @@ const getRateError = (type, error) => ({
 const RateRequest = async(fromCurrency, toCurrency, amount) => {
 
 	let response = await API('/Dashboard/GetRate', "post", { 
-			from : fromCurrency,
-			to: toCurrency,
+			from : fromCurrency.toUpperCase(),
+			to: toCurrency.toUpperCase(),
 		})
 	return response.data.rate
 }
@@ -34,8 +34,9 @@ export const getRate = (currency, amount) => {
 		const am = amount
 		if (currency === "btc") {
 			dispatch(getRateRequest(GET_BTC_RATE_REQUEST))
-			var rate = RateRequest(currency, "usd")
+			var rate = RateRequest(currency, "USD")
 			.then((rate) => {
+				console.log("### rate: ", rate)
 				var usd = am * rate
 				console.log("####### ", am, rate, usd)
 				dispatch({
@@ -53,10 +54,10 @@ export const getRate = (currency, amount) => {
 			})
 		} else if (currency === "usd") {
 			dispatch(getRateRequest(GET_USD_RATE_REQUEST))
-			let rateBTC = RateRequest(currency, "btc")
+			let rateBTC = RateRequest(currency, "BTC")
 			.then((rateBTC) => {
 				var btc = am * rateBTC
-				let rateDET = RateRequest(currency, "det")
+				let rateDET = RateRequest(currency, "DET")
 				.then((rateDET) => {
 					var det = am * rateDET
 					dispatch({
@@ -82,7 +83,7 @@ export const getRate = (currency, amount) => {
 			})
 		} else if (currency === "det") {
 			dispatch(getRateRequest(GET_DET_RATE_REQUEST))
-			var rate = RateRequest(currency, "usd")
+			var rate = RateRequest(currency, "USD")
 			.then(rate => {
 				dispatch({
 					type: GET_DET_RATE_SUCCESS,

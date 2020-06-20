@@ -2,7 +2,7 @@ import { GET_DET_RATE_SUCCESS, GET_DET_RATE_REQUEST, GET_DET_RATE_ERROR } from '
 
 const initialState = {
 	rate: 0,
-	isFetching: false,
+	isFetching: true,
 	error: {
 		type: "",
 		message: "",

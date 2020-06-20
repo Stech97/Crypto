@@ -12,6 +12,7 @@ import { USDRateReducer } from '../dashboard/reducers/ContentBalanceUSD'
 import { DETRateReducer } from '../dashboard/reducers/ContentBalanceDET'
 import { NewsReducer } from '../dashboard/reducers/news'
 import { loginHistoryReducer } from '../dashboard/reducers/loginHistory'
+import { ExchangeReducer } from '../dashboard/reducers/ExchangeForm'
 
 export const rootReducer = combineReducers({
 	form: reduxFormReducer, // mounted under "form"
@@ -28,4 +29,5 @@ export const rootReducer = combineReducers({
 	DETSquare: DETRateReducer,
 	News: NewsReducer,
 	loginHistory: loginHistoryReducer,
+	Exchange: ExchangeReducer,
 })

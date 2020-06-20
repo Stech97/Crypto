@@ -131,7 +131,6 @@
 	height: 100%;
     background-image: linear-gradient(233deg, rgba(0, 92, 159, 0.8) 0%, rgba(18, 50, 115, 0.8) 100%);	opacity: 1;
 	content: "";
-	grid-template-areas: ". . ." ". exchange ." ". . .";
 
 	.exchange {
 		grid-area: exchange;
@@ -141,7 +140,7 @@
 		top: calc(50vh - 4.5*65px - 50px);
 		width: 6*$column + 5*$gap;
 		position: fixed;
-		overflow: hidden;
+		overflow-x: hidden;
 		z-index: 2;
 		
 		border-radius: 50px; 
@@ -150,11 +149,11 @@
 		display: grid;
 		grid-template-columns: repeat(6, $column);
 		gap: 5px $gap;
-		grid-template-rows: 30px repeat(3, fit-content(60px));
+		grid-template-rows: 30px repeat(9, minmax(60px, min-content));
 		grid-template-areas:". . . . . ."
 							". h h h . c"
 							". s s r r ."
-							". f f f f ."
+							". . . . . ."
 							". f f f f ."
 							". f f f f ."
 							". f f f f ."
@@ -172,6 +171,8 @@
 
 		&-header {
 			grid-area: h;
+			font-size: 3.125rem;
+			font-weight: 500;
 		}
 
 		&-closeimg {
@@ -185,8 +186,9 @@
 			>h2 {
 				color: #123273;
 				font-family: "IBM Plex Sans";
-				font-size: 25px;
+				font-size: 1.5625rem;
 				font-weight: 500;
+				text-align: left;
 			}
 		}
 

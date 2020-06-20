@@ -5,7 +5,7 @@ const initialState = {
 	rateDET: 0,
 	btc: 0,
 	det: 0,
-	isFetching: false,
+	isFetching: true,
 	error: {
 		type: "",
 		message: "",

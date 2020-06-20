@@ -3,7 +3,7 @@ import { GET_BTC_RATE_SUCCESS, GET_BTC_RATE_REQUEST, GET_BTC_RATE_ERROR } from '
 const initialState = {
 	rate: 0,
 	usd: 0,
-	isFetching: false,
+	isFetching: true,
 	error: {
 		type: "",
 		message: "",

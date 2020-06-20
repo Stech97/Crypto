@@ -4,7 +4,7 @@ const initialState = {
 	btc: "Wait...",
 	usd: "Wait...",
 	det: "Wait...",
-	isFetching: false,
+	isFetching: true,
 }
 
 export function BalanceReducer(state = initialState, action) {

@@ -40,7 +40,6 @@ class ContentNews extends Component {
 	render() {
 
 		const news = this.props.contentNews.news
-		console.log(news == [])
 		/*
 		const news = [
 			{

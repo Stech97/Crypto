@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import ExchangeForm from './converterForm'
 
 class ExchangeContainer extends Component {
 	render() {
@@ -13,45 +14,48 @@ class ExchangeContainer extends Component {
 				return 'DET'
 			}
 		}
+		
+		const subHeader = (curr1, curr2) => {
+			if (curr1 === 'coin') {
+				return(
+					<h2>From Defima Token<br/>{"(DET) to " + curToString(curr2)}</h2>
+				)				
+			} else if (curr2 == 'coin') {
+				return(
+					<h2>{"From " + curToString(curr1) + " to"}<br/>Defima Token (DET)</h2>
+				)
+			} else {
+				return(
+					<h2>{"From " + curToString(curr1) + " to " + curToString(curr2)}</h2>
+				)
+			}
+		}
 
 		return(
 			<div className={isOpened ? "exchangebox" : "none"}>
 				<div className="exchange">
 				    <h1 className="exchange-header exchange-bluetext">
-				      Exchange
+				    	Exchange
 				    </h1>
 				    <div className="exchange-closeimg">
-				      <img onClick={(isOpened) => closeModal(isOpened)} src="/img/close-icon.png" />
+				    	<img onClick={() => closeModal()} src="/img/close-icon.png" />
 				    </div>
 				    <div className="exchange-subheader exchange-bluetext">
-				      <h2>From USD to Bitcoin</h2>
+				    	{subHeader(cur1, cur2)}
 				    </div>
 				    <div className="exchange-rate exchange-greytext">
-				      <h3>
-				        Exchange Rate
-				        <br />
-				        1 BTC = $7,2309
-				      </h3>
+				    	<h3>
+					        Exchange Rate
+					        <br />
+					        1 BTC = $7,2309
+				      	</h3>
 				    </div>
-				    <form className="exchange-form">
-						<h5 className="exchange-form-label1">Insert USD Amount</h5>
-						<input
-					      className="exchange-form-cur1 exchange-form-input"
-					      type="text"
-					      placeholder="BTC"
-					    >
-				    	</input>
-				    	<div className="exchange-form-img">
-					    	<img src="/img/exchange-icon.png" />
-					    </div>
-					    <h5 className="exchange-form-label2">Bitcoin Amount</h5>
-					    <input
-					    	className="exchange-form-cur2 exchange-form-input"
-					    	type="text"
-					    	placeholder="$$$"
-					    ></input>
-					    <button className="exchange-form-button">Exchange</button>
-				    </form>
+					<ExchangeForm
+						cur1 = {cur1}
+						cur2 = {cur2}
+						isOpened = {isOpened}
+						closeModal = {closeModal}
+					/>
 				</div>
 			</div>
 		)
