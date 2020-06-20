@@ -22,7 +22,7 @@ namespace DBRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
                 return await context.LoginHistories.AsNoTracking()
-                    .OrderByDescending(lh => lh.LoginTime).Where(lh => lh.UserId == Id).ToListAsync();
+                    .OrderByDescending(lh => lh.LoginTime).Take(15).Where(lh => lh.UserId == Id).ToListAsync();
         }
 
         public async Task<List<News>> GetNews(int Take, int Skip)
