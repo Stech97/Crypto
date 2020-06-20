@@ -21,7 +21,10 @@ namespace Crypto.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBalance(int Id)
         {
-            return Ok(await _dashboardService.GetBalance(Id));
+            var response = await _dashboardService.GetBalance(Id);
+            if (response != null)
+                return Ok(response);
+            return BadRequest("No Balance");
         }
 
         [Route("GetTime")]
@@ -41,7 +44,10 @@ namespace Crypto.Controllers
         [HttpGet]
         public async Task<IActionResult> GetLoginHistory(int Id)
         {
-            return Ok(await _dashboardService.GetLoginHistory(Id));
+            var response = await _dashboardService.GetLoginHistory(Id);
+            if (response != null)
+                return Ok(response);
+            return BadRequest("No login");
         }
 
         //[Authorize]
@@ -60,7 +66,10 @@ namespace Crypto.Controllers
         [HttpGet]
         public async Task<IActionResult> GetNews(int Take, int Skip)
         {
-            return Ok(await _dashboardService.GetNews(Take, Skip));
+            var response = await _dashboardService.GetNews(Take, Skip);
+            if (response != null)
+                return Ok(response);
+            return BadRequest("No News");
         }
 
         //[Authorize]
@@ -68,11 +77,10 @@ namespace Crypto.Controllers
         [HttpPatch]
         public async Task<IActionResult> Exchange([FromBody] ExchangeViewModel request, int Id)
         {
-            var ret = await _dashboardService.ExchangeBalance(request, Id);
-            if (ret != null)
-                return Ok();
-            else
-                return NoContent();
+            var response = await _dashboardService.ExchangeBalance(request, Id);
+            if (response)
+                return Ok("Exchanged");
+            return BadRequest("Not exchanged");
 
         }
 
@@ -81,11 +89,13 @@ namespace Crypto.Controllers
         [HttpPost]
         public async Task<IActionResult> GetRate([FromBody] RateViewModel request)
         {
-            var Rate = new
+            var rate = await _dashboardService.GetRate(request);
+            if (rate <= 0)
             {
-                rate = await _dashboardService.GetRate(request)
-            };
-            return Ok(Rate);
+                var response = new { rate };
+                return Ok(response);
+            }
+            return BadRequest("No rate");
         }
 
         #region Fake
@@ -97,8 +107,7 @@ namespace Crypto.Controllers
             var balance = await _dashboardService.CashBTC(request, Id);
             if (balance != null)
                 return Ok(balance);
-            else
-                return NoContent();
+            return BadRequest("No cash");
         }
 
         #endregion

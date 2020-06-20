@@ -5,6 +5,7 @@ using System.Linq;
 using Models;
 using System.Security.Cryptography;
 using System.Text;
+using System.Collections.Generic;
 
 namespace DBRepository.Repositories
 {
@@ -169,9 +170,9 @@ namespace DBRepository.Repositories
 			return outUser;
 		}
 
-		public async Task<object> ConfirmEmail(string Id)
+		public async Task<Dictionary<string, object>> ConfirmEmail(string Id)
 		{
-			object confirmEmail = null;
+			Dictionary<string, object> response = new Dictionary<string, object>(1);
 
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -203,41 +204,47 @@ namespace DBRepository.Repositories
 
 					var currentSession = await context.CurrentSessions.AsNoTracking().FirstOrDefaultAsync(cs => cs.UserId == confirmUserId);
 					if (currentSession != null)
-						confirmEmail = new
+					{
+						var confirmEmail = new
 						{
 							Id = confirmUserId,
-                            confirmUser.Username,
-                            currentSession.Token,
+							confirmUser.Username,
+							currentSession.Token,
 							IsVerification = confirmUser.IsVerified,
-							Status = "Ok"
 						};
+						response.Add("Ok", confirmEmail);
+					}
 					else
-						confirmEmail = new
+					{
+						var confirmEmail = new
 						{
 							Id = confirmUserId,
-                            confirmUser.Username,
+							confirmUser.Username,
 							Token = "No login",
 							IsVerification = confirmUser.IsVerified,
-							Status = "No login"
-
 						};
+						response.Add("No login", confirmEmail);
+					}
 				}
 				else
-					confirmEmail = new
+				{
+					var confirmEmail = new
 					{
 						Id = "",
 						Username = "",
 						Token = "",
 						IsVerification = "",
-						Status = "No user"
 					};
+					response.Add("No user", confirmEmail);
+				}
 			}
 
-			return confirmEmail;
+			return response;
 		}
 
-		public async Task<object> ForgotPassword(User user)
+		public async Task<Dictionary<string, object>> ForgotPassword(User user)
 		{
+			Dictionary<string, object> response = new Dictionary<string, object>(1);
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var findUser = await context.Users.FirstOrDefaultAsync(u => u.Username == user.Username && u.Email == user.Email);
@@ -266,58 +273,60 @@ namespace DBRepository.Repositories
 					{
 						Hash = hash,
                         findUser.Email,
-						Status = "Ok"
-
+						findUser.Username
 					};
-
-					return fogotPassword;
+					response.Add("Ok", fogotPassword);
 				}
 				else
 				{
 					var fogotPassword = new
 					{
-						Hash = "No found",
+						Hash = "Not found",
                         user.Email,
-						Status = "No found"
+						user.Username
 					};
-
-					return fogotPassword;
+					response.Add("Not found", fogotPassword);
 				}
 			}
+			return response;
 		}
 
-        public async Task<object> AcceptForgot(string Id)
+        public async Task<Dictionary<string, object>> AcceptForgot(string Id)
 		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{				
-				var ConfirmFogot = new
-				{
-					Id = 0,
-					Username = "",
-					Status = "Not found"
-				};
+			Dictionary<string, object> response = new Dictionary<string, object>(1);
 
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
 				var forgotPassword = await context.ForgotPasswords.AsNoTracking().ToListAsync();
-				
+
 				if (forgotPassword.Count != 0)
 				{
 					foreach (var fogotUser in forgotPassword)
-					{			
+					{
 						var fogot = fogotUser.Username + " " + fogotUser.Email + " " + fogotUser.TimeForgot.ToString();
 						string hash = "";
 						using (MD5 md5Hash = MD5.Create())
 							hash = GetMd5Hash(md5Hash, fogot);
 						if (hash == Id)
 						{
-							ConfirmFogot = new
+							var ConfirmFogot = new
 							{
 								Id = fogotUser.UserId,
-								fogotUser.Username,
-								Status = "Ok"
+								fogotUser.Username
 							};
-							return ConfirmFogot;
+							response.Add("Ok", ConfirmFogot);
+							return response;
 						}
 					}
+				}
+				else
+				{
+					var ConfirmFogot = new
+					{
+						Id = 0,
+						Username = ""
+					};
+					response.Add("No found")
 				}
 				return ConfirmFogot;
 			}

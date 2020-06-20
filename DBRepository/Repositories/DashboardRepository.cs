@@ -36,61 +36,59 @@ namespace DBRepository.Repositories
             }
         }
 
-        public async Task<object> ExchangeBalance(string exchnge, double amount, int UserId)
+        public async Task<bool> ExchangeBalance(string exchnge, double amount, int UserId)
         {
-           using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                object ret = "xcxcx";
+                bool IsExchage = false;
                 var balanceNew = await context.Balances.FirstOrDefaultAsync(b => b.UserId == UserId);
-
-                if (amount > 0)
+                switch (exchnge)
                 {
-                    switch (exchnge)
-                    {
-                        case "BTCUSD":
-                            if (balanceNew.BitcoinBalance >= amount)
-                            {
-                                balanceNew.BitcoinBalance -= amount;
-                                balanceNew.USDBalance += (amount * (await GetRate(exchnge)));
-                            }
-                            else
-                                return null;
-                            break;
-                        case "USDBTC":
-                            if (balanceNew.USDBalance >= amount)
-                            {
-                                balanceNew.USDBalance -= amount;
-                                balanceNew.BitcoinBalance += (amount * (await GetRate(exchnge)));
-                            }
-                            else
-                                return null;
-                            break;
-                        case "USDDET":
-                            if (balanceNew.USDBalance >= amount)
-                            {
-                                balanceNew.USDBalance -= amount;
-                                balanceNew.DefimaBalance += (amount * (await GetRate(exchnge)));
-                            }
-                            else
-                                return null;
-                            break;
-                        case "DETUSD":
-                            if (balanceNew.DefimaBalance >= amount)
-                            {
-                                balanceNew.DefimaBalance -= amount;
-                                balanceNew.USDBalance += (amount * (await GetRate(exchnge)));
-                            }
-                            else
-                                return null;
-                            break;
-                    }
-
-                    context.Balances.Update(balanceNew);
-                    await context.SaveChangesAsync();
-                    return ret;
+                    case "BTCUSD":
+                        if (balanceNew.BitcoinBalance >= amount)
+                        {
+                            balanceNew.BitcoinBalance -= amount;
+                            balanceNew.USDBalance += (amount * (await GetRate(exchnge)));
+                            IsExchage = true;
+                        }
+                        else
+                            IsExchage = false;
+                        break;
+                    case "USDBTC":
+                        if (balanceNew.USDBalance >= amount)
+                        {
+                            balanceNew.USDBalance -= amount;
+                            balanceNew.BitcoinBalance += (amount * (await GetRate(exchnge))); 
+                            IsExchage = true;
+                        }
+                        else
+                            IsExchage = false;
+                        break;
+                    case "USDDET":
+                        if (balanceNew.USDBalance >= amount)
+                        {
+                            balanceNew.USDBalance -= amount;
+                            balanceNew.DefimaBalance += (amount * (await GetRate(exchnge)));
+                            IsExchage = true;
+                        }
+                        else
+                            IsExchage = false;
+                        break;
+                    case "DETUSD":
+                        if (balanceNew.DefimaBalance >= amount)
+                        {
+                            balanceNew.DefimaBalance -= amount;
+                            balanceNew.USDBalance += (amount * (await GetRate(exchnge)));
+                            IsExchage = true;
+                        }
+                        else
+                            IsExchage = false;
+                        break;
                 }
-                else
-                    return null;
+
+                context.Balances.Update(balanceNew);
+                await context.SaveChangesAsync();
+                return IsExchage;
             }
         }
 

@@ -11,12 +11,10 @@ namespace Crypto.Services.Implementation
     public class DashboardService : IDashboardService
     {
         readonly IDashboardRepository _repositoryDashboard;
-        readonly IIdentityRepository _repositorIidentity;
         readonly IMapper _mapper;
-        public DashboardService(IDashboardRepository repositoryDashboard, IIdentityRepository repositorIidentity, IMapper mapper)
+        public DashboardService(IDashboardRepository repositoryDashboard, IMapper mapper)
         {
             _repositoryDashboard = repositoryDashboard;
-            _repositorIidentity = repositorIidentity;
             _mapper = mapper;
         }
 
@@ -45,7 +43,7 @@ namespace Crypto.Services.Implementation
             return _mapper.Map<List<News>, List<NewsViewModel>>(news);
         }
 
-        public async Task<object> ExchangeBalance(ExchangeViewModel request, int UserId)
+        public async Task<bool> ExchangeBalance(ExchangeViewModel request, int UserId)
         {
             string exchange = request.From + request.To;
             return await _repositoryDashboard.ExchangeBalance(exchange, request.Amount, UserId);
