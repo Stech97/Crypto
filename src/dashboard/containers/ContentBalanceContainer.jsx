@@ -10,6 +10,7 @@ class ContentBalanceContainer extends Component {
 
 	componentDidMount() {
     	this.props.getBalanceAction(localStorage.getItem('id'));
+    	this.forceUpdate()
     } 
 
 	render() {

@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { getNews } from '../../actions/getNews'
 
 class ContentNewsTab extends Component {
 	
@@ -36,7 +38,10 @@ class ContentNewsTab extends Component {
 
 class ContentNews extends Component {
 	render() {
-		
+
+		const news = this.props.contentNews.news
+		console.log(news == [])
+		/*
 		const news = [
 			{
 				heading: "Title 1",
@@ -49,18 +54,41 @@ class ContentNews extends Component {
 				fulltext: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa corrupti similique maiores libero minus ipsum fuga repudiandae. Voluptates in suscipit autem voluptatem, reprehenderit, quia corporis, quasi magni ullam ipsum unde."
 			},
 		]
-
+		*/
 		return (
 				<div className="content-newslog-news content-whitebox-news">
-					{news && news.map((tab, id) => (
-						<ContentNewsTab
-							key = {id}
-							tab = { tab }
-						/>
-					))}
+					{(news.length == 0) ? 
+						<div className="content-newslog-news-tab content-newslog-news-style">
+							<h4 className="content-newslog-news-tab-heading content-text-blue">
+								No News
+							</h4>
+						</div>
+					:
+						news.map((tab, id) => (
+							<ContentNewsTab
+								key = {id}
+								tab = { tab }
+							/>
+						))						
+					}
 				</div>
 		)
 	}
 }
 
-export default ContentNews
+const mapStateToProps = store => {
+	return {
+		contentNews: store.News,
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getNewsAction: () => dispatch(getNews()),
+  }
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ContentNews)

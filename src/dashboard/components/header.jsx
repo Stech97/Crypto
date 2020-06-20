@@ -78,7 +78,6 @@ class DashHeader extends Component {
 }
 
 const mapStateToProps = store => {
-	console.log(store)
 	return {
 		user: store.DashHeader
 	}

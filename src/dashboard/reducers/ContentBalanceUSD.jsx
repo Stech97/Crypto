@@ -1,4 +1,4 @@
-import { GET_CURRENCY_RATE_SUCCESS, GET_CURRENCY_RATE_REQUEST, GET_CURRENCY_RATE_ERROR } from '../actions/getRate'
+import { GET_USD_RATE_SUCCESS, GET_USD_RATE_REQUEST, GET_USD_RATE_ERROR } from '../actions/getRate'
 
 const initialState = {
 	rateBTC: 0,
@@ -6,28 +6,33 @@ const initialState = {
 	btc: 0,
 	det: 0,
 	isFetching: false,
+	error: {
+		type: "",
+		message: "",
+	}
 }
 
 export function USDRateReducer( state = initialState, action) {
 	switch (action.type) {
-		case GET_CURRENCY_RATE_REQUEST:
+		case GET_USD_RATE_REQUEST:
 			return {
 				...state,
 				isFetching: true,
 			}
-		case GET_CURRENCY_RATE_SUCCESS:
+		case GET_USD_RATE_SUCCESS:
 			return {
 				...state,
-				rate: action.payload.rate,
+				isFetching: false,
+				rateBTC: action.payload.rateBTC,
+				rateDET: action.payload.rateDET,
 				btc: action.payload.btc,
 				det: action.payload.det,
 			}
-		case GET_CURRENCY_RATE_ERROR:
+		case GET_USD_RATE_ERROR:
 			return {
 				...state,
-				rate: action.payload.rate,
-				btc: action.payload.btc,
-				det: action.payload.det,
+				isFetching: false,
+				error: action.payload
 			}
 		default:
 			return state

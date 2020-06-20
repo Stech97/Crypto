@@ -1,29 +1,34 @@
-import { GET_CURRENCY_RATE_SUCCESS, GET_CURRENCY_RATE_REQUEST, GET_CURRENCY_RATE_ERROR } from '../actions/getRate'
+import { GET_BTC_RATE_SUCCESS, GET_BTC_RATE_REQUEST, GET_BTC_RATE_ERROR } from '../actions/getRate'
 
 const initialState = {
 	rate: 0,
 	usd: 0,
 	isFetching: false,
+	error: {
+		type: "",
+		message: "",
+	}
 }
 
 export function BTCRateReducer( state = initialState, action) {
 	switch (action.type) {
-		case GET_CURRENCY_RATE_REQUEST:
+		case GET_BTC_RATE_REQUEST:
 			return {
 				...state,
 				isFetching: true,
 			}
-		case GET_CURRENCY_RATE_SUCCESS:
+		case GET_BTC_RATE_SUCCESS:
 			return {
 				...state,
+				isFetching: false,
 				rate: action.payload.rate,
 				usd: action.payload.usd,
 			}
-		case GET_CURRENCY_RATE_ERROR:
+		case GET_BTC_RATE_ERROR:
 			return {
 				...state,
-				rate: action.payload.rate,
-				usd: action.payload.usd,
+				isFetching: false,
+				error: action.payload,
 			}
 		default:
 			return state

@@ -1,17 +1,18 @@
-import { GET_DET_RATE_SUCCESS, GET_DET_RATE_REQUEST, GET_DET_RATE_ERROR } from '../actions/getRate'
+import { GET_NEWS_SUCCESS, GET_NEWS_REQUEST, GET_NEWS_ERROR } from '../actions/getNews'
 
 const initialState = {
-	rate: 0,
 	isFetching: false,
 	error: {
 		type: "",
 		message: "",
-	}
+	},
+	news: [
+	]
 }
 
-export function DETRateReducer( state = initialState, action) {
+export const NewsReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case GET_DET_RATE_REQUEST:
+		case GET_NEWS_REQUEST:
 			return {
 				...state,
 				isFetching: true,
@@ -20,21 +21,21 @@ export function DETRateReducer( state = initialState, action) {
 					message: "",
 				},
 			}
-		case GET_DET_RATE_SUCCESS:
+		case GET_NEWS_SUCCESS:
 			return {
 				...state,
 				isFetching: false,
-				rate: action.payload,
 				error: {
-					type: "",
+					type: "done",
 					message: "",
 				},
+				news: action.payload,
 			}
-		case GET_DET_RATE_ERROR:
+		case GET_NEWS_ERROR:
 			return {
-				...state,
 				isFetching: false,
-				error: action.payload
+				error: action.payload,
+				news: [],
 			}
 		default:
 			return state

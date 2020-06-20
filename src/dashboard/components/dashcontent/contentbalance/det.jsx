@@ -1,8 +1,20 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { getRate } from '../../../actions/getRate'
+import Loader from 'react-loader-spinner'
 
 class ContentBalanceDETSquare extends Component {
+	
+	componentDidMount = () => {
+		this.props.getRateAction(this.props.amount)
+	}
+/*
+	componentDidUpdate = (prevProps) => {
+		if (this.props.amount !== prevProps.amount) {
+			this.props.getRateAction('det', this.props.amount)
+		}
+	}
+*/
 	render() {
 		const { amount, isFetching, DET } = this.props
 		return(
@@ -11,8 +23,14 @@ class ContentBalanceDETSquare extends Component {
 					<h5>DEFIMA Token Balance</h5>
 				</div>
 				<div className="content-balance-coin-square content-whitebox-balance content-text-blue">
-					<h5>DET { isFetching ? "Loading..." : amount }</h5>
-					<h6 className="content-text-grey">DET/USD {DET.isFetching ? "wait..." : DET.rate}</h6>
+					{ (isFetching || DET.isFetching) ?
+						<Loader type="Rings" color="#00BFFF" height={80} width={80}/>
+					:
+						<Fragment>
+							<h5>DET { isFetching ? "Loading..." : amount }</h5>
+							<h6 className="content-text-grey">DET/USD {DET.rate}</h6>
+						</Fragment>
+					}
 				</div>
 			</Fragment>
 		)
@@ -21,7 +39,6 @@ class ContentBalanceDETSquare extends Component {
 
 
 const mapStateToProps = store => {
-	console.log(store)
 	return {
 		DET: store.DETSquare,
 	}
@@ -29,7 +46,7 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getRateAction: (currency, amount) => dispatch(getRate(currency, amount)),
+    getRateAction: (amount) => dispatch(getRate('det', amount)),
   }
 }
 

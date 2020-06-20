@@ -11,9 +11,6 @@ export function BalanceReducer(state = initialState, action) {
 	switch (action.type) {
 		case GET_BALANCE_REQUEST: return {
 			...state, 
-			btc: action.payload,
-			usd: action.payload,
-			det: action.payload,
 			isFetching: true,
 		}
 

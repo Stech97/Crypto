@@ -55,7 +55,6 @@ class TestAddFundsForm extends Component {
 }
 
 const mapStateToProps = store => {
-	console.log(store)
 	return {
 		balance: store.ContentBalanceContainer,
 		user: store.DashHeader

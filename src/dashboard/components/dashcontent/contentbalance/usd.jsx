@@ -1,8 +1,16 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { getRate } from '../../../actions/getRate'
+import Loader from 'react-loader-spinner'
 
 class ContentBalanceUSDSquare extends Component {
+
+	componentDidUpdate = (prevProps) => {
+		if (this.props.amount !== prevProps.amount) {
+			this.props.getRateAction('usd', this.props.amount)
+		}
+	}
+
 	render() {
 		const { amount, isFetching, USD } = this.props
 		return (
@@ -24,7 +32,6 @@ class ContentBalanceUSDSquare extends Component {
 }
 
 const mapStateToProps = store => {
-	console.log(store)
 	return {
 		USD: store.USDSquare,
 	}

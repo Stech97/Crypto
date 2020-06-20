@@ -10,6 +10,8 @@ import { BalanceReducer } from '../dashboard/reducers/contentBalance'
 import { BTCRateReducer } from '../dashboard/reducers/ContentBalanceBTC'
 import { USDRateReducer } from '../dashboard/reducers/ContentBalanceUSD'
 import { DETRateReducer } from '../dashboard/reducers/ContentBalanceDET'
+import { NewsReducer } from '../dashboard/reducers/news'
+import { loginHistoryReducer } from '../dashboard/reducers/loginHistory'
 
 export const rootReducer = combineReducers({
 	form: reduxFormReducer, // mounted under "form"
@@ -24,4 +26,6 @@ export const rootReducer = combineReducers({
 	BTCSquare: BTCRateReducer,
 	USDSquare: USDRateReducer,
 	DETSquare: DETRateReducer,
+	News: NewsReducer,
+	loginHistory: loginHistoryReducer,
 })

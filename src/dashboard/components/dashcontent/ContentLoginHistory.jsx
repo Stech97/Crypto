@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { getLoginHistory } from '../../actions/loginhistory'
 
 class ContentLoginHistoryRow extends Component {
 	render() {
-		const { ip, country, date, time } = this.props.tab
+		const { ip, country, date, time, loginTime } = this.props.tab
 		return(
 			<div className="content-newslog-loginhistory-row">
 				<h5 className="content-newslog-loginhistory-row-time">
@@ -20,7 +22,13 @@ class ContentLoginHistoryRow extends Component {
 }
 
 class ContentLoginHistory extends Component {
+	
+	componentDidMount = () => {
+		this.props.getLoginHistoryAction()
+	}
+
 	render() {
+		/*
 		const logins = [
 			{
 				ip: "111.222.333.444",
@@ -35,6 +43,9 @@ class ContentLoginHistory extends Component {
 				country: "Norway",
 			},
 		]
+		*/
+
+		const logins = this.props.loginHistory.logins
 		return (
 			<div className="content-newslog-loginhistory">
 				<div className="content-newslog-loginhistory-header">
@@ -59,4 +70,19 @@ class ContentLoginHistory extends Component {
 	}
 }
 
-export default ContentLoginHistory
+const mapStateToProps = store => {
+	return {
+		loginHistory: store.loginHistory,
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getLoginHistoryAction: () => dispatch(getLoginHistory()),
+  }
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(ContentLoginHistory)
