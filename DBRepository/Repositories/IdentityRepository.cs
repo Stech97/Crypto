@@ -327,9 +327,9 @@ namespace DBRepository.Repositories
 						Id = 0,
 						Username = ""
 					};
-					response.Add("No found")
+					response.Add("No found", ConfirmFogot);
 				}
-				return ConfirmFogot;
+				return response;
 			}
 		}
 		public async Task RecoveryPassword(User user, int Id)
