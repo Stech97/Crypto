@@ -13,6 +13,7 @@ import ConfirmEmail from './signup/ConfirmEmail'
 import AccountPage from './dashboard/Account'
 import InDevelopment from './dashboard/components/inDevelopment'
 import FaqsContent from './dashboard/components/FAQs/content'
+import MarketingContent from './dashboard/components/marketing/Marketing'
 import { ForgotPassword } from './signup/ForgotPassword'
 import { RestorePassword } from './signup/RestorePassword'
 
@@ -161,6 +162,11 @@ export const routes = [
                 component: FaqsContent,
                 Private: true,
             },
+            {
+                path: "/account/marketing",
+                component: MarketingContent,
+                Private: true,
+            },            
             {
             	path: "/account/development",
             	component: InDevelopment,
