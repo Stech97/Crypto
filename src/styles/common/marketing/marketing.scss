@@ -26,7 +26,7 @@
 			justify-items: center;
 			align-items: center;
 			>img {
-				width: $column;
+				height: $column*0.75;
 			}
 		}
 
@@ -94,6 +94,7 @@
 				grid-area: ni;
 				width: 1em;
 				font-size: 2rem;
+				fill: #123273;
 			}
 
 			&-blog {
@@ -105,6 +106,7 @@
 				width: 1em;
 				font-size: 2rem;
 				grid-area: ti;
+				fill: #0088cc;
 			}
 		}
 
