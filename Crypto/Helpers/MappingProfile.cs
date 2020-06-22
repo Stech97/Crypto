@@ -55,7 +55,7 @@ namespace Crypto
 			
 			CreateMap<RateDETViewModel, Balance>()
 				.ForMember(m => m.RateUSD_DEF, opt => opt.MapFrom(m => m.RateDef));
-			CreateMap<string, Balance>()
+			CreateMap<double, Balance>()
 				.ForMember(m => m.RateBTC_USD, opt => opt.MapFrom(m => m));
 
 			CreateMap<Balance, RateDETViewModel>()

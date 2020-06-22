@@ -47,7 +47,7 @@ namespace Crypto.Services.Implementation
 
         public async Task<object> ExchangeBalance(ExchangeViewModel request, int UserId)
         {
-            string exchange = request.From + request.To;
+            string exchange = request.From.ToUpper() + request.To.ToUpper();
             return await _repositoryDashboard.ExchangeBalance(exchange, request.Amount, UserId);
         }
 

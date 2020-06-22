@@ -3,6 +3,7 @@ using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Administrator;
 using DBRepository.Interfaces;
 using Models;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -46,13 +47,15 @@ namespace Crypto.Services.Implementation
 
 		public async void UpdateBTCRate()
 		{
-			var uri = "https://blockchain.info/tobtc?currency=USD&value=1";
+			var uri = "https://api.kraken.com/0/public/Ticker?pair=XXBTZUSD";
 
 			HttpClient client = new HttpClient();
-			string data = await client.GetStringAsync(uri);
+			string JSON = await client.GetStringAsync(uri);
 
-			data = data.Replace(".", ",");
-			var rate = _mapper.Map<string, Balance>(data);
+			JObject jsonString = JObject.Parse(JSON);
+			double result = (double)jsonString["result"]["XXBTZUSD"]["p"][0];
+
+			var rate = _mapper.Map<double, Balance>(result);
 			await _repository.UpdateBTCRate(rate);
 		}
 
