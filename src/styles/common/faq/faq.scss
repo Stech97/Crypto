@@ -86,11 +86,9 @@
 				grid-template-rows: fit-content(100px);
 				grid-template-areas: "q q q q q q q d";
 				align-items: center;
-
 				h5 {
 					grid-area: q;
-					margin: 0;
-					margin-left: $gap;
+					margin: 0 0 0 $gap!important;
 				}
 
 				.arrow,

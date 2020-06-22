@@ -72,6 +72,25 @@ export const SvgSprite = () => {
 					<stop offset={0} stopColor="#005c9f" />
 					<stop offset={1} stopColor="#123273" />
 				</linearGradient>
+				<mask id="1dlrb" width="2" height="2" x="-1" y="-1">
+		          <path fill="#fff" d="M16 16h33v33H16z"></path>
+		          <path d="M25.752 16.193h12.98a9.728 9.728 0 019.733 9.74v12.986c0 5.386-4.35 9.74-9.734 9.74H25.752a9.727 9.727 0 01-9.733-9.74V25.933c0-5.386 4.35-9.74 9.733-9.74z"></path>
+		        </mask>
+		        <filter
+		          id="1dlra"
+		          width="99"
+		          height="99"
+		          x="-17"
+		          y="-17"
+		          filterUnits="userSpaceOnUse"
+		        >
+		          <feOffset in="SourceGraphic" result="FeOffset1084Out"></feOffset>
+		          <feGaussianBlur
+		            in="FeOffset1084Out"
+		            result="FeGaussianBlur1085Out"
+		            stdDeviation="9.2 9.2"
+		          ></feGaussianBlur>
+		        </filter>
 			</defs>
 			<symbol id="Line_news">
 				<path
@@ -258,6 +277,23 @@ export const SvgSprite = () => {
 		        <path
 		        	d="M31.113 15.383c0 8.436-6.836 15.27-15.272 15.27-8.438 0-15.273-6.834-15.273-15.27C.568 6.946 7.403.11 15.841.11c8.436 0 15.272 6.835 15.272 15.272zm-7.772-4.81c.222-1.034-.376-1.446-1.059-1.2L7.557 15.05c-1.01.395-.99.955-.172 1.213l3.769 1.176 8.745-5.505c.406-.27.782-.117.474.154l-7.076 6.392-.27 3.886c.394 0 .566-.173.77-.376l1.84-1.773 3.818 2.814c.696.394 1.195.19 1.38-.647z"
 		        ></path>
+			</symbol>
+			<symbol id="expand-plus">
+				<g filter="url(#1dlra)">
+			        <path
+			          fill="none"
+			          d="M25.752 16.193h12.98a9.728 9.728 0 019.733 9.74v12.986c0 5.386-4.35 9.74-9.734 9.74H25.752a9.727 9.727 0 01-9.733-9.74V25.933c0-5.386 4.35-9.74 9.733-9.74z"
+			          mask='url("#1dlrb")'
+			        ></path>
+			        <path
+			          fillOpacity="0.08"
+			          d="M25.752 16.193h12.98a9.728 9.728 0 019.733 9.74v12.986c0 5.386-4.35 9.74-9.734 9.74H25.752a9.727 9.727 0 01-9.733-9.74V25.933c0-5.386 4.35-9.74 9.733-9.74z"
+			        ></path>
+			      </g>
+			      <path
+			        fill="#fff"
+			        d="M25.752 16.193h12.98a9.728 9.728 0 019.733 9.74v12.986c0 5.386-4.35 9.74-9.734 9.74H25.752a9.727 9.727 0 01-9.733-9.74V25.933c0-5.386 4.35-9.74 9.733-9.74z"
+			      ></path>
 			</symbol>
 		</svg>
 	)

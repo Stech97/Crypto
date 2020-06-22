@@ -5,6 +5,9 @@ import LoginPage from './login/Login'
 import SignupPage from './signup/Signup'
 import DashContent from './dashboard/components/dashcontent/content'
 import InvestmentContent from './dashboard/components/investment/content'
+import FaqsContent from './dashboard/components/FAQs/content'
+import MarketingContent from './dashboard/components/marketing/content'
+import TeamContent from './dashboard/components/team/content'
 import waveimage from './styles/utils/img/waveimage.png'
 import stealthlogo from './styles/utils/img/stealth-logo.png'
 import worldmap2 from './styles/utils/img/worldmap2.png'
@@ -12,8 +15,6 @@ import joinusbackground from './styles/utils/img/joinus.png'
 import ConfirmEmail from './signup/ConfirmEmail'
 import AccountPage from './dashboard/Account'
 import InDevelopment from './dashboard/components/inDevelopment'
-import FaqsContent from './dashboard/components/FAQs/content'
-import MarketingContent from './dashboard/components/marketing/Marketing'
 import { ForgotPassword } from './signup/ForgotPassword'
 import { RestorePassword } from './signup/RestorePassword'
 
@@ -165,6 +166,11 @@ export const routes = [
             {
                 path: "/account/marketing",
                 component: MarketingContent,
+                Private: true,
+            },
+            {
+                path: "/account/team",
+                component: TeamContent,
                 Private: true,
             },            
             {

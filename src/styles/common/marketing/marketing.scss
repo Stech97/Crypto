@@ -69,7 +69,7 @@
 		grid-template-columns: repeat(4, $column);
 		grid-column-gap: $gap;
 		grid-template-rows: 4rem 1fr 1fr 1fr;
-		grid-template-areas:"fh fh fh fh"
+		grid-template-areas:"fh fh . ."
 							"ni nt nt nt"
 							"bi bt bt bt"
 							"ti tt tt tt"; 
@@ -84,11 +84,12 @@
 			font-family: "IBM Plex Sans";
 			font-size: 1.9rem;
 			font-weight: 500;
+			justify-self: center;
 		}
 
 		&-icon { 
 			align-self: center;
-			justify-self: start;
+			justify-self: center;
 
 			&-news {
 				grid-area: ni;

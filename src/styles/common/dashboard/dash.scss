@@ -1,12 +1,13 @@
 .dash {
     overflow-x: hidden;
+    height: 100vh;
     &-wrapper,
     &-wrapper-closed {
         padding: 0 $padding;
         margin: 0;
         display: grid;
         grid-template-columns: repeat(12, $column);
-        grid-template-rows: $account-header-height 1fr;
+        grid-template-rows: $account-header-height minmax(calc(100vh - 51px), min-content);
         grid-column-gap: $gap;
     }
     
@@ -41,14 +42,6 @@
         grid-template-columns: repeat(10, $column);
         grid-column-gap: $gap;
         grid-template-rows: 100%; 
-    }
-
-    .contentbox-closed {
-        grid-column: 2 / 13;
-    }
-    
-    .contentbox {
-        grid-column: 3 / 13;
 
         h2 {
             // Style for "FAQ’s"
@@ -78,6 +71,14 @@
         }
 
         padding-bottom: 20px;
+    }
+
+    .contentbox-closed {
+        grid-column: 2 / 13;
+    }
+    
+    .contentbox {
+        grid-column: 3 / 13;
     }
     .investments-wrapper {
         grid-area: c;
