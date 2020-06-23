@@ -33,7 +33,7 @@ namespace Crypto
 				}
 
 				var adminService = services.GetRequiredService<IAdministratorService>();
-				Helpers.TaskScheduler.Instance.ScheduleTask(0, 0, 24, () => { adminService.UpdateBTCRate(); });
+				Helpers.TaskScheduler.Instance.ScheduleTask(0, 5, () => { adminService.UpdateBTCRate(); });
 			}
 
 			host.Run();
