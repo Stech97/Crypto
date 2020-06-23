@@ -20,10 +20,10 @@ class ContentNewsTab extends Component {
 		return (
 			<div className="content-newslog-news-tab content-newslog-news-style">
 				<h4 className="content-newslog-news-tab-heading content-text-blue">
-					{tab.heading}
+					{tab.header}
 				</h4>
 				<h5 className="content-newslog-news-tab-text content-text-grey">
-					{this.state.isOpened ? tab.fulltext : tab.description }
+					{this.state.isOpened ? tab.body : tab.description }
 				</h5>
 				<h5
 					className="content-newslog-news-tab-button"
@@ -37,6 +37,11 @@ class ContentNewsTab extends Component {
 }
 
 class ContentNews extends Component {
+	
+	componentDidMount = () => {
+		this.props.getNewsAction()
+	}
+
 	render() {
 
 		const news = this.props.contentNews.news

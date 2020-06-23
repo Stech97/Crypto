@@ -31,16 +31,7 @@ export const getLoginHistory = () => {
 		let res = getLoginHistoryFetch()
 		.then(res => {
 			let logins = res.data.slice(0, amount)
-			logins.forEach((login, i) => {
-				let datetime = login.loginTime.split("T")
-				let date = datetime[0].split("-")
-				let time = datetime[1].split(":")
-				logins[i] = {
-					...logins[i],
-					date: date[2] + "." + date[1],
-					time: time[0] + ":" + time[1],
-				}
-			})
+			console.log(logins)
 			dispatch(getLoginHistorySuccess(logins))
 		}).catch(error => {
 			dispatch(getLoginHistoryError({

@@ -4,11 +4,11 @@ import { getLoginHistory } from '../../actions/loginhistory'
 
 class ContentLoginHistoryRow extends Component {
 	render() {
-		const { ip, country, date, time, loginTime } = this.props.tab
+		const { ip, country, loginTime } = this.props.tab
 		return(
 			<div className="content-newslog-loginhistory-row">
 				<h5 className="content-newslog-loginhistory-row-time">
-					{date + "/" + time}
+					{loginTime}
 				</h5>
 				<h5 className="content-newslog-loginhistory-row-ip">
 					{ip}

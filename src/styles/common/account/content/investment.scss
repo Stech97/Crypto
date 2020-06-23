@@ -1,0 +1,472 @@
+.investment-greytext {
+    color: #595b60;
+    font-family: "IBM Plex Sans";
+    text-align: center;
+}   
+
+.investments-whitetext {
+    color: #ffffff;
+    font-family: "IBM Plex Sans";
+    text-align: center;
+}
+
+.investment-bluetext {
+    color: #16428d;
+    font-family: "IBM Plex Sans";
+    text-align: center;
+}
+
+    .investments-box {
+        grid-column: 1 / 11;
+        display: grid;
+        grid-template-columns: 322fr 322fr 322fr;
+        grid-template-rows: 459px auto 33px 486px 33px 265px;
+        gap: 20px 60px; 
+        justify-items: center;
+        grid-template-areas:"box-small box-medium box-large" 
+                            "box-details box-details box-details" 
+                            ". box-calculatorheader ." 
+                            "box-calculator box-calculator box-calculator" 
+                            ". box-historyheader ." 
+                            "box-history box-history box-history";
+    }
+
+        .tariff-box-style {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+            border-radius: 30px 30px 30px 30px;
+            border: 1px solid #efefef;
+            display: grid;
+            grid-template-rows: 99px auto 98px;
+            gap: 30px 0;
+            align-items: center;
+        }
+
+            .tariff-box-header-style {
+                background-image: linear-gradient(247deg, #005c9f 0%, #123273 100%);
+                border-radius: 30px 30px 0px 0px;
+                height: 100%;
+        }
+            .tariff-box-text-style {
+                padding: 0 60px 0 60px;
+            }
+
+            .tariff-box-button-text-style {
+                margin: 10px 10px 10px 10px;
+            }
+
+            .tariff-box-button-style {
+                width: 13rem; /*208px*/
+                border-radius: 25px;
+                height: 51px;
+                /*margin-left: 50px;*/
+                background-image: linear-gradient(77deg, #16428d 0%, #005c9f 100%);
+                display: flex;
+                justify-content: center;
+                align-items: center; 
+            }
+
+            .tariff-box-button-style:hover {
+                border: 3px solid #16428d;
+                border-radius: 25px;
+                background-image: none;
+                background-color: #f5fbff;
+                color: #16428d;
+              }
+    
+        .investments-box-small {
+            grid-area: box-small;
+            grid-template-areas: "small-header" "small-text" "small-button";
+
+        }
+
+            .investments-box-small-header {
+                grid-area: small-header;
+            }
+
+            .investments-box-small-text {
+                grid-area: small-text;
+            }
+
+            .investments-box-small-buttonbox {
+                grid-area: small-button;
+                justify-self: center;
+            }
+   
+        .investments-box-medium {
+            grid-area: box-medium;
+            grid-template-areas: "medium-header" "medium-text" "medium-button";
+        }
+
+            .investments-box-medium-header {
+                grid-area: medium-header;
+            }
+
+            .investments-box-medium-text {
+                grid-area: medium-text;
+            }
+
+            .investments-box-medium-buttonbox {
+                grid-area: medium-button;
+                justify-self: center;
+            }
+
+        .investments-box-large {
+            grid-area: box-large;
+            grid-template-areas: "large-header" "large-text" "large-button";
+         }
+    
+            .investments-box-large-header {
+                 grid-area: large-header;
+            }
+    
+            .investments-box-large-text {
+                grid-area: large-text;
+            }
+    
+            .investments-box-large-buttonbox {
+                grid-area: large-button;
+                justify-self: center;
+            }
+
+                
+
+        .investments-box-details {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+            border-radius: 30px 30px 30px 30px;
+            border: 1px solid #efefef;
+            display: grid;
+            align-items: center;
+            grid-template-columns: 300px 731px 57px;
+            grid-template-rows: 70px auto; 
+            grid-area: box-details;
+            grid-template-areas: "details-headertext . details-headerarrow" "details-text details-text details-text";
+        }
+
+            .investments-box-details-headertext {
+             grid-area: details-headertext;
+             align-self: left;
+            }
+
+            .investments-box-details-headerarrow {
+                grid-area: details-headerarrow;
+                display: flex;
+                &>svg {
+			      width: auto;
+			      height: 1em;
+			      font-size: 1rem;
+			      fill: #123273;
+			      stroke: #123273;
+			    }
+			    &:hover {
+			      &>svg {
+			        fill: #ed7102;
+			        stroke: #ed7102;
+			      }
+			    }
+            }
+
+            .investments-box-details-text {
+                grid-area: details-text;
+                display: none;
+            }
+
+        .investments-box-calculatorheader {
+            grid-area: box-calculatorheader;
+        }
+
+        .investments-box-calculator {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+            padding-top: 30px;
+            border: 1px solid #efefef;
+            border-radius: 30px 30px 30px 30px;
+            display: grid;
+            gap: 30px 0;
+            align-items: center;
+            grid-template-columns: 217px 217px 217px 217px 217px;
+            grid-template-rows: 75px 75px 75px 75px; 
+            grid-area: box-calculator;
+            grid-template-areas: "calculator-investmentheader calculator-investment calculator-graph calculator-graph calculator-graph" 
+            "calculator-productheader calculator-product calculator-graph calculator-graph calculator-graph"
+            "calculator-profitheader calculator-profit calculator-graph calculator-graph calculator-graph"  
+            ". . calculator-weeklyearnings calculator-monthlyyearnings calculator-yearlyyearnings";
+        }
+
+            .investments-box-calculator-investmentheader {
+             grid-area: calculator-investmentheader;
+            }
+
+            .investments-box-calculator-investment {
+                border-radius: 30px 30px 30px 30px;
+                grid-area: calculator-investment;
+                background-image: linear-gradient(250deg, #005c9f 0%, #123273 100%);
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+                height: 75px;
+                display: grid;
+            }
+
+            .investments-form {
+            	justify-self: center;
+                align-self: center;
+                background-color: transparent;
+                border: none;
+                border-bottom: 3px solid #f5fbff;
+                width: 151px;
+                opacity: 0.7;
+                color: #ffffff;
+                font-size: 1.5rem;
+                font-family: "IBM Plex Sans";
+            }        
+
+            .investments-box-calculator-graph {
+                grid-area: calculator-graph;
+            }
+
+            .investments-box-calculator-productheader {
+                grid-area: calculator-productheader;
+            }
+   
+            .investments-box-calculator-product {
+                border-radius: 30px 30px 30px 30px;
+                grid-area: calculator-product;
+                display: grid;
+                grid-template-columns: 150px 15px 57px;
+                grid-template-rows: 70px auto;
+                grid-template-areas: "product-text . product-headerarrow";
+                background-image: linear-gradient(250deg, #005c9f 0%, #123273 100%);
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+                align-items: center;
+            }
+
+            .investments-box-calculator-product-text {
+                grid-area: product-text;
+            }
+
+            .investments-box-calculator-product-headerarrow {
+                grid-area: product-headerarrow;
+                display: flex;
+                &>svg {
+			      width: auto;
+			      height: 1em;
+			      font-size: 1rem;
+			      fill: #ffffff;
+			      stroke: #ffffff;
+			    }
+			    &:hover {
+			      &>svg {
+			        fill: #ed7102;
+			        stroke: #ed7102;
+			      }
+			    }
+            }
+   
+            .investments-box-calculator-profitheader {
+                grid-area: calculator-profitheader;
+            }
+
+            .investments-box-calculator-profit {
+                border-radius: 30px 30px 30px 30px;
+                grid-area: calculator-profit;
+                display: grid;
+                grid-template-columns: 135px 30px 57px;
+                grid-template-rows: 70px auto;
+                grid-template-areas: "profit-text . profit-headerarrow";
+                background-image: linear-gradient(250deg, #005c9f 0%, #123273 100%);
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+                align-items: center;
+            }
+
+            .investments-box-calculator-profit-text {
+                grid-area: profit-text;
+            }
+
+            .investments-box-calculator-profit-headerarrow {
+                grid-area: profit-headerarrow;
+                display: flex;
+                &>svg {
+			      width: auto;
+			      height: 1em;
+			      font-size: 1rem;
+			      fill: #ffffff;
+			      stroke: #ffffff;
+			    }
+			    &:hover {
+			      &>svg {
+			        fill: #ed7102;
+			        stroke: #ed7102;
+			      }
+			    }
+            }
+
+            .investments-box-calculator-weeklyearnings {
+                grid-area: calculator-weeklyearnings;
+               }
+   
+            .investments-box-calculator-monthlyyearnings {
+                grid-area: calculator-monthlyyearnings;
+            }
+   
+            .investments-box-calculator-yearlyyearnings {
+                grid-area: calculator-yearlyyearnings;
+            }
+
+        .investments-box-historyheader {
+            grid-area: box-historyheader;
+        }
+
+        .investments-box-history {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #efefef;
+            border-radius: 30px 30px 30px 30px;
+            display: grid;
+            grid-template-columns: 1088px;
+            grid-template-rows: 70px auto; 
+            grid-area: box-history;
+            grid-template-areas: "history-headers" "history-content";
+        }
+
+            .investments-box-history-headers {
+                display: grid;
+                align-items: center;
+                background-image: linear-gradient(83deg, #123273 0%, #005c9f 100%);
+                border-radius: 30px 30px 0px 0px;
+                grid-template-columns: 272px 272px 272px 272px;
+                grid-template-rows: 70px; 
+                grid-area: history-headers;
+                grid-template-areas: "headers-day headers-product headers-investment headers-profit";
+            }
+
+                .investments-box-history-headers-day {
+                    grid-area: headers-day;
+                }
+
+                .investments-box-history-headers-product {
+                    grid-area: headers-product;
+                }
+    
+                .investments-box-history-headers-investment {
+                    grid-area: headers-investment;
+                }
+    
+                .investments-box-history-headers-profit {
+                    grid-area: headers-profit;
+                }
+
+            .investments-box-history-content {
+                overflow-x: hidden;
+                overflow-y: auto;
+                scrollbar-width: none;
+                align-items: center;
+                display: grid;
+                grid-template-rows: 33px 33px 33px 33px; 
+                gap: 30px 0; 
+                grid-area: history-content;
+                grid-template-areas: 
+                "content-content1" 
+                "content-content2" 
+                "content-content3" 
+                "content-content4";
+            }
+
+            /*.investments-box-history-content ::-webkit-scrollbar {
+                    width: 10px;
+            }    
+            
+            .investments-box-history-content ::-webkit-scrollbar-button {
+                    visibility: hidden;
+                }
+
+            .investments-box-history-content ::-webkit-scrollbar-thumb {
+                    visibility: hidden;
+                }*/
+
+                .investments-box-history-content-content1 {
+                    grid-area: content-content1;
+                    display: grid;
+                    grid-template-columns: 272px 272px 272px 272px;
+                    grid-template-areas: "content1-day content1-product content1-investment content1-profit";
+                }
+
+                    .investments-box-history-content-content1-day {
+                        grid-area: content1-day;
+                    }
+
+                    .investments-box-history-content-content1-product {
+                        grid-area: content1-product;
+                    }
+
+                    .investments-box-history-content-content1-investment {
+                        grid-area: content1-investment;
+                    }                 
+
+                    .investments-box-history-content-content1-profit {
+                        grid-area: content1-profit;
+                    }   
+
+                .investments-box-history-content-content2 {
+                    grid-area: content-content2;
+                    display: grid;
+                    grid-template-columns: 272px 272px 272px 272px;
+                    grid-template-areas: "content2-day content2-product content2-investment content2-profit";
+                }
+
+                    .investments-box-history-content-content2-day {
+                        grid-area: content2-day;
+                    }
+
+                    .investments-box-history-content-content2-product {
+                        grid-area: content2-product;
+                    }
+
+                    .investments-box-history-content-content2-investment {
+                        grid-area: content2-investment;
+                    }                 
+
+                    .investments-box-history-content-content2-profit {
+                        grid-area: content2-profit;
+                    }   
+
+                .investments-box-history-content-content3 {
+                    grid-area: content-content3;
+                    display: grid;
+                    grid-template-columns: 272px 272px 272px 272px;
+                    grid-template-areas: "content3-day content3-product content3-investment content3-profit";
+                }
+
+                    .investments-box-history-content-content3-day {
+                        grid-area: content3-day;
+                    }
+
+                    .investments-box-history-content-content3-product {
+                        grid-area: content3-product;
+                    }
+
+                    .investments-box-history-content-content3-investment {
+                        grid-area: content3-investment;
+                    }                 
+
+                    .investments-box-history-content-content3-profit {
+                        grid-area: content3-profit;
+                    }   
+
+                .investments-box-history-content-content4 {
+                    grid-area: content-content4;
+                    display: grid;
+                    grid-template-columns: 272px 272px 272px 272px;
+                    grid-template-areas: "content4-day content4-product content4-investment content4-profit";
+                }            
+                
+                    .investments-box-history-content-content4-day {
+                        grid-area: content4-day;
+                    }
+
+                    .investments-box-history-content-content4-product {
+                        grid-area: content4-product;
+                    }
+
+                    .investments-box-history-content-content4-investment {
+                        grid-area: content4-investment;
+                    }                 
+
+                    .investments-box-history-content-content4-profit {
+                        grid-area: content4-profit;
+                    }   

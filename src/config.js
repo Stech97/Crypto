@@ -8,6 +8,8 @@ import InvestmentContent from './dashboard/components/investment/content'
 import FaqsContent from './dashboard/components/FAQs/content'
 import MarketingContent from './dashboard/components/marketing/content'
 import TeamContent from './dashboard/components/team/content'
+import SettingsContent from './dashboard/components/settings/content'
+import HistoryContent from './dashboard/components/history/content'
 import waveimage from './styles/utils/img/waveimage.png'
 import stealthlogo from './styles/utils/img/stealth-logo.png'
 import worldmap2 from './styles/utils/img/worldmap2.png'
@@ -172,10 +174,15 @@ export const routes = [
                 path: "/account/team",
                 component: TeamContent,
                 Private: true,
+            },
+            {
+                path: "/account/settings",
+                component: SettingsContent,
+                Private: true,
             },            
             {
-            	path: "/account/development",
-            	component: InDevelopment,
+            	path: "/account/history",
+            	component: HistoryContent,
             	Private: true,
             }
         ]

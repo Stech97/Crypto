@@ -24,7 +24,7 @@ class ContentBalanceDETSquare extends Component {
 				</div>
 				<div className="content-balance-coin-square content-whitebox-balance content-text-blue">
 					{ (isFetching || DET.isFetching) ?
-						<Loader type="Rings" color="#00BFFF" height={80} width={80}/>
+						<Loader type="Rings" color="#123273" height={80} width={80}/>
 					:
 						<Fragment>
 							<h5>DET { isFetching ? "Loading..." : amount }</h5>

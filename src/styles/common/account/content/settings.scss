@@ -1,0 +1,48 @@
+.settings {
+	
+	&-whitebox {
+		background: #ffffff;
+		box-shadow: 0 0 23px rgba(0, 0, 0, 0.06);
+		border: 1px solid #efefef;
+		border-radius: $gap;
+	}
+
+	&-orange-button {
+		border: 3px solid #ed7102;
+		background-color: #ffffff;
+		color: #ed7102;
+		font-family: "IBM Plex Sans";
+		font-size: 1rem;
+		font-weight: 500;
+		&:hover,
+		&:focus {
+			background-color: #ed7102;
+			color: #ffffff;
+		}
+	}
+
+	&-box {
+		display: grid;
+		grid-template-columns: repeat(8, $column);
+		grid-column-gap: $gap;
+		grid-template-rows: min-content;
+		grid-template-areas: "l l l l l r r r";
+	}
+
+	&-left {
+		grid-area: l;
+		grid-row-gap: 1.5*$gap;
+	}
+
+	&-right {
+		grid-area: r;
+		grid-row-gap: $gap;		
+	}
+
+	&-left,
+	&-right {
+		display: grid;
+		grid-template-rows: min-content;
+		grid-template-columns: 100%;
+	}
+}

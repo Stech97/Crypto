@@ -1,0 +1,291 @@
+.test-add-funds {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 99vw;
+	height: 100%;
+    background-image: linear-gradient(233deg, rgba(0, 92, 159, 0.8) 0%, rgba(18, 50, 115, 0.8) 100%);	opacity: 1;
+	z-index: 10;
+	content: "";
+
+	&-wrapper {
+		border-radius: 50px; 
+		padding-left: 138px;
+		padding-top: 46px;
+		padding-bottom: 68px;
+		padding-right: 64px;
+		left: calc(50% - 21.145vw);
+		top: calc(50% - 41.5vh);
+		position: fixed;
+		width: 42.29vw;
+		height: 83vh;
+		overflow: hidden;
+		z-index: 11;
+		background: #ffffff;
+		display: grid;
+		grid-auto-rows: fit-content;
+		grid-template-columns: calc(100% - 30px) 30px;
+		gap: 20px;
+		grid-template-areas: "header close" "text close" "min close" "input close" "submit close";
+		justify-items: start;
+		align-items: start;
+		overflow-x: hidden;
+
+	}
+
+	&-header {
+		h2 {
+			color: #123273;
+			font-family: "IBM Plex Sans";
+			font-size: 3.125rem;
+			font-weight: 500;
+		}
+		grid-area: header;
+	}
+	
+	&-close {
+		grid-area: close;
+	}
+
+	&-text {
+		p {
+			color: #838383;
+			font-family: "IBM Plex Sans";
+			font-size: 1.56rem;
+			font-weight: 400;
+		}
+		grid-area: text;
+	}
+
+	&-min {
+		display: grid;
+		grid-template-columns: 38px calc(100% - 38px);
+		grid-template-rows: 1fr; 
+		grid-template-areas: "image minamount";
+		gap: 0 10px;
+		align-items: center;
+		width: 446px;
+		img {
+			width: 38px;
+			height: 39px;
+			grid-area: image;
+		}
+
+		p {
+			margin: 0;
+			color: #123273;
+			font-family: "IBM Plex Sans";
+			font-size: 1.56rem;
+			font-weight: 500;
+			grid-area: minamount;
+		}
+
+		grid-area: min;
+	}
+
+	&-form {
+		display: grid;
+		grid-template-columns: 100%;
+		grid-auto-rows: min-content;
+		gap: 25px;
+		grid-auto-flow: row;
+		&-amount {
+			width: 100%;	
+			height: 38px;
+			font-size: 25px;
+			font-weight: 500;
+            text-align: left;
+            color: #838383;
+            background-color: #ebebeb;
+            border: none;
+            border-radius: 7px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+            padding: 5px 25px;
+			::placeholder {
+                color: #838383;
+                opacity: 0.7;
+            }
+            ::-webkit-input-placeholder {
+                color: #838383;
+                opacity: 0.7;
+            }
+		}
+
+		button {
+			@include button(220px, $button-height, $button-font-size);
+            @include button-light();
+            &[disabled] {
+            	border-color: #ebebeb;
+            	color: #838383;
+            	background-color: #ebebeb;
+            }
+		}
+	}
+}
+
+.exchangebox {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 99vw;
+	height: 100%;
+	z-index: 10;
+    background-image: linear-gradient(233deg, rgba(0, 92, 159, 0.8) 0%, rgba(18, 50, 115, 0.8) 100%);	opacity: 1;
+	content: "";
+
+	.exchange {
+		grid-area: exchange;
+		$width: 6*$column + 5*$gap;
+		$left: 50vw - $width*0.5;
+		left: $left;
+		top: calc(50vh - 4.5*65px - 50px);
+		width: 6*$column + 5*$gap;
+		position: fixed;
+		overflow-x: hidden;
+		z-index: 11;
+		
+		border-radius: 50px; 
+		background: #ffffff;
+		padding-bottom: 30px;
+		display: grid;
+		grid-template-columns: repeat(6, $column);
+		gap: 5px $gap;
+		grid-template-rows: 30px repeat(9, minmax(60px, min-content));
+		grid-template-areas:". . . . . ."
+							". h h h . c"
+							". s s r r ."
+							". . . . . ."
+							". f f f f ."
+							". f f f f ."
+							". f f f f ."
+							". f f f f ."
+							". f f f f ."
+							". f f f f ."
+							". . . . . .";
+		
+		align-items: center;
+		justify-items: start;
+
+		h1, h2, h3 {
+			margin: 0;
+		}
+
+		&-header {
+			grid-area: h;
+			font-size: 3.125rem;
+			font-weight: 500;
+		}
+
+		&-closeimg {
+			grid-area: c;
+			justify-self: start;
+		}
+
+		&-subheader {
+			grid-area: s;
+			// Style for "From USD t"
+			>h2 {
+				color: #123273;
+				font-family: "IBM Plex Sans";
+				font-size: 1.5625rem;
+				font-weight: 500;
+				text-align: left;
+			}
+		}
+
+		&-rate {
+			grid-area: r;
+		}
+
+		&-bluetext {
+		    font-family: "IBM Plex Sans";
+		    text-align: center;
+		    color: #123273;
+		  }
+
+		&-greytext {
+			font-family: "IBM Plex Sans";
+			text-align: center;
+			color: #838383;
+		}
+		
+
+
+		&-form {
+		    grid-area: f;
+		    display: grid;
+			grid-template-columns: 100%;
+			gap: 27px 0;
+			grid-template-rows: repeat(6, fit-content(60px)) 60px;
+			grid-template-areas:"l1"
+								"c1"
+								"im"
+								"im"
+								"l2"
+								"c2"
+								"bt";
+			align-self: center;
+
+			>h5 {
+				color: #123273;
+				align-self: end;
+			}
+
+			&-label1 {
+				grid-area: l1;
+			}
+			
+			&-label2 {
+				grid-area: l2;
+			}
+			
+			&-cur1 {
+				grid-area: c1;
+			}
+			
+			&-cur2 {
+				grid-area: c2;
+			}
+
+			&-img {
+				grid-area: im;
+				justify-self: center;
+
+			}
+
+			&-input {
+			    background-color: #ebebeb;
+			    border-radius: 10px;
+			    border: none;
+			    height: 45px;
+			    width: 407px;
+			    font-size: 1.2rem;
+			    text-align: left;
+			    font-family: "IBM Plex Sans";
+			    padding-left:10px;
+				color: #123273;
+
+			    &:placeholder {
+			    	color: #838383;
+			    }
+			}
+			
+
+		    &-button {
+		    	grid-area: bt;
+				width: 214px;
+				border-radius: 30px;
+				text-align: center;
+			  	font-family: "IBM Plex Sans";
+			  	font-size: 1.5rem;
+			  	border: 3px solid #ed7102;
+			  	background-color: #ffffff;
+				color: #ed7102;
+			  	&:hover {
+					background-color: #ed7102;
+					color: #ffffff;
+				}
+			}
+		}    
+	}
+}

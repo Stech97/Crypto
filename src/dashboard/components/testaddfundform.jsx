@@ -32,7 +32,6 @@ class TestAddFundsForm extends Component {
 		}
 
 		return(
-
 			<form
 				className="test-add-funds-form"
 				onSubmit={handleSubmit(submit)}

@@ -19,12 +19,18 @@ class ContentBalanceUSDSquare extends Component {
 					<h5>USD Balance</h5>
 				</div>
 				<div className="content-balance-dol-square content-whitebox-balance content-text-blue">
-					<h5>USD { isFetching ? "Loading..." : amount }</h5>
-					<h6 className="content-text-grey">
-						BTC {USD.isFetching ? "" : USD.btc}
-						<br />
-						DET {USD.isFetching ? "" : USD.det}
-					</h6>
+					{ (isFetching || USD.isFetching) ?
+						<Loader type="Rings" color="#123273" height={80} width={80}/>
+					:
+						<Fragment>
+							<h5>USD {amount}</h5>
+							<h6 className="content-text-grey">
+								BTC {USD.btc}
+								<br />
+								DET {USD.det}
+							</h6>
+						</Fragment>
+					}
 				</div>
 			</Fragment>
 		)

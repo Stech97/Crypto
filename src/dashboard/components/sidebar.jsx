@@ -107,7 +107,7 @@ class Sidebar extends Component {
 				{
 					id: 5,
 					name: "History",
-					path: "development"
+					path: "history"
 				},
 				{
 					id: 6,

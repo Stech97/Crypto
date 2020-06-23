@@ -11,22 +11,27 @@ body {
 
 @import "mixins/utility";
 
-@import "common/dashboard/dash";
+@import "common/account/dash";
 
-@import "common/dashboard/header";
+@import "common/account/header";
 
-@import "common/dashboard/sidebar";
+@import "common/account/sidebar";
 
-@import "common/dashboard/content";
+@import "common/account/modals";
 
-@import "common/investment/investment";
+@import "common/account/content/dashboard";
 
-@import "common/faq/faq";
+@import "common/account/content/investment";
 
-@import "common/marketing/marketing";
+@import "common/account/content/faq";
 
-@import 'common/team/team';
+@import "common/account/content/marketing";
 
-@import "common/dashboard/modals";
+@import 'common/account/content/team';
+
+@import 'common/account/content/settings';
+
+@import 'common/account/content/history';
+
 
 
