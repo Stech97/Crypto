@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -27,11 +28,17 @@ namespace Crypto
 				var services = scope.ServiceProvider;
 
 				var factory = services.GetRequiredService<IRepositoryContextFactory>();
-				using (var context = factory.CreateDbContext(config.GetConnectionString("DefaultConnection")))
+				try
 				{
-					await DbInitializer.Initialize(context);
+					using (var context = factory.CreateDbContext(config.GetConnectionString("DefaultConnection")))
+					{
+						await DbInitializer.Initialize(context);
+					}
 				}
-
+				catch (System.Data.SqlClient.SqlException e)
+				{
+					Environment.Exit(-1);
+				}
 				var adminService = services.GetRequiredService<IAdministratorService>();
 				Helpers.TaskScheduler.Instance.ScheduleTask(0, 5, () => { adminService.UpdateBTCRate(); });
 			}

@@ -58,12 +58,6 @@ namespace Crypto.Services.Implementation
 			var rate = _mapper.Map<double, Balance>(result);
 			await _repository.UpdateBTCRate(rate);
 		}
-
-		public async Task<List<RefUserViewModel>> GetRef(int Ref)
-		{
-			var response = await _repository.GetRef(Ref);
-			return _mapper.Map<List<User>, List<RefUserViewModel>>(response);
-		}
         #region Dev
         public async Task<List<UserViewModel>> GetUsers()
 		{

@@ -102,5 +102,12 @@ namespace Crypto.Controllers
         }
 
         #endregion
+
+        [Route("GetTeam")]
+        [HttpGet]
+        public async Task<IActionResult> GetTeam(int Ref)
+        {
+            return Ok(await _dashboardService.GetTeam(Ref));
+        }
     }
 }

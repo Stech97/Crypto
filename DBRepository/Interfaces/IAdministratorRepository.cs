@@ -15,6 +15,5 @@ namespace DBRepository.Interfaces
         Task DelUser(int Id);
         Task<List<object>> GetUsers();
         #endregion
-        Task<List<User>> GetRef(int Ref);
     }
 }

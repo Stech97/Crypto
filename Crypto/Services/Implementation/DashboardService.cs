@@ -11,12 +11,10 @@ namespace Crypto.Services.Implementation
     public class DashboardService : IDashboardService
     {
         readonly IDashboardRepository _repositoryDashboard;
-        readonly IIdentityRepository _repositorIidentity;
         readonly IMapper _mapper;
-        public DashboardService(IDashboardRepository repositoryDashboard, IIdentityRepository repositorIidentity, IMapper mapper)
+        public DashboardService(IDashboardRepository repositoryDashboard, IMapper mapper)
         {
             _repositoryDashboard = repositoryDashboard;
-            _repositorIidentity = repositorIidentity;
             _mapper = mapper;
         }
 
@@ -63,6 +61,11 @@ namespace Crypto.Services.Implementation
             var rate = request.From + request.To;
             return await _repositoryDashboard.GetRate(rate);
 
+        }
+        public async Task<List<RefUserViewModel>> GetTeam(int Ref)
+        {
+            var response = await _repositoryDashboard.GetTeam(Ref);
+            return _mapper.Map<List<User>, List<RefUserViewModel>>(response);
         }
 
     }
