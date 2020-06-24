@@ -91,14 +91,11 @@
 					margin: 0 0 0 $gap!important;
 				}
 
-				.arrow,
-				.arrow-closed {
+				>.arrow,
+				>.arrow-closed {
 					grid-area: d;
 					fill: #707070;
 					stroke: #707070;
-					height: 1em;
-					width: auto;
-					font-size: 0.8rem;
 					justify-self: center;
 				}
 

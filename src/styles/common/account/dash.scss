@@ -77,6 +77,13 @@
         }
 
         padding-bottom: 20px;
+
+        .arrow,
+        .arrow-closed {
+            height: 1em;
+            width: auto;
+            font-size: 0.8rem;
+        }
     }
 
     .contentbox-closed {

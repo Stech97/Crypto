@@ -5,7 +5,7 @@ import createPlotlyComponent from 'react-plotly.js/factory'
 
 const Plot = createPlotlyComponent(Plotly)
 
-const HistoryRecord = ({record: { time, type, amount, balance }}) => {
+export const HistoryRecord = ({record: { time, type, amount, balance }}) => {
 	return(
 		<div className="history-balance-content-row">
 			<h5 className="history-balance-content-row-column">{time}</h5>
@@ -130,8 +130,6 @@ export default class HistoryContent extends Component {
 			<div className="history-box">
 				<Helmet>
 					<title>History</title>
-					<script crossorigin src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-					<script crossorigin src="https://unpkg.com/react-plotly.js@1.0.2/dist/create-plotly-component.js"></script>
 				</Helmet>
 				<div className="history-statistics">
 					<h3 className="history-statistics-header">My Statistics</h3>
