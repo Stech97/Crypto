@@ -120,7 +120,7 @@ namespace Crypto.Controllers
         }
 
         //[Authorize]
-        [Route("GetTotalProfit")]
+        [Route("GetTotalProfitInvest")]
         [HttpGet]
         public async Task<IActionResult> GetTotalProfit(int Id)
         {
