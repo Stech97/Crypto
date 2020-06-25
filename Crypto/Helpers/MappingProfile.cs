@@ -67,7 +67,7 @@ namespace Crypto
 			CreateMap<UpdateInfoViewModel, User>();
 
 			CreateMap<BuyInvestmentViewModel, Investment>()
-				.ForMember(m => m.Type, opt => opt.MapFrom(m => m.Type))
+				.ForMember(m => m.TypeInvestmentId, opt => opt.MapFrom(m => m.Type))
 				.ForMember(m => m.AddCash, opt => opt.MapFrom(m => m.SumInvestment))
 				.ForMember(m => m.DateInvestment, opt => opt.MapFrom(m => DateTime.Now))
 				.ForMember(m => m.Profit, opt => opt.MapFrom(m => 0));

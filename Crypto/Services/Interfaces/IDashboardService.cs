@@ -17,5 +17,6 @@ namespace Crypto.Services.Interfaces
         Task<double> GetTotalProfit(int Id);
         Task<double> GetTotalInvestment(int Id);
         Task<int> GetTotalMembers(int Id);
+        Task<double> GetLastDayProfit(int Id);
     }
 }

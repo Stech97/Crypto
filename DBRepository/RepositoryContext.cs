@@ -17,6 +17,8 @@ namespace DBRepository
         public DbSet<ConfirmEmail> ConfirmEmails { get; set; }
         public DbSet<ForgotPassword> ForgotPasswords { get; set; }
 
+        public DbSet<TypeInvestment> TypeInvestments { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
             #region User
@@ -70,6 +72,13 @@ namespace DBRepository
             modelBuilder.Entity<ForgotPassword>().Property(fp => fp.Username).IsRequired();
             modelBuilder.Entity<ForgotPassword>().Property(fp => fp.Email).IsRequired();
             #endregion
+
+            #region Type Investment
+            modelBuilder.Entity<TypeInvestment>().ToTable("TypeInvestment");
+            modelBuilder.Entity<TypeInvestment>().Property(ti => ti.Persent).IsRequired();
+            modelBuilder.Entity<TypeInvestment>().Property(ti => ti.Type).IsRequired();
+            #endregion
+
         }
     }
 }

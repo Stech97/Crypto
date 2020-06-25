@@ -1,6 +1,7 @@
 ﻿using DBRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -63,7 +64,44 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				await context.Investments.Where(i => i.Type == "Small" || i.Type == "small" && i.IsFullInvest == false).ForEachAsync(i => { i.Profit = i.AddCash * 5; });
+				var Invests = await context.Investments.ToListAsync();
+
+				foreach (var Invest in Invests)
+				{
+					var Persent = (await context.TypeInvestments.AsNoTracking().FirstOrDefaultAsync(ti => ti.Id == Invest.TypeInvestmentId)).Persent;
+					if (Invest.Profit == 0)
+					{
+						var Profit = Invest.AddCash * Persent / 100;
+						Invest.Profit = Profit;
+					}
+					else
+					{
+						if (!Invest.IsFullInvest)
+						{
+							var Profit = Invest.Profit * Persent / 100;
+							Invest.Profit += Profit;
+							if (Invest.Profit >= Invest.AddCash * 3)
+							{
+								Invest.IsFullInvest = true;
+								Invest.Profit = Invest.AddCash * 3;
+							}
+						}
+						else
+						{
+							bool ReInvest = (await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Invest.UserId)).IsReInvest;
+							var Balance = await context.Balances.FirstOrDefaultAsync(b => b.UserId == Invest.UserId);
+
+							if (ReInvest && Balance.DefimaBalance > Invest.AddCash)
+							{
+								Invest.IsFullInvest = false;
+								Invest.Profit = 0;
+								Balance.DefimaBalance -= Invest.AddCash;
+								context.Balances.Update(Balance);
+							}
+						}
+					}
+					context.Investments.Update(Invest);
+				}
 			}
 		}
 

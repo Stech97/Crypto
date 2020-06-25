@@ -82,6 +82,10 @@ namespace Crypto.Services.Implementation
         {
             return await _repositoryDashboard.GetTotalMembers(Id);
         }
+        public async Task<double> GetLastDayProfit(int Id)
+        {
+            return await _repositoryDashboard.GetLastDayProfit(Id);
+        }
 
     }
 }

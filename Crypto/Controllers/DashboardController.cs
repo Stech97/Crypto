@@ -3,6 +3,7 @@ using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Dashdoard;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Crypto.Controllers
 {
@@ -139,6 +140,18 @@ namespace Crypto.Controllers
             var response = new
             {
                 TotalMember = await _dashboardService.GetTotalMembers(Id)
+            };
+            return Ok(response);
+        }
+
+        //[Authorize]
+        [Route("GetLastDayProfit")]
+        [HttpGet]
+        public async Task<IActionResult> GetLastDayProfit(int Id)
+        {
+            var response = new
+            {
+                LastDayProfit = await _dashboardService.GetLastDayProfit(Id)
             };
             return Ok(response);
         }

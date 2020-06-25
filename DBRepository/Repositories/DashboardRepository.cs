@@ -176,9 +176,16 @@ namespace DBRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var x = await context.Investments.AsNoTracking().FirstOrDefaultAsync(i => i.UserId == Id);
-                return x.Profit;
-                //профит за последее 24 часа  поднять его до контроллера 
+                if (DateTime.Now.DayOfWeek == DayOfWeek.Friday)
+                {
+                    //профит за последее 24 часа(с "комиссией" команды)
+                    var x = await context.Investments.AsNoTracking().FirstOrDefaultAsync(i => i.UserId == Id);
+                    return x.Profit;
+                }
+                else 
+                {
+                    return 0;
+                } 
             }
         }
 
@@ -205,6 +212,7 @@ namespace DBRepository.Repositories
                     .Where(i => i.UserId == UserId).SumAsync(i => i.AddCash);
         }
 
+        #region Private
         private IEnumerable<User> GetChildrenByParentIdTeam(int parentId, ref int countLevel)
         {
             var children = new List<User>();
@@ -243,6 +251,7 @@ namespace DBRepository.Repositories
                 }
             }
         }
+        #endregion
     }
 }
                                                                                                                                                         
