@@ -161,7 +161,9 @@ class InvestmentProfit extends Component {
 					family: 'IBM Plex Sans, sans-serif',
 					size: 25,
 					color: '#838383'
-				}
+				},
+				showticklabels: false,
+				side: 'right'
 			},
 			xaxis: {
 				title: 'Time',
@@ -181,7 +183,7 @@ class InvestmentProfit extends Component {
 						Investment
 					</h3>
 					<div className="investment-profit-content-box-1">
-						<input type="text"/>
+						<input type="text" value="$1000"/>
 					</div>
 					<h3 className="investment-profit-content-header-2">
 						Product

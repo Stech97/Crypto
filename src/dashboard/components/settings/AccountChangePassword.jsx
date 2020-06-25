@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { getFormValues, reduxForm, Field } from 'redux-form'
 
-export default class AccountChange extends Component {
+class AccountChange extends Component {
 	render() {
 		
 		const passField = ({input, id, type, placeholder}) => {
@@ -10,15 +10,16 @@ export default class AccountChange extends Component {
 					{...input}
 					type= {type}
 					placeholder = {placeholder}
+					className = "settings-change-form-input"
 				/>
 			)
 		}
 		
 		return(
 			<div className="settings-change settings-whitebox">
-				<h5 className="settings-change-header">
+				<h3 className="settings-change-header">
 					Change Password
-				</h5>
+				</h3>
 				<form action="" className="settings-change-form">
 					<Field
 						component = {passField}
@@ -38,3 +39,7 @@ export default class AccountChange extends Component {
 		)
 	}
 }
+
+export default reduxForm({
+	form: 'AccountChange'
+})(AccountChange)

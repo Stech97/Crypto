@@ -3,13 +3,16 @@ import React, { Component, Fragment } from 'react'
 export default class AccountReinvest extends Component {
 	render() {	
 		return(
-			<div className="settings-reinvest settings-whitebox">
+			<div className="settings-reinvest">
 				<h5 className="settings-reinvest-header">
 					Automatic Re-Invest
 				</h5>
-				<div className="settings-reinvest-form">
-					<label htmlFor="reinvest">Enable Auto Re-Invest</label>
-					<input id="reinvest" type="checkbox"/>
+				<div className="settings-reinvest-form settings-whitebox">
+					<label className="settings-reinvest-form-checkbox" htmlFor="reinvest">
+						<input id="reinvest" type="checkbox"/>
+						<span className="slider round"></span>
+						<span className="settings-reinvest-form-checkbox-span">Enable Auto Re-Invest</span>
+					</label>
 					<div className="settings-reinvest-form-text">
 						<p>When automatic re-invest ON, 
 						Defima will automatically buy new 

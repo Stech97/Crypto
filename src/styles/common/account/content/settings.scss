@@ -1,5 +1,5 @@
 .settings {
-	
+
 	&-whitebox {
 		background: #ffffff;
 		box-shadow: 0 0 23px rgba(0, 0, 0, 0.06);
@@ -44,5 +44,445 @@
 		display: grid;
 		grid-template-rows: min-content;
 		grid-template-columns: 100%;
+	}
+
+	&-info {
+		display: grid;
+		grid-template-columns: repeat(5, $column);
+		grid-column-gap: $gap;
+		grid-template-rows: min-content min-content;
+		grid-row-gap: 2rem;
+		grid-template-areas:"ih ih ih .  . "
+							"if if if if if";
+		align-items: center;
+		justify-items: start;
+
+		&-header {
+			grid-area: ih;
+			color: #123273;
+			padding-left: $gap;
+		}
+
+		&-form {
+			grid-area: if;
+			display: grid;
+			grid-template-columns: 100%;
+			grid-template-rows: 1rem repeat(3, min-content) 1rem;
+			grid-row-gap: 1rem;
+			grid-template-areas: "." "textform" "checkbox" "but" ".";
+			width: 100%;
+
+			&-text {
+				grid-area: textform;
+
+				display: grid;
+				grid-template-columns: $gap / 2 1fr 2fr $gap / 2;
+				grid-gap: $gap;
+				grid-auto-rows: 2rem;
+				grid-row-gap: 0.5rem;
+				
+				>label {
+					grid-column: 2 / 3;
+					// Style for "E-Mail"
+					color: #16428d;
+					font-family: "IBM Plex Sans";
+					font-size: 1rem;
+					font-weight: 500;
+				}
+
+				>input {
+					grid-column: 3 / 4;
+					border: none;
+					border-bottom: 2px solid #838383;
+					color: #16428d;
+					font-family: "IBM Plex Sans";
+					font-size: 0.8rem;
+					font-weight: 500;
+					opacity: 0.5;
+
+					&:placeholder {
+						opacity: 0.5;
+						color: #838383;
+
+					}
+				}
+			}
+			
+			&-checkbox {
+				grid-area: checkbox;
+				display: grid;
+				grid-template-columns: $gap/2 1fr $gap/2;
+				grid-column-gap: $gap;
+				width: 100%;
+				align-items: center;
+				justify-items: start;
+
+				>label {
+					grid-column: 2 / 3;
+					height: 100%;
+
+					>input {
+						position: absolute;
+						opacity: 0;
+						cursor: pointer;
+						height: 0;
+						width: 0;
+						
+						&:checked {
+							~ {
+								.checkmark-sponsor {
+									background-color: #838383;
+								}
+							}
+						}
+					}
+
+					display: block;
+					position: relative;
+					padding-left: 45px;
+					cursor: pointer;
+					user-select: none;
+					
+					height: 100%;
+					font-family: "IBM Plex Sans";
+					color: #838383;
+					font-size: 0.8rem;
+					line-height: 2;
+
+					&:hover {
+						>input {
+							~ {
+								.checkmark-sponsor {
+									background: #838383;
+									opacity: 0.2;
+								}
+							}
+						}
+					}
+				}
+
+				.checkmark-sponsor {
+					position: absolute;
+					top: 0;
+					left: 0;
+					height: 1.5rem;
+					width: 1.5rem;
+					background-color: rgba(245,251,255,0);
+					border: 3px solid #838383;
+					border-radius: 0.5rem;
+				}
+			}
+
+			&-button {
+				grid-area: but;
+				display: grid;
+				grid-template-columns: $gap/2 1fr $gap/2;
+				grid-column-gap: $gap;
+				width: 100%;
+				align-items: center;
+				justify-items: start;
+
+				>button {
+					grid-column: 2 / 3;
+					border: 3px solid #ed7102;
+					height: 3rem;
+					width: 4*$gap;
+					background: transparent;
+					color: #ed7102;
+					font-family: "IBM Plex Sans";
+					font-size: 1rem;
+					font-weight: 500;
+					border-radius: 1.5rem;
+					
+					&:hover,
+					&:focus {
+						color: #ffffff;
+						background: #ed7102;
+					}
+				}
+			}
+		}
+	}
+
+	&-verification {
+		display: grid;
+		grid-template-columns: repeat(5, $column);
+		grid-column-gap: $gap;
+		grid-template-rows: min-content min-content;
+		grid-row-gap: 2rem;
+		grid-template-areas:"vh vh vh .  . "
+							"vb vb vb vb vb";
+		align-items: center;
+		justify-items: start;
+
+		&-header {
+			grid-area: vh;
+			color: #123273;
+			padding-left: $gap;
+		}
+
+		&-box {
+			grid-area: vb;
+			width: 100%;
+
+			display: grid;
+			grid-template-columns: $gap/2 1fr 1fr $gap/2;
+			grid-template-rows: 1rem repeat(3, 3rem) 4rem 1rem;
+			grid-gap: 1rem $gap;
+			grid-template-areas:". .  .  ."
+								". uh ub ."
+								". ph pb ."
+								". sh sb ."
+								". bb .  ."
+								". .  .  .";
+			align-items: center;
+			justify-items: start;
+			
+			>h5 {
+				// Style for "Upload Pas"
+				color: #16428d;
+			}
+			
+			&-upload,
+			&-proof,
+			&-selfie {
+				&-gray-button {
+					border: 3px solid #838383;
+					background: transparent;
+					height: 2rem;
+					width: $column + 2*$gap;
+					border-radius: 1rem;
+					color: #838383;
+					font-family: "IBM Plex Sans";
+					font-size: 1rem;
+					font-weight: 500;
+
+					&:hover,
+					&:focus {
+						background: #838383;
+						color: #ffffff;
+					}
+				}
+			}
+
+			&-upload {
+				grid-area: uh;
+				
+				&-gray-button {
+					grid-area: ub;
+				}
+			}
+
+			&-proof {
+				grid-area: ph;
+				
+				&-gray-button {
+					grid-area: pb;
+				}
+			}
+
+			&-selfie {
+				grid-area: sh;
+				
+				&-gray-button {
+					grid-area: sb;
+				}
+			}
+
+			&-button {
+				grid-area: bb;
+				border: 3px solid #ed7102;
+				height: 3rem;
+				width: $column+ 2*$gap;
+				border-radius: 1.5rem;
+				color: #ed7102;
+				font-family: "IBM Plex Sans";
+				font-size: 1rem;
+				font-weight: 500;
+			}
+		}
+	}
+
+	&-change {
+		display: grid;
+		grid-template-columns: repeat(3, $column);
+		grid-column-gap: $gap;
+		grid-template-rows: 1rem repeat(2, min-content) 1rem;
+		grid-row-gap: 2rem;
+		grid-template-areas:".  .  . "
+							"ch ch ch"
+							"cf cf cf"
+							".  .  . ";
+		align-items: center;
+		justify-items: center;
+
+		&-header {
+			grid-area: ch;
+			color: #123273;
+			font-size: 1rem!important;
+		}
+
+		&-form {
+			grid-area: cf;
+			display: grid;
+			grid-template-columns: $gap/2 1fr $gap/2;
+			grid-template-rows: 2rem 2rem 4rem;
+			grid-row-gap: 1.5rem;
+			align-items: center;
+
+			>input,
+			>button {
+				grid-column: 2 / 3;
+			}
+			
+			&-input {
+				box-shadow: 0 0 23px rgba(0, 0, 0, 0.06);
+				height: 100%;
+				background-color: #ebebeb;
+				border: none;
+				border-radius: 0.5rem;
+				text-align: center;
+				font-family: "IBM Plex Sans";
+				font-weight: 500;
+				font-size: 0.8rem;
+				color: #123273;
+
+				&:placeholder {
+					color: #838383;
+				}
+			}
+
+			&-button {
+				border: 3px solid #ed7102;
+				height: 3rem;
+				width: 100%;
+				border-radius: 1.5rem;
+				color: #ed7102;
+				font-family: "IBM Plex Sans";
+				font-size: 1rem;
+				font-weight: 500;
+				background: transparent;
+
+				&:hover,
+				&:focus {
+					color: #ffffff;
+					background-color: #ed7102;
+				}
+			}
+		}
+	}
+
+	&-reinvest {
+		display: grid;
+		grid-template-columns: repeat(3, $column);
+		grid-column-gap: $gap;
+		grid-template-rows: repeat(2, min-content);
+		grid-row-gap: 2rem;
+		grid-template-areas:"rh rh rh"
+							"rf rf rf";
+		
+		align-items: center;
+		justify-items: center;
+
+		&-header {
+			grid-area: rh;
+			color: #123273;
+		}
+
+		&-form {
+			grid-area: rf;
+
+			display: grid;
+			grid-template-columns: $gap / 2 1fr $gap / 2;
+			grid-template-rows: 1rem 3rem min-content 1rem;
+			grid-gap: 2rem $gap;
+			grid-template-areas:". . ."
+								". checkbox ."
+								". text ."
+								". . .";
+
+			&-checkbox {
+				grid-area: checkbox;
+				display: grid;
+				grid-template-columns: 4rem 1fr;
+				grid-column-gap: 1rem;
+				grid-template-areas: ". sp";
+				position: relative;
+				
+				>input {
+					opacity: 0;
+					width: 0;
+					height: 0;
+				}
+
+				>.slider {
+					position: absolute;
+					cursor: pointer;
+					top: 0.5rem;
+					left: 0;
+					height: 1rem;
+					width: 3rem;
+					background-color: #838383;
+					-webkit-transition: .4s;
+					transition: .4s;
+				}
+
+				>.slider:before {
+					position: absolute;
+					content: "";
+					top: -0.5rem;
+					height: 2rem;
+					width: 2rem;
+					display: grid;
+					align-items: center;
+
+					background-color: #838383;
+					-webkit-transition: .4s;
+					transition: .4s;
+				}
+
+				>input:checked + .slider {
+					background-color: #16428d;
+				}
+
+				>input:focus + .slider {
+					box-shadow: 0 0 5px #16428d;
+				}
+
+				>input:checked + .slider:before {
+				 	transform: translateX(1.5rem);
+				 	background-color: #16428d;
+				}
+
+				.round {
+					border-radius: 1rem;
+
+					&:before {
+						border-radius: 50%;
+					}
+				}
+
+				&-span {
+					grid-area: sp;
+					justify-self: end;
+					align-self: center;
+					color: #123273;
+					font-family: "IBM Plex Sans";
+					font-size: 16px;
+					font-weight: 500;
+				}
+			}
+
+			&-text {
+				grid-area: text;
+
+				p {
+					color: #838383;
+					font-family: "IBM Plex Sans";
+					font-size: 0.8rem;
+					font-weight: 500;
+				}
+			}
+		}
 	}
 }

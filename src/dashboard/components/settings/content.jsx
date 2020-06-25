@@ -14,7 +14,6 @@ export default class SettingsContent extends Component {
 					<AccountVerification />
 				</div>
 				<div className="settings-right">
-					<AccountSecurity />
 					<AccountChange />
 					<AccountReinvest />
 				</div>

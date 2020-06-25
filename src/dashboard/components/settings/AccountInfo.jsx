@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { getFormValues, reduxForm, Field } from 'redux-form'
 
-export default class AccountInfo extends Component {
+class AccountInfo extends Component {
 	render() {
 		
 		const infoField = ({input, info: {id, label, type, placeholder}}) => {
@@ -76,7 +76,7 @@ export default class AccountInfo extends Component {
 		]
 
 		return(
-			<div className="settings-info ">
+			<div className="settings-info">
 				<h3 className="settings-info-header">
 					Account Information
 				</h3>
@@ -94,12 +94,21 @@ export default class AccountInfo extends Component {
 						}
 					</div>
 					<div className="settings-info-form-checkbox">
-						<label htmlFor="">Show my Information to your Sponsor</label>
-						<input type="checkbox"/>
+						<label htmlFor="sponsor">
+							<input id="sponsor" type="checkbox"/>
+							<span className="checkmark-sponsor"></span>
+							<span>Show my Information to your Sponsor</span>
+						</label>
 					</div>
-					<button type="submit" className="settings-info-form-button">Save</button>
+					<div className="settings-info-form-button">
+						<button type="submit" >Save</button>
+					</div>
 				</form>
 			</div>
 		)
 	}
 }
+
+export default reduxForm({
+	form: 'AccountInfo'
+})(AccountInfo)
