@@ -148,51 +148,100 @@ namespace DBRepository.Repositories
             }
         }
 
-        public async Task<List<User>> GetTeam(int Ref)
+        public async Task<User> GetTeam(int Ref)
         {
+            int countLevel = 0;
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var RefUsers = await context.Users.Where(u => u.Id == Ref)
+                var RefUser = await context.Users.AsNoTracking().Where(u => u.Id == Ref)
                     .Select(u => new User
                     {
                         Id = u.Id,
                         ParentId = u.ParentId ?? 0,
                         RefLink = u.RefLink
-                    }).ToListAsync();
-                foreach (var RefUser in RefUsers)
-                {
-                    RefUser.Children = GetChildrenByParentId(RefUser.Id);
-                }
-                return RefUsers;
+                    }).FirstOrDefaultAsync();
+                
+                RefUser.Children = GetChildrenByParentIdTeam(RefUser.Id, ref countLevel);
+                return RefUser;
             }
         }
 
-        private IEnumerable<User> GetChildrenByParentId(int parentId)
+        public async Task<double> GetTotalProfit(int Id)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+                return await context.Investments.AsNoTracking().Where(i => i.UserId == Id).SumAsync(i => i.Profit);
+        }
+
+        public async Task<double> GetLastDayProfit(int Id)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var x = await context.Investments.AsNoTracking().FirstOrDefaultAsync(i => i.UserId == Id);
+                return x.Profit;
+                //профит за последее 24 часа  поднять его до контроллера 
+            }
+        }
+
+        public async Task<int> GetTotalMembers(int Id)
+        {
+            int count = 0;
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var RefUser = await context.Users.Where(u => u.Id == Id)
+                    .Select(u => new User
+                    {
+                        Id = u.Id,
+                        ParentId = u.ParentId ?? 0
+                    }).FirstOrDefaultAsync();
+                GetChildrenByParentId(RefUser.Id, ref count);
+            }
+            return count;
+        }
+
+        public async Task<double> GetTotalInvestment(int UserId)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+                return await context.Investments.AsNoTracking()
+                    .Where(i => i.UserId == UserId).SumAsync(i => i.AddCash);
+        }
+
+        private IEnumerable<User> GetChildrenByParentIdTeam(int parentId, ref int countLevel)
         {
             var children = new List<User>();
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                int countLevel = 0;
                 var RefUsers = context.Users.Where(u => u.ParentId == parentId);
-
                 foreach (var Ref in RefUsers)
                 {
-                    countLevel++;
-                    if (countLevel == 7)
+                   if (countLevel > 7)
                         return children;
                     var thread = new User
                     {
                         Id = Ref.Id,
                         ParentId = Ref.ParentId ?? 0,
                         RefLink = Ref.RefLink,
-                        Children = GetChildrenByParentId(Ref.Id)
+                        Children = GetChildrenByParentIdTeam(Ref.Id, ref countLevel)
                     };
 
                     children.Add(thread);
+                    if (thread.Children.Count() == 0)
+                        countLevel++;
                 }
             }
-
             return children;
+        }
+
+        private void GetChildrenByParentId(int parentId, ref int count)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var RefUsers = context.Users.Where(u => u.ParentId == parentId);
+                count += RefUsers.Count();
+                foreach (var Ref in RefUsers)
+                {
+                    GetChildrenByParentId(Ref.Id, ref count);
+                }
+            }
         }
     }
 }

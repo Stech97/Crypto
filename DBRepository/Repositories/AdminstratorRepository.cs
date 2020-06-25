@@ -59,6 +59,14 @@ namespace DBRepository.Repositories
 			}
 		}
 
+		public async Task AddProfit()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				await context.Investments.Where(i => i.Type == "Small" || i.Type == "small" && i.IsFullInvest == false).ForEachAsync(i => { i.Profit = i.AddCash * 5; });
+			}
+		}
+
         #region Dev
         public async Task DelUser(int Id)
 		{

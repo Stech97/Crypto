@@ -24,14 +24,6 @@ namespace Crypto.Controllers
 		{
 			return Ok(await _investmentService.GetInvestments(UserId, Take));
 		}
-		
-		//[Authorize]
-		[Route("GetTotalInvestment")]
-		[HttpGet]
-		public async Task<IActionResult> GetTotalInvestment(int UserId)
-		{
-			return Ok(await _investmentService.GetTotalInvestment(UserId));
-		}
 
 		//[Authorize]
 		[Route("GetLastDayInvestment")]

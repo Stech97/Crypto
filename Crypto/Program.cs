@@ -37,6 +37,8 @@ namespace Crypto
 				}
 				catch (System.Data.SqlClient.SqlException e)
 				{
+					Console.Beep();
+					Console.WriteLine(e.Message);
 					Environment.Exit(-1);
 				}
 				var adminService = services.GetRequiredService<IAdministratorService>();

@@ -6,6 +6,7 @@ using Crypto.ViewModels.Identity;
 using Crypto.ViewModels.Dashdoard;
 using Crypto.ViewModels.Administrator;
 using Crypto.ViewModels.Investment;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Crypto
 {
@@ -33,7 +34,9 @@ namespace Crypto
 			
 			CreateMap<EmailViewModel, EmailAddres>();
 
-			CreateMap<LoginViewModel, User>();
+			CreateMap<LoginViewModel, User>()
+				.ForMember(m => m.IsReInvest, opt => opt.MapFrom(x => false))
+				.ForMember(m => m.IsVerified, opt => opt.MapFrom(x => false));
 
 			CreateMap<ViewModels.Identity.LoginHistoryViewModel, LoginHistory>();
 
@@ -66,7 +69,8 @@ namespace Crypto
 			CreateMap<BuyInvestmentViewModel, Investment>()
 				.ForMember(m => m.Type, opt => opt.MapFrom(m => m.Type))
 				.ForMember(m => m.AddCash, opt => opt.MapFrom(m => m.SumInvestment))
-				.ForMember(m => m.DateInvestment, opt => opt.MapFrom(m => DateTime.Now));
+				.ForMember(m => m.DateInvestment, opt => opt.MapFrom(m => DateTime.Now))
+				.ForMember(m => m.Profit, opt => opt.MapFrom(m => 0));
 
 		}
 	}

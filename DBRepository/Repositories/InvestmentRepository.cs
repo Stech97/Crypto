@@ -12,13 +12,6 @@ namespace DBRepository.Repositories
 	{
 		public InvestmentRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
-		public async Task<double> GetTotalInvestment(int UserId)
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-				return await context.Investments.AsNoTracking()
-					.Where(i => i.UserId == UserId).SumAsync(i => i.AddCash);
-		}
-
 		public async Task<double> GetLastDayInvestment(int UserId)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))

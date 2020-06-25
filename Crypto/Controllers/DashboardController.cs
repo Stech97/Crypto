@@ -103,11 +103,44 @@ namespace Crypto.Controllers
 
         #endregion
 
+        //[Authorize]
         [Route("GetTeam")]
         [HttpGet]
         public async Task<IActionResult> GetTeam(int Ref)
         {
             return Ok(await _dashboardService.GetTeam(Ref));
+        }
+
+        //[Authorize]
+        [Route("GetTotalInvestment")]
+        [HttpGet]
+        public async Task<IActionResult> GetTotalInvestment(int Id)
+        {
+            return Ok(await _dashboardService.GetTotalInvestment(Id));
+        }
+
+        //[Authorize]
+        [Route("GetTotalProfit")]
+        [HttpGet]
+        public async Task<IActionResult> GetTotalProfit(int Id)
+        {
+            var response = new
+            {
+                Profit = await _dashboardService.GetTotalProfit(Id)
+            };
+            return Ok(response);
+        }
+
+        //[Authorize]
+        [Route("GetTotalMembers")]
+        [HttpGet]
+        public async Task<IActionResult> GetTotalMembers(int Id)
+        {
+            var response = new
+            {
+                TotalMember = await _dashboardService.GetTotalMembers(Id)
+            };
+            return Ok(response);
         }
     }
 }

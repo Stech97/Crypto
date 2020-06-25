@@ -11,6 +11,8 @@ namespace DBRepository.Interfaces
         Task AddInvestment(Investment investment);
         Task<Balance> UpdateDETRate(Balance balance);
         Task UpdateBTCRate(Balance balance);
+        Task AddProfit();
+
         #region Dev
         Task DelUser(int Id);
         Task<List<object>> GetUsers();

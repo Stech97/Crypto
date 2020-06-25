@@ -62,10 +62,25 @@ namespace Crypto.Services.Implementation
             return await _repositoryDashboard.GetRate(rate);
 
         }
-        public async Task<List<RefUserViewModel>> GetTeam(int Ref)
+        public async Task<RefUserViewModel> GetTeam(int Ref)
         {
             var response = await _repositoryDashboard.GetTeam(Ref);
-            return _mapper.Map<List<User>, List<RefUserViewModel>>(response);
+            return _mapper.Map<User, RefUserViewModel>(response);
+        }
+
+        public async Task<double> GetTotalProfit(int Id)
+        {
+            var response = await _repositoryDashboard.GetTotalProfit(Id);
+            return response;
+        }
+
+        public async Task<double> GetTotalInvestment(int Id)
+        {
+            return await _repositoryDashboard.GetTotalInvestment(Id);
+        }
+        public async Task<int> GetTotalMembers(int Id)
+        {
+            return await _repositoryDashboard.GetTotalMembers(Id);
         }
 
     }
