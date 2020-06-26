@@ -11,8 +11,7 @@ namespace Crypto.ViewModels.Investment
         [Required]
         public double SumInvestment { get; set; }
         [Required]
-        [BuyInvestmentValidate(new string[] { "Small", "small", "Medium", "medium", "Large", "large" })]
-        public string Type { get; set; }
-        //public int Type { get; set; }
+        [Range(1, 3)]
+        public int Type { get; set; }
     }
 }
