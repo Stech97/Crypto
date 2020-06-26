@@ -7,7 +7,6 @@ namespace DBRepository.Interfaces
 	public interface IInvestmentRepository
 	{
 		Task<List<Investment>> GetInvestments(int UserId, int Take);
-		Task<double> GetTotalInvestment(int UserId);
 		Task<double> GetLastDayInvestment(int UserId);
 		Task<string> BuyInvestment(Investment investment, string cur, int Id);
 	}

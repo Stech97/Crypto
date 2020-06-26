@@ -3,7 +3,10 @@ using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Administrator;
 using DBRepository.Interfaces;
 using Models;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -46,24 +49,40 @@ namespace Crypto.Services.Implementation
 
 		public async void UpdateBTCRate()
 		{
-			var uri = "https://blockchain.info/tobtc?currency=USD&value=1";
+			var uri = "https://api.kraken.com/0/public/Ticker?pair=XXBTZUSD";
 
-			HttpClient client = new HttpClient();
-			string data = await client.GetStringAsync(uri);
+			try
+			{
+				HttpClient client = new HttpClient();
+				string JSON = await client.GetStringAsync(uri);
+				JObject jsonString = JObject.Parse(JSON);
+				double result = (double)jsonString["result"]["XXBTZUSD"]["p"][0];
 
-			data = data.Replace(".", ",");
-			var rate = _mapper.Map<string, Balance>(data);
-			await _repository.UpdateBTCRate(rate);
+				var rate = _mapper.Map<double, Balance>(result);
+				await _repository.UpdateBTCRate(rate);
+			}
+			catch (HttpRequestException e)
+			{
+				Debug.WriteLine(e.Message);
+			}
+			catch (OperationCanceledException e)
+			{
+				Debug.WriteLine(e.Message);
+			}
 		}
 
-		public async Task<List<RefUserViewModel>> GetRef(int Ref)
+		public async void AddProfit()
 		{
-			var response = await _repository.GetRef(Ref);
-			return _mapper.Map<List<User>, List<RefUserViewModel>>(response);
+			await _repository.AddProfit();
+		}
+    
+		public async void AddCommission()
+		{
+			await _repository.AddCommission();
 		}
 
-		#region Dev
-		public async Task<List<UserViewModel>> GetUsers()
+    #region Dev
+    public async Task<List<UserViewModel>> GetUsers()
 		{
 			var response = await _repository.GetUsers();
 			return _mapper.Map<List<object>, List<UserViewModel>>(response);
@@ -72,7 +91,7 @@ namespace Crypto.Services.Implementation
 		{
 			await _repository.DelUser(Id);
 		}
-        #endregion
+    #endregion
 
     }
 }

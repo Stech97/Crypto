@@ -18,6 +18,7 @@ namespace Models
 		public string RefLink { get; set; }
 		public bool IsVerified { get; set; }
 		public bool IsFogotPassword { get; set; }
+		public bool IsReInvest { get; set; }
 		public int? ParentId { get; set; }
 		public IEnumerable<User> Children { get; set; }
 

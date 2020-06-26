@@ -67,13 +67,5 @@ namespace Crypto.Controllers
 		}
 
         #endregion
-
-        [Route("RefUser")]
-		[HttpGet]
-		public async Task<IActionResult> RefUser(int Ref)
-		{
-			return Ok(await _administratorService.GetRef(Ref));
-		}
-
 	}
 }

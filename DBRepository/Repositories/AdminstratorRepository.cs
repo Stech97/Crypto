@@ -1,6 +1,7 @@
 ﻿using DBRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -59,8 +60,66 @@ namespace DBRepository.Repositories
 			}
 		}
 
-        #region Dev
-        public async Task DelUser(int Id)
+		public async Task AddProfit()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var Invests = await context.Investments.ToListAsync();
+
+				foreach (var Invest in Invests)
+				{
+					var Persent = (await context.TypeInvestments.AsNoTracking().FirstOrDefaultAsync(ti => ti.Id == Invest.TypeInvestmentId)).Persent;
+					if (Invest.Profit == 0)
+					{
+						var Profit = Invest.AddCash * Persent / 100;
+						Invest.Profit = Profit;
+					}
+					else
+					{
+						if (!Invest.IsFullInvest)
+						{
+							var Profit = Invest.Profit * Persent / 100;
+							Invest.Profit += Profit;
+							if (Invest.Profit >= Invest.AddCash * 3)
+							{
+								Invest.IsFullInvest = true;
+								Invest.Profit = Invest.AddCash * 3;
+							}
+						}
+						else
+						{
+							bool ReInvest = (await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Invest.UserId)).IsReInvest;
+							var Balance = await context.Balances.FirstOrDefaultAsync(b => b.UserId == Invest.UserId);
+
+							if (ReInvest && Balance.DefimaBalance > Invest.AddCash)
+							{
+								Invest.IsFullInvest = false;
+								Invest.Profit = 0;
+								Balance.DefimaBalance -= Invest.AddCash;
+								context.Balances.Update(Balance);
+							}
+						}
+					}
+					context.Investments.Update(Invest);
+				}
+			}
+		}
+
+		public async Task AddCommission()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var Invests = await context.Investments.ToListAsync();
+				foreach (var Invest in Invests)
+				{
+					//добавить подсчёт последей комиссии
+					Invest.TotalCommission += Invest.LastCommission;
+				}
+			}
+		}
+
+		#region Dev
+		public async Task DelUser(int Id)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -112,49 +171,30 @@ namespace DBRepository.Repositories
 			}
 
 		}
-        #endregion
+		#endregion
 
-        public async Task<List<User>> GetRef(int Ref)
+		#region Private Methods
+		//ДЛя начисления коммиссии
+		private double GetChildrenByParentId(int parentId, ref int level)
 		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var RefUsers = await context.Users.Where(u => u.Id == Ref)
-					.Select(u => new User
-					{
-						Id = u.Id,
-						ParentId = u.ParentId ?? 0,
-						RefLink = u.RefLink
-					}).ToListAsync();
-				foreach (var RefUser in RefUsers)
-				{
-					RefUser.Children = GetChildrenByParentId(RefUser.Id);
-				}
-				return RefUsers;
-			}
-		}
-
-		private IEnumerable<User> GetChildrenByParentId(int parentId)
-		{
-			var children = new List<User>();
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var RefUsers = context.Users.Where(u => u.ParentId == parentId);
-
 				foreach (var Ref in RefUsers)
 				{
 					var thread = new User
 					{
 						Id = Ref.Id,
 						ParentId = Ref.ParentId ?? 0,
-						RefLink = Ref.RefLink,
-						Children = GetChildrenByParentId(Ref.Id)
 					};
+					GetChildrenByParentId(Ref.Id, ref level);
 
-					children.Add(thread);
+					if (thread.Children.Count() == 0)
+						level++;
 				}
 			}
-
-			return children;
+			return 0;
 		}
+		#endregion
 	}
 }

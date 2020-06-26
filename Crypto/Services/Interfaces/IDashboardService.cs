@@ -13,5 +13,12 @@ namespace Crypto.Services.Interfaces
         Task<bool> ExchangeBalance(ExchangeViewModel request, int UserId);
         Task<CashBTCViewModel> CashBTC(CashBTCViewModel request, int Id);
         Task<double> GetRate(RateViewModel request);
+        Task<RefUserViewModel> GetTeam(int Ref);
+        Task<double> ProfitFromInvest(int Id);
+        Task<double> GetTotalInvestment(int Id);
+        Task<int> GetTotalMembers(int Id);
+        Task<double> GetEarningsTeam(int Id);
+        Task<double> GetTotalProfit(int Id);
+        Task<double> GetLastDayProfit(int Id);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Crypto.ViewModels.Administrator
+namespace Crypto.ViewModels.Dashdoard
 {
     public class RefUserViewModel
     {

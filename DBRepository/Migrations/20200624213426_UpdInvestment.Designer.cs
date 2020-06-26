@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using Models;
 using System;
 
 namespace DBRepository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20200624213426_UpdInvestment")]
+    partial class UpdInvestment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,19 +131,13 @@ namespace DBRepository.Migrations
 
                     b.Property<bool>("IsFullInvest");
 
-                    b.Property<double>("LastCommission");
-
                     b.Property<double>("Profit");
 
-                    b.Property<double>("TotalCommission");
-
-                    b.Property<int>("TypeInvestmentId");
+                    b.Property<string>("Type");
 
                     b.Property<int>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TypeInvestmentId");
 
                     b.HasIndex("UserId");
 
@@ -191,20 +185,6 @@ namespace DBRepository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("News");
-                });
-
-            modelBuilder.Entity("Models.TypeInvestment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<double>("Persent");
-
-                    b.Property<int>("Type");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TypeInvestment");
                 });
 
             modelBuilder.Entity("Models.User", b =>
@@ -286,11 +266,6 @@ namespace DBRepository.Migrations
 
             modelBuilder.Entity("Models.Investment", b =>
                 {
-                    b.HasOne("Models.TypeInvestment", "TypeInvestment")
-                        .WithMany("Investments")
-                        .HasForeignKey("TypeInvestmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Models.User", "User")
                         .WithMany("Investments")
                         .HasForeignKey("UserId")

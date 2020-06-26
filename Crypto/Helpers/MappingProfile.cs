@@ -6,6 +6,7 @@ using Crypto.ViewModels.Identity;
 using Crypto.ViewModels.Dashdoard;
 using Crypto.ViewModels.Administrator;
 using Crypto.ViewModels.Investment;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Crypto
 {
@@ -24,7 +25,8 @@ namespace Crypto
 			CreateMap<CashBTCViewModel, Balance>()
 				.ForMember(m => m.BitcoinBalance, opt => opt.MapFrom(x => x.BTC));
 
-			CreateMap<LoginHistory, ViewModels.Dashdoard.LoginHistoryViewModel>();
+			CreateMap<LoginHistory, ViewModels.Dashdoard.LoginHistoryViewModel>()
+				.ForMember(m => m.LoginTime, opt => opt.MapFrom(x => x.LoginTime.ToString("dd.MM\'/'HH:mm")));
 
 			CreateMap<User, RefLinkViewModel>()
 				.ForMember(m => m.RefId, opt => opt.MapFrom(x => x.Id))
@@ -32,7 +34,9 @@ namespace Crypto
 			
 			CreateMap<EmailViewModel, EmailAddres>();
 
-			CreateMap<LoginViewModel, User>();
+			CreateMap<LoginViewModel, User>()
+				.ForMember(m => m.IsReInvest, opt => opt.MapFrom(x => false))
+				.ForMember(m => m.IsVerified, opt => opt.MapFrom(x => false));
 
 			CreateMap<ViewModels.Identity.LoginHistoryViewModel, LoginHistory>();
 
@@ -54,7 +58,7 @@ namespace Crypto
 			
 			CreateMap<RateDETViewModel, Balance>()
 				.ForMember(m => m.RateUSD_DEF, opt => opt.MapFrom(m => m.RateDef));
-			CreateMap<string, Balance>()
+			CreateMap<double, Balance>()
 				.ForMember(m => m.RateBTC_USD, opt => opt.MapFrom(m => m));
 
 			CreateMap<Balance, RateDETViewModel>()
@@ -63,9 +67,10 @@ namespace Crypto
 			CreateMap<UpdateInfoViewModel, User>();
 
 			CreateMap<BuyInvestmentViewModel, Investment>()
-				.ForMember(m => m.Type, opt => opt.MapFrom(m => m.Type))
+				.ForMember(m => m.TypeInvestmentId, opt => opt.MapFrom(m => m.Type))
 				.ForMember(m => m.AddCash, opt => opt.MapFrom(m => m.SumInvestment))
-				.ForMember(m => m.DateInvestment, opt => opt.MapFrom(m => DateTime.Now));
+				.ForMember(m => m.DateInvestment, opt => opt.MapFrom(m => DateTime.Now))
+				.ForMember(m => m.Profit, opt => opt.MapFrom(m => 0));
 
 		}
 	}

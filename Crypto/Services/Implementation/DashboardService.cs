@@ -45,7 +45,7 @@ namespace Crypto.Services.Implementation
 
         public async Task<bool> ExchangeBalance(ExchangeViewModel request, int UserId)
         {
-            string exchange = request.From + request.To;
+            string exchange = request.From.ToUpper() + request.To.ToUpper();
             return await _repositoryDashboard.ExchangeBalance(exchange, request.Amount, UserId);
         }
 
@@ -61,6 +61,40 @@ namespace Crypto.Services.Implementation
             var rate = request.From + request.To;
             return await _repositoryDashboard.GetRate(rate);
 
+        }
+        public async Task<RefUserViewModel> GetTeam(int Ref)
+        {
+            var response = await _repositoryDashboard.GetTeam(Ref);
+            return _mapper.Map<User, RefUserViewModel>(response);
+        }
+
+        public async Task<double> ProfitFromInvest(int Id)
+        {
+            var response = await _repositoryDashboard.ProfitFromInvest(Id);
+            return response;
+        }
+
+        public async Task<double> GetTotalInvestment(int Id)
+        {
+            return await _repositoryDashboard.GetTotalInvestment(Id);
+        }
+        public async Task<int> GetTotalMembers(int Id)
+        {
+            return await _repositoryDashboard.GetTotalMembers(Id);
+        }
+        public async Task<double> GetEarningsTeam(int Id)
+        {
+            return await _repositoryDashboard.GetEarningsTeam(Id);
+        }
+
+        public async Task<double> GetTotalProfit(int Id)
+        {
+            return await _repositoryDashboard.GetTotalProfit(Id);
+        }
+
+        public async Task<double> GetLastDayProfit(int Id)
+        {
+            return await _repositoryDashboard.GetLastDayProfit(Id);
         }
 
     }

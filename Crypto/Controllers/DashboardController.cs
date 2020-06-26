@@ -3,6 +3,7 @@ using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Dashdoard;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Crypto.Controllers
 {
@@ -108,6 +109,86 @@ namespace Crypto.Controllers
             if (balance != null)
                 return Ok(balance);
             return BadRequest("No cash");
+        }
+
+        #endregion
+
+        //[Authorize]
+        [Route("GetTeam")]
+        [HttpGet]
+        public async Task<IActionResult> GetTeam(int Ref)
+        {
+            return Ok(await _dashboardService.GetTeam(Ref));
+        }
+
+        #region Earnings
+        //[Authorize]
+        [Route("GetTotalInvestment")]
+        [HttpGet]
+        public async Task<IActionResult> GetTotalInvestment(int Id)
+        {
+            return Ok(await _dashboardService.GetTotalInvestment(Id));
+        }
+
+        //[Authorize]
+        [Route("ProfitFromInvest")]
+        [HttpGet]
+        public async Task<IActionResult> ProfitFromInvest(int Id)
+        {
+            var response = new
+            {
+                Profit = await _dashboardService.ProfitFromInvest(Id)
+            };
+            return Ok(response);
+        }
+
+        //[Authorize]
+        [Route("GetTotalMembers")]
+        [HttpGet]
+        public async Task<IActionResult> GetTotalMembers(int Id)
+        {
+            var response = new
+            {
+                TotalMember = await _dashboardService.GetTotalMembers(Id)
+            };
+            return Ok(response);
+        }
+
+        //[Authorize]
+        [Route("GetEarningsTeam")]
+        [HttpGet]
+        public async Task<IActionResult> GetEarningsTeam(int Id)
+        {
+            var response = new
+            {
+                LastDayProfit = await _dashboardService.GetEarningsTeam(Id)
+            };
+            return Ok(response);
+        }
+
+        //[Authorize]
+        [Route("GetTotalProfit")]
+        [HttpGet]
+        public async Task<IActionResult> GetTotalProfit(int Id)
+        {
+            var response = new
+            {
+                TotalProfit = await _dashboardService.GetTotalProfit(Id)
+            };
+
+            return Ok(response);
+        }
+
+        //[Authorize]
+        [Route("GetLastDayProfit")]
+        [HttpGet]
+        public async Task<IActionResult> GetLastDayProfit(int Id) 
+        {
+            var response = new
+            {
+                LastDayProfit = await _dashboardService.GetLastDayProfit(Id)
+            };
+            return Ok(response);
         }
 
         #endregion

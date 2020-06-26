@@ -13,7 +13,6 @@ namespace Crypto.ViewModels.Investment
         [Required]
         [BuyInvestmentValidate(new string[] { "Small", "small", "Medium", "medium", "Large", "large" })]
         public string Type { get; set; }
-
-
+        //public int Type { get; set; }
     }
 }

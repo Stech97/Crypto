@@ -26,11 +26,6 @@ namespace Crypto.Services.Implementation
 			return _mapper.Map<List<Investment>, List<InvestmentViewModel>>(investments);
 		}
 
-		public async Task<double> GetTotalInvestment(int UserId)
-		{
-			return await _repository.GetTotalInvestment(UserId);
-		}
-
 		public async Task<double> GetLastDayInvestment(int UserId)
 		{
 			return await _repository.GetLastDayInvestment(UserId);

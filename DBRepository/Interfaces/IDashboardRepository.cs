@@ -13,5 +13,12 @@ namespace DBRepository.Interfaces
         Task<bool> ExchangeBalance(string exchnge, double amount, int UserId);
         Task<Balance> CashBTC(Balance balance, int UserId);
         Task<double> GetRate(string rate);
+        Task<User> GetTeam(int Ref);
+        Task<double> ProfitFromInvest(int Id);
+        Task<double> GetTotalInvestment(int Id);
+        Task<int> GetTotalMembers(int Id);
+        Task<double> GetEarningsTeam(int Id);
+        Task<double> GetTotalProfit(int Id);
+        Task<double> GetLastDayProfit(int Id);
     }
 }

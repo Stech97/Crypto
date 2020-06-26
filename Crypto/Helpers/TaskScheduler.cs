@@ -13,7 +13,8 @@ namespace Crypto.Helpers
 
         public static TaskScheduler Instance => _instance ?? (_instance = new TaskScheduler());
 
-        public void ScheduleTask(int hour, int min, double intervalInHour, Action task)
+        //по часам с добавлением часов и минут
+        public void ScheduleTask(int hour, int min, int intervalInHour, Action task)
         {
             DateTime now = DateTime.Now;
             DateTime firstRun = new DateTime(now.Year, now.Month, now.Day, hour, min, 0, 0);
@@ -26,7 +27,8 @@ namespace Crypto.Helpers
 
             timers.Add(timer);
         }
-        public void ScheduleTask(int hour, int min, int sec, int milsec, double intervalInHour, Action task)
+        //по часам с добавлением часов, минут, секунд и милисекунд
+        public void ScheduleTask(int hour, int min, int sec, int milsec, int intervalInHour, Action task)
         {
             DateTime now = DateTime.Now;
             DateTime firstRun = new DateTime(now.Year, now.Month, now.Day, hour, min, sec, milsec);
@@ -36,6 +38,20 @@ namespace Crypto.Helpers
                 timeToGo = TimeSpan.Zero;
 
             var timer = new Timer(x => { task.Invoke(); }, null, timeToGo, TimeSpan.FromHours(intervalInHour));
+
+            timers.Add(timer);
+        }
+        //по секундам с добавлением секунд 
+        public void ScheduleTask(int sec, int intervalInSeconds, Action task)
+        {
+            DateTime now = DateTime.Now;
+            DateTime firstRun = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, sec, 0);
+
+            TimeSpan timeToGo = firstRun - now;
+            if (timeToGo <= TimeSpan.Zero)
+                timeToGo = TimeSpan.Zero;
+
+            var timer = new Timer(x => { task.Invoke(); }, null, timeToGo, TimeSpan.FromSeconds(intervalInSeconds));
 
             timers.Add(timer);
         }

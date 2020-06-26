@@ -12,9 +12,10 @@ using System;
 namespace DBRepository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20200625220443_AddTypeInvestment")]
+    partial class AddTypeInvestment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,11 +132,7 @@ namespace DBRepository.Migrations
 
                     b.Property<bool>("IsFullInvest");
 
-                    b.Property<double>("LastCommission");
-
                     b.Property<double>("Profit");
-
-                    b.Property<double>("TotalCommission");
 
                     b.Property<int>("TypeInvestmentId");
 
