@@ -76,6 +76,11 @@ namespace Crypto.Services.Implementation
 			await _repository.AddProfit();
 		}
 
+		public async void AddCommission()
+		{
+			await _repository.AddCommission();
+		}
+
         #region Dev
         public async Task<List<UserViewModel>> GetUsers()
 		{

@@ -105,8 +105,21 @@ namespace DBRepository.Repositories
 			}
 		}
 
-        #region Dev
-        public async Task DelUser(int Id)
+		public async Task AddCommission()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var Invests = await context.Investments.ToListAsync();
+				foreach (var Invest in Invests)
+				{
+					//добавить подсчёт последей комиссии
+					Invest.TotalCommission += Invest.LastCommission;
+				}
+			}
+		}
+
+		#region Dev
+		public async Task DelUser(int Id)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -158,6 +171,30 @@ namespace DBRepository.Repositories
 			}
 
 		}
-        #endregion
+		#endregion
+
+		#region Private Methods
+		//ДЛя начисления коммиссии
+		private double GetChildrenByParentId(int parentId, ref int level)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var RefUsers = context.Users.Where(u => u.ParentId == parentId);
+				foreach (var Ref in RefUsers)
+				{
+					var thread = new User
+					{
+						Id = Ref.Id,
+						ParentId = Ref.ParentId ?? 0,
+					};
+					GetChildrenByParentId(Ref.Id, ref level);
+
+					if (thread.Children.Count() == 0)
+						level++;
+				}
+			}
+			return 0;
+		}
+		#endregion
 	}
 }

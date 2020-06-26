@@ -301,27 +301,7 @@ namespace DBRepository.Repositories
                 }
             }
         }
-//ДЛя начисления коммиссии
-        private double GetChildrenByParentIdCommission(int parentId, ref int level)
-        {
-            using (var context = ContextFactory.CreateDbContext(ConnectionString))
-            {
-                var RefUsers = context.Users.Where(u => u.ParentId == parentId);
-                foreach (var Ref in RefUsers)
-                {
-                    var thread = new User
-                    {
-                        Id = Ref.Id,
-                        ParentId = Ref.ParentId ?? 0,
-                    };
-                    GetChildrenByParentIdCommission(Ref.Id, ref level);
 
-                    if (thread.Children.Count() == 0)
-                        level++;
-                }
-            }
-            return 0;
-        }
         #endregion
     }
 }
