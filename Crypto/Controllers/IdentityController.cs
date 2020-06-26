@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -32,32 +33,53 @@ namespace Crypto.Controllers
 		[HttpGet]
 		public async Task<IActionResult> ConfirmEmail(string Id)
 		{
-			return Ok(await _identityService.ConfirmEmail(Id));
+			var response = await _identityService.ConfirmEmail(Id);
+			string Keys = response.ElementAt(0).Key;
+			switch (Keys)
+			{
+				case "Ok":
+					return Ok(response[Keys]);
+				case "No login":
+					return NotFound(response[Keys]);
+				case "No user":
+					return BadRequest(response[Keys]);
+				default:
+					return NoContent();
+			}
 		}
 
 		[Route("ForgotPassword")]
 		[HttpPost]
 		public async Task<IActionResult> ForgotPassword(CheckViewModel request)
 		{
-			return Ok(await _identityService.FogotPassword(request));
+			var response = await _identityService.FogotPassword(request);
+			string Keys = response.ElementAt(0).Key;
+			switch (Keys)
+			{
+				case "Ok":
+					return Ok(response[Keys]);
+				case "Not found":
+					return NotFound(response[Keys]);
+				default:
+					return NoContent();
+			}
 		}
 
 		[Route("AcceptForgot")]
 		[HttpGet]
 		public async Task<IActionResult> AcceptForgot(string Id)
 		{
-			var fogotUser = await _identityService.AcceptFogot(Id);
-			string username = (string)fogotUser.GetType().GetProperty("Username").GetValue(fogotUser, null);
-			string status = (string)fogotUser.GetType().GetProperty("Status").GetValue(fogotUser, null);
-
-			var response = new
+			var response = await _identityService.AcceptFogot(Id);
+			string Keys = response.ElementAt(0).Key;
+			switch (Keys)
 			{
-				Id = (int)fogotUser.GetType().GetProperty("Id").GetValue(fogotUser, null),
-				Username = username,
-				Status = status
-			};
-
-			return Ok(response);
+				case "Ok":
+					return Ok(response[Keys]);
+				case "Not found":
+					return NotFound(response[Keys]);
+				default:
+					return NoContent();
+			}
 		}
 
 		[Route("RecoveryPassword")]
@@ -144,12 +166,21 @@ namespace Crypto.Controllers
 			{
 				login.Password = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(login.Password)));
 			}
-
-			var ConfirmEmail = new
+			var result = await _identityService.AddUser(login);
+			if (result != null)
 			{
-				hash = await _identityService.AddUser(login)
-			};
-			return Ok(ConfirmEmail);
+				var ConfirmEmail = new
+				{
+					hash = result
+				};
+				return Ok(ConfirmEmail);
+			}
+			else
+			{
+				string res = "Username or Email already exists";
+				return BadRequest(res);
+			}
+			
 		}
 
 		//Проверка на наличие в БД Username и Email
@@ -158,10 +189,10 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> CheckInfo([FromBody] CheckViewModel request)
 		{
 			var result = await _identityService.CheckInfo(request);
-			if (result != null)
-				return Ok(result);
-			else
+			if (result == null)
 				return Ok();
+			else
+				return BadRequest(result);
 
 		}
 		#endregion
@@ -172,7 +203,17 @@ namespace Crypto.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetUser(int Id)
 		{
-			return Ok(await _identityService.GetUser(Id));
+			var response = await _identityService.GetUser(Id);
+			string Keys = response.ElementAt(0).Key;
+			switch (Keys)
+			{
+				case "Ok":
+					return Ok(response[Keys]);
+				case "No login":
+					return NotFound(response[Keys]);
+				default:
+					return NoContent();
+			}
 		}
 
 		//[Authorize]

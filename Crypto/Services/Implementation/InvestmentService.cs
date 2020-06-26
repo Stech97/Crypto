@@ -31,7 +31,7 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetLastDayInvestment(UserId);
 		}
 
-        public async Task<object> BuyInvestment(BuyInvestmentViewModel request, int Id)
+        public async Task<string> BuyInvestment(BuyInvestmentViewModel request, int Id)
         {
 			var invest = _mapper.Map<BuyInvestmentViewModel, Investment>(request);
 			string cur = request.Currency;

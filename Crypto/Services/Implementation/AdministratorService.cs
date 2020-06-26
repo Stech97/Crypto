@@ -75,14 +75,14 @@ namespace Crypto.Services.Implementation
 		{
 			await _repository.AddProfit();
 		}
-
+    
 		public async void AddCommission()
 		{
 			await _repository.AddCommission();
 		}
 
-        #region Dev
-        public async Task<List<UserViewModel>> GetUsers()
+    #region Dev
+    public async Task<List<UserViewModel>> GetUsers()
 		{
 			var response = await _repository.GetUsers();
 			return _mapper.Map<List<object>, List<UserViewModel>>(response);
@@ -91,7 +91,7 @@ namespace Crypto.Services.Implementation
 		{
 			await _repository.DelUser(Id);
 		}
-        #endregion
+    #endregion
 
     }
 }

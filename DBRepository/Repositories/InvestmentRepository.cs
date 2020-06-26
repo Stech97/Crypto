@@ -29,7 +29,7 @@ namespace DBRepository.Repositories
 					.Where(i => i.UserId == UserId).OrderByDescending(i => i.DateInvestment).Take(Take).ToListAsync();
 		}
 
-		public async Task<object> BuyInvestment(Investment investment, string cur, int UserId)
+		public async Task<string> BuyInvestment(Investment investment, string cur, int UserId)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -44,14 +44,10 @@ namespace DBRepository.Repositories
 							context.Investments.Add(investment);
 							context.Balances.Update(balance);
 							await context.SaveChangesAsync();
-							var response = new { response = "Ok" };
-							return response;
+							return "Ok";
 						}
 						else
-                        {
-							var response = new { response = "Balance less" };
-							return response;
-						}						
+							return "Balance less";						
 					case "USD":
 						if (balance.USDBalance >= investment.AddCash)
 						{
@@ -60,14 +56,10 @@ namespace DBRepository.Repositories
 							context.Investments.Add(investment);
 							context.Balances.Update(balance);
 							await context.SaveChangesAsync();
-							var response = new { response = "Ok" };
-							return response;
+							return "Ok";
 						}
 						else
-						{
-							var response = new { response = "Balance less" };
-							return response;
-						}
+							return "Balance less";
 					case "DET":
 						if (balance.DefimaBalance >= investment.AddCash)
 						{
@@ -76,17 +68,12 @@ namespace DBRepository.Repositories
 							context.Investments.Add(investment);
 							context.Balances.Update(balance);
 							await context.SaveChangesAsync();
-							var response = new { response = "Ok" };
-							return response;
+							return "Ok";
 						}
 						else
-						{
-							var response = new { response = "Balance less" };
-							return response;
-						}
+							return "Balance less";
 					default:
-						var res = new { response = "No found" };
-						return res;
+						return "No found";
 				}
 			}
 		}

@@ -10,7 +10,7 @@ namespace DBRepository.Interfaces
         Task<User> GetRefLink(int Id);
         Task<List<LoginHistory>> GetLoginHistory(int Id);
         Task<List<News>> GetNews(int Take, int Skip);
-        Task<object> ExchangeBalance(string exchnge, double amount, int UserId);
+        Task<bool> ExchangeBalance(string exchnge, double amount, int UserId);
         Task<Balance> CashBTC(Balance balance, int UserId);
         Task<double> GetRate(string rate);
         Task<User> GetTeam(int Ref);

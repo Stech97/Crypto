@@ -5,6 +5,7 @@ using Models;
 using Crypto.ViewModels.Identity;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Crypto.Services.Implementation
 {
@@ -22,7 +23,7 @@ namespace Crypto.Services.Implementation
 		{
 			return await _repository.GetUser(userName);
 		}
-		public async Task<object> GetUser(int Id)
+		public async Task<Dictionary<string, object>> GetUser(int Id)
 		{
 			return await _repository.GetUser(Id);
 		}
@@ -60,18 +61,18 @@ namespace Crypto.Services.Implementation
 			return _mapper.Map<User, CheckViewModel>(result);
 		}
 
-		public async Task<object> ConfirmEmail(string Id)
+		public async Task<Dictionary<string, object>> ConfirmEmail(string Id)
 		{
 			return await _repository.ConfirmEmail(Id);
 		}
 
-		public async Task<object> FogotPassword([FromBody] CheckViewModel request)
+		public async Task<Dictionary<string, object>> FogotPassword([FromBody] CheckViewModel request)
 		{
 			var fogotPassword = _mapper.Map<CheckViewModel, User>(request);
 			return await _repository.ForgotPassword(fogotPassword);
 		}
 
-		public async Task<object> AcceptFogot(string Id)
+		public async Task<Dictionary<string, object>> AcceptFogot(string Id)
 		{
 			return await _repository.AcceptForgot(Id);
 		}
