@@ -112,6 +112,7 @@ namespace Crypto.Controllers
             return Ok(await _dashboardService.GetTeam(Ref));
         }
 
+        #region Earnings
         //[Authorize]
         [Route("GetTotalInvestment")]
         [HttpGet]
@@ -121,13 +122,13 @@ namespace Crypto.Controllers
         }
 
         //[Authorize]
-        [Route("GetTotalProfitInvest")]
+        [Route("ProfitFromInvest")]
         [HttpGet]
-        public async Task<IActionResult> GetTotalProfit(int Id)
+        public async Task<IActionResult> ProfitFromInvest(int Id)
         {
             var response = new
             {
-                Profit = await _dashboardService.GetTotalProfit(Id)
+                Profit = await _dashboardService.ProfitFromInvest(Id)
             };
             return Ok(response);
         }
@@ -145,9 +146,34 @@ namespace Crypto.Controllers
         }
 
         //[Authorize]
+        [Route("GetEarningsTeam")]
+        [HttpGet]
+        public async Task<IActionResult> GetEarningsTeam(int Id)
+        {
+            var response = new
+            {
+                LastDayProfit = await _dashboardService.GetEarningsTeam(Id)
+            };
+            return Ok(response);
+        }
+
+        //[Authorize]
+        [Route("GetTotalProfit")]
+        [HttpGet]
+        public async Task<IActionResult> GetTotalProfit(int Id)
+        {
+            var response = new
+            {
+                TotalProfit = await _dashboardService.GetTotalProfit(Id)
+            };
+
+            return Ok(response);
+        }
+
+        //[Authorize]
         [Route("GetLastDayProfit")]
         [HttpGet]
-        public async Task<IActionResult> GetLastDayProfit(int Id)
+        public async Task<IActionResult> GetLastDayProfit(int Id) 
         {
             var response = new
             {
@@ -155,5 +181,7 @@ namespace Crypto.Controllers
             };
             return Ok(response);
         }
+
+        #endregion
     }
 }

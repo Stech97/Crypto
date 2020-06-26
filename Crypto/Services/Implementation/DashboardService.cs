@@ -68,9 +68,9 @@ namespace Crypto.Services.Implementation
             return _mapper.Map<User, RefUserViewModel>(response);
         }
 
-        public async Task<double> GetTotalProfit(int Id)
+        public async Task<double> ProfitFromInvest(int Id)
         {
-            var response = await _repositoryDashboard.GetTotalProfit(Id);
+            var response = await _repositoryDashboard.ProfitFromInvest(Id);
             return response;
         }
 
@@ -82,6 +82,16 @@ namespace Crypto.Services.Implementation
         {
             return await _repositoryDashboard.GetTotalMembers(Id);
         }
+        public async Task<double> GetEarningsTeam(int Id)
+        {
+            return await _repositoryDashboard.GetEarningsTeam(Id);
+        }
+
+        public async Task<double> GetTotalProfit(int Id)
+        {
+            return await _repositoryDashboard.GetTotalProfit(Id);
+        }
+
         public async Task<double> GetLastDayProfit(int Id)
         {
             return await _repositoryDashboard.GetLastDayProfit(Id);

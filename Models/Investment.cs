@@ -9,6 +9,8 @@ namespace Models
 		public System.DateTime DateInvestment { get; set; }
 		public int TypeInvestmentId { get; set; }
 		public double Profit { get; set; }
+		public double TotalCommission { get; set; }
+		public double LastCommission { get; set; }
 		public bool IsFullInvest { get; set; }
 		public int UserId { get; set; }
 		#region Dependencces
