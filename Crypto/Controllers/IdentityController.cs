@@ -101,21 +101,26 @@ namespace Crypto.Controllers
 		{
 			ClaimsIdentity identity = null;
 			var user = await _identityService.GetUser(model.Username);
-			if (user != null && !user.IsFogotPassword)
+			if (user != null)
 			{
-				var sha256 = new SHA256Managed();
-				var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(model.Password)));
-				var passwordUser = user.Password;
-				var username = user.Username;
-				if (passwordHash == passwordUser)
+				if (!user.IsFogotPassword)
 				{
-					var claims = new List<Claim>
+					var sha256 = new SHA256Managed();
+					var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(model.Password)));
+					var passwordUser = user.Password;
+					var username = user.Username;
+					if (passwordHash == passwordUser)
+					{
+						var claims = new List<Claim>
 					{
 						new Claim(ClaimsIdentity.DefaultNameClaimType, username),
 						new Claim(ClaimsIdentity.DefaultRoleClaimType, "Client")
 					};
-					identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+						identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+					}
 				}
+				else
+					return Forbid();
 			}
 			if (identity == null)
 				return Unauthorized();

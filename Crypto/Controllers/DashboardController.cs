@@ -3,7 +3,6 @@ using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Dashdoard;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Crypto.Controllers
 {
@@ -118,7 +117,10 @@ namespace Crypto.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTeam(int Ref)
         {
-            return Ok(await _dashboardService.GetTeam(Ref));
+            var response = await _dashboardService.GetTeam(Ref);
+            if (response != null)
+                return Ok(response);
+            return BadRequest("No Team");
         }
 
         #region Earnings
@@ -161,7 +163,7 @@ namespace Crypto.Controllers
         {
             var response = new
             {
-                LastDayProfit = await _dashboardService.GetEarningsTeam(Id)
+                EarningsTeam = await _dashboardService.GetEarningsTeam(Id)
             };
             return Ok(response);
         }

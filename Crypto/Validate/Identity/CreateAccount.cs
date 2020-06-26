@@ -1,5 +1,4 @@
-﻿using Crypto.Services.Interfaces;
-using Crypto.ViewModels.Identity;
+﻿using Crypto.ViewModels.Identity;
 using System.ComponentModel.DataAnnotations;
 
 namespace Crypto.Validate
