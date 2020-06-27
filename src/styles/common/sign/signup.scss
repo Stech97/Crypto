@@ -224,6 +224,17 @@ button {
 	background-color: rgba(245,251,255,0);
 	border: 3px solid #f5fbff;
 	border-radius: 10px;
+
+	&-error {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 30px;
+		width: 30px;
+		background-color: rgba(245,251,255,0);
+		border: 3px solid red;
+		border-radius: 10px;
+	}
 }
 .signup-box-countrycheck {
 	grid-area: box-countrycheck;
@@ -273,7 +284,19 @@ button {
 	background-color: rgba(245,251,255,0);
 	border: 3px solid #f5fbff;
 	border-radius: 10px;
+
+	&-error {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 30px;
+		width: 30px;
+		background-color: rgba(245,251,255,0);
+		border: 3px solid red;
+		border-radius: 10px;
+	}
 }
+
 .signup-box-bottomcontainer {
 	display: grid;
 	grid-template-columns: 1fr 300px 1fr;

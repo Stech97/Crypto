@@ -46,16 +46,18 @@
         grid-area: login-form;
         width: 30%;
         display: grid;
-        grid-template-rows: 28% 28% 44%;
+        grid-template-rows: 5rem 5rem 5rem;
+        grid-row-gap: 2rem;
         grid-template-columns: 1fr;
         grid-template-areas: "user" "password" "login";
         justify-items: center;
+
         input {
             width: 100%;
             background: none;
             height: 38px;
             font-family: "IBM Plex Sans";
-            @include fontsize(25);
+            font-size: 1.5rem;
             font-weight: 500;
             text-align: left;
             color: #ffffff;
@@ -71,20 +73,37 @@
                 opacity: 0.5;
             }
         }
+        
+        &-user,
+        &-password,
+        &-button {
+            height: 100%;
+            display: grid;
+            grid-auto-rows: min-content;
+            grid-template-columns: 100%;
+            grid-gap: 1rem;
+        }
 
         &-user {
             grid-area: user;
-            align-self: start;
         }
         &-password {
             grid-area: password;
-            align-self: end;
         }
         &-button {
             grid-area: login;
-            @include button(220px, $button-height, $button-font-size);
-            @include button-dark();
-            margin-top: 36.5px;
+            >button {
+                @include button(220px, $button-height, $button-font-size);
+                @include button-dark();
+            }
+            >button[disabled] {
+                background-color: #838383;
+                border-color: #838383;
+                opacity: 0.5;
+                &:hover {
+                    color: #ffffff;
+                }
+            }
         }
     }
 

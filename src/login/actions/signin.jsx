@@ -33,26 +33,32 @@ export const userPostFetch = user => {
 				"Country": res.data.country
 			}).then(res => {
 				console.log(res)
-				let userObj = {
-					id: res.data.id,
-					username: res.data.username,
-					firstname: res.data.firstName,
-					lastname: res.data.lastName,
-					token: res.data.token,
-					email: res.data.email,
-					isVerified: res.data.isVerified,
+				if (res.ok) {
+					let userObj = {
+						id: res.data.id,
+						username: res.data.username,
+						firstname: res.data.firstName,
+						lastname: res.data.lastName,
+						token: res.data.token,
+						email: res.data.email,
+						isVerified: res.data.isVerified,
+					}
+					localStorage.setItem("token", res.data.token)
+					localStorage.setItem("id", res.data.id)				
+					dispatch(loginUserSuccess(userObj))
+				} else if (res.error.status = 401) {
+					dispatch(loginUserError({type: res.error.status, message: 'Wrong username or password' }))
+				} else if (res.error.status == 403) {
+					dispatch(loginUserError({type: res.error.status, message: 'Account blocked. Check your E-Mail.' }))
+				} else {
+					dispatch(loginUserError({type: res.error.status, message: 'Unknown error' }))
 				}
-				localStorage.setItem("token", res.data.token)
-				localStorage.setItem("Authed", true)
-				localStorage.setItem("id", res.data.id)				
-				dispatch(loginUserSuccess(userObj))
 			}).catch(error => {
-				dispatch(loginUserError({type: error.status, message: 'Wrong username or password' }))
-				localStorage.setItem("Authed", false)
+				console.log(error)
+				dispatch(loginUserError({type: error.status, message: 'Unknown error' }))
 			})
 		}).catch(error => {
 			dispatch(loginUserError({type: error.status, message: error.message }))
-			localStorage.setItem("Authed", false)
 		})
 	}
 }

@@ -1,17 +1,29 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { getFormValues, reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux'
 import { forgotPassword } from '../actions/forgotpassword'
+import { aol, required, minLength3, maxLength25, email, validateUsername } from './SignupForm'
 
-const renderField = ({ input, placeholder, className, type }) => {
+const textField = ({ input, placeholder, className, type, meta: { touched, error, warning }}) => {
 	return (
- 		<input {...input} className={className} placeholder={placeholder} type={type} />
+		<div className={className}>
+			<input
+		    	{...input} 
+		        type={type}
+		        placeholder={placeholder}
+		    />
+		    { touched &&
+		        ((error && <p className="error"><i class="fas fa-exclamation-circle"></i>{" " + error}</p>) ||
+		          (warning && <p className="error"><i class="fas fa-exclamation-circle"></i>{" " + warning}</p>)
+		        )
+		    }
+		</div>
 	)
 }
 
 class ForgotPasswordForm extends Component {
 	render() {
-		const { handleSubmit, reset, pristine, submitting } = this.props
+		const { handleSubmit, reset, pristine, submitting, forgot, error } = this.props
 
 		const submit = (values) => {
 			this.props.forgotPasswordAction({
@@ -20,7 +32,7 @@ class ForgotPasswordForm extends Component {
 			})
 		}
 		
-		if (this.props.forgot.error.type === "none") {
+		if (this.props.forgot.error.type === "done") {
 			
 			return(
 				<h2>Request has been sent succesfully</h2> 
@@ -34,25 +46,30 @@ class ForgotPasswordForm extends Component {
 			    	onSubmit={handleSubmit(submit)}
 			    >
 			    	<Field
-						component={renderField}		    	
+						component={textField}		    	
 			    		name="username"
 			    		className="login-form-user"
 			    		type="text"
 			    		placeholder="Username"
+				    	validate={[required, maxLength25, minLength3, validateUsername]}
 			    	/>
 			    	<Field
-			    		component={renderField}
+			    		component={textField}
 			    		name="email"
 				        className="login-form-password"
 				        type="email"
 				        placeholder="Email"
+				        validate={[required, email]}
+        				warn={aol}
 			      	/>
-				    <button
-				    	className="login-form-button"
-				    	type="submit"
-				    	disabled={ pristine || submitting }
-				    >Restore</button>
-				    { this.props.error && <p>this.props.error</p> }
+				    <div className="login-form-button">
+			      		<button
+					    	type="submit"
+					    	disabled={ pristine || submitting }
+					    >{ (submitting || forgot.isFetching) ? "Loading..." : "Restore" }</button>
+					    { forgot.error.type && <p className="error"><i class="fas fa-exclamation-circle"></i>{" " + forgot.error.message}</p> }
+					    { error && <p className="error"><i class="fas fa-exclamation-circle"></i>{" " + error}</p> }
+			      	</div>
 			    </form>
 			)
 		}

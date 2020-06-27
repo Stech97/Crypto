@@ -48,39 +48,34 @@ export const forgotPassword = data => {
 			username: data.username,
 			email: data.email,
 		}).then(res => {
-			if (res.data) {
-				if (res.data.status === 'Ok') {
-					let mail = forgotPasswordLink({
-						hash: res.data.hash,
-						email: res.data.email,
-					}).then(mail => {
-						dispatch(forgotPasswordSuccess())
-					}).catch(error => {
-						dispatch(forgotPasswordError({
-							type: 'mail',
-							message: error.message,
-						}))
-					})
-				} else if (res.data.status === 'No found') { 
+			if (res.ok) {
+				let mail = forgotPasswordLink({
+					hash: res.data.hash,
+					email: res.data.email,
+				}).then(mail => {
+					dispatch(forgotPasswordSuccess())
+				}).catch(error => {
 					dispatch(forgotPasswordError({
-						type: 'incorrect data',
-						message: 'Email or username not found'
+						type: 'mail',
+						message: error.message,
+					}))
+				})
+			} else {
+				if (res.data.email) { 
+					dispatch(forgotPasswordError({
+						type: 'user',
+						message: 'Account blocked'
 					}))
 				} else {
 					dispatch(forgotPasswordError({
-						type: 'unknown',
-						message: 'Email or username not found'
+						type: 'user',
+						message: 'Username or email not found',
 					}))
 				}
-			} else {
-				dispatch(forgotPasswordError({
-					type: 'server',
-					message: res,
-				}))
 			}
 		}).catch(error => {
 			dispatch(forgotPasswordError({
-				type: 'server',
+				type: error.status,
 				message: error.message,
 			}))
 		})

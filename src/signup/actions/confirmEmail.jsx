@@ -27,33 +27,31 @@ const confirmEmailRequest = () => ({
 export const confirmEmail = hash => {
 	return dispatch => {
 		dispatch(confirmEmailRequest)
-		let res = confirmEmailGet(hash.hash)
+		let res = confirmEmailGet(hash)
 		.then(res => {
+			console.log(res)
 			if (res.ok) {
-				console.log(res)
-				switch(res.data.status) {
-					case 'Ok':
-						dispatch(confirmEmailSuccess(true))
-						break
-					case 'No login':
-						dispatch(confirmEmailSuccess(true))
-						break
-					case 'No user':
-						localStorage.removeItem('hash')
+				console.log("ЧЕ ЗА ХУЙНЯ???")
+			} else {
+				switch (res.error.status) {
+					case 400:
 						dispatch(confirmEmailError({
 							type: 'user',
-							message: 'Link has expired'
+							message: 'Link has expired',
 						}))
+						break
+					case 404:
+						dispatch(confirmEmailSuccess(true))
 						break
 					default:
 						dispatch(confirmEmailError({
 							type: 'server',
-							message: 'Unknown error'
+							message: 'Unknown error',
 						}))
-
 				}
 			}
 		}).catch(error => {
+			console.log(error)
 			dispatch(confirmEmailError({
 				type: 'server',
 				message: error.message,

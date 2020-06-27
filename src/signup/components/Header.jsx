@@ -6,8 +6,8 @@ const HeaderLogo = () => {
 	return(
 		<div className="top-logo-box">
 		    <img
-		        src="img/logo.png"
-		        srcSet="img/logo@2x.png 2x, img/logo@3x.png 3x"
+		        src="/img/logo.png"
+		        srcSet="/img/logo@2x.png 2x, /img/logo@3x.png 3x"
 		        alt="Logo"
 		      />
 		</div>

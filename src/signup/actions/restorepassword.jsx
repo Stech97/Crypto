@@ -20,8 +20,8 @@ const restorePasswordError = error => ({
 	payload: error
 })
 
-const changePasswordPatch = async({data, id}) => {
-	let response = await API('/Identity/RecoveryPassword?Id=' + id, 'patch', data)
+const changePasswordPost = async({data, id}) => {
+	let response = await API('/Identity/RecoveryPassword?Id=' + id, 'post', data)
 	return response
 }
 
@@ -36,44 +36,29 @@ export const restorePassword = data => {
 		
 		let response = acceptPasswordGet(data.hash)
 		.then(res => {
-			switch (res.data.status) {
-				case 'Ok':
-					if (data.password === data.password2) {
-						console.log('RESULT: ####',res)
-						localStorage.setItem('token', res.data.token)
-						localStorage.setItem('id', res.data.id)
-						let change = changePasswordPatch({
-							data: {
-								username: res.data.username,
-								password: data.password,
-							},
-							id: res.data.id,
-						}).then(resp => {
-							dispatch(restorePasswordSuccess())
-						}).catch(error => {
-							dispatch(restorePasswordError({
-								type: 'server',
-								error: error.message,
-							}))
-						})
-						break
-					} else {
-						dispatch(restorePasswordError({
-							type: 'password2',
-							message: 'Passwords must match!'
-						}))
-					}
-				case 'Not found':
+			if (res.status === 200) {
+				console.log('RESULT: ####',res)
+				localStorage.setItem('id', res.data.id)
+				let change = changePasswordPost({
+					data: {
+						username: res.data.username,
+						password: data.password,
+						ConfirmPassword: data.password2
+					},
+					id: res.data.id,
+				}).then(resp => {
+					dispatch(restorePasswordSuccess())
+				}).catch(error => {
 					dispatch(restorePasswordError({
-						type: 'not found',
-						message: 'Link has expired'
+						type: 'server',
+						error: error.message,
 					}))
-					break
-				default:
-					dispatch(restorePasswordError({
-						type: 'Unknown',
-						message: 'Link has expired'
-					}))
+				})
+			} else if (res.status === 204) {
+				dispatch(restorePasswordError({
+					type: 'link',
+					message: 'Link has expired',
+				}))
 			}
 		}).catch(error => {
 			dispatch(restorePasswordError({

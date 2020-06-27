@@ -1,21 +1,38 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
 import { restorePassword } from '../actions/restorepassword'
-import { getFormValues, reduxForm, Field } from 'redux-form'
+import { SubmissionError, reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
+import { required, maxLength25, minLength6, validatePassword } from './SignupForm'
 
-
-const renderField = ({ input, placeholder, className, type }) => {
+const textField = ({ input, placeholder, className, type, meta: { touched, error, warning }}) => {
 	return (
- 		<input {...input} className={className} placeholder={placeholder} type={type} />
+		<div className={className}>
+		    <input
+		    	{...input}
+		        type={type}
+		        placeholder={placeholder}
+		    />
+		    { touched &&
+		        ((error && <p className="error"><i class="fas fa-exclamation-circle"></i>{" " + error}</p>) ||
+		          (warning && <p className="error"><i class="fas fa-exclamation-circle"></i>{" " + warning}</p>)
+		        )
+		    }
+	    </div>
 	)
 }
 
 class RestorePasswordForm extends Component {
 	render() {
-		const { handleSubmit, reset, pristine, submitting, hash, forgot} = this.props
+		const { handleSubmit, reset, pristine, submitting, hash, forgot, error} = this.props
 
 		const submit = (values) => {
+
+			if (values.password !== values.password2) {
+				throw new SubmissionError({
+					password2: 'Passwords must match',
+				})
+			}
 
 			this.props.restorePasswordAction({
 				hash: hash,
@@ -23,6 +40,7 @@ class RestorePasswordForm extends Component {
 				password2: values.password2,
 			})
 		}
+
 		if (forgot.error.type === 'done' ) {
 			return(
 				<Redirect to="/account/dashboard" />
@@ -34,25 +52,29 @@ class RestorePasswordForm extends Component {
 			    	onSubmit={handleSubmit(submit)}
 			    >
 			    	<Field
-						component={renderField}		    	
+						component={textField}		    	
 			    		name="password"
 			    		className="login-form-user"
 			    		type="password"
 			    		placeholder="New Password"
+			    		validate={[required, maxLength25, minLength6, validatePassword]}
 			    	/>
 			    	<Field
-			    		component={renderField}
+			    		component={textField}
 			    		name="password2"
 				        className="login-form-password"
 				        type="password"
 				        placeholder="Repeat New Password"
+				        validate={[required, maxLength25, minLength6, validatePassword]}
 			      	/>
-				    <button
-				    	className="login-form-button"
-				    	type="submit"
-				    	disabled={ pristine || submitting }
-				    >Restore</button>
-				    { forgot.error && <p className="error">forgot.error</p> }
+			      	<div className="login-form-button">
+			      		<button
+					    	type="submit"
+					    	disabled={ pristine || submitting }
+					    >{ (submitting || forgot.isFetching) ? "Loading..." : "Restore" }</button>
+					    { forgot.error.type && <p className="error"><i class="fas fa-exclamation-circle"></i>{" " + forgot.error.message}</p> }
+					    { error && <p className="error"><i class="fas fa-exclamation-circle"></i>{" " + error}</p> }
+			      	</div>
 			    </form>
 			)
 		}
