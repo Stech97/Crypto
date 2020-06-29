@@ -7,18 +7,23 @@
         margin: 0;
         display: grid;
         grid-template-columns: repeat(12, $column);
-        grid-template-rows: $account-header-height minmax(calc(100vh - 51px), min-content);
+        grid-template-rows: $account-header-height minmax(
+                calc(100vh - 75px),
+                min-content
+            );
         grid-column-gap: $gap;
     }
-    
+
     &-wrapper {
-        grid-template-areas: "h h h h h h h h h h h h"
-                             "s s c c c c c c c c c c";
+        grid-template-areas:
+            "h h h h h h h h h h h h"
+            "s s c c c c c c c c c c";
     }
 
     &-wrapper-closed {
-        grid-template-areas: "h h h h h h h h h h h h"
-                             "s c c c c c c c c c c c";
+        grid-template-areas:
+            "h h h h h h h h h h h h"
+            "s c c c c c c c c c c c";
     }
 
     .dash-header {
@@ -33,7 +38,7 @@
 
     .contentbox,
     .contentbox-closed {
-        margin: 0 $gap * (-1); 
+        margin: 0 $gap * (-1);
         padding-left: $gap;
         padding-top: 88px;
         background-color: #f5fbff;
@@ -41,7 +46,7 @@
         display: grid;
         grid-template-columns: repeat(10, $column);
         grid-column-gap: $gap;
-        grid-template-rows: 100%; 
+        grid-template-rows: 100%;
 
         h2 {
             // Style for "FAQ’s"
@@ -89,7 +94,7 @@
     .contentbox-closed {
         grid-column: 2 / 13;
     }
-    
+
     .contentbox {
         grid-column: 3 / 13;
     }
@@ -97,7 +102,7 @@
         grid-area: c;
         display: grid;
         grid-template-columns: subgrid;
-        grid-template-rows: min-content; 
+        grid-template-rows: min-content;
         grid-column: 4 / 12;
         padding-top: 88px;
     }

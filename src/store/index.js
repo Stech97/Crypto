@@ -1,28 +1,30 @@
-import { combineReducers } from 'redux';
-import { reducer as reduxFormReducer } from 'redux-form';
-import { userReducer } from '../login/reducers/login'
-import { signupReducer } from '../signup/reducers/signup'
-import { formReducer } from '../comingsoon/reducers/comingsoon'
-import { forgotPasswordReducer } from '../signup/reducers/forgotpassword'
-import { routerReducer } from 'react-router-redux'
-import { dashHeaderReducer } from '../dashboard/reducers/header'
-import { BalanceReducer } from '../dashboard/reducers/contentBalance'
-import { BTCRateReducer } from '../dashboard/reducers/ContentBalanceBTC'
-import { USDRateReducer } from '../dashboard/reducers/ContentBalanceUSD'
-import { DETRateReducer } from '../dashboard/reducers/ContentBalanceDET'
-import { NewsReducer } from '../dashboard/reducers/news'
-import { loginHistoryReducer } from '../dashboard/reducers/loginHistory'
-import { ExchangeReducer } from '../dashboard/reducers/ExchangeForm'
+import { combineReducers } from "redux";
+import { reducer as reduxFormReducer } from "redux-form";
+import { loginReducer } from "../login/reducers/login";
+import { signupReducer } from "../signup/reducers/signup";
+import { formReducer } from "../comingsoon/reducers/comingsoon";
+import { forgotPasswordReducer } from "../signup/reducers/forgotpassword";
+import { routerReducer } from "react-router-redux";
+import { dashHeaderReducer } from "../dashboard/reducers/header";
+import { BalanceReducer } from "../dashboard/reducers/contentBalance";
+import { BTCRateReducer } from "../dashboard/reducers/ContentBalanceBTC";
+import { USDRateReducer } from "../dashboard/reducers/ContentBalanceUSD";
+import { DETRateReducer } from "../dashboard/reducers/ContentBalanceDET";
+import { NewsReducer } from "../dashboard/reducers/news";
+import { loginHistoryReducer } from "../dashboard/reducers/loginHistory";
+import { ExchangeReducer } from "../dashboard/reducers/ExchangeForm";
+import { RefsReducer } from "../dashboard/reducers/RefLinks";
+import { EarningsReducer } from "../dashboard/reducers/contentEarnings";
 
 export const rootReducer = combineReducers({
 	form: reduxFormReducer, // mounted under "form"
 	ComingSoon: formReducer,
 	FooterNewsletter: formReducer,
 	routing: routerReducer,
-	user: userReducer,
+	login: loginReducer,
 	createUser: signupReducer,
 	forgot: forgotPasswordReducer,
-	DashHeader: dashHeaderReducer, 
+	user: dashHeaderReducer,
 	ContentBalanceContainer: BalanceReducer,
 	BTCSquare: BTCRateReducer,
 	USDSquare: USDRateReducer,
@@ -30,4 +32,6 @@ export const rootReducer = combineReducers({
 	News: NewsReducer,
 	loginHistory: loginHistoryReducer,
 	Exchange: ExchangeReducer,
-})
+	Refs: RefsReducer,
+	Earnings: EarningsReducer,
+});

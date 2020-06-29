@@ -1,21 +1,65 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { getRefs } from "../../actions/getRefs";
+import Loader from "react-loader-spinner";
 
 class ContentLinks extends Component {
+	componentDidMount = () => {
+		this.props.getRefsAction();
+	};
+
 	render() {
+		const { Refs } = this.props;
+		console.log(Refs);
 		return (
 			<div className="content-links content-text-blue">
 				<div className="content-links-ref content-whitebox-links">
-					<div className="refbyid">REF LINK www.defima.io/12390124</div>
-					<div className="refbyusername">REF LINK www.defima.io/username</div>
+					<div className="refbyid">
+						{Refs.isFetching ? (
+							<Loader
+								type="Rings"
+								color="#123273"
+								height={80}
+								width={80}
+							/>
+						) : (
+							"REF LINK " + Refs.refs.refId
+						)}
+					</div>
+					<div className="refbyusername">
+						{Refs.isFetching ? (
+							<Loader
+								type="Rings"
+								color="#123273"
+								height={80}
+								width={80}
+							/>
+						) : (
+							"REF LINK " + Refs.refs.refString
+						)}
+					</div>
 				</div>
 				<div className="content-links-links content-whitebox-links">
-					<div className="presentation-link">Download PDF</div>
+					<div className="presentation-link">
+						Business Presentation PDF
+					</div>
 					<div className="image-video-link">Image Video</div>
 					<div className="tutorial-link">Telgram Channel</div>
 				</div>
 			</div>
-		)
+		);
 	}
 }
+const mapStateToProps = (store) => {
+	return {
+		Refs: store.Refs,
+	};
+};
 
-export default ContentLinks
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getRefsAction: () => dispatch(getRefs()),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContentLinks);

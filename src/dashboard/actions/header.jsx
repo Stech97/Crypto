@@ -1,27 +1,54 @@
-import { API } from '../../config'
+import { API } from "../../config";
 
-export const GET_USER_REQUEST = 'GET_USER_REQUEST'
-export const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
+export const GET_USER_REQUEST = "GET_USER_REQUEST";
+export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+export const GET_USER_ERROR = "GET_USER_ERROR";
 
-const getUserInfo = async() => {
-		let resp = await API('/Identity/GetUser?Id='+localStorage.getItem('id'))
-		console.log(resp)
-	return resp.data.username;
-}
+const getUserInfoFetch = async () => {
+	let response = await API(
+		"/Identity/GetUser?Id=" + localStorage.getItem("id")
+	);
+	return response;
+};
+
+const getUserInfoRequest = () => ({
+	type: GET_USER_REQUEST,
+});
+
+export const getUserInfoSuccess = (payload) => ({
+	type: GET_USER_SUCCESS,
+	payload,
+});
+
+const getUserInfoError = (payload) => ({
+	type: GET_USER_ERROR,
+	payload,
+});
 
 export const setUser = (username) => {
-	return dispatch => {
-		dispatch({
-			type: GET_USER_REQUEST,
-			payload: "Loading...",
-		})
+	return (dispatch) => {
+		dispatch(getUserInfoRequest());
 
-		let username = getUserInfo()
-		.then(username => {
-			dispatch({
-				type: GET_USER_SUCCESS,
-				payload: username,
-			})	
-		})
-	}
-}
+		getUserInfoFetch()
+			.then((res) => {
+				if (res.ok) {
+					dispatch(getUserInfoSuccess(res.data));
+				} else {
+					dispatch(
+						getUserInfoError({
+							type: "server",
+							message: "Wrong Id",
+						})
+					);
+				}
+			})
+			.catch((error) => {
+				dispatch(
+					getUserInfoError({
+						type: error.status,
+						message: error.message,
+					})
+				);
+			});
+	};
+};

@@ -2,14 +2,15 @@
 	&-header {
 		color: #16428d;
 	}
-	
+
 	&-content-whitebox {
 		width: 100%;
 		display: grid;
 		grid-template-columns: repeat(2, $column);
-		grid-template-rows: $column+$gap $column;
-		grid-template-areas:"i i"
-							"d d";
+		grid-template-rows: $column + $gap $column;
+		grid-template-areas:
+			"i i"
+			"d d";
 		grid-column-gap: $gap;
 		background-color: #ffffff;
 		box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
@@ -25,8 +26,8 @@
 			display: grid;
 			justify-items: center;
 			align-items: center;
-			>img {
-				height: $column*0.75;
+			> img {
+				height: $column * 0.75;
 			}
 		}
 
@@ -37,28 +38,37 @@
 			display: grid;
 			justify-items: center;
 			align-items: center;
-			background-image: -webkit-linear-gradient(338deg, #123273 0%, #005c9f 100%);
-			background-image: -o-linear-gradient(338deg, #123273 0%, #005c9f 100%);
+			background-image: -webkit-linear-gradient(
+				338deg,
+				#123273 0%,
+				#005c9f 100%
+			);
+			background-image: -o-linear-gradient(
+				338deg,
+				#123273 0%,
+				#005c9f 100%
+			);
 			background-image: linear-gradient(68deg, #123273 0%, #005c9f 100%);
 			border-radius: 0 0 $gap $gap;
-			>h5 {
+			> h5 {
 				text-align: center;
 				color: #ffffff;
 			}
 		}
 	}
 
-	&-box { 
+	&-box {
 		grid-column: 2 / -2;
 		display: grid;
-		grid-template-rows: 1rem 2*$column+$gap 1.4rem 1rem 2*$column+$gap;
+		grid-template-rows: 1rem 2 * $column + $gap 1.4rem 1rem 2 * $column + $gap;
 		grid-template-columns: repeat(8, $column);
 		grid-gap: 1.4rem $gap;
-		grid-template-areas:"bh bh vh vh fu fu fu fu"
-							"bb bb vb vb fu fu fu fu"
-							". . . . . . . ."
-							"fh fh . . pph pph pvh pvh"
-							"fb fb ib ib ppb ppb pvb pvb";
+		grid-template-areas:
+			"bh bh vh vh fu fu fu fu"
+			"bb bb vb vb fu fu fu fu"
+			". . . . . . . ."
+			"fh fh ih ih pph pph pvh pvh"
+			"fb fb ib ib ppb ppb pvb pvb";
 		justify-items: center;
 	}
 
@@ -69,11 +79,12 @@
 		grid-template-columns: repeat(4, $column);
 		grid-column-gap: $gap;
 		grid-template-rows: 4rem 1fr 1fr 1fr;
-		grid-template-areas:"fh fh . ."
-							"ni nt nt nt"
-							"bi bt bt bt"
-							"ti tt tt tt"; 
-		>h5 {
+		grid-template-areas:
+			"fh fh . ."
+			"ni nt nt nt"
+			"bi bt bt bt"
+			"ti tt tt tt";
+		> h5 {
 			color: #123273;
 		}
 
@@ -87,7 +98,7 @@
 			justify-self: center;
 		}
 
-		&-icon { 
+		&-icon {
 			align-self: center;
 			justify-self: center;
 
@@ -111,34 +122,34 @@
 			}
 		}
 
-		&-news { 
+		&-news {
 			grid-area: nt;
 			display: grid;
 			align-items: center;
 		}
 
-		&-blog { 
+		&-blog {
 			grid-area: bt;
 			display: grid;
 			align-items: center;
 		}
 
-		&-telegram { 
+		&-telegram {
 			grid-area: tt;
 			display: grid;
 			align-items: center;
 		}
 	}
 
-	&-business { 
-		grid-area: bb;			
+	&-business {
+		grid-area: bb;
 
 		&-header {
 			grid-area: bh;
 		}
 	}
 
-	&-video { 
+	&-video {
 		grid-area: vb;
 
 		&-header {
@@ -146,7 +157,7 @@
 		}
 	}
 
-	&-facebook { 
+	&-facebook {
 		grid-area: fb;
 
 		&-header {
@@ -154,11 +165,15 @@
 		}
 	}
 
-	&-instagram { 
+	&-instagram {
 		grid-area: ib;
+
+		&-header {
+			grid-area: ih;
+		}
 	}
 
-	&-promopictures { 
+	&-promopictures {
 		grid-area: ppb;
 
 		&-header {
@@ -166,7 +181,7 @@
 		}
 	}
 
-	&-promovideos { 
+	&-promovideos {
 		grid-area: pvb;
 
 		&-header {

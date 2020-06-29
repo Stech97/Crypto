@@ -27,7 +27,7 @@
 	&-links {
 		grid-area: links;
 		display: grid;
-		grid-template-columns: repeat(4, 2*$column+$gap);
+		grid-template-columns: repeat(4, 2 * $column + $gap);
 		grid-column-gap: $gap;
 		grid-template-rows: 100%;
 		justify-items: center;
@@ -41,19 +41,23 @@
 			gap: 22px;
 			justify-items: center;
 			align-items: center;
-			>a {
+			> a {
 				// Style for "Intersecti"
 				width: 100%;
-				height: 86px;
+				height: 75px;
 				display: grid;
 				justify-items: center;
 				align-items: center;
 				box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
-				background-image: linear-gradient(72deg, #123273 0%, #005c9f 100%);
+				background-image: linear-gradient(
+					72deg,
+					#123273 0%,
+					#005c9f 100%
+				);
 				border-radius: 15px;
 				color: #f5fbff;
 				font-size: 1.5rem;
-				font-family: 'IBM Plex Sans';
+				font-family: "IBM Plex Sans";
 			}
 		}
 	}
@@ -65,19 +69,19 @@
 		grid-column: 1 / -1;
 		grid-template-columns: 100%;
 		grid-auto-rows: min-content;
-		gap: 30px 0; 
+		gap: 30px 0;
 
 		&-tab,
 		&-tab-closed {
 			display: grid;
 			grid-template-columns: 100%;
-			grid-auto-rows: 100px min-content;
+			grid-auto-rows: 75px min-content;
 			align-items: center;
 			justify-items: center;
 			border-radius: 15px;
 			width: 100%;
 			height: 100%;
-		
+
 			&-panel {
 				width: 100%;
 				display: grid;
@@ -88,11 +92,11 @@
 				align-items: center;
 				h5 {
 					grid-area: q;
-					margin: 0 0 0 $gap!important;
+					margin: 0 0 0 $gap !important;
 				}
 
-				>.arrow,
-				>.arrow-closed {
+				> .arrow,
+				> .arrow-closed {
 					grid-area: d;
 					fill: #707070;
 					stroke: #707070;
@@ -114,7 +118,7 @@
 				text-align: justify;
 				padding: 0 $column;
 
-				>p {
+				> p {
 					margin: 0;
 					padding: 25px 0;
 					border-top: 2px solid #ebebeb;
@@ -126,6 +130,5 @@
 				}
 			}
 		}
-
-	}	
+	}
 }

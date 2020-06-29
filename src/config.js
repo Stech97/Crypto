@@ -37,12 +37,12 @@ const requestTemplate = axios.create({
 })
 
 export const API = async(path, mode = "get", body = null) => {
-	console.log(path)
+	//console.log(path)
 	switch (mode) {
 		case 'get':
 			try {
 				let request = await requestTemplate.get(path)
-				console.log(request)
+				//console.log(request)
 				return { ok: true, status: request.status, data: request.data}
 			} catch(error) {
 	       	    // Error 😨
@@ -51,9 +51,9 @@ export const API = async(path, mode = "get", body = null) => {
 			         * The request was made and the server responded with a
 			         * status code that falls out of the range of 2xx
 			         */
-			        console.log(error.response.data);
-			        console.log(error.response.status);
-			        console.log(error.response.headers);
+			        //console.log(error.response.data);
+			        //console.log(error.response.status);
+			        //console.log(error.response.headers);
 			        return { ok: false, data: error.response.data, error: { status: error.response.status, message: error.message } }
 			    } else if (error.request) {
 			        /*
@@ -61,19 +61,19 @@ export const API = async(path, mode = "get", body = null) => {
 			         * is an instance of XMLHttpRequest in the browser and an instance
 			         * of http.ClientRequest in Node.js
 			         */
-			        console.log(error.request);
+			        //console.log(error.request);
 			        return { ok: false, data: error.response.data, error: { status: error.response.status, message: error.message } }
 			    } else {
 			        // Something happened in setting up the request and triggered an Error
-			        console.log('Error', error.message);
+			        //console.log('Error', error.message);
 			        return { ok: false, data: error.response.data, error: { status: error.response.status, message: error.message } }
 			    }
-	    		console.log(error);
+	    		//console.log(error);
 			}
 			break
 		case 'post':
 			try {
-				console.log(body)
+				//console.log(body)
 				let bodyJson = JSON.stringify(body)
 				let request = await requestTemplate.post(path, bodyJson )
 				return { ok: true, status: request.status, data: request.data }
@@ -84,9 +84,9 @@ export const API = async(path, mode = "get", body = null) => {
 			         * The request was made and the server responded with a
 			         * status code that falls out of the range of 2xx
 			         */
-			        console.log(error.response.data);
-			        console.log(error.response.status);
-			        console.log(error.response.headers);
+			        //console.log(error.response.data);
+			        //console.log(error.response.status);
+			        //console.log(error.response.headers);
 			        return { ok: false, data: error.response.data, error: { status: error.response.status, message: error.message } }
 			    } else if (error.request) {
 			        /*
@@ -94,19 +94,19 @@ export const API = async(path, mode = "get", body = null) => {
 			         * is an instance of XMLHttpRequest in the browser and an instance
 			         * of http.ClientRequest in Node.js
 			         */
-			        console.log(error.request);
+			        //console.log(error.request);
 			        return { ok: false, data: error.response.data, error: { status: error.response.status, message: error.message } }
 			    } else {
 			        // Something happened in setting up the request and triggered an Error
-			        console.log('Error', error.message);
+			        //console.log('Error', error.message);
 			        return { ok: false, data: error.response.data, error: { status: error.response.status, message: error.message } }
 			    }
-	    		console.log(error);
+	    		//console.log(error);
 	    	}
 	    	break
 	    case 'patch':
 			try {
-				console.log(body)
+				//console.log(body)
 				let bodyJson = JSON.stringify(body)
 				let request = await requestTemplate.patch(path, bodyJson )
 				return { ok: true, status: request.status, data: request.data }
@@ -117,9 +117,9 @@ export const API = async(path, mode = "get", body = null) => {
 			         * The request was made and the server responded with a
 			         * status code that falls out of the range of 2xx
 			         */
-			        console.log(error.response.data);
-			        console.log(error.response.status);
-			        console.log(error.response.headers);
+			        //console.log(error.response.data);
+			        //console.log(error.response.status);
+			        //console.log(error.response.headers);
 			        return { ok: false, error: { status: error.response.status, message: error.message } }
 			    } else if (error.request) {
 			        /*
@@ -127,14 +127,14 @@ export const API = async(path, mode = "get", body = null) => {
 			         * is an instance of XMLHttpRequest in the browser and an instance
 			         * of http.ClientRequest in Node.js
 			         */
-			        console.log(error.request);
+			        //console.log(error.request);
 			        return { ok: false, error: { status: error.response.status, message: error.message } }
 			    } else {
 			        // Something happened in setting up the request and triggered an Error
-			        console.log('Error', error.message);
+			        //console.log('Error', error.message);
 			        return { ok: false, error: { status: error.response.status, message: error.message } }
 			    }
-	    		console.log(error);
+	    		//console.log(error);
 	    	}
 	    	break
 	    default:

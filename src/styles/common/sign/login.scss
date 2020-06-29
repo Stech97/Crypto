@@ -19,6 +19,14 @@
         grid-template-rows: 2fr 2fr 1fr 1fr;
         grid-template-areas: "login-header" "login-form" "login-forgot" "login-footer";
         justify-items: center;
+
+        &-header {
+            // Style for "Thank you"
+            color: #ffffff;
+            font-family: "IBM Plex Sans";
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
     }
 
     &-forgot-button {
@@ -73,7 +81,7 @@
                 opacity: 0.5;
             }
         }
-        
+
         &-user,
         &-password,
         &-button {
@@ -92,11 +100,14 @@
         }
         &-button {
             grid-area: login;
-            >button {
+            display: grid;
+            justify-items: center;
+
+            > button {
                 @include button(220px, $button-height, $button-font-size);
                 @include button-dark();
             }
-            >button[disabled] {
+            > button[disabled] {
                 background-color: #838383;
                 border-color: #838383;
                 opacity: 0.5;

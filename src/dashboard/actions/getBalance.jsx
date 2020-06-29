@@ -1,31 +1,33 @@
-import { API } from '../../config'
+import { API } from "../../config";
 
-export const GET_BALANCE_REQUEST = 'GET_BALANCE_REQUEST'
-export const GET_BALANCE_SUCCESS = 'GET_BALANCE_SUCCESS'
+export const GET_BALANCE_REQUEST = "GET_BALANCE_REQUEST";
+export const GET_BALANCE_SUCCESS = "GET_BALANCE_SUCCESS";
 
-const BalanceRequest = async(ID) => {
-		let resp = await API('/Dashboard/GetBalance?Id=' + ID)
+const BalanceRequest = async (ID) => {
+	let resp = await API("/Dashboard/GetBalance?Id=" + ID);
 	return resp.data;
-}
+};
+
+var rounded = function (number) {
+	return Number(Number(number).toFixed(4));
+};
 
 export const getBalance = (ID) => {
-	
-	return dispatch => {
+	return (dispatch) => {
 		dispatch({
 			type: GET_BALANCE_REQUEST,
 			payload: "Loading...",
-		})
+		});
 
-		let data = BalanceRequest(ID)
-		.then(data => {
+		let data = BalanceRequest(ID).then((data) => {
 			dispatch({
 				type: GET_BALANCE_SUCCESS,
 				payload: {
-					btc: data.btc,
-					usd: data.usd,
-					det: data.det,
+					btc: rounded(data.btc),
+					usd: rounded(data.usd),
+					det: rounded(data.det),
 				},
-			})	
-		})
-	}
-}
+			});
+		});
+	};
+};
