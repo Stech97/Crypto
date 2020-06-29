@@ -3,40 +3,83 @@
 *,
 *::before,
 *::after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 html {
-    box-sizing: border-box;
-    width: 100%;
-    margin: 0;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
 }
 
 body {
-    margin: 0;
-    width: 100%;
+  margin: 0;
+  width: 100%;
 }
 @media (min-width: 992px) {
-    .header-grid-container {
-        padding-left: 140px;
-        padding-right: 96px;
+  .header-grid-container {
+    padding-left: 140px;
+    padding-right: 96px;
+  }
+  section {
+    .wrapper {
+      width: 100%;
+      padding-left: 140px;
+      padding-right: 96px;
     }
-    section {
-      .wrapper {
-          width:100%;
-          padding-left: 140px;
-          padding-right: 96px;
-      }
-    }
+  }
 }
+
+@media (min-width: 1600px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1599px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+/* Portrait tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+  html {
+    font-size: 8px;
+  }
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+  html {
+    font-size: 6px;
+  }
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+  html {
+    font-size: 6px;
+  }
+}
+
+/* Landscape phones and smaller */
+@media (max-width: 480px) {
+  html {
+    font-size: 6px;
+  }
+}
+
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin: 0;
 }
 
@@ -44,17 +87,15 @@ input:focus,
 select:focus,
 textarea:focus,
 button:focus {
-    outline: none;
-    background: transparent;
+  outline: none;
+  background: transparent;
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus
-input:-webkit-autofill, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus input:-webkit-autofill,
 textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover
-textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
@@ -63,5 +104,11 @@ select:-webkit-autofill:focus {
   -webkit-text-fill-color: #ffffff;
   -webkit-box-shadow: 0 0 0px 1000px transparent inset;
   transition: background-color 5000s ease-in-out 0s;
-  background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,174,255,0.04) 50%,rgba(255,255,255,0) 51%,rgba(0,174,255,0.03) 100%);  
+  background: -webkit-linear-gradient(
+    top,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(0, 174, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(0, 174, 255, 0.03) 100%
+  );
 }

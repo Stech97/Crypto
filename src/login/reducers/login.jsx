@@ -57,6 +57,10 @@ export const loginReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isFetching: false,
+				error: {
+					type: "done",
+					message: "",
+				},
 			};
 
 		case CONFIRM_EMAIL_REQUEST:

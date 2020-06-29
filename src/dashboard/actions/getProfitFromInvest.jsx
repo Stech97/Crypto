@@ -24,7 +24,7 @@ const getProfitFromInvestSuccess = (payload) => ({
 
 const getProfitFromInvestFetch = async () => {
 	let response = API(
-		"/Investment/ProfitFromInvest?Id=" + localStorage.getItem("id")
+		"/Dashboard/ProfitFromInvest?Id=" + localStorage.getItem("id")
 	);
 	return response;
 };

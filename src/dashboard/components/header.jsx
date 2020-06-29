@@ -3,7 +3,53 @@ import API from "../../config";
 import { connect } from "react-redux";
 import { setUser } from "../actions/header";
 import { userLogoutGet } from "../actions/logout";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
+function DashHeaderMenu(props) {
+	let history = useHistory();
+	const clickLogout = () => {
+		console.log("###### ACTION!");
+		props.getUserLogoutAction();
+		history.push("/login");
+	};
+
+	return (
+		<div
+			className={
+				"dash-header-user-menu" +
+				(props.isClosed ? "-closed" : "-opened")
+			}
+		>
+			<Link
+				to="/account/settings"
+				className="dash-header-user-menu-settings"
+			>
+				<svg
+					className="dash-header-user-menu-settings-icon"
+					preserveAspectRatio="xMinYMid slice"
+					viewBox="0 0 37 37"
+				>
+					<use href="#settings" />
+				</svg>
+				<div className="dash-header-user-menu-settings-text">
+					<p>Settings</p>
+				</div>
+			</Link>
+			<div className="dash-header-user-menu-logout" onClick={clickLogout}>
+				<svg
+					className="dash-header-user-menu-logout-icon"
+					preserveAspectRatio="xMinYMid slice"
+					viewBox="0 0 37 37"
+				>
+					<use href="#dashboards-icon-white" />
+				</svg>
+				<div className="dash-header-user-menu-logout-text">
+					<p>Logout</p>
+				</div>
+			</div>
+		</div>
+	);
+}
 
 class DashHeader extends Component {
 	state = {
@@ -22,9 +68,7 @@ class DashHeader extends Component {
 
 	render() {
 		const { user, getUserLogoutAction } = this.props;
-		const clickLogout = () => {
-			getUserLogoutAction(user.id);
-		};
+
 		return (
 			<div className="dash-header">
 				<div className="dash-header-logo">
@@ -37,43 +81,10 @@ class DashHeader extends Component {
 							(this.state.isClosed ? "-closed" : "")
 						}
 					>
-						<div
-							className={
-								"dash-header-user-menu" +
-								(this.state.isClosed ? "-closed" : "-opened")
-							}
-						>
-							<Link
-								to="/account/settings"
-								className="dash-header-user-menu-settings"
-							>
-								<svg
-									className="dash-header-user-menu-settings-icon"
-									preserveAspectRatio="xMinYMid slice"
-									viewBox="0 0 37 37"
-								>
-									<use href="#settings" />
-								</svg>
-								<div className="dash-header-user-menu-settings-text">
-									<p>Settings</p>
-								</div>
-							</Link>
-							<div
-								className="dash-header-user-menu-logout"
-								onClick={clickLogout}
-							>
-								<svg
-									className="dash-header-user-menu-logout-icon"
-									preserveAspectRatio="xMinYMid slice"
-									viewBox="0 0 37 37"
-								>
-									<use href="#dashboards-icon-white" />
-								</svg>
-								<div className="dash-header-user-menu-logout-text">
-									<p>Logout</p>
-								</div>
-							</div>
-						</div>
+						<DashHeaderMenu
+							isClosed={this.state.isClosed}
+							getUserLogoutAction={() => getUserLogoutAction()}
+						/>
 					</div>
 					<div className="dash-header-user-icon">
 						<svg
@@ -120,7 +131,7 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		setUserAction: (username) => dispatch(setUser(username)),
-		getUserLogoutAction: (ID) => dispatch(userLogoutGet(ID)),
+		getUserLogoutAction: () => dispatch(userLogoutGet()),
 	};
 };
 

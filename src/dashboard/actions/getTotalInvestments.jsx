@@ -24,7 +24,7 @@ const getTotalInvestmentsSuccess = (payload) => ({
 
 const getTotalInvestmentsFetch = async () => {
 	let response = API(
-		"/Investment/GetTotalInvestment?Id=" + localStorage.getItem("id")
+		"/Dashboard/GetTotalInvestment?Id=" + localStorage.getItem("id")
 	);
 	return response;
 };
