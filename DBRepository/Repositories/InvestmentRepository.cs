@@ -29,7 +29,7 @@ namespace DBRepository.Repositories
 					.Where(i => i.UserId == UserId).OrderByDescending(i => i.DateInvestment).Take(Take).ToListAsync();
 		}
 
-		public async Task<string> BuyInvestment(Investment investment, string cur, int UserId)
+		public async Task<Balance> BuyInvestment(Investment investment, string cur, int UserId)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -45,10 +45,11 @@ namespace DBRepository.Repositories
 							context.Investments.Add(investment);
 							context.Balances.Update(balance);
 							await context.SaveChangesAsync();
-							return "Ok";
+							
+							return await context.Balances.AsNoTracking().FirstOrDefaultAsync(b => b.UserId == UserId);
 						}
 						else
-							return "Balance less";						
+							return await context.Balances.AsNoTracking().FirstOrDefaultAsync(b => b.UserId == UserId);
 					case "USD":
 						if (balance.USDBalance >= investment.AddCash)
 						{
@@ -57,10 +58,11 @@ namespace DBRepository.Repositories
 							context.Investments.Add(investment);
 							context.Balances.Update(balance);
 							await context.SaveChangesAsync();
-							return "Ok";
+
+							return await context.Balances.AsNoTracking().FirstOrDefaultAsync(b => b.UserId == UserId);
 						}
 						else
-							return "Balance less";
+							return await context.Balances.AsNoTracking().FirstOrDefaultAsync(b => b.UserId == UserId);
 					case "DET":
 						if (balance.DefimaBalance >= investment.AddCash)
 						{
@@ -70,12 +72,13 @@ namespace DBRepository.Repositories
 							context.Investments.Add(investment);
 							context.Balances.Update(balance);
 							await context.SaveChangesAsync();
-							return "Ok";
+
+							return await context.Balances.AsNoTracking().FirstOrDefaultAsync(b => b.UserId == UserId);
 						}
 						else
-							return "Balance less";
+							return await context.Balances.AsNoTracking().FirstOrDefaultAsync(b => b.UserId == UserId);
 					default:
-						return "No found";
+						return null;
 				}
 			}
 		}

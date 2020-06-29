@@ -39,9 +39,9 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> BuyInvestment([FromBody] BuyInvestmentViewModel request, int Id)
 		{
 			var response = await _investmentService.BuyInvestment(request, Id);
-			if (response == "Ok")
-				return Ok(response);
-			return BadRequest(response);
+			if (response == null)
+				return BadRequest();
+			return Ok(response);
 		}
 	}
 }

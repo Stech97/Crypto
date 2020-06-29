@@ -4,8 +4,8 @@ using Crypto.Services.Interfaces;
 using DBRepository.Interfaces;
 using AutoMapper;
 using System.Collections.Generic;
-using Crypto.ViewModels;
 using Crypto.ViewModels.Investment;
+using Crypto.ViewModels.Dashdoard;
 
 namespace Crypto.Services.Implementation
 {
@@ -31,11 +31,12 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetLastDayInvestment(UserId);
 		}
 
-        public async Task<string> BuyInvestment(BuyInvestmentViewModel request, int Id)
+        public async Task<BalanceViewModel> BuyInvestment(BuyInvestmentViewModel request, int Id)
         {
 			var invest = _mapper.Map<BuyInvestmentViewModel, Investment>(request);
 			string cur = request.Currency;
-			return await _repository.BuyInvestment(invest, cur, Id);
+			var balance = await _repository.BuyInvestment(invest, cur, Id);
+			return _mapper.Map<Balance, BalanceViewModel>(balance);
 
 		}
     }
