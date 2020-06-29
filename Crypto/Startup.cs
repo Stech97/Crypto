@@ -85,10 +85,10 @@ namespace Crypto
         {
 			if (env.IsDevelopment())
 				app.UseDeveloperExceptionPage();
-			else
+			/*else
 				app.UseHsts();
 
-			app.UseHttpsRedirection();
+			app.UseHttpsRedirection();*/
 			app.UseAuthentication(); 
 			app.UseCors("CorsPolicy");
 			app.UseRouting();
