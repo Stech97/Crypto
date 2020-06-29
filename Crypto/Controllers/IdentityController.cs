@@ -253,6 +253,19 @@ namespace Crypto.Controllers
 			await _identityService.UpdateInfo(request, Id);
 			return Ok();
 		}
+		//[Authorize]
+		[Route("ReInvest")]
+		[HttpPatch]
+		public async Task<IActionResult> ReInvest(int Id, bool ReInvest)
+		{
+			var result = await _identityService.ReInvest(Id, ReInvest);
+			var response = new
+			{
+				reinvest = result
+			};
+			return Ok(response);
+				
+		}
         #endregion
     }
 }

@@ -19,5 +19,6 @@ namespace DBRepository.Interfaces
         Task<Dictionary<string, object>> AcceptForgot(string Id);
         Task UpdateInfo(User user, int Id);
         Task RecoveryPassword(User user, int Id);
+        Task<bool> ReInvest(int Id, bool ReInvest);
     }
 }

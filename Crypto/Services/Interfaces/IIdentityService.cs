@@ -19,5 +19,6 @@ namespace Crypto.Services.Interfaces
 		Task<Dictionary<string, object>> AcceptFogot(string Id);
 		Task UpdateInfo(UpdateInfoViewModel request, int Id);
 		Task RecoveryPassword(ChangePasswordViewModel request, int Id);
+		Task<bool> ReInvest(int Id, bool ReInvest);
 	}
 }

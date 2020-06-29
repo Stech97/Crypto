@@ -43,5 +43,14 @@ namespace Crypto.Controllers
 				return BadRequest();
 			return Ok(response);
 		}
+
+		//[Authorize]
+		[Route("GetData")]
+		[HttpGet]
+		public async Task<IActionResult> GetData(int UserId)
+		{
+			return Ok();
+		}
+
 	}
 }

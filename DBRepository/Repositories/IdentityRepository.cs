@@ -417,6 +417,18 @@ namespace DBRepository.Repositories
 			}
 		}
 
+		public async Task<bool> ReInvest(int Id, bool ReInvest)
+		{
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == Id);
+				user.IsReInvest = ReInvest;
+				contex.Users.Update(user);
+				await contex.SaveChangesAsync();
+				return user.IsReInvest;
+			}
+		}
+
 		private string GetMd5Hash(MD5 md5Hash, string input)
 		{
 			byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));

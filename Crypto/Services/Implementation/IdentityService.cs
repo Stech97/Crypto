@@ -82,11 +82,16 @@ namespace Crypto.Services.Implementation
 			var update = _mapper.Map<UpdateInfoViewModel, User>(request);
 			await _repository.UpdateInfo(update, Id);
 		}
+		
 		public async Task RecoveryPassword(ChangePasswordViewModel request, int Id)
 		{
 			var newPassword = _mapper.Map<ChangePasswordViewModel, User>(request);
 			await _repository.RecoveryPassword(newPassword, Id);
 		}
 
+		public async Task<bool> ReInvest(int Id, bool ReInvest)
+		{
+			return await _repository.ReInvest(Id, ReInvest);
+		}
 	}
 }
