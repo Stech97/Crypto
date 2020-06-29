@@ -1,5 +1,5 @@
-$section: "ourteam";
-$sub-section: "member";
+$section: 'ourteam';
+$sub-section: 'member';
 .#{$section} {
   &-wrapper {
     padding-top: 70px;
@@ -7,33 +7,33 @@ $sub-section: "member";
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 117px 1fr;
-    gap: 0;
-    grid-template-areas: $section+"-header" $section+"-"+$sub-section;
+    grid-template-areas: $section + '-header' $section + '-' + $sub-section;
   }
 
   &-#{$sub-section} {
     padding-top: 53px;
-    grid-area: #{$section+"-"+$sub-section};
+    grid-area: #{$section + '-' + $sub-section};
     justify-self: center;
     width: calc(100% + 236px);
     display: grid;
     grid-template-columns: auto repeat(3, 21.5%) auto;
     grid-template-rows: 2.57fr 1fr;
 
-    background: linear-gradient(0deg,#ed7102 100%,#ed7102 100%) left calc(53px + 47%)/calc(100% + 234px) calc(100% * 2.57 / 7.14) no-repeat;
+    background: linear-gradient(0deg, #ed7102 100%, #ed7102 100%) left
+      calc(53px + 47%) / calc(100% + 234px) calc(100% * 2.57 / 7.14) no-repeat;
     margin-left: -140px;
     margin-right: -96px;
     padding-left: 140px;
     padding-right: 96px;
 
-    $row1: ". ";
-    $row2: ". ";
+    $row1: '. ';
+    $row2: '. ';
     @for $j from 1 through 3 {
-      $row1: $row1 + $section + "-" + $sub-section + "-photo-"+$j+" ";
-      $row2: $row2 + $section + "-" + $sub-section + "-caption-"+$j+" ";
+      $row1: $row1 + $section + '-' + $sub-section + '-photo-' + $j + ' ';
+      $row2: $row2 + $section + '-' + $sub-section + '-caption-' + $j + ' ';
     }
-    $row1: $row1 + " .";
-      $row2: $row2 + " .";
+    $row1: $row1 + ' .';
+    $row2: $row2 + ' .';
 
     grid-template-areas: $row1 $row2;
     gap: 0 3.15%;
@@ -43,12 +43,12 @@ $sub-section: "member";
 
     @for $i from 1 through 3 {
       &-photo-#{$i} {
-        grid-area: #{$section+"-"+$sub-section+"-photo-"+$i};
+        grid-area: #{$section + '-' + $sub-section + '-photo-' + $i};
 
         padding: 10% 0;
       }
       &-caption-#{$i} {
-        grid-area: #{$section+"-"+$sub-section+"-caption-"+$i};
+        grid-area: #{$section + '-' + $sub-section + '-caption-' + $i};
         height: 100%;
         width: 72%;
       }
@@ -61,6 +61,7 @@ $sub-section: "member";
     &-name {
       margin-top: 23px;
       margin-bottom: 0;
+      width: 100%;
       p {
         margin: 0;
         font-family: IBMPlexSans;
@@ -78,8 +79,8 @@ $sub-section: "member";
       margin-top: 10px;
       padding-bottom: 18.5px;
       border-bottom: 1px solid #838383;
-      width: 100%;
       p {
+        width: 100%;
         margin: 0;
         font-family: IBMPlexSans;
         font-size: 25px;
@@ -99,7 +100,7 @@ $sub-section: "member";
         padding: 17px 17px;
         border-radius: 30px;
         width: 60px;
-        height:60px;
+        height: 60px;
         background-color: #ed7102;
         font-size: 25px;
         color: #ffffff;

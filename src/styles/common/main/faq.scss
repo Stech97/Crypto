@@ -6,8 +6,7 @@
     display: grid;
     grid-template-rows: minmax(min-content, 159px) min-content;
     grid-template-columns: 40.98% 59.02%;
-    grid-template-areas: "faq-header faq-topic" "faq-text faq-topic";
-
+    grid-template-areas: 'faq-header faq-topic' 'faq-text faq-topic';
   }
   &-header {
     grid-area: faq-header;
@@ -39,17 +38,15 @@
       letter-spacing: normal;
       text-align: left;
       color: #838383;
-
     }
   }
   &-topic {
     grid-area: faq-topic;
 
-
     display: grid;
     grid-template-rows: repeat(min-content, 4);
-    grid-template-columns: 81.69%;
-    grid-template-areas: "faq-topic-1" "faq-topic-2" "faq-topic-3" "faq-button";
+    grid-template-columns: 90%;
+    grid-template-areas: 'faq-topic-1' 'faq-topic-2' 'faq-topic-3' 'faq-button';
     justify-items: start;
     gap: 20px 0;
 
@@ -66,7 +63,7 @@
         display: grid;
         grid-template-rows: fit-content(99px);
         grid-template-columns: repeat(min-content, 2);
-        grid-template-areas: "faq-question faq-arrow";
+        grid-template-areas: 'faq-question faq-arrow';
         align-items: center;
         &-opened {
           width: 100%;
@@ -80,9 +77,8 @@
           display: grid;
           grid-template-rows: fit-content(99px) min-content;
           grid-template-columns: repeat(min-content, 2);
-          grid-template-areas: "faq-question faq-arrow" "faq-answer faq-answer";
+          grid-template-areas: 'faq-question faq-arrow' 'faq-answer faq-answer';
           align-items: center;
-
         }
       }
     }
@@ -123,8 +119,8 @@
     &-arrow {
       justify-self: end;
       grid-area: faq-arrow;
-      height: 35px;
-      width: 35px;
+      height: 2.1875rem;
+      width: 2.1875rem;
       background-color: #ffffff;
       border-top: 2px solid #707070;
       border-right: 2px solid #707070;
@@ -134,8 +130,8 @@
       &-opened {
         justify-self: end;
         grid-area: faq-arrow;
-        height: 35px;
-        width: 35px;
+        height: 2.1875rem;
+        width: 2.1875rem;
         background-color: #ffffff;
         border-top: 2px solid #707070;
         border-right: 2px solid #707070;
