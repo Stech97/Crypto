@@ -14,11 +14,11 @@ namespace DBRepository.Interfaces
         Task<Balance> CashBTC(Balance balance, int UserId);
         Task<double> GetRate(string rate);
         Task<User> GetTeam(int Ref);
-        Task<double> ProfitFromInvest(int Id);
-        Task<double> GetTotalInvestment(int Id);
+        Task<object> GetProfitFromInvest(int Id);
+        Task<object> GetTotalInvestment(int Id);
         Task<int> GetTotalMembers(int Id);
-        Task<double> GetEarningsTeam(int Id);
-        Task<double> GetTotalProfit(int Id);
-        Task<double> GetLastDayProfit(int Id);
+        Task<object> GetEarningsTeam(int Id);
+        Task<object> GetTotalProfit(int Id);
+        Task<object> GetLastWeekProfit(int Id);
     }
 }

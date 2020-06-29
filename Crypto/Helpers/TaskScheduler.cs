@@ -17,7 +17,8 @@ namespace Crypto.Helpers
         public void ScheduleTask(int hour, int min, int intervalInHour, Action task)
         {
             DateTime now = DateTime.Now;
-            DateTime firstRun = new DateTime(now.Year, now.Month, now.Day, hour, min, 0, 0);
+            DateTime firstRun = DateTime.Now.AddHours(hour);
+            firstRun.AddMinutes(min);
 
             TimeSpan timeToGo = firstRun - now;
             if (timeToGo <= TimeSpan.Zero)

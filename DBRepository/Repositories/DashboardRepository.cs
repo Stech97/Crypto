@@ -118,16 +118,16 @@ namespace DBRepository.Repositories
                 switch (rate)
                 {
                     case "BTCUSD":
-                        OutRate =  await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateBTC_USD).FirstAsync();
+                        OutRate =  await context.Balances.AsNoTracking().Select(b => b.RateBTC_USD).FirstAsync();
                         break;
                     case "USDBTC":
-                        OutRate = 1 / await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateBTC_USD).FirstAsync();
+                        OutRate = 1 / await context.Balances.AsNoTracking().Select(b => b.RateBTC_USD).FirstAsync();
                         break;
                     case "USDDET":
-                        OutRate = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_DEF).FirstAsync();
+                        OutRate = await context.Balances.AsNoTracking().Select(b => b.RateUSD_DEF).FirstAsync();
                         break;
                     case "DETUSD":
-                        OutRate = 1 / await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_DEF).FirstAsync();
+                        OutRate = 1 / await context.Balances.AsNoTracking().Select(b => b.RateUSD_DEF).FirstAsync();
                         break;
                     default:
                         OutRate = 0;
@@ -164,34 +164,38 @@ namespace DBRepository.Repositories
             }
         }
 
-        public async Task<double> ProfitFromInvest(int Id)
-        {
-            using (var context = ContextFactory.CreateDbContext(ConnectionString))
-                return await context.Investments.AsNoTracking().Where(i => i.UserId == Id).SumAsync(i => i.Profit);
-        }
 
-        public async Task<double> GetEarningsTeam(int Id)
+        public async Task<object> GetTotalInvestment(int UserId)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                double Profit = 0;
-
-                var RefUser = await context.Users.Where(u => u.Id == Id)
-                    .Select(u => new User
-                    {
-                        Id = u.Id,
-                        ParentId = u.ParentId ?? 0
-                    }).AsNoTracking().FirstOrDefaultAsync();
-                GetChildrenByParentId(RefUser.Id, ref Profit);
-
-                var UserProfits = await context.Investments.AsNoTracking().Where(i => i.UserId == RefUser.Id).ToListAsync();
-                double ProfitTeam = 0;
-                foreach (var UserProfit in UserProfits)
+                var rate = await context.Balances.AsNoTracking().Select(b => b.RateBTC_USD).FirstAsync();
+                var TotalInvestmentsUSD = await context.Investments.AsNoTracking().Where(i => i.UserId == UserId).SumAsync(i => i.AddCash);
+                var TotalInvestmentsBTC = TotalInvestmentsUSD / rate;
+                var response = new
                 {
-                    ProfitTeam += UserProfit.Profit;
-                }
-                ProfitTeam += Profit;
-                return ProfitTeam;
+                    BTC = TotalInvestmentsBTC,
+                    USD = TotalInvestmentsUSD
+                };
+                return response;
+            }
+        }
+
+        public async Task<object> GetProfitFromInvest(int Id)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var rate = await context.Balances.AsNoTracking().Select(b => b.RateUSD_DEF).FirstAsync();
+                var ProfitUSD = await context.Investments.AsNoTracking().Where(i => i.UserId == Id).SumAsync(i => i.Profit);
+                var ProfitDET = ProfitUSD * rate;
+
+                var response = new
+                {
+                    DET = ProfitDET,
+                    USD = ProfitUSD
+                };
+
+                return response;
             }
         }
 
@@ -211,37 +215,92 @@ namespace DBRepository.Repositories
             return count;
         }
 
-        public async Task<double> GetTotalInvestment(int UserId)
+        public async Task<object> GetEarningsTeam(int Id)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
-                return await context.Investments.AsNoTracking()
-                    .Where(i => i.UserId == UserId).SumAsync(i => i.AddCash);
+            {
+                double Profit = 0;
+
+                var RefUser = await context.Users.Where(u => u.Id == Id)
+                    .Select(u => new User
+                    {
+                        Id = u.Id,
+                        ParentId = u.ParentId ?? 0
+                    }).AsNoTracking().FirstOrDefaultAsync();
+                GetChildrenByParentId(RefUser.Id, ref Profit);
+
+                var UserProfits = await context.Investments.AsNoTracking().Where(i => i.UserId == RefUser.Id).ToListAsync();
+                double ProfitTeamUSD = 0;
+                foreach (var UserProfit in UserProfits)
+                {
+                    ProfitTeamUSD += UserProfit.Profit;
+                }
+
+                ProfitTeamUSD += Profit;
+                var rate = await context.Balances.AsNoTracking().Select(b => b.RateUSD_DEF).FirstAsync();
+                double ProfitTeamDET = ProfitTeamUSD * rate;
+
+                var response = new
+                {
+                    DET = ProfitTeamDET,
+                    USD = ProfitTeamUSD
+                };
+
+                return response;
+            }
         }
 
-        public async Task<double> GetTotalProfit(int Id)
+        public async Task<object> GetTotalProfit(int Id)
         {
-            double TotalProfit = await GetEarningsTeam(Id);
+            double TotalProfitUSD = await GetEarningTeam(Id);
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 var Invest = await context.Investments.FirstOrDefaultAsync(i => i.UserId == Id);
                 if (Invest != null)
-                    TotalProfit += Invest.TotalCommission;
+                    TotalProfitUSD += Invest.TotalCommission;
+
+                var rate = await context.Balances.AsNoTracking().Select(b => b.RateUSD_DEF).FirstAsync();
+                var TotalProfitDET = TotalProfitUSD * rate;
+
+                var response = new
+                {
+                    DET = TotalProfitDET,
+                    USD = TotalProfitUSD
+                };
+
+                return response;
             }
-            return TotalProfit;
         }
 
-        public async Task<double> GetLastDayProfit(int Id)
+        public async Task<object> GetLastWeekProfit(int Id)
         {
-            if (DateTime.Now.DayOfWeek == DayOfWeek.Friday)
+            double CommissionUSD = 0;
+
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                using (var context = ContextFactory.CreateDbContext(ConnectionString))
+                if (DateTime.Now.DayOfWeek == DayOfWeek.Friday && DateTime.Now.Hour == 18 && DateTime.Now.Minute == 0)
                 {
                     var Invest = await context.Investments.FirstOrDefaultAsync(i => i.UserId == Id);
                     if (Invest != null)
-                        return  Invest.LastCommission;
+                        CommissionUSD = Invest.CurrentCommission;
                 }
+                else
+                {
+                    var Invest = await context.Investments.FirstOrDefaultAsync(i => i.UserId == Id);
+                    if (Invest != null)
+                        CommissionUSD = Invest.LastCommission;
+                }
+                var rate = await context.Balances.AsNoTracking().Select(b => b.RateUSD_DEF).FirstAsync();
+                var CommissionDET = CommissionUSD * rate;
+
+                var response = new
+                {
+                    DET = CommissionDET,
+                    USD = CommissionUSD
+                };
+                return response;
             }
-                return 0;
+
         }
 
         #region Private
@@ -297,6 +356,32 @@ namespace DBRepository.Repositories
 
                     GetChildrenByParentId(Ref.Id, ref profit);
                 }
+            }
+        }
+        private async Task<double> GetEarningTeam(int Id)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                double Profit = 0;
+
+                var RefUser = await context.Users.Where(u => u.Id == Id)
+                    .Select(u => new User
+                    {
+                        Id = u.Id,
+                        ParentId = u.ParentId ?? 0
+                    }).AsNoTracking().FirstOrDefaultAsync();
+                GetChildrenByParentId(RefUser.Id, ref Profit);
+
+                var UserProfits = await context.Investments.AsNoTracking().Where(i => i.UserId == RefUser.Id).ToListAsync();
+                double ProfitTeamUSD = 0;
+                foreach (var UserProfit in UserProfits)
+                {
+                    ProfitTeamUSD += UserProfit.Profit;
+                }
+
+                ProfitTeamUSD += Profit;
+
+                return ProfitTeamUSD;
             }
         }
 

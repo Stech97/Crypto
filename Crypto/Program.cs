@@ -43,6 +43,26 @@ namespace Crypto
 				}
 				var adminService = services.GetRequiredService<IAdministratorService>();
 				Helpers.TaskScheduler.Instance.ScheduleTask(0, 5, () => { adminService.UpdateBTCRate(); });
+
+				int Day = 0;
+				if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
+					Day = 6;
+				else
+				{
+					if (DateTime.Now.DayOfWeek == DayOfWeek.Friday)
+						Day = 0;
+					else
+						Day = DayOfWeek.Friday - DateTime.Now.DayOfWeek;
+				}
+				int Hour = 17 - DateTime.Now.Hour;
+				int AddHour = (Day * 24) + Hour;
+				int AddMinute = 59 - DateTime.Now.Minute;
+				if (AddHour < 0)
+					AddHour += 168;
+
+
+				Helpers.TaskScheduler.Instance.ScheduleTask(AddHour, AddMinute, 168, () => { adminService.AddCommission(); });
+				Helpers.TaskScheduler.Instance.ScheduleTask(AddHour, AddMinute, 168, () => { adminService.AddProfit(); });
 			}
 
 			host.Run();

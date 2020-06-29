@@ -1,6 +1,4 @@
-﻿using System.Dynamic;
-
-namespace Models
+﻿namespace Models
 {
 	public class Investment
 	{
@@ -11,8 +9,10 @@ namespace Models
 		public double Profit { get; set; }
 		public double TotalCommission { get; set; }
 		public double LastCommission { get; set; }
+		public double CurrentCommission { get; set; }
 		public bool IsFullInvest { get; set; }
 		public int UserId { get; set; }
+		
 		#region Dependencces
 		public User User { get; set; }
 		public TypeInvestment TypeInvestment { get; set; }

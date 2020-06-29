@@ -129,7 +129,10 @@ namespace Crypto.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTotalInvestment(int Id)
         {
-            return Ok(await _dashboardService.GetTotalInvestment(Id));
+            var response = await _dashboardService.GetTotalInvestment(Id);
+            if (response == null)
+                return BadRequest();
+            return Ok(response);
         }
 
         //[Authorize]
@@ -137,10 +140,9 @@ namespace Crypto.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfitFromInvest(int Id)
         {
-            var response = new
-            {
-                Profit = await _dashboardService.ProfitFromInvest(Id)
-            };
+            var response = await _dashboardService.ProfitFromInvest(Id);
+            if (response == null)
+                return BadRequest();
             return Ok(response);
         }
 
@@ -161,10 +163,9 @@ namespace Crypto.Controllers
         [HttpGet]
         public async Task<IActionResult> GetEarningsTeam(int Id)
         {
-            var response = new
-            {
-                EarningsTeam = await _dashboardService.GetEarningsTeam(Id)
-            };
+            var response = await _dashboardService.GetEarningsTeam(Id);
+            if (response == null)
+                return BadRequest();
             return Ok(response);
         }
 
@@ -173,23 +174,20 @@ namespace Crypto.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTotalProfit(int Id)
         {
-            var response = new
-            {
-                TotalProfit = await _dashboardService.GetTotalProfit(Id)
-            };
-
+            var response = await _dashboardService.GetTotalProfit(Id);
+            if (response == null)
+                return BadRequest();
             return Ok(response);
         }
 
         //[Authorize]
-        [Route("GetLastDayProfit")]
+        [Route("GetLastWeekProfit")]
         [HttpGet]
-        public async Task<IActionResult> GetLastDayProfit(int Id) 
+        public async Task<IActionResult> GetLastWeekProfit(int Id) 
         {
-            var response = new
-            {
-                LastDayProfit = await _dashboardService.GetLastDayProfit(Id)
-            };
+            var response = await _dashboardService.GetLastWeekProfit(Id);
+            if (response == null)
+                return BadRequest();
             return Ok(response);
         }
 

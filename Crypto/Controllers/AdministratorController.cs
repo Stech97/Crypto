@@ -50,6 +50,7 @@ namespace Crypto.Controllers
 		{
 			return Ok(await _administratorService.UpdateDETRate(request));
 		}
+
         #region Dev
 
         [Route("DelUser")]
@@ -66,6 +67,6 @@ namespace Crypto.Controllers
 			return Ok(await _administratorService.GetUsers());
 		}
 
-        #endregion
+		#endregion
 	}
 }

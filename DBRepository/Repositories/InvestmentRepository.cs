@@ -41,6 +41,7 @@ namespace DBRepository.Repositories
 						{
 							balance.BitcoinBalance -= investment.AddCash;
 							investment.UserId = UserId;
+                            investment.AddCash *= balance.RateBTC_USD;
 							context.Investments.Add(investment);
 							context.Balances.Update(balance);
 							await context.SaveChangesAsync();
@@ -65,6 +66,7 @@ namespace DBRepository.Repositories
 						{
 							balance.DefimaBalance -= investment.AddCash;
 							investment.UserId = UserId;
+							investment.AddCash /= balance.RateUSD_DEF;
 							context.Investments.Add(investment);
 							context.Balances.Update(balance);
 							await context.SaveChangesAsync();

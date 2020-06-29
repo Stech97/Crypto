@@ -11,6 +11,9 @@ namespace Crypto.Services.Interfaces
         Task AddInvestment(InvestmentViewModel request);
         Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request);
         void UpdateBTCRate();
+        void AddProfit();
+        void AddCommission();
+
         #region Dev
         Task DelUser(int Id);
         Task<List<UserViewModel>> GetUsers();

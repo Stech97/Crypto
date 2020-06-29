@@ -12,6 +12,7 @@ namespace Crypto.Services.Implementation
     {
         readonly IDashboardRepository _repositoryDashboard;
         readonly IMapper _mapper;
+
         public DashboardService(IDashboardRepository repositoryDashboard, IMapper mapper)
         {
             _repositoryDashboard = repositoryDashboard;
@@ -68,33 +69,34 @@ namespace Crypto.Services.Implementation
             return _mapper.Map<User, RefUserViewModel>(response);
         }
 
-        public async Task<double> ProfitFromInvest(int Id)
+        public async Task<object> ProfitFromInvest(int Id)
         {
-            var response = await _repositoryDashboard.ProfitFromInvest(Id);
-            return response;
+            return await _repositoryDashboard.GetProfitFromInvest(Id);
         }
 
-        public async Task<double> GetTotalInvestment(int Id)
+        public async Task<object> GetTotalInvestment(int Id)
         {
             return await _repositoryDashboard.GetTotalInvestment(Id);
         }
+
         public async Task<int> GetTotalMembers(int Id)
         {
             return await _repositoryDashboard.GetTotalMembers(Id);
         }
-        public async Task<double> GetEarningsTeam(int Id)
+
+        public async Task<object> GetEarningsTeam(int Id)
         {
             return await _repositoryDashboard.GetEarningsTeam(Id);
         }
 
-        public async Task<double> GetTotalProfit(int Id)
+        public async Task<object> GetTotalProfit(int Id)
         {
             return await _repositoryDashboard.GetTotalProfit(Id);
         }
 
-        public async Task<double> GetLastDayProfit(int Id)
+        public async Task<object> GetLastWeekProfit(int Id)
         {
-            return await _repositoryDashboard.GetLastDayProfit(Id);
+            return await _repositoryDashboard.GetLastWeekProfit(Id);
         }
 
     }
