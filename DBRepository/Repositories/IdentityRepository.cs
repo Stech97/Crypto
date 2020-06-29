@@ -250,33 +250,86 @@ namespace DBRepository.Repositories
 			{
 				var findUser = await context.Users.FirstOrDefaultAsync(u => u.Username == user.Username && u.Email == user.Email);
 
-				if (findUser != null && !findUser.IsFogotPassword)
+				if (findUser != null)
 				{
-					findUser.IsFogotPassword = true;
-					ForgotPassword forgotPassword = new ForgotPassword()
+					if (!findUser.IsFogotPassword)
 					{
-						TimeForgot = System.DateTime.Now,
-						Username = findUser.Username,
-						Email = findUser.Email,
-						User = findUser,
-						UserId = findUser.Id
-					};
-					context.ForgotPasswords.Add(forgotPassword);
-					context.Users.Update(findUser);
-					await context.SaveChangesAsync();
+						findUser.IsFogotPassword = true;
+						ForgotPassword forgotPassword = new ForgotPassword()
+						{
+							TimeForgot = System.DateTime.Now,
+							Username = findUser.Username,
+							Email = findUser.Email,
+							CountAttempt = 1,
+							User = findUser,
+							UserId = findUser.Id
+						};
+						context.ForgotPasswords.Add(forgotPassword);
+						context.Users.Update(findUser);
+						await context.SaveChangesAsync();
 
-					var fogot = forgotPassword.Username + " " + forgotPassword.Email + " " + forgotPassword.TimeForgot.ToString();
-					string hash = "";
-					using (MD5 md5Hash = MD5.Create())
-						hash = GetMd5Hash(md5Hash, fogot);
+						var fogot = forgotPassword.Username + " " + forgotPassword.Email + " " 
+							+ forgotPassword.CountAttempt.ToString() + " " + forgotPassword.TimeForgot.ToString();
 
-					var fogotPassword = new
+						string hash = "";
+						using (MD5 md5Hash = MD5.Create())
+							hash = GetMd5Hash(md5Hash, fogot);
+
+						var fogotPassword = new
+						{
+							Hash = hash,
+							findUser.Email,
+							findUser.Username,
+							CountAttempt = 1
+						};
+						response.Add("Ok", fogotPassword);
+					}
+					else
 					{
-						Hash = hash,
-                        findUser.Email,
-						findUser.Username
-					};
-					response.Add("Ok", fogotPassword);
+						findUser.IsFogotPassword = true;
+						var forgotPassword = await context.ForgotPasswords.FirstOrDefaultAsync(fa => fa.UserId == findUser.Id);
+
+						if (forgotPassword.CountAttempt < 5)
+						{
+							forgotPassword.CountAttempt++;
+
+							context.ForgotPasswords.Update(forgotPassword);
+							context.Users.Update(findUser);
+							await context.SaveChangesAsync();
+
+							var fogot = forgotPassword.Username + " " + forgotPassword.Email + " "
+							+ forgotPassword.CountAttempt.ToString() + " " + forgotPassword.TimeForgot.ToString();
+
+							string hash = "";
+							using (MD5 md5Hash = MD5.Create())
+								hash = GetMd5Hash(md5Hash, fogot);
+
+							var fogotPassword = new
+							{
+								Hash = hash,
+								findUser.Email,
+								findUser.Username,
+								forgotPassword.CountAttempt
+							};
+							response.Add("Ok", fogotPassword);
+						}
+						else
+						{
+							forgotPassword.CountAttempt++;
+							findUser.IsFogotPassword = true;
+							findUser.IsBlock = true;
+							context.Users.Update(findUser);
+							await context.SaveChangesAsync();
+							
+							var fogotPassword = new
+							{
+								findUser.Email,
+								findUser.Username,
+								forgotPassword.CountAttempt
+							};
+							response.Add("Blocked", fogotPassword);
+						}
+					}
 				}
 				else
 				{

@@ -60,6 +60,8 @@ namespace Crypto.Controllers
 					return Ok(response[Keys]);
 				case "Not found":
 					return NotFound(response[Keys]);
+				case "Blocked":
+					return BadRequest(response[Keys]);
 				default:
 					return NoContent();
 			}
@@ -103,7 +105,7 @@ namespace Crypto.Controllers
 			var user = await _identityService.GetUser(model.Username);
 			if (user != null)
 			{
-				if (!user.IsFogotPassword)
+				if (!user.IsFogotPassword || !user.IsBlock)
 				{
 					var sha256 = new SHA256Managed();
 					var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(model.Password)));
@@ -112,10 +114,10 @@ namespace Crypto.Controllers
 					if (passwordHash == passwordUser)
 					{
 						var claims = new List<Claim>
-					{
-						new Claim(ClaimsIdentity.DefaultNameClaimType, username),
-						new Claim(ClaimsIdentity.DefaultRoleClaimType, "Client")
-					};
+						{
+							new Claim(ClaimsIdentity.DefaultNameClaimType, username),
+							new Claim(ClaimsIdentity.DefaultRoleClaimType, "Client")
+						};
 						identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 					}
 				}

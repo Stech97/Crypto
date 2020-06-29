@@ -19,6 +19,7 @@ namespace Models
 		public bool IsVerified { get; set; }
 		public bool IsFogotPassword { get; set; }
 		public bool IsReInvest { get; set; }
+		public bool IsBlock { get; set; }
 		public int? ParentId { get; set; }
 		public IEnumerable<User> Children { get; set; }
 

@@ -90,7 +90,7 @@ namespace Crypto.Controllers
         public async Task<IActionResult> GetRate([FromBody] RateViewModel request)
         {
             var rate = await _dashboardService.GetRate(request);
-            if (rate <= 0)
+            if (rate >= 0)
             {
                 var response = new { rate };
                 return Ok(response);

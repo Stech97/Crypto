@@ -6,9 +6,8 @@ using Crypto.ViewModels.Identity;
 using Crypto.ViewModels.Dashdoard;
 using Crypto.ViewModels.Administrator;
 using Crypto.ViewModels.Investment;
-using System.Security.Cryptography.X509Certificates;
 
-namespace Crypto
+namespace Crypto.Helpers
 {
 	public class MappingProfile : Profile
 	{

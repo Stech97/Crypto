@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Crypto.Helpers;
 using System;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace Crypto
 {
@@ -79,9 +81,14 @@ namespace Crypto
             #endregion
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-			app.UseDeveloperExceptionPage(); 
+			if (env.IsDevelopment())
+				app.UseDeveloperExceptionPage();
+			else
+				app.UseHsts();
+
+			app.UseHttpsRedirection();
 			app.UseAuthentication(); 
 			app.UseCors("CorsPolicy");
 			app.UseRouting();
