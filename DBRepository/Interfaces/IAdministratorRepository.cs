@@ -6,9 +6,9 @@ namespace DBRepository.Interfaces
 {
     public interface IAdministratorRepository
     {
-        Task AddNews(News news); 
+        Task<News> AddNews(News news); 
         Task<Balance> UpdateDETRate(Balance balance);
-        Task UpdateNews(News news, string heder);
+        Task<News> UpdateNews(News news, string heder);
         Task DeleteNews(string heder);
 
         #region Dev

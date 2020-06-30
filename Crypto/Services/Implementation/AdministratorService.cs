@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Administrator;
+using Crypto.ViewModels.Dashdoard;
 using DBRepository.Interfaces;
 using Models;
 using System.Collections.Generic;
@@ -19,16 +20,18 @@ namespace Crypto.Services.Implementation
 			_mapper = mapper;
 		}
 
-		public async Task AddNews(AddNewsViewModel request)
+		public async Task<NewsViewModel> AddNews(AddNewsViewModel request)
 		{
 			var news = _mapper.Map<AddNewsViewModel, News>(request);
-			await _repository.AddNews(news);
+			var response = await _repository.AddNews(news);
+			return _mapper.Map<News, NewsViewModel>(response);
 		}
 
-		public async Task UpdateNews(UpdateNewsViewModel model, string heder)
+		public async Task<NewsViewModel> UpdateNews(UpdateNewsViewModel model, string heder)
 		{
 			var news = _mapper.Map<UpdateNewsViewModel, News>(model);
-			await _repository.UpdateNews(news, heder);
+			var response = await _repository.UpdateNews(news, heder); 
+			return _mapper.Map<News, NewsViewModel>(response);
 		}
 
 		public async Task DeleteNews(string heder)

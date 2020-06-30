@@ -1,7 +1,10 @@
-﻿namespace Crypto.ViewModels.Administrator
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Crypto.ViewModels.Administrator
 {
     public class RateDETViewModel
     {
-        public double RateDef { get; set; }
+        [Required]
+        public double RateDet { get; set; }
     }
 }

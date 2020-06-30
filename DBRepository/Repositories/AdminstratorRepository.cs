@@ -11,34 +11,36 @@ namespace DBRepository.Repositories
 	{
 		public AdminstratorRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
-		public async Task AddNews(News news)
+		public async Task<News> AddNews(News news)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				context.News.Add(news);
 				await context.SaveChangesAsync();
+				return news;
 			}
 		}
 
-		public async Task UpdateNews(News news, string heder)
+		public async Task<News> UpdateNews(News news, string heder)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var oldNews = await context.News.FirstOrDefaultAsync(n => n.Header == heder);
 
-				if (oldNews != null)
-				{
-					if (news.Header != null)
-						oldNews.Header = news.Header;
-					if (news.Description != null)
-						oldNews.Description = news.Description;
-					if (news.Body != null)
-						oldNews.Body = news.Body;
-					oldNews.LastChangeDate = news.LastChangeDate;
+				if (oldNews == null)
+					return null;
 
-					context.News.Update(oldNews);
-					await context.SaveChangesAsync();
-				}
+				if (news.Header != null)
+					oldNews.Header = news.Header;
+				if (news.Description != null)
+					oldNews.Description = news.Description;
+				if (news.Body != null)
+					oldNews.Body = news.Body;
+				oldNews.LastChangeDate = news.LastChangeDate;
+
+				context.News.Update(oldNews);
+				await context.SaveChangesAsync();
+				return oldNews;
 			}
 		}
 

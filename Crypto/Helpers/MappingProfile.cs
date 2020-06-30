@@ -62,12 +62,12 @@ namespace Crypto.Helpers
 				.ForMember(m => m.LastChangeDate, opt => opt.MapFrom(m => DateTime.Now));
 
 			CreateMap<RateDETViewModel, Balance>()
-				.ForMember(m => m.RateUSD_DEF, opt => opt.MapFrom(m => m.RateDef));
+				.ForMember(m => m.RateUSD_DEF, opt => opt.MapFrom(m => m.RateDet));
 			CreateMap<double, Balance>()
 				.ForMember(m => m.RateBTC_USD, opt => opt.MapFrom(m => m));
 
 			CreateMap<Balance, RateDETViewModel>()
-				.ForMember(m => m.RateDef, opt => opt.MapFrom(m => m.RateUSD_DEF));
+				.ForMember(m => m.RateDet, opt => opt.MapFrom(m => m.RateUSD_DEF));
 
 			CreateMap<UpdateInfoViewModel, User>();
 

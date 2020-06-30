@@ -21,8 +21,8 @@ namespace Crypto.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddNews([FromBody] AddNewsViewModel model)
 		{
-			await _administratorService.AddNews(model);
-			return Ok();
+			var response = await _administratorService.AddNews(model);
+			return Ok(response);
 		}
 
 		//[Authorize]
@@ -30,9 +30,12 @@ namespace Crypto.Controllers
 		[HttpPatch]
 		public async Task<IActionResult> UpdateNews([FromBody] UpdateNewsViewModel model, string heder)
 		{
-			await _administratorService.UpdateNews(model, heder);
-			return Ok();
+			var response = await _administratorService.UpdateNews(model, heder);
+			if (response == null)
+				return BadRequest("News not found");
+			return Ok(response);
 		}
+		
 		//[Authorize]
 		[Route("DeleteNews")]
 		[HttpDelete]
