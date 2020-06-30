@@ -16,25 +16,7 @@ namespace Crypto.Controllers
 			_administratorService = administratorService;
 		}
 
-        [Authorize(Roles = "Client")]
-		[Route("DeleteInvestment")]
-		[HttpDelete]
-		public async Task<IActionResult> DeleteInvestment(int Id)
-		{
-			await _administratorService.DeleteInvestment(Id);
-			return NoContent();
-		}
-
-		//[Authorize]
-		[Route("AddInvestment")]
-		[HttpPost]
-		public async Task<IActionResult> AddInvestment([FromBody] InvestmentViewModel request)
-		{
-			await _administratorService.AddInvestment(request);
-			return Ok();
-		}
-
-		//[Authorize]
+		//[Authorize(Roles = "Client")]
 		[Route("AddNews")]
 		[HttpPost]
 		public async Task<IActionResult> AddNews([FromBody] NewsViewModel request)

@@ -47,7 +47,10 @@ namespace Crypto.Helpers
 			
 			CreateMap<User, CheckViewModel>();
 
-			CreateMap<Investment, ViewModels.Investment.InvestmentViewModel>();
+			CreateMap<Investment, InvestmentViewModel>()
+				.ForMember(m => m.Day, opt => opt.MapFrom(m => m.DateInvestment.ToString("D")))
+				.ForMember(m => m.Product, opt => opt.MapFrom(m => m.ToString()))
+				.ForMember(m => m.Investment, opt => opt.MapFrom(m => m.AddCash));
 
 			CreateMap<News, ViewModels.Dashdoard.NewsViewModel>();
 

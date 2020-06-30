@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Investment;
 using Microsoft.AspNetCore.Authorization;
@@ -24,17 +23,9 @@ namespace Crypto.Controllers
 		//[Authorize]
 		[Route("GetInvestments")]
 		[HttpGet]
-		public async Task<IActionResult> GetInvestments(int UserId, int Take)
+		public async Task<IActionResult> GetInvestments(int UserId)
 		{
-			return Ok(await _investmentService.GetInvestments(UserId, Take));
-		}
-
-		//[Authorize]
-		[Route("GetLastDayInvestment")]
-		[HttpGet]
-		public async Task<IActionResult> GetLastDayInvestment(int UserId)
-		{
-			return Ok(await _investmentService.GetLastDayInvestment(UserId));
+			return Ok(await _investmentService.GetInvestments(UserId));
 		}
 
 		//[Authorize]
@@ -81,15 +72,5 @@ namespace Crypto.Controllers
 			return Ok(result);
 		}
 
-		[Route("cvs")]
-		[HttpGet]
-		public FileResult GetStream()
-		{
-			string path = Path.Combine(_appEnvironment.ContentRootPath, "C:\\note.txt");
-			FileStream fs = new FileStream(path, FileMode.Open);
-			string file_type = "application/txt";
-			string file_name = "note.txt";
-			return File(fs, file_type, file_name);
-		}
 	}
 }

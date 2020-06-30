@@ -23,17 +23,6 @@ namespace Crypto.Services.Implementation
 			_mapper = mapper;
 		}
 
-		public async Task DeleteInvestment(int investID)
-		{
-			await _repository.DeleteInvestment(investID);
-		}
-
-		public async Task AddInvestment(InvestmentViewModel request)
-		{
-			var investment = _mapper.Map<InvestmentViewModel, Investment>(request);
-			await _repository.AddInvestment(investment);
-		}
-
 		public async Task AddNews(NewsViewModel request)
 		{
 			var news = _mapper.Map<NewsViewModel, News>(request);

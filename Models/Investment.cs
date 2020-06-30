@@ -16,6 +16,25 @@
 		#region Dependencces
 		public User User { get; set; }
 		public TypeInvestment TypeInvestment { get; set; }
-        #endregion 
+        #endregion
+
+        public override string ToString()
+        {
+            string ret = "";
+            switch (TypeInvestmentId)
+            {
+                case 1:
+                    ret = "Small";
+                    break;
+                case 2:
+                    ret = "Medium";
+                    break;
+                case 3:
+                    ret = "Large";
+                    break;
+            }
+            return ret;
+        }
+
     }
 }

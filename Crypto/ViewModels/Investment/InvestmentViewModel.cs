@@ -2,8 +2,9 @@
 {
 	public class InvestmentViewModel
 	{
-		public double AddCash { get; set; }
-		public System.DateTime DateInvestment { get; set; }
-		public string Type { get; set; }
+		public string Day { get; set; }
+		public string Product { get; set; }
+		public double Investment { get; set; }
+		public double Profit { get; set; }
 	}
 }
