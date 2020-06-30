@@ -90,7 +90,7 @@ class ExchangeForm extends Component {
 					balance[curUpperCase(cur1.cur).toLowerCase()]
 				) {
 					this.props.ExchangeAction(
-						Number(values[cur1]),
+						Number(values[cur1.cur]),
 						curUpperCase(cur1.cur),
 						curUpperCase(cur2.cur)
 					);

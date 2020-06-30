@@ -16,6 +16,7 @@ import { ExchangeReducer } from "../dashboard/reducers/ExchangeForm";
 import { RefsReducer } from "../dashboard/reducers/RefLinks";
 import { EarningsReducer } from "../dashboard/reducers/contentEarnings";
 import { FooterFormReducer } from "../main/reducers/FooterForm";
+import { InvestPopupReducer } from "../dashboard/reducers/investForm";
 
 export const rootReducer = combineReducers({
 	form: reduxFormReducer, // mounted under "form"
@@ -35,4 +36,5 @@ export const rootReducer = combineReducers({
 	Exchange: ExchangeReducer,
 	Refs: RefsReducer,
 	Earnings: EarningsReducer,
+	InvestPopup: InvestPopupReducer,
 });
