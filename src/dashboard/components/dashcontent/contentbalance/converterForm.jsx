@@ -13,12 +13,12 @@ const renderField = ({
 	meta: { touched, error, warning },
 }) => {
 	return (
-		<div className="exchange-form-input">
+		<div className="popup-exchange-form-input">
 			<input
 				{...input}
 				type="text"
 				min="0"
-				className={className + " exchange-form-input"}
+				className={className + " popup-exchange-form-input"}
 				placeholder={placeholder}
 			/>
 			{touched &&
@@ -98,30 +98,33 @@ class ExchangeForm extends Component {
 		};
 
 		return (
-			<form className="exchange-form" onSubmit={handleSubmit(submit)}>
-				<h5 className="exchange-form-label1">
+			<form
+				className="popup-exchange-form"
+				onSubmit={handleSubmit(submit)}
+			>
+				<h5 className="popup-exchange-form-label1">
 					{"Insert " + curToString(cur1.cur) + " Amount"}
 				</h5>
 				<Field
 					component={renderField}
 					name={cur1.cur}
-					className="exchange-form-cur1"
+					className="popup-exchange-form-cur1"
 					placeholder={curToString(cur1.cur)}
 					onChange={(e) =>
 						this.handleChange(cur2, cur1, e.target.value)
 					}
 					normalize={validateFloat}
 				/>
-				<div className="exchange-form-img">
+				<div className="popup-exchange-form-img">
 					<img src="/img/exchange-icon.png" />
 				</div>
-				<h5 className="exchange-form-label2">
+				<h5 className="popup-exchange-form-label2">
 					{curToString(cur2.cur) + " Amount"}
 				</h5>
 				<Field
 					component={renderField}
 					name={cur2.cur}
-					className="exchange-form-cur2"
+					className="popup-exchange-form-cur2"
 					placeholder={curToString(cur2.cur)}
 					onChange={(e) =>
 						this.handleChange(cur1, cur2, e.target.value)
@@ -129,14 +132,14 @@ class ExchangeForm extends Component {
 					normalize={validateFloat}
 				/>
 				<button
-					className="exchange-form-button"
+					className="popup-exchange-form-button"
 					type="submit"
 					disabled={pristine || submitting}
 				>
 					Exchange
 				</button>
 				{error && (
-					<p className="exchange-form-error error">
+					<p className="popup-exchange-form-error error">
 						<i class="fas fa-exclamation-circle"></i>
 						{" " + error}
 					</p>

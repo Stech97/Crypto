@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getTotalInvestments } from "../../actions/getTotalInvestments";
 import { getMembersAmount } from "../../actions/getTeam";
 import { getProfitFromInvest } from "../../actions/getProfitFromInvest";
+import { getTeamEarnings } from "../../actions/getTeamEarnings";
 
 function Graph({ height }) {
 	return (
@@ -146,10 +147,6 @@ class ContentEarnings extends Component {
 		};
 
 		var earningsData = {
-			teamEarnings: {
-				det: 205,
-				usd: 205,
-			},
 			lastWeekProfits: {
 				det: 360,
 				usd: 360,
@@ -163,12 +160,12 @@ class ContentEarnings extends Component {
 			totalProfit: {
 				det: rounded(
 					earnings.profitFromInvest.data.det +
-						earningsData.teamEarnings.det,
+						earnings.teamEarnings.data.det,
 					4
 				),
 				usd: rounded(
 					earnings.profitFromInvest.data.usd +
-						earningsData.teamEarnings.usd,
+						earnings.teamEarnings.data.usd,
 					4
 				),
 			},
@@ -205,7 +202,7 @@ class ContentEarnings extends Component {
 				</div>
 				<div className="content-earnings-profteam">
 					<ProfitFromInvest data={earnings.profitFromInvest.data} />
-					<TeamEarnings data={earningsData.teamEarnings} />
+					<TeamEarnings data={earnings.teamEarnings.data} />
 				</div>
 				<div className="content-earnings-totalprof">
 					<div className="content-earnings-totalprof-header content-text-blue">
@@ -234,6 +231,7 @@ const mapDispatchToProps = (dispatch) => {
 		getTotalInvAction: () => dispatch(getTotalInvestments()),
 		getTotalMemAction: () => dispatch(getMembersAmount()),
 		getProfitFromInvestAction: () => dispatch(getProfitFromInvest()),
+		getTeamEarningsAction: () => dispatch(getTeamEarnings()),
 	};
 };
 

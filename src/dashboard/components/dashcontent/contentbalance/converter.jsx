@@ -81,60 +81,63 @@ class ExchangeContainer extends Component {
 		const subHeader = (curr1, curr2) => {
 			if (curr1 === "coin") {
 				return (
-					<h2>
+					<h4>
 						From Defima Token
 						<br />
 						{"(DET) to " + curToString(curr2)}
-					</h2>
+					</h4>
 				);
 			} else if (curr2 == "coin") {
 				return (
-					<h2>
+					<h4>
 						{"From " + curToString(curr1) + " to"}
 						<br />
 						Defima Token (DET)
-					</h2>
+					</h4>
 				);
 			} else {
 				return (
-					<h2>
+					<h4>
 						{"From " +
 							curToString(curr1) +
 							" to " +
 							curToString(curr2)}
-					</h2>
+					</h4>
 				);
 			}
 		};
 
 		return (
-			<div className={isOpened ? "exchangebox" : "none"}>
-				<div className="exchange">
-					<h1 className="exchange-header exchange-bluetext">
-						Exchange
-					</h1>
-					<div className="exchange-closeimg">
+			<div className={isOpened ? "popup" : "none"}>
+				<div className="popup-layer" onClick={() => closeModal()}></div>
+				<div className="popup-wrapper">
+					<div className="popup-wrapper-header">
+						<h1>Exchange</h1>
+					</div>
+					<div className="popup-wrapper-cross">
 						<img
 							onClick={() => closeModal()}
 							src="/img/close-icon.png"
 						/>
 					</div>
-					<div className="exchange-subheader exchange-bluetext">
-						{subHeader(cur1, cur2)}
+					<div className="popup-wrapper-content popup-exchange">
+						<div className="popup-exchange-header popup-exchange-bluetext">
+							{subHeader(cur1, cur2)}
+						</div>
+						<div className="popup-exchange-rate popup-exchange-greytext">
+							<h5>
+								Exchange Rate
+								<br />
+								{ExchangeRateText(cur1, cur2)}
+							</h5>
+						</div>
+						<ExchangeForm
+							cur1={{ cur: cur1, rate: this.state[cur2] }}
+							cur2={{ cur: cur2, rate: this.state[cur1] }}
+							isOpened={isOpened}
+							closeModal={closeModal}
+						/>
 					</div>
-					<div className="exchange-rate exchange-greytext">
-						<h3>
-							Exchange Rate
-							<br />
-							{ExchangeRateText(cur1, cur2)}
-						</h3>
-					</div>
-					<ExchangeForm
-						cur1={{ cur: cur1, rate: this.state[cur2] }}
-						cur2={{ cur: cur2, rate: this.state[cur1] }}
-						isOpened={isOpened}
-						closeModal={closeModal}
-					/>
 				</div>
 			</div>
 		);

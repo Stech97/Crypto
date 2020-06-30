@@ -301,7 +301,14 @@
 
 			&-profinvestments {
 				grid-area: profteam-profinvestments;
-				padding-top: 15px;
+				display: grid;
+				height: 100%;
+				> h5 {
+					align-self: end;
+				}
+				> h6 {
+					align-self: start;
+				}
 			}
 
 			&-totalheader {
@@ -310,7 +317,14 @@
 
 			&-totalteam {
 				grid-area: profteam-totalteam;
-				padding-top: 15px;
+				display: grid;
+				height: 100%;
+				> h5 {
+					align-self: end;
+				}
+				> h6 {
+					align-self: start;
+				}
 			}
 		}
 
@@ -332,10 +346,20 @@
 				display: grid;
 				align-items: center;
 				justify-items: center;
+				grid-template-rows: 65px 1.2rem 65px;
+				gap: 30px 0;
 				grid-template-areas: "totalprofsquare-total" "totalprofsquare-header" "totalprofsquare-hours";
 
 				&-total {
 					grid-area: totalprofsquare-total;
+					display: grid;
+					height: 100%;
+					> h5 {
+						align-self: end;
+					}
+					> h6 {
+						align-self: start;
+					}
 				}
 
 				&-header {
@@ -344,6 +368,14 @@
 
 				&-hours {
 					grid-area: totalprofsquare-hours;
+					display: grid;
+					height: 100%;
+					> h5 {
+						align-self: end;
+					}
+					> h6 {
+						align-self: start;
+					}
 				}
 			}
 		}

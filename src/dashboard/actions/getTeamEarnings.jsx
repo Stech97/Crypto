@@ -8,72 +8,73 @@ import {
 
 const getTeamEarningsRequest = (payload) => ({
 	type: EARNINGS_REQUEST,
-	payload
-})
+	payload,
+});
 
 const getTeamEarningsError = (payload) => ({
 	type: EARNINGS_ERROR,
-	payload
-})
+	payload,
+});
 
 const getTeamEarningsSuccess = (payload) => ({
-	type: type,
-	payload
-})
+	type: EARNINGS_SUCCESS,
+	payload,
+});
 
-const getTeamEarningsFetch = async() => {
+const getTeamEarningsFetch = async () => {
 	let response = {
 		ok: true,
 		data: {
 			det: 423,
 			usd: 423,
-		}
-	}
-	return response
-}
+		},
+	};
+	return response;
+};
 
 export const getTeamEarnings = () => {
 	return (dispatch) => {
 		var payload = {
 			teamEarnings,
-		}
+		};
 
-		dispatch(getTeamEarningsRequest(payload))
+		dispatch(getTeamEarningsRequest(payload));
 
 		getTeamEarningsFetch()
-		.then(res => {
-			if (res.ok) {
+			.then((res) => {
+				if (res.ok) {
+					payload = {
+						...payload,
+						data: res.data,
+						error: {
+							type: "done",
+							message: "",
+						},
+					};
+
+					dispatch(getTeamEarningsSuccess(payload));
+				} else {
+					payload = {
+						...payload,
+						error: {
+							type: res.error.status,
+							message: res.error.message,
+						},
+					};
+
+					dispatch(getTeamEarningsError(payload));
+				}
+			})
+			.catch((res) => {
 				payload = {
 					...payload,
-					data: res.data
 					error: {
-						type: 'done',
-						message : ''
-					}
-				}
+						type: "code mistake",
+						message: res.message,
+					},
+				};
 
-				dispatch(getTeamEarningsSuccess(payload))
-			} else {
-				payload = {
-					...payload,
-					error: {
-						type: res.error.status,
-						message : res.error.message
-					}
-				}
-
-				dispatch(getTeamEarningsError(payload))
-			}
-		}).catch(res => {
-			payload = {
-				...payload,
-				error: {
-					type: 'code mistake',
-					message : res.message
-				}
-			}
-
-			dispatch(getTeamEarningsError(payload))
-		})
-	}
-}
+				dispatch(getTeamEarningsError(payload));
+			});
+	};
+};
