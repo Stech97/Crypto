@@ -18,7 +18,7 @@ header {
     background: url(./img/stealth-logo.png) 0 -50px/17.55% auto no-repeat;
     height: 100%;
     width: 100%;
-    content: '';
+    content: "";
     z-index: 1;
   }
 }
@@ -46,7 +46,7 @@ header {
     background: linear-gradient(39deg, #ed7102 0%, #ed7102 100%) left bottom/
       100% 150px no-repeat;
     border-radius: 0;
-    content: '';
+    content: "";
     z-index: -5;
   }
 
@@ -68,7 +68,7 @@ header {
     background: url(./img/stealth-logo.png) 0 -50px/17.55% auto no-repeat;
     height: 100%;
     width: 100%;
-    content: '';
+    content: "";
     z-index: 1;
   }
 }
@@ -80,11 +80,11 @@ header {
   border-radius: 150px 0px 150px 0px;
   &:before {
     position: absolute;
-    background: url(./img/joinus.png) left top/100% auto no-repeat;
+    background: url(./img/joinus.png) left center/50vw auto no-repeat;
     height: 100%;
     width: 100%;
-    content: '';
-    z-index: 5;
+    content: "";
+    z-index: 1;
   }
 }
 
@@ -105,7 +105,7 @@ header {
     background: linear-gradient(39deg, #061d4d 0%, #005c9f 100%) left top
       no-repeat;
     border-radius: 0;
-    content: '';
+    content: "";
     z-index: -5;
   }
 }

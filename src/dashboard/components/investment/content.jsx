@@ -15,7 +15,13 @@ class InvestmentDetails extends Component {
 	render() {
 		return (
 			<div className="investment-details">
-				<div className="investment-details-panel">
+				<div
+					className={
+						this.state.isOpened
+							? "investment-details-panel"
+							: "investment-details-panel investment-details-panel-closed"
+					}
+				>
 					<div className="investment-details-panel-header">
 						<h5>Investment Details</h5>
 					</div>

@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 const JoinusHeader = () => {
   return (
@@ -48,12 +49,16 @@ const JoinusContent = () => {
 const JoinusButtons = () => {
   return (
     <div className="joinus-buttons">
-      <div className="joinus-buttons-getstarted">
-        <a href="#">Get started</a>
-      </div>
-      <div className="joinus-buttons-download">
-        <a href="#">Download presentation</a>
-      </div>
+      <Link to="/signup" className="joinus-buttons-getstarted">
+        <p>Get started</p>
+      </Link>
+      <a
+        href="/files/Test_pdf.pdf"
+        className="joinus-buttons-download"
+        download
+      >
+        <p>Download presentation</p>
+      </a>
     </div>
   );
 };

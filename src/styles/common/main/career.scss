@@ -7,13 +7,13 @@ $section: "career";
     grid-template-columns: 56.4% 43.6%;
     grid-template-rows: 117px 1fr;
     grid-gap: 0;
-    grid-template-areas: $section+"-header "+$section+"-header" $section+"-scheme "+$section+"-text";
+    grid-template-areas: $section + "-header " + $section + "-header" $section + "-scheme " + $section + "-text";
   }
   &-header {
-    grid-area: #{$section+"-header"};
+    grid-area: #{$section + "-header"};
 
     h1 {
-      font-family: IBMPlexSans;
+      font-family: "IBM Plex Sans";
       font-size: 50px;
       font-weight: 500;
       font-style: normal;
@@ -24,7 +24,7 @@ $section: "career";
       margin: 0;
     }
     h2 {
-      font-family: IBMPlexSans;
+      font-family: "IBM Plex Sans";
       font-size: 40px;
       font-weight: 400;
       font-stretch: normal;
@@ -36,18 +36,18 @@ $section: "career";
     }
   }
   &-scheme {
-    grid-area: #{$section+"-scheme"};
+    grid-area: #{$section + "-scheme"};
     img {
       width: 100%;
     }
   }
   &-text {
-    grid-area: #{$section+"-text"};
+    grid-area: #{$section + "-text"};
     justify-self: center;
     p {
       margin-left: 20.9%;
       width: 72.9%;
-      font-family: 'IBM Plex Sans';
+      font-family: "IBM Plex Sans";
       font-size: 35px;
       font-weight: 400;
       font-style: normal;

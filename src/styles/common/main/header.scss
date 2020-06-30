@@ -9,7 +9,6 @@ header {
   border-bottom-right-radius: 60px;
   border: none;
   background-color: #ffffff;
-
 }
 
 .header-grid-container {
@@ -41,19 +40,29 @@ header {
   align-items: center;
 }
 
-.nav-signup { grid-area: nav-signup; }
+.nav-signup {
+  grid-area: nav-signup;
+}
 
-.nav-about { grid-area: nav-about; }
+.nav-about {
+  grid-area: nav-about;
+}
 
-.nav-team { grid-area: nav-team; }
+.nav-team {
+  grid-area: nav-team;
+}
 
-.nav-blog { grid-area: nav-blog; }
+.nav-blog {
+  grid-area: nav-blog;
+}
 
-.nav-login { grid-area: nav-login; }
+.nav-login {
+  grid-area: nav-login;
+}
 
 .nav-bar {
   a {
-    font-family: IBMPlexSans;
+    font-family: "IBM Plex Sans";
     font-size: 28px;
     font-weight: 500;
     font-stretch: normal;
@@ -62,26 +71,27 @@ header {
     letter-spacing: normal;
     text-align: center;
     color: #005c9f;
+    &:hover {
+      color: #ed7102;
+    }
   }
 }
 .nav-signup {
   .button-signup {
-      width: 200px;
-      height: 60px;
-      padding: 13px 42px 13px 43px;
+    width: 200px;
+    height: 60px;
+    padding: 13px 42px 13px 43px;
 
-      font-size: 28px;
-      font-weight: 500;
-      line-height: 1.32;
-      border-radius: 30px;
-      border: solid 3px #ed7102;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.32;
+    border-radius: 30px;
+    border: solid 3px #ed7102;
   }
   .button-main-inversed {
-      font-family: IBMPlexSans;
-      text-align: center;
-      color: #ed7102;
-      background-color: #ffffff;
+    font-family: "IBM Plex Sans";
+    text-align: center;
+    color: #ed7102;
+    background-color: #ffffff;
   }
 }
-
-

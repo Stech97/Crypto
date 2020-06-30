@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 const PortfolioHeader = () => {
   return (
@@ -13,21 +13,21 @@ const PortfolioHeader = () => {
 const portfolioProducts = [
   {
     id: 1,
-    header: 'Small',
+    header: "Small",
     percent: 6,
     investment: 100,
     level: 2,
   },
   {
     id: 2,
-    header: 'Medium',
+    header: "Medium",
     percent: 8,
     investment: 5000,
     level: 4,
   },
   {
     id: 3,
-    header: 'Large',
+    header: "Large",
     percent: 11,
     investment: 10000,
     level: 7,
@@ -38,7 +38,7 @@ class PortfolioProduct extends Component {
   render() {
     const portfolioProductTemplate = this.props.data.map(function (item) {
       return (
-        <div key={item.id} className={'portfolio-product-' + item.id}>
+        <div key={item.id} className={"portfolio-product-" + item.id}>
           <div className="portfolio-product-header">
             <h3>{item.header}</h3>
           </div>
@@ -47,7 +47,7 @@ class PortfolioProduct extends Component {
           <p>Career commission qualified Level 1-{item.level}</p>
 
           <div className="porfolio-product-button">
-            <Link to={'/signup'}>Invest</Link>
+            <Link to={"/account/investment"}>Invest</Link>
           </div>
         </div>
       );

@@ -1,5 +1,4 @@
 .ourmission {
-
   .wrapper {
     padding-top: 92px;
     display: grid;
@@ -12,7 +11,7 @@
     grid-area: ourmission-header;
     h1 {
       margin: 0;
-      font-family: IBMPlexSans;
+      font-family: "IBM Plex Sans";
       font-size: 50px;
       font-weight: 600;
       font-style: normal;
@@ -23,7 +22,7 @@
     }
     h2 {
       margin: 0;
-      font-family: IBMPlexSans;
+      font-family: "IBM Plex Sans";
       font-size: 40px;
       font-weight: normal;
       font-stretch: normal;
@@ -37,16 +36,16 @@
   .ourmission-text {
     grid-area: ourmission-text;
     p {
-        max-width: 835px;
-        font-family: IBMPlexSans;
-        font-size: 25px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1.32;
-        letter-spacing: normal;
-        text-align: left;
-        color: #838383;
+      max-width: 835px;
+      font-family: "IBM Plex Sans";
+      font-size: 25px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.32;
+      letter-spacing: normal;
+      text-align: left;
+      color: #838383;
     }
   }
   .ourmission-icons {
@@ -64,9 +63,15 @@
     grid-area: ourmission-iconbox-1;
   }
 
-  .ourmission-iconbox-2 { grid-area: ourmission-iconbox-2; }
+  .ourmission-iconbox-2 {
+    grid-area: ourmission-iconbox-2;
+  }
 
-  .ourmission-iconbox-3 { grid-area: ourmission-iconbox-3; }
+  .ourmission-iconbox-3 {
+    grid-area: ourmission-iconbox-3;
+  }
 
-  .ourmission-iconbox-4 { grid-area: ourmission-iconbox-4; }
+  .ourmission-iconbox-4 {
+    grid-area: ourmission-iconbox-4;
+  }
 }

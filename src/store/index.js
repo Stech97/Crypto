@@ -15,11 +15,12 @@ import { loginHistoryReducer } from "../dashboard/reducers/loginHistory";
 import { ExchangeReducer } from "../dashboard/reducers/ExchangeForm";
 import { RefsReducer } from "../dashboard/reducers/RefLinks";
 import { EarningsReducer } from "../dashboard/reducers/contentEarnings";
+import { FooterFormReducer } from "../main/reducers/FooterForm";
 
 export const rootReducer = combineReducers({
 	form: reduxFormReducer, // mounted under "form"
 	ComingSoon: formReducer,
-	FooterNewsletter: formReducer,
+	footerForm: FooterFormReducer,
 	routing: routerReducer,
 	login: loginReducer,
 	createUser: signupReducer,

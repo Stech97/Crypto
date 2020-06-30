@@ -1,41 +1,47 @@
-import React, { Component } from 'react'
-import FooterForm from './FooterForm'
-import { connect } from 'react-redux'
+import React, { Component } from "react";
+import FooterForm from "./FooterForm";
+import { connect } from "react-redux";
+import { footerForm } from "../../actions/FooterForm";
 
 class FooterNewsletter extends Component {
-
 	render() {
-		const { props } = this.props
+		const { footerForm } = this.props;
 		return (
 			<div className="footer-newsletter">
-		        <div className="footer-newsletter-header">
-		        	<h2>Newsletter</h2>
-		        </div>
-		      	<FooterForm 
-		      		placeholder = { props.placeholder }
-		      		visibility = { props.visibility }
-		      	/>
-		      	<div className={!props.visibility ? "footer-newsletter-thanks" : "none"}>
-		      		<h3>Thank you for your subscription!</h3>
-		      	</div>
-		    </div>
-		)
+				<div className="footer-newsletter-header">
+					<h2>Newsletter</h2>
+				</div>
+				<FooterForm
+					placeholder="maxmutter@hotmail.com"
+					visibility={footerForm.error.type === "done"}
+					data={footerForm}
+					sendAction={(email) => this.props.footerFormAction(email)}
+				/>
+				<div
+					className={
+						footerForm.error.type === "done"
+							? "footer-newsletter-thanks"
+							: "none"
+					}
+				>
+					<h3>Thank you for your subscription!</h3>
+				</div>
+			</div>
+		);
 	}
 }
 
-const mapStateToProps = store => {
-	console.log(store)
-  return {
-    props: store.ComingSoon
-  }
-}
-/*
-const mapDispatchToProps = dispatch => {
-  return {
-  	updateView: email => dispatch(updateView(email)),
-  }
-}
-*/
-export default connect(
-	mapStateToProps
-)(FooterNewsletter)
+const mapStateToProps = (store) => {
+	console.log(store);
+	return {
+		footerForm: store.footerForm,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		footerFormAction: (email) => dispatch(footerForm(email)),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FooterNewsletter);

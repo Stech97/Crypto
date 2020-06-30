@@ -7,11 +7,11 @@ $section: "portfolio";
     grid-template-columns: 1fr;
     grid-template-rows: 117px 1fr;
     gap: 0;
-    grid-template-areas: $section+"-header" $section+"-product";
+    grid-template-areas: $section + "-header" $section + "-product";
   }
   $sub-section: "product";
   &-#{$sub-section} {
-    grid-area: #{$section+"-"+$sub-section};
+    grid-area: #{$section + "-" + $sub-section};
     align-items: center;
     justify-items: center;
     justify-self: center;
@@ -24,14 +24,14 @@ $section: "portfolio";
 
     $content: "";
     @for $j from 1 through 3 {
-      $content: $content + $section + "-" + $sub-section + "-" + $j + " "
+      $content: $content + $section + "-" + $sub-section + "-" + $j + " ";
     }
 
     grid-template-areas: $content;
 
     @for $i from 1 through 3 {
       &-#{$i} {
-        grid-area: #{$section+"-"+$sub-section+"-"+$i};
+        grid-area: #{$section + "-" + $sub-section + "-" + $i};
         justify-self: center;
         background: #ffffff;
         border-radius: 20px;
@@ -48,12 +48,11 @@ $section: "portfolio";
       background-image: linear-gradient(77deg, #16428d 1%, #005c9f 78%);
       margin: auto;
       border-radius: 25px;
-      font-family: 'IBM Plex Sans';
+      font-family: "IBM Plex Sans";
       font-size: 21px;
       color: #f5fbff;
       line-height: 1.33;
       padding: 9px 74px 13px 74px;
-
     }
     &-header {
       display: grid;
@@ -64,7 +63,7 @@ $section: "portfolio";
       border-radius: 20px 20px 0 0;
       background-blend-mode: overlay;
       h3 {
-        font-family: IBMPlexSans;
+        font-family: "IBM Plex Sans";
         font-size: 27px;
         font-weight: bold;
         font-stretch: normal;
@@ -78,7 +77,7 @@ $section: "portfolio";
     p {
       margin: 28px auto;
       width: 210px;
-      font-family: IBMPlexSans;
+      font-family: "IBM Plex Sans";
       font-size: 21px;
       font-weight: normal;
       font-stretch: normal;
@@ -93,7 +92,7 @@ $section: "portfolio";
   &-header {
     grid-area: portfolio-header;
     h1 {
-      font-family: IBMPlexSans;
+      font-family: "IBM Plex Sans";
       font-size: 50px;
       font-weight: 500;
       font-style: normal;
@@ -104,7 +103,7 @@ $section: "portfolio";
       color: #ffffff;
     }
     h2 {
-      font-family: IBMPlexSans;
+      font-family: "IBM Plex Sans";
       font-size: 40px;
       font-weight: normal;
       font-stretch: normal;

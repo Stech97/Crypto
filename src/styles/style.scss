@@ -1,31 +1,33 @@
-@import"./utils/backgrounds";
+@import "./utils/backgrounds";
 
-@import"./utils/fonts";
+@import "./utils/fonts";
 
-@import"./utils/normalize";
+@import "./utils/normalize";
 
-@import"./common/main/global";
+@import "./utils/sass-flexbox/scss/main";
 
-@import"./common/main/header";
+@import "./common/main/global";
 
-@import"./common/main/homescreen";
+@import "./common/main/header";
 
-@import"./common/main/ourmission";
+@import "./common/main/homescreen";
 
-@import"./common/main/howitworks";
+@import "./common/main/ourmission";
 
-@import"./common/main/portfolio";
+@import "./common/main/howitworks";
 
-@import"./common/main/career";
+@import "./common/main/portfolio";
 
-@import"./common/main/defimatoken";
+@import "./common/main/career";
 
-@import"./common/main/ourteam";
+@import "./common/main/defimatoken";
 
-@import"./common/main/joinus";
+@import "./common/main/ourteam";
 
-@import"./common/main/faq";
+@import "./common/main/joinus";
 
-@import"./common/main/feedback";
+@import "./common/main/faq";
 
-@import"./common/main/footer";
+@import "./common/main/feedback";
+
+@import "./common/main/footer";

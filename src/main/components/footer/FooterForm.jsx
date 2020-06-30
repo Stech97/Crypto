@@ -1,56 +1,75 @@
-import React, { Component } from 'react'
-import { reduxForm, Field } from 'redux-form';
-import { updateView, updateViewError } from '../../../comingsoon/actions/ComingsoonForm'
+import React, { Component } from "react";
+import { reduxForm, Field } from "redux-form";
 
-const renderField = ({ input, placeholder, className, type }) => {
+const renderField = ({
+	input,
+	placeholder,
+	className,
+	type,
+	meta: { touched, error },
+}) => {
 	return (
- 		<input {...input} className={className} placeholder={placeholder} type={type} />
-	)
-}
+		<input
+			{...input}
+			className={className}
+			placeholder={placeholder}
+			type={type}
+		/>
+	);
+};
 
-class FooterFrom extends Component {
+class FooterForm extends Component {
+	render() {
+		const {
+			handleSubmit,
+			submitting,
+			reset,
+			visibility,
+			data,
+		} = this.props;
 
-	render() {		
-		const { handleSubmit, submitting, reset, visibility, placeholder} = this.props
+		const email = (value) =>
+			value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+				? "Invalid email address"
+				: undefined;
 
-		const validateEmail = (check) => {
-			const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-		  	return re.test(String(check).toLowerCase())
-		}
+		const required = (value) =>
+			value || typeof value === "number" ? undefined : "Required";
 
-        const submit = (values) => {
-
-			console.log(values.email, validateEmail(values.email))
-			if (validateEmail(values.email)) {
-				this.props.dispatch(updateView(), values.email)	
-			} else {
-				this.props.dispatch(updateViewError())
-			}
-			this.props.reset()
-		}
+		const submit = (values) => {
+			this.props.sendAction(values.email);
+			this.props.reset();
+		};
 
 		return (
-		    <form
-		    	className={ visibility ? "footer-newsletter-form-box" : "none" }
-		    	onSubmit={handleSubmit(submit)}
-		    >
-		        <Field
-		          component={renderField}
-		          name="email"
-		          className="footer-newsletter-input-email"
-		          type="text"
-		          placeholder={placeholder}
-		        />
-		        <button
-		        	type="submit"
-		        	disabled={submitting}
-		        	className="footer-newsletter-input-button"
-		    	>Notify Me</button>
-	      	</form>
-		)
+			<form
+				className={!visibility ? "footer-newsletter-form-box" : "none"}
+				onSubmit={handleSubmit(submit)}
+			>
+				<Field
+					component={renderField}
+					name="email"
+					className="footer-newsletter-input-email"
+					type="text"
+					placeholder={
+						data.error.message
+							? data.error.message
+							: "maxmutter@hotmail.com"
+					}
+					validate={[email]}
+				/>
+				<button
+					type="submit"
+					disabled={submitting}
+					className="footer-newsletter-input-button"
+				>
+					Notify Me
+				</button>
+			</form>
+		);
 	}
 }
 
 export default reduxForm({
-  form: 'FooterFrom' // a unique identifier for this form
-})(FooterFrom)
+	form: "FooterFrom", // a unique identifier for this form
+})(FooterForm);
