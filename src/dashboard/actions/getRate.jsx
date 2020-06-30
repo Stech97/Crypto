@@ -37,7 +37,7 @@ export const getRate = (currency, amount) => {
 		const am = amount;
 		if (currency === "btc") {
 			dispatch(getRateRequest(GET_BTC_RATE_REQUEST));
-			var rate = RateRequest(currency, "USD")
+			RateRequest(currency, "USD")
 				.then((rate) => {
 					if (rate.ok) {
 						var usd = am * rate.data.rate;

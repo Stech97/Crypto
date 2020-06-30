@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, SubmissionError, reduxForm } from "redux-form";
 import { getBalance } from "../../actions/getBalance";
+import { RateRequest } from "../../actions/getRate";
 
 const validateFloat = (value) => (value ? parseFloat(value).toString() : "0");
 
@@ -72,9 +73,26 @@ const selectField = ({
 };
 
 class InvestPopupForm extends Component {
+	state = {
+		wallet: "BTC",
+		amount: 0,
+		rateBTC: 0,
+		rateDET: 0,
+		amountUSD: 0,
+	};
+
+	changeWallet = (wallet) => {
+		this.setState({
+			...this.state,
+			wallet,
+		});
+	};
+
 	componentDidMount = () => {
 		this.props.getBalanceAction();
 	};
+
+	getRate = () => {};
 
 	convertToUSD = (rate) => rate * this.props.wallet;
 
@@ -89,6 +107,8 @@ class InvestPopupForm extends Component {
 			error,
 			pristine,
 		} = this.props;
+
+		const { wallet, amount, rateBTC, rateDET, amountUSD } = this.state;
 
 		return (
 			<form className="popup-invest">
@@ -105,7 +125,7 @@ class InvestPopupForm extends Component {
 					normalize={validateFloat}
 					type={type}
 				/>
-				<h6 className="popup-invest-usd">{"$" + "200"}</h6>
+				<h6 className="popup-invest-usd">{"$" + amountUSD}</h6>
 				<h6 className="popup-invest-minamount">
 					{"Min. amount for product $" + minamount}
 				</h6>
