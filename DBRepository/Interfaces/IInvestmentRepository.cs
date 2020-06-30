@@ -11,5 +11,6 @@ namespace DBRepository.Interfaces
 		Task<Balance> BuyInvestment(Investment investment, string cur, int Id);
 		Task<List<PopupTeam>> GetTeamPop(int UserId, int level);
 		Task<List<Team>> GetTeamLevel(int UserId);
+		Task<List<BalanceHistory>> GetBalanceHistory(int UserId);
 	}
 }

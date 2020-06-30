@@ -31,6 +31,7 @@ namespace Models
 		public List<LoginHistory> LoginHistories { get; set; }
 		public List<CurrentSession>  CurrentSessions { get; set; }
 		public List<Investment> Investments { get; set; }
+		public List<BalanceHistory> BalanceHistories { get; set; }
         #endregion
     }
 }

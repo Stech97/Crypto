@@ -66,5 +66,16 @@ namespace Crypto.Controllers
 			return Ok(result);
 		}
 
+		//[Authorize]
+		[Route("GetBalanceHistory")]
+		[HttpGet]
+		public async Task<IActionResult> GetBalanceHistory(int UserId)
+		{
+			var result = await _investmentService.GetBalanceHistory(UserId);
+			if (result == null)
+				return BadRequest();
+			return Ok(result);
+		}
+
 	}
 }

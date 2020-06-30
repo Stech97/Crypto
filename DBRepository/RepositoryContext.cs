@@ -18,6 +18,7 @@ namespace DBRepository
         public DbSet<ForgotPassword> ForgotPasswords { get; set; }
         public DbSet<TypeInvestment> TypeInvestments { get; set; }
         public DbSet<TypeCommission> TypeCommissions { get; set; }
+        public DbSet<BalanceHistory> BalanceHistories { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -84,6 +85,13 @@ namespace DBRepository
             modelBuilder.Entity<TypeCommission>().HasKey(tc => tc.Level);
             modelBuilder.Entity<TypeCommission>().Property(tc => tc.Level).IsRequired();
             modelBuilder.Entity<TypeCommission>().Property(tc => tc.Value).IsRequired();
+            #endregion
+
+            #region Balance History
+            modelBuilder.Entity<BalanceHistory>().ToTable("BalanceHistory");
+            modelBuilder.Entity<BalanceHistory>().Property(bh => bh.Time).IsRequired();
+            modelBuilder.Entity<BalanceHistory>().Property(bh => bh.Amount).IsRequired();
+            modelBuilder.Entity<BalanceHistory>().Property(bh => bh.Balance).IsRequired();
             #endregion
         }
     }

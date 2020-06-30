@@ -42,6 +42,17 @@ namespace DBRepository.Repositories
 							investment.UserId = UserId;
 							investment.AddCash *= balance.RateBTC_USD;
 							context.Investments.Add(investment);
+
+							var BalanceHistory = new BalanceHistory()
+							{
+								Time = investment.DateInvestment,
+								TypeInvestmentId = investment.TypeInvestmentId,
+								Amount = investment.AddCash,
+								Balance = balance.BitcoinBalance * balance.RateBTC_USD,
+								UserId = UserId
+							};
+							context.BalanceHistories.Add(BalanceHistory);
+
 							context.Balances.Update(balance);
 							await context.SaveChangesAsync();
 
@@ -55,6 +66,17 @@ namespace DBRepository.Repositories
 							balance.USDBalance -= investment.AddCash;
 							investment.UserId = UserId;
 							context.Investments.Add(investment);
+
+							var BalanceHistory = new BalanceHistory()
+							{
+								Time = investment.DateInvestment,
+								TypeInvestmentId = investment.TypeInvestmentId,
+								Amount = investment.AddCash,
+								Balance = balance.USDBalance,
+								UserId = UserId
+							};
+							context.BalanceHistories.Add(BalanceHistory);
+
 							context.Balances.Update(balance);
 							await context.SaveChangesAsync();
 
@@ -69,6 +91,17 @@ namespace DBRepository.Repositories
 							investment.UserId = UserId;
 							investment.AddCash /= balance.RateUSD_DEF;
 							context.Investments.Add(investment);
+
+							var BalanceHistory = new BalanceHistory()
+							{
+								Time = investment.DateInvestment,
+								TypeInvestmentId = investment.TypeInvestmentId,
+								Amount = investment.AddCash,
+								Balance = balance.DefimaBalance / balance.RateUSD_DEF,
+								UserId = UserId
+							};
+							context.BalanceHistories.Add(BalanceHistory);
+
 							context.Balances.Update(balance);
 							await context.SaveChangesAsync();
 
@@ -149,6 +182,15 @@ namespace DBRepository.Repositories
 					}
 				}
 				return Teams;
+			}
+		}
+
+		public async Task<List<BalanceHistory>> GetBalanceHistory(int UserId)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				return await context.BalanceHistories.AsNoTracking()
+					.Where(i => i.UserId == UserId).OrderByDescending(i => i.Time).ToListAsync();
 			}
 		}
 

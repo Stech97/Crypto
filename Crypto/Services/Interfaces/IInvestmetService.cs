@@ -14,5 +14,6 @@ namespace Crypto.Services.Interfaces
 		Task<BalanceViewModel> BuyInvestment(BuyInvestmentViewModel request, int Id);
 		Task<List<PopupTeam>> GetTeamPop(int UserId, int level);
 		Task<List<Team>> GetTeamLevel(int UserId);
+		Task<List<BalanceHistoryViewModel>> GetBalanceHistory(int UserId);
 	}
 }

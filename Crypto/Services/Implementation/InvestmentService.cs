@@ -49,5 +49,12 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetTeamLevel(UserId);
 		}
 
+		public async Task<List<BalanceHistoryViewModel>> GetBalanceHistory(int UserId)
+		{
+			var response = await _repository.GetBalanceHistory(UserId);
+			return _mapper.Map<List<BalanceHistory>, List<BalanceHistoryViewModel>>(response);
+
+		}
+
 	}
 }
