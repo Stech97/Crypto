@@ -101,11 +101,14 @@ $sub-section: "member";
       margin-top: 1rem;
       a {
         display: block;
-        width: 2.5rem;
-        height: 2.5rem;
-        background-color: #005c9f;
-        color: #ffffff;
-        line-height: 0px;
+
+        svg {
+          width: 1em;
+          height: auto;
+          font-size: 2.5rem;
+          fill: #005c9f;
+          stroke: #005c9f;
+        }
       }
     }
   }

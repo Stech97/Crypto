@@ -75,6 +75,22 @@ class InvestmentDetails extends Component {
 	}
 }
 
+const InvestmentGood = ({ good: { name, percent, invest, levels } }) => {
+	return (
+		<div className="investment-goods-box">
+			<div className="investment-goods-box-header">
+				<h4>{name}</h4>
+			</div>
+			<div className="investment-goods-box-content">
+				<p>{"Monthly Profit of up to " + percent + "% month"}</p>
+				<p>{"Starting from $" + invest}</p>
+				<p>{"Career commission qualified Level 1-" + levels}</p>
+			</div>
+			<div className="investment-goods-box-button">Invest</div>
+		</div>
+	);
+};
+
 class InvestmentGoods extends Component {
 	render() {
 		const goods = [
@@ -101,26 +117,7 @@ class InvestmentGoods extends Component {
 		return (
 			<div className="investment-goods">
 				{goods.map((good, i) => (
-					<div key={i} className="investment-goods-box">
-						<div className="investment-goods-box-header">
-							<h4>{good.name}</h4>
-						</div>
-						<div className="investment-goods-box-content">
-							<p>
-								{"Monthly Profit of up to " +
-									good.percent +
-									"% month"}
-							</p>
-							<p>{"Starting from $" + good.invest}</p>
-							<p>
-								{"Career commission qualified Level 1-" +
-									good.levels}
-							</p>
-						</div>
-						<div className="investment-goods-box-button">
-							Invest
-						</div>
-					</div>
+					<InvestmentGood kei={i} good={good} />
 				))}
 			</div>
 		);
