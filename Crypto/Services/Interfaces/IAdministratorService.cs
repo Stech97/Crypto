@@ -8,9 +8,6 @@ namespace Crypto.Services.Interfaces
     {
         Task AddNews(NewsViewModel request);
         Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request);
-        void UpdateBTCRate();
-        void AddProfit();
-        void AddCommission();
 
         #region Dev
         Task DelUser(int Id);

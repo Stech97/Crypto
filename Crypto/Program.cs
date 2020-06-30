@@ -42,8 +42,9 @@ namespace Crypto
 					Console.ReadLine();
 					Environment.Exit(-1);
 				}
-				var adminService = services.GetRequiredService<IAdministratorService>();
-				Helpers.TaskScheduler.Instance.ScheduleTask(0, 5, () => { adminService.UpdateBTCRate(); });
+
+				var systemService = services.GetRequiredService<ISystemService>();
+				Helpers.TaskScheduler.Instance.ScheduleTask(0, 5, () => { systemService.UpdateBTCRate(); });
 
 				int Day = 0;
 				if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
@@ -62,8 +63,8 @@ namespace Crypto
 					AddHour += 168;
 
 
-				Helpers.TaskScheduler.Instance.ScheduleTask(AddHour, AddMinute, 168, () => { adminService.AddCommission(); });
-				Helpers.TaskScheduler.Instance.ScheduleTask(AddHour, AddMinute, 168, () => { adminService.AddProfit(); });
+				Helpers.TaskScheduler.Instance.ScheduleTask(AddHour, AddMinute, 168, () => { systemService.AddCommission(); });
+				Helpers.TaskScheduler.Instance.ScheduleTask(AddHour, AddMinute, 168, () => { systemService.AddProfit(); });
 			}
 
 			host.Run();
