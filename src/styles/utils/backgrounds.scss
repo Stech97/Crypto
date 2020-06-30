@@ -5,8 +5,9 @@ header {
 
 .homescreen {
   .wrapper {
-      background: url(./img/waveimage.png) 248.9px -120px no-repeat, linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat;
-      background-clip: padding-box;
+    background: url(./img/waveimage.png) 248.9px -120px no-repeat,
+      linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat;
+    background-clip: padding-box;
   }
 }
 
@@ -17,8 +18,8 @@ header {
     background: url(./img/stealth-logo.png) 0 -50px/17.55% auto no-repeat;
     height: 100%;
     width: 100%;
-    content: "";
-    z-index:1;
+    content: '';
+    z-index: 1;
   }
 }
 
@@ -28,7 +29,8 @@ header {
 
 .portfolio {
   border-radius: 0px 0px 0px 150px;
-  background: url(./img/worldmap2.png) 0 0/ 100% auto no-repeat, linear-gradient(39deg, #ed7102 0%, #ed7102 100%) left top no-repeat;
+  background: url(./img/worldmap2.png) 0 0/ 100% auto no-repeat,
+    linear-gradient(39deg, #ed7102 0%, #ed7102 100%) left top no-repeat;
   background-blend-mode: screen;
 }
 
@@ -41,18 +43,21 @@ header {
     bottom: 0;
     width: 100%;
     height: 150px;
-    background:  linear-gradient(39deg, #ed7102 0%, #ed7102 100%) left bottom/ 100% 150px no-repeat;
+    background: linear-gradient(39deg, #ed7102 0%, #ed7102 100%) left bottom/
+      100% 150px no-repeat;
     border-radius: 0;
-    content: "";
+    content: '';
     z-index: -5;
   }
 
-  background: linear-gradient(0deg, #f5fbff 100%, #f5fbff 100%) left top/ 100% auto no-repeat;
+  background: linear-gradient(0deg, #f5fbff 100%, #f5fbff 100%) left top/ 100%
+    auto no-repeat;
   border-radius: 150px 0px 150px 0px;
 }
 
 .defimatoken {
-  background: url(./img/worldmap2.png) 11.56% 0/100% auto no-repeat, linear-gradient(97deg, #001029 -39%, #235fc8 76%) left top no-repeat;
+  background: url(./img/worldmap2.png) 11.56% 0/100% auto no-repeat,
+    linear-gradient(97deg, #001029 -39%, #235fc8 76%) left top no-repeat;
   border-radius: 0px 150px 0px 0px;
 }
 
@@ -63,28 +68,30 @@ header {
     background: url(./img/stealth-logo.png) 0 -50px/17.55% auto no-repeat;
     height: 100%;
     width: 100%;
-    content: "";
-    z-index:1;
+    content: '';
+    z-index: 1;
   }
 }
 
 .joinus {
   position: relative;
-  background: linear-gradient(0deg, #f5fbff 100%, #f5fbff 100%) left top/ 100% auto no-repeat;
+  background: linear-gradient(0deg, #f5fbff 100%, #f5fbff 100%) left top/ 100%
+    auto no-repeat;
   border-radius: 150px 0px 150px 0px;
   &:before {
     position: absolute;
     background: url(./img/joinus.png) left top/100% auto no-repeat;
     height: 100%;
     width: 100%;
-    content: "";
+    content: '';
     z-index: 5;
   }
 }
 
 .faq {
   border-radius: 0px 0px 0px 150px;
-  background: linear-gradient(39deg, #ffffff 100%, #ffffff 100%) left top no-repeat;
+  background: linear-gradient(39deg, #ffffff 100%, #ffffff 100%) left top
+    no-repeat;
 }
 .feedback {
   position: relative;
@@ -95,9 +102,10 @@ header {
     bottom: -150px;
     width: 100%;
     height: calc(100% + 300px);
-    background: linear-gradient(39deg, #061d4d 0%, #005c9f 100%) left top no-repeat;
+    background: linear-gradient(39deg, #061d4d 0%, #005c9f 100%) left top
+      no-repeat;
     border-radius: 0;
-    content: "";
+    content: '';
     z-index: -5;
   }
 }
