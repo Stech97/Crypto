@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 const HeaderLogo = () => {
   return (
@@ -28,10 +28,10 @@ const HeaderNav = () => {
         <a href="https://medium.com/">Blog</a>
       </div>
       <div className="nav-bar nav-login">
-        <Link to={"/login"}>Login</Link>
+        <Link to={'/login'}>Login</Link>
       </div>
       <div className="nav-bar nav-signup">
-        <Link to={"/signup"} className="button-main-inversed button-signup">
+        <Link to={'/signup'} className="button-main-inversed button-signup">
           Sign Up
         </Link>
       </div>
