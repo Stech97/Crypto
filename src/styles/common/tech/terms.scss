@@ -1,0 +1,34 @@
+.terms {
+  margin-top: 4.9375rem;
+  padding-top: 5.75rem;
+  padding-bottom: 6.4375rem;
+  display: grid;
+  grid-template-columns: 9fr 1fr 5fr;
+  grid-template-rows: repeat(5rem, 6);
+  gap: 0rem 0rem;
+  grid-template-areas:
+    '. tb tb .'
+    '. tb tb .'
+    '. tb tb .'
+    '. tb tb .'
+    '. tb tb .'
+    '. tb tb .';
+
+  &-box {
+    h5 {
+      display: grid;
+      font-family: 'IBM Plex Sans';
+      font-size: 1.5625rem;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.32;
+      letter-spacing: normal;
+      text-align: left;
+      color: #005c9f;
+      margin: 0;
+    }
+  }
+}
+
+Hui
