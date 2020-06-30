@@ -1,28 +1,16 @@
 .footer {
   &-wrapper {
-    padding: 46px 139px 98px 140px;
+    padding: 3.066rem 8.6875rem 6.125rem 8.75rem;
     width: 100%;
 
-      a {
-        display: block;
+    a {
+      display: block;
 
-        p {
-          margin: 0;
-          font-family: IBMPlexSans;
-          font-size: 25px;
-          font-weight: 500;
-          font-stretch: normal;
-          font-style: normal;
-          line-height: 2;
-          letter-spacing: normal;
-          text-align: left;
-          color: #ffffff;
-        }
-      }
-      h3 {
+      p {
+        margin: 0;
         font-family: IBMPlexSans;
-        font-size: 27px;
-        font-weight: bold;
+        font-size: 1.5625rem;
+        font-weight: 500;
         font-stretch: normal;
         font-style: normal;
         line-height: 2;
@@ -30,30 +18,47 @@
         text-align: left;
         color: #ffffff;
       }
+    }
+    h3 {
+      font-family: IBMPlexSans;
+      font-size: 1.6875rem;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 2;
+      letter-spacing: normal;
+      text-align: left;
+      color: #ffffff;
+    }
 
     display: grid;
     grid-template-rows: min-content;
-    grid-template-columns: 201px minmax(min-content, 2.22fr) minmax(min-content, 1fr);
-    grid-template-areas: "footer-logo footer-nav footer-newsletter";
+    grid-template-columns: 12.5625rem minmax(min-content, 2.22fr) minmax(
+        min-content,
+        1fr
+      );
+    grid-template-areas: 'footer-logo footer-nav footer-newsletter';
   }
-  &-logo{
+  &-logo {
     grid-area: footer-logo;
     justify-self: start;
     img {
-      width: 200.3px;
-      height: 60.9px;
+      width: 12.51875rem;
+      height: 3.80625rem;
     }
   }
   &-nav {
     grid-area: footer-nav;
     justify-self: center;
-    padding: 26px 67px;
+    padding: 1.625rem 4.1875rem;
 
     display: grid;
     grid-template-rows: 100%;
-    grid-template-columns: repeat(minmax(min-content, calc(100% - 30px) / 3));
-    gap: 0px 30px;
-    grid-template-areas: "footer-nav-company footer-nav-news footer-nav-help";
+    grid-template-columns: repeat(
+      minmax(min-content, calc(100% - 1.875rem) / 3)
+    );
+    gap: 0px 1.875rem;
+    grid-template-areas: 'footer-nav-company footer-nav-news footer-nav-help';
 
     &-company {
       justify-self: start;
@@ -64,13 +69,15 @@
       justify-self: center;
       grid-area: footer-nav-news;
     }
-    
+
     &-help {
       justify-self: end;
       grid-area: footer-nav-help;
     }
 
-    &-company, &-news, &-help {
+    &-company,
+    &-news,
+    &-help {
       display: grid;
       grid-auto-rows: min-content;
       grid-template-columns: 100%;
@@ -84,14 +91,14 @@
     display: grid;
     grid-template-rows: min-content min-content;
     grid-template-columns: 100%;
-    grid-template-areas: "footer-header" "footer-form";
-    gap: 32px 0px;
+    grid-template-areas: 'footer-header' 'footer-form';
+    gap: 2rem 0px;
     &-header {
       grid-area: footer-header;
 
       h2 {
         font-family: IBMPlexSans;
-        font-size: 40px;
+        font-size: 2.5rem;
         font-weight: 500;
         font-stretch: normal;
         font-style: normal;
@@ -106,19 +113,19 @@
       grid-area: footer-form;
 
       display: grid;
-      grid-template-rows: 47px 60px;
+      grid-template-rows: 2.9375rem 3.75rem;
       grid-template-columns: 100%;
-      gap: 77px 0;
-      grid-template-areas: "input-email" "input-button";
+      gap: 4.8125rem 0;
+      grid-template-areas: 'input-email' 'input-button';
 
       .footer-newsletter-input-email {
         grid-area: input-email;
         background: none;
-        padding: 0 0 10.5px 0;
+        padding: 0 0 0.65625rem 0;
         border-width: 0 0 2px 0;
         border-bottom-color: #ffffff;
         font-family: IBMPlexSans;
-        font-size: 25px;
+        font-size: 1.5625rem;
         font-weight: 500;
         font-stretch: normal;
         font-style: normal;
@@ -139,14 +146,14 @@
       .footer-newsletter-input-button {
         grid-area: input-button;
         display: block;
-        width: 220px;
-        height: 60px;
-        border-radius: 30px;
+        width: 13.75rem;
+        height: 3.75rem;
+        border-radius: 1.875rem;
         border: 3px solid #ed7102;
         background-color: #ed7102;
 
         font-family: IBMPlexSans;
-        font-size: 25px;
+        font-size: 1.5625rem;
         font-weight: 500;
         font-stretch: normal;
         font-style: normal;
@@ -155,7 +162,7 @@
         text-align: center;
         color: #ffffff;
 
-        padding: 13px 31px 13px 31px;
+        padding: 0.8125rem 1.9375rem 0.8125rem 1.9375rem;
 
         &:hover {
           background-color: #ffffff;

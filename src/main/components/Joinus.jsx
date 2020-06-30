@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 const JoinusHeader = () => {
   return (
     <div className="joinus-header">
       <h1>Join the Defima Platform Now</h1>
     </div>
-  )
-}
+  );
+};
 
 const JoinusContent = () => {
   return (
@@ -42,8 +42,8 @@ const JoinusContent = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const JoinusButtons = () => {
   return (
@@ -55,11 +55,11 @@ const JoinusButtons = () => {
         <a href="#">Download presentation</a>
       </div>
     </div>
-  )
-} 
+  );
+};
 
 class Joinus extends Component {
-  render () {
+  render() {
     return (
       <section className="joinus">
         <div className="wrapper joinus-wrapper">
@@ -68,8 +68,8 @@ class Joinus extends Component {
           <JoinusButtons />
         </div>
       </section>
-    )
+    );
   }
 }
 
-export default Joinus
+export default Joinus;

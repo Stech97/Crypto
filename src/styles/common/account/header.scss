@@ -1,202 +1,201 @@
 .dash-header {
-    display: grid;
-    grid-template-columns: repeat(12, $column);
-    grid-column-gap: $gap;
-    margin: 0 $padding*(-1);
-    padding-left: $padding;
-    position: sticky;
-    top: 0;
-    z-index: 4;
-    grid-template-areas: "l l . . . . . . . . u u";
-    background-color: #ffffff;
-    align-items: center;
-    justify-items: center; 
-  }
-  .dash-header-logo {
-    grid-area: l;
-    margin-top: -5px;
-  }
-  
-  .dash-header-logo img {
-    max-height: 26px;
-    height: $account-header-height / 2;
-    width: auto;
-  }
-  .dash-header-user {
-    position: relative;
-    grid-area: u;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 100%;
-    align-items: center;
-    justify-items: center;
-    grid-template-areas: "user-icon user-name user-arrow";
-  }
-  .dash-header-user-icon {
-    grid-area: user-icon;
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    height: 33px;
-    width: 33px;
-    border-radius: 31px;
-    background-image: linear-gradient(50deg, #123273 0%, #005c9f 100%);
-    &:hover {
-      &>svg {
-        fill: #ed7102;
-        stroke: #ed7102;
-      }
+  display: grid;
+  grid-template-columns: repeat(12, $column);
+  grid-column-gap: $gap;
+  margin: 0 $padding * (-1);
+  padding-left: $padding;
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  grid-template-areas: 'l l . . . . . . . . u u';
+  background-color: #ffffff;
+  align-items: center;
+  justify-items: center;
+}
+.dash-header-logo {
+  grid-area: l;
+  margin-top: -5px;
+}
+
+.dash-header-logo img {
+  height: auto;
+  width: $column;
+}
+.dash-header-user {
+  position: relative;
+  grid-area: u;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 100%;
+  align-items: center;
+  justify-items: center;
+  grid-template-areas: 'user-icon user-name user-arrow';
+}
+.dash-header-user-icon {
+  grid-area: user-icon;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  height: 33px;
+  width: 33px;
+  border-radius: 31px;
+  background-image: linear-gradient(50deg, #123273 0%, #005c9f 100%);
+  &:hover {
+    & > svg {
+      fill: #ed7102;
+      stroke: #ed7102;
     }
   }
-  .dash-header-user-icon>svg{
-    height: 1em;
-    width: 1em;
-    font-size: 1.2rem;
-    fill: #ffffff;
-    stroke: #ffffff;
-  }
-  .dash-header-user-name {
-    margin: 0 10px;
-    grid-area: user-name;
-  }
-  .dash-header-user-name h2 {
-    color: #123273;
-    font-size: 1.2rem;
-    font-family: "IBM Plex Sans";
-    font-weight: 500;
-  }
-  
-  .dash-header-user-arrow {
-    grid-area: user-arrow;
+}
+.dash-header-user-icon > svg {
+  height: 1em;
+  width: 1em;
+  font-size: 1.2rem;
+  fill: #ffffff;
+  stroke: #ffffff;
+}
+.dash-header-user-name {
+  margin: 0 10px;
+  grid-area: user-name;
+}
+.dash-header-user-name h2 {
+  color: #123273;
+  font-size: 1.2rem;
+  font-family: 'IBM Plex Sans';
+  font-weight: 500;
+}
 
-    &>svg {
+.dash-header-user-arrow {
+  grid-area: user-arrow;
+
+  & > svg {
+    width: auto;
+    height: 1em;
+    font-size: 0.5rem;
+    fill: #123273;
+    stroke: #123273;
+    transform: rotate(180deg);
+  }
+
+  &:hover {
+    & > svg {
+      fill: #ed7102;
+      stroke: #ed7102;
+    }
+  }
+
+  &-closed {
+    & > svg {
       width: auto;
       height: 1em;
       font-size: 0.5rem;
       fill: #123273;
       stroke: #123273;
-      transform: rotate(180deg);
+      transform: rotate(0);
     }
 
     &:hover {
-      &>svg {
+      & > svg {
         fill: #ed7102;
         stroke: #ed7102;
       }
     }
+  }
+}
 
-    &-closed {
-      &>svg {
-        width: auto;
-        height: 1em;
-        font-size: 0.5rem;
-        fill: #123273;
-        stroke: #123273;
-        transform: rotate(0);
-      }
+.dash-header-user-menu-closed {
+  display: none;
+}
 
-      &:hover {
-        &>svg {
-          fill: #ed7102;
-          stroke: #ed7102;
-        }
-      }
-    }
-  }
-  
-  .dash-header-user-menu-closed {
-    display: none;
-  }
-  
-  .dash-header-user-menu-opened {
-    position: absolute;
-    width: 2*$column + 3*$gap;
-    top: 0;
-    left: -$gap;
+.dash-header-user-menu-opened {
+  position: absolute;
+  width: 2 * $column + 3 * $gap;
+  top: 0;
+  left: -$gap;
 
-    border: 1px solid #efefef;
-    border-top: none;
-    border-radius: 0 0 50px 50px;
-    background-color: #ffffff;
-    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid #efefef;
+  border-top: none;
+  border-radius: 0 0 50px 50px;
+  background-color: #ffffff;
+  box-shadow: 0 20px 20px rgba(0, 0, 0, 0.06);
 
-    grid-area: dash-header-user;
-    display: grid;
-    grid-template-columns: $gap 2*$column $gap;
-    grid-template-rows: min-content min-content;
-    grid-auto-flow: row;
-    grid-template-areas: ". settings settings" ". logout logout";
+  grid-area: dash-header-user;
+  display: grid;
+  grid-template-columns: $gap 2 * $column $gap;
+  grid-template-rows: min-content min-content;
+  grid-auto-flow: row;
+  grid-template-areas: '. settings settings' '. logout logout';
 
-    align-items: center;
-    justify-items: center;
-  }
-  
-  .dash-header-user-menu-settings {
-    grid-area: settings;
-    display: grid;
-    width: 100%;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 100%;
-    grid-template-areas: "settings-icon settings-text";
-    align-items: center;
-    justify-items: center;
-    cursor: pointer;
-    border-bottom: 2px solid #efefef;
-  }
+  align-items: center;
+  justify-items: center;
+}
 
-  .dash-header-user-menu-logout {
-    grid-area: logout;
-    display: grid;
-    width: 100%;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 100%;
-    grid-template-areas: "logout-icon logout-text";
-    align-items: center;
-    justify-items: center;
-    cursor: pointer;
-  }
+.dash-header-user-menu-settings {
+  grid-area: settings;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 100%;
+  grid-template-areas: 'settings-icon settings-text';
+  align-items: center;
+  justify-items: center;
+  cursor: pointer;
+  border-bottom: 2px solid #efefef;
+}
 
-  .dash-header-user-menu-settings-icon {
-    grid-area: settings-icon;
-  }
-  
-  .dash-header-user-menu-settings-icon {
-    height: 1em;
-    width: 1em;
-    font-size: 1.2rem;
-    fill: #838383;
-    stroke: #838383;
-  }
-  
-  .dash-header-user-menu-settings-text {
-    grid-area: settings-text;
-  }
-  
-  .dash-header-user-menu-logout-text {
-    grid-area: logout-text;
-  }
-  .dash-header-user-menu-settings-text p {
-    color: #838383;
-    font-family: "IBM Plex Sans";
-    font-size: 1.2rem;
-    text-align: left;
-  }
-  
-  .dash-header-user-menu-logout-icon {
-    grid-area: logout-icon;
-  }
-  
-  .dash-header-user-menu-logout-icon {
-    height: 1em;
-    width: 1em;
-    font-size: 1.2rem;
-    fill: #ed7102;
-    stroke: #ed7102;
-  }
-  
-  .dash-header-user-menu-logout-text p {
-    color: #ed7102;
-    font-family: "IBM Plex Sans";
-    font-size: 1.2rem;
-  }
+.dash-header-user-menu-logout {
+  grid-area: logout;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 100%;
+  grid-template-areas: 'logout-icon logout-text';
+  align-items: center;
+  justify-items: center;
+  cursor: pointer;
+}
+
+.dash-header-user-menu-settings-icon {
+  grid-area: settings-icon;
+}
+
+.dash-header-user-menu-settings-icon {
+  height: 1em;
+  width: 1em;
+  font-size: 1.2rem;
+  fill: #838383;
+  stroke: #838383;
+}
+
+.dash-header-user-menu-settings-text {
+  grid-area: settings-text;
+}
+
+.dash-header-user-menu-logout-text {
+  grid-area: logout-text;
+}
+.dash-header-user-menu-settings-text p {
+  color: #838383;
+  font-family: 'IBM Plex Sans';
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+.dash-header-user-menu-logout-icon {
+  grid-area: logout-icon;
+}
+
+.dash-header-user-menu-logout-icon {
+  height: 1em;
+  width: 1em;
+  font-size: 1.2rem;
+  fill: #ed7102;
+  stroke: #ed7102;
+}
+
+.dash-header-user-menu-logout-text p {
+  color: #ed7102;
+  font-family: 'IBM Plex Sans';
+  font-size: 1.2rem;
+}

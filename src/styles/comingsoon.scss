@@ -1,11 +1,11 @@
-@import "utils/normalize";
+@import 'utils/normalize';
 
 @media (max-width: 767.98px) {
   .comingsoon {
     width: 100%;
 
     .wrapper {
-      border-bottom-left-radius: 73.7px;
+      border-bottom-left-radius: 4.60625rem;
       border: none;
       height: 100vh;
       background: url({waveimage}) 40% 10% / auto 80% no-repeat,
@@ -18,7 +18,7 @@
         grid-template-columns: 1fr;
         grid-template-rows: 25% 30% 8% 25%;
         gap: 0px 0px;
-        grid-template-areas: "comingsoon-logobox" "comingsoon-h1-box" "comingsoon-h2-box" "comingsoon-form-box";
+        grid-template-areas: 'comingsoon-logobox' 'comingsoon-h1-box' 'comingsoon-h2-box' 'comingsoon-form-box';
       }
       .comingsoon-logobox {
         grid-area: comingsoon-logobox;
@@ -35,9 +35,9 @@
         h1 {
           width: 75%;
           margin: 0;
-          font-family: "IBM Plex Sans";
-          font-size: 20px;
-          font-size: 40px;
+          font-family: 'IBM Plex Sans';
+          font-size: 1.25rem;
+          font-size: 2.5rem;
           font-weight: 500;
           font-stretch: normal;
           font-style: normal;
@@ -53,8 +53,8 @@
         h2 {
           margin: 0;
           width: 72%;
-          font-family: "IBM Plex Sans";
-          font-size: 20px;
+          font-family: 'IBM Plex Sans';
+          font-size: 1.25rem;
           font-weight: 300;
           font-stretch: normal;
           font-style: normal;
@@ -78,8 +78,8 @@
           min-width: 312px;
           background: none;
           height: 38px;
-          font-family: "IBM Plex Sans";
-          font-size: 20px;
+          font-family: 'IBM Plex Sans';
+          font-size: 1.25rem;
           font-weight: 500;
           font-stretch: normal;
           font-style: normal;
@@ -105,7 +105,7 @@
           border-radius: 30px;
           border-width: 0;
           background-color: #ed7102;
-          font-family: "IBM Plex Sans";
+          font-family: 'IBM Plex Sans';
           font-size: 25px;
           font-weight: 500;
           font-stretch: normal;
@@ -139,7 +139,7 @@
         grid-template-columns: 1fr;
         grid-template-rows: 33.9% 20.8% 3.1% auto;
         gap: 0px 0px;
-        grid-template-areas: "comingsoon-logobox" "comingsoon-h1-box" "comingsoon-h2-box" "comingsoon-form-box";
+        grid-template-areas: 'comingsoon-logobox' 'comingsoon-h1-box' 'comingsoon-h2-box' 'comingsoon-form-box';
       }
       .comingsoon-logobox {
         grid-area: comingsoon-logobox;
@@ -154,7 +154,7 @@
         align-self: end;
         h1 {
           margin: 0;
-          font-family: "IBM Plex Sans";
+          font-family: 'IBM Plex Sans';
           font-size: 60px;
           font-weight: 600;
           font-stretch: normal;
@@ -171,7 +171,7 @@
         h2 {
           margin: 0;
 
-          font-family: "IBM Plex Sans";
+          font-family: 'IBM Plex Sans';
           font-size: 25px;
           font-weight: 400;
           font-stretch: normal;
@@ -190,7 +190,7 @@
           min-width: 400px;
           background: none;
           height: 38px;
-          font-family: "IBM Plex Sans";
+          font-family: 'IBM Plex Sans';
           font-size: 25px;
           font-weight: 500;
           font-stretch: normal;
@@ -217,7 +217,7 @@
           border-radius: 30px;
           border-width: 0;
           background-color: #ed7102;
-          font-family: ""IBM Plex Sans"";
+          font-family: '' IBM Plex Sans '';
           font-size: 25px;
           font-weight: 500;
           font-stretch: normal;
@@ -235,7 +235,7 @@
         align-self: center;
         p {
           color: #ffffff;
-          font-family: "IBM Plex Sans";
+          font-family: 'IBM Plex Sans';
           font-size: 25px;
           font-weight: 300;
         }
