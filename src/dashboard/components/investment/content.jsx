@@ -75,21 +75,150 @@ class InvestmentDetails extends Component {
 	}
 }
 
-const InvestmentGood = ({ good: { name, percent, invest, levels } }) => {
+const renderField = ({
+	input,
+	className,
+	placeholder,
+	meta: { touched, error, warning },
+}) => {
 	return (
-		<div className="investment-goods-box">
-			<div className="investment-goods-box-header">
-				<h4>{name}</h4>
-			</div>
-			<div className="investment-goods-box-content">
-				<p>{"Monthly Profit of up to " + percent + "% month"}</p>
-				<p>{"Starting from $" + invest}</p>
-				<p>{"Career commission qualified Level 1-" + levels}</p>
-			</div>
-			<div className="investment-goods-box-button">Invest</div>
+		<div className="popup-exchange-form-input">
+			<input
+				{...input}
+				type="text"
+				min="0"
+				className={className + " popup-exchange-form-input"}
+				placeholder={placeholder}
+			/>
+			{touched &&
+				((error && (
+					<p className="error">
+						<i class="fas fa-exclamation-circle"></i>
+						{" " + error}
+					</p>
+				)) ||
+					(warning && (
+						<p className="error">
+							<i class="fas fa-exclamation-circle"></i>
+							{" " + warning}
+						</p>
+					)))}
 		</div>
 	);
 };
+
+class InvestPopupForm extends Component {
+	render() {
+		return (
+			<form className="popup-invest">
+				<div className="popup-invest-field">
+					<label
+						htmlFor="invest-wallet"
+						className="popup-invest-field-label"
+					></label>
+					<select
+						id="invest-wallet"
+						type="text"
+						className="popup-invest-field-input"
+					>
+						<option value="BTC">BTC 0.232</option>
+						<option value="USD">$6000 </option>
+						<option value="DET">DET 6000</option>
+					</select>
+					<p className="error  popup-invest-field-error"></p>
+				</div>
+				<div className="popup-invest-field">
+					<label
+						htmlFor="invest-amount"
+						className="popup-invest-field-label"
+					></label>
+					<input
+						id="invest-amount"
+						type="text"
+						className="popup-invest-field-input"
+					/>
+					<p className="error  popup-invest-field-error">
+						<i class="fas fa-exclamation-circle"></i>
+					</p>
+				</div>
+				<h6 className="popup-invest-minamount">
+					{"Min. amount for product $" + this.props.minamount}
+				</h6>
+				<div className="popup-invest-button">
+					<button>Buy Now</button>
+				</div>
+			</form>
+		);
+	}
+}
+
+const InvestPopup = (props) => {
+	return (
+		<div className={props.isOpened ? "popup" : "none"}>
+			<div
+				onClick={() => props.closeModal()}
+				className="popup-layer"
+			></div>
+			<div className="popup-wrapper">
+				<div className="popup-wrapper-header">
+					<h1>{"Buy Product " + props.type}</h1>
+				</div>
+				<div className="popup-wrapper-cross">
+					<img
+						onClick={() => props.closeModal()}
+						src="/img/close-icon.png"
+					/>
+				</div>
+				<div className="popup-wrapper-content">
+					<InvestPopupForm minamount={props.minamount} />
+				</div>
+			</div>
+		</div>
+	);
+};
+
+class InvestmentGood extends Component {
+	state = {
+		isOpened: false,
+	};
+
+	toggleModal = () => {
+		this.setState({
+			isOpened: !this.state.isOpened,
+		});
+	};
+
+	render() {
+		const {
+			good: { name, percent, invest, levels },
+		} = this.props;
+
+		return (
+			<div className="investment-goods-box">
+				<div className="investment-goods-box-header">
+					<h4>{name}</h4>
+				</div>
+				<div className="investment-goods-box-content">
+					<p>{"Monthly Profit of up to " + percent + "% month"}</p>
+					<p>{"Starting from $" + invest}</p>
+					<p>{"Career commission qualified Level 1-" + levels}</p>
+				</div>
+				<div
+					onClick={() => this.toggleModal()}
+					className="investment-goods-box-button"
+				>
+					Invest
+				</div>
+				<InvestPopup
+					closeModal={() => this.toggleModal()}
+					isOpened={this.state.isOpened}
+					type={name}
+					minamount={invest}
+				/>
+			</div>
+		);
+	}
+}
 
 class InvestmentGoods extends Component {
 	render() {
