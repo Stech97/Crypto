@@ -19,10 +19,21 @@ namespace Crypto.Services.Implementation
 			_mapper = mapper;
 		}
 
-		public async Task AddNews(NewsViewModel request)
+		public async Task AddNews(AddNewsViewModel request)
 		{
-			var news = _mapper.Map<NewsViewModel, News>(request);
+			var news = _mapper.Map<AddNewsViewModel, News>(request);
 			await _repository.AddNews(news);
+		}
+
+		public async Task UpdateNews(UpdateNewsViewModel model, string heder)
+		{
+			var news = _mapper.Map<UpdateNewsViewModel, News>(model);
+			await _repository.UpdateNews(news, heder);
+		}
+
+		public async Task DeleteNews(string heder)
+		{
+			await _repository.DeleteNews(heder);
 		}
 
 		public async Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request)
@@ -42,7 +53,7 @@ namespace Crypto.Services.Implementation
 		{
 			await _repository.DelUser(Id);
 		}
-		#endregion
+        #endregion
 
-	}
+    }
 }

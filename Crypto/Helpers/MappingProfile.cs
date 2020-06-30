@@ -52,12 +52,15 @@ namespace Crypto.Helpers
 				.ForMember(m => m.Product, opt => opt.MapFrom(m => m.ToString()))
 				.ForMember(m => m.Investment, opt => opt.MapFrom(m => m.AddCash));
 
-			CreateMap<News, ViewModels.Dashdoard.NewsViewModel>();
+			CreateMap<News, NewsViewModel>();
 
-			CreateMap<ViewModels.Administrator.NewsViewModel, News>()
+			CreateMap<AddNewsViewModel, News>()
 				.ForMember(m => m.CreateDate, opt => opt.MapFrom(m => DateTime.Now))
 				.ForMember(m => m.LastChangeDate, opt => opt.MapFrom(m => DateTime.Now));
-			
+
+			CreateMap<UpdateNewsViewModel, News>()
+				.ForMember(m => m.LastChangeDate, opt => opt.MapFrom(m => DateTime.Now));
+
 			CreateMap<RateDETViewModel, Balance>()
 				.ForMember(m => m.RateUSD_DEF, opt => opt.MapFrom(m => m.RateDef));
 			CreateMap<double, Balance>()

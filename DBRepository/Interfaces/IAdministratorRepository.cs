@@ -8,6 +8,8 @@ namespace DBRepository.Interfaces
     {
         Task AddNews(News news); 
         Task<Balance> UpdateDETRate(Balance balance);
+        Task UpdateNews(News news, string heder);
+        Task DeleteNews(string heder);
 
         #region Dev
         Task DelUser(int Id);

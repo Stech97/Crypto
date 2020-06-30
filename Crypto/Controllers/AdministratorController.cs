@@ -19,10 +19,27 @@ namespace Crypto.Controllers
 		//[Authorize(Roles = "Client")]
 		[Route("AddNews")]
 		[HttpPost]
-		public async Task<IActionResult> AddNews([FromBody] NewsViewModel request)
+		public async Task<IActionResult> AddNews([FromBody] AddNewsViewModel model)
 		{
-			await _administratorService.AddNews(request);
+			await _administratorService.AddNews(model);
 			return Ok();
+		}
+
+		//[Authorize]
+		[Route("UpdateNews")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateNews([FromBody] UpdateNewsViewModel model, string heder)
+		{
+			await _administratorService.UpdateNews(model, heder);
+			return Ok();
+		}
+		//[Authorize]
+		[Route("DeleteNews")]
+		[HttpDelete]
+		public async Task<IActionResult> DeleteNews(string heder)
+		{
+			await _administratorService.DeleteNews(heder);
+			return NoContent();
 		}
 
 		//[Authorize]

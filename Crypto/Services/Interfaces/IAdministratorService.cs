@@ -6,8 +6,10 @@ namespace Crypto.Services.Interfaces
 {
     public interface IAdministratorService
     {
-        Task AddNews(NewsViewModel request);
+        Task AddNews(AddNewsViewModel requmodelest);
         Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request);
+        Task UpdateNews(UpdateNewsViewModel model, string heder);
+        Task DeleteNews(string heder);
 
         #region Dev
         Task DelUser(int Id);
