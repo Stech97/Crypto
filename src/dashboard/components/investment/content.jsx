@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Helmet } from "react-helmet";
 import { HistoryRecord } from "../history/content";
 import InvestmentProfit from "./investmentProfit";
+import InvestPopupForm from "./InvestForm";
 
 class InvestmentDetails extends Component {
 	state = {
@@ -71,83 +72,6 @@ class InvestmentDetails extends Component {
 					</p>
 				</div>
 			</div>
-		);
-	}
-}
-
-const renderField = ({
-	input,
-	className,
-	placeholder,
-	meta: { touched, error, warning },
-}) => {
-	return (
-		<div className="popup-exchange-form-input">
-			<input
-				{...input}
-				type="text"
-				min="0"
-				className={className + " popup-exchange-form-input"}
-				placeholder={placeholder}
-			/>
-			{touched &&
-				((error && (
-					<p className="error">
-						<i class="fas fa-exclamation-circle"></i>
-						{" " + error}
-					</p>
-				)) ||
-					(warning && (
-						<p className="error">
-							<i class="fas fa-exclamation-circle"></i>
-							{" " + warning}
-						</p>
-					)))}
-		</div>
-	);
-};
-
-class InvestPopupForm extends Component {
-	render() {
-		return (
-			<form className="popup-invest">
-				<div className="popup-invest-field">
-					<label
-						htmlFor="invest-wallet"
-						className="popup-invest-field-label"
-					></label>
-					<select
-						id="invest-wallet"
-						type="text"
-						className="popup-invest-field-input"
-					>
-						<option value="BTC">BTC 0.232</option>
-						<option value="USD">$6000 </option>
-						<option value="DET">DET 6000</option>
-					</select>
-					<p className="error  popup-invest-field-error"></p>
-				</div>
-				<div className="popup-invest-field">
-					<label
-						htmlFor="invest-amount"
-						className="popup-invest-field-label"
-					></label>
-					<input
-						id="invest-amount"
-						type="text"
-						className="popup-invest-field-input"
-					/>
-					<p className="error  popup-invest-field-error">
-						<i class="fas fa-exclamation-circle"></i>
-					</p>
-				</div>
-				<h6 className="popup-invest-minamount">
-					{"Min. amount for product $" + this.props.minamount}
-				</h6>
-				<div className="popup-invest-button">
-					<button>Buy Now</button>
-				</div>
-			</form>
 		);
 	}
 }
