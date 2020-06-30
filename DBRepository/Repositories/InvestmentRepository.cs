@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 
 namespace DBRepository.Repositories
 {
@@ -41,11 +40,11 @@ namespace DBRepository.Repositories
 						{
 							balance.BitcoinBalance -= investment.AddCash;
 							investment.UserId = UserId;
-                            investment.AddCash *= balance.RateBTC_USD;
+							investment.AddCash *= balance.RateBTC_USD;
 							context.Investments.Add(investment);
 							context.Balances.Update(balance);
 							await context.SaveChangesAsync();
-							
+
 							return await context.Balances.AsNoTracking().FirstOrDefaultAsync(b => b.UserId == UserId);
 						}
 						else
@@ -82,5 +81,115 @@ namespace DBRepository.Repositories
 				}
 			}
 		}
+
+		public async Task<List<PopupTeam>> GetTeamPop(int UserId, int Level)
+		{
+			int countLevel = 1;
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var RefUser = await context.Users.AsNoTracking().Where(u => u.Id == UserId)
+					.Select(u => new User
+					{
+						Id = u.Id,
+						ParentId = u.ParentId ?? 0,
+						RefLink = u.RefLink
+					}).FirstOrDefaultAsync();
+
+				RefUser.Children = GetChildrenByParentIdTeam(RefUser.Id, ref countLevel);
+
+				if (Level > countLevel)
+					return null;
+
+				var Users = BreadthFirst(RefUser, Level);
+				List<PopupTeam> popupTeams = new List<PopupTeam>();
+				foreach (var User in Users)
+				{
+					var Invest = await context.Investments.AsNoTracking().FirstOrDefaultAsync(u => u.UserId == User.Id);
+					if (Invest != null)
+					{
+						var TotalInvestments = await context.Investments.AsNoTracking().Where(i => i.UserId == UserId).SumAsync(i => i.AddCash); 
+						var Persent = context.TypeCommissions.FirstOrDefault(tc => tc.Level == Level);
+						PopupTeam team = new PopupTeam()
+						{
+							Username = User.Username,
+							Email = User.Email,
+							ProditsPaid = Invest.Profit,
+							TotalInvestments = TotalInvestments
+						};
+						team.TotalEarning = team.ProditsPaid * Persent.Value;
+						popupTeams.Add(team);
+					}
+				}
+				return popupTeams;
+
+			}
+		}
+
+		public async Task<List<Team>> GetTeamLevel(int UserId)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var Teams = new List<Team>();
+				for (int i = 1; i < 8; i++)
+				{
+					var Persent = context.TypeCommissions.FirstOrDefault(tc => tc.Level == i);
+					var Level = await GetTeamPop(UserId, i);
+					if (Level != null)
+					{
+						var team = new Team()
+						{
+							Level = i,
+							Members = Level.Count(),
+							TotalInvested = Level.Sum(l => l.TotalInvestments),
+							ProfitsPaid = Level.Sum(l => l.ProditsPaid),
+							Commission = Persent.Value,
+							TotalEarning = Level.Sum(l => l.TotalEarning)
+						};
+						Teams.Add(team);
+					}
+				}
+				return Teams;
+			}
+		}
+
+		#region Private Methods
+		private Queue<User> BreadthFirst(User node, int level)
+		{
+			Queue<User> nodesQueue = new Queue<User>();
+			nodesQueue.Enqueue(node);
+			for (int i = 0; i < level; i++)
+			{
+				User currentNode = nodesQueue.Dequeue();
+				if (currentNode.Children != null)
+					foreach (User childNode in currentNode.Children)
+						nodesQueue.Enqueue(childNode);
+			}
+			return nodesQueue;
+		}
+		
+		private IEnumerable<User> GetChildrenByParentIdTeam(int parentId, ref int countLevel)
+		{
+			var children = new List<User>();
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var RefUsers = context.Users.Where(u => u.ParentId == parentId);
+				foreach (var Ref in RefUsers)
+				{
+					User thread = new User
+					{
+						Id = Ref.Id,
+						ParentId = Ref.ParentId ?? 0,
+						Username = Ref.Username,
+						Email = Ref.Email,
+						Children = GetChildrenByParentIdTeam(Ref.Id, ref countLevel)
+					}; 
+						if (thread.Children.Count() != 0)
+							countLevel++;
+					children.Add(thread);
+				}
+			}
+			return children;
+		}
+		#endregion
 	}
 }

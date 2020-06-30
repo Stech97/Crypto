@@ -16,8 +16,8 @@ namespace DBRepository
         public DbSet<News> News { get; set; }
         public DbSet<ConfirmEmail> ConfirmEmails { get; set; }
         public DbSet<ForgotPassword> ForgotPasswords { get; set; }
-
         public DbSet<TypeInvestment> TypeInvestments { get; set; }
+        public DbSet<TypeCommission> TypeCommissions { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -79,6 +79,12 @@ namespace DBRepository
             modelBuilder.Entity<TypeInvestment>().Property(ti => ti.Type).IsRequired();
             #endregion
 
+            #region Type Commission
+            modelBuilder.Entity<TypeCommission>().ToTable("TypeCommission");
+            modelBuilder.Entity<TypeCommission>().HasKey(tc => tc.Level);
+            modelBuilder.Entity<TypeCommission>().Property(tc => tc.Level).IsRequired();
+            modelBuilder.Entity<TypeCommission>().Property(tc => tc.Value).IsRequired();
+            #endregion
         }
     }
 }

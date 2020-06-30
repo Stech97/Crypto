@@ -39,6 +39,7 @@ namespace Crypto
 				{
 					Console.Beep();
 					Console.WriteLine(e.Message);
+					Console.ReadLine();
 					Environment.Exit(-1);
 				}
 				var adminService = services.GetRequiredService<IAdministratorService>();

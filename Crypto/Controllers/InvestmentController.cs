@@ -45,11 +45,25 @@ namespace Crypto.Controllers
 		}
 
 		//[Authorize]
-		[Route("GetData")]
+		[Route("GetTeamPop")]
 		[HttpGet]
-		public async Task<IActionResult> GetData(int UserId)
+		public async Task<IActionResult> GetTeamPop(int UserId, int Level)
 		{
-			return Ok();
+			var result = await _investmentService.GetTeamPop(UserId, Level);
+			if (result == null)
+				return BadRequest("count level less query");
+			return Ok(result);
+		}
+
+		//[Authorize]
+		[Route("GetTeamLevel")]
+		[HttpGet]
+		public async Task<IActionResult> GetTeamLevel(int UserId)
+		{
+			var result = await _investmentService.GetTeamLevel(UserId);
+			if (result == null)
+				return BadRequest("");
+			return Ok(result);
 		}
 
 	}

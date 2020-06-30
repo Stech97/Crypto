@@ -114,8 +114,8 @@ namespace DBRepository.Repositories
 
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var BadInvests = await context.Investments.ToListAsync();
-				var Invests = BadInvests.GroupBy(i => i.UserId).Select(ii => ii.FirstOrDefault()).ToList();
+				var AllInvests = await context.Investments.ToListAsync();
+				var Invests = AllInvests.GroupBy(i => i.UserId).Select(ii => ii.FirstOrDefault()).ToList();
 				foreach (var Invest in Invests)
 				{
 					int level = 1;
@@ -219,38 +219,19 @@ namespace DBRepository.Repositories
 						Children = GetChildren(Ref.Id)
 					};
 
+					var Persent = context.TypeCommissions.FirstOrDefault(tc => tc.Level == level);
+
 					var invest = context.Investments.FirstOrDefault(i => i.UserId == Ref.Id);
+					
 					if (level >= MaxLevel)
 						return;
-					switch (level)
-					{
-						case 1:
-							if (invest != null)
-								CurrentCommission += 0.3 * invest.Profit;
-							break;
-						case 2:
-							goto case 3;
-						case 3:
-							if (invest != null)
-								CurrentCommission += 0.2 * invest.Profit;
-							break;
-						case 4:
-							goto case 5;
-						case 5:
-							if (invest != null)
-								CurrentCommission += 0.1 * invest.Profit;
-							break;
-						case 6:
-							goto case 7;
-						case 7:
-							if (invest != null)
-								CurrentCommission += 0.05 * invest.Profit;
-							break;
-						default:
+					if (level > 0 || level < 8)
+						if (invest != null)
+							CurrentCommission += Persent.Value * invest.Profit;
+						else
 							if (Ref.IsSuper && invest != null)
 								CurrentCommission += 0.005 * invest.Profit;
-							break;
-					}
+
 					if (thread.Children.Count() > 0)
 					{
 						level++;

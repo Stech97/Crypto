@@ -46,6 +46,39 @@ namespace DBRepository
 				await context.SaveChangesAsync().ConfigureAwait(false);
 			}
 
+			var typeCommissions = await context.TypeCommissions.CountAsync().ConfigureAwait(false);
+			if (typeCommissions == 0)
+			{
+				context.TypeCommissions.Add(new TypeCommission()
+				{
+					Value = 0.3 
+				});
+				context.TypeCommissions.Add(new TypeCommission()
+				{
+					Value = 0.2
+				});
+				context.TypeCommissions.Add(new TypeCommission()
+				{
+					Value = 0.2
+				});
+				context.TypeCommissions.Add(new TypeCommission()
+				{
+					Value = 0.1
+				});
+				context.TypeCommissions.Add(new TypeCommission()
+				{
+					Value = 0.1
+				});
+				context.TypeCommissions.Add(new TypeCommission()
+				{
+					Value = 0.05
+				});
+				context.TypeCommissions.Add(new TypeCommission()
+				{
+					Value = 0.05
+				});
+				await context.SaveChangesAsync().ConfigureAwait(false);
+			}
 		}
 	}
 }

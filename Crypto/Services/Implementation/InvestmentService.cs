@@ -37,7 +37,17 @@ namespace Crypto.Services.Implementation
 			string cur = request.Currency;
 			var balance = await _repository.BuyInvestment(invest, cur, Id);
 			return _mapper.Map<Balance, BalanceViewModel>(balance);
-
 		}
-    }
+
+		public async Task<List<PopupTeam>> GetTeamPop(int UserId, int Level)
+		{
+			return await _repository.GetTeamPop(UserId, Level);
+		}
+
+		public async Task<List<Team>> GetTeamLevel(int UserId)
+		{
+			return await _repository.GetTeamLevel(UserId);
+		}
+
+	}
 }
