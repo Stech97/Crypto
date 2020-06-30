@@ -19,7 +19,7 @@ import AccountPage from "./dashboard/Account";
 import InDevelopment from "./dashboard/components/inDevelopment";
 import { ForgotPassword } from "./signup/ForgotPassword";
 import { RestorePassword } from "./signup/RestorePassword";
-import TechPage from "./techpages/terms";
+import TechPage from "./techpages/techpages";
 
 const DOMAIN_URL_TEST = "localhost:3000";
 const DOMAIN_URL_PROD = "https://defima.io";
