@@ -19,6 +19,7 @@ import AccountPage from "./dashboard/Account";
 import InDevelopment from "./dashboard/components/inDevelopment";
 import { ForgotPassword } from "./signup/ForgotPassword";
 import { RestorePassword } from "./signup/RestorePassword";
+import TechPage from "./techpages/terms";
 
 const DOMAIN_URL_TEST = "localhost:3000";
 const DOMAIN_URL_PROD = "https://defima.io";
@@ -207,46 +208,61 @@ export const routes = [
 		path: "/main",
 		component: MainPage,
 		Private: false,
+		public: true,
+	},
+	{
+		path: "/terms&conditions",
+		component: TechPage,
+		Private: false,
+		public: true,
 	},
 	{
 		path: "/account",
 		component: AccountPage,
 		Private: true,
+		public: false,
 		routes: [
 			{
 				path: "/account/dashboard",
 				component: DashContent,
 				Private: true,
+				public: false,
 			},
 			{
 				path: "/account/investment",
 				component: InvestmentContent,
 				Private: true,
+				public: false,
 			},
 			{
 				path: "/account/faq",
 				component: FaqsContent,
 				Private: true,
+				public: false,
 			},
 			{
 				path: "/account/marketing",
 				component: MarketingContent,
 				Private: true,
+				public: false,
 			},
 			{
 				path: "/account/team",
 				component: TeamContent,
 				Private: true,
+				public: false,
 			},
 			{
 				path: "/account/settings",
 				component: SettingsContent,
 				Private: true,
+				public: false,
 			},
 			{
 				path: "/account/history",
 				component: HistoryContent,
 				Private: true,
+				public: false,
 			},
 		],
 	},
@@ -254,30 +270,36 @@ export const routes = [
 		path: "/login",
 		component: LoginPage,
 		Private: false,
+		public: false,
 	},
 	{
 		path: "/signup",
 		component: SignupPage,
 		Private: false,
+		public: false,
 	},
 	{
 		path: "/confirmEmail/:hash",
 		component: ConfirmEmail,
 		Private: false,
+		public: false,
 	},
 	{
 		path: "/restorePassword/:hash",
 		component: RestorePassword,
 		Private: false,
+		public: false,
 	},
 	{
 		path: "/forgot",
 		component: ForgotPassword,
 		Private: false,
+		public: false,
 	},
 	{
 		path: "/",
 		component: ComingSoon,
 		Private: false,
+		public: true,
 	},
 ];

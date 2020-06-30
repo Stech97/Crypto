@@ -86,6 +86,15 @@ const InprivateRoute = ({ component: Component, routes: routes, ...rest }) => {
     );
 };
 
+const PublicRoute = ({ component: Component, routes: routes, ...rest }) => {
+    return (
+        <Route
+            {...rest}
+            render={(props) => <Component {...props} routes={routes} />}
+        />
+    );
+};
+
 export function RouteWithSubRoutes(route) {
     if (route.Private) {
         return (
@@ -95,8 +104,14 @@ export function RouteWithSubRoutes(route) {
                 routes={route.routes}
             />
         );
-    } else if (route.component === MainPage) {
-        return <Route path="/main" component={MainPage} />;
+    } else if (route.public) {
+        return (
+            <PublicRoute
+                path={route.path}
+                component={route.component}
+                routes={route.routes}
+            />
+        );
     } else {
         return (
             <InprivateRoute

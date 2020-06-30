@@ -94,7 +94,10 @@ const InvestPopup = (props) => {
 					/>
 				</div>
 				<div className="popup-wrapper-content">
-					<InvestPopupForm minamount={props.minamount} />
+					<InvestPopupForm
+						minamount={props.minamount}
+						type={props.type}
+					/>
 				</div>
 			</div>
 		</div>
@@ -170,7 +173,7 @@ class InvestmentGoods extends Component {
 		return (
 			<div className="investment-goods">
 				{goods.map((good, i) => (
-					<InvestmentGood kei={i} good={good} />
+					<InvestmentGood key={i} good={good} />
 				))}
 			</div>
 		);
