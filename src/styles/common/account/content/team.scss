@@ -1,221 +1,236 @@
 .team {
-  &-whitebox {
-    box-shadow: 0 0 1.4375rem rgba(0, 0, 0, 0.06);
-    border: 1px solid #efefef;
-    background-color: #ffffff;
-    border-radius: 20px;
-  }
+	&-whitebox {
+		box-shadow: 0 0 1.4375rem rgba(0, 0, 0, 0.06);
+		border: 1px solid #efefef;
+		background-color: #ffffff;
+		border-radius: 20px;
+	}
 
-  &-box {
-    grid-column: 2 / -2;
-    display: grid;
-    grid-template-columns: repeat(8, $column);
-    grid-gap: 1.4rem $gap;
-    grid-template-rows: repeat(3, min-content);
-    grid-template-areas:
-      't t t t t t t t'
-      '. r r r r r r r'
-      'l l l l l l l l';
-  }
+	&-box {
+		grid-column: 1 / -2;
+		display: grid;
+		grid-template-columns: repeat(9, $column);
+		grid-gap: 1.4rem $gap;
+		grid-template-rows: repeat(3, min-content);
+		grid-template-areas:
+			". t t t t t t t t"
+			". r r r r r r r r"
+			"l l l l l l l l l";
+	}
 
-  &-total {
-    grid-area: t;
-    display: grid;
-    grid-template-columns: repeat(8, $column);
-    grid-gap: 1.4rem $gap;
-    grid-template-rows: 1rem $column;
-    grid-template-areas:
-      '. mb mb . eb eb . .'
-      '. mb mb . eb eb . .';
-    &-members {
-      grid-area: mb;
-    }
+	&-total {
+		grid-area: t;
+		display: grid;
+		grid-template-columns: repeat(8, $column);
+		grid-gap: 1.4rem $gap;
+		grid-template-rows: 1rem $column;
+		grid-template-areas:
+			"mb mb ib ib eb eb eb eb"
+			"mb mb ib ib eb eb eb eb";
+		&-members {
+			grid-area: mb;
+		}
 
-    &-earnings {
-      grid-area: eb;
-    }
+		&-invested {
+			grid-area: ib;
+		}
 
-    &-box {
-      display: grid;
-      height: 100%;
-      grid-template-columns: repeat(2, $column);
-      grid-gap: 1.4rem $gap;
-      grid-template-rows: 1rem $column;
-      grid-template-areas: 'h h' 'b b';
-      justify-items: center;
-      align-items: center;
+		&-earnings {
+			grid-area: eb;
+		}
 
-      &-header {
-        grid-area: h;
-        color: #123273;
-      }
+		&-box {
+			display: grid;
+			height: 100%;
+			grid-template-columns: 100%;
+			grid-gap: 1.4rem;
+			grid-template-rows: 1rem $column;
+			grid-template-areas: "h" "b";
+			justify-items: center;
+			align-items: center;
 
-      &-content {
-        height: 100%;
-        width: 100%;
-        grid-area: b;
-        display: grid;
+			&-header {
+				grid-area: h;
+				color: #123273;
+			}
 
-        justify-items: center;
-        align-items: center;
+			&-content {
+				height: 100%;
+				width: 100%;
+				grid-area: b;
+				display: grid;
 
-        > h3 {
-          color: #16428d;
-          font-size: 1.5rem;
-          text-transform: uppercase;
-        }
+				justify-items: center;
 
-        > h5 {
-          opacity: 0.77;
-          color: #16428d;
-          text-transform: uppercase;
-          font-size: 1rem;
-        }
-      }
-    }
-  }
+				& > h3 {
+					color: #16428d;
+					font-size: 1.5rem;
+					text-transform: uppercase;
+					align-self: end;
+				}
 
-  &-ref {
-    grid-area: r;
-    display: grid;
-    grid-template-columns: repeat(7, $column);
-    grid-column-gap: $gap;
-    grid-template-rows: 2.4rem;
-    padding: 0.8rem 0;
-    grid-template-areas: 'i i i . u u u';
+				& > h5 {
+					opacity: 0.77;
+					color: #16428d;
+					text-transform: uppercase;
+					font-size: 1rem;
+					align-self: start;
+				}
 
-    &-id {
-      grid-area: i;
-    }
+				h3.team-total-box-content-centered {
+					align-self: center;
+				}
+			}
+		}
+	}
 
-    &-username {
-      grid-area: u;
-    }
+	&-ref {
+		grid-area: r;
+		display: grid;
+		grid-template-columns: repeat(7, $column);
+		grid-column-gap: $gap;
+		grid-template-rows: 2.4rem;
+		padding: 0.8rem 0;
+		grid-template-areas: "i i i . u u u";
 
-    &-id,
-    &-username {
-      display: grid;
-      align-items: center;
-      justify-items: center;
-      > h6 {
-        font-family: 'IBM Plex Sans';
-        font-weight: 400;
-        font-size: 0.8rem;
-        color: #123273;
-        > b {
-          font-family: 'IBM Plex Sans Medium';
-          font-weight: 500;
-        }
-      }
-    }
-  }
+		&-id {
+			grid-area: i;
+		}
 
-  &-table {
-    grid-area: l;
-    width: 100%;
-    display: grid;
-    grid-template-rows: repeat(4, min-content);
-    grid-template-columns: repeat(8, $column);
-    grid-column-gap: $gap;
+		&-username {
+			grid-area: u;
+		}
 
-    &-header {
-      background-image: linear-gradient(83deg, #123273 0%, #005c9f 100%);
-      box-shadow: 0 0 1.4375rem rgba(0, 0, 0, 0.06);
-      border: 1px solid #efefef;
-      border-radius: 1.5rem 1.5rem 0 0;
+		&-id,
+		&-username {
+			display: grid;
+			align-items: center;
+			justify-items: center;
+			> h6 {
+				font-family: "IBM Plex Sans";
+				font-weight: 400;
+				font-size: 0.8rem;
+				color: #123273;
+				> b {
+					font-family: "IBM Plex Sans Medium";
+					font-weight: 500;
+				}
+			}
+		}
+	}
 
-      grid-row: 1 / 2;
-      grid-column: 2 / -1;
-      display: grid;
-      margin-bottom: 0;
+	&-table {
+		grid-area: l;
+		width: 100%;
+		display: grid;
+		grid-template-rows: repeat(4, min-content);
+		grid-template-columns: repeat(9, $column);
+		grid-column-gap: $gap;
 
-      grid-template-columns: 0.5 * $gap repeat(6, $column) 0.5 * $gap;
-      grid-column-gap: $gap;
-      grid-template-areas: '. l m i p c e .';
-      padding: 0.6rem 0;
-      grid-template-rows: min-content;
-      align-items: center;
-      justify-items: start;
+		&-header {
+			background-image: linear-gradient(83deg, #123273 0%, #005c9f 100%);
+			box-shadow: 0 0 1.4375rem rgba(0, 0, 0, 0.06);
+			border: 1px solid #efefef;
+			border-radius: 1.5rem 1.5rem 0 0;
+			grid-row: 1 / 2;
+			grid-column: 2 / -1;
+			display: grid;
+			margin-bottom: 0;
 
-      $areas: 'l', 'm', 'i', 'p', 'c', 'e';
-      @each $area in $areas {
-        &-#{$area} {
-          grid-area: #{$area};
-        }
-      }
+			grid-template-columns: 2% repeat(6, 11%) 2%;
+			grid-column-gap: calc(30% / 7);
+			grid-template-areas: ". l m i p c e .";
+			padding: 0.6rem 0;
+			grid-template-rows: min-content;
+			align-items: center;
+			justify-items: start;
 
-      > h5 {
-        color: #ffffff;
-        font-weight: 500;
-      }
-    }
+			$areas: "l", "m", "i", "p", "c", "e";
+			@each $area in $areas {
+				&-#{$area} {
+					grid-area: #{$area};
+				}
+			}
 
-    &-content {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(8, $column);
-      grid-column-gap: $gap;
-      grid-auto-rows: 2.7rem;
-      align-items: center;
-      justify-items: center;
+			> h5 {
+				color: #ffffff;
+				font-weight: 500;
+			}
+		}
 
-      &-plus {
-        grid-column: 1 / 2;
-        background-color: #ffffff;
-        box-shadow: 0 0 1.4375rem rgba(0, 0, 0, 0.08);
-        width: 1.5rem;
-        height: 1.5rem;
-        display: grid;
-        justify-items: center;
-        align-items: center;
-        > svg {
-          stroke: #707070;
-          width: 1em;
-          height: 1em;
-          font-size: 1.2rem;
-        }
-      }
+		&-content {
+			grid-column: 1 / -1;
+			display: grid;
+			grid-template-columns: repeat(9, $column);
+			grid-column-gap: $gap;
+			grid-auto-rows: 2.7rem;
+			align-items: center;
+			justify-items: center;
+			margin-bottom: 2rem;
 
-      &-row {
-        box-shadow: 0 1.4375rem 1.4375rem rgba(0, 0, 0, 0.06);
-        border: 0.0625rem solid #efefef;
-        background-color: #ffffff;
-        height: 100%;
-        grid-column: 2 / -1;
-        display: grid;
-        width: 100%;
-        grid-template-columns: 0.5 * $gap repeat(6, $column) 0.5 * $gap;
-        grid-column-gap: $gap;
-        grid-template-areas: '. l m i p c e .';
+			&:nth-child(2) {
+				.team-table-content-row-start {
+					border-radius: 0;
+				}
+			}
 
-        $areas: 'l', 'm', 'i', 'p', 'c', 'e';
-        @each $area in $areas {
-          &-#{$area} {
-            grid-area: #{$area};
-          }
-        }
+			&-plus {
+				grid-column: 1 / 2;
+				background-color: #ffffff;
+				box-shadow: 0 0 1.4375rem rgba(0, 0, 0, 0.08);
+				width: 1.5rem;
+				height: 1.5rem;
+				display: grid;
+				justify-items: center;
+				align-items: center;
+				> svg {
+					stroke: #707070;
+					width: 1em;
+					height: 1em;
+					font-size: 1.2rem;
+				}
+			}
 
-        .gray-text {
-          align-self: center;
-          font-weight: 400;
-          color: #838383;
-        }
+			&-row {
+				box-shadow: 0 1.4375rem 1.4375rem rgba(0, 0, 0, 0.06);
+				border: 0.0625rem solid #efefef;
+				background-color: #ffffff;
+				height: 100%;
+				grid-column: 2 / -1;
+				display: grid;
+				width: 100%;
+				grid-template-columns: 2% repeat(6, 11%) 2%;
+				grid-column-gap: calc(30% / 7);
+				grid-template-areas: ". l m i p c e .";
 
-        &-start {
-          border-radius: 1.5rem 1.5rem 0 0;
-          border-bottom: none;
-        }
+				$areas: "l", "m", "i", "p", "c", "e";
+				@each $area in $areas {
+					&-#{$area} {
+						grid-area: #{$area};
+					}
+				}
 
-        &-middle {
-          border-radius: 0;
-          border-bottom: none;
-        }
+				.gray-text {
+					align-self: center;
+					font-weight: 400;
+					color: #838383;
+				}
 
-        &-end {
-          border-radius: 0 0 1.5rem 1.5rem;
-          border-top: none;
-        }
-      }
-    }
-  }
+				&-start {
+					border-radius: 1.5rem 1.5rem 0 0;
+					border-bottom: none;
+				}
+
+				&-middle {
+					border-radius: 0;
+					border: none;
+				}
+
+				&-end {
+					border-radius: 0 0 1.5rem 1.5rem;
+					border-top: none;
+				}
+			}
+		}
+	}
 }

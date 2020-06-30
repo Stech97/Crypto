@@ -145,6 +145,7 @@ class ContentEarnings extends Component {
 		this.props.getTotalInvAction();
 		this.props.getTotalMemAction();
 		this.props.getProfitFromInvestAction();
+		this.props.getTeamEarningsAction();
 	};
 
 	render() {
