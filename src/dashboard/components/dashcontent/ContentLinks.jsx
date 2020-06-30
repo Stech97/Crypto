@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getRefs } from "../../actions/getRefs";
-import Loader from "react-loader-spinner";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getRefs } from '../../actions/getRefs';
+import Loader from 'react-loader-spinner';
 
 class ContentLinks extends Component {
-	componentDidMount = () => {
-		this.props.getRefsAction();
-	};
+  componentDidMount = () => {
+    this.props.getRefsAction();
+  };
 
 	render() {
 		const { Refs } = this.props;
@@ -66,15 +66,15 @@ class ContentLinks extends Component {
 	}
 }
 const mapStateToProps = (store) => {
-	return {
-		Refs: store.Refs,
-	};
+  return {
+    Refs: store.Refs,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-	return {
-		getRefsAction: () => dispatch(getRefs()),
-	};
+  return {
+    getRefsAction: () => dispatch(getRefs()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentLinks);
