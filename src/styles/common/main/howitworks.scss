@@ -1,37 +1,37 @@
 .howitworks {
-  margin-top: 79px;
-  padding-top: 92px;
-  padding-bottom: 103px;
+  margin-top: 4.9375rem;
+  padding-top: 5.75rem;
+  padding-bottom: 6.4375rem;
   &-wrapper {
     display: grid;
     grid-template-columns: 9fr 1fr 5fr;
-    grid-template-rows: minmax(117px, 1fr) 1fr 1fr 1fr;
-    gap: 0px 0px;
+    grid-template-rows: minmax(7.3125rem, 1fr) 1fr 1fr 1fr;
+    gap: 0rem 0rem;
     grid-template-areas:
-      "howitworks-header howitworks-image-1 howitworks-caption-1"
-      "howitworks-scheme howitworks-image-2 howitworks-caption-2"
-      "howitworks-scheme howitworks-image-3 howitworks-caption-3"
-      "howitworks-scheme howitworks-image-4 howitworks-caption-4";
+      'howitworks-header howitworks-image-1 howitworks-caption-1'
+      'howitworks-scheme howitworks-image-2 howitworks-caption-2'
+      'howitworks-scheme howitworks-image-3 howitworks-caption-3'
+      'howitworks-scheme howitworks-image-4 howitworks-caption-4';
   }
   @for $i from 1 through 4 {
     &-image-#{$i} {
-      grid-area: #{"howitworks-image-" + $i};
+      grid-area: #{'howitworks-image-' + $i};
       align-self: start;
       justify-self: start;
       img {
-        max-width: 101px;
-        max-height: 101px;
+        max-width: 6.3125rem;
+        max-height: 6.3125rem;
         width: 100%;
-        margin-right: 10px;
+        margin-right: 0.625rem;
       }
     }
 
     &-caption-#{$i} {
-      grid-area: #{"howitworks-caption-" + $i};
-      padding-left: 37px;
+      grid-area: #{'howitworks-caption-' + $i};
+      padding-left: 2.3125rem;
       h3 {
-        font-family: "IBM Plex Sans";
-        font-size: 25px;
+        font-family: 'IBM Plex Sans';
+        font-size: 1.5625rem;
         font-weight: 500;
         font-stretch: normal;
         font-style: normal;
@@ -42,9 +42,9 @@
         margin: 0;
       }
       p {
-        max-width: 536px;
-        font-family: "IBM Plex Sans";
-        font-size: 25px;
+        max-width: 33.5rem;
+        font-family: 'IBM Plex Sans';
+        font-size: 1.5625rem;
         font-weight: normal;
         font-stretch: normal;
         font-style: normal;
@@ -59,10 +59,10 @@
 
   &-header {
     grid-area: howitworks-header;
-    padding-right: 66px;
+    padding-right: 4.125rem;
     h1 {
-      font-family: "IBM Plex Sans";
-      font-size: 50px;
+      font-family: 'IBM Plex Sans';
+      font-size: 3.125rem;
       font-weight: 500;
       font-style: normal;
       line-height: 1.3;
@@ -71,8 +71,8 @@
       color: #005c9f;
     }
     h2 {
-      font-family: "IBM Plex Sans";
-      font-size: 40px;
+      font-family: 'IBM Plex Sans';
+      font-size: 2.5rem;
       font-weight: 400;
       font-stretch: normal;
       font-style: italic;
@@ -87,7 +87,7 @@
     grid-area: howitworks-scheme;
     justify-self: center;
     img {
-      max-width: 885px;
+      max-width: 55.3125rem;
       width: 90%;
     }
   }

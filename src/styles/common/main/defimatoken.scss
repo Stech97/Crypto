@@ -1,35 +1,35 @@
-$section: "defimatoken";
+$section: 'defimatoken';
 .#{$section} {
   &-wrapper {
-    padding: 92px 0 99px 0;
+    padding: 5.75rem 0 6.1875rem 0;
     width: 100%;
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 49.95% 100%-49.95%;
-    grid-template-areas: $section + "-image " + $section + "-content";
+    grid-template-areas: $section + '-image ' + $section + '-content';
   }
   &-image {
-    grid-area: #{$section + "-image"};
+    grid-area: #{$section + '-image'};
 
     img {
       margin-left: -15.12%;
-      margin-top: 20px;
+      margin-top: 1.25rem;
       width: 100%;
     }
   }
   &-content {
-    grid-area: #{$section + "-content"};
+    grid-area: #{$section + '-content'};
     display: grid;
-    grid-template-rows: 72px calc(100% - 72px);
+    grid-template-rows: 4.5rem calc(100% - 4.5rem);
     grid-template-columns: 1fr;
-    grid-template-areas: $section + "-content-header" $section + "-content-text";
+    grid-template-areas: $section + '-content-header' $section + '-content-text';
     &-header {
-      grid-area: #{$section + "-content-header"};
+      grid-area: #{$section + '-content-header'};
       justify-self: start;
       align-self: center;
       h1 {
-        font-family: "IBM Plex Sans";
-        font-size: 50px;
+        font-family: 'IBM Plex Sans';
+        font-size: 3.125rem;
         font-weight: 500;
         font-stretch: normal;
         font-style: normal;
@@ -40,12 +40,12 @@ $section: "defimatoken";
       }
     }
     &-text {
-      grid-area: #{$section + "-content-text"};
+      grid-area: #{$section + '-content-text'};
       justify-self: start;
       p {
-        margin: 34px 0 0 0;
+        margin: 2.125rem 0 0 0;
         width: 74.86%;
-        font-family: "IBM Plex Sans";
+        font-family: 'IBM Plex Sans';
         font-size: 1.3vw;
         font-weight: 400;
         font-stretch: normal;

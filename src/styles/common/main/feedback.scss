@@ -1,19 +1,19 @@
 .feedback {
   &-wrapper {
-    padding-top: 89px;
-    padding-bottom: 91px;
+    padding-top: 5.5625rem;
+    padding-bottom: 5.6875rem;
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: fit-content(68px) fit-content(60px);
-    grid-template-areas: "feedback-header" "feedback-button";
+    grid-template-areas: 'feedback-header' 'feedback-button';
     justify-items: center;
-    gap: 31px 0;
+    gap: 1.9375rem 0;
   }
   &-header {
     grid-area: feedback-header;
     h1 {
-      font-family: "IBM Plex Sans";
-      font-size: 50px;
+      font-family: 'IBM Plex Sans';
+      font-size: 3.125rem;
       font-weight: 500;
       font-stretch: normal;
       font-style: normal;
@@ -26,15 +26,15 @@
   &-button {
     grid-area: feedback-button;
     a {
-      padding-top: 10px;
+      padding-top: 0.625rem;
       display: block;
-      width: 220px;
-      height: 60px;
-      border-radius: 30px;
-      border: solid 3px #ffffff;
+      width: 13.75rem;
+      height: 3.75rem;
+      border-radius: 1.875rem;
+      border: solid 0.1875rem #ffffff;
 
-      font-family: "IBM Plex Sans";
-      font-size: 25px;
+      font-family: 'IBM Plex Sans';
+      font-size: 1.5625rem;
       font-weight: 500;
       font-stretch: normal;
       font-style: normal;

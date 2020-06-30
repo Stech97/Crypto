@@ -1,18 +1,18 @@
 .homescreen {
   width: 100%;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 7.5rem);
 
   .wrapper {
     height: 100%;
-    border-bottom-left-radius: 150px;
+    border-bottom-left-radius: 9.375rem;
     border: none;
     .homescreen-grid-container {
       display: grid;
       height: 100%;
       grid-template-columns: 1fr;
-      grid-template-rows: 29.4% min-content minmax(20px, 14.4%) 60px 32.2%;
-      gap: 1px 0px;
-      grid-template-areas: "gap1" "homescreen-header" "gap2" "homescreen-button" "gap3";
+      grid-template-rows: 29.4% min-content minmax(1.25rem, 14.4%) 3.75rem 32.2%;
+      gap: 1px 0rem;
+      grid-template-areas: 'gap1' 'homescreen-header' 'gap2' 'homescreen-button' 'gap3';
     }
     .homescreen-button {
       grid-area: homescreen-button;
@@ -23,9 +23,9 @@
     }
 
     h1 {
-      max-width: 1100px;
-      font-family: "IBM Plex Sans", sans-serif;
-      font-size: 60px;
+      max-width: 68.75rem;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 3.75rem;
       font-weight: 500;
       font-stretch: normal;
       font-style: normal;
@@ -36,14 +36,14 @@
       margin: 0;
     }
     .button-main {
-      width: 240px;
-      height: 60px;
-      border-radius: 30px;
-      border: 3px solid #ed7102;
+      width: 15rem;
+      height: 3.75rem;
+      border-radius: 1.875rem;
+      border: 0.1875rem solid #ed7102;
       background-color: #ed7102;
 
-      font-family: "IBM Plex Sans";
-      font-size: 20px;
+      font-family: 'IBM Plex Sans';
+      font-size: 1.25rem;
       font-weight: 500;
       font-stretch: normal;
       font-style: normal;
@@ -52,19 +52,19 @@
       text-align: center;
       color: #ffffff;
 
-      padding: 13px 31px 13px 31px;
+      padding: 0.8125rem 1.9375rem 0.8125rem 1.9375rem;
 
       &:hover {
         background-color: #ffffff;
         color: #ed7102;
-        border: 3px solid #ed7102;
+        border: 0.1875rem solid #ed7102;
         line-height: 1.31;
       }
     }
 
     .button-getstarted {
-      font-family: "IBM Plex Sans";
-      font-size: 25px;
+      font-family: 'IBM Plex Sans';
+      font-size: 1.5625rem;
       font-weight: 500;
       font-stretch: normal;
       font-style: normal;
@@ -73,7 +73,7 @@
       text-align: center;
       color: #ffffff;
 
-      padding: 13px 31px 13px 31px;
+      padding: 0.8125rem 1.9375rem 0.8125rem 1.9375rem;
     }
   }
 }

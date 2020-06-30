@@ -1,40 +1,40 @@
-@import "../../mixins/media";
+@import '../../mixins/media';
 
 header {
   width: 100%;
-  height: 120px;
+  height: 7.5rem;
 }
 .header-grid-container {
   margin: 0;
-  border-bottom-right-radius: 60px;
+  border-bottom-right-radius: 3.75rem;
   border: none;
   background-color: #ffffff;
 }
 
 .header-grid-container {
   display: grid;
-  grid-template-columns: minmax(200px, 1fr) 1fr;
-  grid-template-rows: 120px;
-  gap: 0px 0px;
-  grid-template-areas: "top-logo-box top-nav-box";
+  grid-template-columns: minmax(12.5rem, 1fr) 1fr;
+  grid-template-rows: 7.5rem;
+  gap: 0rem 0rem;
+  grid-template-areas: 'top-logo-box top-nav-box';
 }
 
 .top-logo-box {
   grid-area: top-logo-box;
   align-self: center;
   .Logo {
-    width: 197.2px;
-    height: 60px;
+    width: 12.325rem;
+    height: 3.75rem;
     object-fit: contain;
   }
 }
 
 .top-nav-box {
   display: grid;
-  grid-template-columns: repeat(4, minmax(134px, 1fr)) minmax(220px, 2fr);
+  grid-template-columns: repeat(4, minmax(8.375rem, 1fr)) minmax(13.75rem, 2fr);
   grid-template-rows: 1fr;
-  gap: 1px 1px;
-  grid-template-areas: "nav-about nav-team nav-blog nav-login nav-signup";
+  gap: 0.0625rem 0.0625rem;
+  grid-template-areas: 'nav-about nav-team nav-blog nav-login nav-signup';
   grid-area: top-nav-box;
   justify-items: center;
   align-items: center;
@@ -62,8 +62,8 @@ header {
 
 .nav-bar {
   a {
-    font-family: "IBM Plex Sans";
-    font-size: 28px;
+    font-family: 'IBM Plex Sans';
+    font-size: 1.75rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -78,18 +78,18 @@ header {
 }
 .nav-signup {
   .button-signup {
-    width: 200px;
-    height: 60px;
-    padding: 13px 42px 13px 43px;
+    width: 12.5rem;
+    height: 3.75rem;
+    padding: 0.8125rem 2.625rem 0.8125rem 2.6875rem;
 
-    font-size: 28px;
+    font-size: 1.75rem;
     font-weight: 500;
     line-height: 1.32;
-    border-radius: 30px;
-    border: solid 3px #ed7102;
+    border-radius: 1.875rem;
+    border: solid 0.1875rem #ed7102;
   }
   .button-main-inversed {
-    font-family: "IBM Plex Sans";
+    font-family: 'IBM Plex Sans';
     text-align: center;
     color: #ed7102;
     background-color: #ffffff;

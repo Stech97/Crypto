@@ -8,7 +8,7 @@
 
       p {
         margin: 0;
-        font-family: "IBM Plex Sans";
+        font-family: 'IBM Plex Sans';
         font-size: 1.5625rem;
         font-weight: 500;
         font-stretch: normal;
@@ -20,7 +20,7 @@
       }
     }
     h3 {
-      font-family: "IBM Plex Sans";
+      font-family: 'IBM Plex Sans';
       font-size: 1.6875rem;
       font-weight: bold;
       font-stretch: normal;
@@ -37,7 +37,7 @@
         min-content,
         1fr
       );
-    grid-template-areas: "footer-logo footer-nav footer-newsletter";
+    grid-template-areas: 'footer-logo footer-nav footer-newsletter';
   }
   &-logo {
     grid-area: footer-logo;
@@ -57,8 +57,8 @@
     grid-template-columns: repeat(
       minmax(min-content, calc(100% - 1.875rem) / 3)
     );
-    gap: 0px 1.875rem;
-    grid-template-areas: "footer-nav-company footer-nav-news footer-nav-help";
+    gap: 0rem 1.875rem;
+    grid-template-areas: 'footer-nav-company footer-nav-news footer-nav-help';
 
     &-company {
       justify-self: start;
@@ -91,13 +91,13 @@
     display: grid;
     grid-template-rows: min-content min-content;
     grid-template-columns: 100%;
-    grid-template-areas: "footer-header" "footer-form";
-    gap: 2rem 0px;
+    grid-template-areas: 'footer-header' 'footer-form';
+    gap: 32px 0rem;
     &-header {
       grid-area: footer-header;
 
       h2 {
-        font-family: "IBM Plex Sans";
+        font-family: 'IBM Plex Sans';
         font-size: 2.5rem;
         font-weight: 500;
         font-stretch: normal;
@@ -116,15 +116,15 @@
       grid-template-rows: 2.9375rem 3.75rem;
       grid-template-columns: 100%;
       gap: 4.8125rem 0;
-      grid-template-areas: "input-email" "input-button";
+      grid-template-areas: 'input-email' 'input-button';
 
       .footer-newsletter-input-email {
         grid-area: input-email;
         background: none;
         padding: 0 0 0.65625rem 0;
-        border-width: 0 0 2px 0;
+        border-width: 0 0 0.125rem 0;
         border-bottom-color: #ffffff;
-        font-family: "IBM Plex Sans";
+        font-family: 'IBM Plex Sans';
         font-size: 1.5625rem;
         font-weight: 500;
         font-stretch: normal;
@@ -149,10 +149,10 @@
         width: 13.75rem;
         height: 3.75rem;
         border-radius: 1.875rem;
-        border: 3px solid #ed7102;
+        border: 0.1875rem solid #ed7102;
         background-color: #ed7102;
 
-        font-family: "IBM Plex Sans";
+        font-family: 'IBM Plex Sans';
         font-size: 1.5625rem;
         font-weight: 500;
         font-stretch: normal;
@@ -167,7 +167,7 @@
         &:hover {
           background-color: #ffffff;
           color: #ed7102;
-          border: 3px solid #ed7102;
+          border: 0.1875rem solid #ed7102;
           line-height: 1.31;
         }
       }
