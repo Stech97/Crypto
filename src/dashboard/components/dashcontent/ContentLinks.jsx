@@ -40,11 +40,26 @@ class ContentLinks extends Component {
 					</div>
 				</div>
 				<div className="content-links-links content-whitebox-links">
-					<div className="presentation-link">
+					<a
+						href="/files/Business_presentation.pptx"
+						className="presentation-link"
+						download
+					>
 						Business Presentation PDF
-					</div>
-					<div className="image-video-link">Image Video</div>
-					<div className="tutorial-link">Telgram Channel</div>
+					</a>
+					<a
+						href="https://www.youtube.com/watch?v=NeQM1c-XCDc"
+						className="image-video-link"
+					>
+						Image Video
+					</a>
+					<a
+						href="/files/Test_pdf.pdf"
+						className="tutorial-link"
+						download
+					>
+						Tutorial PDF
+					</a>
 				</div>
 			</div>
 		);

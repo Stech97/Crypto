@@ -16,14 +16,14 @@
 
   &-wrapper {
     grid-template-areas:
-      'h h h h h h h h h h h h'
-      's s c c c c c c c c c c';
+      "h h h h h h h h h h h h"
+      "s s c c c c c c c c c c";
   }
 
   &-wrapper-closed {
     grid-template-areas:
-      'h h h h h h h h h h h h'
-      's c c c c c c c c c c c';
+      "h h h h h h h h h h h h"
+      "s c c c c c c c c c c c";
   }
 
   .dash-header {
@@ -34,6 +34,7 @@
   .sidebar-wrapper-closed {
     margin-left: $padding * (-1);
     grid-area: s;
+    -webkit-transition-duration: 0.4s;
   }
 
   .contentbox,
@@ -51,31 +52,31 @@
     h2 {
       // Style for "FAQ’s"
       color: #123273;
-      font-family: 'IBM Plex Sans';
+      font-family: "IBM Plex Sans";
       font-size: 1.75rem;
       font-weight: 500;
     }
     h3 {
-      font-family: 'IBM Plex Sans';
+      font-family: "IBM Plex Sans";
       font-weight: 500;
       font-size: 1.6rem;
       margin: 0;
     }
     h4 {
-      font-family: 'IBM Plex Sans';
+      font-family: "IBM Plex Sans";
       font-weight: 400;
       font-size: 1.3rem;
       margin: 0;
     }
     h5 {
-      font-family: 'IBM Plex Sans';
+      font-family: "IBM Plex Sans";
       font-weight: 500;
       font-size: 1.2rem;
       margin: 0;
     }
 
     h6 {
-      font-family: 'IBM Plex Sans';
+      font-family: "IBM Plex Sans";
       font-weight: 500;
       font-size: 1rem;
       margin: 0;

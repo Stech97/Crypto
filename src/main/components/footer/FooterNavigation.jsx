@@ -1,37 +1,37 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 class RenderLink extends Component {
   render() {
     const { text, path, type } = this.props;
 
     switch (type) {
-      case 'link':
+      case "link":
         return (
           <Link to={path}>
             <p>{text}</p>
           </Link>
         );
-      case 'hashlink':
+      case "hashlink":
         return (
           <HashLink to={path}>
             <p>{text}</p>
           </HashLink>
         );
-      case 'file':
+      case "file":
         return (
-          <a to={path}>
+          <a href={path} download>
             <p>{text}</p>
           </a>
         ); //TODO file download
-      case 'outsource':
+      case "outsource":
         return (
           <a href={path}>
             <p>{text}</p>
           </a>
         );
-      case 'popup':
+      case "popup":
         return (
           <a href={path}>
             <p>{text}</p>
@@ -52,7 +52,7 @@ class FooterNavColumn extends Component {
     const { header, tabs, className } = this.props;
 
     return (
-      <div className={'footer-nav-' + className}>
+      <div className={"footer-nav-" + className}>
         <h3>{header}</h3>
         {tabs.map((tab) => {
           return (
@@ -74,82 +74,82 @@ class FooterNav extends Component {
     columns: [
       {
         id: 1,
-        header: 'Company',
-        className: 'company',
+        header: "Company",
+        className: "company",
         tabs: [
           {
             id: 1,
-            text: 'Get started',
-            path: '/signup',
-            type: 'link',
+            text: "Get started",
+            path: "/signup",
+            type: "link",
           },
           {
             id: 2,
-            text: 'Our mission',
-            path: '/main#OurMission',
-            type: 'hashlink',
+            text: "Our mission",
+            path: "/main#OurMission",
+            type: "hashlink",
           },
           {
             id: 3,
-            text: 'Team',
-            path: '/main#Team',
-            type: 'hashlink',
+            text: "Team",
+            path: "/main#Team",
+            type: "hashlink",
           },
           {
             id: 4,
-            text: 'Terms of Service',
-            path: '/main',
-            type: 'file',
+            text: "Terms of Service",
+            path: "/main",
+            type: "file",
           },
           {
             id: 5,
-            text: 'Privacy Policy',
-            path: '',
-            type: 'file',
+            text: "Privacy Policy",
+            path: "",
+            type: "file",
           },
         ],
       },
       {
         id: 2,
-        header: 'News',
-        className: 'news',
+        header: "News",
+        className: "news",
         tabs: [
           {
             id: 1,
-            text: 'Blog',
-            path: 'https://medium.com/',
-            type: 'outsource',
+            text: "Blog",
+            path: "https://medium.com/",
+            type: "outsource",
           },
           {
             id: 2,
-            text: 'News Channel',
-            path: 'https://telegram.org/',
-            type: 'outsource',
+            text: "News Channel",
+            path: "https://telegram.org/",
+            type: "outsource",
           },
         ],
       },
       {
         id: 3,
-        header: 'Help & Support',
-        className: 'help',
+        header: "Help & Support",
+        className: "help",
         tabs: [
           {
             id: 1,
-            text: 'E-Mail',
-            path: 'mailto:support@defima.io',
-            type: 'outsource',
+            text: "E-Mail",
+            path: "mailto:support@defima.io",
+            type: "outsource",
           },
           {
             id: 2,
-            text: 'Telegram',
-            path: 'https://telegram.org/',
-            type: 'outsource',
+            text: "Telegram",
+            path: "https://telegram.org/",
+            type: "outsource",
           },
           {
             id: 3,
-            text: 'Presentation',
-            path: '/main#Team',
-            type: 'file',
+            text: "Presentation",
+            path: "/files/Business_presentation.pptx",
+            type: "file",
           },
         ],
       },

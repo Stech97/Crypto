@@ -5,7 +5,6 @@ import {
 	EARNINGS_SUCCESS,
 	totalInvestment,
 } from "../reducers/contentEarnings";
-import { RateRequest } from "./getRate";
 
 const getTotalInvestmentsRequest = (payload) => ({
 	type: EARNINGS_REQUEST,
@@ -40,21 +39,16 @@ export const getTotalInvestments = () => {
 		getTotalInvestmentsFetch()
 			.then((res) => {
 				if (res.ok) {
-					RateRequest("usd", "btc").then((rate) => {
-						payload = {
-							...payload,
-							data: {
-								usd: res.data,
-								btc: res.data * rate.data.rate,
-							},
-							error: {
-								type: "done",
-								message: "",
-							},
-						};
+					payload = {
+						...payload,
+						data: res.data,
+						error: {
+							type: "done",
+							message: "",
+						},
+					};
 
-						dispatch(getTotalInvestmentsSuccess(payload));
-					});
+					dispatch(getTotalInvestmentsSuccess(payload));
 				} else {
 					payload = {
 						...payload,

@@ -24,7 +24,7 @@ export default class InvestmentProfit extends Component {
 		this.state = {
 			investment: 1000,
 			product: "Small",
-			AMP: 6,
+			AMP: 0.06,
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -71,7 +71,7 @@ export default class InvestmentProfit extends Component {
 
 		const MonthsArray = generateMonths();
 
-		const TimeStamps = () => {
+		const generateTimeStamps = () => {
 			const months = [];
 			const dateStart = moment();
 			const dateEnd = moment().add(12, "month");
@@ -82,13 +82,15 @@ export default class InvestmentProfit extends Component {
 			return months;
 		};
 
+		const TimeStampsArray = generateTimeStamps();
+
 		const ValuesArray = MonthsArray.map((month, i) =>
 			profitForTime(this.state.investment, i)
 		);
 
 		const data = [
 			{
-				x: TimeStamps(),
+				x: TimeStampsArray,
 				y: ValuesArray,
 				type: "scatter",
 				line: {
@@ -172,11 +174,11 @@ export default class InvestmentProfit extends Component {
 							size="1"
 							value={(this.state.AMP * 100).toString()}
 						>
-							<option value="6" selected="selected">
+							<option value="0.06" selected="selected">
 								6%
 							</option>
-							<option value="8">8%</option>
-							<option value="11">11%</option>
+							<option value="0.08">8%</option>
+							<option value="0.11">11%</option>
 						</select>
 					</div>
 
@@ -186,17 +188,17 @@ export default class InvestmentProfit extends Component {
 						<h5>
 							Weekly Earnings
 							<br />
-							+210 USD
+							{"+" + (ValuesArray[11] / 52).toFixed(2) + " USD"}
 						</h5>
 						<h5>
 							Montly Earnings
 							<br />
-							+921 USD
+							{"+" + (ValuesArray[11] / 12).toFixed(2) + " USD"}
 						</h5>
 						<h5>
 							Yearly Earnings
 							<br />
-							+21,211 USD
+							{"+" + ValuesArray[11].toFixed(2) + " USD"}
 						</h5>
 					</div>
 				</div>

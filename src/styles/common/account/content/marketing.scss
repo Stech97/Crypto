@@ -122,6 +122,14 @@
 			}
 		}
 
+		&-news,
+		&-blog,
+		&-telegram {
+			& > a {
+				color: inherit;
+			}
+		}
+
 		&-news {
 			grid-area: nt;
 			display: grid;

@@ -5,6 +5,12 @@ import { getMembersAmount } from "../../actions/getTeam";
 import { getProfitFromInvest } from "../../actions/getProfitFromInvest";
 import { getTeamEarnings } from "../../actions/getTeamEarnings";
 
+const rounded = function (number, digits) {
+	return Number(Number(number).toFixed(digits));
+};
+
+const rounded4 = (number) => rounded(number, 4);
+
 function Graph({ height }) {
 	return (
 		<svg
@@ -41,8 +47,8 @@ const TotalInvestment = ({ data: { btc, usd } }) => {
 				<h5>Total Investments</h5>
 			</div>
 			<div className="content-earnings-total-invmemb-investments content-whitebox-earnings content-text-blue">
-				<h5>{"BTC " + btc}</h5>
-				<h6 className="content-text-grey">{"USD " + usd}</h6>
+				<h5>{"BTC " + rounded4(btc)}</h5>
+				<h6 className="content-text-grey">{"USD " + rounded4(usd)}</h6>
 			</div>
 		</Fragment>
 	);
@@ -68,8 +74,8 @@ const ProfitFromInvest = ({ data: { det, usd } }) => {
 				<h5>Profit from Invest</h5>
 			</div>
 			<div className="content-earnings-profteam-profinvestments content-whitebox-earnings content-text-blue">
-				<h5>{"DET " + det}</h5>
-				<h6 className="content-text-grey">{"USD " + usd}</h6>
+				<h5>{"DET " + rounded4(det)}</h5>
+				<h6 className="content-text-grey">{"USD " + rounded4(usd)}</h6>
 			</div>
 		</Fragment>
 	);
@@ -82,8 +88,8 @@ const TeamEarnings = ({ data: { det, usd } }) => {
 				<h5>Total Team Earnings</h5>
 			</div>
 			<div className="content-earnings-profteam-totalteam content-whitebox-earnings content-text-blue">
-				<h5>{"DET " + det}</h5>
-				<h6 className="content-text-grey">{"USD " + usd}</h6>
+				<h5>{"DET " + rounded4(det)}</h5>
+				<h6 className="content-text-grey">{"USD " + rounded4(usd)}</h6>
 			</div>
 		</Fragment>
 	);
@@ -92,8 +98,8 @@ const TeamEarnings = ({ data: { det, usd } }) => {
 const TotalProfit = ({ data: { det, usd } }) => {
 	return (
 		<div className="content-earnings-totalprof-square-total content-text-blue">
-			<h5>{"DET " + det}</h5>
-			<h6 className="content-text-grey">{"USD " + usd}</h6>
+			<h5>{"DET " + rounded4(det)}</h5>
+			<h6 className="content-text-grey">{"USD " + rounded4(usd)}</h6>
 		</div>
 	);
 };
@@ -105,8 +111,8 @@ const LastWeekProfits = ({ data: { det, usd } }) => {
 				<h5>Last week</h5>
 			</div>
 			<div className="content-earnings-totalprof-square-hours content-text-blue">
-				<h5>{"DET " + det}</h5>
-				<h6 className="content-text-grey">{"USD " + usd}</h6>
+				<h5>{"DET " + rounded4(det)}</h5>
+				<h6 className="content-text-grey">{"USD " + rounded4(usd)}</h6>
 			</div>
 		</Fragment>
 	);
@@ -142,10 +148,6 @@ class ContentEarnings extends Component {
 	};
 
 	render() {
-		var rounded = function (number, digits) {
-			return Number(Number(number).toFixed(digits));
-		};
-
 		var earningsData = {
 			lastWeekProfits: {
 				det: 360,

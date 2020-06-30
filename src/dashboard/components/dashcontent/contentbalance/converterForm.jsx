@@ -39,7 +39,7 @@ const renderField = ({
 };
 
 class ExchangeForm extends Component {
-	handleChange = async (currentCurrency, targetCurrency, amount) => {
+	handleChange = (currentCurrency, targetCurrency, amount) => {
 		amount = Number(validateFloat(amount));
 		this.props.change(currentCurrency.cur, amount * currentCurrency.rate);
 	};
@@ -53,6 +53,7 @@ class ExchangeForm extends Component {
 			isOpened,
 			closeModal,
 			exchange,
+			balance,
 			error,
 			pristine,
 		} = this.props;
@@ -83,12 +84,21 @@ class ExchangeForm extends Component {
 		};
 
 		const submit = (values) => {
-			if (values[this.props.cur1] && values[this.props.cur2]) {
-				this.props.ExchangeAction(
-					Number(values[this.props.cur1]),
-					curUpperCase(this.props.cur1.cur),
-					curUpperCase(this.props.cur2.cur)
-				);
+			if (values[cur1.cur] || values[cur2.cur]) {
+				if (
+					values[cur1.cur] <=
+					balance[curUpperCase(cur1.cur).toLowerCase()]
+				) {
+					this.props.ExchangeAction(
+						Number(values[cur1]),
+						curUpperCase(cur1.cur),
+						curUpperCase(cur2.cur)
+					);
+				} else {
+					throw new SubmissionError({
+						_error: "Not enough cash!!!",
+					});
+				}
 			} else {
 				throw new SubmissionError({
 					_error: "At least one field is required!!!",

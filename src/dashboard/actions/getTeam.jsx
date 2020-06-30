@@ -5,7 +5,6 @@ import {
 	EARNINGS_SUCCESS,
 	totalMembers,
 } from "../reducers/contentEarnings";
-import { RateRequest } from "./getRate";
 
 const getMembersAmountRequest = (payload) => ({
 	type: EARNINGS_REQUEST,
