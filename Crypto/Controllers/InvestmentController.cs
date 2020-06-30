@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Investment;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -11,10 +13,12 @@ namespace Crypto.Controllers
 	[Route("[controller]")]
 	public class InvestmentController : Controller
 	{
-		readonly IInvestmentService _investmentService;
-		public InvestmentController(IInvestmentService investmentService)
+		private readonly IWebHostEnvironment _appEnvironment;
+		private readonly IInvestmentService _investmentService;
+		public InvestmentController(IInvestmentService investmentService, IWebHostEnvironment appEnvironment)
 		{
 			_investmentService = investmentService;
+			_appEnvironment = appEnvironment;
 		}
 
 		//[Authorize]
@@ -77,5 +81,15 @@ namespace Crypto.Controllers
 			return Ok(result);
 		}
 
+		[Route("cvs")]
+		[HttpGet]
+		public FileResult GetStream()
+		{
+			string path = Path.Combine(_appEnvironment.ContentRootPath, "C:\\note.txt");
+			FileStream fs = new FileStream(path, FileMode.Open);
+			string file_type = "application/txt";
+			string file_name = "note.txt";
+			return File(fs, file_type, file_name);
+		}
 	}
 }
