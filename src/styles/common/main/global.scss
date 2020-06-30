@@ -1,4 +1,4 @@
-@import "./utils/normalize";
+@import './utils/normalize';
 
 *,
 *::before,
@@ -18,14 +18,14 @@ body {
 }
 @media (min-width: 992px) {
   .header-grid-container {
-    padding-left: 140px;
-    padding-right: 96px;
+    padding-left: 8.75rem;
+    padding-right: 6rem;
   }
   section {
     .wrapper {
       width: 100%;
-      padding-left: 140px;
-      padding-right: 96px;
+      padding-left: 8.75rem;
+      padding-right: 6rem;
     }
   }
 }
@@ -99,10 +99,10 @@ textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  border-width: 0 0 2px 0;
+  border-width: 0 0 0.125rem 0;
   border-bottom-color: #ffffff;
   -webkit-text-fill-color: #ffffff;
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  -webkit-box-shadow: 0 0 0rem 62.5rem transparent inset;
   transition: background-color 5000s ease-in-out 0s;
   background: -webkit-linear-gradient(
     top,

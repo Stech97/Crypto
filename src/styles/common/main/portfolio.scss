@@ -1,58 +1,58 @@
-$section: "portfolio";
+$section: 'portfolio';
 .#{$section} {
   &-wrapper {
-    padding-top: 43px;
-    padding-bottom: 103px;
+    padding-top: 2.6875rem;
+    padding-bottom: 6.4375rem;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 117px 1fr;
+    grid-template-rows: 7.3125rem 1fr;
     gap: 0;
-    grid-template-areas: $section + "-header" $section + "-product";
+    grid-template-areas: $section + '-header' $section + '-product';
   }
-  $sub-section: "product";
+  $sub-section: 'product';
   &-#{$sub-section} {
-    grid-area: #{$section + "-" + $sub-section};
+    grid-area: #{$section + '-' + $sub-section};
     align-items: center;
     justify-items: center;
     justify-self: center;
     display: grid;
-    grid-template-columns: repeat(3, 390px);
-    grid-template-rows: 452px;
-    gap: 0px 0px;
+    grid-template-columns: repeat(3, 24.375rem);
+    grid-template-rows: 28.25rem;
+    gap: 0rem 0rem;
 
-    padding-top: 85px;
+    padding-top: 5.3125rem;
 
-    $content: "";
+    $content: '';
     @for $j from 1 through 3 {
-      $content: $content + $section + "-" + $sub-section + "-" + $j + " ";
+      $content: $content + $section + '-' + $sub-section + '-' + $j + ' ';
     }
 
     grid-template-areas: $content;
 
     @for $i from 1 through 3 {
       &-#{$i} {
-        grid-area: #{$section + "-" + $sub-section + "-" + $i};
+        grid-area: #{$section + '-' + $sub-section + '-' + $i};
         justify-self: center;
         background: #ffffff;
-        border-radius: 20px;
+        border-radius: 1.25rem;
         height: 100%;
-        width: 322px;
+        width: 20.125rem;
         justify-content: center;
       }
     }
 
     a {
       display: block;
-      width: 207.4px;
-      height: 50.5px;
+      width: 12.9625rem;
+      height: 3.1563rem;
       background-image: linear-gradient(77deg, #16428d 1%, #005c9f 78%);
       margin: auto;
-      border-radius: 25px;
-      font-family: "IBM Plex Sans";
-      font-size: 21px;
+      border-radius: 1.5625rem;
+      font-family: 'IBM Plex Sans';
+      font-size: 1.3125rem;
       color: #f5fbff;
       line-height: 1.33;
-      padding: 9px 74px 13px 74px;
+      padding: 0.5625rem 4.625rem 0.8125rem 4.625rem;
     }
     &-header {
       display: grid;
@@ -60,11 +60,11 @@ $section: "portfolio";
       width: 100%;
       height: 21.4%;
       background-image: linear-gradient(-36deg, #005c9f 0%, #123273 100%);
-      border-radius: 20px 20px 0 0;
+      border-radius: 1.25rem 1.25rem 0 0;
       background-blend-mode: overlay;
       h3 {
-        font-family: "IBM Plex Sans";
-        font-size: 27px;
+        font-family: 'IBM Plex Sans';
+        font-size: 1.6875rem;
         font-weight: bold;
         font-stretch: normal;
         font-style: normal;
@@ -75,10 +75,10 @@ $section: "portfolio";
       }
     }
     p {
-      margin: 28px auto;
-      width: 210px;
-      font-family: "IBM Plex Sans";
-      font-size: 21px;
+      margin: 1.75rem auto;
+      width: 13.125rem;
+      font-family: 'IBM Plex Sans';
+      font-size: 1.3125rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -92,8 +92,8 @@ $section: "portfolio";
   &-header {
     grid-area: portfolio-header;
     h1 {
-      font-family: "IBM Plex Sans";
-      font-size: 50px;
+      font-family: 'IBM Plex Sans';
+      font-size: 3.125rem;
       font-weight: 500;
       font-style: normal;
       font-stretch: normal;
@@ -103,8 +103,8 @@ $section: "portfolio";
       color: #ffffff;
     }
     h2 {
-      font-family: "IBM Plex Sans";
-      font-size: 40px;
+      font-family: 'IBM Plex Sans';
+      font-size: 2.5rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: italic;
