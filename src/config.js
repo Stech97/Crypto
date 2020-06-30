@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import axios from 'axios';
 import ComingSoon from './comingsoon/Comingsoon';
 import MainPage from './main/Main';
@@ -21,30 +20,6 @@ import InDevelopment from './dashboard/components/inDevelopment';
 import { ForgotPassword } from './signup/ForgotPassword';
 import { RestorePassword } from './signup/RestorePassword';
 import TechPage from './techpages/techpages';
-=======
-import axios from "axios";
-import ComingSoon from "./comingsoon/Comingsoon";
-import MainPage from "./main/Main";
-import LoginPage from "./login/Login";
-import SignupPage from "./signup/Signup";
-import DashContent from "./dashboard/components/dashcontent/content";
-import InvestmentContent from "./dashboard/components/investment/content";
-import FaqsContent from "./dashboard/components/FAQs/content";
-import MarketingContent from "./dashboard/components/marketing/content";
-import TeamContent from "./dashboard/components/team/content";
-import SettingsContent from "./dashboard/components/settings/content";
-import HistoryContent from "./dashboard/components/history/content";
-import waveimage from "./styles/utils/img/waveimage.png";
-import stealthlogo from "./styles/utils/img/stealth-logo.png";
-import worldmap2 from "./styles/utils/img/worldmap2.png";
-import joinusbackground from "./styles/utils/img/joinus.png";
-import ConfirmEmail from "./signup/ConfirmEmail";
-import AccountPage from "./dashboard/Account";
-import InDevelopment from "./dashboard/components/inDevelopment";
-import { ForgotPassword } from "./signup/ForgotPassword";
-import { RestorePassword } from "./signup/RestorePassword";
-import TechPage from "./techpages/techpages";
->>>>>>> 7bf1334988a3757fa31ce0a2d609bbb7f4786b5d
 
 const DOMAIN_URL_TEST = 'localhost:3000';
 const DOMAIN_URL_PROD = 'https://defima.io';
