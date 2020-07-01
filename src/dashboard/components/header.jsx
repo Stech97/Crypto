@@ -57,7 +57,7 @@ class DashHeader extends Component {
 	};
 
 	toggle = (value) => {
-		this.setState({ isClosed: !value });
+		this.setState({ isClosed: !this.state.isClosed });
 	};
 
 	componentDidMount() {
@@ -86,7 +86,10 @@ class DashHeader extends Component {
 							getUserLogoutAction={() => getUserLogoutAction()}
 						/>
 					</div>
-					<div className="dash-header-user-icon">
+					<div
+						onClick={() => this.toggle()}
+						className="dash-header-user-icon"
+					>
 						<svg
 							preserveAspectRatio="xMinYMid slice"
 							viewBox="-1 0 35 37"
@@ -94,7 +97,10 @@ class DashHeader extends Component {
 							<use href="#dashboards-icon-white" />
 						</svg>
 					</div>
-					<div className="dash-header-user-name">
+					<div
+						onClick={() => this.toggle()}
+						className="dash-header-user-name"
+					>
 						<h2>
 							{user.isFetching
 								? "Loading..."
@@ -102,13 +108,13 @@ class DashHeader extends Component {
 						</h2>
 					</div>
 					<div
+						onClick={() => this.toggle()}
 						className={
 							"dash-header-user-arrow" +
 							(this.state.isClosed ? "-closed" : "")
 						}
 					>
 						<svg
-							onClick={() => this.toggle(this.state.isClosed)}
 							role="img"
 							preserveAspectRatio="xMinYMin slice"
 							viewBox="0 0 25 15"
