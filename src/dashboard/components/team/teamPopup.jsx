@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 class TeamPopupTable extends Component {
   componentDidMount = () => {
-    //this.props.getTeamPopupAction()
+    this.props.getTeamPopupAction(this.props.level);
   };
 
   render() {
@@ -116,14 +116,15 @@ class TeamPopupTable extends Component {
           <h5>Your earnings</h5>
         </div>
         <div className="popup-team-box">
-          {teammates.map((teammate, id) => (
-            <div className="popup-team-row">
-              <h5>{teammate.username}</h5>
-              <h5>{teammate.email}</h5>
-              <h5>{teammate.invested}</h5>
-              <h5>{teammate.earnings}</h5>
-            </div>
-          ))}
+          {this.props.table.members &&
+            this.props.table.members.map((teammate, id) => (
+              <div className="popup-team-row">
+                <h5>{teammate.username}</h5>
+                <h5>{teammate.email}</h5>
+                <h5>{teammate.invested}</h5>
+                <h5>{teammate.earnings}</h5>
+              </div>
+            ))}
         </div>
       </div>
     );
@@ -135,7 +136,7 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getTeamPopupAction: () => dispatch(getTeamPopup()),
+  getTeamPopupAction: (level) => dispatch(getTeamPopup(level)),
 });
 
 TeamPopupTable = connect(mapStateToProps, mapDispatchToProps)(TeamPopupTable);
@@ -152,7 +153,7 @@ const TeamPopup = (props) => {
           <img onClick={() => props.closeModal()} src="/img/close-icon.png" />
         </div>
         <div className="popup-wrapper-team-content">
-          <TeamPopupTable />
+          <TeamPopupTable level={props.level} />
         </div>
       </div>
     </div>

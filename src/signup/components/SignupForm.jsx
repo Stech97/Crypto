@@ -161,7 +161,9 @@ const checkField = ({
 							? "checkmark-" + className + "-error"
 							: "checkmark-" + className
 					}
-				></span>
+				>
+					<i class="fas fa-check"></i>
+				</span>
 				<span>
 					{text}
 					{link && <Link to="/terms&conditions">{linktext}</Link>}

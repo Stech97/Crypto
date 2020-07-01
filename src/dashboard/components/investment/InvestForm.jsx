@@ -203,7 +203,7 @@ class InvestPopupForm extends Component {
 			minamount,
 			type,
 			balance,
-
+			InvestPopup,
 			wallet,
 			submitting,
 			handleSubmit,
@@ -244,6 +244,7 @@ class InvestPopupForm extends Component {
 			if (amount <= balance[wallet.toLowerCase()]) {
 				if (amount * rate >= Number(minamount)) {
 					this.props.buyInvestAction(amount, wallet, typeNum());
+					this.props.reset();
 				} else {
 					throw new SubmissionError({
 						amount: "Insufficient funds for this investment",
@@ -280,7 +281,13 @@ class InvestPopupForm extends Component {
 					{"Min. amount for product $" + minamount}
 				</h6>
 				<div className="popup-invest-button">
-					<button>Buy Now</button>
+					<button>
+						{InvestPopup.isFetching || submitting
+							? "Loading..."
+							: InvestPopup.error.type === "done"
+							? "Success"
+							: "Buy Now"}
+					</button>
 				</div>
 			</form>
 		);

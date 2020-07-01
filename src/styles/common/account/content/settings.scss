@@ -10,7 +10,7 @@
     border: 0.1875rem solid #ed7102;
     background-color: #ffffff;
     color: #ed7102;
-    font-family: 'IBM Plex Sans';
+    font-family: "IBM Plex Sans";
     font-size: 1rem;
     font-weight: 500;
     &:hover,
@@ -25,7 +25,7 @@
     grid-template-columns: repeat(8, $column);
     grid-column-gap: $gap;
     grid-template-rows: min-content;
-    grid-template-areas: 'l l l l l r r r';
+    grid-template-areas: "l l l l l r r r";
   }
 
   &-left {
@@ -52,8 +52,8 @@
     grid-template-rows: min-content min-content;
     grid-row-gap: 2rem;
     grid-template-areas:
-      'ih ih ih .  . '
-      'if if if if if';
+      "ih ih ih .  . "
+      "if if if if if";
     align-items: center;
     justify-items: start;
 
@@ -69,7 +69,7 @@
       grid-template-columns: 100%;
       grid-template-rows: 1rem repeat(3, min-content) 1rem;
       grid-row-gap: 1rem;
-      grid-template-areas: '.' 'textform' 'checkbox' 'but' '.';
+      grid-template-areas: "." "textform" "checkbox" "but" ".";
       width: 100%;
 
       &-text {
@@ -85,7 +85,7 @@
           grid-column: 2 / 3;
           // Style for "E-Mail"
           color: #16428d;
-          font-family: 'IBM Plex Sans';
+          font-family: "IBM Plex Sans";
           font-size: 1rem;
           font-weight: 500;
         }
@@ -95,7 +95,7 @@
           border: none;
           border-bottom: 0.125rem solid #838383;
           color: #16428d;
-          font-family: 'IBM Plex Sans';
+          font-family: "IBM Plex Sans";
           font-size: 0.8rem;
           font-weight: 500;
           opacity: 0.5;
@@ -127,12 +127,8 @@
             height: 0;
             width: 0;
 
-            &:checked {
-              ~ {
-                .checkmark-sponsor {
-                  background-color: #838383;
-                }
-              }
+            &:checked + .checkmark-sponsor > i {
+              color: #838383;
             }
           }
 
@@ -143,7 +139,7 @@
           user-select: none;
 
           height: 100%;
-          font-family: 'IBM Plex Sans';
+          font-family: "IBM Plex Sans";
           color: #838383;
           font-size: 0.8rem;
           line-height: 2;
@@ -169,6 +165,11 @@
           background-color: rgba(245, 251, 255, 0);
           border: 0.1875rem solid #838383;
           border-radius: 0.5rem;
+
+          & > i {
+            color: #ffffff;
+            font-size: 1.1rem;
+          }
         }
       }
 
@@ -188,7 +189,7 @@
           width: 4 * $gap;
           background: transparent;
           color: #ed7102;
-          font-family: 'IBM Plex Sans';
+          font-family: "IBM Plex Sans";
           font-size: 1rem;
           font-weight: 500;
           border-radius: 1.5rem;
@@ -210,8 +211,8 @@
     grid-template-rows: min-content min-content;
     grid-row-gap: 2rem;
     grid-template-areas:
-      'vh vh vh .  . '
-      'vb vb vb vb vb';
+      "vh vh vh .  . "
+      "vb vb vb vb vb";
     align-items: center;
     justify-items: start;
 
@@ -230,12 +231,12 @@
       grid-template-rows: 1rem repeat(3, 3rem) 4rem 1rem;
       grid-gap: 1rem $gap;
       grid-template-areas:
-        '. .  .  .'
-        '. uh ub .'
-        '. ph pb .'
-        '. sh sb .'
-        '. bb .  .'
-        '. .  .  .';
+        ". .  .  ."
+        ". uh ub ."
+        ". ph pb ."
+        ". sh sb ."
+        ". bb .  ."
+        ". .  .  .";
       align-items: center;
       justify-items: start;
 
@@ -254,7 +255,7 @@
           width: $column + 2 * $gap;
           border-radius: 1rem;
           color: #838383;
-          font-family: 'IBM Plex Sans';
+          font-family: "IBM Plex Sans";
           font-size: 1rem;
           font-weight: 500;
 
@@ -297,7 +298,7 @@
         width: $column + 2 * $gap;
         border-radius: 1.5rem;
         color: #ed7102;
-        font-family: 'IBM Plex Sans';
+        font-family: "IBM Plex Sans";
         font-size: 1rem;
         font-weight: 500;
       }
@@ -311,10 +312,10 @@
     grid-template-rows: 1rem repeat(2, min-content) 1rem;
     grid-row-gap: 2rem;
     grid-template-areas:
-      '.  .  . '
-      'ch ch ch'
-      'cf cf cf'
-      '.  .  . ';
+      ".  .  . "
+      "ch ch ch"
+      "cf cf cf"
+      ".  .  . ";
     align-items: center;
     justify-items: center;
 
@@ -344,7 +345,7 @@
         border: none;
         border-radius: 0.5rem;
         text-align: center;
-        font-family: 'IBM Plex Sans';
+        font-family: "IBM Plex Sans";
         font-weight: 500;
         font-size: 0.8rem;
         color: #123273;
@@ -360,7 +361,7 @@
         width: 100%;
         border-radius: 1.5rem;
         color: #ed7102;
-        font-family: 'IBM Plex Sans';
+        font-family: "IBM Plex Sans";
         font-size: 1rem;
         font-weight: 500;
         background: transparent;
@@ -381,8 +382,8 @@
     grid-template-rows: repeat(2, min-content);
     grid-row-gap: 2rem;
     grid-template-areas:
-      'rh rh rh'
-      'rf rf rf';
+      "rh rh rh"
+      "rf rf rf";
 
     align-items: center;
     justify-items: center;
@@ -400,17 +401,17 @@
       grid-template-rows: 1rem 3rem min-content 1rem;
       grid-gap: 2rem $gap;
       grid-template-areas:
-        '. . .'
-        '. checkbox .'
-        '. text .'
-        '. . .';
+        ". . ."
+        ". checkbox ."
+        ". text ."
+        ". . .";
 
       &-checkbox {
         grid-area: checkbox;
         display: grid;
         grid-template-columns: 4rem 1fr;
         grid-column-gap: 1rem;
-        grid-template-areas: '. sp';
+        grid-template-areas: ". sp";
         position: relative;
 
         > input {
@@ -433,7 +434,7 @@
 
         > .slider:before {
           position: absolute;
-          content: '';
+          content: "";
           top: -0.5rem;
           height: 2rem;
           width: 2rem;
@@ -471,7 +472,7 @@
           justify-self: end;
           align-self: center;
           color: #123273;
-          font-family: 'IBM Plex Sans';
+          font-family: "IBM Plex Sans";
           font-size: 1rem;
           font-weight: 500;
         }
@@ -482,7 +483,7 @@
 
         p {
           color: #838383;
-          font-family: 'IBM Plex Sans';
+          font-family: "IBM Plex Sans";
           font-size: 0.8rem;
           font-weight: 500;
         }
