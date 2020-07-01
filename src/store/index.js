@@ -18,6 +18,9 @@ import { EarningsReducer } from "../dashboard/reducers/contentEarnings";
 import { FooterFormReducer } from "../main/reducers/FooterForm";
 import { InvestPopupReducer } from "../dashboard/reducers/investForm";
 import { teamTableReducer } from "../dashboard/reducers/teamTable";
+import { investmentTableReducer } from "../dashboard//reducers/investmentTable";
+import { historyTableReducer } from "../dashboard/reducers/historyTable";
+import { teamPopupReducer } from "../dashboard/reducers/teamPopup";
 
 export const rootReducer = combineReducers({
 	form: reduxFormReducer, // mounted under "form"
@@ -39,4 +42,7 @@ export const rootReducer = combineReducers({
 	Earnings: EarningsReducer,
 	InvestPopup: InvestPopupReducer,
 	TeamTable: teamTableReducer,
+	investmentTable: investmentTableReducer,
+	historyTable: historyTableReducer,
+	teamPopupTable: teamPopupReducer,
 });

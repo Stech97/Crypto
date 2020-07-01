@@ -1,103 +1,109 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { getTeamPopup } from "../../actions/teamPopup";
+import { connect } from "react-redux";
 
 class TeamPopupTable extends Component {
+  componentDidMount = () => {
+    //this.props.getTeamPopupAction()
+  };
+
   render() {
     const teammates = [
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
       {
-        username: 'Username',
-        email: 'seb@hotmail.com',
-        invested: '12,4k DET',
-        earnings: '1,5k DET',
+        username: "Username",
+        email: "seb@hotmail.com",
+        invested: "12,4k DET",
+        earnings: "1,5k DET",
       },
     ];
 
@@ -124,13 +130,23 @@ class TeamPopupTable extends Component {
   }
 }
 
+const mapStateToProps = (store) => ({
+  table: store.teamPopupTable,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getTeamPopupAction: () => dispatch(getTeamPopup()),
+});
+
+TeamPopupTable = connect(mapStateToProps, mapDispatchToProps)(TeamPopupTable);
+
 const TeamPopup = (props) => {
   return (
-    <div className={props.isOpened ? 'popup' : 'none'}>
+    <div className={props.isOpened ? "popup" : "none"}>
       <div onClick={() => props.closeModal()} className="popup-layer"></div>
       <div className="popup-wrapper-team">
         <div className="popup-wrapper-team-header">
-          <h1>{'Team Overview Level ' + props.level}</h1>
+          <h1>{"Team Overview Level " + props.level}</h1>
         </div>
         <div className="popup-wrapper-team-cross">
           <img onClick={() => props.closeModal()} src="/img/close-icon.png" />

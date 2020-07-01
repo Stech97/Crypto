@@ -25,10 +25,10 @@ import Privacy from "./techpages/privacy";
 const DOMAIN_URL_TEST = "localhost:3000";
 const DOMAIN_URL_PROD = "https://defima.io";
 
-export const DOMAIN_URL = DOMAIN_URL_PROD;
+export const DOMAIN_URL = DOMAIN_URL_TEST;
 const API_URL_PROD = "https://back.defima.io/";
 const API_URL_TEST = "http://84.201.132.112/";
-export const API_URL = API_URL_PROD;
+export const API_URL = API_URL_TEST;
 
 const requestTemplate = axios.create({
   baseURL: API_URL,

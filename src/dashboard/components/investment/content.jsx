@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Helmet } from 'react-helmet';
-import { HistoryRecord } from '../history/content';
-import InvestmentProfit from './investmentProfit';
-import InvestPopupForm from './InvestForm';
+import React, { Component } from "react";
+import { Helmet } from "react-helmet";
+import InvestmentProfit from "./investmentProfit";
+import InvestPopupForm from "./InvestForm";
+import InvestmentTable from "./InvestmentTable";
 
 class InvestmentDetails extends Component {
   state = {
@@ -19,8 +19,8 @@ class InvestmentDetails extends Component {
         <div
           className={
             this.state.isOpened
-              ? 'investment-details-panel'
-              : 'investment-details-panel investment-details-panel-closed'
+              ? "investment-details-panel"
+              : "investment-details-panel investment-details-panel-closed"
           }
         >
           <div className="investment-details-panel-header">
@@ -30,7 +30,7 @@ class InvestmentDetails extends Component {
             <svg
               onClick={() => this.handleClick()}
               role="img"
-              className={'arrow' + (this.state.isOpened ? '' : '-closed')}
+              className={"arrow" + (this.state.isOpened ? "" : "-closed")}
               preserveAspectRatio="xMinYMin slice"
               viewBox="0 0 25 15"
             >
@@ -40,7 +40,7 @@ class InvestmentDetails extends Component {
         </div>
         <div
           className={
-            this.state.isOpened ? 'investment-details-content' : 'none'
+            this.state.isOpened ? "investment-details-content" : "none"
           }
         >
           <p>
@@ -70,11 +70,11 @@ class InvestmentDetails extends Component {
 
 const InvestPopup = (props) => {
   return (
-    <div className={props.isOpened ? 'popup' : 'none'}>
+    <div className={props.isOpened ? "popup" : "none"}>
       <div onClick={() => props.closeModal()} className="popup-layer"></div>
       <div className="popup-wrapper">
         <div className="popup-wrapper-header">
-          <h1>{'Buy Product ' + props.type}</h1>
+          <h1>{"Buy Product " + props.type}</h1>
         </div>
         <div className="popup-wrapper-cross">
           <img
@@ -113,9 +113,9 @@ class InvestmentGood extends Component {
           <h4>{name}</h4>
         </div>
         <div className="investment-goods-box-content">
-          <p>{'Monthly Profit of up to ' + percent + '% month'}</p>
-          <p>{'Starting from $' + invest}</p>
-          <p>{'Career commission qualified Level 1-' + levels}</p>
+          <p>{"Monthly Profit of up to " + percent + "% month"}</p>
+          <p>{"Starting from $" + invest}</p>
+          <p>{"Career commission qualified Level 1-" + levels}</p>
         </div>
         <div
           onClick={() => this.toggleModal()}
@@ -138,19 +138,19 @@ class InvestmentGoods extends Component {
   render() {
     const goods = [
       {
-        name: 'Small',
+        name: "Small",
         percent: 6,
         invest: 100,
         levels: 2,
       },
       {
-        name: 'Medium',
+        name: "Medium",
         percent: 8,
         invest: 5000,
         levels: 4,
       },
       {
-        name: 'Large',
+        name: "Large",
         percent: 11,
         invest: 10000,
         levels: 7,
@@ -169,82 +169,19 @@ class InvestmentGoods extends Component {
 
 class InvestmentHistory extends Component {
   render() {
-    const history = [
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-    ];
-
     return (
       <div className="investment-history">
         <h3 className="investment-history-header">Transaction History</h3>
         <div className="investment-history-content">
           <div className="investment-history-content-header">
-            <h5 className="investment-history-content-row-column">Time</h5>
-            <h5 className="investment-history-content-row-column">Type</h5>
+            <h5 className="investment-history-content-row-column">Day</h5>
+            <h5 className="investment-history-content-row-column">Product</h5>
             <h5 className="investment-history-content-row-column">
-              Amount (USD)
+              Investment
             </h5>
-            <h5 className="investment-history-content-row-column">
-              Balance (USD)
-            </h5>
+            <h5 className="investment-history-content-row-column">Profit</h5>
           </div>
-          <div className="investment-history-content-box">
-            {history.map((record, i) => (
-              <HistoryRecord key={i} record={record} />
-            ))}
-          </div>
+          <InvestmentTable />
         </div>
       </div>
     );

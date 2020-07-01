@@ -153,7 +153,7 @@ button {
   display: grid;
   grid-template-columns: 1fr 50.875rem 1fr;
   grid-template-rows: 6.25rem auto;
-  grid-template-areas: '. . .' '. signup-box .';
+  grid-template-areas: ". . ." ". signup-box .";
   grid-area: content;
 }
 .signup-box {
@@ -163,13 +163,13 @@ button {
   gap: 2.5rem 1.25rem;
   align-items: start;
   justify-items: center;
-  grid-template-areas: 'box-header box-header' '. .' 'box-firstname box-lastname' 'box-email box-username' 'box-password box-repeatpassword' 'box-termsagree box-countrycheck' 'box-bottomcontainer box-bottomcontainer';
+  grid-template-areas: "box-header box-header" ". ." "box-firstname box-lastname" "box-email box-username" "box-password box-repeatpassword" "box-termsagree box-countrycheck" "box-bottomcontainer box-bottomcontainer";
   grid-area: signup-box;
   &-error {
     grid-template-rows: 2.8125rem 1.25rem;
     gap: 0.625rem;
     grid-template-columns: 100%;
-    grid-template-areas: 'input' 'error';
+    grid-template-areas: "input" "error";
   }
   .error {
     grid-area: error;
@@ -183,13 +183,13 @@ button {
     font-size: 3.75rem;
     font-weight: 500;
     color: #ffffff;
-    font-family: 'IBM Plex Sans';
+    font-family: "IBM Plex Sans";
   }
   > h2 {
     font-size: 2rem;
     font-weight: 500;
     color: #ffffff;
-    font-family: 'IBM Plex Sans';
+    font-family: "IBM Plex Sans";
   }
 }
 .signup-form {
@@ -202,7 +202,7 @@ button {
   color: #ffffff;
   font-size: 2rem;
   text-align: left;
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   grid-area: input;
 }
 .signup-box-firstname {
@@ -248,11 +248,15 @@ button {
   cursor: pointer;
   font-size: 1.2rem;
   user-select: none;
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   color: white;
   height: 100%;
   a {
     color: white;
+    text-decoration: underline;
+    &:hover {
+      color: #ed7102;
+    }
   }
   &:hover {
     input {
@@ -311,7 +315,7 @@ button {
   cursor: pointer;
   font-size: 1.2rem;
   user-select: none;
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   color: white;
   height: 100%;
   &:hover {
@@ -350,7 +354,7 @@ button {
   display: grid;
   grid-template-columns: 1fr 18.75rem 1fr;
   grid-template-rows: 3.75rem 3.75rem 3.75rem;
-  grid-template-areas: '. bottomcontainer-button .' '. bottomcontainer-signin .' '. bottomcontainer-footer .';
+  grid-template-areas: ". bottomcontainer-button ." ". bottomcontainer-signin ." ". bottomcontainer-footer .";
   grid-area: box-bottomcontainer;
 }
 .signup-box-bottomcontainer-button {
@@ -364,14 +368,14 @@ button {
   background-color: #ed7102;
   font-size: 1.3rem;
   user-select: none;
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   color: white;
 }
 .signup-box-bottomcontainer-signin {
   grid-area: bottomcontainer-signin;
   font-size: 1rem;
   user-select: none;
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   color: white;
   text-align: center;
   a {
@@ -385,7 +389,7 @@ button {
   grid-area: bottomcontainer-footer;
   font-size: 1rem;
   user-select: none;
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   color: white;
   text-align: center;
   a {

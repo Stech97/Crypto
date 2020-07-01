@@ -22,14 +22,16 @@ const MemberLevelRow = ({
       <h5 className="team-table-content-row-l gray-text">{"Level " + level}</h5>
       <h5 className="team-table-content-row-m gray-text">{members}</h5>
       <h5 className="team-table-content-row-i gray-text">
-        {totalInvested + "k €"}
+        {(totalInvested / 1000).toFixed(3) + "k $"}
       </h5>
       <h5 className="team-table-content-row-p gray-text">
-        {profitsPaid + "k"}
+        {(profitsPaid / 1000).toFixed(3) + "k"}
       </h5>
-      <h5 className="team-table-content-row-c gray-text">{commission + "%"}</h5>
+      <h5 className="team-table-content-row-c gray-text">
+        {commission * 100 + "%"}
+      </h5>
       <h5 className="team-table-content-row-e gray-text">
-        {totalEarning + "k DET"}
+        {(totalEarning / 1000).toFixed(3) + "k USD"}
       </h5>
     </div>
   );
@@ -157,6 +159,40 @@ class TeamContent extends Component {
 
     const totalInvested = totalInvestedSum();
 
+    const parseTeam = (levels) => {
+      var array = [];
+      var result = [];
+      if (levels.length < 2) {
+        for (let i = 0; i < Math.min(levels.length, 2); i++) {
+          array.push(levels[i]);
+        }
+        result.push(array);
+      } else if (levels.length < 5) {
+        for (let i = 0; i < Math.min(levels.length, 2); i++) {
+          array.push(levels[i]);
+        }
+        result.push(array);
+        for (let i = 2; i < Math.min(levels.length, 5); i++) {
+          array.push(levels[i]);
+        }
+        result.push(array);
+      } else {
+        for (let i = 0; i < Math.min(levels.length, 2); i++) {
+          array.push(levels[i]);
+        }
+        result.push(array);
+        for (let i = 2; i < Math.min(levels.length, 5); i++) {
+          array.push(levels[i]);
+        }
+        result.push(array);
+        for (let i = 5; i < levels.length; i++) {
+          array.push(levels[i]);
+        }
+        result.push(array);
+      }
+      return result;
+    };
+
     return (
       <div className="team-box">
         <div className="team-total">
@@ -204,7 +240,7 @@ class TeamContent extends Component {
             <h5 className="team-table-header-c">Commission</h5>
             <h5 className="team-table-header-e">Total earned</h5>
           </div>
-          {levels.map((block, j) => (
+          {parseTeam(team.levels).map((block, j) => (
             <div key={j + 1} className="team-table-content">
               {block.map((level, i) => (
                 <Fragment key={level.level}>

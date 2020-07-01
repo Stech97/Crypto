@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import '../../styles/login.scss';
-import { connect } from 'react-redux';
-import LoginForm from './LoginForm';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import "../../styles/login.scss";
+import { connect } from "react-redux";
+import LoginForm from "./LoginForm";
+import { Link } from "react-router-dom";
 
 const LoginHeader = () => {
   return (
@@ -25,8 +25,8 @@ const LoginForgot = () => {
 const LoginFooter = () => {
   return (
     <div className="login-footer">
-      <a href="#../terms&conditions">Terms of use</a>
-      <a href="#../privacy">Privacy policy</a>
+      <Link to="/terms&conditions">Terms of use</Link>
+      <Link to="/privacy">Privacy policy</Link>
     </div>
   );
 };

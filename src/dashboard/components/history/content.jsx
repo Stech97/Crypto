@@ -1,7 +1,9 @@
-import React, { Component, Fragment } from 'react';
-import { Helmet } from 'react-helmet';
-import Plotly from 'plotly.js-basic-dist';
-import createPlotlyComponent from 'react-plotly.js/factory';
+import React, { Component, Fragment } from "react";
+import { Helmet } from "react-helmet";
+import Plotly from "plotly.js-basic-dist";
+import createPlotlyComponent from "react-plotly.js/factory";
+import { connect } from "react-redux";
+import { getHistoryTable } from "../../actions/historyTable";
 
 const Plot = createPlotlyComponent(Plotly);
 
@@ -10,8 +12,12 @@ export const HistoryRecord = ({ record: { time, type, amount, balance } }) => {
     <div className="history-balance-content-row">
       <h5 className="history-balance-content-row-column">{time}</h5>
       <h5 className="history-balance-content-row-column">{type}</h5>
-      <h5 className="history-balance-content-row-column">{'$ ' + amount}</h5>
-      <h5 className="history-balance-content-row-column">{'$ ' + balance}</h5>
+      <h5 className="history-balance-content-row-column">
+        {"$ " + amount.toFixed(2)}
+      </h5>
+      <h5 className="history-balance-content-row-column">
+        {"$ " + balance.toFixed(2)}
+      </h5>
     </div>
   );
 };
@@ -29,116 +35,63 @@ class HistoryStatisticsPlot extends Component {
   }
 }
 
-export default class HistoryContent extends Component {
-  render() {
-    const history = [
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-      {
-        time: '17.05/15:20',
-        type: 'small',
-        amount: 500,
-        balance: 2600,
-      },
-    ];
+class HistoryContent extends Component {
+  componentDidMount = () => {
+    this.props.getHistoryTableAction();
+  };
 
+  render() {
     const data = [
       {
         x: [
-          '01-05-2019 22:23:00',
-          '01-06-2019 22:23:00',
-          '01-07-2019 22:23:00',
-          '01-08-2019 22:23:00',
+          "01-05-2019 22:23:00",
+          "01-06-2019 22:23:00",
+          "01-07-2019 22:23:00",
+          "01-08-2019 22:23:00",
         ],
         y: [10, 15, 16, 19],
-        type: 'scatter',
+        type: "scatter",
         line: {
-          shape: 'spline',
-          color: '#005C9F',
+          shape: "spline",
+          color: "#005C9F",
         },
-        mode: 'lines',
+        mode: "lines",
       },
     ];
 
     const layout = {
       autoresize: true,
       margin: {
-        l: 5 + '%',
-        r: 5 + '%',
-        b: 25 + '%',
-        t: 5 + '%',
+        l: 5 + "%",
+        r: 5 + "%",
+        b: 25 + "%",
+        t: 5 + "%",
       },
 
-      plot_bgcolor: '#EFEFEF',
+      plot_bgcolor: "#EFEFEF",
       yaxis: {
-        title: 'SUM',
+        title: "SUM",
         titlefont: {
-          family: 'IBM Plex Sans, sans-serif',
-          size: 1.5 + 'rem',
-          color: '#838383',
+          family: "IBM Plex Sans, sans-serif",
+          size: 1.5 + "rem",
+          color: "#838383",
         },
-        side: 'right',
+        side: "right",
       },
       xaxis: {
         automargin: true,
-        title: 'Time',
+        title: "Time",
         titlefont: {
-          family: 'IBM Plex Sans, sans-serif',
-          size: 1.5 + 'rem',
-          color: '#838383',
+          family: "IBM Plex Sans, sans-serif",
+          size: 1.5 + "rem",
+          color: "#838383",
         },
-        ticks: 'inside',
+        ticks: "inside",
       },
       font: {
-        family: 'IBM Plex Sans',
-        size: 1 + 'rem',
-        color: '#838383',
+        family: "IBM Plex Sans",
+        size: 1 + "rem",
+        color: "#838383",
       },
     };
 
@@ -174,7 +127,7 @@ export default class HistoryContent extends Component {
               </h5>
             </div>
             <div className="history-balance-content-box">
-              {history.map((record, i) => (
+              {this.props.table.records.map((record, i) => (
                 <HistoryRecord key={i} record={record} />
               ))}
             </div>
@@ -185,3 +138,13 @@ export default class HistoryContent extends Component {
     );
   }
 }
+
+const mapStateToProps = (store) => ({
+  table: store.historyTable,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getHistoryTableAction: () => dispatch(getHistoryTable()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryContent);
