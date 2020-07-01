@@ -11,6 +11,10 @@ namespace Crypto.Services.Interfaces
         Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request);
         Task<NewsViewModel> UpdateNews(UpdateNewsViewModel model, string heder);
         Task DeleteNews(string heder);
+        Task UpdateInfo(SingleTextViewModel model);
+        Task UpdatePic(byte[] image, string nameFile, string Component);
+        Task<DownloadImage> GetPic(string Component);
+        Task<SingleTextViewModel> GetInfo(string Component);
 
         #region Dev
         Task DelUser(int Id);

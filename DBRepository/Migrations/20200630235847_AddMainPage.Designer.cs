@@ -12,9 +12,10 @@ using System;
 namespace DBRepository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20200630235847_AddMainPage")]
+    partial class AddMainPage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -210,8 +211,6 @@ namespace DBRepository.Migrations
                     b.Property<string>("Header");
 
                     b.Property<byte[]>("Image");
-
-                    b.Property<string>("ImageName");
 
                     b.Property<string>("SubHeader");
 

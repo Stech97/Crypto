@@ -11,6 +11,84 @@ namespace DBRepository.Repositories
 	{
 		public AdminstratorRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
+		#region Main Page
+		public async Task UpdateInfo(MainPage mainPage)
+		{
+			using(var contex = ContextFactory.CreateDbContext(ConnectionString))
+            {
+				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == mainPage.Component);
+				if (main != null)
+				{
+					if (mainPage.Header != null)
+						main.Header = mainPage.Header;
+					if (mainPage.SubHeader != null)
+						main.SubHeader = mainPage.SubHeader;
+					if (mainPage.Text != null)
+						main.Text = mainPage.Text;
+
+					contex.MainPages.Update(main);
+					await contex.SaveChangesAsync();
+				}
+            }
+		}
+
+		public async Task UpdatePic(byte[] image, string nameFile, string Component)
+        {
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
+				if (main != null)
+				{
+					main.Image = image;
+					main.ImageName = nameFile;
+				}
+
+				contex.MainPages.Update(main);
+				await contex.SaveChangesAsync();
+			}
+		}
+
+		public async Task<MainPage> GetPic(string Component)
+		{
+			MainPage response = null;
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
+				if (main != null)
+				{
+					response = new MainPage()
+					{
+						Image = main.Image,
+						ImageName = main.ImageName
+					};
+				}
+			}
+			return response;
+		}
+
+		public async Task<MainPage> GetInfo(string Component)
+		{
+			MainPage response = null;
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
+				if (main != null)
+				{
+					response = new MainPage()
+					{
+						Component = main.Component,
+						Header = main.Header,
+						SubHeader = main.SubHeader,
+						Text = main.Text
+					};
+				}
+			}
+			return response;
+		}
+
+		#endregion
+
+		#region Dashboard
 		public async Task<News> AddNews(News news)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
@@ -66,9 +144,10 @@ namespace DBRepository.Repositories
 				return await context.Balances.AsNoTracking().FirstOrDefaultAsync();
 			}
 		}
+        #endregion
 
-		#region Dev
-		public async Task DelUser(int Id)
+        #region Dev
+        public async Task DelUser(int Id)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -120,7 +199,7 @@ namespace DBRepository.Repositories
 			}
 
 		}
-		#endregion
+        #endregion
 
-	}
+    }
 }

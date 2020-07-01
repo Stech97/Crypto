@@ -20,6 +20,32 @@ namespace Crypto.Services.Implementation
 			_mapper = mapper;
 		}
 
+		#region Main Page
+		public async Task UpdateInfo(SingleTextViewModel model)
+		{
+			var MainPage = _mapper.Map<SingleTextViewModel, MainPage>(model);
+			await _repository.UpdateInfo(MainPage);
+		}
+		
+		public async Task UpdatePic(byte[] image, string nameFile, string Component)
+		{
+			await _repository.UpdatePic(image, nameFile, Component);	
+		}
+
+		public async Task<DownloadImage> GetPic(string Component)
+		{
+			var response = await _repository.GetPic(Component);
+			return _mapper.Map<MainPage, DownloadImage>(response);
+		}
+
+		public async Task<SingleTextViewModel> GetInfo(string Component)
+		{
+			var response = await _repository.GetInfo(Component);
+			return _mapper.Map<MainPage, SingleTextViewModel>(response);
+		}
+		#endregion
+
+		#region Dasboard
 		public async Task<NewsViewModel> AddNews(AddNewsViewModel request)
 		{
 			var news = _mapper.Map<AddNewsViewModel, News>(request);
@@ -45,9 +71,10 @@ namespace Crypto.Services.Implementation
 			var newRate = await _repository.UpdateDETRate(rate);
 			return _mapper.Map<Balance, RateDETViewModel>(newRate);
 		}
+        #endregion
 
-		#region Dev
-		public async Task<List<UserViewModel>> GetUsers()
+        #region Dev
+        public async Task<List<UserViewModel>> GetUsers()
 		{
 			var response = await _repository.GetUsers();
 			return _mapper.Map<List<object>, List<UserViewModel>>(response);

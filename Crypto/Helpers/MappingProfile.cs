@@ -80,6 +80,12 @@ namespace Crypto.Helpers
 				.ForMember(m => m.Time, opt => opt.MapFrom(m => m.Time.ToString("D")))
 				.ForMember(m => m.Type, opt => opt.MapFrom(m => m.ToString()));
 
+			CreateMap<SingleTextViewModel, MainPage>();
+
+			CreateMap<MainPage, SingleTextViewModel>();
+
+			CreateMap<MainPage, DownloadImage>();
+
 		}
 	}
 }

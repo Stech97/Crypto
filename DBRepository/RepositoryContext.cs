@@ -19,6 +19,7 @@ namespace DBRepository
         public DbSet<TypeInvestment> TypeInvestments { get; set; }
         public DbSet<TypeCommission> TypeCommissions { get; set; }
         public DbSet<BalanceHistory> BalanceHistories { get; set; }
+        public DbSet<MainPage> MainPages { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -92,6 +93,11 @@ namespace DBRepository
             modelBuilder.Entity<BalanceHistory>().Property(bh => bh.Time).IsRequired();
             modelBuilder.Entity<BalanceHistory>().Property(bh => bh.Amount).IsRequired();
             modelBuilder.Entity<BalanceHistory>().Property(bh => bh.Balance).IsRequired();
+            #endregion
+
+            #region Main Page
+            modelBuilder.Entity<MainPage>().ToTable("MainPage");
+            modelBuilder.Entity<MainPage>().Property(mp => mp.Component).IsRequired();
             #endregion
         }
     }

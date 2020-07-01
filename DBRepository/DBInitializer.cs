@@ -51,7 +51,7 @@ namespace DBRepository
 			{
 				context.TypeCommissions.Add(new TypeCommission()
 				{
-					Value = 0.3 
+					Value = 0.3
 				});
 				context.TypeCommissions.Add(new TypeCommission()
 				{
@@ -76,6 +76,16 @@ namespace DBRepository
 				context.TypeCommissions.Add(new TypeCommission()
 				{
 					Value = 0.05
+				});
+				await context.SaveChangesAsync().ConfigureAwait(false);
+			}
+
+			var main = await context.MainPages.CountAsync().ConfigureAwait(false);
+			if (main == 0)
+			{
+				context.MainPages.Add(new MainPage()
+				{
+					Component = "Our Mission"
 				});
 				await context.SaveChangesAsync().ConfigureAwait(false);
 			}
