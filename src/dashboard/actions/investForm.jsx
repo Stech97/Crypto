@@ -45,7 +45,7 @@ export const buyInvest = (amount, currency, type) => {
 					dispatch(
 						buyInvestError({
 							type: "balance",
-							message: "not enough cash",
+							message: "Not enough cash",
 						})
 					);
 				} else {

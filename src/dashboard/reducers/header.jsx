@@ -39,6 +39,7 @@ export function dashHeaderReducer(state = initialState, action) {
 			return {
 				...state,
 				error: action.payload,
+				isFetching: false,
 				user: {
 					id: localStorage.getItem("id"),
 					username: "",

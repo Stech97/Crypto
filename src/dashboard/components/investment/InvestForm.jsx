@@ -10,9 +10,10 @@ import { getBalance } from "../../actions/getBalance";
 import { RateRequest } from "../../actions/getRate";
 import { buyInvest } from "../../actions/investForm";
 
-const validateFloat = (value) => (value ? Number(value).toString() : "0");
-
 const selector = formValueSelector("InvestPopupForm");
+
+const required = (value) =>
+	value || typeof value === "number" ? undefined : "Required";
 
 const textField = ({ input, type, meta: { touched, error, warning } }) => {
 	return (
@@ -26,7 +27,8 @@ const textField = ({ input, type, meta: { touched, error, warning } }) => {
 			<input
 				{...input}
 				id={"invest-amount-" + type}
-				type="text"
+				type="number"
+				step="any"
 				className="popup-invest-field-input"
 			/>
 			{touched &&
@@ -94,11 +96,57 @@ class InvestPopupForm extends Component {
 		amount: 0,
 		rate: 0,
 		amountUSD: 0,
+		rateBTC: 0,
+		rateUSD: 1,
 	};
 
 	componentDidMount = () => {
 		this.props.getBalanceAction();
 		this.getRate("BTC");
+		this.getRateDET();
+		this.getRateBTC();
+	};
+
+	getRateDET = async () => {
+		RateRequest("DET", "USD").then((res) => {
+			if (res.ok) {
+				this.setState({
+					...this.state,
+					rateDET: res.data.rate,
+				});
+			} else if (res.error.status === 400) {
+				this.setState({
+					...this.state,
+					rateDET: 0,
+				});
+			} else {
+				this.setState({
+					...this.state,
+					rateDET: 0,
+				});
+			}
+		});
+	};
+
+	getRateBTC = async () => {
+		RateRequest("BTC", "USD").then((res) => {
+			if (res.ok) {
+				this.setState({
+					...this.state,
+					rateBTC: res.data.rate,
+				});
+			} else if (res.error.status === 400) {
+				this.setState({
+					...this.state,
+					rateBTC: 0,
+				});
+			} else {
+				this.setState({
+					...this.state,
+					rateBTC: 0,
+				});
+			}
+		});
 	};
 
 	getRate = async (wallet) => {
@@ -131,9 +179,14 @@ class InvestPopupForm extends Component {
 
 	changeWallet = (e) => {
 		var wallet = e.target.value;
-		console.log("wallet", wallet);
-
-		this.getRate(wallet);
+		if (wallet === "USD") {
+			this.setState({
+				...this.state,
+				rate: 1,
+			});
+		} else {
+			this.getRate(wallet);
+		}
 		this.handleAmount(this.state.amount);
 	};
 
@@ -175,47 +228,32 @@ class InvestPopupForm extends Component {
 
 		const submit = (values) => {
 			if (!values.wallet) {
-				var wal = "BTC";
+				var wallet = "BTC";
 			} else {
-				var wal = values.wallet;
+				var wallet = values.wallet;
 			}
-			var amount = Number(values["amount-" + type]);
+			var amount = Number(values.amount);
+			if (wallet === "BTC") {
+				var rate = this.state.rateBTC;
+			} else if (wallet === "DET") {
+				var rate = this.state.rateDET;
+			} else {
+				var rate = 1;
+			}
 
-			RateRequest(wal, "USD").then((res) => {
-				if (res.ok) {
-					var rate = res.data.rate;
-					if (amount <= Number(balance[wal.toLowerCase()])) {
-						if (amount * rate >= Number(minamount)) {
-							this.props.buyInvestAction(amount, wal, typeNum());
-						} else {
-							throw new SubmissionError({
-								_error:
-									"Insufficient funds for this investment",
-							});
-						}
-					} else {
-						throw new SubmissionError({
-							wallet: "Not enough cash",
-						});
-					}
-				} else if (rate.error.status === 400) {
-					var rate = 0;
-					if (amount <= Number(balance[wal.toLowerCase()])) {
-						if (amount * rate >= Number(minamount)) {
-							this.props.buyInvestAction(amount, wal, typeNum());
-						} else {
-							throw new SubmissionError({
-								_error:
-									"Insufficient funds for this investment",
-							});
-						}
-					} else {
-						throw new SubmissionError({
-							wallet: "Not enough cash",
-						});
-					}
+			if (amount * rate <= balance[wallet.toLowerCase()]) {
+				if (amount * rate >= Number(minamount)) {
+					this.props.buyInvestAction(amount, wallet, typeNum());
+				} else {
+					throw new SubmissionError({
+						amount: "Insufficient funds for this investment",
+					});
 				}
-			});
+			} else {
+				throw new SubmissionError({
+					amount: "Not enough funds on balance",
+				});
+			}
 		};
 
 		return (
@@ -229,11 +267,11 @@ class InvestPopupForm extends Component {
 				/>
 				<Field
 					component={textField}
-					name={"amount-" + type}
-					normalize={validateFloat}
+					name="amount"
 					type={type}
 					onChange={(e) => this.handleAmount(e.target.value)}
 					defaultValue="BTC"
+					validate={[required]}
 				/>
 				<h6 className="popup-invest-usd">
 					{wallet === "USD" ? "" : " => $" + amountUSD}
@@ -251,6 +289,7 @@ class InvestPopupForm extends Component {
 
 const mapStateToProps = (store) => ({
 	balance: store.ContentBalanceContainer,
+	InvestPopup: store.InvestPopup,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -263,6 +302,7 @@ InvestPopupForm = connect(mapStateToProps, mapDispatchToProps)(InvestPopupForm);
 
 InvestPopupForm = reduxForm({
 	form: "InvestPopupForm",
+	asyncBlurFields: ["amount"],
 })(InvestPopupForm);
 
 InvestPopupForm = connect((state) => {
