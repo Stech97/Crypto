@@ -46,7 +46,7 @@ class Withdraw extends Component {
                 To withdraw bitcoin, please let us know your bitcoin address
                 below and your exact amount you want to withdraw. Withdraw
                 requests will be executed every Monday and credited on your
-                wallet within 72hours.
+                wallet within 72 hours.
               </p>
             </div>
             <WithdrawForm closeForm={handleClick} />
