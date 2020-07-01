@@ -537,4 +537,141 @@
       }
     }
   }
+
+  &-withdraw {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: repeat(7, 14.28%);
+    grid-template-areas:
+      't t '
+      'f f';
+    justify-self: start;
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+    }
+
+    &-form {
+      display: grid;
+      grid-area: f;
+
+      &-header {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 30% 70%;
+        grid-template-areas: 'im te';
+
+        &-min {
+          display: grid;
+          grid-area: im;
+        }
+
+        h2 {
+          display: grid;
+          grid-area: te;
+        }
+      }
+
+      &-input {
+        display: grid;
+        background-color: #ebebeb;
+        border-radius: 0.625rem;
+        border: none;
+        height: 3rem;
+        width: 100%;
+        font-size: 1.2rem;
+        text-align: left;
+        font-family: 'IBM Plex Sans';
+        padding-left: 0.625rem;
+
+        &:placeholder {
+          color: #838383;
+        }
+
+        input {
+          background-color: #ebebeb;
+          border: none;
+          width: 100%;
+        }
+
+        label {
+          font-family: 'IBM Plex Sans';
+          text-align: left;
+          color: #123273;
+          align-self: start;
+          font-size: 1rem !important;
+        }
+      }
+
+      &-button {
+        display: grid;
+        grid-area: bt;
+
+        button {
+          align-self: end;
+          width: 100%;
+          height: 100%;
+          border-radius: 1.875rem;
+          text-align: center;
+          font-family: 'IBM Plex Sans';
+          font-size: 1.2rem;
+          border: 0.1875rem solid #ed7102;
+          background-color: #ffffff;
+          color: #ed7102;
+          font-weight: 500;
+          &:hover {
+            background-color: #ed7102;
+            color: #ffffff;
+          }
+          &[disabled] {
+            border-color: #ebebeb;
+            color: #838383;
+            background-color: #ebebeb;
+          }
+        }
+      }
+
+      input {
+        color: #123273;
+      }
+
+      select {
+        background-image: linear-gradient(83deg, #123273 0%, #005c9f 100%);
+        color: #ffffff;
+
+        &:hover,
+        &:focus {
+          background-image: linear-gradient(83deg, #123273 0%, #005c9f 100%);
+        }
+
+        option {
+          background: #123273;
+          padding: 0.5rem;
+          font-size: 1.3rem;
+
+          &:last-child {
+            border-radius: 0 0 0.5rem 0.5rem;
+          }
+        }
+      }
+    }
+
+    &-text {
+      align-self: end;
+      display: grid;
+      font-family: 'IBM Plex Sans';
+      text-align: justify;
+      color: #838383;
+    }
+    &-minamount {
+      display: grid;
+      grid-area: ma;
+      font-family: 'IBM Plex Sans';
+      text-align: center;
+      color: #838383;
+    }
+  }
 }
