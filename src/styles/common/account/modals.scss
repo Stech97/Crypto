@@ -544,34 +544,34 @@
     grid-template-columns: 50% 50%;
     grid-template-rows: repeat(7, 14.28%);
     grid-template-areas:
+      'h h'
       't t '
-      'f f';
+      'maim ma';
     justify-self: start;
 
     h1,
     h2,
     h3 {
+      grid-area: h;
       margin: 0;
     }
 
     &-form {
       display: grid;
-      grid-area: f;
 
       &-header {
         display: grid;
         width: 100%;
         grid-template-columns: 30% 70%;
-        grid-template-areas: 'im te';
 
         &-min {
           display: grid;
-          grid-area: im;
+          grid-area: maim;
         }
 
         h2 {
           display: grid;
-          grid-area: te;
+          grid-area: ma;
         }
       }
 
@@ -662,6 +662,7 @@
     &-text {
       align-self: end;
       display: grid;
+      grid-area: t;
       font-family: 'IBM Plex Sans';
       text-align: justify;
       color: #838383;
