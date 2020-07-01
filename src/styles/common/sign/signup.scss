@@ -234,12 +234,8 @@ button {
     cursor: pointer;
     height: 0;
     width: 0;
-    &:checked {
-      ~ {
-        .checkmark-termsagree {
-          background-color: #ffffff;
-        }
-      }
+    &:checked + .checkmark-termsagree > i {
+      color: #ffffff;
     }
   }
   display: block;
@@ -272,21 +268,31 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-  height: 1.875rem;
-  width: 1.875rem;
+
   background-color: rgba(245, 251, 255, 0);
   border: 0.1875rem solid #f5fbff;
   border-radius: 0.625rem;
+  & > i {
+    height: 1em;
+    width: 1em;
+    font-size: 1.75rem;
+    color: rgba(245, 251, 255, 0);
+  }
 
   &-error {
     position: absolute;
     top: 0;
     left: 0;
-    height: 1.875rem;
-    width: 1.875rem;
+
     background-color: rgba(245, 251, 255, 0);
-    border: 0.1875rem solid red;
+    border: 0.1875rem solid #f5fbff;
     border-radius: 0.625rem;
+    & > i {
+      height: 1em;
+      width: 1em;
+      font-size: 1.75rem;
+      color: rgba(245, 251, 255, 0);
+    }
   }
 }
 .signup-box-countrycheck {
@@ -301,12 +307,8 @@ button {
     cursor: pointer;
     height: 0;
     width: 0;
-    &:checked {
-      ~ {
-        .checkmark-countrycheck {
-          background-color: #ffffff;
-        }
-      }
+    &:checked + .checkmark-countrycheck > i {
+      color: #ffffff;
     }
   }
   display: block;
@@ -332,21 +334,31 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-  height: 1.875rem;
-  width: 1.875rem;
+
   background-color: rgba(245, 251, 255, 0);
   border: 0.1875rem solid #f5fbff;
   border-radius: 0.625rem;
+  & > i {
+    height: 1em;
+    width: 1em;
+    font-size: 1.75rem;
+    color: rgba(245, 251, 255, 0);
+  }
 
   &-error {
     position: absolute;
     top: 0;
     left: 0;
-    height: 1.875rem;
-    width: 1.875rem;
+
     background-color: rgba(245, 251, 255, 0);
-    border: 0.1875rem solid red;
+    border: 0.1875rem solid #f5fbff;
     border-radius: 0.625rem;
+    & > i {
+      height: 1em;
+      width: 1em;
+      font-size: 1.75rem;
+      color: rgba(245, 251, 255, 0);
+    }
   }
 }
 

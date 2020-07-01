@@ -41,6 +41,8 @@ class HistoryContent extends Component {
   };
 
   render() {
+    const { table } = this.props;
+
     const data = [
       {
         x: [

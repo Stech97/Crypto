@@ -22,26 +22,31 @@ const getTeamPopupFetch = async (level) => {
 		"https://back.defima.io/Investment/GetTeamPop?UserId=" +
 			localStorage.getItem("id") +
 			"?Level=" +
-			level
+			(level - 1)
 	);
 	return response;
 };
 
-export const getTeamPopup = () => {
+export const getTeamPopup = (level) => {
 	return (dispatch) => {
 		dispatch(getTeamPopupRequest());
-
-		getTeamPopupFetch()
+		console.log(level);
+		getTeamPopupFetch(level)
 			.then((res) => {
+				console.log(res);
 				if (res.ok) {
 					let payload = res.data;
+
+					dispatch(getTeamPopupSuccess(payload));
+				} else if ((res.error.status = 400)) {
+					let payload = [];
 
 					dispatch(getTeamPopupSuccess(payload));
 				} else {
 					let payload = {
 						error: {
-							type: res.error.status,
-							message: res.error.message,
+							type: "code mistake",
+							message: res.message,
 						},
 					};
 
