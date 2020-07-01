@@ -1,49 +1,62 @@
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
-import { getRate } from '../../../actions/getRate'
-import TestAddFunds from '../../../containers/testaddfunds'
-import Loader from 'react-loader-spinner'
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { getRate } from "../../../actions/getRate";
+import Withdraw from "./withdraw";
+import TestAddFunds from "../../../containers/testaddfunds";
+import Loader from "react-loader-spinner";
 
 class ContentBalanceBTCSquare extends Component {
-
 	state = {
-		isOpened: false,
-	}
+		AddIsOpened: false,
+		WithdrawIsOpened: false,
+	};
 
-	handleClick = () => {
-		this.setState({ isOpened: !this.state.isOpened })
-	}
-	
+	handleClickAdd = () => {
+		this.setState({ AddIsOpened: !this.state.AddIsOpened });
+	};
+
+	handleClickWithDraw = () => {
+		this.setState({ WithdrawIsOpened: !this.state.WithdrawIsOpened });
+	};
+
 	componentDidUpdate = (prevProps) => {
 		if (this.props.amount !== prevProps.amount) {
-			this.props.getRateAction('btc', this.props.amount)
+			this.props.getRateAction("btc", this.props.amount);
 		}
-	}
+	};
 
 	render() {
+		const { amount, isFetching, BTC } = this.props;
 
-		const { amount, isFetching, BTC } = this.props
-		
-		return(
+		return (
 			<Fragment>
 				<div className="content-balance-btc-header content-text-blue">
 					<h5>Bitcoin Balance</h5>
 				</div>
 				<div className="content-balance-btc-square content-whitebox-balance">
 					<div className="content-balance-btc-square-text content-text-blue">
-						{ (isFetching || BTC.isFetching) ?
-							<Loader type="Rings" color="#123273" height={80} width={80}/>
-						:
+						{isFetching || BTC.isFetching ? (
+							<Loader
+								type="Rings"
+								color="#123273"
+								height={80}
+								width={80}
+							/>
+						) : (
 							<Fragment>
-								<h5>BTC { isFetching ? "Loading..." : amount }</h5>
-								<h6 className="content-text-grey">USD {BTC.isFetching ? "" : BTC.usd}</h6>
+								<h5>
+									BTC {isFetching ? "Loading..." : amount}
+								</h5>
+								<h6 className="content-text-grey">
+									USD {BTC.isFetching ? "" : BTC.usd}
+								</h6>
 							</Fragment>
-						}
+						)}
 					</div>
 					<div className="content-balance-btc-square-calc">
 						<div
 							className="content-balance-btc-square-calc-plus"
-							onClick={ () => this.handleClick() }
+							onClick={() => this.handleClickAdd()}
 						>
 							<svg
 								preserveAspectRatio="xMinYMid slice"
@@ -54,7 +67,7 @@ class ContentBalanceBTCSquare extends Component {
 						</div>
 						<div
 							className="content-balance-btc-square-calc-minus"
-							onClick={ () => this.handleClick() }
+							onClick={() => this.handleClickWithDraw()}
 						>
 							<svg
 								preserveAspectRatio="xMinYMid slice"
@@ -66,27 +79,32 @@ class ContentBalanceBTCSquare extends Component {
 					</div>
 				</div>
 				<TestAddFunds
-					isOpened = { this.state.isOpened }
-					handleClick = { this.handleClick }
+					isOpened={this.state.AddIsOpened}
+					handleClick={this.handleClickAdd}
+				/>
+				<Withdraw
+					isOpened={this.state.WithdrawIsOpened}
+					handleClick={this.handleClickWithDraw}
 				/>
 			</Fragment>
-		)
+		);
 	}
 }
 
-const mapStateToProps = store => {
+const mapStateToProps = (store) => {
 	return {
 		BTC: store.BTCSquare,
-	}
-}
+	};
+};
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getRateAction: (currency, amount) => dispatch(getRate(currency, amount)),
-  }
-}
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getRateAction: (currency, amount) =>
+			dispatch(getRate(currency, amount)),
+	};
+};
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(ContentBalanceBTCSquare)
+)(ContentBalanceBTCSquare);

@@ -2,43 +2,70 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { getMembersAmount } from "../../actions/getTeam";
 import { getTeamEarnings } from "../../actions/getTeamEarnings";
+import { getTeamTable } from "../../actions/getTeamTable";
 import TeamPopupPlus from "./teamPopup";
+import { RateRequest } from "../../actions/getRate";
 
 const MemberLevelRow = ({
   obj: {
     boxclass,
     level,
     members,
-    total_invested,
-    profits_paid,
+    totalInvested,
+    profitsPaid,
     commission,
-    total_earned,
+    totalEarning,
   },
 }) => {
   return (
-    <div
-      className={"team-table-content-row team-table-content-row-" + boxclass}
-    >
+    <div className="team-table-content-row">
       <h5 className="team-table-content-row-l gray-text">{"Level " + level}</h5>
       <h5 className="team-table-content-row-m gray-text">{members}</h5>
       <h5 className="team-table-content-row-i gray-text">
-        {total_invested + "k €"}
+        {totalInvested + "k €"}
       </h5>
       <h5 className="team-table-content-row-p gray-text">
-        {profits_paid + "k"}
+        {profitsPaid + "k"}
       </h5>
       <h5 className="team-table-content-row-c gray-text">{commission + "%"}</h5>
       <h5 className="team-table-content-row-e gray-text">
-        {total_earned + "k DET"}
+        {totalEarning + "k DET"}
       </h5>
     </div>
   );
 };
 
 class TeamContent extends Component {
+  state = {
+    rate: 0,
+  };
+
+  getRate = () => {
+    RateRequest("USD", "DET").then((res) => {
+      if (res.ok) {
+        this.setState({
+          ...this.state,
+          rate: res.data.rate,
+        });
+      } else if (res.error.status === 400) {
+        this.setState({
+          ...this.state,
+          rate: 0,
+        });
+      } else {
+        this.setState({
+          ...this.state,
+          rate: 0,
+        });
+      }
+    });
+  };
+
   componentDidMount = () => {
     this.props.getTotalMemAction();
     this.props.getTeamEarningsAction();
+    this.props.teamTableAction();
+    this.getRate();
   };
 
   render() {
@@ -47,16 +74,16 @@ class TeamContent extends Component {
         {
           level: 1,
           members: 10,
-          total_invested: 46,
+          totalInvested: 46,
           profits_paid: 12,
           commission: 50,
           total_earned: 1.78,
-          boxclass: "start",
+          boxclass: "middle",
         },
         {
           level: 2,
           members: 10,
-          total_invested: 46,
+          totalInvested: 46,
           profits_paid: 12,
           commission: 50,
           total_earned: 1.78,
@@ -67,7 +94,7 @@ class TeamContent extends Component {
         {
           level: 3,
           members: 10,
-          total_invested: 46,
+          totalInvested: 46,
           profits_paid: 12,
           commission: 50,
           total_earned: 1.78,
@@ -76,7 +103,7 @@ class TeamContent extends Component {
         {
           level: 4,
           members: 10,
-          total_invested: 46,
+          totalInvested: 46,
           profits_paid: 12,
           commission: 50,
           total_earned: 1.78,
@@ -85,7 +112,7 @@ class TeamContent extends Component {
         {
           level: 5,
           members: 10,
-          total_invested: 46,
+          totalInvested: 46,
           profits_paid: 12,
           commission: 50,
           total_earned: 1.78,
@@ -96,7 +123,7 @@ class TeamContent extends Component {
         {
           level: 6,
           members: 10,
-          total_invested: 46,
+          totalInvested: 46,
           profits_paid: 12,
           commission: 50,
           total_earned: 1.78,
@@ -105,7 +132,7 @@ class TeamContent extends Component {
         {
           level: 7,
           members: 10,
-          total_invested: 46,
+          totalInvested: 46,
           profits_paid: 12,
           commission: 50,
           total_earned: 1.78,
@@ -114,7 +141,21 @@ class TeamContent extends Component {
       ],
     ];
 
-    const { earnings } = this.props;
+    const { earnings, team } = this.props;
+
+    const totalInvestedSum = () => {
+      var sum = 0;
+      for (let i = 0; i < team.levels.length; i++) {
+        sum += team.levels[i].totalInvested;
+      }
+      let data = {
+        usd: sum,
+        det: sum * this.state.rate,
+      };
+      return data;
+    };
+
+    const totalInvested = totalInvestedSum();
 
     return (
       <div className="team-box">
@@ -130,8 +171,8 @@ class TeamContent extends Component {
           <div className="team-total-invested team-total-box">
             <h5 className="team-total-box-header">TOTAL Team Invested</h5>
             <div className="team-total-box-content team-whitebox">
-              <h3>$17.110</h3>
-              <h5>DET 1000</h5>
+              <h3>{"$" + totalInvested.usd}</h3>
+              <h5>{"DET " + totalInvested.det}</h5>
             </div>
           </div>
           <div className="team-total-earnings team-total-box">
@@ -181,12 +222,14 @@ class TeamContent extends Component {
 
 const mapStateToProps = (store) => ({
   earnings: store.Earnings,
+  team: store.TeamTable,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getTotalMemAction: () => dispatch(getMembersAmount()),
     getTeamEarningsAction: () => dispatch(getTeamEarnings()),
+    teamTableAction: () => dispatch(getTeamTable()),
   };
 };
 

@@ -22,13 +22,9 @@ const getTeamEarningsSuccess = (payload) => ({
 });
 
 const getTeamEarningsFetch = async () => {
-	let response = {
-		ok: true,
-		data: {
-			det: 423,
-			usd: 423,
-		},
-	};
+	let response = API(
+		"/Dashboard/GetEarningsTeam?Id=" + localStorage.getItem("id")
+	);
 	return response;
 };
 

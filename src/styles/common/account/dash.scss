@@ -12,6 +12,7 @@
         min-content
       );
     grid-column-gap: $gap;
+    -webkit-transition-duration: 1s;
   }
 
   &-wrapper {
@@ -34,7 +35,7 @@
   .sidebar-wrapper-closed {
     margin-left: $padding * (-1);
     grid-area: s;
-    -webkit-transition-duration: 0.4s;
+    -webkit-transition-duration: 1s;
   }
 
   .contentbox,
@@ -48,6 +49,7 @@
     grid-template-columns: repeat(10, $column);
     grid-column-gap: $gap;
     grid-template-rows: 100%;
+    -webkit-transition-duration: 1s;
 
     h2 {
       // Style for "FAQ’s"
@@ -94,10 +96,12 @@
 
   .contentbox-closed {
     grid-column: 2 / 13;
+    -webkit-transition-duration: 1s;
   }
 
   .contentbox {
     grid-column: 3 / 13;
+    -webkit-transition-duration: 1s;
   }
   .investments-wrapper {
     grid-area: c;

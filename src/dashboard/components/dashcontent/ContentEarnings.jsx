@@ -149,17 +149,9 @@ class ContentEarnings extends Component {
 	};
 
 	render() {
-		var earningsData = {
-			lastWeekProfits: {
-				det: 360,
-				usd: 360,
-			},
-		};
-
 		const { earnings } = this.props;
 
-		earningsData = {
-			...earningsData,
+		const earningsData = {
 			totalProfit: {
 				det: rounded(
 					earnings.profitFromInvest.data.det +
@@ -213,7 +205,7 @@ class ContentEarnings extends Component {
 					</div>
 					<div className="content-earnings-totalprof-square content-whitebox-earnings content-text-blue">
 						<TotalProfit data={earningsData.totalProfit} />
-						<LastWeekProfits data={earningsData.lastWeekProfits} />
+						<LastWeekProfits data={earnings.lastWeekProfits.data} />
 					</div>
 				</div>
 				<GraphContainer

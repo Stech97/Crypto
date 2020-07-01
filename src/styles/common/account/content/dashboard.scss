@@ -1,12 +1,12 @@
 .content-text-blue {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   text-align: center;
   color: #123273;
   font-size: 1.5625rem;
 }
 
 .content-text-blue h3 {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   text-align: center;
   color: #123273;
   font-size: 1.5625rem;
@@ -17,7 +17,7 @@
 }
 
 .content-text-grey {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   text-align: center;
   color: #838383;
   font-size: 1.25rem;
@@ -80,10 +80,10 @@
   grid-column-gap: $gap;
   grid-column: 2 / -2;
   grid-template-areas:
-    'cb cb cb cb cb cb cb cb'
-    'ce ce ce ce ce ce ce ce'
-    'cl cl cl cl cl cl cl cl'
-    'cn cn cn cn cn cn cn cn';
+    "cb cb cb cb cb cb cb cb"
+    "ce ce ce ce ce ce ce ce"
+    "cl cl cl cl cl cl cl cl"
+    "cn cn cn cn cn cn cn cn";
 
   &-balance {
     width: 100%;
@@ -103,7 +103,7 @@
       grid-row: 2 / 3;
       display: grid;
       grid-template-rows: 60% 40%;
-      grid-template-areas: 'btc-square-text' 'btc-square-calc';
+      grid-template-areas: "btc-square-text" "btc-square-calc";
 
       &-text {
         grid-area: btc-square-text;
@@ -120,7 +120,7 @@
         grid-template-columns: 50% 50%;
         align-items: center;
         justify-items: center;
-        grid-template-areas: 'calc-plus calc-minus';
+        grid-template-areas: "calc-plus calc-minus";
 
         &-plus {
           grid-area: calc-plus;
@@ -164,7 +164,7 @@
       grid-row: 2 / 3;
       display: grid;
       grid-template-columns: 50% 50%;
-      grid-template-areas: 'arrow-left arrow-right';
+      grid-template-areas: "arrow-left arrow-right";
     }
 
     &-arrow-left,
@@ -212,7 +212,7 @@
       grid-row: 2 / 3;
       display: grid;
       grid-template-columns: 50% 50%;
-      grid-template-areas: 'arrow-left arrow-right';
+      grid-template-areas: "arrow-left arrow-right";
     }
 
     &-coin-header {
@@ -241,7 +241,7 @@
     grid-template-columns: repeat(8, $column);
     grid-template-rows: min-content;
     gap: 0 $gap;
-    grid-template-areas: 'ti ti pt pt tp tp gr gr';
+    grid-template-areas: "ti ti pt pt tp tp gr gr";
     grid-area: ce;
 
     &-total-invmemb,
@@ -255,7 +255,7 @@
 
     &-total-invmemb {
       grid-area: ti;
-      grid-template-areas: 'invmemb-invheader' 'invmemb-investments' 'invmemb-membersheader' 'invmemb-members';
+      grid-template-areas: "invmemb-invheader" "invmemb-investments" "invmemb-membersheader" "invmemb-members";
 
       &-invheader {
         grid-area: invmemb-invheader;
@@ -289,103 +289,103 @@
 
     &-profteam {
       grid-area: pt;
-      grid-template-areas: 'profteam-profheader' 'profteam-profinvestments' 'profteam-totalheader' 'profteam-totalteam';
+      grid-template-areas: "profteam-profheader" "profteam-profinvestments" "profteam-totalheader" "profteam-totalteam";
 
       &-profheader {
         grid-area: profteam-profheader;
       }
 
-			&-profinvestments {
-				grid-area: profteam-profinvestments;
-				display: grid;
-				height: 100%;
-				> h5 {
-					align-self: end;
-				}
-				> h6 {
-					align-self: start;
-				}
-			}
+      &-profinvestments {
+        grid-area: profteam-profinvestments;
+        display: grid;
+        height: 100%;
+        > h5 {
+          align-self: end;
+        }
+        > h6 {
+          align-self: start;
+        }
+      }
 
       &-totalheader {
         grid-area: profteam-totalheader;
       }
 
-			&-totalteam {
-				grid-area: profteam-totalteam;
-				display: grid;
-				height: 100%;
-				> h5 {
-					align-self: end;
-				}
-				> h6 {
-					align-self: start;
-				}
-			}
-		}
+      &-totalteam {
+        grid-area: profteam-totalteam;
+        display: grid;
+        height: 100%;
+        > h5 {
+          align-self: end;
+        }
+        > h6 {
+          align-self: start;
+        }
+      }
+    }
 
     &-totalprof {
       grid-area: tp;
       height: 100%;
       grid-template-areas:
-        'totalprof-totalprofheader'
-        'totalprof-totalprofsquare'
-        'totalprof-totalprofsquare'
-        'totalprof-totalprofsquare';
+        "totalprof-totalprofheader"
+        "totalprof-totalprofsquare"
+        "totalprof-totalprofsquare"
+        "totalprof-totalprofsquare";
 
       &-header {
         grid-area: totalprof-totalprofheader;
       }
 
-			&-square {
-				grid-area: totalprof-totalprofsquare;
-				display: grid;
-				align-items: center;
-				justify-items: center;
-				grid-template-rows: 65px 1.2rem 65px;
-				gap: 30px 0;
-				grid-template-areas: "totalprofsquare-total" "totalprofsquare-header" "totalprofsquare-hours";
+      &-square {
+        grid-area: totalprof-totalprofsquare;
+        display: grid;
+        align-items: center;
+        justify-items: center;
+        grid-template-rows: 65px 1.2rem 65px;
+        gap: 30px 0;
+        grid-template-areas: "totalprofsquare-total" "totalprofsquare-header" "totalprofsquare-hours";
 
-				&-total {
-					grid-area: totalprofsquare-total;
-					display: grid;
-					height: 100%;
-					> h5 {
-						align-self: end;
-					}
-					> h6 {
-						align-self: start;
-					}
-				}
+        &-total {
+          grid-area: totalprofsquare-total;
+          display: grid;
+          height: 100%;
+          > h5 {
+            align-self: end;
+          }
+          > h6 {
+            align-self: start;
+          }
+        }
 
         &-header {
           grid-area: totalprofsquare-header;
         }
 
-				&-hours {
-					grid-area: totalprofsquare-hours;
-					display: grid;
-					height: 100%;
-					> h5 {
-						align-self: end;
-					}
-					> h6 {
-						align-self: start;
-					}
-				}
-			}
-		}
+        &-hours {
+          grid-area: totalprofsquare-hours;
+          display: grid;
+          height: 100%;
+          > h5 {
+            align-self: end;
+          }
+          > h6 {
+            align-self: start;
+          }
+        }
+      }
+    }
 
     &-graph {
       grid-area: gr;
-      grid-template-areas: '.' 'graph' 'graph' 'graph';
+      grid-template-areas: "." "graph" "graph" "graph";
 
       &-plot {
         grid-area: graph;
         display: grid;
         grid-template-rows: 46px calc(100% - 46px);
         grid-template-columns: 100%;
-        grid-template-areas: 'graph-rule' 'graph-reached';
+        grid-template-areas: "graph-rule" "graph-reached";
 
         box-shadow: 0 0 23px rgba(0, 0, 0, 0.06);
         background-color: #d1e5f1;
@@ -418,13 +418,13 @@
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
             z-index: 1;
-            content: '';
+            content: "";
           }
 
           h5 {
             position: absolute;
             z-index: 2;
-            font-family: 'IBM Plex Sans';
+            font-family: "IBM Plex Sans";
             text-align: center;
             color: #f5fbff;
             font-size: 1.5625;
@@ -439,15 +439,15 @@
     grid-template-columns: repeat(8, $column);
     gap: 2.375rem $gap;
     grid-template-areas:
-      'r r r r r r r r'
-      'l l l l l l l l';
+      "r r r r r r r r"
+      "l l l l l l l l";
     grid-area: cl;
 
     &-ref {
       display: grid;
       grid-template-columns: repeat(8, $column);
       grid-column-gap: $gap;
-      grid-template-areas: 'refbyid refbyid refbyid refbyid refbyusername refbyusername refbyusername refbyusername';
+      grid-template-areas: "refbyid refbyid refbyid refbyid refbyusername refbyusername refbyusername refbyusername";
       grid-area: r;
     }
 
@@ -465,8 +465,12 @@
       display: grid;
       grid-template-columns: repeat(8, $column);
       grid-column-gap: $gap;
-      grid-template-areas: 'p p p i i t t t';
+      grid-template-areas: "p p p i i t t t";
       grid-area: l;
+
+      & > a {
+        color: #123273;
+      }
 
       .presentation-link {
         grid-area: p;
@@ -493,14 +497,14 @@
     grid-column-gap: $gap;
     grid-row-gap: 1.25rem;
     grid-template-areas:
-      '. nh nh . . lh lh .'
-      'n n n n l l l l';
+      ". nh nh . . lh lh ."
+      "n n n n l l l l";
     grid-area: cn;
     align-items: center;
     justify-items: center;
 
     .content-text-blue-newslogheadings {
-      font-family: 'IBM Plex Sans';
+      font-family: "IBM Plex Sans";
       text-align: left;
       color: #123273;
     }
@@ -529,9 +533,9 @@
         grid-row-gap: 22px;
         padding: $gap;
         grid-template-areas:
-          'h h h .'
-          't t t .'
-          'b b b .';
+          "h h h ."
+          "t t t ."
+          "b b b .";
         justify-items: start;
         align-items: center;
         width: 100%;
@@ -551,7 +555,7 @@
           display: grid;
           justify-items: center;
           align-items: center;
-          font-family: 'IBM Plex Sans';
+          font-family: "IBM Plex Sans";
           font-size: 1.5625rem;
           color: #eb7324;
           // Style for "news-butto"
@@ -592,7 +596,7 @@
         grid-template-columns: repeat(3, 1fr);
         justify-items: stretch;
         gap: 0px 10px;
-        grid-template-areas: 'timeheader ipheader countryheader';
+        grid-template-areas: "timeheader ipheader countryheader";
 
         > h4 {
           color: #ffffff;
@@ -621,7 +625,7 @@
         grid-template-columns: repeat(3, 1fr);
         justify-items: stretch;
         gap: 0px 10px;
-        grid-template-areas: 'time ip country';
+        grid-template-areas: "time ip country";
         align-items: center;
 
         > h5 {
