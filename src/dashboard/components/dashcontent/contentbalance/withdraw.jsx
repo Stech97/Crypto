@@ -4,8 +4,8 @@ class WithdrawForm extends Component {
   render() {
     return (
       <form action="" className="popup-withdraw-form">
-        <div className="popup-withdraw-form-header">
-          <img src="" alt="" />
+        <div className="popup-withdraw-header">
+          <img src="/img/add-funds-icon.png" alt="add-funds" />
           <h2>Min. withdraw $10</h2>
         </div>
         <div className="popup-withdraw-form-input">
@@ -46,11 +46,8 @@ class Withdraw extends Component {
                 To withdraw bitcoin, please let us know your bitcoin address
                 below and your exact amount you want to withdraw. Withdraw
                 requests will be executed every Monday and credited on your
-                wallet within 72hours.
+                wallet within 72 hours.
               </p>
-            </div>
-            <div className="popup-withdraw-form-header-min">
-              <img src="/img/add-funds-icon.png" alt="add-funds" />
             </div>
             <WithdrawForm closeForm={handleClick} />
           </div>
