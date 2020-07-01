@@ -186,7 +186,7 @@ export const API = async (path, mode = "get", body = null) => {
 
 export const routes = [
   {
-    path: "/pages",
+    path: "/main",
     component: PagesContent,
     Private: true,
     /*routes: [
@@ -246,11 +246,6 @@ export const routes = [
   },
   {
     path: "/finance",
-    component: InDevelopment,
-    Private: false,
-  },
-  {
-    path: "/",
     component: InDevelopment,
     Private: false,
   },

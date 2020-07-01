@@ -61,7 +61,7 @@ function App() {
 				{/*routes.map((route, i) => (
 					<RouteWithSubRoutes key={i} {...route} />
 				))*/}
-				<Route path="/pages">
+				<Route path="/">
 					<PagesContent />
 				</Route>
 				<Route path="/finance">
