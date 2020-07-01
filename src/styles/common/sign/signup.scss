@@ -370,6 +370,10 @@ button {
   user-select: none;
   font-family: "IBM Plex Sans";
   color: white;
+  &[disabled] {
+    background-color: #838383;
+    border-color: #838383;
+  }
 }
 .signup-box-bottomcontainer-signin {
   grid-area: bottomcontainer-signin;

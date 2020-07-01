@@ -47,6 +47,8 @@ class ForgotPasswordForm extends Component {
 			submitting,
 			forgot,
 			error,
+			invalid,
+			hasErrors,
 		} = this.props;
 
 		const submit = (values) => {
@@ -88,7 +90,12 @@ class ForgotPasswordForm extends Component {
 						warn={aol}
 					/>
 					<div className="login-form-button">
-						<button type="submit" disabled={pristine || submitting}>
+						<button
+							type="submit"
+							disabled={
+								(invalid, hasErrors || pristine || submitting)
+							}
+						>
 							{submitting || forgot.isFetching
 								? "Loading..."
 								: "Restore"}

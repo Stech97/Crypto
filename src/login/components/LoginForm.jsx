@@ -47,6 +47,8 @@ class LoginForm extends Component {
 			submitting,
 			user,
 			error,
+			hasErrors,
+			invalid,
 		} = this.props;
 
 		const submit = (values) => {
@@ -93,7 +95,12 @@ class LoginForm extends Component {
 					validate={[required, validatePassword]}
 				/>
 				<div className="login-form-button">
-					<button type="submit" disabled={pristine || submitting}>
+					<button
+						type="submit"
+						disabled={
+							invalid || hasErrors || pristine || submitting
+						}
+					>
 						{user.isFetching || submitting ? "Loading..." : "Login"}
 					</button>
 					{user.error.type && (

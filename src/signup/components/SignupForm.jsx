@@ -87,23 +87,30 @@ const asyncValidate = (values /*, dispatch*/) => {
 		Username: values.username,
 		Email: values.email,
 	}).then((res) => {
-		if (res.ok) {
+		if (res.status === 200) {
 			return undefined;
 		} else if (res.error.status === 400) {
 			console.log("##### :", res);
-			if (res.data.username) {
-				throw {
-					username: "Username exists!!!",
-				};
-			} else if (res.data.email) {
-				throw {
-					email: "E-Mail exists!!!",
-				};
-			} else {
-				throw new SubmissionError({
-					error: "Something went wrong. Try again!",
-				});
+			if (res.data.username || res.data.email) {
+				if (res.data.username && res.data.email)
+					throw {
+						username: "Username exists",
+						email: "Email exists",
+						error: "Signup failed",
+					};
+				if (res.data.username)
+					throw {
+						username: "Username exists",
+						error: "Signup failed",
+					};
+				if (res.data.email)
+					throw {
+						email: "Email exists",
+						error: "Signup failed",
+					};
 			}
+		} else {
+			return undefined;
 		}
 	});
 };
@@ -173,6 +180,8 @@ class SignupForm extends Component {
 			submitting,
 			createUser,
 			error,
+			hasErrors,
+			invalid,
 		} = this.props;
 
 		const submit = (values) => {
@@ -190,7 +199,7 @@ class SignupForm extends Component {
 			}
 			if (!values.countrycheck) {
 				throw new SubmissionError({
-					countrycheck: "Field reuired!",
+					countrycheck: "Field required!",
 					_error: "Signup failed",
 				});
 			}
@@ -238,12 +247,9 @@ class SignupForm extends Component {
 					>
 						<SignupHeader />
 						{error && <p className="error">{error}</p>}
-						{createUser.error &&
-							createUser.error.type === "server" && (
-								<p className="error">
-									{createUser.error.message}
-								</p>
-							)}
+						{createUser.error.type && (
+							<p className="error">{createUser.error.message}</p>
+						)}
 						<Field
 							component={textField}
 							name="firstname"
@@ -335,6 +341,12 @@ class SignupForm extends Component {
 								<button
 									className="signup-form-button"
 									type="submit"
+									disabled={
+										invalid ||
+										hasErrors ||
+										pristine ||
+										submitting
+									}
 								>
 									{createUser.isFetching
 										? "Loading..."
