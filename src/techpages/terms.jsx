@@ -1,18 +1,10 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 export default class TermsAndConditionsContent extends Component {
   render() {
     return (
       <div className="terms">
-        {/* <div className="logo">
-          <img
-            className="stelth-logo"
-            src="img/stelth-logo.png"
-            alt="stelth-logo"
-          />
-        </div> */}
-
-        <div className="wrapper">
+        <div className="terms-wrapper">
           <div className="terms-box">
             <h2>Terms & Conditions</h2>
           </div>

@@ -1,8 +1,9 @@
 .terms {
   width: 1fr;
+
   &-wrapper {
     display: grid;
-    grid-template-columns: 8.75rem calc(100% - 14.75rem) 6rem;
+    grid-template-columns: 15vw calc(100% - 30vw) 15vw;
     grid-auto-rows: min-content;
     grid-gap: 0rem;
     gap: 0rem;
@@ -18,7 +19,7 @@
     grid-column: 2 / 3;
     h2 {
       margin: 0;
-      font-family: "IBM Plex Sans";
+      font-family: 'IBM Plex Sans';
       font-size: 3.125rem;
       font-weight: medium;
       font-stretch: normal;
@@ -26,14 +27,14 @@
       letter-spacing: normal;
       text-align: justify;
       color: #005c9f;
-      padding-bottom: 5rem;
+      padding-bottom: 3rem;
     }
 
     h5 {
       padding-top: 1.125rem;
       margin: 0;
-      font-family: "IBM Plex Sans";
-      font-size: 1.5625rem;
+      font-family: 'IBM Plex Sans';
+      font-size: 1.25rem;
       font-weight: bold;
       font-stretch: normal;
       letter-spacing: normal;
@@ -44,7 +45,7 @@
     p {
       padding-top: 1rem;
       margin: 0;
-      font-family: "IBM Plex Sans";
+      font-family: 'IBM Plex Sans';
       font-size: 1rem;
       font-weight: normal;
       font-stretch: normal;
