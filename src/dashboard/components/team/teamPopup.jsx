@@ -1,43 +1,103 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class TeamPopupTable extends Component {
   render() {
     const teammates = [
       {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
       },
       {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
       },
       {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
       },
       {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
       },
       {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
       },
       {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
+      },
+      {
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
+      },
+      {
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
+      },
+      {
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
+      },
+      {
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
+      },
+      {
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
+      },
+      {
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
+      },
+      {
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
+      },
+      {
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
+      },
+      {
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
+      },
+      {
+        username: 'Username',
+        email: 'seb@hotmail.com',
+        invested: '12,4k DET',
+        earnings: '1,5k DET',
       },
     ];
 
@@ -49,14 +109,16 @@ class TeamPopupTable extends Component {
           <h5>Invested</h5>
           <h5>Your earnings</h5>
         </div>
-        {teammates.map((teammate, id) => (
-          <div className="popup-team-row">
-            <h5>{teammate.username}</h5>
-            <h5>{teammate.email}</h5>
-            <h5>{teammate.invested}</h5>
-            <h5>{teammate.earnings}</h5>
-          </div>
-        ))}
+        <div className="popup-team-box">
+          {teammates.map((teammate, id) => (
+            <div className="popup-team-row">
+              <h5>{teammate.username}</h5>
+              <h5>{teammate.email}</h5>
+              <h5>{teammate.invested}</h5>
+              <h5>{teammate.earnings}</h5>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -64,16 +126,16 @@ class TeamPopupTable extends Component {
 
 const TeamPopup = (props) => {
   return (
-    <div className={props.isOpened ? "popup" : "none"}>
+    <div className={props.isOpened ? 'popup' : 'none'}>
       <div onClick={() => props.closeModal()} className="popup-layer"></div>
-      <div className="popup-wrapper">
-        <div className="popup-wrapper-header">
-          <h1>{"Team Overview Level " + props.level}</h1>
+      <div className="popup-wrapper-team">
+        <div className="popup-wrapper-team-header">
+          <h1>{'Team Overview Level ' + props.level}</h1>
         </div>
-        <div className="popup-wrapper-cross">
+        <div className="popup-wrapper-team-cross">
           <img onClick={() => props.closeModal()} src="/img/close-icon.png" />
         </div>
-        <div className="popup-wrapper-content">
+        <div className="popup-wrapper-team-content">
           <TeamPopupTable />
         </div>
       </div>
