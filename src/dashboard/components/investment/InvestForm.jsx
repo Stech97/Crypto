@@ -241,7 +241,7 @@ class InvestPopupForm extends Component {
 				var rate = 1;
 			}
 
-			if (amount * rate <= balance[wallet.toLowerCase()]) {
+			if (amount <= balance[wallet.toLowerCase()]) {
 				if (amount * rate >= Number(minamount)) {
 					this.props.buyInvestAction(amount, wallet, typeNum());
 				} else {

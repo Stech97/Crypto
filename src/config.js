@@ -1,46 +1,47 @@
-import axios from 'axios';
-import ComingSoon from './comingsoon/Comingsoon';
-import MainPage from './main/Main';
-import LoginPage from './login/Login';
-import SignupPage from './signup/Signup';
-import DashContent from './dashboard/components/dashcontent/content';
-import InvestmentContent from './dashboard/components/investment/content';
-import FaqsContent from './dashboard/components/FAQs/content';
-import MarketingContent from './dashboard/components/marketing/content';
-import TeamContent from './dashboard/components/team/content';
-import SettingsContent from './dashboard/components/settings/content';
-import HistoryContent from './dashboard/components/history/content';
-import waveimage from './styles/utils/img/waveimage.png';
-import stealthlogo from './styles/utils/img/stealth-logo.png';
-import worldmap2 from './styles/utils/img/worldmap2.png';
-import joinusbackground from './styles/utils/img/joinus.png';
-import ConfirmEmail from './signup/ConfirmEmail';
-import AccountPage from './dashboard/Account';
-import InDevelopment from './dashboard/components/inDevelopment';
-import { ForgotPassword } from './signup/ForgotPassword';
-import { RestorePassword } from './signup/RestorePassword';
-import TechPage from './techpages/techpages';
+import axios from "axios";
+import ComingSoon from "./comingsoon/Comingsoon";
+import MainPage from "./main/Main";
+import LoginPage from "./login/Login";
+import SignupPage from "./signup/Signup";
+import DashContent from "./dashboard/components/dashcontent/content";
+import InvestmentContent from "./dashboard/components/investment/content";
+import FaqsContent from "./dashboard/components/FAQs/content";
+import MarketingContent from "./dashboard/components/marketing/content";
+import TeamContent from "./dashboard/components/team/content";
+import SettingsContent from "./dashboard/components/settings/content";
+import HistoryContent from "./dashboard/components/history/content";
+import waveimage from "./styles/utils/img/waveimage.png";
+import stealthlogo from "./styles/utils/img/stealth-logo.png";
+import worldmap2 from "./styles/utils/img/worldmap2.png";
+import joinusbackground from "./styles/utils/img/joinus.png";
+import ConfirmEmail from "./signup/ConfirmEmail";
+import AccountPage from "./dashboard/Account";
+import InDevelopment from "./dashboard/components/inDevelopment";
+import { ForgotPassword } from "./signup/ForgotPassword";
+import { RestorePassword } from "./signup/RestorePassword";
+import TechPage from "./techpages/techpages";
+import Privacy from "./techpages/privacy";
 
-const DOMAIN_URL_TEST = 'localhost:3000';
-const DOMAIN_URL_PROD = 'https://defima.io';
+const DOMAIN_URL_TEST = "localhost:3000";
+const DOMAIN_URL_PROD = "https://defima.io";
 
 export const DOMAIN_URL = DOMAIN_URL_PROD;
-const API_URL_PROD = 'https://back.defima.io/';
-const API_URL_TEST = 'http://84.201.132.112/';
+const API_URL_PROD = "https://back.defima.io/";
+const API_URL_TEST = "http://84.201.132.112/";
 export const API_URL = API_URL_PROD;
 
 const requestTemplate = axios.create({
   baseURL: API_URL,
-  responseType: 'json',
+  responseType: "json",
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
-export const API = async (path, mode = 'get', body = null) => {
+export const API = async (path, mode = "get", body = null) => {
   //console.log(path)
   switch (mode) {
-    case 'get':
+    case "get":
       try {
         let request = await requestTemplate.get(path);
         //console.log(request)
@@ -93,7 +94,7 @@ export const API = async (path, mode = 'get', body = null) => {
         //console.log(error);
       }
       break;
-    case 'post':
+    case "post":
       try {
         //console.log(body)
         let bodyJson = JSON.stringify(body);
@@ -147,7 +148,7 @@ export const API = async (path, mode = 'get', body = null) => {
         //console.log(error);
       }
       break;
-    case 'patch':
+    case "patch":
       try {
         //console.log(body)
         let bodyJson = JSON.stringify(body);
@@ -199,67 +200,73 @@ export const API = async (path, mode = 'get', body = null) => {
       }
       break;
     default:
-      return 'Ъуъ';
+      return "Ъуъ";
   }
 };
 
 export const routes = [
   {
-    path: '/main',
+    path: "/main",
     component: MainPage,
     Private: false,
     public: true,
   },
   {
-    path: '/terms&conditions',
+    path: "/terms&conditions",
     component: TechPage,
     Private: false,
     public: true,
   },
   {
-    path: '/account',
+    path: "/privacy",
+    component: Privacy,
+    Private: false,
+    public: true,
+  },
+  {
+    path: "/account",
     component: AccountPage,
     Private: true,
     public: false,
     routes: [
       {
-        path: '/account/dashboard',
+        path: "/account/dashboard",
         component: DashContent,
         Private: true,
         public: false,
       },
       {
-        path: '/account/investment',
+        path: "/account/investment",
         component: InvestmentContent,
         Private: true,
         public: false,
       },
       {
-        path: '/account/faq',
+        path: "/account/faq",
         component: FaqsContent,
         Private: true,
         public: false,
       },
       {
-        path: '/account/marketing',
+        path: "/account/marketing",
         component: MarketingContent,
         Private: true,
         public: false,
       },
       {
-        path: '/account/team',
+        path: "/account/team",
         component: TeamContent,
         Private: true,
         public: false,
       },
       {
-        path: '/account/settings',
+        path: "/account/settings",
         component: SettingsContent,
         Private: true,
         public: false,
       },
       {
-        path: '/account/history',
+        path: "/account/history",
         component: HistoryContent,
         Private: true,
         public: false,
@@ -267,37 +274,37 @@ export const routes = [
     ],
   },
   {
-    path: '/login',
+    path: "/login",
     component: LoginPage,
     Private: false,
     public: false,
   },
   {
-    path: '/signup',
+    path: "/signup",
     component: SignupPage,
     Private: false,
     public: false,
   },
   {
-    path: '/confirmEmail/:hash',
+    path: "/confirmEmail/:hash",
     component: ConfirmEmail,
     Private: false,
     public: false,
   },
   {
-    path: '/restorePassword/:hash',
+    path: "/restorePassword/:hash",
     component: RestorePassword,
     Private: false,
     public: false,
   },
   {
-    path: '/forgot',
+    path: "/forgot",
     component: ForgotPassword,
     Private: false,
     public: false,
   },
   {
-    path: '/',
+    path: "/",
     component: ComingSoon,
     Private: false,
     public: true,

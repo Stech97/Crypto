@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-export default class TermsAndConditions extends Component {
+export default class TermsAndConditionsContent extends Component {
   render() {
     return (
       <div className="terms">
