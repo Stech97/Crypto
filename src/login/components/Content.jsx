@@ -1,49 +1,49 @@
-import React, { Component } from 'react'
-import '../../styles/login.scss'
-import { connect } from 'react-redux'
-import LoginForm from './LoginForm'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import '../../styles/login.scss';
+import { connect } from 'react-redux';
+import LoginForm from './LoginForm';
+import { Link } from 'react-router-dom';
 
 const LoginHeader = () => {
-	return(
-		<div className="login-header">
-	    	<h1>Login to defima</h1>
-	    </div>
-	)
-}
+  return (
+    <div className="login-header">
+      <h1>Login to defima</h1>
+    </div>
+  );
+};
 
 const LoginForgot = () => {
-	return(
-		<div className="login-forgot">
-		    <p>
-	        	Forgot your password? <Link to="/forgot">Restore it</Link>
-	    	</p>
-	    </div>
-	)
-}
+  return (
+    <div className="login-forgot">
+      <p>
+        Forgot your password? <Link to="/forgot">Restore it</Link>
+      </p>
+    </div>
+  );
+};
 
 const LoginFooter = () => {
-	return(
-		<div className="login-footer">
-			<a href="#">Terms of use</a>
-	    	<a href="#">Privacy policy</a>
-	    </div>
-	)
-}
+  return (
+    <div className="login-footer">
+      <a href="#../terms&conditions">Terms of use</a>
+      <a href="#../privacy">Privacy policy</a>
+    </div>
+  );
+};
 
 class Content extends Component {
-	render() {
-		return(
-			<section className="login">
-			  <div className="login-wrapper wrapper">
-			    <LoginHeader />
-			    <LoginForm />
-			    <LoginForgot />
-			    <LoginFooter />	    
-			  </div>
-			</section>
-		)
-	}
+  render() {
+    return (
+      <section className="login">
+        <div className="login-wrapper wrapper">
+          <LoginHeader />
+          <LoginForm />
+          <LoginForgot />
+          <LoginFooter />
+        </div>
+      </section>
+    );
+  }
 }
 
-export default Content
+export default Content;
