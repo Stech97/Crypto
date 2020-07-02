@@ -157,7 +157,8 @@ namespace Crypto.Controllers
 				LastName = user.LastName,
 				Email = user.Email,
 				Token = encodedJwt,
-				IsVerified = user.IsVerified
+				IsVerified = user.IsVerified,
+				IsReInvest = user.IsReInvest
 			};
 			var timeOut = DateTime.Now.AddMinutes(AuthOptions.LIFETIME);
 			Helpers.TaskScheduler.Instance.ScheduleTask
