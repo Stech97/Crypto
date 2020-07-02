@@ -40,6 +40,7 @@ namespace DBRepository.Repositories
                         user.Email,
                         token.Token,
                         user.IsVerified,
+						user.IsReInvest
 					};
 					response.Add("Ok", UserViewModel);
 				}
