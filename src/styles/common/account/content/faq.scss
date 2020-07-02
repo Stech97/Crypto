@@ -21,7 +21,7 @@
     grid-template-rows: min-content min-content;
     grid-template-columns: repeat(8, $column);
     grid-gap: 1.875rem $gap;
-    grid-template-areas: "links" "questions";
+    grid-template-areas: 'links' 'questions';
   }
 
   &-links {
@@ -53,7 +53,10 @@
         border-radius: 0.9375rem;
         color: #f5fbff;
         font-size: 1.5rem;
-        font-family: "IBM Plex Sans";
+        font-family: 'IBM Plex Sans';
+        &:hover {
+          background-image: linear-gradient(77deg, #ed7102 0%, #ed7102 100%);
+        }
       }
     }
   }
@@ -84,7 +87,7 @@
         grid-template-columns: repeat(8, $column);
         grid-column-gap: $gap;
         grid-template-rows: fit-content(6.25rem);
-        grid-template-areas: "q q q q q q q d";
+        grid-template-areas: 'q q q q q q q d';
         align-items: center;
         h5 {
           grid-area: q;
@@ -120,7 +123,7 @@
           border-top: 0.125rem solid #ebebeb;
           // Style for "Anyone can"
           color: #838383;
-          font-family: "IBM Plex Sans";
+          font-family: 'IBM Plex Sans';
           font-size: 1rem;
           font-weight: 300;
         }

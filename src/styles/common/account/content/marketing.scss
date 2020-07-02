@@ -50,6 +50,9 @@
         text-align: center;
         color: #ffffff;
       }
+      &:hover {
+        background-image: linear-gradient(77deg, #ed7102 0%, #ed7102 100%);
+      }
     }
   }
 
@@ -107,6 +110,8 @@
 
       &-blog {
         grid-area: bi;
+        width: 1em;
+        font-size: 2rem;
       }
 
       &-telegram {
