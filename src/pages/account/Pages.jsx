@@ -8,6 +8,7 @@ import RouteWithSubRoutes from '../../Routes';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Dashboard from './components/Dashboard';
+import Finance from './components/Finance';
 
 const drawerWidth = 240;
 

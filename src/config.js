@@ -1,28 +1,29 @@
-import axios from "axios";
-import InDevelopment from "./InDevelopment";
-import PagesContent from "./pages/account/Pages";
-import Dashboard from "./pages/account/components/Dashboard";
+import axios from 'axios';
+import InDevelopment from './InDevelopment';
+import PagesContent from './pages/account/Pages';
+import Dashboard from './pages/account/components/Dashboard';
+import Finance from './pages/account/components/Finance';
 
-const DOMAIN_URL_TEST = "localhost:3000";
-const DOMAIN_URL_PROD = "https://defima.io";
+const DOMAIN_URL_TEST = 'localhost:3000';
+const DOMAIN_URL_PROD = 'https://defima.io';
 
 export const DOMAIN_URL = DOMAIN_URL_TEST;
-const API_URL_PROD = "https://back.defima.io/";
-const API_URL_TEST = "http://84.201.132.112/";
+const API_URL_PROD = 'https://back.defima.io/';
+const API_URL_TEST = 'http://84.201.132.112/';
 export const API_URL = API_URL_TEST;
 
 const requestTemplate = axios.create({
   baseURL: API_URL,
-  responseType: "json",
+  responseType: 'json',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
-export const API = async (path, mode = "get", body = null) => {
+export const API = async (path, mode = 'get', body = null) => {
   //console.log(path)
   switch (mode) {
-    case "get":
+    case 'get':
       try {
         let request = await requestTemplate.get(path);
         //console.log(request)
@@ -75,7 +76,7 @@ export const API = async (path, mode = "get", body = null) => {
         //console.log(error);
       }
       break;
-    case "post":
+    case 'post':
       try {
         //console.log(body)
         let bodyJson = JSON.stringify(body);
@@ -129,7 +130,7 @@ export const API = async (path, mode = "get", body = null) => {
         //console.log(error);
       }
       break;
-    case "patch":
+    case 'patch':
       try {
         //console.log(body)
         let bodyJson = JSON.stringify(body);
@@ -181,72 +182,72 @@ export const API = async (path, mode = "get", body = null) => {
       }
       break;
     default:
-      return "Ъуъ";
+      return 'Ъуъ';
   }
 };
 
 export const routes = [
   {
-    path: "/pages",
+    path: '/pages',
     component: PagesContent,
     Private: true,
     routes: [
       {
-        path: "/pages/account/",
+        path: '/pages/account/',
         component: PagesContent,
         Private: true,
         routes: [
           {
-            path: "/pages/account/dashboard",
+            path: '/pages/account/dashboard',
             component: Dashboard,
             Private: true,
           },
           {
-            path: "/pages/account/investment",
+            path: '/pages/account/finance',
+            component: Finance,
+            Private: true,
+          },
+          {
+            path: '/pages/account/faq',
             component: InDevelopment,
             Private: true,
           },
           {
-            path: "/pages/account/faq",
+            path: '/pages/account/marketing',
             component: InDevelopment,
             Private: true,
           },
           {
-            path: "/pages/account/marketing",
+            path: '/pages/account/team',
             component: InDevelopment,
             Private: true,
           },
           {
-            path: "/pages/account/team",
+            path: '/pages/account/settings',
             component: InDevelopment,
             Private: true,
           },
           {
-            path: "/pages/account/settings",
-            component: InDevelopment,
-            Private: true,
-          },
-          {
-            path: "/pages/account/history",
+            path: '/pages/account/history',
             component: InDevelopment,
             Private: true,
           },
         ],
       },
       {
-        path: "/pages/main/",
+        path: '/pages/main/',
         component: InDevelopment,
         Private: true,
       },
     ],
   },
   {
-    path: "/login",
+    path: '/login',
     component: InDevelopment,
     Private: false,
   },
   {
-    path: "/finance",
+    path: '/finance',
     component: InDevelopment,
     Private: false,
   },
