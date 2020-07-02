@@ -56,8 +56,6 @@ namespace Crypto.Controllers
         public async Task<IActionResult> GetRefLink(int Id)
         {
             var RefLink = await _dashboardService.GetRefLink(Id);
-            RefLink.RefId = "www.defima.io/" + RefLink.RefId;
-            RefLink.RefString = "www.defima.io/" + RefLink.RefString;
             return Ok(RefLink);
         }
 
