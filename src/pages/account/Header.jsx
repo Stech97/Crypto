@@ -5,37 +5,24 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import Grid from "@material-ui/core/Grid";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-}));
-
-export default function Header() {
-  const classes = useStyles();
-
+export default function Header({ className, handleDrawerOpen, iconClassName }) {
   return (
-    <Grid xs={12} className={classes.root}>
-      <AppBar position="static">
-        <Toolbar variant="dense">
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit">
-            Pages
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </Grid>
+    <AppBar position="fixed" className={className}>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          onClick={handleDrawerOpen}
+          edge="start"
+          className={iconClassName}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" noWrap>
+          Dashboard
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 }

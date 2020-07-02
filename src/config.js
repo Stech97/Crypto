@@ -1,6 +1,7 @@
 import axios from "axios";
 import InDevelopment from "./InDevelopment";
 import PagesContent from "./pages/account/Pages";
+import Dashboard from "./pages/account/components/Dashboard";
 
 const DOMAIN_URL_TEST = "localhost:3000";
 const DOMAIN_URL_PROD = "https://defima.io";
@@ -186,18 +187,18 @@ export const API = async (path, mode = "get", body = null) => {
 
 export const routes = [
   {
-    path: "/main",
+    path: "/pages",
     component: PagesContent,
     Private: true,
-    /*routes: [
+    routes: [
       {
         path: "/pages/account/",
-        component: InDevelopment,
+        component: PagesContent,
         Private: true,
         routes: [
           {
             path: "/pages/account/dashboard",
-            component: InDevelopment,
+            component: Dashboard,
             Private: true,
           },
           {
@@ -237,7 +238,7 @@ export const routes = [
         component: InDevelopment,
         Private: true,
       },
-    ],*/
+    ],
   },
   {
     path: "/login",
