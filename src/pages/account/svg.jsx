@@ -14,7 +14,9 @@ import {
   faHatCowboySide,
   faQuestionCircle,
   faScroll,
+  faNewspaper,
 } from '@fortawesome/free-solid-svg-icons';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export function DashboardIcon() {
@@ -125,6 +127,14 @@ export function TermsIcon() {
   return (
     <div>
       <FontAwesomeIcon icon={faScroll} />
+    </div>
+  );
+}
+
+export function NewsIcon() {
+  return (
+    <div>
+      <FontAwesomeIcon icon={faNewspaper} />
     </div>
   );
 }

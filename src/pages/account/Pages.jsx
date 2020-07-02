@@ -18,6 +18,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import NativeSelect from '@material-ui/core/NativeSelect';
 
 import {
   DashboardIcon,
@@ -34,6 +41,7 @@ import {
   JoinDefimaIcon,
   FAQIcon,
   TermsIcon,
+  NewsIcon,
 } from './svg';
 
 const drawerWidth = 240;
@@ -249,6 +257,22 @@ export default function PagesContent() {
           ))}
         </List>
         <Divider />
+        <Divider />
+        <List>
+          {[
+            {
+              text: 'News',
+              Svg: NewsIcon,
+            },
+          ].map((tab, index) => (
+            <ListItem button key={index}>
+              <ListItemIcon>
+                <tab.Svg />
+              </ListItemIcon>
+              <ListItemText primary={tab.text} />
+            </ListItem>
+          ))}
+        </List>
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -258,24 +282,121 @@ export default function PagesContent() {
         <div className={classes.drawerHeader} />
         <Grid
           container
-          direction="column"
+          direction="row"
           justify="flex-start"
           alignItems="flex-start"
         >
-          <TextField
-            id="standard-number-input"
-            label="Percent"
-            type="number"
-            step="any"
-            defaultValue="Hello World"
-            InputProps={{
-              readOnly: true,
-            }}
-          />
-          <br />
-          <Button variant="contained" color="primary">
-            Update week percent
-          </Button>
+          <Card className={classes.root}>
+            <CardContent>
+              <Typography
+                className={classes.title}
+                variant="h4"
+                component="h2"
+                gutterBottom
+              >
+                Added Funds
+              </Typography>
+              <Typography variant="p" component="h2">
+                BTC 1.02
+              </Typography>
+            </CardContent>
+          </Card>
+
+          <Card className={classes.root}>
+            <CardContent>
+              <Typography
+                className={classes.title}
+                variant="h4"
+                component="h2"
+                gutterBottom
+              >
+                Invested Ammount
+              </Typography>
+              <Typography variant="p" component="h2">
+                BTC 1.02
+              </Typography>
+            </CardContent>
+          </Card>
+
+          <Card className={classes.root}>
+            <CardContent>
+              <Typography
+                className={classes.title}
+                variant="h4"
+                component="h2"
+                gutterBottom
+              >
+                Registered Users
+              </Typography>
+              <Typography variant="p" component="h2">
+                100500
+              </Typography>
+            </CardContent>
+          </Card>
+
+          <Card className={classes.root}>
+            <CardContent>
+              <Typography
+                className={classes.title}
+                variant="h4"
+                component="h2"
+                gutterBottom
+              >
+                Users with investments
+              </Typography>
+              <Typography variant="p" component="h2">
+                50250
+              </Typography>
+            </CardContent>
+          </Card>
+
+          <Card className={classes.root}>
+            <CardContent>
+              <Typography
+                className={classes.title}
+                variant="h4"
+                component="h2"
+                gutterBottom
+              >
+                Withdrawn amount
+              </Typography>
+              <Typography variant="p" component="h2">
+                BTC 0.521
+              </Typography>
+            </CardContent>
+          </Card>
+
+          <Card className={classes.root}>
+            <CardContent>
+              <Typography
+                className={classes.title}
+                variant="h4"
+                component="h2"
+                gutterBottom
+              >
+                User Balance
+              </Typography>
+              <Typography variant="p" component="h2">
+                BTC 0.521
+              </Typography>
+            </CardContent>
+          </Card>
+
+          <Card className={classes.root}>
+            <CardContent>
+              <Typography
+                className={classes.title}
+                variant="h4"
+                component="h2"
+                gutterBottom
+              >
+                Comission payed to users
+              </Typography>
+              <Typography variant="p" component="h2">
+                DET 100500
+              </Typography>
+            </CardContent>
+          </Card>
         </Grid>
       </main>
     </div>
