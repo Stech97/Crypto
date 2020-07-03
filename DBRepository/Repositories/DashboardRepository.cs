@@ -156,7 +156,6 @@ namespace DBRepository.Repositories
                     {
                         Id = u.Id,
                         ParentId = u.ParentId ?? 0,
-                        RefLink = u.RefLink
                     }).FirstOrDefaultAsync();
                 
                 RefUser.Children = GetChildrenByParentIdTeam(RefUser.Id, ref countLevel);
@@ -318,7 +317,6 @@ namespace DBRepository.Repositories
                     {
                         Id = Ref.Id,
                         ParentId = Ref.ParentId ?? 0,
-                        RefLink = Ref.RefLink,
                         Children = GetChildrenByParentIdTeam(Ref.Id, ref countLevel)
                     };
 

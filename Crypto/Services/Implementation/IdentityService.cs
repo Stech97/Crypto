@@ -32,7 +32,8 @@ namespace Crypto.Services.Implementation
 		public async Task<string> AddUser(LoginViewModel request)
 		{
 			var login = _mapper.Map<LoginViewModel, User>(request);
-			return  await _repository.AddUser(login);
+			var Parent = request.RefLink;
+			return  await _repository.AddUser(login, Parent);
 		}
 		
 		public async Task SetLoginHistory(LoginHistoryViewModel request)

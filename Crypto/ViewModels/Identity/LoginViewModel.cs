@@ -25,5 +25,7 @@ namespace Crypto.ViewModels.Identity
 		[Compare("Password")]
 		[StringLength(15, MinimumLength = 6)]
 		public string ConfirmPassword { get; set; }
+
+		public string RefLink { get; set; }
 	}
 }

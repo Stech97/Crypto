@@ -62,19 +62,33 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<string> AddUser(User user)
+		public async Task<string> AddUser(User user, string Parent)
 		{
 			var check = await CheckInfo(user);
 			if (check == null)
 			{
 				using (var context = ContextFactory.CreateDbContext(ConnectionString))
 				{
+					int ParentId = 0;
+
+					var IsParsed = int.TryParse(Parent, out ParentId);
+					if (!IsParsed)
+					{
+						var ParentUser = await GetUser(Parent);
+						if (ParentUser != null)
+							ParentId = (await GetUser(Parent)).Id;
+					}
+
+					if (ParentId != 0)
+						user.ParentId = ParentId;
+                   
 					context.Users.Add(user);
 					await context.SaveChangesAsync();
 
 					var newUser = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == user.Username);
 					var rateBTC = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateBTC_USD).FirstAsync();
 					var rateDEF = await context.Balances.AsNoTracking().Where(b => b.Id == 1).Select(b => b.RateUSD_DEF).FirstAsync();
+					
 					var newWallet = new Balance
 					{
 						USDBalance = 0,

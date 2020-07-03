@@ -15,7 +15,6 @@ namespace Models
 		public DateTime BDay { get; set; }
 		public string Adress { get; set; }
 		public int Zip { get; set; }
-		public string RefLink { get; set; }
 		public bool IsVerified { get; set; }
 		public bool IsFogotPassword { get; set; }
 		public bool IsReInvest { get; set; }

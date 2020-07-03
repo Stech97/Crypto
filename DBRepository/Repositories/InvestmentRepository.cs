@@ -114,8 +114,7 @@ namespace DBRepository.Repositories
 					.Select(u => new User
 					{
 						Id = u.Id,
-						ParentId = u.ParentId ?? 0,
-						RefLink = u.RefLink
+						ParentId = u.ParentId ?? 0
 					}).FirstOrDefaultAsync();
 
 				RefUser.Children = GetChildrenByParentIdTeam(RefUser.Id, ref countLevel);
