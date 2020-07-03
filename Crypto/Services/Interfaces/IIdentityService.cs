@@ -1,4 +1,4 @@
-﻿using Crypto.ViewModels.Identity;
+using Crypto.ViewModels.Identity;
 using Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,6 +10,8 @@ namespace Crypto.Services.Interfaces
 		Task<User> GetUser(string userName);
 		Task<object> GetUser(int Id);
 		Task<object> GetUserInfo(int Id);
+		Task<User> ReLogin(string Token);
+		Task UpdateToken(string Token, int id);
 		Task<string> AddUser(LoginViewModel request);
 		Task SetLoginHistory(LoginHistoryViewModel request);
 		Task SignOut(int Id);
@@ -21,5 +23,5 @@ namespace Crypto.Services.Interfaces
 		Task UpdateInfo(UpdateInfoViewModel request, int Id);
 		Task RecoveryPassword(ChangePasswordViewModel request, int Id);
 		Task<bool> ReInvest(int Id, bool ReInvest);
-	}
+    }
 }

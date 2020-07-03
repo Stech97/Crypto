@@ -161,6 +161,47 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
+		[Route("ReLogin")]
+		[HttpGet]
+		public async Task<IActionResult> ReLogin([FromHeader] string Token)
+		{
+			var user = await _identityService.ReLogin(Token);
+			if (user == null)
+				return NotFound("Token not found");
+			
+			var claims = new List<Claim>
+						{
+							new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
+							new Claim(ClaimsIdentity.DefaultRoleClaimType, "Client")
+						};
+			ClaimsIdentity identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+
+			var now = DateTime.UtcNow;
+			// создаем JWT-токен
+			var jwt = new JwtSecurityToken(
+					issuer: AuthOptions.ISSUER,
+					audience: AuthOptions.AUDIENCE,
+					notBefore: now,
+					claims: identity.Claims,
+					expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+					signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+			UserViewModel response = new UserViewModel
+			{
+				Id = user.Id,
+				Token = encodedJwt,
+				IsVerified = user.IsVerified,
+			};
+			var timeOut = DateTime.Now.AddMinutes(AuthOptions.LIFETIME);
+			Helpers.TaskScheduler.Instance.ScheduleTask
+				(timeOut.Hour, timeOut.Minute + 5, timeOut.Second, timeOut.Millisecond, 0, () => { _identityService.SignOut(user.Id); });
+
+			await _identityService.UpdateToken(encodedJwt, user.Id);
+
+			return Ok(response);
+		}
+
 		[Route("CreateLogin")]
 		[HttpPost]
 		public async Task<IActionResult> CreateLogin([FromBody] LoginViewModel login)

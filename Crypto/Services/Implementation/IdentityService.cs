@@ -1,4 +1,4 @@
-﻿using Crypto.Services.Interfaces;
+using Crypto.Services.Interfaces;
 using System.Threading.Tasks;
 using DBRepository.Interfaces;
 using Models;
@@ -32,6 +32,16 @@ namespace Crypto.Services.Implementation
 		public async Task<object> GetUserInfo(int Id)
 		{
 			return await _repository.GetUserInfo(Id);
+		}
+
+		public async Task<User> ReLogin(string Token)
+		{
+			return await _repository.ReLogin(Token);
+		}
+
+		public async Task UpdateToken(string Token, int id)
+		{
+			await _repository.UpdateToken(Token, id);	
 		}
 
 		public async Task<string> AddUser(LoginViewModel request)

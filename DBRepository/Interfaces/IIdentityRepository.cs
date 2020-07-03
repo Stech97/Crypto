@@ -1,4 +1,4 @@
-﻿using Models;
+using Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,6 +9,8 @@ namespace DBRepository.Interfaces
         Task<User> GetUser(string userName);
         Task<object> GetUser(int Id);
         Task<object> GetUserInfo(int Id);
+        Task<User> ReLogin(string token);
+        Task UpdateToken(string Token, int id);
         Task<string> AddUser(User user, string Parent);
         Task SetLoginHistory(LoginHistory loginHistory);
         Task SetCurrentSession(CurrentSession currentSession);

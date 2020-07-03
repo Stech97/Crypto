@@ -1,4 +1,4 @@
-﻿using DBRepository.Interfaces;
+using DBRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Linq;
@@ -26,13 +26,14 @@ namespace DBRepository.Repositories
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var user = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Id);
-				var UserViewModel = new 
+
+				var response = new
 				{
 					user.Id,
 					user.Username
 				};
 
-				return UserViewModel;
+				return response;
 			}
 		}
 
@@ -41,7 +42,8 @@ namespace DBRepository.Repositories
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var user = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Id);
-				var UserViewModel = new
+
+				var response = new
 				{
 					user.Email,
 					user.Phone,
@@ -53,7 +55,37 @@ namespace DBRepository.Repositories
 					user.IsReInvest
 				};
 
-				return UserViewModel;
+				return response;
+			}
+		}
+
+		public async Task<User> ReLogin(string token)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var CurrentSession = await context.CurrentSessions.AsNoTracking().FirstOrDefaultAsync(cs => cs.Token == token);
+				if (CurrentSession == null)
+					return null;
+
+				var User = context.Users.AsNoTracking().Select(u => new User()
+				{
+					Id = u.Id,
+					Username = u.Username,
+					IsVerified = u.IsVerified
+				}).Where(u => u.Id == CurrentSession.UserId).FirstOrDefault();
+
+				return User;
+			}
+		}
+
+		public async Task UpdateToken(string Token, int UserId)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var CurrentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == UserId);
+				CurrentSession.Token = Token;
+				context.CurrentSessions.Update(CurrentSession);
+				await context.SaveChangesAsync();
 			}
 		}
 
