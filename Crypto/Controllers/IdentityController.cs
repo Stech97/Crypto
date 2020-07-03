@@ -212,16 +212,7 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> GetUser(int Id)
 		{
 			var response = await _identityService.GetUser(Id);
-			string Keys = response.ElementAt(0).Key;
-			switch (Keys)
-			{
-				case "Ok":
-					return Ok(response[Keys]);
-				case "No login":
-					return NotFound(response[Keys]);
-				default:
-					return NoContent();
-			}
+			return Ok(response);
 		}
 
 		//[Authorize]

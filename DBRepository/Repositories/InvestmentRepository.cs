@@ -129,15 +129,29 @@ namespace DBRepository.Repositories
 					var Invest = await context.Investments.AsNoTracking().FirstOrDefaultAsync(u => u.UserId == User.Id);
 					if (Invest != null)
 					{
-						var TotalInvestments = await context.Investments.AsNoTracking().Where(i => i.UserId == UserId).SumAsync(i => i.AddCash); 
+						var TotalInvestments = await context.Investments.AsNoTracking().Where(i => i.UserId == UserId).SumAsync(i => i.AddCash);
 						var Persent = context.TypeCommissions.FirstOrDefault(tc => tc.Level == Level);
-						PopupTeam team = new PopupTeam()
+						PopupTeam team = null;
+						if (Level == 1)
 						{
-							Username = User.Username,
-							Email = User.Email,
-							ProditsPaid = Invest.Profit,
-							TotalInvestments = TotalInvestments
-						};
+							team = new PopupTeam()
+							{
+								Username = User.Username,
+								Email = User.Email,
+								ProditsPaid = Invest.Profit,
+								TotalInvestments = TotalInvestments
+							};
+						}
+						else
+						{
+							team = new PopupTeam()
+							{
+								Username = User.Username,
+								Email = "XXX",
+								ProditsPaid = Invest.Profit,
+								TotalInvestments = TotalInvestments
+							};
+						}
 						team.TotalEarning = team.ProditsPaid * Persent.Value;
 						popupTeams.Add(team);
 					}

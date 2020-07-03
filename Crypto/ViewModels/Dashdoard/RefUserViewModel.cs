@@ -6,7 +6,6 @@ namespace Crypto.ViewModels.Dashdoard
     {
         public int Id { get; set; }
         public int? ParentId { get; set; }
-        public string RefLink { get; set; }
         public IEnumerable<RefUserViewModel> Children { get; set; }
     }
 }

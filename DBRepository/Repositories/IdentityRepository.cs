@@ -21,44 +21,20 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<Dictionary<string, object>> GetUser(int Id)
+		public async Task<User> GetUser(int Id)
 		{
 			Dictionary<string, object> response = new Dictionary<string, object>(1);
 
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var user = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Id);
-				var token = await context.CurrentSessions.AsNoTracking().FirstOrDefaultAsync(cs => cs.UserId == Id);
-				if (token != null)
+				var UserViewModel = new User()
 				{
-					var UserViewModel = new
-					{
-                        user.Id,
-                        user.Username,
-                        user.FirstName,
-                        user.LastName,
-                        user.Email,
-                        token.Token,
-                        user.IsVerified,
-						user.IsReInvest
-					};
-					response.Add("Ok", UserViewModel);
-				}
-                else 
-				{
-					var UserViewModel = new
-                    {
-                        user.Id,
-                        user.Username,
-                        user.FirstName,
-                        user.LastName,
-                        user.Email,
-						Token = "",
-                        user.IsVerified,
-					};
-					response.Add("No login", UserViewModel);
-				}
-				return response;
+					Id = user.Id,
+					Username = user.Username
+				};
+
+				return UserViewModel;
 			}
 		}
 
