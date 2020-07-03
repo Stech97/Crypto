@@ -32,7 +32,7 @@ export default class InvestmentProfit extends Component {
 
   handleChange(event) {
     let { product, AMP } = this.state;
-    let investment = event.target.value;
+    let investment = event.target.value.slice(1);
     if (investment >= 100 && investment < 5000) {
       product = "Small";
       AMP = 0.06;
@@ -145,7 +145,7 @@ export default class InvestmentProfit extends Component {
           <div className="investment-profit-content-box-1">
             <input
               type="text"
-              value={this.state.investment}
+              value={"$" + this.state.investment}
               onChange={this.handleChange}
               placeholder="$"
             />
@@ -162,16 +162,12 @@ export default class InvestmentProfit extends Component {
             Average Monthly Profit
           </h3>
           <div className="investment-profit-content-box-3">
-            <select
-              name="investment"
-              size="1"
-              value={(this.state.AMP * 100).toString()}
-            >
-              <option value="0.06" selected="selected">
+            <select name="investment" size="1" value={this.state.AMP * 100}>
+              <option value="6" selected="selected">
                 6%
               </option>
-              <option value="0.08">8%</option>
-              <option value="0.11">11%</option>
+              <option value="8">8%</option>
+              <option value="11">11%</option>
             </select>
           </div>
 

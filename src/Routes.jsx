@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch,
-    Redirect,
-} from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { API } from "./config";
 import MainPage from "./main/Main";
 import Checkmail from "./signup/Checkmail";
