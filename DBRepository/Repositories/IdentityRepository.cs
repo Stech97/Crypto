@@ -52,7 +52,8 @@ namespace DBRepository.Repositories
 					user.BDay,
 					user.Adress,
 					user.Zip,
-					user.IsReInvest
+					user.IsReInvest,
+					user.IsShowInfo
 				};
 
 				return response;
@@ -470,6 +471,19 @@ namespace DBRepository.Repositories
 				return user.IsReInvest;
 			}
 		}
+
+		public async Task<bool> ShowInfo(int Id, bool ShowInfo)
+		{
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == Id);
+				user.IsShowInfo = ShowInfo;
+				contex.Users.Update(user);
+				await contex.SaveChangesAsync();
+				return user.IsShowInfo;
+			}
+		}
+
 
 		private string GetMd5Hash(MD5 md5Hash, string input)
 		{

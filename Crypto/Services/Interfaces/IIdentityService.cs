@@ -23,5 +23,7 @@ namespace Crypto.Services.Interfaces
 		Task UpdateInfo(UpdateInfoViewModel request, int Id);
 		Task RecoveryPassword(ChangePasswordViewModel request, int Id);
 		Task<bool> ReInvest(int Id, bool ReInvest);
-    }
+		Task<bool> ShowInfo(int Id, bool ShowInfo);
+
+	}
 }

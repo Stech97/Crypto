@@ -304,9 +304,22 @@ namespace Crypto.Controllers
 			{
 				reinvest = result
 			};
-			return Ok(response);
-				
+			return Ok(response);				
 		}
-        #endregion
-    }
+
+		//[Authorize]
+		[Route("ShowInfo")]
+		[HttpPatch]
+
+		public async Task<IActionResult> ShowInfo(int Id, bool ShowInfo)
+		{
+			var result = await _identityService.ShowInfo(Id, ShowInfo);
+			var response = new
+			{
+				ShowInfo = result
+			};
+			return Ok(response);
+		}
+		#endregion
+	}
 }

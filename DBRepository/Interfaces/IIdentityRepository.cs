@@ -23,5 +23,6 @@ namespace DBRepository.Interfaces
         Task UpdateInfo(User user, int Id);
         Task RecoveryPassword(User user, int Id);
         Task<bool> ReInvest(int Id, bool ReInvest);
+        Task<bool> ShowInfo(int Id, bool ShowInfo);
     }
 }

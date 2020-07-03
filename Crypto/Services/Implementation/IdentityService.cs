@@ -110,5 +110,10 @@ namespace Crypto.Services.Implementation
 		{
 			return await _repository.ReInvest(Id, ReInvest);
 		}
+
+		public async Task<bool> ShowInfo(int Id, bool ShowInfo)
+		{
+			return await _repository.ShowInfo(Id, ShowInfo);
+		}
 	}
 }

@@ -20,6 +20,7 @@ namespace Models
 		public bool IsReInvest { get; set; }
 		public bool IsBlock { get; set; }
 		public bool IsSuper { get; set; }
+		public bool IsShowInfo { get; set; }
 		public int? ParentId { get; set; }
 		public IEnumerable<User> Children { get; set; }
 
