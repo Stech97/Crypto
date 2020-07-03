@@ -212,6 +212,8 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> GetUser(int Id)
 		{
 			var response = await _identityService.GetUser(Id);
+			if (response == null)
+				return BadRequest();
 			return Ok(response);
 		}
 
@@ -221,6 +223,8 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> GetUserInfo(int Id)
 		{
 			var response = await _identityService.GetUserInfo(Id);
+			if (response == null)
+				return BadRequest();
 			return Ok(response);
 		}
 
