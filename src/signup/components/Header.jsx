@@ -7,7 +7,7 @@ const HeaderLogo = () => {
 		<div className="top-logo-box">
 			<Link to="/main">
 				<img
-					src="./img/logo.png"
+					src="/img/logo.png"
 					srcSet="./img/logo@2x.png 2x, ./img/logo@3x.png 3x"
 					alt="Logo"
 				/>

@@ -1,17 +1,25 @@
-import React, { Component, Fragment } from 'react'
-import Header from './components/Header'
-import '../styles/login.scss'
+import React, { Component, Fragment } from "react";
+import Header from "./components/Header";
+import "../styles/login.scss";
 
 class Checkmail extends Component {
-	
 	render() {
 		return (
 			<Fragment>
 				<Header />
-				<h2>We have sent you confirmation email. Please check your mail box.</h2>
+				<section className="login">
+					<div className="login-wrapper wrapper">
+						<div className="login-header">
+							<h1>
+								We have sent you confirmation email. Please
+								check your mail box.
+							</h1>
+						</div>
+					</div>
+				</section>
 			</Fragment>
-		)
+		);
 	}
 }
 
-export default Checkmail
+export default Checkmail;

@@ -1,4 +1,6 @@
 import axios from "axios";
+import Cookies from "js-cookie";
+
 import ComingSoon from "./comingsoon/Comingsoon";
 import MainPage from "./main/Main";
 import LoginPage from "./login/Login";
@@ -21,6 +23,7 @@ import { ForgotPassword } from "./signup/ForgotPassword";
 import { RestorePassword } from "./signup/RestorePassword";
 import TechPage from "./techpages/techpages";
 import Privacy from "./techpages/privacy";
+import Checkmail from "./signup/Checkmail";
 
 const DOMAIN_URL_TEST = "localhost:3000";
 const DOMAIN_URL_PROD = "https://defima.io";
@@ -30,16 +33,29 @@ const API_URL_PROD = "https://back.defima.io/";
 const API_URL_TEST = "http://84.201.132.112/";
 export const API_URL = API_URL_PROD;
 
-const requestTemplate = axios.create({
+const requestTemplateAuthed = axios.create({
   baseURL: API_URL,
   responseType: "json",
   headers: {
     "Content-Type": "application/json",
+    Authorization: "Bearer " + Cookies.get("token"),
   },
 });
 
-export const API = async (path, mode = "get", body = null) => {
+const requestTemplateUnauthed = axios.create({
+  baseURL: API_URL,
+  responseType: "json",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + Cookies.get("token"),
+  },
+});
+
+export const API = async (path, mode = "get", body = null, authed = true) => {
   //console.log(path)
+  const requestTemplate = authed
+    ? requestTemplateAuthed
+    : requestTemplateUnauthed;
   switch (mode) {
     case "get":
       try {
@@ -302,6 +318,12 @@ export const routes = [
     component: ForgotPassword,
     Private: false,
     public: false,
+  },
+  {
+    path: "/unverifiedEmail",
+    component: Checkmail,
+    Private: false,
+    public: true,
   },
   {
     path: "/",

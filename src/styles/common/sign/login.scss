@@ -17,13 +17,14 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 2fr 2fr 1fr 1fr;
-    grid-template-areas: 'login-header' 'login-form' 'login-forgot' 'login-footer';
+    grid-template-areas: "login-header" "login-form" "login-forgot" "login-footer";
     justify-items: center;
 
     &-header {
       // Style for "Thank you"
+      text-align: center;
       color: #ffffff;
-      font-family: 'IBM Plex Sans';
+      font-family: "IBM Plex Sans";
       font-size: 1.5rem;
       font-weight: 300;
     }
@@ -39,13 +40,17 @@
 
   &-header {
     grid-area: login-header;
+    text-align: center;
+    justify-self: center;
     align-self: end;
     padding-bottom: 4.5625rem;
+    width: 80%;
+
     h1 {
       // Style for "Login to d"
       color: #ffffff;
-      font-family: 'IBM Plex Sans';
-      @include fontsize(60);
+      font-family: "IBM Plex Sans";
+      font-size: 3.5rem;
       font-weight: 500;
     }
   }
@@ -57,14 +62,14 @@
     grid-template-rows: 5rem 5rem 5rem;
     grid-row-gap: 2rem;
     grid-template-columns: 1fr;
-    grid-template-areas: 'user' 'password' 'login';
+    grid-template-areas: "user" "password" "login";
     justify-items: center;
 
     input {
       width: 100%;
       background: none;
       height: 2.375rem;
-      font-family: 'IBM Plex Sans';
+      font-family: "IBM Plex Sans";
       font-size: 1.5rem;
       font-weight: 500;
       text-align: left;
@@ -123,14 +128,14 @@
     p {
       // Style for "Forgot you"
       color: #ffffff;
-      font-family: 'IBM Plex Sans';
+      font-family: "IBM Plex Sans";
       @include fontsize(20);
       line-height: 3.125rem;
       font-weight: 400;
       // Text style for "Restore it"
       a {
         color: #ffffff;
-        font-family: 'IBM Plex Sans';
+        font-family: "IBM Plex Sans";
         font-weight: 700;
         text-decoration: underline;
       }
@@ -143,7 +148,7 @@
     a {
       // Style for "Terms of u"
       color: #ffffff;
-      font-family: 'IBM Plex Sans';
+      font-family: "IBM Plex Sans";
       @include fontsize(20);
       font-weight: 400;
       line-height: 3.125rem;

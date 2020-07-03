@@ -1,5 +1,5 @@
 import { API } from "../../config";
-
+import Cookies from "js-cookie";
 export const GET_LOGOUT_REQUEST = "GET_LOGOUT_REQUEST";
 export const GET_LOGOUT_SUCCESS = "GET_LOGOUT_SUCCESS";
 export const GET_LOGOUT_ERROR = "GET_LOGOUT_ERROR";
@@ -22,9 +22,10 @@ const getLogoutError = (error) => ({
 export const userLogoutGet = () => {
 	return (dispatch) => {
 		dispatch(getLogoutRequest());
-		localStorage.removeItem("token");
+		Cookies.remove("token");
 		let ID = localStorage.getItem("id");
 		localStorage.removeItem("id");
+		localStorage.removeItem("isVerified");
 		let response = API("/Identity/SignOut?Id=" + ID)
 			.then((response) => {
 				dispatch(getLogoutSuccess());

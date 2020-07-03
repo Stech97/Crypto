@@ -2,6 +2,7 @@ import { API } from "../../config";
 import axios from "axios";
 import React from "react";
 import { getUserInfoSuccess } from "../../dashboard/actions/header";
+import Cookies from "js-cookie";
 export const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const USER_LOGIN_ERROR = "USER_LOGIN_ERROR";
@@ -39,9 +40,7 @@ export const userPostFetch = (user) => {
 
 		getIpFetch()
 			.then((req) => {
-				console.log("req", req);
 				getCountryFetch(req.data.ip).then((res) => {
-					console.log("res", res);
 					loginUserFetch(
 						user.username,
 						user.password,
@@ -51,8 +50,12 @@ export const userPostFetch = (user) => {
 						.then((res) => {
 							console.log(res);
 							if (res.ok) {
-								localStorage.setItem("token", res.data.token);
+								Cookies.set("token", res.data.token);
 								localStorage.setItem("id", res.data.id);
+								localStorage.setItem(
+									"isVerified",
+									res.data.isVerified === "true"
+								);
 								dispatch(loginUserSuccess());
 								dispatch(getUserInfoSuccess(res.data));
 							} else if ((res.error.status = 401)) {
