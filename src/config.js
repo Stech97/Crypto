@@ -4,6 +4,19 @@ import Pages from './pages/account/Pages';
 import Dashboard from './pages/account/components/Dashboard';
 import Finance from './pages/account/components/Finance';
 import Users from './pages/account/components/Users';
+import Files from './pages/account/components/Files';
+import Homescreen from './pages/account/components/Homescreen';
+import OurMission from './pages/account/components/OurMission';
+import HowItWorks from './pages/account/components/HowItWorks';
+import Portfolio from './pages/account/components/Portfolio';
+import CareerTeam from './pages/account/components/CareerTeam';
+import DefimaToken from './pages/account/components/DefimaToken';
+import AboutUs from './pages/account/components/AboutUs';
+import JoinUs from './pages/account/components/JoinUs';
+import FAQ from './pages/account/components/FAQ';
+import Terms from './pages/account/components/Terms';
+import Privacy from './pages/account/components/Privacy';
+import News from './pages/account/components/News';
 
 const DOMAIN_URL_TEST = 'localhost:3000';
 const DOMAIN_URL_PROD = 'https://defima.io';
@@ -209,23 +222,68 @@ export const routes = [
         Private: true,
       },
       {
-        path: '/pages/account/marketing',
-        component: InDevelopment,
+        path: '/pages/account/files',
+        component: Files,
         Private: true,
       },
       {
-        path: '/pages/account/team',
-        component: InDevelopment,
+        path: '/pages/account/homescreen',
+        component: Homescreen,
         Private: true,
       },
       {
-        path: '/pages/account/settings',
-        component: InDevelopment,
+        path: '/pages/account/our_mission',
+        component: OurMission,
         Private: true,
       },
       {
-        path: '/pages/account/history',
-        component: InDevelopment,
+        path: '/pages/account/how_it_works',
+        component: HowItWorks,
+        Private: true,
+      },
+      {
+        path: '/pages/account/portfolio',
+        component: Portfolio,
+        Private: true,
+      },
+      {
+        path: '/pages/account/career_team',
+        component: CareerTeam,
+        Private: true,
+      },
+      {
+        path: '/pages/account/defima_token',
+        component: DefimaToken,
+        Private: true,
+      },
+      {
+        path: '/pages/account/about_us',
+        component: AboutUs,
+        Private: true,
+      },
+      {
+        path: '/pages/account/join_us',
+        component: JoinUs,
+        Private: true,
+      },
+      {
+        path: '/pages/account/faq',
+        component: FAQ,
+        Private: true,
+      },
+      {
+        path: '/pages/account/terms',
+        component: Terms,
+        Private: true,
+      },
+      {
+        path: '/pages/account/privacy',
+        component: Privacy,
+        Private: true,
+      },
+      {
+        path: '/pages/account/news',
+        component: News,
         Private: true,
       },
     ],
