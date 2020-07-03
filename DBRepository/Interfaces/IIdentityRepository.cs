@@ -7,7 +7,8 @@ namespace DBRepository.Interfaces
     public interface IIdentityRepository
     {
         Task<User> GetUser(string userName);
-        Task<User> GetUser(int Id);
+        Task<object> GetUser(int Id);
+        Task<object> GetUserInfo(int Id);
         Task<string> AddUser(User user, string Parent);
         Task SetLoginHistory(LoginHistory loginHistory);
         Task SetCurrentSession(CurrentSession currentSession);

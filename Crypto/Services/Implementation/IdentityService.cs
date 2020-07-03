@@ -24,9 +24,14 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetUser(userName);
 		}
 
-		public async Task<User> GetUser(int Id)
+		public async Task<object> GetUser(int Id)
 		{
 			return await _repository.GetUser(Id);
+		}
+
+		public async Task<object> GetUserInfo(int Id)
+		{
+			return await _repository.GetUserInfo(Id);
 		}
 
 		public async Task<string> AddUser(LoginViewModel request)

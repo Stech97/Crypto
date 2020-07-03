@@ -105,25 +105,25 @@ namespace Crypto.Controllers
 			var user = await _identityService.GetUser(model.Username);
 			if (user != null)
 			{
-				if (!user.IsFogotPassword || !user.IsBlock)
-				{
-					var sha256 = new SHA256Managed();
-					var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(model.Password)));
-					var passwordUser = user.Password;
-					var username = user.Username;
-					if (passwordHash == passwordUser)
-					{
-						var claims = new List<Claim>
-						{
-							new Claim(ClaimsIdentity.DefaultNameClaimType, username),
-							new Claim(ClaimsIdentity.DefaultRoleClaimType, "Client")
-						};
-						identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-					}
-				}
-				else
-					return Forbid();
-			}
+                if (user.IsFogotPassword && user.IsBlock)
+                    return Forbid();
+                else
+                {
+                    var sha256 = new SHA256Managed();
+                    var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(model.Password)));
+                    var passwordUser = user.Password;
+                    var username = user.Username;
+                    if (passwordHash == passwordUser)
+                    {
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimsIdentity.DefaultNameClaimType, username),
+                            new Claim(ClaimsIdentity.DefaultRoleClaimType, "Client")
+                        };
+                        identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                    }
+                }
+            }
 			if (identity == null)
 				return Unauthorized();
 
@@ -212,6 +212,15 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> GetUser(int Id)
 		{
 			var response = await _identityService.GetUser(Id);
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("GetUserInfo")]
+		[HttpGet]
+		public async Task<IActionResult> GetUserInfo(int Id)
+		{
+			var response = await _identityService.GetUserInfo(Id);
 			return Ok(response);
 		}
 
