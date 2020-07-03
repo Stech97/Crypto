@@ -1,7 +1,13 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
@@ -23,6 +29,12 @@ import TextField from '@material-ui/core/TextField';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'primary',
+  },
   table: {
     minWidth: 650,
   },
@@ -99,10 +111,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Finance(props) {
+export default function HowItWorks(props) {
   const classes = useStyles();
   const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <main
       className={clsx(classes.content, {
@@ -173,9 +193,41 @@ export default function Finance(props) {
             </Grid>
             <Grid item xs={3}>
               {' '}
-              <Button variant="contained" color="primary">
-                View current
-              </Button>
+              <label htmlFor="contained-button-file">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleOpen}
+                >
+                  View current
+                </Button>
+              </label>
+              <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <Fade in={open}>
+                  <div className={classes.paper}>
+                    <Card className={classes.root}>
+                      <CardActionArea>
+                        <CardMedia
+                          className={classes.media}
+                          image="/static/pirate.jpg"
+                          title="Pirate"
+                        />
+                      </CardActionArea>
+                    </Card>
+                  </div>
+                </Fade>
+              </Modal>
             </Grid>
 
             {/* Лучше тоже mapping сделать */}

@@ -1,7 +1,10 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
@@ -23,10 +26,35 @@ import SearchIcon from '@material-ui/icons/Search';
 import AppBar from '@material-ui/core/AppBar';
 import InputBase from '@material-ui/core/InputBase';
 import CsvDownload from 'react-json-to-csv';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'primary',
+  },
+
+  root: {
+    display: 'flex',
+    flexGrow: 1,
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '100%',
+    },
+
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  input: {
+    display: 'none',
+  },
   inputRoot: {
     color: 'inherit',
   },
@@ -72,9 +100,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -165,6 +196,16 @@ const rows_users = [
 ];
 
 export default function Dashboard(props) {
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const classes = useStyles();
   const theme = useTheme();
 
@@ -202,15 +243,55 @@ export default function Dashboard(props) {
         </Grid>
         <Grid item xs={3}>
           {' '}
-          <Button variant="contained" color="primary">
+          <label htmlFor="contained-button-file">
+            <Button variant="contained" color="primary" onClick={handleOpen}>
+              View current
+            </Button>
+          </label>
+          <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={open}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={open}>
+              <div className={classes.paper}>
+                <Card className={classes.root}>
+                  <CardActionArea>
+                    <CardMedia
+                      className={classes.media}
+                      image="/static/pirate.jpg"
+                      title="Pirate"
+                    />
+                  </CardActionArea>
+                </Card>
+              </div>
+            </Fade>
+          </Modal>
+          {/* <Button variant="contained" color="primary">
             View current
-          </Button>
+          </Button> */}
         </Grid>
         <Grid item xs={3}>
           {' '}
-          <Button variant="contained" color="grey">
-            Select file
-          </Button>
+          <input
+            accept="*"
+            className={classes.input}
+            id="contained-button-file"
+            multiple
+            type="file"
+          />
+          <label htmlFor="contained-button-file">
+            <Button variant="contained" color="grey" component="span">
+              Select file
+            </Button>
+          </label>
         </Grid>
         <Grid item xs={3}>
           {' '}
