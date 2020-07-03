@@ -7,7 +7,7 @@
   position: sticky;
   top: 0;
   z-index: 4;
-  grid-template-areas: 'l l . . . . . . . . u u';
+  grid-template-areas: "l l . . . . . . . . u u";
   background-color: #ffffff;
   align-items: center;
   justify-items: center;
@@ -25,12 +25,29 @@
   position: relative;
   grid-area: u;
   width: 100%;
+  height: 80%;
+  border-radius: $gap;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: 100%;
   align-items: center;
   justify-items: center;
-  grid-template-areas: 'user-icon user-name user-arrow';
+  grid-template-areas: "user-icon user-name user-arrow";
+
+  &:hover {
+    background-color: #eeeeee;
+    .dash-header-user-icon > svg {
+      fill: #ed7102;
+      stroke: #ed7102;
+    }
+    .dash-header-user-name > h2 {
+      color: #ed7102;
+    }
+    .dash-header-user-arrow-closed > svg {
+      fill: #ed7102;
+      stroke: #ed7102;
+    }
+  }
 }
 .dash-header-user-icon {
   grid-area: user-icon;
@@ -41,13 +58,8 @@
   width: 33px;
   border-radius: 31px;
   background-image: linear-gradient(50deg, #123273 0%, #005c9f 100%);
-  &:hover {
-    & > svg {
-      fill: #ed7102;
-      stroke: #ed7102;
-    }
-  }
 }
+
 .dash-header-user-icon > svg {
   height: 1em;
   width: 1em;
@@ -62,7 +74,7 @@
 .dash-header-user-name h2 {
   color: #123273;
   font-size: 1.2rem;
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 500;
 }
 
@@ -111,8 +123,8 @@
 .dash-header-user-menu-opened {
   position: absolute;
   width: 2 * $column + 3 * $gap;
-  top: 0;
-  left: -$gap;
+  top: $account-header-height;
+  right: 0;
 
   border: 1px solid #efefef;
   border-top: none;
@@ -125,7 +137,7 @@
   grid-template-columns: $gap 2 * $column $gap;
   grid-template-rows: min-content min-content;
   grid-auto-flow: row;
-  grid-template-areas: '. settings settings' '. logout logout';
+  grid-template-areas: ". settings settings" ". logout logout";
 
   align-items: center;
   justify-items: center;
@@ -137,7 +149,7 @@
   width: 100%;
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: 100%;
-  grid-template-areas: 'settings-icon settings-text';
+  grid-template-areas: "settings-icon settings-text";
   align-items: center;
   justify-items: center;
   cursor: pointer;
@@ -150,7 +162,7 @@
   width: 100%;
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: 100%;
-  grid-template-areas: 'logout-icon logout-text';
+  grid-template-areas: "logout-icon logout-text";
   align-items: center;
   justify-items: center;
   cursor: pointer;
@@ -177,7 +189,7 @@
 }
 .dash-header-user-menu-settings-text p {
   color: #838383;
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-size: 1.2rem;
   text-align: left;
 }
@@ -196,6 +208,6 @@
 
 .dash-header-user-menu-logout-text p {
   color: #ed7102;
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-size: 1.2rem;
 }

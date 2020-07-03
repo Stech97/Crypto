@@ -8,7 +8,6 @@ import { Link, useHistory } from "react-router-dom";
 function DashHeaderMenu(props) {
 	let history = useHistory();
 	const clickLogout = () => {
-		console.log("###### ACTION!");
 		props.getUserLogoutAction();
 		history.push("/login");
 	};
@@ -72,24 +71,12 @@ class DashHeader extends Component {
 		return (
 			<div className="dash-header">
 				<div className="dash-header-logo">
-					<img src="/img/logo.png" />
+					<Link to="/main">
+						<img src="/img/logo.png" />
+					</Link>
 				</div>
-				<div className="dash-header-user">
-					<div
-						className={
-							"dash-header-user-menu" +
-							(this.state.isClosed ? "-closed" : "")
-						}
-					>
-						<DashHeaderMenu
-							isClosed={this.state.isClosed}
-							getUserLogoutAction={() => getUserLogoutAction()}
-						/>
-					</div>
-					<div
-						onClick={() => this.toggle()}
-						className="dash-header-user-icon"
-					>
+				<div className="dash-header-user" onClick={() => this.toggle()}>
+					<div className="dash-header-user-icon">
 						<svg
 							preserveAspectRatio="xMinYMid slice"
 							viewBox="-1 0 35 37"
@@ -97,10 +84,7 @@ class DashHeader extends Component {
 							<use href="#dashboards-icon-white" />
 						</svg>
 					</div>
-					<div
-						onClick={() => this.toggle()}
-						className="dash-header-user-name"
-					>
+					<div className="dash-header-user-name">
 						<h2>
 							{user.isFetching
 								? "Loading..."
@@ -108,7 +92,6 @@ class DashHeader extends Component {
 						</h2>
 					</div>
 					<div
-						onClick={() => this.toggle()}
 						className={
 							"dash-header-user-arrow" +
 							(this.state.isClosed ? "-closed" : "")
@@ -123,6 +106,10 @@ class DashHeader extends Component {
 						</svg>
 					</div>
 				</div>
+				<DashHeaderMenu
+					isClosed={this.state.isClosed}
+					getUserLogoutAction={() => getUserLogoutAction()}
+				/>
 			</div>
 		);
 	}

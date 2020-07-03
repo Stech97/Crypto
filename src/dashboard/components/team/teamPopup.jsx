@@ -4,109 +4,10 @@ import { connect } from "react-redux";
 
 class TeamPopupTable extends Component {
   componentDidMount = () => {
-    this.props.getTeamPopupAction(this.props.level);
+    this.props.getTeamPopupAction(this.props.level + 1);
   };
 
   render() {
-    const teammates = [
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-      {
-        username: "Username",
-        email: "seb@hotmail.com",
-        invested: "12,4k DET",
-        earnings: "1,5k DET",
-      },
-    ];
-
     return (
       <div className="popup-team">
         <div className="popup-team-header">
@@ -143,7 +44,7 @@ TeamPopupTable = connect(mapStateToProps, mapDispatchToProps)(TeamPopupTable);
 
 const TeamPopup = (props) => {
   return (
-    <div className={props.isOpened ? "popup" : "none"}>
+    <div className="popup">
       <div onClick={() => props.closeModal()} className="popup-layer"></div>
       <div className="popup-wrapper-team">
         <div className="popup-wrapper-team-header">
@@ -182,11 +83,9 @@ export default class TeamPopupPlus extends Component {
         >
           <use href="#plus" />
         </svg>
-        <TeamPopup
-          level={obj.level}
-          isOpened={this.state.isOpened}
-          closeModal={() => this.toggleModal()}
-        />
+        {this.state.isOpened && (
+          <TeamPopup level={obj.level} closeModal={() => this.toggleModal()} />
+        )}
       </div>
     );
   }

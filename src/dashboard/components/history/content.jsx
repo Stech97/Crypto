@@ -148,8 +148,10 @@ class HistoryContent extends Component {
           <CsvDownload
             className="history-balance-download"
             filename="balance.csv"
-            data={this.props.table.records}
-          />
+            data={table.records}
+          >
+            Download Statement CSV
+          </CsvDownload>
         </div>
       </div>
     );

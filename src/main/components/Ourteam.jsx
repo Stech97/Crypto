@@ -46,10 +46,12 @@ class OurteamMember extends Component {
 							<p>{item.post}</p>
 						</div>
 						<div className="ourteam-member-mailbutton">
-							<a href="https://linkedin.com">
-								<svg viewBox="0 0 42 42">
-									<use href="#linkedin" />
-								</svg>
+							<a href="https://www.linkedin.com/">
+								<span>
+									<svg viewBox="0 0 42 42">
+										<use href="#linkedin" />
+									</svg>
+								</span>
 							</a>
 						</div>
 					</div>

@@ -47,12 +47,14 @@ class TeamTable extends Component {
 		const parseTeam = (levels) => {
 			var array = [];
 			var result = [];
-			if (levels.length < 2) {
+			console.log(team.levels);
+			if (levels.length < 3) {
 				for (let i = 0; i < Math.min(levels.length, 2); i++) {
 					array.push(levels[i]);
 				}
 				result.push(array);
-			} else if (levels.length < 5) {
+				console.log("levels are less than 2: ", levels.length);
+			} else if (levels.length < 6) {
 				for (let i = 0; i < Math.min(levels.length, 2); i++) {
 					array.push(levels[i]);
 				}
@@ -61,6 +63,7 @@ class TeamTable extends Component {
 					array.push(levels[i]);
 				}
 				result.push(array);
+				console.log("levels are less than 5: ", levels.length);
 			} else {
 				for (let i = 0; i < Math.min(levels.length, 2); i++) {
 					array.push(levels[i]);
@@ -74,6 +77,7 @@ class TeamTable extends Component {
 					array.push(levels[i]);
 				}
 				result.push(array);
+				console.log("levels are less than 8: ", levels.length);
 			}
 			return result;
 		};
