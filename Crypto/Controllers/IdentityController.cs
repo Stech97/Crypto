@@ -152,17 +152,12 @@ namespace Crypto.Controllers
 			UserViewModel response = new UserViewModel
 			{
 				Id = user.Id,
-				Username = user.Username,
-				FirstName = user.FirstName,
-				LastName = user.LastName,
-				Email = user.Email,
 				Token = encodedJwt,
 				IsVerified = user.IsVerified,
-				IsReInvest = user.IsReInvest
 			};
 			var timeOut = DateTime.Now.AddMinutes(AuthOptions.LIFETIME);
 			Helpers.TaskScheduler.Instance.ScheduleTask
-				(timeOut.Hour, timeOut.Minute, timeOut.Second, timeOut.Millisecond, 0, () => { _identityService.SignOut(user.Id); });
+				(timeOut.Hour, timeOut.Minute+5, timeOut.Second, timeOut.Millisecond, 0, () => { _identityService.SignOut(user.Id); });
 			return Ok(response);
 		}
 
