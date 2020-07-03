@@ -82,9 +82,25 @@ namespace Crypto.Controllers
 				return BadRequest();
 			return Ok(response);
 		}
-
-
 		#endregion
+		//[Authorize]
+		[Route("GetPassportPicture")]
+		[HttpGet]
+		public async Task<FileContentResult> GetPassportPicture(int UserId)
+		{
+			var response = await _administratorService.GetPassportPicture(UserId);
+			if (response != null)
+			{
+				var type = response.ImageName.Substring(response.ImageName.IndexOf('.') + 1);
+				var mimeType = "application/" + type;
+
+				return new FileContentResult(response.Image, mimeType)
+				{
+					FileDownloadName = response.ImageName
+				};
+			}
+			return null;
+		}
 
 		#region Dashboard
 		//[Authorize(Roles = "Client")]

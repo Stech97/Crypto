@@ -11,6 +11,7 @@ namespace DBRepository.Interfaces
         Task UpdatePic(byte[] inmage, string nameFile, string Component);
         Task<MainPage> GetPic(string Component);
         Task<MainPage> GetInfo(string Component);
+        Task<User> GetPassportPicture(int UserId);
         #endregion
         #region Dashboard
         Task<News> AddNews(News news); 

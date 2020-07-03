@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -201,6 +202,62 @@ namespace Crypto.Controllers
 		#endregion
 
 		#region Authorize
+
+		//[Authorize]
+		[Route("GetUser")]
+		[HttpGet]
+		public async Task<IActionResult> GetUser(int Id)
+		{
+			var response = await _identityService.GetUser(Id);
+			if (response == null)
+				return BadRequest();
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("GetUserInfo")]
+		[HttpGet]
+		public async Task<IActionResult> GetUserInfo(int Id)
+		{
+			var response = await _identityService.GetUserInfo(Id);
+			if (response == null)
+				return BadRequest();
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("SignOut")]
+		[HttpDelete]
+		public async Task<IActionResult> SignOut(int Id)
+		{
+			await _identityService.SignOut(Id);
+			return NoContent();
+		}
+
+		#region Patch User
+
+		//[Authorize]
+		[Route("ChangePassword")]
+		[HttpPatch]
+		public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel request, int Id)
+		{
+			using (SHA256Managed sha256 = new SHA256Managed())
+			{
+				request.Password = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(request.Password)));
+			}
+			await _identityService.ChangePassword(request, Id);
+			return Ok();
+		}
+
+		//[Authorize]
+		[Route("UpdateInfo")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateInfo([FromBody] UpdateInfoViewModel request, int Id)
+		{
+			await _identityService.UpdateInfo(request, Id);
+			return Ok();
+		}
+
 		//[Authorize]
 		[Route("ReLogin")]
 		[HttpGet]
@@ -242,59 +299,10 @@ namespace Crypto.Controllers
 
 			return Ok(response);
 		}
+		
+		#endregion
 
-		//[Authorize]
-		[Route("GetUser")]
-		[HttpGet]
-		public async Task<IActionResult> GetUser(int Id)
-		{
-			var response = await _identityService.GetUser(Id);
-			if (response == null)
-				return BadRequest();
-			return Ok(response);
-		}
-
-		//[Authorize]
-		[Route("GetUserInfo")]
-		[HttpGet]
-		public async Task<IActionResult> GetUserInfo(int Id)
-		{
-			var response = await _identityService.GetUserInfo(Id);
-			if (response == null)
-				return BadRequest();
-			return Ok(response);
-		}
-
-		//[Authorize]
-		[Route("SignOut")]
-		[HttpDelete]
-		public async Task<IActionResult> SignOut(int Id)
-		{
-			await _identityService.SignOut(Id);
-			return NoContent();
-		}
-
-		//[Authorize]
-		[Route("ChangePassword")]
-		[HttpPatch]
-		public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel request, int Id)
-		{
-			using (SHA256Managed sha256 = new SHA256Managed())
-			{
-				request.Password = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(request.Password)));
-			}
-			await _identityService.ChangePassword(request, Id);
-			return Ok();
-		}
-
-		//[Authorize]
-		[Route("UpdateInfo")]
-		[HttpPatch]
-		public async Task<IActionResult> UpdateInfo([FromBody] UpdateInfoViewModel request, int Id)
-		{
-			await _identityService.UpdateInfo(request, Id);
-			return Ok();
-		}
+		#region Patch bool
 		//[Authorize]
 		[Route("ReInvest")]
 		[HttpPatch]
@@ -311,7 +319,6 @@ namespace Crypto.Controllers
 		//[Authorize]
 		[Route("ShowInfo")]
 		[HttpPatch]
-
 		public async Task<IActionResult> ShowInfo(int Id, bool ShowInfo)
 		{
 			var result = await _identityService.ShowInfo(Id, ShowInfo);
@@ -321,6 +328,74 @@ namespace Crypto.Controllers
 			};
 			return Ok(response);
 		}
+		#endregion
+
+		#region Upload Picture
+		//[Authorize]
+		[Route("UploadPassport")]
+		[HttpPatch]
+		public async Task<IActionResult> UploadPassport(int UserId)
+		{
+			byte[] image = null;
+			string name = "";
+			var files = Request.Form.Files;
+			long size = files.Sum(f => f.Length);
+			foreach (var file in files)
+				if (file.Length > 0)
+					using (var stream = new MemoryStream())
+					{
+						await file.CopyToAsync(stream);
+						image = stream.ToArray();
+						name = file.FileName;
+					}
+			await _identityService.UploadPassport(image, name, UserId);
+			return Ok();
+		}
+
+		//[Authorize]
+		[Route("UploadProof")] // selfi
+		[HttpPatch]
+		public async Task<IActionResult> UploadProof(int UserId)
+		{
+			byte[] image = null;
+			string name = "";
+			var files = Request.Form.Files;
+			long size = files.Sum(f => f.Length);
+			foreach (var file in files)
+				if (file.Length > 0)
+					using (var stream = new MemoryStream())
+					{
+						await file.CopyToAsync(stream);
+						image = stream.ToArray();
+						name = file.FileName;
+					}
+			await _identityService.UploadProof(image, name, UserId);
+			return Ok();
+		}
+
+		//[Authorize]
+		[Route("UploadSelfi")]
+		[HttpPatch]
+		public async Task<IActionResult> UploadSelfi(int UserId)
+		{
+			byte[] image = null;
+			string name = "";
+			var files = Request.Form.Files;
+			long size = files.Sum(f => f.Length);
+			foreach (var file in files)
+				if (file.Length > 0)
+					using (var stream = new MemoryStream())
+					{
+						await file.CopyToAsync(stream);
+						image = stream.ToArray();
+						name = file.FileName;
+					}
+			await _identityService.UploadSelfi(image, name, UserId);
+			return Ok();
+		}
+
+		#endregion
+
 		#endregion
 	}
 }

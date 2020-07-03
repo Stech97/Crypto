@@ -88,6 +88,24 @@ namespace DBRepository.Repositories
 
 		#endregion
 
+		public async Task<User> GetPassportPicture(int UserId)
+		{
+			User response = null;
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+				if (user != null)
+				{
+					response = new User()
+					{
+						PassportPicture = user.PassportPicture,
+						PassportPictureName = user.PassportPictureName
+					};
+				}
+			}
+			return response;
+		}
+
 		#region Dashboard
 		public async Task<News> AddNews(News news)
 		{

@@ -60,36 +60,6 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<User> ReLogin(string token)
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var CurrentSession = await context.CurrentSessions.AsNoTracking().FirstOrDefaultAsync(cs => cs.Token == token);
-				if (CurrentSession == null)
-					return null;
-
-				var User = context.Users.AsNoTracking().Select(u => new User()
-				{
-					Id = u.Id,
-					Username = u.Username,
-					IsVerified = u.IsVerified
-				}).Where(u => u.Id == CurrentSession.UserId).FirstOrDefault();
-
-				return User;
-			}
-		}
-
-		public async Task UpdateToken(string Token, int UserId)
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var CurrentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == UserId);
-				CurrentSession.Token = Token;
-				context.CurrentSessions.Update(CurrentSession);
-				await context.SaveChangesAsync();
-			}
-		}
-
 		public async Task<string> AddUser(User user, string Parent)
 		{
 			var check = await CheckInfo(user);
@@ -173,17 +143,6 @@ namespace DBRepository.Repositories
 			{
 				var currentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == Id);
 				context.CurrentSessions.Remove(currentSession);
-				await context.SaveChangesAsync();
-			}
-		}
-
-		public async Task ChangePassword(User user, int Id)
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var newPassword = await context.Users.FirstOrDefaultAsync(u => u.Id == Id && u.Username == user.Username);
-				newPassword.Password = user.Password;
-				context.Users.Update(newPassword);
 				await context.SaveChangesAsync();
 			}
 		}
@@ -443,7 +402,8 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task UpdateInfo(User user, int Id)
+        #region Patch User
+        public async Task UpdateInfo(User user, int Id)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -459,8 +419,48 @@ namespace DBRepository.Repositories
 				await context.SaveChangesAsync();
 			}
 		}
+		public async Task ChangePassword(User user, int Id)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var newPassword = await context.Users.FirstOrDefaultAsync(u => u.Id == Id && u.Username == user.Username);
+				newPassword.Password = user.Password;
+				context.Users.Update(newPassword);
+				await context.SaveChangesAsync();
+			}
+		}
+		public async Task<User> ReLogin(string token)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var CurrentSession = await context.CurrentSessions.AsNoTracking().FirstOrDefaultAsync(cs => cs.Token == token);
+				if (CurrentSession == null)
+					return null;
 
-		public async Task<bool> ReInvest(int Id, bool ReInvest)
+				var User = context.Users.AsNoTracking().Select(u => new User()
+				{
+					Id = u.Id,
+					Username = u.Username,
+					IsVerified = u.IsVerified
+				}).Where(u => u.Id == CurrentSession.UserId).FirstOrDefault();
+
+				return User;
+			}
+		}
+		public async Task UpdateToken(string Token, int UserId)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var CurrentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == UserId);
+				CurrentSession.Token = Token;
+				context.CurrentSessions.Update(CurrentSession);
+				await context.SaveChangesAsync();
+			}
+		}
+        #endregion
+
+        #region Patch bool
+        public async Task<bool> ReInvest(int Id, bool ReInvest)
 		{
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -483,7 +483,57 @@ namespace DBRepository.Repositories
 				return user.IsShowInfo;
 			}
 		}
+        #endregion
 
+        #region Upload Picture
+
+        public async Task UploadPassport(byte[] image, string nameFile, int UserId)
+		{
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+				if (user != null)
+				{
+					user.PassportPicture = image;
+					user.PassportPictureName = nameFile;
+				}
+
+				contex.Users.Update(user);
+				await contex.SaveChangesAsync();
+			}
+		}
+		public async Task UploadProof(byte[] image, string nameFile, int UserId)
+		{
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+				if (user != null)
+				{
+					user.ProofPicture = image;
+					user.ProofPictureName = nameFile;
+				}
+
+				contex.Users.Update(user);
+				await contex.SaveChangesAsync();
+			}
+		}
+		public async Task UploadSelfi(byte[] image, string nameFile, int UserId)
+		{
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+				if (user != null)
+				{
+					user.SelfiPicture = image;
+					user.SelfiPictureName = nameFile;
+				}
+
+				contex.Users.Update(user);
+				await contex.SaveChangesAsync();
+			}
+		}
+
+		#endregion
 
 		private string GetMd5Hash(MD5 md5Hash, string input)
 		{

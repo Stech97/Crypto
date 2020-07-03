@@ -19,6 +19,7 @@ namespace Crypto.Services.Implementation
 			_repository = repository;
 			_mapper = mapper;
 		}
+
 		public async Task<User> GetUser(string userName)
 		{
 			return await _repository.GetUser(userName);
@@ -32,16 +33,6 @@ namespace Crypto.Services.Implementation
 		public async Task<object> GetUserInfo(int Id)
 		{
 			return await _repository.GetUserInfo(Id);
-		}
-
-		public async Task<User> ReLogin(string Token)
-		{
-			return await _repository.ReLogin(Token);
-		}
-
-		public async Task UpdateToken(string Token, int id)
-		{
-			await _repository.UpdateToken(Token, id);	
 		}
 
 		public async Task<string> AddUser(LoginViewModel request)
@@ -63,12 +54,6 @@ namespace Crypto.Services.Implementation
 		public async Task SignOut(int Id)
 		{
 			await _repository.SignOut(Id);
-		}
-
-		public async Task ChangePassword(ChangePasswordViewModel request, int Id)
-		{
-			var newPassword = _mapper.Map<ChangePasswordViewModel, User>(request);
-			await _repository.ChangePassword(newPassword, Id);
 		}
 
 		public async Task<CheckViewModel> CheckInfo(CheckViewModel request)
@@ -94,11 +79,6 @@ namespace Crypto.Services.Implementation
 			return await _repository.AcceptForgot(Id);
 		}
 
-		public async Task UpdateInfo(UpdateInfoViewModel request, int Id)
-		{
-			var update = _mapper.Map<UpdateInfoViewModel, User>(request);
-			await _repository.UpdateInfo(update, Id);
-		}
 		
 		public async Task RecoveryPassword(ChangePasswordViewModel request, int Id)
 		{
@@ -106,6 +86,31 @@ namespace Crypto.Services.Implementation
 			await _repository.RecoveryPassword(newPassword, Id);
 		}
 
+        #region Patch User
+        public async Task UpdateInfo(UpdateInfoViewModel request, int Id)
+		{
+			var update = _mapper.Map<UpdateInfoViewModel, User>(request);
+			await _repository.UpdateInfo(update, Id);
+		}
+
+		public async Task<User> ReLogin(string Token)
+		{
+			return await _repository.ReLogin(Token);
+		}
+
+		public async Task UpdateToken(string Token, int id)
+		{
+			await _repository.UpdateToken(Token, id);
+		}
+
+		public async Task ChangePassword(ChangePasswordViewModel request, int Id)
+		{
+			var newPassword = _mapper.Map<ChangePasswordViewModel, User>(request);
+			await _repository.ChangePassword(newPassword, Id);
+		}
+		#endregion
+
+		#region Patch bool
 		public async Task<bool> ReInvest(int Id, bool ReInvest)
 		{
 			return await _repository.ReInvest(Id, ReInvest);
@@ -114,6 +119,24 @@ namespace Crypto.Services.Implementation
 		public async Task<bool> ShowInfo(int Id, bool ShowInfo)
 		{
 			return await _repository.ShowInfo(Id, ShowInfo);
+        }
+		#endregion
+
+		#region Upload Picture
+		public async Task UploadPassport(byte[] image, string nameFile, int UserId)
+		{
+			await _repository.UploadPassport(image, nameFile, UserId);
 		}
+
+		public async Task UploadProof(byte[] image, string nameFile, int UserId)
+		{
+			await _repository.UploadProof(image, nameFile, UserId);
+		}
+
+		public async Task UploadSelfi(byte[] image, string nameFile, int UserId)
+		{
+			await _repository.UploadSelfi(image, nameFile, UserId);
+		}
+		#endregion
 	}
 }

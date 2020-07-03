@@ -15,6 +15,7 @@ namespace Crypto.Services.Interfaces
         Task UpdatePic(byte[] image, string nameFile, string Component);
         Task<DownloadImage> GetPic(string Component);
         Task<SingleTextViewModel> GetInfo(string Component);
+        Task<DownloadImage> GetPassportPicture(int userId);
 
         #region Dev
         Task DelUser(int Id);

@@ -45,6 +45,12 @@ namespace Crypto.Services.Implementation
 		}
 		#endregion
 
+		public async Task<DownloadImage> GetPassportPicture(int UserId)
+		{
+			var response = await _repository.GetPassportPicture(UserId);
+			return _mapper.Map<User, DownloadImage>(response);
+		}
+
 		#region Dasboard
 		public async Task<NewsViewModel> AddNews(AddNewsViewModel request)
 		{
