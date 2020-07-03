@@ -33,6 +33,13 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: '100%',
     },
+
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  input: {
+    display: 'none',
   },
   paper: {
     padding: theme.spacing(2),
@@ -183,9 +190,18 @@ export default function Finance(props) {
             </Grid>
             <Grid item xs={3}>
               {' '}
-              <Button variant="contained" color="grey">
-                Select file
-              </Button>
+              <input
+                accept="image/*"
+                className={classes.input}
+                id="contained-button-file"
+                multiple
+                type="file"
+              />
+              <label htmlFor="contained-button-file">
+                <Button variant="contained" color="grey" component="span">
+                  Select file
+                </Button>
+              </label>
             </Grid>
             <Grid item xs={3}>
               {' '}
