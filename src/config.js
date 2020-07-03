@@ -1,7 +1,7 @@
-import axios from 'axios';
-import InDevelopment from './InDevelopment';
-import PagesContent from './pages/account/Pages';
-import Dashboard from './pages/account/components/Dashboard';
+import axios from "axios";
+import InDevelopment from "./InDevelopment";
+import Pages from "./pages/account/Pages";
+import Dashboard from "./pages/account/components/Dashboard";
 import Finance from './pages/account/components/Finance';
 
 const DOMAIN_URL_TEST = 'localhost:3000';
@@ -188,61 +188,54 @@ export const API = async (path, mode = 'get', body = null) => {
 
 export const routes = [
   {
-    path: '/pages',
-    component: PagesContent,
+    path: "/pages",
+    component: Pages,
     Private: true,
     routes: [
       {
-        path: '/pages/account/',
-        component: PagesContent,
+        path: "/pages/account/dashboard",
+        component: Dashboard,
         Private: true,
-        routes: [
-          {
-            path: '/pages/account/dashboard',
-            component: Dashboard,
-            Private: true,
-          },
-          {
-            path: '/pages/account/finance',
-            component: Finance,
-            Private: true,
-          },
-          {
-            path: '/pages/account/faq',
-            component: InDevelopment,
-            Private: true,
-          },
-          {
-            path: '/pages/account/marketing',
-            component: InDevelopment,
-            Private: true,
-          },
-          {
-            path: '/pages/account/team',
-            component: InDevelopment,
-            Private: true,
-          },
-          {
-            path: '/pages/account/settings',
-            component: InDevelopment,
-            Private: true,
-          },
-          {
-            path: '/pages/account/history',
-            component: InDevelopment,
-            Private: true,
-          },
-        ],
       },
       {
-        path: '/pages/main/',
+        path: "/pages/account/investment",
+        component: InDevelopment,
+        Private: true,
+      },
+      {
+        path: "/pages/account/faq",
+        component: InDevelopment,
+        Private: true,
+      },
+      {
+        path: "/pages/account/marketing",
+        component: InDevelopment,
+        Private: true,
+      },
+      {
+        path: "/pages/account/team",
+        component: InDevelopment,
+        Private: true,
+      },
+      {
+        path: "/pages/account/settings",
+        component: InDevelopment,
+        Private: true,
+      },
+      {
+        path: "/pages/account/history",
         component: InDevelopment,
         Private: true,
       },
     ],
   },
   {
-    path: '/login',
+    path: "/main/",
+    component: InDevelopment,
+    Private: true,
+  },
+  {
+    path: "/login",
     component: InDevelopment,
     Private: false,
   },

@@ -1,13 +1,13 @@
-import React from 'react';
-import clsx from 'clsx';
+import React, { Fragment, Component } from "react";
+import clsx from "clsx";
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-
-import RouteWithSubRoutes from '../../Routes';
-import Header from './Header';
-import Sidebar from './Sidebar';
-import Dashboard from './components/Dashboard';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import InDevelopment from "../../InDevelopment";
+import RouteWithSubRoutes from "../../Routes";
+import Header from "./Header";
+import Dashboard from "./components/Dashboard";
+import Sidebar from "./Sidebar";
 import Finance from './components/Finance';
 
 const drawerWidth = 240;
@@ -69,7 +69,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PagesContent(props) {
+function WrapperContent({ component: Component, open, ...rest }) {
+  return <Component openStatus={open} {...rest} />;
+}
+export default function Pages(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -98,9 +101,20 @@ export default function PagesContent(props) {
         handleDrawerClose={handleDrawerClose}
         theme={theme}
       />
-      {props.routes.map((route, i) => (
-        <RouteWithSubRoutes classes={classes} open={open} key={i} {...route} />
-      ))}
+      {props.routes.map((route, i) => {
+        let component = () =>
+          WrapperContent({ open: open, component: route.component });
+        return (
+          <RouteWithSubRoutes
+            key={i}
+            component={component}
+            path={route.path}
+            routes={route.routes}
+            Private={route.Private}
+          />
+        );
+      })}
     </div>
   );
 }
+/**/

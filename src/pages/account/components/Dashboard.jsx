@@ -137,9 +137,9 @@ export default function Dashboard(props) {
   const classes = useStyles();
   const theme = useTheme();
 
-  return (
-    <main
-      className={clsx(classes.content, {
+	return (
+		<main
+			className={clsx(classes.content, {
         [classes.contentShift]: props.open,
       })}
     >
