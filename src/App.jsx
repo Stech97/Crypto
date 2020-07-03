@@ -1,7 +1,12 @@
 import React from "react";
 import { routes } from "./config";
 import RouteWithSubRoutes from "./Routes";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Route,
+	Switch,
+	Redirect,
+} from "react-router-dom";
 import { Helmet } from "react-helmet";
 import "./App.css";
 import InDevelopment from "./InDevelopment";
