@@ -77,7 +77,6 @@ namespace Crypto.Helpers
 				.ForMember(m => m.DateInvestment, opt => opt.MapFrom(m => DateTime.Now))
 				.ForMember(m => m.Profit, opt => opt.MapFrom(m => 0));
 			CreateMap<BalanceHistory, BalanceHistoryViewModel>()
-				.ForMember(m => m.Time, opt => opt.MapFrom(m => m.Time.ToString("D")))
 				.ForMember(m => m.Type, opt => opt.MapFrom(m => m.ToString()));
 
 			CreateMap<SingleTextViewModel, MainPage>();
