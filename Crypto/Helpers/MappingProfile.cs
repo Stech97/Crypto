@@ -83,18 +83,6 @@ namespace Crypto.Helpers
 
 			CreateMap<MainPage, SingleTextViewModel>();
 
-			CreateMap<MainPage, DownloadImage>();
-
-			CreateMap<User, DownloadImage>()
-				.ForMember(m => m.Image, opt => opt.MapFrom(m => m.PassportPicture))
-				.ForMember(m => m.ImageName, opt => opt.MapFrom(m => m.PassportPictureName));
-			CreateMap<User, DownloadImage>()
-				.ForMember(m => m.Image, opt => opt.MapFrom(m => m.ProofPicture))
-				.ForMember(m => m.ImageName, opt => opt.MapFrom(m => m.ProofPicture));
-			CreateMap<User, DownloadImage>()
-				.ForMember(m => m.Image, opt => opt.MapFrom(m => m.SelfiPicture))
-				.ForMember(m => m.ImageName, opt => opt.MapFrom(m => m.SelfiPictureName));
-
 		}
 	}
 }

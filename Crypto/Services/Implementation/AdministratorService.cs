@@ -32,10 +32,9 @@ namespace Crypto.Services.Implementation
 			await _repository.UpdatePic(image, nameFile, Component);	
 		}
 
-		public async Task<DownloadImage> GetPic(string Component)
+		public async Task<ImageDTO> GetPic(string Component)
 		{
-			var response = await _repository.GetPic(Component);
-			return _mapper.Map<MainPage, DownloadImage>(response);
+			return await _repository.GetPic(Component);
 		}
 
 		public async Task<SingleTextViewModel> GetInfo(string Component)
@@ -43,13 +42,24 @@ namespace Crypto.Services.Implementation
 			var response = await _repository.GetInfo(Component);
 			return _mapper.Map<MainPage, SingleTextViewModel>(response);
 		}
-		#endregion
+        #endregion
 
-		public async Task<DownloadImage> GetPassportPicture(int UserId)
+        #region Get User Picture
+        public async Task<ImageDTO> GetPassportPicture(int UserId)
 		{
-			var response = await _repository.GetPassportPicture(UserId);
-			return _mapper.Map<User, DownloadImage>(response);
+			return await _repository.GetPassportPicture(UserId);
 		}
+
+		public async Task<ImageDTO> GeProofPicture(int UserId)
+		{
+			return await _repository.GeProofPicture(UserId);
+		}
+
+		public async Task<ImageDTO> GetSelfiPicture(int UserId)
+		{
+			return await _repository.GetSelfiPicture(UserId);
+		}
+		#endregion
 
 		#region Dasboard
 		public async Task<NewsViewModel> AddNews(AddNewsViewModel request)

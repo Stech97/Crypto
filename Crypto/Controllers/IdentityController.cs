@@ -333,7 +333,7 @@ namespace Crypto.Controllers
 		#region Upload Picture
 		//[Authorize]
 		[Route("UploadPassport")]
-		[HttpPatch]
+		[HttpPut]
 		public async Task<IActionResult> UploadPassport(int UserId)
 		{
 			byte[] image = null;
@@ -353,8 +353,8 @@ namespace Crypto.Controllers
 		}
 
 		//[Authorize]
-		[Route("UploadProof")] // selfi
-		[HttpPatch]
+		[Route("UploadProof")]
+		[HttpPut]
 		public async Task<IActionResult> UploadProof(int UserId)
 		{
 			byte[] image = null;
@@ -375,7 +375,7 @@ namespace Crypto.Controllers
 
 		//[Authorize]
 		[Route("UploadSelfi")]
-		[HttpPatch]
+		[HttpPut]
 		public async Task<IActionResult> UploadSelfi(int UserId)
 		{
 			byte[] image = null;

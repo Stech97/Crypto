@@ -56,7 +56,7 @@ namespace Crypto.Controllers
 		//[Authorize]
 		[Route("GetPic")]
 		[HttpGet]
-		public async Task<FileContentResult> GetPic(string Component)
+		public async Task<IActionResult> GetPic(string Component)
 		{
 			var response = await _administratorService.GetPic(Component);
 			if (response != null)
@@ -69,7 +69,7 @@ namespace Crypto.Controllers
 					FileDownloadName = response.ImageName
 				};
 			}
-			return null;
+			return NotFound("User or file not found");
 		}
 
 		//[Authorize]
@@ -82,11 +82,13 @@ namespace Crypto.Controllers
 				return BadRequest();
 			return Ok(response);
 		}
-		#endregion
-		//[Authorize]
-		[Route("GetPassportPicture")]
+        #endregion
+
+        #region Get User Picture
+        //[Authorize]
+        [Route("GetPassportPicture")]
 		[HttpGet]
-		public async Task<FileContentResult> GetPassportPicture(int UserId)
+		public async Task<IActionResult> GetPassportPicture(int UserId)
 		{
 			var response = await _administratorService.GetPassportPicture(UserId);
 			if (response != null)
@@ -99,8 +101,47 @@ namespace Crypto.Controllers
 					FileDownloadName = response.ImageName
 				};
 			}
-			return null;
+			return NotFound("User or file not found");
 		}
+
+		//[Authorize]
+		[Route("GeProofPicture")]
+		[HttpGet]
+		public async Task<IActionResult> GeProofPicture(int UserId)
+		{
+			var response = await _administratorService.GeProofPicture(UserId);
+			if (response != null)
+			{
+				var type = response.ImageName.Substring(response.ImageName.IndexOf('.') + 1);
+				var mimeType = "application/" + type;
+
+				return new FileContentResult(response.Image, mimeType)
+				{
+					FileDownloadName = response.ImageName
+				};
+			}
+			return NotFound("User or file not found");
+		}
+
+		//[Authorize]
+		[Route("GetSelfiPicture")]
+		[HttpGet]
+		public async Task<IActionResult> GetSelfiPicture(int UserId)
+		{
+			var response = await _administratorService.GetSelfiPicture(UserId);
+			if (response != null)
+			{
+				var type = response.ImageName.Substring(response.ImageName.IndexOf('.') + 1);
+				var mimeType = "application/" + type;
+
+				return new FileContentResult(response.Image, mimeType)
+				{
+					FileDownloadName = response.ImageName
+				};
+			}
+			return NotFound("User or file not found");
+		}
+		#endregion
 
 		#region Dashboard
 		//[Authorize(Roles = "Client")]

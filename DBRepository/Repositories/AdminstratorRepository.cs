@@ -48,15 +48,15 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<MainPage> GetPic(string Component)
+		public async Task<ImageDTO> GetPic(string Component)
 		{
-			MainPage response = null;
+			ImageDTO response = null;
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
 				if (main != null)
 				{
-					response = new MainPage()
+					response = new ImageDTO()
 					{
 						Image = main.Image,
 						ImageName = main.ImageName
@@ -88,18 +88,54 @@ namespace DBRepository.Repositories
 
 		#endregion
 
-		public async Task<User> GetPassportPicture(int UserId)
+		public async Task<ImageDTO> GetPassportPicture(int UserId)
 		{
-			User response = null;
+			ImageDTO response = null;
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
 				if (user != null)
 				{
-					response = new User()
+					response = new ImageDTO()
 					{
-						PassportPicture = user.PassportPicture,
-						PassportPictureName = user.PassportPictureName
+						Image = user.PassportPicture,
+						ImageName = user.PassportPictureName
+					};
+				}
+			}
+			return response;
+		}
+
+		public async Task<ImageDTO> GeProofPicture(int UserId)
+		{
+			ImageDTO response = null;
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+				if (user != null)
+				{
+					response = new ImageDTO()
+					{
+						Image = user.ProofPicture,
+						ImageName = user.ProofPictureName
+					};
+				}
+			}
+			return response;
+		}
+
+		public async Task<ImageDTO> GetSelfiPicture(int UserId)
+		{
+			ImageDTO response = null;
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+				if (user != null)
+				{
+					response = new ImageDTO()
+					{
+						Image = user.SelfiPicture,
+						ImageName = user.SelfiPictureName
 					};
 				}
 			}
