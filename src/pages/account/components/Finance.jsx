@@ -116,7 +116,7 @@ export default function Finance(props) {
             <Grid item xs={12}>
               <Typography
                 className={classes.title}
-                variant="h5"
+                variant="h4"
                 component="p"
                 gutterBottom
               >
@@ -304,7 +304,7 @@ export default function Finance(props) {
             <Grid item xs={12}>
               <Typography
                 className={classes.title}
-                variant="h5"
+                variant="h4"
                 component="p"
                 gutterBottom
               >
@@ -368,7 +368,7 @@ export default function Finance(props) {
               <Grid item xs={12}>
                 <Typography
                   className={classes.title}
-                  variant="h5"
+                  variant="h4"
                   component="p"
                   gutterBottom
                 >

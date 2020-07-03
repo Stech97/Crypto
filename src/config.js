@@ -1,8 +1,9 @@
-import axios from "axios";
-import InDevelopment from "./InDevelopment";
-import Pages from "./pages/account/Pages";
-import Dashboard from "./pages/account/components/Dashboard";
+import axios from 'axios';
+import InDevelopment from './InDevelopment';
+import Pages from './pages/account/Pages';
+import Dashboard from './pages/account/components/Dashboard';
 import Finance from './pages/account/components/Finance';
+import Users from './pages/account/components/Users';
 
 const DOMAIN_URL_TEST = 'localhost:3000';
 const DOMAIN_URL_PROD = 'https://defima.io';
@@ -188,54 +189,54 @@ export const API = async (path, mode = 'get', body = null) => {
 
 export const routes = [
   {
-    path: "/pages",
+    path: '/pages',
     component: Pages,
     Private: true,
     routes: [
       {
-        path: "/pages/account/dashboard",
+        path: '/pages/account/dashboard',
         component: Dashboard,
         Private: true,
       },
       {
-        path: "/pages/account/investment",
+        path: '/pages/account/finance',
+        component: Finance,
+        Private: true,
+      },
+      {
+        path: '/pages/account/users',
+        component: Users,
+        Private: true,
+      },
+      {
+        path: '/pages/account/marketing',
         component: InDevelopment,
         Private: true,
       },
       {
-        path: "/pages/account/faq",
+        path: '/pages/account/team',
         component: InDevelopment,
         Private: true,
       },
       {
-        path: "/pages/account/marketing",
+        path: '/pages/account/settings',
         component: InDevelopment,
         Private: true,
       },
       {
-        path: "/pages/account/team",
-        component: InDevelopment,
-        Private: true,
-      },
-      {
-        path: "/pages/account/settings",
-        component: InDevelopment,
-        Private: true,
-      },
-      {
-        path: "/pages/account/history",
+        path: '/pages/account/history',
         component: InDevelopment,
         Private: true,
       },
     ],
   },
   {
-    path: "/main/",
+    path: '/main/',
     component: InDevelopment,
     Private: true,
   },
   {
-    path: "/login",
+    path: '/login',
     component: InDevelopment,
     Private: false,
   },
