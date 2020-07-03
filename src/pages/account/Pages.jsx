@@ -1,29 +1,13 @@
-import React from "react";
+import React, { Fragment, Component } from "react";
 import clsx from "clsx";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
-
+import InDevelopment from "../../InDevelopment";
 import RouteWithSubRoutes from "../../Routes";
 import Header from "./Header";
-import Sidebar from "./Sidebar";
 import Dashboard from "./components/Dashboard";
+import Sidebar from "./Sidebar";
 
 const drawerWidth = 240;
 
@@ -84,7 +68,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PagesContent(props) {
+function WrapperContent({ component: Component, open, ...rest }) {
+  return <Component openStatus={open} {...rest} />;
+}
+export default function Pages(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -113,9 +100,20 @@ export default function PagesContent(props) {
         handleDrawerClose={handleDrawerClose}
         theme={theme}
       />
-      {props.routes.map((route, i) => (
-        <RouteWithSubRoutes classes={classes} open={open} key={i} {...route} />
-      ))}
+      {props.routes.map((route, i) => {
+        let component = () =>
+          WrapperContent({ open: open, component: route.component });
+        return (
+          <RouteWithSubRoutes
+            key={i}
+            component={component}
+            path={route.path}
+            routes={route.routes}
+            Private={route.Private}
+          />
+        );
+      })}
     </div>
   );
 }
+/**/

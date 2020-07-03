@@ -77,7 +77,7 @@ export default function Dashboard(props) {
 	return (
 		<main
 			className={clsx(classes.content, {
-				[classes.contentShift]: props.open,
+				[classes.contentShift]: props.openStatus,
 			})}
 		>
 			<div className={classes.drawerHeader} />
