@@ -77,6 +77,7 @@ namespace DBRepository
 
             #region Type Investment
             modelBuilder.Entity<TypeInvestment>().ToTable("TypeInvestment");
+            modelBuilder.Entity<TypeInvestment>().HasKey(tc => tc.Type);
             modelBuilder.Entity<TypeInvestment>().Property(ti => ti.Persent).IsRequired();
             modelBuilder.Entity<TypeInvestment>().Property(ti => ti.Type).IsRequired();
             #endregion

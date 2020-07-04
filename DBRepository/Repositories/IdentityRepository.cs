@@ -67,10 +67,8 @@ namespace DBRepository.Repositories
 			{
 				using (var context = ContextFactory.CreateDbContext(ConnectionString))
 				{
-					int ParentId = 0;
-
-					var IsParsed = int.TryParse(Parent, out ParentId);
-					if (!IsParsed)
+                    var IsParsed = int.TryParse(Parent, out int ParentId);
+                    if (!IsParsed)
 					{
 						var ParentUser = await GetUser(Parent);
 						if (ParentUser != null)

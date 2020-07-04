@@ -28,13 +28,16 @@ namespace DBRepository.Repositories
 
 				foreach (var Invest in Invests)
 				{
+					var Balance = await context.Balances.FirstOrDefaultAsync(b => b.UserId == Invest.UserId);
+
 					var Persent = await context.TypeInvestments.AsNoTracking()
-						.Where(ti => ti.Id == Invest.TypeInvestmentId).Select(ti => ti.Persent).FirstOrDefaultAsync();
+						.Where(ti => ti.Type == Invest.TypeInvest).Select(ti => ti.Persent).FirstOrDefaultAsync();
 
 					if (Invest.Profit == 0)
 					{
 						var Profit = Invest.AddCash * Persent / 100;
 						Invest.Profit = Profit;
+						Balance.DefimaBalance += Profit;
 					}
 					else
 					{
@@ -46,13 +49,13 @@ namespace DBRepository.Repositories
 							{
 								Invest.IsFullInvest = true;
 								Invest.Profit = Invest.AddCash * 3;
-								Invest.TypeInvestmentId = 0;
+								Invest.TypeInvest = EnumTypeInvestment.None;
 							}
+							Balance.DefimaBalance += Profit;
 						}
 						else
 						{
 							bool ReInvest = (await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Invest.UserId)).IsReInvest;
-							var Balance = await context.Balances.FirstOrDefaultAsync(b => b.UserId == Invest.UserId);
 
 							if (ReInvest && Balance.DefimaBalance > Invest.AddCash)
 							{
@@ -60,18 +63,38 @@ namespace DBRepository.Repositories
 								Invest.Profit = 0;
 								Balance.DefimaBalance -= Invest.AddCash;
 								context.Balances.Update(Balance);
+								await context.SaveChangesAsync();
 							}
+						}
+
+						var BalanceHistory = new BalanceHistory()
+						{
+							Amount = Invest.Profit,
+							Balance = Balance.DefimaBalance / Balance.RateUSD_DEF,
+							Time = System.DateTime.Now,
+							UserId = Invest.UserId
+						};
+						switch (Invest.TypeInvest)
+						{
+							case EnumTypeInvestment.Small:
+								BalanceHistory.TypeHistory = EnumTypeHistory.ProfitSmall;
+								break;
+							case EnumTypeInvestment.Medium:
+								BalanceHistory.TypeHistory = EnumTypeHistory.ProfitMedium;
+								break;
+							case EnumTypeInvestment.Large:
+								BalanceHistory.TypeHistory = EnumTypeHistory.ProfitLarge;
+								break;
 						}
 					}
 					context.Investments.Update(Invest);
+					await context.SaveChangesAsync();
 				}
 			}
 		}
 
 		public async Task AddCommission()
 		{
-			DashboardRepository dashboardRepository = new DashboardRepository(ConnectionString, ContextFactory);
-
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var AllInvests = await context.Investments.ToListAsync();
@@ -80,17 +103,17 @@ namespace DBRepository.Repositories
 				{
 					int level = 1;
 					double CurrentCommission = 0;
-					int TypeInvest = Invest.TypeInvestmentId;
+					var TypeInvest = Invest.TypeInvest;
 					int MaxLevel = 0;
 					switch (TypeInvest)
 					{
-						case 1:
+						case EnumTypeInvestment.Small:
 							MaxLevel = 1;
 							break;
-						case 2:
+						case EnumTypeInvestment.Medium:
 							MaxLevel = 4;
 							break;
-						case 3:
+						case EnumTypeInvestment.Large:
 							MaxLevel = 7;
 							break;
 						default:
@@ -103,6 +126,19 @@ namespace DBRepository.Repositories
 					Invest.CurrentCommission = CurrentCommission;
 					Invest.TotalCommission += CurrentCommission;
 
+					var Balance = await context.Balances.FirstOrDefaultAsync(b => b.UserId == Invest.UserId);
+					Balance.DefimaBalance += CurrentCommission * Balance.RateUSD_DEF;
+
+					var BalanceHistory = new BalanceHistory()
+					{
+						Amount = CurrentCommission,
+						Balance = Balance.DefimaBalance / Balance.RateUSD_DEF,
+						Time = System.DateTime.Now,
+						TypeHistory = EnumTypeHistory.Comission,
+						UserId = Invest.UserId
+					};
+
+					context.BalanceHistories.Add(BalanceHistory);
 					context.Investments.Update(Invest);
 					await context.SaveChangesAsync();
 				}

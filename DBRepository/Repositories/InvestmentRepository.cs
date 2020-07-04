@@ -36,7 +36,7 @@ namespace DBRepository.Repositories
 							var BalanceHistory = new BalanceHistory()
 							{
 								Time = investment.DateInvestment,
-								TypeInvestmentId = investment.TypeInvestmentId,
+								TypeHistory = EnumTypeHistory.Buy,
 								Amount = investment.AddCash,
 								Balance = balance.BitcoinBalance * balance.RateBTC_USD,
 								UserId = UserId
@@ -60,7 +60,7 @@ namespace DBRepository.Repositories
 							var BalanceHistory = new BalanceHistory()
 							{
 								Time = investment.DateInvestment,
-								TypeInvestmentId = investment.TypeInvestmentId,
+								TypeHistory = EnumTypeHistory.Buy,
 								Amount = investment.AddCash,
 								Balance = balance.USDBalance,
 								UserId = UserId
@@ -85,7 +85,7 @@ namespace DBRepository.Repositories
 							var BalanceHistory = new BalanceHistory()
 							{
 								Time = investment.DateInvestment,
-								TypeInvestmentId = investment.TypeInvestmentId,
+								TypeHistory = EnumTypeHistory.Buy,
 								Amount = investment.AddCash,
 								Balance = balance.DefimaBalance / balance.RateUSD_DEF,
 								UserId = UserId

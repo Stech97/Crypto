@@ -10,7 +10,8 @@ namespace DBRepository
 		{
 			await context.Database.MigrateAsync();
 
-			var userCount = await context.Users.CountAsync().ConfigureAwait(false);
+            #region User
+            var userCount = await context.Users.CountAsync().ConfigureAwait(false);
 			if (userCount == 0)
 			{
 				context.Users.Add(new User()
@@ -21,7 +22,9 @@ namespace DBRepository
 
 				await context.SaveChangesAsync().ConfigureAwait(false);
 			}
+			#endregion
 
+			#region Type Investment
 			var typeInvestCount = await context.TypeInvestments.CountAsync().ConfigureAwait(false);
 			if (typeInvestCount == 0)
 			{
@@ -42,26 +45,12 @@ namespace DBRepository
 					Type = EnumTypeInvestment.Large,
 					Persent = 2.10913
 				});
-
-				context.TypeInvestments.Add(new TypeInvestment()
-				{
-					Type = EnumTypeInvestment.Add
-				});
-
-				context.TypeInvestments.Add(new TypeInvestment()
-				{
-					Type = EnumTypeInvestment.Withdraw
-				});
-
-				context.TypeInvestments.Add(new TypeInvestment()
-				{
-					Type = EnumTypeInvestment.Comission
-				});
-
 				await context.SaveChangesAsync().ConfigureAwait(false);
 			}
+            #endregion
 
-			var typeCommissions = await context.TypeCommissions.CountAsync().ConfigureAwait(false);
+            #region Type Commissions
+            var typeCommissions = await context.TypeCommissions.CountAsync().ConfigureAwait(false);
 			if (typeCommissions == 0)
 			{
 				context.TypeCommissions.Add(new TypeCommission()
@@ -94,8 +83,10 @@ namespace DBRepository
 				});
 				await context.SaveChangesAsync().ConfigureAwait(false);
 			}
+            #endregion
 
-			var main = await context.MainPages.CountAsync().ConfigureAwait(false);
+            #region Main Page
+            var main = await context.MainPages.CountAsync().ConfigureAwait(false);
 			if (main == 0)
 			{
 				context.MainPages.Add(new MainPage()
@@ -104,6 +95,7 @@ namespace DBRepository
 				});
 				await context.SaveChangesAsync().ConfigureAwait(false);
 			}
-		}
-	}
+            #endregion
+        }
+    }
 }

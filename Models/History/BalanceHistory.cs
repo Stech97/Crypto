@@ -4,40 +4,39 @@
     {
         public int Id { get; set; }
         public System.DateTime Time { get; set; }
-        public int TypeInvestmentId { get; set; }
+        public EnumTypeHistory TypeHistory { get; set; }
         public double Amount { get; set; }
         public double Balance { get; set; }
         public int UserId { get; set; }
         
         #region Dependencces
         public User User { get; set; }
-        public TypeInvestment TypeInvestment { get; set; }
         #endregion 
 
         public override string ToString()
         {
             string ret = "";
-            switch (TypeInvestmentId)
+            switch (TypeHistory)
             {
-                case 1:
-                    ret = "Small";
+                case EnumTypeHistory.ProfitSmall:
+                    ret = "Profit Small";
                     break;
-                case 2:
-                    ret = "Medium";
+                case EnumTypeHistory.ProfitMedium:
+                    ret = "Profit Medium";
                     break;
-                case 3:
-                    ret = "Large";
+                case EnumTypeHistory.ProfitLarge:
+                    ret = "Profit Large";
                     break;
-                case 4:
+                case EnumTypeHistory.Add:
                     ret = "Add";
                     break;
-                case 5:
+                case EnumTypeHistory.Withdraw:
                     ret = "Withdraw";
                     break;
-                case 6:
+                case EnumTypeHistory.Comission:
                     ret = "Comission ";
                     break;
-                default:
+                case EnumTypeHistory.Buy:
                     ret = "Buy ";
                     break;
             }
@@ -46,3 +45,7 @@
 
     }
 }
+
+//[FK_BalanceHistory_TypeInvestment_TypeInvestmentType]
+//[TypeInvestmentType]
+//[IX_BalanceHistory_TypeInvestmentType]

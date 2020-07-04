@@ -2,7 +2,6 @@
 using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Investment;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -12,12 +11,10 @@ namespace Crypto.Controllers
 	[Route("[controller]")]
 	public class InvestmentController : Controller
 	{
-		private readonly IWebHostEnvironment _appEnvironment;
 		private readonly IInvestmentService _investmentService;
-		public InvestmentController(IInvestmentService investmentService, IWebHostEnvironment appEnvironment)
+		public InvestmentController(IInvestmentService investmentService)
 		{
 			_investmentService = investmentService;
-			_appEnvironment = appEnvironment;
 		}
 
 		//[Authorize]

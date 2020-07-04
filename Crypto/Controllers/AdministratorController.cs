@@ -2,9 +2,7 @@
 using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Administrator;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Linq;
 
@@ -14,11 +12,9 @@ namespace Crypto.Controllers
 	[Route("[controller]")]
 	public class AdministratorController : ControllerBase
 	{
-		IWebHostEnvironment _appEnvironment;
-		readonly IAdministratorService _administratorService;
-		public AdministratorController(IAdministratorService administratorService, IWebHostEnvironment appEnvironment)
+		private readonly IAdministratorService _administratorService;
+		public AdministratorController(IAdministratorService administratorService)
 		{
-			_appEnvironment = appEnvironment;
 			_administratorService = administratorService;
 		}
 

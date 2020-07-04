@@ -5,7 +5,7 @@
 		public int Id { get; set; }
 		public double AddCash { get; set; }
 		public System.DateTime DateInvestment { get; set; }
-		public int TypeInvestmentId { get; set; }
+		public EnumTypeInvestment TypeInvest { get; set; }
 		public double Profit { get; set; }
 		public double TotalCommission { get; set; }
 		public double LastCommission { get; set; }
@@ -15,21 +15,20 @@
 		
 		#region Dependencces
 		public User User { get; set; }
-		public TypeInvestment TypeInvestment { get; set; }
         #endregion
 
         public override string ToString()
         {
             string ret = "";
-            switch (TypeInvestmentId)
+            switch (TypeInvest)
             {
-                case 1:
+                case EnumTypeInvestment.Small:
                     ret = "Small";
                     break;
-                case 2:
+                case EnumTypeInvestment.Medium:
                     ret = "Medium";
                     break;
-                case 3:
+                case EnumTypeInvestment.Large:
                     ret = "Large";
                     break;
             }
