@@ -28,6 +28,18 @@
                 case 3:
                     ret = "Large";
                     break;
+                case 4:
+                    ret = "Add";
+                    break;
+                case 5:
+                    ret = "Withdraw";
+                    break;
+                case 6:
+                    ret = "Comission ";
+                    break;
+                default:
+                    ret = "Buy ";
+                    break;
             }
             return ret;
         }

@@ -102,7 +102,23 @@ namespace DBRepository.Repositories
                 else
                 {
                     balanceOld.BitcoinBalance += balance.BitcoinBalance;
+
+                    var BalanceHistory = new BalanceHistory()
+                    {
+                        Amount = balance.BitcoinBalance / balance.RateBTC_USD,
+                        Balance = balanceOld.BitcoinBalance / balance.RateBTC_USD,
+                        Time = DateTime.Now,
+                        UserId = UserId
+                    };
+
+                    if (balance.BitcoinBalance > 0)
+                        BalanceHistory.TypeInvestmentId = (int)EnumTypeInvestment.Add;
+                    else
+                        BalanceHistory.TypeInvestmentId = (int)EnumTypeInvestment.Withdraw;
+
                     context.Balances.Update(balanceOld);
+                    context.BalanceHistories.Add(BalanceHistory);
+
                     await context.SaveChangesAsync();
                     return balanceOld;
                 }

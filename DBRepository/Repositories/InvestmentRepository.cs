@@ -129,7 +129,7 @@ namespace DBRepository.Repositories
 					var Invest = await context.Investments.AsNoTracking().FirstOrDefaultAsync(u => u.UserId == User.Id);
 					if (Invest != null)
 					{
-						var TotalInvestments = await context.Investments.AsNoTracking().Where(i => i.UserId == UserId).SumAsync(i => i.AddCash);
+						var TotalInvestments = await context.Investments.AsNoTracking().Where(i => i.UserId == User.Id).SumAsync(i => i.AddCash);
 						var Persent = context.TypeCommissions.FirstOrDefault(tc => tc.Level == Level);
 						PopupTeam team = null;
 						if (Level == 1 && User.IsShowInfo)

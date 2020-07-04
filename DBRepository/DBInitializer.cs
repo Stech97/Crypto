@@ -43,6 +43,21 @@ namespace DBRepository
 					Persent = 2.10913
 				});
 
+				context.TypeInvestments.Add(new TypeInvestment()
+				{
+					Type = EnumTypeInvestment.Add
+				});
+
+				context.TypeInvestments.Add(new TypeInvestment()
+				{
+					Type = EnumTypeInvestment.Withdraw
+				});
+
+				context.TypeInvestments.Add(new TypeInvestment()
+				{
+					Type = EnumTypeInvestment.Comission
+				});
+
 				await context.SaveChangesAsync().ConfigureAwait(false);
 			}
 
