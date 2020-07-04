@@ -20,18 +20,8 @@ const theme = createMuiTheme({
     secondary: {
       main: '#0DA300',
     },
-
-    counter: {
-      main: '#ffffff',
-    },
-
-    gradient_1: {
-      main: '#f12711',
-    },
-    gradient_2: {
-      main: '#f5af19',
-    },
   },
+
   typography: {
     fontFamily: ['IBM Plex Sans'],
   },

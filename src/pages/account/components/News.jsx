@@ -19,7 +19,19 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Chip from '@material-ui/core/Chip';
+import Divider from '@material-ui/core/Divider';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Dialog from '@material-ui/core/Dialog';
+import Input from '@material-ui/core/Input';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -29,9 +41,39 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexGrow: 1,
+    width: '100%',
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
       width: '100%',
+    },
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+  },
+  icon: {
+    verticalAlign: 'bottom',
+    height: 20,
+    width: 20,
+  },
+  details: {
+    alignItems: 'center',
+  },
+  column: {
+    flexBasis: '33.33%',
+  },
+  helper: {
+    borderLeft: `2px solid ${theme.palette.divider}`,
+    padding: theme.spacing(1, 2),
+  },
+  link: {
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline',
     },
   },
   paper: {
@@ -95,7 +137,20 @@ const useStyles = makeStyles((theme) => ({
 export default function Finance(props) {
   const classes = useStyles();
   const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+  const [age, setAge] = React.useState('');
 
+  const handleChange = (event) => {
+    setAge(Number(event.target.value) || '');
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <main
       className={clsx(classes.content, {
@@ -112,49 +167,199 @@ export default function Finance(props) {
         alignItems="flex-start"
       >
         <Grid item xs={12}>
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Header editor"
-              multiline
-              rowsMax={4}
-              variant="outlined"
-              value="Our goal is to find..."
-            />
-          </form>
-          <Button variant="contained" color="secondary">
-            Apply
-          </Button>
+          <Accordion defaultExpanded={false}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1c-content"
+              id="panel1c-header"
+            >
+              <div className={classes.column}>
+                <Chip color="secondary" label="Add News" />
+              </div>
+            </AccordionSummary>
+            <AccordionDetails className={classes.details}>
+              <Grid
+                container
+                spacing={3}
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="flex-start"
+              >
+                <Grid item xs={12}>
+                  <form className={classes.root} noValidate autoComplete="off">
+                    <TextField
+                      id="outlined-multiline-flexible"
+                      label="Header editor"
+                      multiline
+                      rowsMax={4}
+                      variant="outlined"
+                      value="Our goal is to find..."
+                    />
+                  </form>
+                </Grid>
+                <Grid item xs={12}>
+                  <form className={classes.root} noValidate autoComplete="off">
+                    <TextField
+                      id="outlined-multiline-flexible"
+                      label="Sub-Header editor"
+                      multiline
+                      rowsMax={4}
+                      variant="outlined"
+                      value="The world of financial..."
+                    />
+                  </form>
+                </Grid>
+                <Grid item xs={12}>
+                  <form className={classes.root} noValidate autoComplete="off">
+                    <TextField
+                      id="outlined-multiline-flexible"
+                      label="Text editor"
+                      multiline
+                      rowsMax={4}
+                      variant="outlined"
+                      value="Our goal is to find..."
+                    />
+                  </form>
+                </Grid>
+              </Grid>
+            </AccordionDetails>
+            <Divider />
+            <AccordionActions>
+              <Button size="small">Cancel</Button>
+              <Button size="small" color="secondary">
+                Apply
+              </Button>
+            </AccordionActions>
+          </Accordion>
         </Grid>
         <Grid item xs={12}>
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Sub-Header editor"
-              multiline
-              rowsMax={4}
-              variant="outlined"
-              value="The world of financial..."
-            />
-          </form>
-          <Button variant="contained" color="secondary">
-            Apply
-          </Button>
+          <Grid item xs={12}>
+            <Accordion defaultExpanded={false}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1c-content"
+                id="panel1c-header"
+              >
+                <div className={classes.column}>
+                  <Chip color="primary" label="Edit News" />
+                </div>
+              </AccordionSummary>
+              <AccordionDetails className={classes.details}>
+                <Grid
+                  container
+                  spacing={3}
+                  container
+                  direction="row"
+                  justify="flex-start"
+                  alignItems="flex-start"
+                >
+                  <Grid item xs={12}>
+                    <form
+                      className={classes.root}
+                      noValidate
+                      autoComplete="off"
+                    >
+                      <TextField
+                        id="outlined-multiline-flexible"
+                        label="Header editor"
+                        multiline
+                        rowsMax={4}
+                        variant="outlined"
+                        value="Our goal is to find..."
+                      />
+                    </form>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <form
+                      className={classes.root}
+                      noValidate
+                      autoComplete="off"
+                    >
+                      <TextField
+                        id="outlined-multiline-flexible"
+                        label="Sub-Header editor"
+                        multiline
+                        rowsMax={4}
+                        variant="outlined"
+                        value="The world of financial..."
+                      />
+                    </form>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <form
+                      className={classes.root}
+                      noValidate
+                      autoComplete="off"
+                    >
+                      <TextField
+                        id="outlined-multiline-flexible"
+                        label="Text editor"
+                        multiline
+                        rowsMax={4}
+                        variant="outlined"
+                        value="Our goal is to find..."
+                      />
+                    </form>
+                  </Grid>
+                </Grid>
+              </AccordionDetails>
+              <Divider />
+              <AccordionActions>
+                <Button size="small">Cancel</Button>
+                <Button size="small" color="secondary">
+                  Apply
+                </Button>
+              </AccordionActions>
+            </Accordion>
+          </Grid>
         </Grid>
         <Grid item xs={12}>
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Text editor"
-              multiline
-              rowsMax={4}
-              variant="outlined"
-              value="Our goal is to find..."
-            />
-          </form>
-          <Button variant="contained" color="secondary">
-            Apply
+          <Button
+            variant="contained"
+            color="error"
+            startIcon={<DeleteIcon />}
+            onClick={handleClickOpen}
+          >
+            Delete previous news
           </Button>
+
+          <Dialog
+            disableBackdropClick
+            disableEscapeKeyDown
+            open={open}
+            onClose={handleClose}
+          >
+            <DialogTitle>Fill the form</DialogTitle>
+            <DialogContent>
+              <form className={classes.container}>
+                <FormControl className={classes.formControl}>
+                  <InputLabel htmlFor="demo-dialog-native">
+                    Select news
+                  </InputLabel>
+                  <Select
+                    native
+                    value={10}
+                    onChange={handleChange}
+                    input={<Input id="demo-dialog-native" />}
+                  >
+                    <option aria-label="None" value="" />
+                    <option value={10}>Ten</option>
+                    <option value={20}>Twenty</option>
+                    <option value={30}>Thirty</option>
+                  </Select>
+                </FormControl>
+              </form>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={handleClose} color="primary">
+                Ok
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Grid>
         <Grid item xs={12}>
           <Card className={classes.root}>
