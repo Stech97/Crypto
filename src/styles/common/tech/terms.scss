@@ -1,0 +1,66 @@
+.terms {
+  width: 1fr;
+
+  &-wrapper {
+    display: grid;
+    grid-template-columns: 15vw calc(100% - 30vw) 15vw;
+    grid-auto-rows: min-content;
+    grid-gap: 0rem;
+    gap: 0rem;
+    border-bottom-right-radius: 3.75rem;
+    padding-top: 5rem;
+    border: none;
+    background-color: #ffffff;
+    padding-bottom: 3rem;
+  }
+
+  &-box {
+    width: 100%;
+    grid-column: 2 / 3;
+    h2 {
+      margin: 0;
+      font-family: 'IBM Plex Sans';
+      font-size: 3.125rem;
+      font-weight: medium;
+      font-stretch: normal;
+      line-height: 1.3;
+      letter-spacing: normal;
+      text-align: justify;
+      color: #005c9f;
+      padding-bottom: 3rem;
+    }
+
+    h5 {
+      padding-top: 1.125rem;
+      margin: 0;
+      font-family: 'IBM Plex Sans';
+      font-size: 1.25rem;
+      font-weight: bold;
+      font-stretch: normal;
+      letter-spacing: normal;
+      text-align: justify;
+      color: #838383;
+    }
+
+    p {
+      padding-top: 1rem;
+      margin: 0;
+      font-family: 'IBM Plex Sans';
+      font-size: 1rem;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: normal;
+      text-align: justify;
+      color: #838383;
+    }
+
+    ul {
+      display: block;
+      padding-left: 1.25em;
+    }
+
+    li {
+      padding-left: 4rem;
+    }
+  }
+}

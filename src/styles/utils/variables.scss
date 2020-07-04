@@ -1,0 +1,16 @@
+// Mobile first
+$mediaWidthMobile: 320px;
+$mediaWidthTablet: 768px;
+$mediaWidthTabletHorizontal: 1024px;
+$mediaWidthLaptop: 1366px;
+
+$header-font-size: 28;
+
+$button-font-size: 25;
+$button-height: 3.125vw;
+
+$gap: 99vw / 42;
+$column: $gap * 2.5;
+$padding: $gap / 2;
+
+$account-header-height: 75px;
