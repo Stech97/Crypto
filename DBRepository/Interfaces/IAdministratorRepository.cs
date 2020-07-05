@@ -9,11 +9,11 @@ namespace DBRepository.Interfaces
         #region
         Task UpdateInfo(MainPage mainPage);
         Task UpdatePic(byte[] inmage, string nameFile, string Component);
-        Task<ImageDTO> GetPic(string Component);
+        Task<Images> GetPic(string Component);
         Task<MainPage> GetInfo(string Component);
-        Task<ImageDTO> GetPassportPicture(int UserId);
-        Task<ImageDTO> GeProofPicture(int UserId);
-        Task<ImageDTO> GetSelfiPicture(int UserId);
+        Task<Images> GetPassportPicture(int UserId);
+        Task<Images> GeProofPicture(int UserId);
+        Task<Images> GetSelfiPicture(int UserId);
         #endregion
         #region Dashboard
         Task<News> AddNews(News news); 

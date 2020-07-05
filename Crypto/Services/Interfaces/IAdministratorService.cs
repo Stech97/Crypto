@@ -14,12 +14,12 @@ namespace Crypto.Services.Interfaces
         Task DeleteNews(string heder);
         Task UpdateInfo(SingleTextViewModel model);
         Task UpdatePic(byte[] image, string nameFile, string Component);
-        Task<ImageDTO> GetPic(string Component);
+        Task<Images> GetPic(string Component);
         Task<SingleTextViewModel> GetInfo(string Component);
         #region Get User Picture
-        Task<ImageDTO> GetPassportPicture(int userId);
-        Task<ImageDTO> GeProofPicture(int UserId);
-        Task<ImageDTO> GetSelfiPicture(int UserId);
+        Task<Images> GetPassportPicture(int userId);
+        Task<Images> GeProofPicture(int UserId);
+        Task<Images> GetSelfiPicture(int UserId);
         #endregion
 
         #region Dev

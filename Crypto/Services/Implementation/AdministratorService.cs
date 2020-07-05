@@ -32,7 +32,7 @@ namespace Crypto.Services.Implementation
 			await _repository.UpdatePic(image, nameFile, Component);	
 		}
 
-		public async Task<ImageDTO> GetPic(string Component)
+		public async Task<Images> GetPic(string Component)
 		{
 			return await _repository.GetPic(Component);
 		}
@@ -45,17 +45,17 @@ namespace Crypto.Services.Implementation
         #endregion
 
         #region Get User Picture
-        public async Task<ImageDTO> GetPassportPicture(int UserId)
+        public async Task<Images> GetPassportPicture(int UserId)
 		{
 			return await _repository.GetPassportPicture(UserId);
 		}
 
-		public async Task<ImageDTO> GeProofPicture(int UserId)
+		public async Task<Images> GeProofPicture(int UserId)
 		{
 			return await _repository.GeProofPicture(UserId);
 		}
 
-		public async Task<ImageDTO> GetSelfiPicture(int UserId)
+		public async Task<Images> GetSelfiPicture(int UserId)
 		{
 			return await _repository.GetSelfiPicture(UserId);
 		}

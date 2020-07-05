@@ -48,15 +48,15 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<ImageDTO> GetPic(string Component)
+		public async Task<Images> GetPic(string Component)
 		{
-			ImageDTO response = null;
+			Images response = null;
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
 				if (main != null)
 				{
-					response = new ImageDTO()
+					response = new Images()
 					{
 						Image = main.Image,
 						ImageName = main.ImageName
@@ -88,15 +88,15 @@ namespace DBRepository.Repositories
 
 		#endregion
 
-		public async Task<ImageDTO> GetPassportPicture(int UserId)
+		public async Task<Images> GetPassportPicture(int UserId)
 		{
-			ImageDTO response = null;
+			Images response = null;
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
 				if (user != null)
 				{
-					response = new ImageDTO()
+					response = new Images()
 					{
 						Image = user.PassportPicture,
 						ImageName = user.PassportPictureName
@@ -106,15 +106,15 @@ namespace DBRepository.Repositories
 			return response;
 		}
 
-		public async Task<ImageDTO> GeProofPicture(int UserId)
+		public async Task<Images> GeProofPicture(int UserId)
 		{
-			ImageDTO response = null;
+			Images response = null;
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
 				if (user != null)
 				{
-					response = new ImageDTO()
+					response = new Images()
 					{
 						Image = user.ProofPicture,
 						ImageName = user.ProofPictureName
@@ -124,15 +124,15 @@ namespace DBRepository.Repositories
 			return response;
 		}
 
-		public async Task<ImageDTO> GetSelfiPicture(int UserId)
+		public async Task<Images> GetSelfiPicture(int UserId)
 		{
-			ImageDTO response = null;
+			Images response = null;
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
 				if (user != null)
 				{
-					response = new ImageDTO()
+					response = new Images()
 					{
 						Image = user.SelfiPicture,
 						ImageName = user.SelfiPictureName
