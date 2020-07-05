@@ -53,9 +53,8 @@ const updateShowInfoError = (error) => ({
 	payload: error,
 });
 
-const updateShowInfoSuccess = (news) => ({
+const updateShowInfoSuccess = () => ({
 	type: UPDATE_SHOWINFO_SUCCESS,
-	payload: news,
 });
 
 const getUserInfoRequest = () => ({
@@ -119,7 +118,7 @@ export const updateReInvest = (value) => {
 		updateReInvestFetch(value)
 			.then((res) => {
 				if (res.ok) {
-					dispatch(updateReInvestSuccess(res.data));
+					dispatch(updateReInvestSuccess());
 					dispatch(getUserInfo());
 				} else {
 					dispatch(

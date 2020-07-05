@@ -12,7 +12,9 @@ const Plot = createPlotlyComponent(Plotly);
 export const HistoryRecord = ({ record: { time, type, amount, balance } }) => {
   return (
     <div className="history-balance-content-row">
-      <h5 className="history-balance-content-row-column">{time}</h5>
+      <h5 className="history-balance-content-row-column">
+        {moment(time).format("LLLL")}
+      </h5>
       <h5 className="history-balance-content-row-column">{type}</h5>
       <h5 className="history-balance-content-row-column">
         {"$ " + amount.toFixed(2)}

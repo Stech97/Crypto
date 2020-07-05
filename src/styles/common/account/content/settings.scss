@@ -106,69 +106,85 @@
           }
         }
       }
-
-      &-checkbox {
+      &-check {
         grid-area: checkbox;
         display: grid;
         grid-template-columns: $gap/2 1fr $gap/2;
         grid-column-gap: $gap;
-        width: 100%;
-        align-items: center;
-        justify-items: start;
+        grid-template-rows: min-content;
 
-        > label {
+        &-box {
+          display: grid;
           grid-column: 2 / 3;
-          height: 100%;
+          position: relative;
+          grid-template-columns: 100%;
+          grid-template-rows: 2rem;
+          grid-column-gap: $gap;
+          width: 100%;
+          align-items: center;
+          justify-items: start;
 
           > input {
-            position: absolute;
             opacity: 0;
-            cursor: pointer;
-            height: 0;
             width: 0;
+            height: 0;
+          }
 
-            &:checked + .checkmark-sponsor > i {
-              color: #838383;
+          > .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0.5rem;
+            left: 0;
+            height: 1rem;
+            width: 3rem;
+            background-color: #838383;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+          }
+
+          > .slider:before {
+            position: absolute;
+            content: "";
+            top: -0.5rem;
+            height: 2rem;
+            width: 2rem;
+            display: grid;
+            align-items: center;
+
+            background-color: #838383;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+          }
+
+          > input:checked + .slider {
+            background-color: #16428d;
+          }
+
+          > input:focus + .slider {
+            box-shadow: 0 0 0.3125rem #16428d;
+          }
+
+          > input:checked + .slider:before {
+            transform: translateX(1.5rem);
+            background-color: #16428d;
+          }
+
+          .round {
+            border-radius: 1rem;
+
+            &:before {
+              border-radius: 50%;
             }
           }
 
-          display: block;
-          position: relative;
-          padding-left: 2.8125rem;
-          cursor: pointer;
-          user-select: none;
-
-          height: 100%;
-          font-family: "IBM Plex Sans";
-          color: #838383;
-          font-size: 0.8rem;
-          line-height: 2;
-
-          &:hover {
-            > input {
-              ~ {
-                .checkmark-sponsor {
-                  background: #838383;
-                  opacity: 0.2;
-                }
-              }
-            }
-          }
-        }
-
-        .checkmark-sponsor {
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 1.5rem;
-          width: 1.5rem;
-          background-color: rgba(245, 251, 255, 0);
-          border: 0.1875rem solid #838383;
-          border-radius: 0.5rem;
-
-          & > i {
-            color: #ffffff;
-            font-size: 1.1rem;
+          &-span {
+            grid-row: 1 / 2;
+            justify-self: center;
+            align-self: center;
+            color: #123273;
+            font-family: "IBM Plex Sans";
+            font-size: 1rem;
+            font-weight: 500;
           }
         }
       }
@@ -412,47 +428,46 @@
       grid-area: rh;
       color: #123273;
     }
+  }
+  &-form {
+    grid-area: rf;
 
-    &-form {
-      grid-area: rf;
+    display: grid;
+    grid-template-columns: $gap / 2 1fr $gap / 2;
+    grid-template-rows: 1rem 3rem min-content 1rem;
+    grid-gap: 2rem $gap;
+    grid-template-areas:
+      ". . ."
+      ". checkbox ."
+      ". text ."
+      ". . .";
 
+    &-checkbox {
+      grid-area: checkbox;
       display: grid;
-      grid-template-columns: $gap / 2 1fr $gap / 2;
-      grid-template-rows: 1rem 3rem min-content 1rem;
-      grid-gap: 2rem $gap;
-      grid-template-areas:
-        ". . ."
-        ". checkbox ."
-        ". text ."
-        ". . .";
+      grid-template-columns: 4rem 1fr;
+      grid-column-gap: 1rem;
+      grid-template-areas: ". sp";
+      position: relative;
 
-      &-checkbox {
-        grid-area: checkbox;
-        display: grid;
-        grid-template-columns: 4rem 1fr;
-        grid-column-gap: 1rem;
-        grid-template-areas: ". sp";
-        position: relative;
+      > input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
 
-        > input {
-          opacity: 0;
-          width: 0;
-          height: 0;
-        }
+      > .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0.5rem;
+        left: 0;
+        height: 1rem;
+        width: 3rem;
+        background-color: #838383;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
 
-        > .slider {
-          position: absolute;
-          cursor: pointer;
-          top: 0.5rem;
-          left: 0;
-          height: 1rem;
-          width: 3rem;
-          background-color: #838383;
-          -webkit-transition: 0.4s;
-          transition: 0.4s;
-        }
-
-        > .slider:before {
+        &:before {
           position: absolute;
           content: "";
           top: -0.5rem;

@@ -59,10 +59,6 @@ export const userInfoReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isFetching: false,
-				error: {
-					type: "done",
-					message: "",
-				},
 				...action.payload,
 			};
 		case UPDATE_USER_INFO_SUCCESS:
@@ -84,7 +80,6 @@ export const userInfoReducer = (state = initialState, action) => {
 					type: "reinvest updated",
 					message: "",
 				},
-				reinvest: action.payload,
 			};
 
 		case UPDATE_SHOWINFO_SUCCESS: {
@@ -95,7 +90,6 @@ export const userInfoReducer = (state = initialState, action) => {
 					type: "showinfo updated",
 					message: "",
 				},
-				reinvest: action.payload,
 			};
 		}
 

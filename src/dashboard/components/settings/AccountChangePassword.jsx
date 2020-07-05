@@ -22,6 +22,7 @@ class AccountChange extends Component {
 				password: values.password,
 				confirmPassword: values.password2,
 			});
+			reset();
 		};
 
 		const passField = ({

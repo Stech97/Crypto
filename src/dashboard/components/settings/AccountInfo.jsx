@@ -89,14 +89,19 @@ class AccountInfo extends Component {
       );
     };
 
-    const checkField = ({ input, meta: { touched, error } }) => {
+    const CheckField = ({ checked }) => {
       return (
-        <label htmlFor="sponsor">
-          <input id="sponsor" type="checkbox" />
-          <span className="checkmark-sponsor">
-            <i className="fas fa-check"></i>
+        <label className="settings-info-form-check-box" htmlFor="showInfo">
+          <input
+            id="showInfo"
+            type="checkbox"
+            checked={userInfo.isShowInfo === "true" || userInfo.isShowInfo}
+            onChange={(e) => this.props.updateShowInfoAction(e.target.checked)}
+          />
+          <span className="slider round"></span>
+          <span className="settings-info-form-check-box-span">
+            Show my Information to my Sponsor
           </span>
-          <span>Show my Information to my Sponsor</span>
         </label>
       );
     };
@@ -194,7 +199,8 @@ class AccountInfo extends Component {
         Zip: values.zip,
       };
       this.props.updateUserInfoAction(data);
-      this.props.updateShowInfoAction(values.showInfo === "true");
+      this.props.updateShowInfoAction(values.showInfo);
+      reset();
     };
 
     return (
@@ -216,12 +222,8 @@ class AccountInfo extends Component {
               />
             ))}
           </div>
-          <div className="settings-info-form-checkbox">
-            <Field
-              component={checkField}
-              name="showInfo"
-              defaultValue="values.showInfo === true"
-            />
+          <div className="settings-info-form-check">
+            <CheckField checked={userInfo.IsShowinfo} />
           </div>
           <div className="settings-info-form-button">
             <button
@@ -230,7 +232,7 @@ class AccountInfo extends Component {
             >
               {userInfo.isFetching || submitting
                 ? "Wait..."
-                : userInfo.error.type === "info updated"
+                : userInfo.error.type === "showinfo updated"
                 ? "Done"
                 : "Save"}
             </button>
