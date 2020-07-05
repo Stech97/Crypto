@@ -118,7 +118,7 @@ export const updateReInvest = (value) => {
 		updateReInvestFetch(value)
 			.then((res) => {
 				if (res.ok) {
-					dispatch(updateReInvestSuccess());
+					dispatch(updateReInvestSuccess(res.data.reinvest));
 					dispatch(getUserInfo());
 				} else {
 					dispatch(

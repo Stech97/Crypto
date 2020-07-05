@@ -428,46 +428,46 @@
       grid-area: rh;
       color: #123273;
     }
-  }
-  &-form {
-    grid-area: rf;
 
-    display: grid;
-    grid-template-columns: $gap / 2 1fr $gap / 2;
-    grid-template-rows: 1rem 3rem min-content 1rem;
-    grid-gap: 2rem $gap;
-    grid-template-areas:
-      ". . ."
-      ". checkbox ."
-      ". text ."
-      ". . .";
+    &-form {
+      grid-area: rf;
 
-    &-checkbox {
-      grid-area: checkbox;
       display: grid;
-      grid-template-columns: 4rem 1fr;
-      grid-column-gap: 1rem;
-      grid-template-areas: ". sp";
-      position: relative;
+      grid-template-columns: $gap / 2 1fr $gap / 2;
+      grid-template-rows: 1rem 3rem min-content 1rem;
+      grid-gap: 2rem $gap;
+      grid-template-areas:
+        ". . ."
+        ". checkbox ."
+        ". text ."
+        ". . .";
 
-      > input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
+      &-checkbox {
+        grid-area: checkbox;
+        display: grid;
+        grid-template-columns: 4rem 1fr;
+        grid-template-areas: ". sp";
+        position: relative;
 
-      > .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0.5rem;
-        left: 0;
-        height: 1rem;
-        width: 3rem;
-        background-color: #838383;
-        -webkit-transition: 0.4s;
-        transition: 0.4s;
+        > input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
 
-        &:before {
+        > .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0.5rem;
+          left: 0;
+          height: 1rem;
+          width: 3rem;
+          background-color: #838383;
+          -webkit-transition: 0.4s;
+          transition: 0.4s;
+        }
+
+        > .slider:before {
           position: absolute;
           content: "";
           top: -0.5rem;
@@ -503,7 +503,7 @@
         }
 
         &-span {
-          grid-area: sp;
+          grid-column: 2 / 3;
           justify-self: end;
           align-self: center;
           color: #123273;

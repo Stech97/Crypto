@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { updateReInvest } from "../../actions/UserInfo";
+import { updateReInvest, getUserInfo } from "../../actions/UserInfo";
 import { connect } from "react-redux";
 
 class AccountReinvest extends Component {
@@ -9,6 +9,7 @@ class AccountReinvest extends Component {
 
 	handleChange(value) {
 		this.props.updateReInvestAction(value);
+		this.props.getUserInfoAction();
 	}
 
 	render() {
@@ -27,10 +28,6 @@ class AccountReinvest extends Component {
 						<input
 							id="reinvest"
 							type="checkbox"
-							checked={
-								userInfo.isReInvest === "true" ||
-								userInfo.isReInvest
-							}
 							onChange={(e) =>
 								this.handleChange(e.target.checked)
 							}
@@ -64,6 +61,7 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 	updateReInvestAction: (value) => dispatch(updateReInvest(value)),
+	getUserInfoAction: () => dispatch(getUserInfo()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountReinvest);

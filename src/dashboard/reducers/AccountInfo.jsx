@@ -80,6 +80,7 @@ export const userInfoReducer = (state = initialState, action) => {
 					type: "reinvest updated",
 					message: "",
 				},
+				isReInvest: action.payload,
 			};
 
 		case UPDATE_SHOWINFO_SUCCESS: {
