@@ -28,7 +28,7 @@ import ReferalComponent from "./signup/Referal";
 const DOMAIN_URL_TEST = "localhost:3000";
 const DOMAIN_URL_PROD = "https://defima.io";
 
-export const DOMAIN_URL = DOMAIN_URL_TEST;
+export const DOMAIN_URL = DOMAIN_URL_PROD;
 const API_URL_PROD = "https://back.defima.io/";
 const API_URL_TEST = "http://84.201.132.112/";
 export const API_URL = API_URL_PROD;
