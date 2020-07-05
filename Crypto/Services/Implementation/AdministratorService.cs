@@ -83,9 +83,9 @@ namespace Crypto.Services.Implementation
 
 		public async Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request)
 		{
-			var rate = _mapper.Map<RateDETViewModel, Balance>(request);
+			var rate = _mapper.Map<RateDETViewModel, Rate>(request);
 			var newRate = await _repository.UpdateDETRate(rate);
-			return _mapper.Map<Balance, RateDETViewModel>(newRate);
+			return _mapper.Map<Rate, RateDETViewModel>(newRate);
 		}
         #endregion
 

@@ -20,6 +20,7 @@ namespace DBRepository
         public DbSet<TypeCommission> TypeCommissions { get; set; }
         public DbSet<BalanceHistory> BalanceHistories { get; set; }
         public DbSet<MainPage> MainPages { get; set; }
+        public DbSet<Rate> Rates { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -99,6 +100,12 @@ namespace DBRepository
             #region Main Page
             modelBuilder.Entity<MainPage>().ToTable("MainPage");
             modelBuilder.Entity<MainPage>().Property(mp => mp.Component).IsRequired();
+            #endregion
+
+            #region Rate
+            modelBuilder.Entity<Rate>().ToTable("Rate");
+            modelBuilder.Entity<Rate>().Property(r => r.BTC_USD).IsRequired();
+            modelBuilder.Entity<Rate>().Property(r => r.USD_DET).IsRequired();
             #endregion
         }
     }

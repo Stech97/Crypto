@@ -61,13 +61,13 @@ namespace Crypto.Helpers
 			CreateMap<UpdateNewsViewModel, News>()
 				.ForMember(m => m.LastChangeDate, opt => opt.MapFrom(m => DateTime.Now));
 
-			CreateMap<RateDETViewModel, Balance>()
-				.ForMember(m => m.RateUSD_DEF, opt => opt.MapFrom(m => m.RateDet));
-			CreateMap<double, Balance>()
-				.ForMember(m => m.RateBTC_USD, opt => opt.MapFrom(m => m));
+			CreateMap<RateDETViewModel, Rate>()
+				.ForMember(m => m.USD_DET, opt => opt.MapFrom(m => m.RateDet));
+			CreateMap<double, Rate>()
+				.ForMember(m => m.BTC_USD, opt => opt.MapFrom(m => m));
 
-			CreateMap<Balance, RateDETViewModel>()
-				.ForMember(m => m.RateDet, opt => opt.MapFrom(m => m.RateUSD_DEF));
+			CreateMap<Rate, RateDETViewModel>()
+				.ForMember(m => m.RateDet, opt => opt.MapFrom(m => m.USD_DET));
 
 			CreateMap<UpdateInfoViewModel, User>();
 

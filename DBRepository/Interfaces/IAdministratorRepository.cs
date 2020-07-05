@@ -17,7 +17,7 @@ namespace DBRepository.Interfaces
         #endregion
         #region Dashboard
         Task<News> AddNews(News news); 
-        Task<Balance> UpdateDETRate(Balance balance);
+        Task<Rate> UpdateDETRate(Rate balance);
         Task<News> UpdateNews(News news, string heder);
         Task DeleteNews(string heder);
         #endregion

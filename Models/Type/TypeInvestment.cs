@@ -6,10 +6,5 @@ namespace Models
     {
         public EnumTypeInvestment Type { get; set; }
         public double Persent { get; set; }
-        
-        #region Dependencces
-        public List<Investment> Investments { get; set; }
-        #endregion
-
     }
 }

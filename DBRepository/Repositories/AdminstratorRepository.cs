@@ -189,13 +189,15 @@ namespace DBRepository.Repositories
 			}
 		}
 
-        public async Task<Balance> UpdateDETRate(Balance balance)
+        public async Task<Rate> UpdateDETRate(Rate rate)
         {
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				await context.Balances.ForEachAsync(x => { x.RateUSD_DEF = balance.RateUSD_DEF; });
+				var Rate = await context.Rates.FirstOrDefaultAsync();
+				Rate.USD_DET = rate.USD_DET;
+				context.Rates.Update(Rate);
 				await context.SaveChangesAsync();
-				return await context.Balances.AsNoTracking().FirstOrDefaultAsync();
+				return await context.Rates.AsNoTracking().FirstOrDefaultAsync();
 			}
 		}
         #endregion

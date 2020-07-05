@@ -5,7 +5,7 @@ namespace DBRepository.Interfaces
 {
     public interface ISystemRepository
     {
-        Task UpdateBTCRate(Balance balance);
+        Task UpdateBTCRate(Rate rate);
         Task AddProfit();
         Task AddCommission();
     }

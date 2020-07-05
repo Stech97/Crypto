@@ -101,12 +101,13 @@ namespace DBRepository.Repositories
                     return null;
                 else
                 {
+                    var Rates = await context.Rates.FirstOrDefaultAsync();
                     balanceOld.BitcoinBalance += balance.BitcoinBalance;
 
                     var BalanceHistory = new BalanceHistory()
                     {
-                        Amount = balance.BitcoinBalance * balanceOld.RateBTC_USD,
-                        Balance = balanceOld.BitcoinBalance * balanceOld.RateBTC_USD,
+                        Amount = balance.BitcoinBalance * Rates.BTC_USD,
+                        Balance = balanceOld.BitcoinBalance * Rates.BTC_USD,
                         Time = DateTime.Now,
                         UserId = UserId
                     };
@@ -131,19 +132,21 @@ namespace DBRepository.Repositories
 
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
+                var Rates = await context.Rates.FirstOrDefaultAsync();
+
                 switch (rate)
                 {
                     case "BTCUSD":
-                        OutRate =  await context.Balances.AsNoTracking().Select(b => b.RateBTC_USD).FirstAsync();
+                        OutRate =  Rates.BTC_USD;
                         break;
                     case "USDBTC":
-                        OutRate = 1 / await context.Balances.AsNoTracking().Select(b => b.RateBTC_USD).FirstAsync();
+                        OutRate = 1 / Rates.BTC_USD;
                         break;
                     case "USDDET":
-                        OutRate = await context.Balances.AsNoTracking().Select(b => b.RateUSD_DEF).FirstAsync();
+                        OutRate = Rates.USD_DET;
                         break;
                     case "DETUSD":
-                        OutRate = 1 / await context.Balances.AsNoTracking().Select(b => b.RateUSD_DEF).FirstAsync();
+                        OutRate = 1 / Rates.USD_DET;
                         break;
                     default:
                         OutRate = 0;
@@ -184,9 +187,9 @@ namespace DBRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var rate = await context.Balances.AsNoTracking().Select(b => b.RateBTC_USD).FirstAsync();
+                var Rates = await context.Rates.FirstOrDefaultAsync();
                 var TotalInvestmentsUSD = await context.Investments.AsNoTracking().Where(i => i.UserId == UserId).SumAsync(i => i.AddCash);
-                var TotalInvestmentsBTC = TotalInvestmentsUSD / rate;
+                var TotalInvestmentsBTC = TotalInvestmentsUSD / Rates.BTC_USD;
                 var response = new
                 {
                     BTC = TotalInvestmentsBTC,
@@ -200,9 +203,9 @@ namespace DBRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var rate = await context.Balances.AsNoTracking().Select(b => b.RateUSD_DEF).FirstAsync();
+                var Rates = await context.Rates.FirstOrDefaultAsync();
                 var ProfitUSD = await context.Investments.AsNoTracking().Where(i => i.UserId == Id).SumAsync(i => i.Profit);
-                var ProfitDET = ProfitUSD * rate;
+                var ProfitDET = ProfitUSD * Rates.USD_DET;
 
                 var response = new
                 {
@@ -252,8 +255,8 @@ namespace DBRepository.Repositories
                 }
 
                 ProfitTeamUSD += Profit;
-                var rate = await context.Balances.AsNoTracking().Select(b => b.RateUSD_DEF).FirstAsync();
-                double ProfitTeamDET = ProfitTeamUSD * rate;
+                var Rates = await context.Rates.FirstOrDefaultAsync();
+                double ProfitTeamDET = ProfitTeamUSD * Rates.USD_DET;
 
                 var response = new
                 {
@@ -274,8 +277,8 @@ namespace DBRepository.Repositories
                 if (Invest != null)
                     TotalProfitUSD += Invest.TotalCommission;
 
-                var rate = await context.Balances.AsNoTracking().Select(b => b.RateUSD_DEF).FirstAsync();
-                var TotalProfitDET = TotalProfitUSD * rate;
+                var Rates = await context.Rates.FirstOrDefaultAsync();
+                var TotalProfitDET = TotalProfitUSD * Rates.USD_DET;
 
                 var response = new
                 {
@@ -305,8 +308,8 @@ namespace DBRepository.Repositories
                     if (Invest != null)
                         CommissionUSD = Invest.LastCommission;
                 }
-                var rate = await context.Balances.AsNoTracking().Select(b => b.RateUSD_DEF).FirstAsync();
-                var CommissionDET = CommissionUSD * rate;
+                var Rates = await context.Rates.FirstOrDefaultAsync();
+                var CommissionDET = CommissionUSD * Rates.USD_DET;
 
                 var response = new
                 {

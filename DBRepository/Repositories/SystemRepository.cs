@@ -11,11 +11,13 @@ namespace DBRepository.Repositories
     {
         public SystemRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
-		public async Task UpdateBTCRate(Balance balance)
+		public async Task UpdateBTCRate(Rate rate)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				await context.Balances.ForEachAsync(x => { x.RateBTC_USD = balance.RateBTC_USD; });
+				var Rates = await context.Rates.FirstOrDefaultAsync();
+				Rates.BTC_USD = rate.BTC_USD;
+				context.Rates.Update(Rates);
 				await context.SaveChangesAsync();
 			}
 		}
@@ -25,6 +27,7 @@ namespace DBRepository.Repositories
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var Invests = await context.Investments.ToListAsync();
+				var Rates = await context.Rates.FirstOrDefaultAsync();
 
 				foreach (var Invest in Invests)
 				{
@@ -70,7 +73,7 @@ namespace DBRepository.Repositories
 						var BalanceHistory = new BalanceHistory()
 						{
 							Amount = Invest.Profit,
-							Balance = Balance.DefimaBalance / Balance.RateUSD_DEF,
+							Balance = Balance.DefimaBalance / Rates.USD_DET,
 							Time = System.DateTime.Now,
 							UserId = Invest.UserId
 						};
@@ -99,6 +102,7 @@ namespace DBRepository.Repositories
 			{
 				var AllInvests = await context.Investments.ToListAsync();
 				var Invests = AllInvests.GroupBy(i => i.UserId).Select(ii => ii.FirstOrDefault()).ToList();
+				var Rates = await context.Rates.FirstOrDefaultAsync();
 				foreach (var Invest in Invests)
 				{
 					int level = 1;
@@ -127,12 +131,12 @@ namespace DBRepository.Repositories
 					Invest.TotalCommission += CurrentCommission;
 
 					var Balance = await context.Balances.FirstOrDefaultAsync(b => b.UserId == Invest.UserId);
-					Balance.DefimaBalance += CurrentCommission * Balance.RateUSD_DEF;
+					Balance.DefimaBalance += CurrentCommission * Rates.USD_DET;
 
 					var BalanceHistory = new BalanceHistory()
 					{
 						Amount = CurrentCommission,
-						Balance = Balance.DefimaBalance / Balance.RateUSD_DEF,
+						Balance = Balance.DefimaBalance / Rates.USD_DET,
 						Time = System.DateTime.Now,
 						TypeHistory = EnumTypeHistory.Comission,
 						UserId = Invest.UserId

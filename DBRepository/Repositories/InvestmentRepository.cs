@@ -23,6 +23,8 @@ namespace DBRepository.Repositories
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var balance = context.Balances.FirstOrDefault(b => b.UserId == UserId);
+				var Rates = await context.Rates.FirstOrDefaultAsync();
+
 				switch (cur)
 				{
 					case "BTC":
@@ -30,7 +32,7 @@ namespace DBRepository.Repositories
 						{
 							balance.BitcoinBalance -= investment.AddCash;
 							investment.UserId = UserId;
-							investment.AddCash *= balance.RateBTC_USD;
+							investment.AddCash *= Rates.BTC_USD;
 							context.Investments.Add(investment);
 
 							var BalanceHistory = new BalanceHistory()
@@ -38,7 +40,7 @@ namespace DBRepository.Repositories
 								Time = investment.DateInvestment,
 								TypeHistory = EnumTypeHistory.Buy,
 								Amount = investment.AddCash,
-								Balance = balance.BitcoinBalance * balance.RateBTC_USD,
+								Balance = balance.BitcoinBalance * Rates.BTC_USD,
 								UserId = UserId
 							};
 							context.BalanceHistories.Add(BalanceHistory);
@@ -79,7 +81,7 @@ namespace DBRepository.Repositories
 						{
 							balance.DefimaBalance -= investment.AddCash;
 							investment.UserId = UserId;
-							investment.AddCash /= balance.RateUSD_DEF;
+							investment.AddCash /= Rates.USD_DET;
 							context.Investments.Add(investment);
 
 							var BalanceHistory = new BalanceHistory()
@@ -87,7 +89,7 @@ namespace DBRepository.Repositories
 								Time = investment.DateInvestment,
 								TypeHistory = EnumTypeHistory.Buy,
 								Amount = investment.AddCash,
-								Balance = balance.DefimaBalance / balance.RateUSD_DEF,
+								Balance = balance.DefimaBalance / Rates.USD_DET,
 								UserId = UserId
 							};
 							context.BalanceHistories.Add(BalanceHistory);

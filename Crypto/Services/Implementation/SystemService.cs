@@ -40,7 +40,7 @@ namespace Crypto.Services.Implementation
 				JObject jsonString = JObject.Parse(JSON);
 				double result = (double)jsonString["result"]["XXBTZUSD"]["p"][0];
 
-				var rate = _mapper.Map<double, Balance>(result);
+				var rate = _mapper.Map<double, Rate>(result);
 				await _repository.UpdateBTCRate(rate);
 			}
 			catch (HttpRequestException e)

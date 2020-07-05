@@ -12,9 +12,10 @@ using System;
 namespace DBRepository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20200705103142_UpdateTypeInvest")]
+    partial class UpdateTypeInvest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +30,10 @@ namespace DBRepository.Migrations
                     b.Property<double>("BitcoinBalance");
 
                     b.Property<double>("DefimaBalance");
+
+                    b.Property<double>("RateBTC_USD");
+
+                    b.Property<double>("RateUSD_DEF");
 
                     b.Property<double>("USDBalance");
 
@@ -234,20 +239,6 @@ namespace DBRepository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("News");
-                });
-
-            modelBuilder.Entity("Models.Rate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<double>("BTC_USD");
-
-                    b.Property<double>("USD_DET");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rate");
                 });
 
             modelBuilder.Entity("Models.TypeCommission", b =>
