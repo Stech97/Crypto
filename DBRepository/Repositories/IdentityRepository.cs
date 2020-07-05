@@ -50,6 +50,7 @@ namespace DBRepository.Repositories
 					user.FirstName,
 					user.LastName,
 					user.BDay,
+					user.Country,
 					user.Adress,
 					user.Zip,
 					user.IsReInvest,
@@ -406,6 +407,7 @@ namespace DBRepository.Repositories
 				updateUser.Phone = user.Phone;
 				updateUser.FirstName = user.FirstName;
 				updateUser.LastName = user.LastName;
+				updateUser.Country = user.Country;
 				updateUser.Adress = user.Adress;
 				updateUser.Zip = user.Zip;
 				updateUser.BDay = user.BDay;

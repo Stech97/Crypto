@@ -14,6 +14,7 @@ namespace Models
 		public string Phone { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
+		public string Country { get; set; }
 		public DateTime BDay { get; set; }
 		public string Adress { get; set; }
 		public int Zip { get; set; }
