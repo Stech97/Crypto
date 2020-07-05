@@ -62,7 +62,7 @@ class TeamContent extends Component {
             <h5 className="team-total-box-header">TOTAL Team Members</h5>
             <div className="team-total-box-content team-whitebox">
               <h3 className="team-total-box-content-centered">
-                {earnings.totalMembers.data.TotalMember}
+                {earnings.totalMembers.data.totalMember}
               </h3>
             </div>
           </div>

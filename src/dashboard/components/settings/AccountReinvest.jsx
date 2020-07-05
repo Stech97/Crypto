@@ -1,7 +1,19 @@
 import React, { Component, Fragment } from "react";
+import { updateReInvest } from "../../actions/UserInfo";
+import { connect } from "react-redux";
 
-export default class AccountReinvest extends Component {
+class AccountReinvest extends Component {
+	state = {
+		reinvest: this.props.userInfo.isReInvest,
+	};
+
+	handleChange(value) {
+		this.props.updateReInvestAction(value);
+	}
+
 	render() {
+		const { userInfo } = this.props;
+
 		return (
 			<div className="settings-reinvest">
 				<h5 className="settings-reinvest-header">
@@ -12,7 +24,17 @@ export default class AccountReinvest extends Component {
 						className="settings-reinvest-form-checkbox"
 						htmlFor="reinvest"
 					>
-						<input id="reinvest" type="checkbox" />
+						<input
+							id="reinvest"
+							type="checkbox"
+							checked={
+								userInfo.isReInvest === "true" ||
+								userInfo.isReInvest
+							}
+							onChange={(e) =>
+								this.handleChange(e.target.checked)
+							}
+						/>
 						<span className="slider round"></span>
 						<span className="settings-reinvest-form-checkbox-span">
 							Enable Auto Re-Invest
@@ -35,3 +57,13 @@ export default class AccountReinvest extends Component {
 		);
 	}
 }
+
+const mapStateToProps = (store) => ({
+	userInfo: store.userInfo,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	updateReInvestAction: (value) => dispatch(updateReInvest(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountReinvest);

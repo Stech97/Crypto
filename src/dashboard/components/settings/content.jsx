@@ -4,8 +4,10 @@ import AccountVerification from "./AccountVerification";
 import AccountSecurity from "./AccountSecurity";
 import AccountChange from "./AccountChangePassword";
 import AccountReinvest from "./AccountReinvest";
+import { getUserInfo } from "../../actions/UserInfo";
+import { connect } from "react-redux";
 
-export default class SettingsContent extends Component {
+class SettingsContent extends Component {
 	render() {
 		return (
 			<div className="settings-box">
@@ -22,3 +24,13 @@ export default class SettingsContent extends Component {
 		);
 	}
 }
+
+const mapStateToProps = (store) => ({
+	userInfo: store.userInfo,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	getUserInfoAction: () => dispatch(getUserInfo()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsContent);

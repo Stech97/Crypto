@@ -50,7 +50,7 @@ export const userPostFetch = (user) => {
 						.then((res) => {
 							console.log(res);
 							if (res.ok) {
-								if (!res.data.isVerified) {
+								if (res.data.isVerified) {
 									Cookies.set("token", res.data.token);
 									localStorage.setItem("id", res.data.id);
 									dispatch(loginUserSuccess());

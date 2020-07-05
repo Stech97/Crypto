@@ -77,10 +77,10 @@ class AccountInfo extends Component {
           <label htmlFor={id}>{label}</label>
           <input
             {...input}
-            defaultValue={placeholder}
             type={type}
             placeholder={placeholder}
             id={id}
+            disabled={id === "username"}
           />
           {touched &&
             ((error && <p className="error">{error}</p>) ||
@@ -120,23 +120,20 @@ class AccountInfo extends Component {
         type: "email",
         placeholder: userInfo.email,
         validate: [required, emailValidate],
-        warn: alphaNumeric,
       },
       {
         id: "phone",
         label: "Phone Number",
         type: "tel",
         placeholder: userInfo.phone,
-        validate: [required, validatePhone],
-        warn: alphaNumeric,
+        validate: [required],
       },
       {
         id: "username",
         label: "Username",
         type: "text",
         placeholder: user.username,
-        validate: [required],
-        warn: alphaNumeric,
+        validate: [],
       },
       {
         id: "firstName",
@@ -160,7 +157,6 @@ class AccountInfo extends Component {
         type: "date",
         placeholder: userInfo.bDay,
         validate: [required],
-        warn: alphaNumeric,
       },
       {
         id: "adress",
@@ -168,7 +164,6 @@ class AccountInfo extends Component {
         type: "text",
         placeholder: userInfo.adress,
         validate: [required, maxLength(30)],
-        warn: alphaNumeric,
       },
       {
         id: "zip",
@@ -199,7 +194,7 @@ class AccountInfo extends Component {
         Zip: values.zip,
       };
       this.props.updateUserInfoAction(data);
-      this.props.updateShowInfoAction(values.showInfo);
+      this.props.updateShowInfoAction(values.showInfo === "true");
     };
 
     return (
@@ -216,11 +211,17 @@ class AccountInfo extends Component {
                 component={infoField}
                 info={field}
                 name={field.id}
+                validate={field.validate}
+                warn={field.warn}
               />
             ))}
           </div>
           <div className="settings-info-form-checkbox">
-            <Field component={checkField} name="showInfo" />
+            <Field
+              component={checkField}
+              name="showInfo"
+              defaultValue="values.showInfo === true"
+            />
           </div>
           <div className="settings-info-form-button">
             <button
@@ -252,6 +253,15 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 AccountInfo = connect(mapStateToProps, mapDispatchToProps)(AccountInfo);
+
+AccountInfo = connect(
+  (state) => ({
+    initialValues: state.userInfo, // pull initial values from account reducer
+  }),
+  (dispatch) => ({
+    getUserInfoAction: () => dispatch(getUserInfo()),
+  }) // bind account loading action creator
+)(AccountInfo);
 
 export default reduxForm({
   form: "AccountInfo",

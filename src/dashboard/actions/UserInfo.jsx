@@ -87,7 +87,9 @@ const updateReInvestFetch = async (reinvest) => {
 		"/Identity/ReInvest?Id=" +
 			localStorage.getItem("id") +
 			"&ReInvest=" +
-			reinvest
+			reinvest,
+		"patch",
+		{}
 	);
 	return response;
 };
@@ -97,12 +99,14 @@ const updateShowInfoFetch = async (showinfo) => {
 		"/Identity/ShowInfo?Id=" +
 			localStorage.getItem("id") +
 			"&ShowInfo=" +
-			showinfo
+			showinfo,
+		"patch",
+		{}
 	);
 	return response;
 };
 
-const getUserInfoFetch = async (values) => {
+const getUserInfoFetch = async () => {
 	let response = await API(
 		"/Identity/GetUserInfo?Id=" + localStorage.getItem("id")
 	);
@@ -116,6 +120,7 @@ export const updateReInvest = (value) => {
 			.then((res) => {
 				if (res.ok) {
 					dispatch(updateReInvestSuccess(res.data));
+					dispatch(getUserInfo());
 				} else {
 					dispatch(
 						updateReInvestError({
@@ -143,6 +148,7 @@ export const updateShowInfo = (value) => {
 			.then((res) => {
 				if (res.ok) {
 					dispatch(updateShowInfoSuccess(res.data));
+					dispatch(getUserInfo());
 				} else {
 					dispatch(
 						updateShowInfoError({
@@ -163,10 +169,10 @@ export const updateShowInfo = (value) => {
 	};
 };
 
-export const getUserInfo = (values) => {
+export const getUserInfo = () => {
 	return (dispatch) => {
-		dispatch(getUserInfoRequest(values));
-		getUserInfoFetch(values)
+		dispatch(getUserInfoRequest());
+		getUserInfoFetch()
 			.then((res) => {
 				if (res.ok) {
 					dispatch(getUserInfoSuccess(res.data));
@@ -197,6 +203,7 @@ export const updateUserInfo = (values) => {
 			.then((res) => {
 				if (res.ok) {
 					dispatch(updateUserInfoSuccess(res.data));
+					dispatch(getUserInfo());
 				} else {
 					dispatch(
 						updateUserInfoError({
