@@ -32,27 +32,25 @@ const getLastWeekProfitFetch = async () => {
 export const getLastWeekProfit = () => {
 	return (dispatch) => {
 		var payload = {
-			profitFromInvest,
+			type: lastWeekProfits,
+			block: {},
 		};
-
 		dispatch(getLastWeekProfitRequest(payload));
 
 		getLastWeekProfitFetch()
 			.then((res) => {
 				if (res.ok) {
-					payload = {
-						...payload,
+					payload.block = {
 						data: res.data,
 						error: {
 							type: "done",
 							message: "",
 						},
 					};
-
+					console.log("payload", payload);
 					dispatch(getLastWeekProfitSuccess(payload));
 				} else {
-					payload = {
-						...payload,
+					payload.block = {
 						error: {
 							type: res.error.status,
 							message: res.error.message,
@@ -63,8 +61,7 @@ export const getLastWeekProfit = () => {
 				}
 			})
 			.catch((res) => {
-				payload = {
-					...payload,
+				payload.block = {
 					error: {
 						type: "code mistake",
 						message: res.message,

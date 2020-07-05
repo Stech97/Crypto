@@ -1,18 +1,21 @@
-import React, { Component, Fragment } from 'react'
-import '../styles/login.scss'
-import { connect } from 'react-redux'
-import Header from './components/Header'
-import Content from './components/Content'
+import React, { Component, Fragment } from "react";
+import "../styles/login.scss";
+import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
 
-class SignupPage extends Component {
-	render() {
-		return(
-			<Fragment>
-				<Header />
-				<Content />
-			</Fragment>
-		)
+import Header from "./components/Header";
+import SignupForm from "./components/SignupForm";
+
+export default function SignupPage(props) {
+	if (props.parent) {
+		var parent = props.parent;
+	} else {
+		var parent = "";
 	}
+	return (
+		<Fragment>
+			<Header />
+			<SignupForm parent={parent} />
+		</Fragment>
+	);
 }
-
-export default SignupPage

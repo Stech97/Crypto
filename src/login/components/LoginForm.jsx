@@ -52,7 +52,7 @@ class LoginForm extends Component {
 		} = this.props;
 
 		const submit = (values) => {
-			if (values.username.length <= 6) {
+			if (values.username.length < 6) {
 				throw new SubmissionError({
 					username: "Too short username!",
 				});
@@ -105,13 +105,13 @@ class LoginForm extends Component {
 					</button>
 					{user.error.type && (
 						<p className="error">
-							<i class="fas fa-exclamation-circle"></i>
+							<i className="fas fa-exclamation-circle"></i>
 							{" " + user.error.message}
 						</p>
 					)}
 					{error && (
 						<p className="error">
-							<i class="fas fa-exclamation-circle"></i>
+							<i className="fas fa-exclamation-circle"></i>
 							{" " + error}
 						</p>
 					)}

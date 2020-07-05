@@ -31,27 +31,25 @@ const getMembersAmountFetch = async () => {
 export const getMembersAmount = () => {
 	return (dispatch) => {
 		var payload = {
-			totalMembers,
+			type: totalMembers,
+			block: {},
 		};
-
 		dispatch(getMembersAmountRequest(payload));
 
 		getMembersAmountFetch()
 			.then((res) => {
 				if (res.ok) {
-					payload = {
-						...payload,
+					payload.block = {
 						data: res.data,
 						error: {
 							type: "done",
 							message: "",
 						},
 					};
-
+					console.log("payload", payload);
 					dispatch(getMembersAmountSuccess(payload));
 				} else {
-					payload = {
-						...payload,
+					payload.block = {
 						error: {
 							type: res.error.status,
 							message: res.error.message,
@@ -62,8 +60,7 @@ export const getMembersAmount = () => {
 				}
 			})
 			.catch((res) => {
-				payload = {
-					...payload,
+				payload.block = {
 					error: {
 						type: "code mistake",
 						message: res.message,

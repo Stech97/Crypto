@@ -83,8 +83,8 @@ export const EarningsReducer = (state = initialState, action) => {
 		case EARNINGS_REQUEST:
 			return {
 				...state,
-				[action.payload.block]: {
-					...[action.payload.block],
+				[action.payload.type]: {
+					...state[action.payload.type],
 					isFetching: true,
 				},
 			};
@@ -92,24 +92,20 @@ export const EarningsReducer = (state = initialState, action) => {
 		case EARNINGS_ERROR:
 			return {
 				...state,
-				[action.payload.block]: {
-					...[action.payload.block],
+				[action.payload.type]: {
+					...state[action.payload.type],
 					isFetching: false,
-					error: action.payload.error,
+					...action.payload.block,
 				},
 			};
 
 		case EARNINGS_SUCCESS:
 			return {
 				...state,
-				[action.payload.block]: {
-					...[action.payload.block],
+				[action.payload.type]: {
+					...state[action.payload.type],
 					isFetching: false,
-					data: action.payload.data,
-					error: {
-						type: "done",
-						message: "",
-					},
+					...action.payload.block,
 				},
 			};
 

@@ -17,7 +17,7 @@ class TeamLinks extends Component {
             {Refs.isFetching ? (
               <Loader type="Rings" color="#123273" height={80} width={80} />
             ) : (
-              "REF LINK " + Refs.refs.refId
+              "REF LINK https://defima.io/referal/" + Refs.refs.refId
             )}
           </h6>
         </div>
@@ -26,7 +26,7 @@ class TeamLinks extends Component {
             {Refs.isFetching ? (
               <Loader type="Rings" color="#123273" height={80} width={80} />
             ) : (
-              "REF LINK " + Refs.refs.refString
+              "REF LINK https://defima.io/referal/" + Refs.refs.refString
             )}
           </h6>
         </div>

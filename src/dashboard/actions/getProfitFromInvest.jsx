@@ -31,27 +31,25 @@ const getProfitFromInvestFetch = async () => {
 export const getProfitFromInvest = () => {
 	return (dispatch) => {
 		var payload = {
-			profitFromInvest,
+			type: profitFromInvest,
+			block: {},
 		};
-
 		dispatch(getProfitFromInvestRequest(payload));
 
 		getProfitFromInvestFetch()
 			.then((res) => {
 				if (res.ok) {
-					payload = {
-						...payload,
+					payload.block = {
 						data: res.data,
 						error: {
 							type: "done",
 							message: "",
 						},
 					};
-
+					console.log("payload", payload);
 					dispatch(getProfitFromInvestSuccess(payload));
 				} else {
-					payload = {
-						...payload,
+					payload.block = {
 						error: {
 							type: res.error.status,
 							message: res.error.message,
@@ -62,8 +60,7 @@ export const getProfitFromInvest = () => {
 				}
 			})
 			.catch((res) => {
-				payload = {
-					...payload,
+				payload.block = {
 					error: {
 						type: "code mistake",
 						message: res.message,

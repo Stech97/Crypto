@@ -69,15 +69,15 @@ class TeamContent extends Component {
           <div className="team-total-invested team-total-box">
             <h5 className="team-total-box-header">TOTAL Team Invested</h5>
             <div className="team-total-box-content team-whitebox">
-              <h3>{"$" + totalInvested.usd}</h3>
-              <h5>{"DET " + totalInvested.det}</h5>
+              <h3>{"$" + totalInvested.usd.toFixed(2)}</h3>
+              <h5>{"DET " + totalInvested.det.toFixed(2)}</h5>
             </div>
           </div>
           <div className="team-total-earnings team-total-box">
             <h5 className="team-total-box-header">TOTAL Team Earnings</h5>
             <div className="team-total-box-content team-whitebox">
-              <h3>{"DET " + earnings.teamEarnings.data.det}</h3>
-              <h5>{"$" + earnings.teamEarnings.data.usd}</h5>
+              <h3>{"DET " + earnings.teamEarnings.data.det.toFixed(2)}</h3>
+              <h5>{"$" + earnings.teamEarnings.data.usd.toFixed(2)}</h5>
             </div>
           </div>
         </div>

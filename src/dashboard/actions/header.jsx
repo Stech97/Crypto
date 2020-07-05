@@ -25,7 +25,7 @@ const getUserInfoError = (payload) => ({
 	payload,
 });
 
-export const setUser = (username) => {
+export const setUser = () => {
 	return (dispatch) => {
 		dispatch(getUserInfoRequest());
 

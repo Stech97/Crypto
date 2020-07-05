@@ -1,7 +1,7 @@
 import { API } from "../../config";
 import axios from "axios";
 import React from "react";
-import { getUserInfoSuccess } from "../../dashboard/actions/header";
+import { setUser } from "../../dashboard/actions/header";
 import Cookies from "js-cookie";
 export const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
@@ -50,14 +50,20 @@ export const userPostFetch = (user) => {
 						.then((res) => {
 							console.log(res);
 							if (res.ok) {
-								Cookies.set("token", res.data.token);
-								localStorage.setItem("id", res.data.id);
-								localStorage.setItem(
-									"isVerified",
-									res.data.isVerified === "true"
-								);
-								dispatch(loginUserSuccess());
-								dispatch(getUserInfoSuccess(res.data));
+								if (!res.data.isVerified) {
+									Cookies.set("token", res.data.token);
+									localStorage.setItem("id", res.data.id);
+									dispatch(loginUserSuccess());
+									dispatch(setUser(res.data));
+								} else {
+									dispatch(
+										loginUserError({
+											type: "Not Verified",
+											message:
+												"Verify your E-Mail address. Check your mailbox, please.",
+										})
+									);
+								}
 							} else if ((res.error.status = 401)) {
 								dispatch(
 									loginUserError({
@@ -74,6 +80,7 @@ export const userPostFetch = (user) => {
 									})
 								);
 							} else {
+								console.log("res", res);
 								dispatch(
 									loginUserError({
 										type: res.error.status,

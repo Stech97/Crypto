@@ -23,12 +23,12 @@ import { ForgotPassword } from "./signup/ForgotPassword";
 import { RestorePassword } from "./signup/RestorePassword";
 import TechPage from "./techpages/techpages";
 import Privacy from "./techpages/privacy";
-import Checkmail from "./signup/Checkmail";
+import ReferalComponent from "./signup/Referal";
 
 const DOMAIN_URL_TEST = "localhost:3000";
 const DOMAIN_URL_PROD = "https://defima.io";
 
-export const DOMAIN_URL = DOMAIN_URL_PROD;
+export const DOMAIN_URL = DOMAIN_URL_TEST;
 const API_URL_PROD = "https://back.defima.io/";
 const API_URL_TEST = "http://84.201.132.112/";
 export const API_URL = API_URL_PROD;
@@ -314,16 +314,16 @@ export const routes = [
     public: false,
   },
   {
-    path: "/forgot",
-    component: ForgotPassword,
+    path: "/referal/:parent",
+    component: ReferalComponent,
     Private: false,
     public: false,
   },
   {
-    path: "/unverifiedEmail",
-    component: Checkmail,
+    path: "/forgot",
+    component: ForgotPassword,
     Private: false,
-    public: true,
+    public: false,
   },
   {
     path: "/",

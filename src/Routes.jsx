@@ -3,6 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import { API } from "./config";
 import MainPage from "./main/Main";
 import Cookies from "js-cookie";
+import Checkmail from "./signup/Checkmail";
 
 const getUserInfo = async () => {
     let response = await API(
@@ -15,28 +16,13 @@ function isAuthenticated() {
     return Cookies.get("token") && true;
 }
 
-function isVerified() {
-    return localStorage.getItem("isVerified") === "true";
-}
-
 const PrivateRoute = ({ component: Component, routes: routes, ...rest }) => {
     return (
         <Route
             {...rest}
             render={(props) => {
                 if (isAuthenticated()) {
-                    if (isVerified()) {
-                        return <Component {...props} routes={routes} />;
-                    } else {
-                        return (
-                            <Redirect
-                                to={{
-                                    pathname: "/unverifiedEmail",
-                                    state: { from: props.location },
-                                }}
-                            />
-                        );
-                    }
+                    return <Component {...props} routes={routes} />;
                 } else {
                     return (
                         <Redirect
@@ -58,25 +44,14 @@ const InprivateRoute = ({ component: Component, routes: routes, ...rest }) => {
             {...rest}
             render={(props) => {
                 if (isAuthenticated()) {
-                    if (isVerified()) {
-                        return (
-                            <Redirect
-                                to={{
-                                    pathname: "/account/dashboard",
-                                    state: { from: props.location },
-                                }}
-                            />
-                        );
-                    } else {
-                        return (
-                            <Redirect
-                                to={{
-                                    pathname: "/unverifiedEmail",
-                                    state: { from: props.location },
-                                }}
-                            />
-                        );
-                    }
+                    return (
+                        <Redirect
+                            to={{
+                                pathname: "/account/dashboard",
+                                state: { from: props.location },
+                            }}
+                        />
+                    );
                 } else {
                     return <Component {...props} routes={routes} />;
                 }

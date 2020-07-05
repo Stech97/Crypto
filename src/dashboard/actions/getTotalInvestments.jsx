@@ -31,27 +31,25 @@ const getTotalInvestmentsFetch = async () => {
 export const getTotalInvestments = () => {
 	return (dispatch) => {
 		var payload = {
-			totalInvestment,
+			type: totalInvestment,
+			block: {},
 		};
-
 		dispatch(getTotalInvestmentsRequest(payload));
 
 		getTotalInvestmentsFetch()
 			.then((res) => {
 				if (res.ok) {
-					payload = {
-						...payload,
+					payload.block = {
 						data: res.data,
 						error: {
 							type: "done",
 							message: "",
 						},
 					};
-
+					console.log("payload", payload);
 					dispatch(getTotalInvestmentsSuccess(payload));
 				} else {
-					payload = {
-						...payload,
+					payload.block = {
 						error: {
 							type: res.error.status,
 							message: res.error.message,
@@ -62,8 +60,7 @@ export const getTotalInvestments = () => {
 				}
 			})
 			.catch((res) => {
-				payload = {
-					...payload,
+				payload.block = {
 					error: {
 						type: "code mistake",
 						message: res.message,

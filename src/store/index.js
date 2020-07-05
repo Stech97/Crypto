@@ -21,16 +21,23 @@ import { teamTableReducer } from "../dashboard/reducers/teamTable";
 import { investmentTableReducer } from "../dashboard//reducers/investmentTable";
 import { historyTableReducer } from "../dashboard/reducers/historyTable";
 import { teamPopupReducer } from "../dashboard/reducers/teamPopup";
-
+import { changePasswordReducer } from "../dashboard/reducers/changePassword";
+import { userInfoReducer } from "../dashboard/reducers/AccountInfo";
 export const rootReducer = combineReducers({
 	form: reduxFormReducer, // mounted under "form"
+	routing: routerReducer, // routing
+
 	ComingSoon: formReducer,
 	footerForm: FooterFormReducer,
-	routing: routerReducer,
+
 	login: loginReducer,
 	createUser: signupReducer,
 	forgot: forgotPasswordReducer,
+
+	changePassword: changePasswordReducer,
+
 	user: dashHeaderReducer,
+	userInfo: userInfoReducer,
 	ContentBalanceContainer: BalanceReducer,
 	BTCSquare: BTCRateReducer,
 	USDSquare: USDRateReducer,
