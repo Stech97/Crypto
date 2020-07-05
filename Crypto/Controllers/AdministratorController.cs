@@ -13,8 +13,10 @@ namespace Crypto.Controllers
 	public class AdministratorController : ControllerBase
 	{
 		private readonly IAdministratorService _administratorService;
-		public AdministratorController(IAdministratorService administratorService)
+		private readonly ISystemService _systemService;
+		public AdministratorController(IAdministratorService administratorService, ISystemService systemService)
 		{
+			_systemService = systemService;
 			_administratorService = administratorService;
 		}
 
@@ -193,6 +195,17 @@ namespace Crypto.Controllers
 		{
 			return Ok(await _administratorService.GetUsers());
 		}
+
+		[Route("Dev")]
+		[HttpGet]
+		public IActionResult Dev()
+		{
+			_systemService.AddCommission();
+			_systemService.AddProfit();
+
+			return Ok();
+		}
+
 
 		#endregion
 	}

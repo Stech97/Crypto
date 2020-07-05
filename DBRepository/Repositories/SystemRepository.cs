@@ -69,27 +69,31 @@ namespace DBRepository.Repositories
 								await context.SaveChangesAsync();
 							}
 						}
-
-						var BalanceHistory = new BalanceHistory()
-						{
-							Amount = Invest.Profit,
-							Balance = Balance.DefimaBalance / Rates.USD_DET,
-							Time = System.DateTime.Now,
-							UserId = Invest.UserId
-						};
-						switch (Invest.TypeInvest)
-						{
-							case EnumTypeInvestment.Small:
-								BalanceHistory.TypeHistory = EnumTypeHistory.ProfitSmall;
-								break;
-							case EnumTypeInvestment.Medium:
-								BalanceHistory.TypeHistory = EnumTypeHistory.ProfitMedium;
-								break;
-							case EnumTypeInvestment.Large:
-								BalanceHistory.TypeHistory = EnumTypeHistory.ProfitLarge;
-								break;
-						}
 					}
+
+					var BalanceHistory = new BalanceHistory()
+					{
+						Amount = Invest.Profit,
+						Balance = Balance.DefimaBalance / Rates.USD_DET,
+						Time = System.DateTime.Now,
+						UserId = Invest.UserId
+					};
+					switch (Invest.TypeInvest)
+					{
+						case EnumTypeInvestment.Small:
+							BalanceHistory.TypeHistory = EnumTypeHistory.ProfitSmall;
+							break;
+						case EnumTypeInvestment.Medium:
+							BalanceHistory.TypeHistory = EnumTypeHistory.ProfitMedium;
+							break;
+						case EnumTypeInvestment.Large:
+							BalanceHistory.TypeHistory = EnumTypeHistory.ProfitLarge;
+							break;
+					}
+
+					context.BalanceHistories.Add(BalanceHistory);
+					await context.SaveChangesAsync();
+
 					context.Investments.Update(Invest);
 					await context.SaveChangesAsync();
 				}
@@ -112,7 +116,7 @@ namespace DBRepository.Repositories
 					switch (TypeInvest)
 					{
 						case EnumTypeInvestment.Small:
-							MaxLevel = 1;
+							MaxLevel = 2;
 							break;
 						case EnumTypeInvestment.Medium:
 							MaxLevel = 4;
@@ -168,7 +172,7 @@ namespace DBRepository.Repositories
 
 					var invest = context.Investments.FirstOrDefault(i => i.UserId == Ref.Id);
 
-					if (level >= MaxLevel)
+					if (level > MaxLevel)
 						return;
 					if (level > 0 || level < 8)
 						if (invest != null)
