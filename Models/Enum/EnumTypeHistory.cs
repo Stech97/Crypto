@@ -8,6 +8,8 @@
         Add = 4,
         Withdraw = 5,
         Comission = 6,
-        Buy = 7
+        BuySmall = 7,
+        BuyMedium = 8,
+        BuyLarge = 9
     }
 }

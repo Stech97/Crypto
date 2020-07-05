@@ -34,10 +34,16 @@
                     ret = "Withdraw";
                     break;
                 case EnumTypeHistory.Comission:
-                    ret = "Comission ";
+                    ret = "Comission";
                     break;
-                case EnumTypeHistory.Buy:
-                    ret = "Buy ";
+                case EnumTypeHistory.BuySmall:
+                    ret = "Buy Small";
+                    break;
+                case EnumTypeHistory.BuyMedium:
+                    ret = "Buy Medium";
+                    break;
+                case EnumTypeHistory.BuyLarge:
+                    ret = "Buy Large";
                     break;
             }
             return ret;
@@ -45,7 +51,3 @@
 
     }
 }
-
-//[FK_BalanceHistory_TypeInvestment_TypeInvestmentType]
-//[TypeInvestmentType]
-//[IX_BalanceHistory_TypeInvestmentType]

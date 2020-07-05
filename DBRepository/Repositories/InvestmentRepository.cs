@@ -38,11 +38,24 @@ namespace DBRepository.Repositories
 							var BalanceHistory = new BalanceHistory()
 							{
 								Time = investment.DateInvestment,
-								TypeHistory = EnumTypeHistory.Buy,
 								Amount = investment.AddCash,
 								Balance = balance.BitcoinBalance * Rates.BTC_USD,
 								UserId = UserId
 							};
+
+							switch (investment.TypeInvest)
+							{
+								case EnumTypeInvestment.Small:
+									BalanceHistory.TypeHistory = EnumTypeHistory.BuySmall;
+									break;
+								case EnumTypeInvestment.Medium:
+									BalanceHistory.TypeHistory = EnumTypeHistory.BuyMedium;
+									break;
+								case EnumTypeInvestment.Large:
+									BalanceHistory.TypeHistory = EnumTypeHistory.BuyLarge;
+									break;
+							}
+
 							context.BalanceHistories.Add(BalanceHistory);
 
 							context.Balances.Update(balance);
@@ -62,11 +75,24 @@ namespace DBRepository.Repositories
 							var BalanceHistory = new BalanceHistory()
 							{
 								Time = investment.DateInvestment,
-								TypeHistory = EnumTypeHistory.Buy,
 								Amount = investment.AddCash,
 								Balance = balance.USDBalance,
 								UserId = UserId
 							};
+
+							switch (investment.TypeInvest)
+							{
+								case EnumTypeInvestment.Small:
+									BalanceHistory.TypeHistory = EnumTypeHistory.BuySmall;
+									break;
+								case EnumTypeInvestment.Medium:
+									BalanceHistory.TypeHistory = EnumTypeHistory.BuyMedium;
+									break;
+								case EnumTypeInvestment.Large:
+									BalanceHistory.TypeHistory = EnumTypeHistory.BuyLarge;
+									break;
+							}
+
 							context.BalanceHistories.Add(BalanceHistory);
 
 							context.Balances.Update(balance);
@@ -87,11 +113,24 @@ namespace DBRepository.Repositories
 							var BalanceHistory = new BalanceHistory()
 							{
 								Time = investment.DateInvestment,
-								TypeHistory = EnumTypeHistory.Buy,
 								Amount = investment.AddCash,
 								Balance = balance.DefimaBalance / Rates.USD_DET,
 								UserId = UserId
 							};
+
+							switch (investment.TypeInvest)
+							{
+								case EnumTypeInvestment.Small:
+									BalanceHistory.TypeHistory = EnumTypeHistory.BuySmall;
+									break;
+								case EnumTypeInvestment.Medium:
+									BalanceHistory.TypeHistory = EnumTypeHistory.BuyMedium;
+									break;
+								case EnumTypeInvestment.Large:
+									BalanceHistory.TypeHistory = EnumTypeHistory.BuyLarge;
+									break;
+							}
+
 							context.BalanceHistories.Add(BalanceHistory);
 
 							context.Balances.Update(balance);
