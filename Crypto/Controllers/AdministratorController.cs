@@ -271,6 +271,18 @@ namespace Crypto.Controllers
 			return Ok(resp);
 		}
 
+		//[Authorize]
+		[Route("GetAllCommission")]
+		[HttpGet]
+		public async Task<IActionResult> GetAllCommission()
+		{
+			var resp = await _administratorService.GetAllCommission();
+			var response = new
+			{
+				AllCommission = resp
+			};
+			return Ok(response);
+		}
 		#endregion
 
 		#region Dev

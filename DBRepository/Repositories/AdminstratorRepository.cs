@@ -270,6 +270,15 @@ namespace DBRepository.Repositories
 				return response;
 			}
 		}
+
+		public async Task<double> GetAllCommission()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				return await context.Investments.SumAsync(i => i.TotalCommission);
+			}
+		}
+
 		#endregion
 
 		#region Dev

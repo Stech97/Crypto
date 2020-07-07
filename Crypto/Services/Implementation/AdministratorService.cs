@@ -118,6 +118,11 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetAllUsersBalance();
 		}
 
+		public async Task<double> GetAllCommission()
+		{
+			return await _repository.GetAllCommission();
+		}
+
 		#endregion
 
 		#region Dev
