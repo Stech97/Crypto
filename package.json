@@ -20,6 +20,7 @@
     "plotly.js-dist": "^1.54.4",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-country-region-selector": "^2.1.0",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "react-json-to-csv": "^1.0.4",

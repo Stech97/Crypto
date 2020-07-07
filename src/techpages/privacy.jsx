@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react';
-import '../styles/tech.scss';
-import Footer from '../main/components/Footer';
-import Header from './Header.jsx';
+import React, { Component, Fragment } from "react";
+//import '../styles/tech.scss';
+import Footer from "../main/components/Footer";
+import Header from "./Header.jsx";
 
 export default class Privacy extends Component {
   render() {
@@ -26,7 +26,7 @@ export default class Privacy extends Component {
                   seriously. We ask that you read this privacy policy (the
                   “Policy”) carefully as it contains important information about
                   what to expect when we collect personal data about you and how
-                  we will use your personal data.{' '}
+                  we will use your personal data.{" "}
                 </p>
               </div>
               <div className="terms-box">
@@ -61,12 +61,12 @@ export default class Privacy extends Component {
                     <li>email address and online passwords; </li>
                     <li>
                       records of communications with us (including but not
-                      limited to voice and text messages);{' '}
+                      limited to voice and text messages);{" "}
                     </li>
                     <li>technical information;</li>
                     <li>
                       purchase and/or transaction history, including history on
-                      the usage of our Services;{' '}
+                      the usage of our Services;{" "}
                     </li>
                     <li>identification and proof of address documents; and </li>
                     <li>
@@ -93,12 +93,12 @@ export default class Privacy extends Component {
                       processing, servicing or enforcing transactions and
                       sending related communications, including processing and
                       delivering products to you as part of the Services and
-                      facilitating product collection from our stores;{' '}
+                      facilitating product collection from our stores;{" "}
                     </li>
                     <li>
                       registration, identification and verification purposes in
                       connection with any of the Services or products that may
-                      be supplied to you;{' '}
+                      be supplied to you;{" "}
                     </li>
                     <li>responding to your queries; </li>
                     <li>
@@ -107,7 +107,7 @@ export default class Privacy extends Component {
                       and promotional notices and offers and sending regular
                       newsletters, promotions, events or contact you about
                       products and services that we think may be of interest to
-                      you);{' '}
+                      you);{" "}
                     </li>
                     <li>improving and providing the Services; </li>
                     <li>

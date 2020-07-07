@@ -16,6 +16,7 @@ body {
   margin: 0;
   width: 100%;
 }
+
 @media (min-width: 992px) {
   .header-grid-container {
     padding-left: 8.75rem;
@@ -100,8 +101,6 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   border-width: 0 0 0.125rem 0;
-  border-bottom-color: inherit;
-  -webkit-text-fill-color: inherit;
   -webkit-box-shadow: 0 0 0rem 62.5rem transparent inset;
   transition: background-color 5000s ease-in-out 0.5s;
   background: inherit;

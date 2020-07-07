@@ -24,6 +24,7 @@ import { RestorePassword } from "./signup/RestorePassword";
 import TechPage from "./techpages/techpages";
 import Privacy from "./techpages/privacy";
 import ReferalComponent from "./signup/Referal";
+import NewDash from "./dashboard/NewDash";
 
 const DOMAIN_URL_TEST = "localhost:3000";
 const DOMAIN_URL_PROD = "https://defima.io";
@@ -241,7 +242,7 @@ export const routes = [
   },
   {
     path: "/account",
-    component: AccountPage,
+    component: NewDash,
     Private: true,
     public: false,
     routes: [
@@ -323,6 +324,12 @@ export const routes = [
     path: "/forgot",
     component: ForgotPassword,
     Private: false,
+    public: false,
+  },
+  {
+    path: "/newdash",
+    component: NewDash,
+    Private: true,
     public: false,
   },
   {

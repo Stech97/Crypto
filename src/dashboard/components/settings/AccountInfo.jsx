@@ -6,6 +6,7 @@ import {
   updateUserInfo,
   updateShowInfo,
 } from "../../actions/UserInfo";
+import { CountryDropdown } from "react-country-region-selector";
 
 const required = (value) =>
   value || typeof value === "number" ? undefined : "Required";
@@ -61,6 +62,11 @@ const phoneNumber = (value) =>
     ? "Invalid phone number, must be 10 digits"
     : undefined;
 
+const zipValidate = (value) =>
+  value && !/^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/.test(value)
+    ? "Invalid ZIP"
+    : undefined;
+
 class AccountInfo extends Component {
   componentDidMount = () => {
     this.props.getUserInfoAction();
@@ -73,7 +79,7 @@ class AccountInfo extends Component {
       meta: { touched, error, warning },
     }) => {
       return (
-        <Fragment>
+        <div className="settings-info-form-text-input">
           <label htmlFor={id}>{label}</label>
           <input
             {...input}
@@ -85,7 +91,7 @@ class AccountInfo extends Component {
           {touched &&
             ((error && <p className="error">{error}</p>) ||
               (warning && <p className="error">{warning}</p>))}
-        </Fragment>
+        </div>
       );
     };
 
@@ -106,6 +112,23 @@ class AccountInfo extends Component {
       );
     };
 
+    function CountryField({
+      input,
+      info: { id, label, type, placeholder },
+      meta: { touched, error, warning },
+      ...rest
+    }) {
+      return (
+        <div className="settings-info-form-text-input">
+          <label htmlFor={id}>{label}</label>
+          <CountryDropdown blacklist={["CA", "US"]} {...rest} {...input} />
+          {touched &&
+            ((error && <p className="error">{error}</p>) ||
+              (warning && <p className="error">{warning}</p>))}
+        </div>
+      );
+    }
+
     const {
       userInfo,
       user,
@@ -120,6 +143,7 @@ class AccountInfo extends Component {
 
     const info = [
       {
+        component: infoField,
         id: "email",
         label: "E-Mail",
         type: "email",
@@ -127,6 +151,7 @@ class AccountInfo extends Component {
         validate: [required, emailValidate],
       },
       {
+        component: infoField,
         id: "phone",
         label: "Phone Number",
         type: "tel",
@@ -134,6 +159,7 @@ class AccountInfo extends Component {
         validate: [required],
       },
       {
+        component: infoField,
         id: "username",
         label: "Username",
         type: "text",
@@ -141,6 +167,7 @@ class AccountInfo extends Component {
         validate: [],
       },
       {
+        component: infoField,
         id: "firstName",
         label: "First Name",
         type: "text",
@@ -149,6 +176,7 @@ class AccountInfo extends Component {
         warn: alphaNumeric,
       },
       {
+        component: infoField,
         id: "lastName",
         label: "Last Name",
         type: "text",
@@ -157,6 +185,7 @@ class AccountInfo extends Component {
         warn: alphaNumeric,
       },
       {
+        component: infoField,
         id: "bDay",
         label: "Date of Birth",
         type: "date",
@@ -164,6 +193,7 @@ class AccountInfo extends Component {
         validate: [required],
       },
       {
+        component: infoField,
         id: "adress",
         label: "Address",
         type: "text",
@@ -171,14 +201,16 @@ class AccountInfo extends Component {
         validate: [required, maxLength(30)],
       },
       {
+        component: infoField,
         id: "zip",
         label: "ZIP Code",
         type: "text",
         placeholder: userInfo.zip,
-        validate: [required, minLength(6), maxLength(10)],
+        validate: [required, zipValidate],
         warn: alphaNumeric,
       },
       {
+        component: CountryField,
         id: "country",
         label: "Country",
         type: "text",
@@ -199,7 +231,6 @@ class AccountInfo extends Component {
         Zip: values.zip,
       };
       this.props.updateUserInfoAction(data);
-      this.props.updateShowInfoAction(values.showInfo);
       reset();
     };
 
@@ -214,7 +245,7 @@ class AccountInfo extends Component {
             {info.map((field, i) => (
               <Field
                 key={i}
-                component={infoField}
+                component={field.component}
                 info={field}
                 name={field.id}
                 validate={field.validate}
@@ -232,8 +263,8 @@ class AccountInfo extends Component {
             >
               {userInfo.isFetching || submitting
                 ? "Wait..."
-                : userInfo.error.type === "showinfo updated"
-                ? "Done"
+                : userInfo.error.type === "info updated"
+                ? "Success"
                 : "Save"}
             </button>
           </div>

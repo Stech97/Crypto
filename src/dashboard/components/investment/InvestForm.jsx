@@ -6,6 +6,7 @@ import {
 	SubmissionError,
 	reduxForm,
 } from "redux-form";
+import { getInvestmentTable } from "../../actions/InvestmentTable";
 import { getBalance } from "../../actions/getBalance";
 import { RateRequest } from "../../actions/getRate";
 import { buyInvest } from "../../actions/investForm";
@@ -244,6 +245,7 @@ class InvestPopupForm extends Component {
 			if (amount <= balance[wallet.toLowerCase()]) {
 				if (amount * rate >= Number(minamount)) {
 					this.props.buyInvestAction(amount, wallet, typeNum());
+					this.props.getInvestmentTableAction();
 					this.props.reset();
 				} else {
 					throw new SubmissionError({
@@ -303,6 +305,7 @@ const mapDispatchToProps = (dispatch) => ({
 	getBalanceAction: () => dispatch(getBalance()),
 	buyInvestAction: (amount, currency, type) =>
 		dispatch(buyInvest(amount, currency, type)),
+	getInvestmentTableAction: () => dispatch(getInvestmentTable()),
 });
 
 InvestPopupForm = connect(mapStateToProps, mapDispatchToProps)(InvestPopupForm);

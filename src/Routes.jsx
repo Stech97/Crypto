@@ -69,7 +69,7 @@ const PublicRoute = ({ component: Component, routes: routes, ...rest }) => {
     );
 };
 
-export function RouteWithSubRoutes(route) {
+export default function RouteWithSubRoutes(route) {
     if (route.Private) {
         return (
             <PrivateRoute

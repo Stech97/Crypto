@@ -300,6 +300,7 @@ class SignupForm extends Component {
               text="I agree with "
               link={true}
               linktext="Terms and conditions"
+              validate={[required]}
             />
             <Field
               component={checkField}
@@ -310,6 +311,7 @@ class SignupForm extends Component {
               text="I am NOT the US or CANADA Citizen"
               link={false}
               linktext="linktext"
+              validate={[required]}
             />
             <div className="signup-box-bottomcontainer">
               <div className="signup-box-bottomcontainer-button">

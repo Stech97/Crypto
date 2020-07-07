@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Header from "./components/Header";
-import "../styles/login.scss";
+//import "../styles/login.scss";
 
 class Checkmail extends Component {
 	render() {

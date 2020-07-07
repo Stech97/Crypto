@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import API from "../../config";
 import { connect } from "react-redux";
 import { setUser } from "../actions/header";
 import { userLogoutGet } from "../actions/logout";

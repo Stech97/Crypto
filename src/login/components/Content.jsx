@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../../styles/login.scss";
 import { connect } from "react-redux";
 import LoginForm from "./LoginForm";
 import { Link } from "react-router-dom";

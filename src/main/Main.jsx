@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import "../styles/style.scss";
+//import "../styles/style.scss";
 import Header from "./components/Header";
 import Homescreen from "./components/Homescreen";
 import Ourmission from "./components/Ourmission";

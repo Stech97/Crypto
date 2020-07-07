@@ -76,33 +76,54 @@
         grid-area: textform;
 
         display: grid;
-        grid-template-columns: $gap / 2 1fr 2fr $gap / 2;
+        grid-template-columns: $gap / 2 1fr $gap / 2;
         grid-gap: $gap;
-        grid-auto-rows: 2rem;
+        grid-auto-rows: 3.3rem;
         grid-row-gap: 0.5rem;
 
-        > label {
+        &-input {
           grid-column: 2 / 3;
-          // Style for "E-Mail"
-          color: #16428d;
-          font-family: "IBM Plex Sans";
-          font-size: 1rem;
-          font-weight: 500;
-        }
+          display: grid;
+          grid-gap: 0.2rem $gap;
+          grid-template-rows: 2rem 1rem;
+          grid-template-columns: 1fr 2fr;
+          grid-template-areas: "l i" "e e";
 
-        > input {
-          grid-column: 3 / 4;
-          border: none;
-          border-bottom: 0.125rem solid #838383;
-          color: #16428d;
-          font-family: "IBM Plex Sans";
-          font-size: 0.8rem;
-          font-weight: 500;
-          opacity: 0.5;
+          > label {
+            align-self: center;
+            grid-area: l;
+            // Style for "E-Mail"
+            color: #16428d;
+            font-family: "IBM Plex Sans";
+            font-size: 1rem;
+            font-weight: 500;
+          }
 
-          &:placeholder {
+          > input,
+          > select {
+            width: 100%;
+            align-self: center;
+            justify-self: end;
+            grid-area: i;
+            border: none;
+            border-bottom: 0.125rem solid #838383;
+            color: #16428d;
+            font-family: "IBM Plex Sans";
+            font-size: 0.8rem;
+            font-weight: 500;
             opacity: 0.5;
-            color: #838383;
+
+            &:placeholder {
+              opacity: 0.5;
+              color: #838383;
+            }
+          }
+
+          & > p {
+            align-self: start;
+            justify-self: end;
+            grid-area: e;
+            font-size: 0.8rem;
           }
         }
       }
@@ -434,7 +455,7 @@
 
       display: grid;
       grid-template-columns: $gap / 2 1fr $gap / 2;
-      grid-template-rows: 1rem 3rem min-content 1rem;
+      grid-template-rows: 1rem 2rem min-content 1rem;
       grid-gap: 2rem $gap;
       grid-template-areas:
         ". . ."
@@ -528,10 +549,10 @@
 
   &-security {
     display: grid;
-    grid-template-columns: 100%;
-    grid-row-gap: 2rem;
+    grid-template-columns: $gap / 2 1fr $gap / 2;
+    grid-gap: 2rem $gap;
     grid-template-rows: min-content min-content;
-    grid-template-areas: "sh" "sb";
+    grid-template-areas: ". sh ." "sb sb sb";
     &-header {
       grid-area: sh;
       color: #123273;
