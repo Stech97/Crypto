@@ -59,7 +59,7 @@ namespace Crypto.Controllers
 			var response = await _administratorService.GetPic(Component);
 			if (response != null)
 			{
-				var type = response.ImageName.Substring(response.ImageName.IndexOf('.')+1);
+				var type = response.ImageName.Substring(response.ImageName.IndexOf('.') + 1);
 				var mimeType = "application/" + type;
 
 				return new FileContentResult(response.Image, mimeType)
@@ -80,11 +80,11 @@ namespace Crypto.Controllers
 				return BadRequest();
 			return Ok(response);
 		}
-        #endregion
+		#endregion
 
-        #region Get User Picture
-        //[Authorize]
-        [Route("GetPassportPicture")]
+		#region Get User Picture
+		//[Authorize]
+		[Route("GetPassportPicture")]
 		[HttpGet]
 		public async Task<IActionResult> GetPassportPicture(int UserId)
 		{
@@ -209,8 +209,35 @@ namespace Crypto.Controllers
 				};
 				return Ok(response);
 			}
-				
+
 			return Ok(resp);
+		}
+		
+		//[Authorize]
+		[Route("GetCountUser")]
+		[HttpGet]
+		public async Task<IActionResult> GetCountUser()
+		{
+			var resp = await _administratorService.GetCountUser();
+			var response = new
+			{
+				CountUser = resp
+			};
+
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("GetCountUserWithInvest")]
+		[HttpGet]
+		public async Task<IActionResult> GetCountUserWithInvest()
+		{
+			var resp = await _administratorService.GetCountUserWithInvest();
+			var response = new
+			{
+				CountUserWithInvest = resp
+			};
+			return Ok(response);
 		}
 		#endregion
 

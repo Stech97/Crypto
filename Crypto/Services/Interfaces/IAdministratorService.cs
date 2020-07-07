@@ -16,6 +16,7 @@ namespace Crypto.Services.Interfaces
         Task UpdatePic(byte[] image, string nameFile, string Component);
         Task<Images> GetPic(string Component);
         Task<SingleTextViewModel> GetInfo(string Component);
+        Task<int> GetCountUserWithInvest();
         #region Get User Picture
         Task<Images> GetPassportPicture(int userId);
         Task<Images> GeProofPicture(int UserId);
@@ -25,6 +26,7 @@ namespace Crypto.Services.Interfaces
         #region Dashboard
         Task<double> GetAddedFounds();
         Task<object> GetInvestedAmount();
+        Task<int> GetCountUser();
         #endregion
 
         #region Dev

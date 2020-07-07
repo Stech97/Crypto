@@ -23,6 +23,8 @@ namespace DBRepository.Interfaces
         Task DeleteNews(string heder);
         Task<double> GetAddedFounds();
         Task<object> GetInvestedAmount();
+        Task<int> GetCountUser();
+        Task<int> GetCountUserWithInvest();
         #endregion
 
         #region Dev

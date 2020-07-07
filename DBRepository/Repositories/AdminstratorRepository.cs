@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 
 namespace DBRepository.Repositories
@@ -14,8 +15,8 @@ namespace DBRepository.Repositories
 		#region Main Page
 		public async Task UpdateInfo(MainPage mainPage)
 		{
-			using(var contex = ContextFactory.CreateDbContext(ConnectionString))
-            {
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
 				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == mainPage.Component);
 				if (main != null)
 				{
@@ -29,11 +30,11 @@ namespace DBRepository.Repositories
 					contex.MainPages.Update(main);
 					await contex.SaveChangesAsync();
 				}
-            }
+			}
 		}
 
 		public async Task UpdatePic(byte[] image, string nameFile, string Component)
-        {
+		{
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
@@ -189,8 +190,8 @@ namespace DBRepository.Repositories
 			}
 		}
 
-        public async Task<Rate> UpdateDETRate(Rate rate)
-        {
+		public async Task<Rate> UpdateDETRate(Rate rate)
+		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var Rate = await context.Rates.FirstOrDefaultAsync();
@@ -215,7 +216,7 @@ namespace DBRepository.Repositories
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var Invest = await context.Investments.AsNoTracking().SumAsync(i => i.AddCash);
-				var Rate = await context.Rates.AsNoTracking().FirstOrDefaultAsync();
+                var Rate = await context.Rates.AsNoTracking().FirstOrDefaultAsync();
 
 				var response = new
 				{
@@ -227,6 +228,24 @@ namespace DBRepository.Repositories
 			}
 		}
 
+		public async Task<int> GetCountUser()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var x = await context.Users.CountAsync();
+				return await context.Users.CountAsync();
+			}
+		}
+
+		public async Task<int> GetCountUserWithInvest()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var CountInvests = (await context.Investments.AsNoTracking().ToListAsync())
+					.GroupBy(i => i.UserId).Select(ii => ii.FirstOrDefault()).ToList().Count;
+				return CountInvests;
+			}
+		}
 		#endregion
 
 		#region Dev
