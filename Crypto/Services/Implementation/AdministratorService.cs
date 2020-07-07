@@ -113,6 +113,11 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetWithdrawnAmount();
 		}
 
+		public async Task<object> GetAllUsersBalance()
+		{
+			return await _repository.GetAllUsersBalance();
+		}
+
 		#endregion
 
 		#region Dev

@@ -254,6 +254,22 @@ namespace DBRepository.Repositories
 					.Where(bh => bh.TypeHistory == EnumTypeHistory.Withdraw).SumAsync(bh => bh.Amount);
 			}
 		}
+
+		public async Task<object> GetAllUsersBalance()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var BalanceUSD = await context.Balances.AsNoTracking().SumAsync(b => b.USDBalance);
+				var BalanceDET = await context.Balances.AsNoTracking().SumAsync(b => b.DefimaBalance);
+
+				var response = new
+				{
+					USD = BalanceUSD,
+					DET = BalanceDET
+				};
+				return response;
+			}
+		}
 		#endregion
 
 		#region Dev

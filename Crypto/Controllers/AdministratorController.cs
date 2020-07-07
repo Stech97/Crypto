@@ -252,6 +252,25 @@ namespace Crypto.Controllers
 			};
 			return Ok(response);
 		}
+
+		//[Authorize]
+		[Route("GetAllUsersBalance")]
+		[HttpGet]
+		public async Task<IActionResult> GetAllUsersBalance()
+		{
+			var resp = await _administratorService.GetAllUsersBalance();
+			if (resp == null)
+			{
+				var response = new
+				{
+					USD = 0,
+					DET = 0
+				};
+				return Ok(response);
+			}
+			return Ok(resp);
+		}
+
 		#endregion
 
 		#region Dev

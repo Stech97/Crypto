@@ -30,6 +30,7 @@ namespace Crypto.Services.Interfaces
         Task<int> GetCountUser();
         Task<int> GetCountUserWithInvest();
         Task<double> GetWithdrawnAmount();
+        Task<object> GetAllUsersBalance();
         #endregion
 
         #region Dev
