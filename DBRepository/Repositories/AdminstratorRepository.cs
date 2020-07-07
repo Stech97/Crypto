@@ -200,10 +200,20 @@ namespace DBRepository.Repositories
 				return await context.Rates.AsNoTracking().FirstOrDefaultAsync();
 			}
 		}
-        #endregion
 
-        #region Dev
-        public async Task DelUser(int Id)
+		public async Task<double> GetAddedFounds()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				return await context.BalanceHistories.AsNoTracking()
+					.Where(bh => bh.TypeHistory == EnumTypeHistory.Add).SumAsync(bh => bh.Amount);
+			}
+		}
+
+		#endregion
+
+		#region Dev
+		public async Task DelUser(int Id)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{

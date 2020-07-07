@@ -25,6 +25,7 @@ namespace Crypto.Services.Interfaces
         #region Dev
         Task DelUser(int Id);
         Task<List<UserViewModel>> GetUsers();
+        Task<double> GetAddedFounds();
         #endregion
     }
 }

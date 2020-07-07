@@ -87,10 +87,15 @@ namespace Crypto.Services.Implementation
 			var newRate = await _repository.UpdateDETRate(rate);
 			return _mapper.Map<Rate, RateDETViewModel>(newRate);
 		}
-        #endregion
 
-        #region Dev
-        public async Task<List<UserViewModel>> GetUsers()
+		public async Task<double> GetAddedFounds()
+		{
+			return await _repository.GetAddedFounds();
+		}
+		#endregion
+
+		#region Dev
+		public async Task<List<UserViewModel>> GetUsers()
 		{
 			var response = await _repository.GetUsers();
 			return _mapper.Map<List<object>, List<UserViewModel>>(response);

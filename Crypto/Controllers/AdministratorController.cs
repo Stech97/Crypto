@@ -178,11 +178,28 @@ namespace Crypto.Controllers
 		{
 			return Ok(await _administratorService.UpdateDETRate(request));
 		}
-		#endregion
 
-		#region Dev
+		//[Authorize]
+		[Route("GetAddedFounds")]
+		[HttpGet]
+		public async Task<IActionResult> GetAddedFounds()
+		{
+			var resp = await _administratorService.GetAddedFounds();
+			if (resp == 0)
+				return NotFound("Not found added founds");
 
-		[Route("DelUser")]
+			var responce = new
+			{
+				AddedFound = resp
+			};
+
+			return Ok(responce);
+		}
+        #endregion
+
+        #region Dev
+
+        [Route("DelUser")]
 		[HttpGet]
 		public async Task<IActionResult> DelUser(int Id)
 		{
