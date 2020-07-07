@@ -210,6 +210,23 @@ namespace DBRepository.Repositories
 			}
 		}
 
+		public async Task<object> GetInvestedAmount()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var Invest = await context.Investments.AsNoTracking().SumAsync(i => i.AddCash);
+				var Rate = await context.Rates.AsNoTracking().FirstOrDefaultAsync();
+
+				var response = new
+				{
+					USD = Invest,
+					DET = Invest / Rate.USD_DET
+				};
+
+				return response;
+			}
+		}
+
 		#endregion
 
 		#region Dev

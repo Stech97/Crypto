@@ -92,6 +92,12 @@ namespace Crypto.Services.Implementation
 		{
 			return await _repository.GetAddedFounds();
 		}
+
+		public async Task<object> GetInvestedAmount()
+		{
+			return await _repository.GetInvestedAmount();
+		}
+
 		#endregion
 
 		#region Dev

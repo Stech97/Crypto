@@ -22,10 +22,14 @@ namespace Crypto.Services.Interfaces
         Task<Images> GetSelfiPicture(int UserId);
         #endregion
 
+        #region Dashboard
+        Task<double> GetAddedFounds();
+        Task<object> GetInvestedAmount();
+        #endregion
+
         #region Dev
         Task DelUser(int Id);
         Task<List<UserViewModel>> GetUsers();
-        Task<double> GetAddedFounds();
         #endregion
     }
 }

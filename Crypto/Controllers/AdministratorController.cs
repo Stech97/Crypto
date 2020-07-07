@@ -185,8 +185,6 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> GetAddedFounds()
 		{
 			var resp = await _administratorService.GetAddedFounds();
-			if (resp == 0)
-				return NotFound("Not found added founds");
 
 			var responce = new
 			{
@@ -195,11 +193,30 @@ namespace Crypto.Controllers
 
 			return Ok(responce);
 		}
-        #endregion
 
-        #region Dev
+		//[Authorize]
+		[Route("GetInvestedAmount")]
+		[HttpGet]
+		public async Task<IActionResult> GetInvestedAmount()
+		{
+			var resp = await _administratorService.GetInvestedAmount();
+			if (resp == null)
+			{
+				var response = new
+				{
+					USD = 0,
+					DET = 0
+				};
+				return Ok(response);
+			}
+				
+			return Ok(resp);
+		}
+		#endregion
 
-        [Route("DelUser")]
+		#region Dev
+
+		[Route("DelUser")]
 		[HttpGet]
 		public async Task<IActionResult> DelUser(int Id)
 		{
