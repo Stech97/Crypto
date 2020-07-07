@@ -107,6 +107,12 @@ namespace Crypto.Services.Implementation
 		{
 			return await _repository.GetCountUserWithInvest();
 		}
+
+		public async Task<double> GetWithdrawnAmount()
+		{
+			return await _repository.GetWithdrawnAmount();
+		}
+
 		#endregion
 
 		#region Dev

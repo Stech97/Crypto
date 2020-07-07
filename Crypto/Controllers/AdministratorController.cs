@@ -239,6 +239,19 @@ namespace Crypto.Controllers
 			};
 			return Ok(response);
 		}
+
+		//[Authorize]
+		[Route("GetWithdrawnAmount")]
+		[HttpGet]
+		public async Task<IActionResult> GetWithdrawnAmount()
+		{
+			var resp = await _administratorService.GetWithdrawnAmount();
+			var response = new
+			{
+				WithdrawnAmount = resp
+			};
+			return Ok(response);
+		}
 		#endregion
 
 		#region Dev

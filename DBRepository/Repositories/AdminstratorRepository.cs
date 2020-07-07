@@ -232,8 +232,7 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var x = await context.Users.CountAsync();
-				return await context.Users.CountAsync();
+				return await context.Users.AsNoTracking().CountAsync();
 			}
 		}
 
@@ -244,6 +243,15 @@ namespace DBRepository.Repositories
 				var CountInvests = (await context.Investments.AsNoTracking().ToListAsync())
 					.GroupBy(i => i.UserId).Select(ii => ii.FirstOrDefault()).ToList().Count;
 				return CountInvests;
+			}
+		}
+
+		public async Task<double> GetWithdrawnAmount()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				return await context.BalanceHistories.AsNoTracking()
+					.Where(bh => bh.TypeHistory == EnumTypeHistory.Withdraw).SumAsync(bh => bh.Amount);
 			}
 		}
 		#endregion

@@ -25,6 +25,7 @@ namespace DBRepository.Interfaces
         Task<object> GetInvestedAmount();
         Task<int> GetCountUser();
         Task<int> GetCountUserWithInvest();
+        Task<double> GetWithdrawnAmount();
         #endregion
 
         #region Dev
