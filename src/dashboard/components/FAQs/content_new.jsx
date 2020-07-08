@@ -14,43 +14,58 @@ import { Grid } from '@material-ui/core';
 import { SvgIcon } from '@material-ui/core';
 import { Icon } from '@material-ui/core';
 import { Container } from '@material-ui/core';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+export const darkBlue = '#123273';
+export const gradient = 'linear-gradient(50deg, #123273 0%, #005c9f 100%)';
+export const grayText = '#838383';
+export const grayBack = '#efefef';
+export const orange = '#ed7102';
+export const lightBlue = '#16428d';
+export const whitebox = '#efefef';
+export const contentBack = '#f5fbff';
 
 const links = [
   {
     header: 'Platform Tutorial',
-    Link: () => (
-      <a
-        className="white-text"
+    Link: (className) => (
+      <Button
+        className={className}
         href="/files/Business_presentation.pptx"
         download
       >
+        {' '}
         Download PDF
-      </a>
+      </Button>
     ),
   },
 
   {
     header: 'E-Mail',
     Link: () => (
-      <a className="white-text" href="mailto:support@defima.io">
+      <Button className="white_text" href="mailto:support@defima.io">
+        {' '}
         Contact us
-      </a>
+      </Button>
     ),
   },
   {
     header: 'Defima Community',
     Link: () => (
-      <a className="white-text" href="https://telegram.org">
+      <Button className="white_text" href="https://telegram.org">
         Join Telegram
-      </a>
+      </Button>
     ),
   },
   {
     header: 'Blog/News',
     Link: () => (
-      <a className="white-text" href="https://medium.com">
+      <Button className="white_text" href="https://medium.com">
         Open Blog
-      </a>
+      </Button>
     ),
   },
 ];
@@ -94,13 +109,74 @@ const faq = [
   },
 ];
 
+const useStyles = makeStyles((theme) => ({
+  white_text: {
+    margin: 'auto',
+    color: '#000000',
+    width: '100%',
+    height: '100%',
+    textTransform: 'capitalize',
+    '&:hover': {
+      backgroundColor: 'transparent',
+      // color: '#FFF',
+    },
+  },
+  header: {
+    color: darkBlue,
+    fontFamily: 'IBM Plex Sans',
+    fontWeight: 500,
+    fontSize: '1.2rem',
+    margin: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  root: {
+    width: '100%',
+    margin: 10,
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+  faq_heading: { color: darkBlue, fontWeight: 500, fontSize: '1.75rem' },
+}));
+
 const FaqLink = ({ id, header, Link }) => {
+  const classes = useStyles();
   return (
-    <div className="faq-links-linkbox">
-      <h5 className="blue-text">{header}</h5>
-      <Link />
+    <Grid item xs={6} md={3}>
+      <Typography variant="h5" element="h5" className={classes.header}>
+        {header}
+      </Typography>{' '}
+      <Link className={classes.white_text} />
+    </Grid>
+  );
+};
+
+const FaqAccordion = ({ question, answer }) => {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography className={classes.heading}>{question}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>{answer}</Typography>
+        </AccordionDetails>
+      </Accordion>
     </div>
   );
+};
+
+const FaqHeading = ({}) => {
+  const classes = useStyles();
+  return <Typography className={classes.faq_heading}>{"FAQ's"}</Typography>;
 };
 
 class FaqTab extends Component {
@@ -115,34 +191,7 @@ class FaqTab extends Component {
   render() {
     const { question, answer } = this.props;
 
-    return (
-      <div
-        className={
-          'content-whitebox ' +
-          (this.state.isOpened
-            ? 'faq-questions-tab'
-            : 'faq-questions-tab-closed')
-        }
-      >
-        <div className="faq-questions-tab-panel">
-          <h5 className="lightblue-text">{question}</h5>
-          <svg
-            onClick={() => this.handleClick()}
-            role="img"
-            className={'arrow' + (this.state.isOpened ? '' : '-closed')}
-            preserveAspectRatio="xMinYMin slice"
-            viewBox="0 0 25 15"
-          >
-            <use href="#arrow-down" />
-          </svg>
-        </div>
-        <div
-          className={this.state.isOpened ? 'faq-questions-tab-answer' : 'none'}
-        >
-          <p>{answer}</p>
-        </div>
-      </div>
-    );
+    return <FaqAccordion question={question} answer={answer} />;
   }
 }
 
@@ -150,17 +199,26 @@ class FaqsContent extends Component {
   render() {
     return (
       <div className="faq-box">
-        <div className="faq-links">
+        <Grid container direction="row" spacing={3}>
           {links.map((link, id) => (
             <FaqLink key={id} {...link} />
           ))}
-        </div>
-        <div className="faq-questions">
-          <h2 className="faq-questions-header">FAQ's</h2>
-          {faq.map((tab) => (
-            <FaqTab key={tab.id} question={tab.question} answer={tab.answer} />
-          ))}
-        </div>
+
+          <div className="faq-questions">
+            <Grid item xs={12}>
+              <FaqHeading />
+            </Grid>
+            <Grid item xs={12}>
+              {faq.map((tab) => (
+                <FaqTab
+                  key={tab.id}
+                  question={tab.question}
+                  answer={tab.answer}
+                />
+              ))}
+            </Grid>
+          </div>
+        </Grid>
       </div>
     );
   }
