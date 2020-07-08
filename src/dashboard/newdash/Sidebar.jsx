@@ -67,6 +67,8 @@ const useStyles = makeStyles((theme) => ({
 		display: "none",
 	},
 	drawer: {
+		position: "relative",
+		zIndex: "1000",
 		flexShrink: 0,
 		whiteSpace: "nowrap",
 		background: "linear-gradient(19deg, #0b1f48 0%, #005c9f 100%)",
@@ -311,9 +313,7 @@ function Sidebar(props) {
 								{...tab}
 							/>
 						))}
-						<ListItem>
-							<SidebarTime />
-						</ListItem>
+						<ListItem>{open && <SidebarTime />}</ListItem>
 					</List>
 				</Grid>
 				<Grid

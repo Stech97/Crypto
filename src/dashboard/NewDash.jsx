@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewDash(props) {
 	const classes = useStyles();
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 
 	const handleDrawerToggle = (open) => {
 		setOpen(!open);

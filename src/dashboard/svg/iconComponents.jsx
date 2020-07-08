@@ -181,3 +181,29 @@ export function ArrowLeft(props) {
 		</SvgIcon>
 	);
 }
+
+export function MinusIcon(props) {
+	return (
+		<SvgIcon viewBox="0 0 46 6" {...props}>
+			<path
+				strokeLinecap="round"
+				strokeMiterlimit={20}
+				strokeWidth={5}
+				d="M3 3h40"
+			/>
+		</SvgIcon>
+	);
+}
+
+export function PlusIcon(props) {
+	return (
+		<SvgIcon viewBox="0 0 47 44" {...props}>
+			<path
+				strokeLinecap="round"
+				strokeMiterlimit={20}
+				strokeWidth={5}
+				d="M3.5 21.5h40M24 2.385v39.23"
+			/>
+		</SvgIcon>
+	);
+}
