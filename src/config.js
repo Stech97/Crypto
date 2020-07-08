@@ -7,7 +7,7 @@ import LoginPage from './login/Login';
 import SignupPage from './signup/Signup';
 import DashContent from './dashboard/components/dashcontent/content';
 import InvestmentContent from './dashboard/components/investment/content';
-import FaqsContent from './dashboard/components/FAQs/content';
+import FaqsContent from './dashboard/components/FAQs/content_new';
 
 import MarketingContent from './dashboard/components/marketing/content_new';
 
