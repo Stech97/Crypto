@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import "../styles/utils/normalize.scss";
 import {
 	BrowserRouter as Router,
@@ -10,7 +10,7 @@ import { RouteWithSubRoutes } from "../Routes";
 import Header from "./newdash/Header";
 import Sidebar from "./newdash/Sidebar";
 import { CssBaseline, Container, Grid } from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";

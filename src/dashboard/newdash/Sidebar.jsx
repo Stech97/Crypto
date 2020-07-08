@@ -324,7 +324,13 @@ function Sidebar(props) {
 						[classes.contentClose]: !open,
 					})}
 				>
-					<Grid item container xs={12}>
+					<Grid
+						item
+						container
+						xs={12}
+						spacing={3}
+						alignContent="flex-start"
+					>
 						<Switch>
 							{props.routes.map((route, i) => (
 								<RouteWithSubRoutes key={i} {...route} />

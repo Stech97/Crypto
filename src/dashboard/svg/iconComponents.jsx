@@ -155,3 +155,29 @@ export function TeamIcon(props) {
 		</SvgIcon>
 	);
 }
+
+export function ArrowRight(props) {
+	return (
+		<SvgIcon viewBox="0 0 31 56" {...props}>
+			<path
+				strokeLinecap="round"
+				strokeMiterlimit={20}
+				strokeWidth={5}
+				d="M2.556 52.77L27.326 28M2.556 3.23L27.326 28"
+			/>
+		</SvgIcon>
+	);
+}
+
+export function ArrowLeft(props) {
+	return (
+		<SvgIcon viewBox="0 0 31 56" {...props}>
+			<path
+				strokeLinecap="round"
+				strokeMiterlimit={20}
+				strokeWidth={5}
+				d="M27.77 3.23L3 28m24.77 24.77L3 28"
+			/>
+		</SvgIcon>
+	);
+}
