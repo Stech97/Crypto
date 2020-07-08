@@ -158,7 +158,7 @@ namespace Crypto.Controllers
 		{
 			var response = await _administratorService.UpdateNews(model, heder);
 			if (response == null)
-				return BadRequest("News not found");
+				return NotFound("News not found");
 			return Ok(response);
 		}
 
@@ -283,6 +283,29 @@ namespace Crypto.Controllers
 			};
 			return Ok(response);
 		}
+
+		//[Authorize]
+		[Route("GetWithdrawalRequest")]
+		[HttpGet]
+		public async Task<IActionResult> GetWithdrawalRequest()
+		{
+			var response = await _administratorService.GetWithdrawalRequest();
+			if (response.Count == 0)
+				return NotFound("No Users");
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("GetKYC")]
+		[HttpGet]
+		public async Task<IActionResult> GetKYC()
+		{
+			var response = await _administratorService.GetKYC();
+			if (response.Count == 0)
+				return NotFound("No Users");
+			return Ok(response);
+		}
+
 		#endregion
 
 		#region Dev

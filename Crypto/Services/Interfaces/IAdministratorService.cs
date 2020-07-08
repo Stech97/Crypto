@@ -32,6 +32,8 @@ namespace Crypto.Services.Interfaces
         Task<double> GetWithdrawnAmount();
         Task<object> GetAllUsersBalance();
         Task<double> GetAllCommission();
+        Task<List<WithdrawAll>> GetWithdrawalRequest();
+        Task<List<object>> GetKYC();
         #endregion
 
         #region Dev

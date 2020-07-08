@@ -54,7 +54,8 @@ namespace DBRepository.Repositories
 					user.Adress,
 					user.Zip,
 					user.IsReInvest,
-					user.IsShowInfo
+					user.IsShowInfo,
+					user.IsKYC
 				};
 
 				return response;

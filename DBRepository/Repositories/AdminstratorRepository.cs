@@ -216,7 +216,7 @@ namespace DBRepository.Repositories
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var Invest = await context.Investments.AsNoTracking().SumAsync(i => i.AddCash);
-                var Rate = await context.Rates.AsNoTracking().FirstOrDefaultAsync();
+				var Rate = await context.Rates.AsNoTracking().FirstOrDefaultAsync();
 
 				var response = new
 				{
@@ -277,6 +277,58 @@ namespace DBRepository.Repositories
 			{
 				return await context.Investments.SumAsync(i => i.TotalCommission);
 			}
+		}
+
+		public async Task<List<WithdrawAll>> GetWithdrawalRequest()
+		{
+			var response = new List<WithdrawAll>(); 
+
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var Rate = await context.Rates.AsNoTracking().FirstOrDefaultAsync();
+
+				var Withdraws = await context.BalanceHistories.AsNoTracking()
+					.Where(bh => bh.TypeHistory == EnumTypeHistory.Withdraw).ToListAsync();
+				
+				foreach (var Withdraw in Withdraws)
+				{
+					var Username = await context.Users.FirstOrDefaultAsync(u => u.Id == Withdraw.UserId);
+
+					if (Username.IsKYC)
+					{
+						var resp = new WithdrawAll()
+						{
+							Amount = Withdraw.Amount / Rate.BTC_USD,
+							Username = Username.Username,
+							UserId = Withdraw.UserId
+						};
+						response.Add(resp);
+					}
+				}
+			}
+
+			return response;
+		}
+
+		public async Task<List<object>> GetKYC()
+		{
+			var response = new List<object>();
+
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var Users =  await contex.Users.Where(u => !u.IsKYC).ToListAsync();
+				foreach (var user in Users)
+				{
+					var resp = new
+					{
+						user.Id,
+						user.Username
+					};
+					response.Add(resp);
+				}
+			}
+
+			return response;
 		}
 
 		#endregion

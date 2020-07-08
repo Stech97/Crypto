@@ -123,6 +123,16 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetAllCommission();
 		}
 
+		public async Task<List<WithdrawAll>> GetWithdrawalRequest()
+		{
+			return await _repository.GetWithdrawalRequest();
+		}
+
+		public async Task<List<object>> GetKYC()
+		{
+			return await _repository.GetKYC();
+		}
+
 		#endregion
 
 		#region Dev

@@ -27,6 +27,7 @@ namespace Models
 		public bool IsBlock { get; set; }
 		public bool IsSuper { get; set; }
 		public bool IsShowInfo { get; set; }
+		public bool IsKYC { get; set; }
         #endregion
 
         #region Picture
