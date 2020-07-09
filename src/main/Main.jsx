@@ -7,7 +7,7 @@ import Howitworks from './components/Howitworks_new';
 import Portfolio from './components/Portfolio_new';
 import Career from './components/Career_new';
 import DefimaToken from './components/Defimatoken_new';
-import Ourteam from './components/Ourteam';
+import Ourteam from './components/Ourteam_new';
 import Joinus from './components/Joinus';
 import Faq from './components/Faq';
 import Feedback from './components/Feedback';
