@@ -202,7 +202,7 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<Rate> UpdateDETRate(Rate rate)
+		public async Task UpdateDETRate(Rate rate)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -210,7 +210,6 @@ namespace DBRepository.Repositories
 				Rate.USD_DET = rate.USD_DET;
 				context.Rates.Update(Rate);
 				await context.SaveChangesAsync();
-				return await context.Rates.AsNoTracking().FirstOrDefaultAsync();
 			}
 		}
 
@@ -222,11 +221,29 @@ namespace DBRepository.Repositories
 			}
 		}
 
+		public async Task UpdateCommission(List<TypeCommission> Types)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				context.UpdateRange(Types);
+				await context.SaveChangesAsync();
+			}
+		}
+
 		public async Task<List<TypeInvestment>> GetProfit()
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				return await context.TypeInvestments.ToListAsync();
+			}
+		}
+
+		public async Task UpdateProfit(List<TypeInvestment> Types)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				context.UpdateRange(Types);
+				await context.SaveChangesAsync();
 			}
 		}
 

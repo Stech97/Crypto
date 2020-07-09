@@ -90,23 +90,34 @@ namespace Crypto.Services.Implementation
 			return _mapper.Map<Rate, RateDETViewModel>(response);
 		}
 
-		public async Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request)
+		public async Task UpdateDETRate(RateDETViewModel request)
 		{
 			var rate = _mapper.Map<RateDETViewModel, Rate>(request);
-			var newRate = await _repository.UpdateDETRate(rate);
-			return _mapper.Map<Rate, RateDETViewModel>(newRate);
+			await _repository.UpdateDETRate(rate);
 		}
 
-		public async Task<List<GetCommissionViewModel>> GetCommission()
+		public async Task<List<CommissionViewModel>> GetCommission()
 		{
 			var response = await _repository.GetCommission();
-			return _mapper.Map<List<TypeCommission>, List<GetCommissionViewModel>>(response);
+			return _mapper.Map<List<TypeCommission>, List<CommissionViewModel>>(response);
 		}
 
-		public async Task<List<GetProfitViewModel>> GetProfit()
+		public async Task UpdateCommission(List<CommissionViewModel> request)
+		{
+			var Commision = _mapper.Map<List<CommissionViewModel>, List<TypeCommission>>(request);
+			await _repository.UpdateCommission(Commision);
+		}
+
+		public async Task<List<ProfitViewModel>> GetProfit()
 		{
 			var response = await _repository.GetProfit();
-			return _mapper.Map<List<TypeInvestment>, List<GetProfitViewModel>>(response);
+			return _mapper.Map<List<TypeInvestment>, List<ProfitViewModel>>(response);
+		}
+
+		public async Task UpdateProfit(List<ProfitViewModel> request)
+		{
+			var Profit = _mapper.Map<List<ProfitViewModel>, List<TypeInvestment>>(request);
+			await _repository.UpdateProfit(Profit);
 		}
 
 		#endregion

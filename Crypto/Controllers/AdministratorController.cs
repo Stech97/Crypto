@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Crypto.Controllers
 {
@@ -187,8 +188,8 @@ namespace Crypto.Controllers
 		[HttpPatch]
 		public async Task<IActionResult> UpdateRate([FromBody] RateDETViewModel request)
 		{
-			var respose = await _administratorService.UpdateDETRate(request);
-			return Ok(respose);
+			await _administratorService.UpdateDETRate(request);
+			return Ok();
 		}
 
 		//[Authorize]
@@ -201,6 +202,15 @@ namespace Crypto.Controllers
 		}
 
 		//[Authorize]
+		[Route("UpdateCommission")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateCommission([FromBody] List<CommissionViewModel> request)
+		{
+			await _administratorService.UpdateCommission(request);
+			return Ok();
+		}
+
+		//[Authorize]
 		[Route("GetProfit")]
 		[HttpGet]
 		public async Task<IActionResult> GetProfit()
@@ -208,6 +218,17 @@ namespace Crypto.Controllers
 			var response = await _administratorService.GetProfit();
 			return Ok(response);
 		}
+
+		//[Authorize]
+		[Route("UpdateProfit")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateProfit([FromBody] List<ProfitViewModel> request)
+		{
+			await _administratorService.UpdateProfit(request);
+			return Ok();
+		}
+
+
 
 		#endregion
 
