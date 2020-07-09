@@ -20,13 +20,22 @@ namespace Crypto.Services.Implementation
 			_mapper = mapper;
 		}
 
+		#region Upload Files
+		public async Task UploadFiles(string Component)
+		{
+			await _repository.UploadFiles(Component);
+		}
+		#endregion
+
+		#region Users
 		public async Task<object> GetUsersInfo()
 		{
 			return await _repository.GetUsersInfo();
 		}
+        #endregion
 
-		#region News
-		public async Task<NewsViewModel> AddNews(AddNewsViewModel request)
+        #region News
+        public async Task<NewsViewModel> AddNews(AddNewsViewModel request)
 		{
 			var news = _mapper.Map<AddNewsViewModel, News>(request);
 			var response = await _repository.AddNews(news);

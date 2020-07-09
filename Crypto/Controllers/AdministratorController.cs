@@ -21,6 +21,19 @@ namespace Crypto.Controllers
 			_administratorService = administratorService;
 		}
 
+		#region Files
+		//[Authorize]
+		[Route("UploadFiles")]
+		[HttpPatch]
+		public async Task<IActionResult> UploadFiles(string Content)
+		{
+			await _administratorService.UploadFiles(Content);
+			return Ok();
+		}
+		#endregion
+
+
+		#region Users
 		//[Authorize]
 		[Route("GetUsersInfo")]
 		[HttpGet]
@@ -31,10 +44,11 @@ namespace Crypto.Controllers
 				return BadRequest();
 			return Ok();
 		}
+        #endregion
 
-		#region News
-		//[Authorize(Roles = "Client")]
-		[Route("AddNews")]
+        #region News
+        //[Authorize(Roles = "Client")]
+        [Route("AddNews")]
 		[HttpPost]
 		public async Task<IActionResult> AddNews([FromBody] AddNewsViewModel model)
 		{
@@ -211,6 +225,7 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> GetCommission()
 		{
 			var response = await _administratorService.GetCommission();
+			return Ok(response);
         }
         
 		//[Authorize]

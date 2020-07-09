@@ -11,6 +11,14 @@ namespace DBRepository.Repositories
 	{
 		public AdminstratorRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
+		#region Upload Files
+		public async Task UploadFiles(string Component)
+		{
+			var x = new List<object>();
+		}
+		#endregion
+
+		#region Users
 		public async Task<object> GetUsersInfo()
 		{
 			List<object> response = new List<object>();
@@ -69,9 +77,10 @@ namespace DBRepository.Repositories
 			}
 			return response;
 		}
+        #endregion
 
-		#region News
-		public async Task<News> AddNews(News news)
+        #region News
+        public async Task<News> AddNews(News news)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -466,7 +475,7 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var user = context.Users.Where(u => !u.IsKYC).FirstOrDefault(u => u.Id = UserId);
+				var user = context.Users.Where(u => !u.IsKYC).FirstOrDefault(u => u.Id == UserId);
 					user.IsKYC = true;
 					context.Users.Update(user);
 					await context.SaveChangesAsync();

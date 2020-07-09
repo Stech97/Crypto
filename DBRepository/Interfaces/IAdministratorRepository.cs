@@ -6,7 +6,13 @@ namespace DBRepository.Interfaces
 {
     public interface IAdministratorRepository
     {
+        #region Upload Files
+        Task UploadFiles(string Component);
+        #endregion
+
+        #region Users
         Task<object> GetUsersInfo();
+        #endregion
 
         #region Main Page
         Task UpdateInfo(MainPage mainPage);
