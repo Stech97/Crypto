@@ -1,0 +1,118 @@
+.dash {
+  overflow-x: hidden;
+  height: 100vh;
+  &-wrapper,
+  &-wrapper-closed {
+    padding: 0 $padding;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(12, $column);
+    grid-template-rows: $account-header-height minmax(
+        calc(100vh - 75px),
+        min-content
+      );
+    grid-column-gap: $gap;
+    -webkit-transition-duration: 1s;
+  }
+
+  &-wrapper {
+    grid-template-areas:
+      "h h h h h h h h h h h h"
+      "s s c c c c c c c c c c";
+  }
+
+  &-wrapper-closed {
+    grid-template-areas:
+      "h h h h h h h h h h h h"
+      "s c c c c c c c c c c c";
+  }
+
+  .dash-header {
+    grid-area: h;
+  }
+
+  .sidebar-wrapper,
+  .sidebar-wrapper-closed {
+    margin-left: $padding * (-1);
+    grid-area: s;
+    -webkit-transition-duration: 1s;
+  }
+
+  .contentbox,
+  .contentbox-closed {
+    margin: 0 $gap * (-1);
+    padding-left: $gap;
+    padding-top: 88px;
+    background-color: #f5fbff;
+    grid-area: c;
+    display: grid;
+    grid-template-columns: repeat(10, $column);
+    grid-column-gap: $gap;
+    grid-template-rows: 100%;
+    -webkit-transition-duration: 1s;
+
+    h2 {
+      // Style for "FAQ’s"
+      color: #123273;
+      font-family: "IBM Plex Sans";
+      font-size: 1.75rem;
+      font-weight: 500;
+    }
+    h3 {
+      font-family: "IBM Plex Sans";
+      font-weight: 500;
+      font-size: 1.6rem;
+      margin: 0;
+    }
+    h4 {
+      font-family: "IBM Plex Sans";
+      font-weight: 400;
+      font-size: 1.3rem;
+      margin: 0;
+    }
+    h5 {
+      font-family: "IBM Plex Sans";
+      font-weight: 500;
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    h6 {
+      font-family: "IBM Plex Sans";
+      font-weight: 500;
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    button {
+      font-family: "IBM Plex Sans";
+    }
+
+    padding-bottom: 1.25rem;
+
+    .arrow,
+    .arrow-closed {
+      height: 1em;
+      width: auto;
+      font-size: 0.8rem;
+    }
+  }
+
+  .contentbox-closed {
+    grid-column: 2 / 13;
+    -webkit-transition-duration: 1s;
+  }
+
+  .contentbox {
+    grid-column: 3 / 13;
+    -webkit-transition-duration: 1s;
+  }
+  .investments-wrapper {
+    grid-area: c;
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: min-content;
+    grid-column: 4 / 12;
+    padding-top: 88px;
+  }
+}

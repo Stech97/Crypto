@@ -1,6 +1,6 @@
 import React from "react";
 import { routes } from "./config";
-import { RouteWithSubRoutes } from "./Routes";
+import RouteWithSubRoutes from "./Routes";
 import {
 	BrowserRouter as Router,
 	Route,
@@ -58,15 +58,9 @@ function App() {
 				/>
 			</Helmet>
 			<Switch>
-				{/*routes.map((route, i) => (
+				{routes.map((route, i) => (
 					<RouteWithSubRoutes key={i} {...route} />
-				))*/}
-				<Route path="/">
-					<PagesContent />
-				</Route>
-				<Route path="/finance">
-					<InDevelopment />
-				</Route>
+				))}
 			</Switch>
 		</Router>
 	);

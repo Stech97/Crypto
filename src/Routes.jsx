@@ -37,33 +37,37 @@ function isAuthenticated() {
     }
 }*/
 
-const PrivateRoute = ({ component: Component, routes: routes, ...rest }) => {
+const PrivateRoute = ({
+    component: Component,
+    routes: routes,
+    path,
+    ...rest
+}) => {
     return (
         <Route
-            {...rest}
-            render={(props) =>
-                isAuthenticated() ? (
-                    <Component {...props} routes={routes} />
-                ) : (
-                    <Redirect
-                        to={{
-                            pathname: "/login",
-                            state: { from: props.location },
-                        }}
-                    />
-                )
-            }
+            path={path}
+            render={(props) => {
+                console.log("propsRoutes", props);
+                return <Component {...rest} {...props} routes={routes} />;
+            }}
         />
     );
 };
 
-export function RouteWithSubRoutes(route) {
-    if (route.Private) {
+export default function RouteWithSubRoutes({
+    Private,
+    path,
+    component,
+    routes,
+    ...rest
+}) {
+    if (Private) {
         return (
             <PrivateRoute
-                path={route.path}
-                component={route.component}
-                routes={route.routes}
+                path={path}
+                component={component}
+                routes={routes}
+                {...rest}
             />
         );
     }

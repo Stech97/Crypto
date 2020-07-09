@@ -1,0 +1,133 @@
+.white-text {
+  color: #f5fbff;
+}
+
+.blue-text {
+  color: #123273;
+}
+
+.lightblue-text {
+  color: #16428d;
+}
+
+.gray-text {
+  color: #838383;
+}
+
+.faq {
+  &-box {
+    grid-column: 2 / -2;
+    display: grid;
+    grid-template-rows: min-content min-content;
+    grid-template-columns: repeat(8, $column);
+    grid-gap: 1.875rem $gap;
+    grid-template-areas: 'links' 'questions';
+  }
+
+  &-links {
+    grid-area: links;
+    display: grid;
+    grid-template-columns: repeat(4, 2 * $column + $gap);
+    grid-column-gap: $gap;
+    grid-template-rows: 100%;
+    justify-items: center;
+    align-items: center;
+    &-linkbox {
+      height: 100%;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: 2.3125rem 5.375rem;
+      gap: 1.375rem;
+      justify-items: center;
+      align-items: center;
+      > a {
+        // Style for "Intersecti"
+        width: 100%;
+        height: 4.6875rem;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.06);
+        background-image: linear-gradient(72deg, #123273 0%, #005c9f 100%);
+        border-radius: 0.9375rem;
+        color: #f5fbff;
+        font-size: 1.5rem;
+        font-family: 'IBM Plex Sans';
+        &:hover {
+          background-image: linear-gradient(77deg, #ed7102 0%, #ed7102 100%);
+        }
+      }
+    }
+  }
+
+  &-questions {
+    grid-area: questions;
+    width: 100%;
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: 100%;
+    grid-auto-rows: min-content;
+    gap: 1.875rem 0;
+
+    &-tab,
+    &-tab-closed {
+      display: grid;
+      grid-template-columns: 100%;
+      grid-auto-rows: 4.6875rem min-content;
+      align-items: center;
+      justify-items: center;
+      border-radius: 0.9375rem;
+      width: 100%;
+      height: 100%;
+
+      &-panel {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(8, $column);
+        grid-column-gap: $gap;
+        grid-template-rows: fit-content(6.25rem);
+        grid-template-areas: 'q q q q q q q d';
+        align-items: center;
+        h5 {
+          grid-area: q;
+          margin: 0 0 0 $gap !important;
+        }
+
+        > .arrow,
+        > .arrow-closed {
+          grid-area: d;
+          fill: #707070;
+          stroke: #707070;
+          justify-self: center;
+        }
+
+        .arrow {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    &-tab {
+      &-answer {
+        width: 100%;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        text-align: justify;
+        padding: 0 $column 0 $gap;
+
+        > p {
+          margin: 0;
+          padding: 1.5625rem 0;
+          border-top: 0.125rem solid #ebebeb;
+          // Style for "Anyone can"
+          color: #838383;
+          font-family: 'IBM Plex Sans';
+          font-size: 1rem;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+}

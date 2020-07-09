@@ -1,0 +1,125 @@
+header {
+  background: linear-gradient(61deg, #001029 4%, #235fc8 98%);
+  opacity: 1;
+}
+
+.homescreen {
+  .wrapper {
+    background: url(./img/waveimage.png) 15.5563rem -7.5rem no-repeat,
+      linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat;
+    background-clip: padding-box;
+  }
+}
+
+.ourmission {
+  position: relative;
+  &:before {
+    position: absolute;
+    background: url(./img/stealth-logo.png) 0 -3.125rem/17.55% auto no-repeat;
+    height: 100%;
+    width: 100%;
+    content: "";
+    z-index: 1;
+  }
+}
+
+.header-grid-container {
+  background-color: #ffffff;
+}
+
+.header-grid-container-tech {
+  background-color: #ffffff;
+}
+
+.portfolio {
+  border-radius: 0rem 0rem 0rem 9.375rem;
+  background: url(./img/worldmap2.png) 0 0/ 100% auto no-repeat,
+    linear-gradient(39deg, #ed7102 0%, #ed7102 100%) left top no-repeat;
+  background-blend-mode: screen;
+}
+
+.howitworks {
+  position: relative;
+
+  &:before {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 9.375rem;
+    background: linear-gradient(39deg, #ed7102 0%, #ed7102 100%) left bottom/
+      100% 9.375rem no-repeat;
+    border-radius: 0;
+    content: "";
+    z-index: -5;
+  }
+
+  background: linear-gradient(0deg, #f5fbff 100%, #f5fbff 100%) left top/ 100%
+    auto no-repeat;
+  border-radius: 9.375rem 0rem 9.375rem 0rem;
+}
+
+.defimatoken {
+  background: url(./img/worldmap2.png) 11.56% 0/100% auto no-repeat,
+    linear-gradient(97deg, #001029 -39%, #235fc8 76%) left top no-repeat;
+  border-radius: 0rem 9.375rem 0rem 0rem;
+}
+
+.ourteam {
+  position: relative;
+  &:before {
+    position: absolute;
+    background: url(./img/stealth-logo.png) 0 -3.125rem/17.55% auto no-repeat;
+    height: 100%;
+    width: 100%;
+    content: "";
+    z-index: -1;
+  }
+}
+
+.joinus {
+  position: relative;
+  background: linear-gradient(0deg, #f5fbff 100%, #f5fbff 100%) left top/ 100%
+    auto no-repeat;
+  border-radius: 9.375rem 0rem 9.375rem 0rem;
+  &:before {
+    position: absolute;
+    background: url(./img/joinus.png) left center/50vw auto no-repeat;
+    height: 100%;
+    width: 100%;
+    content: "";
+    z-index: 1;
+  }
+}
+
+.faq {
+  border-radius: 0rem 0rem 0rem 9.375rem;
+  background: linear-gradient(39deg, #ffffff 100%, #ffffff 100%) left top
+    no-repeat;
+}
+.feedback {
+  position: relative;
+  background: none;
+  &:before {
+    position: absolute;
+    left: 0;
+    bottom: -9.375rem;
+    width: 100%;
+    height: calc(100% + 18.75rem);
+    background: linear-gradient(39deg, #061d4d 0%, #005c9f 100%) left top
+      no-repeat;
+    border-radius: 0;
+    content: "";
+    z-index: -5;
+  }
+}
+footer {
+  border-radius: 0rem 9.375rem 0rem 0rem;
+  background-color: #0b1f48;
+}
+
+.terms {
+  .wrapper {
+    background: url(./img/stealth-logo.png) 0 0/ 100% auto no-repeat;
+  }
+}

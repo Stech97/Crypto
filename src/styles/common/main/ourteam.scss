@@ -1,0 +1,145 @@
+$section: "ourteam";
+$sub-section: "member";
+.#{$section} {
+  &-wrapper {
+    padding-top: 4.375rem;
+    padding-bottom: 4.7188rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 7.3125rem 1fr;
+    grid-template-areas: $section + "-header" $section + "-" + $sub-section;
+  }
+
+  &-#{$sub-section} {
+    padding-top: 3.3125rem;
+    grid-area: #{$section + "-" + $sub-section};
+    justify-self: center;
+    width: calc(100% + 14.75rem);
+    display: grid;
+    grid-template-columns: auto repeat(3, 21.5%) auto;
+    grid-template-rows: 2.57fr 1fr;
+
+    background: linear-gradient(0deg, #ed7102 100%, #ed7102 100%) left
+      calc(53px + 47%) / calc(100% + 14.625rem) calc(100% * 2.57 / 7.14)
+      no-repeat;
+    margin-left: -8.75rem;
+    margin-right: -6rem;
+    padding-left: 8.75rem;
+    padding-right: 6rem;
+
+    $row1: ". ";
+    $row2: ". ";
+    @for $j from 1 through 3 {
+      $row1: $row1 + $section + "-" + $sub-section + "-photo-" + $j + " ";
+      $row2: $row2 + $section + "-" + $sub-section + "-caption-" + $j + " ";
+    }
+    $row1: $row1 + " .";
+    $row2: $row2 + " .";
+
+    grid-template-areas: $row1 $row2;
+    gap: 0 3.15%;
+
+    align-items: center;
+    justify-items: center;
+
+    @for $i from 1 through 3 {
+      &-photo-#{$i} {
+        grid-area: #{$section + "-" + $sub-section + "-photo-" + $i};
+
+        padding: 10% 0;
+      }
+      &-caption-#{$i} {
+        grid-area: #{$section + "-" + $sub-section + "-caption-" + $i};
+        height: 100%;
+        width: 72%;
+        display: grid;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+
+    &-name {
+      margin-top: 1.4375rem;
+      margin-bottom: 0;
+      width: 100%;
+      p {
+        margin: 0;
+        font-family: "IBM Plex Sans";
+        font-size: 1.5rem;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.32;
+        letter-spacing: normal;
+        text-align: center;
+        color: #005c9f;
+      }
+    }
+    &-post {
+      margin-top: 0.625rem;
+      padding-bottom: 1.1563rem;
+      border-bottom: 0.0625rem solid #838383;
+      p {
+        width: 100%;
+        margin: 0;
+        font-family: "IBM Plex Sans";
+        font-size: 1.5rem;
+        font-weight: 300;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.32;
+        letter-spacing: normal;
+        text-align: center;
+        color: #838383;
+      }
+    }
+    &-mailbutton {
+      display: grid;
+      justify-items: center;
+      align-items: center;
+      margin-top: 1rem;
+      a {
+        display: block;
+        span {
+          display: block;
+          svg {
+            position: relative;
+            z-index: -1;
+            width: 1em;
+            height: auto;
+            font-size: 2.5rem;
+            fill: #005c9f;
+            stroke: #005c9f;
+          }
+        }
+      }
+    }
+  }
+
+  &-header {
+    grid-area: ourteam-header;
+    h1 {
+      font-family: "IBM Plex Sans";
+      font-size: 3.125rem;
+      font-weight: 500;
+      font-style: normal;
+      line-height: 1.3;
+      letter-spacing: normal;
+      text-align: left;
+      color: #005c9f;
+    }
+    h2 {
+      font-family: "IBM Plex Sans";
+      font-size: 2.5rem;
+      font-weight: 400;
+      font-stretch: normal;
+      font-style: italic;
+      line-height: 1.3;
+      letter-spacing: normal;
+      text-align: left;
+      color: #005c9f;
+    }
+  }
+}
