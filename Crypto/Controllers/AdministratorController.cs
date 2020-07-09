@@ -274,7 +274,7 @@ namespace Crypto.Controllers
 
 			return Ok(resp);
 		}
-		
+
 		//[Authorize]
 		[Route("GetCountUser")]
 		[HttpGet]
@@ -366,6 +366,43 @@ namespace Crypto.Controllers
 			if (response.Count == 0)
 				return NotFound("No Users");
 			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("AcceptAllWithdrawal")]
+		[HttpPatch]
+		public async Task<IActionResult> AcceptAllWithdrawal()
+		{
+			await _administratorService.AcceptAllWithdrawal();
+			return Ok();
+		}
+
+		//[Authorize]
+		[Route("AcceptWithdrawal")]
+		[HttpPatch]
+		public async Task<IActionResult> AcceptWithdrawal(int UserId)
+		{
+			await _administratorService.AcceptWithdrawal(UserId);
+			return Ok();
+		}
+
+
+		//[Authorize]
+		[Route("AcceptAllKYC")]
+		[HttpPatch]
+		public async Task<IActionResult> AcceptAllKYC()
+		{
+			await _administratorService.AcceptAllKYC();
+			return Ok();
+		}
+
+		//[Authorize]
+		[Route("AcceptKYC")]
+		[HttpPatch]
+		public async Task<IActionResult> AcceptKYC(int UserId)
+		{
+			await _administratorService.AcceptKYC(UserId);
+			return Ok();
 		}
 
 		#endregion

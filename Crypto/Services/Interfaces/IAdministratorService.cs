@@ -48,6 +48,10 @@ namespace Crypto.Services.Interfaces
         Task<double> GetAllCommission();
         Task<List<WithdrawAll>> GetWithdrawalRequest();
         Task<List<object>> GetKYC();
+        Task AcceptAllWithdrawal();
+        Task AcceptWithdrawal(int UserId);
+        Task AcceptAllKYC();
+        Task AcceptKYC(int UserId);
         #endregion
 
         #region Dev

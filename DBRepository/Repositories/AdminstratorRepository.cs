@@ -438,6 +438,41 @@ namespace DBRepository.Repositories
 			return response;
 		}
 
+		public async Task AcceptAllWithdrawal()
+		{
+			
+		}
+
+		public async Task AcceptWithdrawal(int UserId)
+		{
+			
+		}
+
+		public async Task AcceptAllKYC()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var Users = context.Users.Where(u => !u.IsKYC).ToList();
+				foreach (var user in Users)
+				{
+					user.IsKYC = true;
+					context.Users.Update(user);
+					await context.SaveChangesAsync();
+				}
+			}
+		}
+
+		public async Task AcceptKYC(int UserId)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = context.Users.Where(u => !u.IsKYC).FirstOrDefault(u => u.Id = UserId);
+					user.IsKYC = true;
+					context.Users.Update(user);
+					await context.SaveChangesAsync();
+			}
+		}
+
 		#endregion
 
 		#region Dev

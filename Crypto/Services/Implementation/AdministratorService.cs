@@ -173,6 +173,26 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetKYC();
 		}
 
+		public async Task AcceptAllWithdrawal()
+		{
+			await _repository.AcceptAllWithdrawal();
+		}
+
+		public async Task AcceptWithdrawal(int UserId)
+		{
+			await  _repository.AcceptWithdrawal(UserId);
+		}
+
+		public async Task AcceptAllKYC()
+		{
+			await  _repository.AcceptAllKYC();
+		}
+
+		public async Task AcceptKYC(int UserId)
+		{
+			await _repository.AcceptKYC(UserId);
+		}
+
 		#endregion
 
 		#region Dev
@@ -185,6 +205,7 @@ namespace Crypto.Services.Implementation
 		{
 			await _repository.DelUser(Id);
 		}
+
         #endregion
 
     }
