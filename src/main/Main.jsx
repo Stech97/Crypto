@@ -8,7 +8,7 @@ import Portfolio from './components/Portfolio_new';
 import Career from './components/Career_new';
 import DefimaToken from './components/Defimatoken_new';
 import Ourteam from './components/Ourteam_new';
-import Joinus from './components/Joinus';
+import Joinus from './components/Joinus_new';
 import Faq from './components/Faq';
 import Feedback from './components/Feedback';
 import Footer from './components/Footer';
