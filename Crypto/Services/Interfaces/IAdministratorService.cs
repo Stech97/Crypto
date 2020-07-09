@@ -9,7 +9,7 @@ namespace Crypto.Services.Interfaces
     public interface IAdministratorService
     {
         #region Upload Files
-        Task UploadFiles(string Component);
+        Task UploadFiles(byte[] image, string content, string Component);
         #endregion
 
         #region Users
@@ -40,7 +40,7 @@ namespace Crypto.Services.Interfaces
 
         #region Get User Picture
         Task<Images> GetPassportPicture(int userId);
-        Task<Images> GeProofPicture(int UserId);
+        Task<Images> GetProofPicture(int UserId);
         Task<Images> GetSelfiPicture(int UserId);
         #endregion
 

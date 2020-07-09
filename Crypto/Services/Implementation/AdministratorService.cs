@@ -21,9 +21,9 @@ namespace Crypto.Services.Implementation
 		}
 
 		#region Upload Files
-		public async Task UploadFiles(string Component)
+		public async Task UploadFiles(byte[] image, string content, string Component)
 		{
-			await _repository.UploadFiles(Component);
+			await _repository.UploadFiles(image, content, Component);
 		}
 		#endregion
 
@@ -86,9 +86,9 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetPassportPicture(UserId);
 		}
 
-		public async Task<Images> GeProofPicture(int UserId)
+		public async Task<Images> GetProofPicture(int UserId)
 		{
-			return await _repository.GeProofPicture(UserId);
+			return await _repository.GetProofPicture(UserId);
 		}
 
 		public async Task<Images> GetSelfiPicture(int UserId)

@@ -7,7 +7,7 @@ namespace DBRepository.Interfaces
     public interface IAdministratorRepository
     {
         #region Upload Files
-        Task UploadFiles(string Component);
+        Task UploadFiles(byte[] image, string content, string Component);
         #endregion
 
         #region Users
@@ -30,7 +30,7 @@ namespace DBRepository.Interfaces
 
         #region Get User Picture
         Task<Images> GetPassportPicture(int UserId);
-        Task<Images> GeProofPicture(int UserId);
+        Task<Images> GetProofPicture(int UserId);
         Task<Images> GetSelfiPicture(int UserId);
         #endregion
 

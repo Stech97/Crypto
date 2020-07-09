@@ -27,7 +27,19 @@ namespace Crypto.Controllers
 		[HttpPatch]
 		public async Task<IActionResult> UploadFiles(string Content)
 		{
-			await _administratorService.UploadFiles(Content);
+			byte[] image = null;
+			string name = "";
+			var files = Request.Form.Files;
+			long size = files.Sum(f => f.Length);
+			foreach (var file in files)
+				if (file.Length > 0)
+					using (var stream = new MemoryStream())
+					{
+						await file.CopyToAsync(stream);
+						image = stream.ToArray();
+						name = file.FileName;
+					}
+			await _administratorService.UploadFiles(image, name, Content);
 			return Ok();
 		}
 		#endregion
@@ -160,11 +172,11 @@ namespace Crypto.Controllers
 		}
 
 		//[Authorize]
-		[Route("GeProofPicture")]
+		[Route("GetProofPicture")]
 		[HttpGet]
-		public async Task<IActionResult> GeProofPicture(int UserId)
+		public async Task<IActionResult> GetProofPicture(int UserId)
 		{
-			var response = await _administratorService.GeProofPicture(UserId);
+			var response = await _administratorService.GetProofPicture(UserId);
 			if (response != null)
 			{
 				var type = response.ImageName.Substring(response.ImageName.IndexOf('.') + 1);

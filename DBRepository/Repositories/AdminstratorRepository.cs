@@ -12,9 +12,20 @@ namespace DBRepository.Repositories
 		public AdminstratorRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
 		#region Upload Files
-		public async Task UploadFiles(string Component)
+		public async Task UploadFiles(byte[] image, string content, string Component)
 		{
-			var x = new List<object>();
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+				if (user != null)
+				{
+					user.ProofPicture = image;
+					user.ProofPictureName = nameFile;
+				}
+
+				contex.Users.Update(user);
+				await contex.SaveChangesAsync();
+			}
 		}
 		#endregion
 
@@ -223,7 +234,7 @@ namespace DBRepository.Repositories
 			return response;
 		}
 
-		public async Task<Images> GeProofPicture(int UserId)
+		public async Task<Images> GetProofPicture(int UserId)
 		{
 			Images response = null;
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
