@@ -14,6 +14,7 @@ import { Grid } from '@material-ui/core';
 import { SvgIcon } from '@material-ui/core';
 import { Icon } from '@material-ui/core';
 import { Container } from '@material-ui/core';
+
 const marketboxes = [
   {
     className: 'business',

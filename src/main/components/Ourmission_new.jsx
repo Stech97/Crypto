@@ -72,14 +72,6 @@ const useStyles = makeStyles((theme) => ({
 
   p: {
     fontFamily: ['IBM Plex Sans'],
-    maxWidth: '52.1875rem',
-    fontSize: '1.5625rem',
-    fontStretch: 'normal',
-    fontStyle: 'normal',
-    lineHeight: 1.32,
-    letterSpacing: 'normal',
-    textAlign: 'left',
-    color: '#838383',
   },
 }));
 
@@ -88,12 +80,12 @@ const OurmissionHeader = () => {
   return (
     <Grid container direction="row">
       <Grid item xs={12}>
-        <Typography variant="h1" className={classes.h1}>
+        <Typography variant="h2" component="h2">
           Our Mission
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="h2" className={classes.h2}>
+        <Typography variant="h3" component="h3">
           The World Of Financial Freedom
         </Typography>
       </Grid>
@@ -106,7 +98,7 @@ const OurmissionText = () => {
   return (
     <Grid container direction="row">
       <Grid item xs={12}>
-        <Typography variant="p" className={classes.p}>
+        <Typography variant="body1" component="p">
           Our goal is to find the most profitable and secure way to participate
           in the DeFi markets. In order to get the most profit out of all
           possibilities of decentralized finance, it is of utmost importance to
@@ -114,27 +106,27 @@ const OurmissionText = () => {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="p" className={classes.p}>
+        <Typography variant="body1" component="p">
           So, the reason why we developed the DEFIMA platform is to give
           investors an easy accessibility to invest in DeFi products without
           having a lot of knowledge nor a big budget.
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="p" className={classes.p}>
+        <Typography variant="body1" component="p">
           All of the investor’s money will be bundled in a big pool. With this
           pool, we can reach higher profits, better security and long-term
           investments.
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="p" className={classes.p}>
+        <Typography variant="body1" component="p">
           With this advantage, we can reach up to 11% on your investment each
           month. This wouldn’t be possible, if everyone is on his own.
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="p" className={classes.p}>
+        <Typography variant="body1" component="p">
           Our mission is to give everyone an easy way to join the very
           profitable DeFi lending market.
         </Typography>
@@ -193,17 +185,28 @@ const OurmissionIcons = () => {
 class Ourmission extends Component {
   render() {
     return (
-      <section className="ourmission">
-        <OurmissionHeader />
-        <Grid container direction="row">
-          <Grid item xs={12} md={6}>
-            <OurmissionText />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <OurmissionIcons />
-          </Grid>
-        </Grid>
-      </section>
+      <Container
+        maxWidth="xl"
+        style={{
+          backgroundColor: '#ffffff',
+          height: '100%',
+          border: 'none',
+        }}
+      >
+        <Container maxWidth="lg">
+          <section className="ourmission">
+            <OurmissionHeader />
+            <Grid container direction="row" spacing={3}>
+              <Grid item xs={12} md={6}>
+                <OurmissionText />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <OurmissionIcons />
+              </Grid>
+            </Grid>
+          </section>
+        </Container>
+      </Container>
     );
   }
 }

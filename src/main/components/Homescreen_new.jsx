@@ -14,6 +14,7 @@ import { Grid } from '@material-ui/core';
 import { SvgIcon } from '@material-ui/core';
 import { Icon } from '@material-ui/core';
 import { Container } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -45,31 +46,6 @@ const theme = createMuiTheme({
 });
 
 const useStyles = makeStyles((theme) => ({
-  h1: {
-    fontFamily: ['IBM Plex Sans'],
-    margin: 0,
-    lineHeight: 1.3,
-    letterSpacing: 'normal',
-    textAlign: 'left',
-    color: '#000000',
-    fontSize: '1.75rem',
-    fontWeight: 600,
-    fontStyle: 'normal',
-  },
-
-  h2: {
-    fontFamily: ['IBM Plex Sans'],
-    margin: 0,
-    lineHeight: 1.3,
-    letterSpacing: 'normal',
-    textAlign: 'left',
-    color: '#005c9f',
-    fontSize: '1.5rem',
-    fontWeight: 400,
-    fontStretch: 'normal',
-    fontStyle: 'italic',
-  },
-
   p: {
     fontFamily: ['IBM Plex Sans'],
     maxWidth: '52.1875rem',
@@ -105,10 +81,10 @@ const useStyles = makeStyles((theme) => ({
 const HomescreenHeader = () => {
   const classes = useStyles();
   return (
-    // Он на месте, просто белого цвета
+    // Он на месте, просто переделай в белый цвет
     <Grid container direction="row">
       <Grid item xs={6}>
-        <Typography variant="h1" className={classes.h1}>
+        <Typography variant="h1" component="h1">
           The most profitable and secure way to get cashflow from the DeFi
           markets.
         </Typography>
@@ -131,14 +107,26 @@ const HomescreenButton = () => {
 class Homescreen extends Component {
   render() {
     return (
-      <section className="homescreen">
-        <div className="wrapper">
-          <div className="homescreen-grid-container">
-            <HomescreenHeader />
-            <HomescreenButton />
-          </div>
-        </div>
-      </section>
+      <Container
+        maxWidth="xl"
+        style={{
+          backgroundColor: darkBlue,
+          height: '100%',
+          borderBottomLeftRadius: '9.375rem',
+          border: 'none',
+        }}
+      >
+        <Container maxWidth="lg">
+          <section className="homescreen">
+            <div className="wrapper">
+              <div className="homescreen-grid-container">
+                <HomescreenHeader />
+                <HomescreenButton />
+              </div>
+            </div>
+          </section>
+        </Container>
+      </Container>
     );
   }
 }
