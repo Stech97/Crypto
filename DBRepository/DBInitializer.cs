@@ -155,7 +155,7 @@ namespace DBRepository
 
                 context.MarketFiles.Add(new MarketFiles()
                 {
-                    Component = "Platform tutorial"
+                    Component = "Platform Tutorial"
                 });
 
                 await context.SaveChangesAsync().ConfigureAwait(false);
