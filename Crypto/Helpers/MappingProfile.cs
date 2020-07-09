@@ -84,7 +84,11 @@ namespace Crypto.Helpers
 			CreateMap<MainPage, SingleTextViewModel>();
 
 			CreateMap<TypeCommission, GetCommissionViewModel>()
-				.ForMember(m => m.Persent, opt => opt.MapFrom(m => m.Value))
+				.ForMember(m => m.Persent, opt => opt.MapFrom(m => m.Value * 100))
+				.ForMember(m => m.Type, opt => opt.MapFrom(m => m.ToString()));
+
+			CreateMap<TypeInvestment, GetProfitViewModel>()
+				.ForMember(m => m.Percent, opt => opt.MapFrom(m => m.Persent))
 				.ForMember(m => m.Type, opt => opt.MapFrom(m => m.ToString()));
 
 		}

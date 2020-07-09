@@ -97,6 +97,12 @@ namespace Crypto.Services.Implementation
 			return _mapper.Map<List<TypeCommission>, List<GetCommissionViewModel>>(response);
 		}
 
+		public async Task<List<GetProfitViewModel>> GetProfit()
+		{
+			var response = await _repository.GetProfit();
+			return _mapper.Map<List<TypeInvestment>, List<GetProfitViewModel>>(response);
+		}
+
 		#endregion
 
 		#region Dasboard

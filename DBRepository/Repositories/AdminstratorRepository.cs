@@ -214,6 +214,14 @@ namespace DBRepository.Repositories
 			}
 		}
 
+		public async Task<List<TypeInvestment>> GetProfit()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				return await context.TypeInvestments.ToListAsync();
+			}
+		}
+
 		#endregion
 
 		#region Dashboard

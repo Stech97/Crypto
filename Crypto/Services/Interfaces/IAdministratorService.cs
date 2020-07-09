@@ -24,7 +24,7 @@ namespace Crypto.Services.Interfaces
         #region Finance
         Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request);
         Task<List<GetCommissionViewModel>> GetCommission();
-
+        Task<List<GetProfitViewModel>> GetProfit();
         #endregion
 
         #region Get User Picture

@@ -191,6 +191,15 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
+		//[Authorize]
+		[Route("GetProfit")]
+		[HttpGet]
+		public async Task<IActionResult> GetProfit()
+		{
+			var response = await _administratorService.GetProfit();
+			return Ok(response);
+		}
+
 		#endregion
 
 		#region Dashboard
