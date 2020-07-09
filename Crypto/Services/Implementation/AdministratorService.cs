@@ -84,6 +84,12 @@ namespace Crypto.Services.Implementation
 		#endregion
 
 		#region Finance 
+		public async Task<RateDETViewModel> GetRate()
+		{
+			var response = await _repository.GetRate();
+			return _mapper.Map<Rate, RateDETViewModel>(response);
+		}
+
 		public async Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request)
 		{
 			var rate = _mapper.Map<RateDETViewModel, Rate>(request);

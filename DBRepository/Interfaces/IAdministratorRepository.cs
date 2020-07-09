@@ -28,6 +28,7 @@ namespace DBRepository.Interfaces
         #endregion
 
         #region Finance
+        Task<Rate> GetRate();
         Task<Rate> UpdateDETRate(Rate balance);
         Task<List<TypeCommission>> GetCommission();
         Task<List<TypeInvestment>> GetProfit();

@@ -194,6 +194,14 @@ namespace DBRepository.Repositories
 		#endregion
 
 		#region Finance
+		public async Task<Rate> GetRate()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				return await context.Rates.AsNoTracking().FirstOrDefaultAsync();
+			}
+		}
+
 		public async Task<Rate> UpdateDETRate(Rate rate)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))

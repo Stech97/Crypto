@@ -174,6 +174,15 @@ namespace Crypto.Controllers
 
 		#region Finance 
 		//[Authorize]
+		[Route("GetRate")]
+		[HttpGet]
+		public async Task<IActionResult> GetRate()
+		{
+			var response = await _administratorService.GetRate();
+			return Ok(response);
+		}
+
+		//[Authorize]
 		[Route("UpdateRate")]
 		[HttpPatch]
 		public async Task<IActionResult> UpdateRate([FromBody] RateDETViewModel request)
