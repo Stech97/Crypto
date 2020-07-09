@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 
 namespace DBRepository.Repositories
@@ -11,6 +10,113 @@ namespace DBRepository.Repositories
 	public class AdminstratorRepository : BaseRepository, IAdministratorRepository
 	{
 		public AdminstratorRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
+
+		public async Task<object> GetUsersInfo()
+		{
+			List<object> response = new List<object>();
+
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var Users = await context.Users.ToListAsync();
+				var Rates = await context.Rates.FirstOrDefaultAsync();
+
+				foreach (var user in Users)
+				{
+					var Invest = await context.Investments.FirstOrDefaultAsync(i => i.UserId == user.Id);
+					var BalanceHistory = await context.BalanceHistories.FirstOrDefaultAsync(i => i.UserId == user.Id);
+
+					if (Invest != null && BalanceHistory != null)
+					{
+						var TotalAdded = await context.Investments.Where(i => i.UserId == user.Id).SumAsync(i => i.AddCash);
+
+						var TotalCommission = (await context.Investments.FirstOrDefaultAsync(i => i.UserId == user.Id)).TotalCommission;
+
+						var TotalWitdrowed = await context.BalanceHistories
+							.Where(bh => bh.UserId == user.Id && bh.TypeHistory == EnumTypeHistory.Withdraw).SumAsync(bh => bh.Amount);
+
+						var TotalTeamCommission = await context.BalanceHistories
+							.Where(bh => bh.UserId == user.Id && bh.TypeHistory == EnumTypeHistory.Comission).SumAsync(bh => bh.Amount);
+
+						var resp = new
+						{
+							Name = user.FirstName + " " + user.LastName,
+							user.Email,
+							user.Phone,
+							TotalAdded,
+							TotalCommission,
+							TotalTeamCommission,
+							TotalWitdrowed,
+							SuperUser = user.IsSuper,
+						};
+						response.Add(resp);
+					}
+					else
+					{
+						var resp = new
+						{
+							Name = user.FirstName + " " + user.LastName,
+							user.Email,
+							user.Phone,
+							TotalAdded = 0,
+							TotalCommission = 0,
+							TotalTeamCommission = 0,
+							TotalWitdrowed = 0,
+							SuperUser = user.IsSuper,
+						};
+						response.Add(resp);
+					}
+				}
+			}
+			return response;
+		}
+
+		#region News
+		public async Task<News> AddNews(News news)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				context.News.Add(news);
+				await context.SaveChangesAsync();
+				return news;
+			}
+		}
+
+		public async Task<News> UpdateNews(News news, string heder)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var oldNews = await context.News.FirstOrDefaultAsync(n => n.Header == heder);
+
+				if (oldNews == null)
+					return null;
+
+				if (news.Header != null)
+					oldNews.Header = news.Header;
+				if (news.Description != null)
+					oldNews.Description = news.Description;
+				if (news.Body != null)
+					oldNews.Body = news.Body;
+				oldNews.LastChangeDate = news.LastChangeDate;
+
+				context.News.Update(oldNews);
+				await context.SaveChangesAsync();
+				return oldNews;
+			}
+		}
+
+		public async Task DeleteNews(string heder)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var news = await context.News.FirstOrDefaultAsync(n => n.Header == heder);
+				if (news != null)
+				{
+					context.News.Remove(news);
+					await context.SaveChangesAsync();
+				}
+			}
+		}
+		#endregion
 
 		#region Main Page
 		public async Task UpdateInfo(MainPage mainPage)
@@ -87,9 +193,10 @@ namespace DBRepository.Repositories
 			return response;
 		}
 
-		#endregion
+        #endregion
 
-		public async Task<Images> GetPassportPicture(int UserId)
+        #region Get Picture 
+        public async Task<Images> GetPassportPicture(int UserId)
 		{
 			Images response = null;
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
@@ -143,54 +250,18 @@ namespace DBRepository.Repositories
 			return response;
 		}
 
-		#region Dashboard
-		public async Task<News> AddNews(News news)
+		#endregion
+
+		#region Finance
+		public async Task<Rate> GetRate()
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				context.News.Add(news);
-				await context.SaveChangesAsync();
-				return news;
+				return await context.Rates.AsNoTracking().FirstOrDefaultAsync();
 			}
 		}
 
-		public async Task<News> UpdateNews(News news, string heder)
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var oldNews = await context.News.FirstOrDefaultAsync(n => n.Header == heder);
-
-				if (oldNews == null)
-					return null;
-
-				if (news.Header != null)
-					oldNews.Header = news.Header;
-				if (news.Description != null)
-					oldNews.Description = news.Description;
-				if (news.Body != null)
-					oldNews.Body = news.Body;
-				oldNews.LastChangeDate = news.LastChangeDate;
-
-				context.News.Update(oldNews);
-				await context.SaveChangesAsync();
-				return oldNews;
-			}
-		}
-
-		public async Task DeleteNews(string heder)
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var news = await context.News.FirstOrDefaultAsync(n => n.Header == heder);
-				if (news != null)
-				{
-					context.News.Remove(news);
-					await context.SaveChangesAsync();
-				}
-			}
-		}
-
-		public async Task<Rate> UpdateDETRate(Rate rate)
+		public async Task UpdateDETRate(Rate rate)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -198,10 +269,46 @@ namespace DBRepository.Repositories
 				Rate.USD_DET = rate.USD_DET;
 				context.Rates.Update(Rate);
 				await context.SaveChangesAsync();
-				return await context.Rates.AsNoTracking().FirstOrDefaultAsync();
 			}
 		}
 
+		public async Task<List<TypeCommission>> GetCommission()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				return await context.TypeCommissions.ToListAsync();
+			}
+		}
+
+		public async Task UpdateCommission(List<TypeCommission> Types)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				context.UpdateRange(Types);
+				await context.SaveChangesAsync();
+			}
+		}
+
+		public async Task<List<TypeInvestment>> GetProfit()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				return await context.TypeInvestments.ToListAsync();
+			}
+		}
+
+		public async Task UpdateProfit(List<TypeInvestment> Types)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				context.UpdateRange(Types);
+				await context.SaveChangesAsync();
+			}
+		}
+
+		#endregion
+
+		#region Dashboard
 		public async Task<double> GetAddedFounds()
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))

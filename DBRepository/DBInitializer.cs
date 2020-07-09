@@ -81,6 +81,10 @@ namespace DBRepository
                 {
                     Value = 0.05
                 });
+                context.TypeCommissions.Add(new TypeCommission()
+                {
+                    Value = 0.005
+                });
                 await context.SaveChangesAsync().ConfigureAwait(false);
             }
             #endregion

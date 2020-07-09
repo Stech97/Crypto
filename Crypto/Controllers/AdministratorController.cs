@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Crypto.Controllers
 {
@@ -19,6 +20,48 @@ namespace Crypto.Controllers
 			_systemService = systemService;
 			_administratorService = administratorService;
 		}
+
+		//[Authorize]
+		[Route("GetUsersInfo")]
+		[HttpGet]
+		public async Task<IActionResult> GetUsersInfo()
+		{
+			var response = await _administratorService.GetUsersInfo();
+			if (response == null)
+				return BadRequest();
+			return Ok();
+		}
+
+		#region News
+		//[Authorize(Roles = "Client")]
+		[Route("AddNews")]
+		[HttpPost]
+		public async Task<IActionResult> AddNews([FromBody] AddNewsViewModel model)
+		{
+			var response = await _administratorService.AddNews(model);
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("UpdateNews")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateNews([FromBody] UpdateNewsViewModel model, string heder)
+		{
+			var response = await _administratorService.UpdateNews(model, heder);
+			if (response == null)
+				return BadRequest("News not found");
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("DeleteNews")]
+		[HttpDelete]
+		public async Task<IActionResult> DeleteNews(string heder)
+		{
+			await _administratorService.DeleteNews(heder);
+			return NoContent();
+		}
+		#endregion
 
 		#region Main Page
 		//[Authorize]
@@ -141,34 +184,14 @@ namespace Crypto.Controllers
 		}
 		#endregion
 
-		#region Dashboard
-		//[Authorize(Roles = "Client")]
-		[Route("AddNews")]
-		[HttpPost]
-		public async Task<IActionResult> AddNews([FromBody] AddNewsViewModel model)
-		{
-			var response = await _administratorService.AddNews(model);
-			return Ok(response);
-		}
-
+		#region Finance 
 		//[Authorize]
-		[Route("UpdateNews")]
-		[HttpPatch]
-		public async Task<IActionResult> UpdateNews([FromBody] UpdateNewsViewModel model, string heder)
+		[Route("GetRate")]
+		[HttpGet]
+		public async Task<IActionResult> GetRate()
 		{
-			var response = await _administratorService.UpdateNews(model, heder);
-			if (response == null)
-				return NotFound("News not found");
+			var response = await _administratorService.GetRate();
 			return Ok(response);
-		}
-
-		//[Authorize]
-		[Route("DeleteNews")]
-		[HttpDelete]
-		public async Task<IActionResult> DeleteNews(string heder)
-		{
-			await _administratorService.DeleteNews(heder);
-			return NoContent();
 		}
 
 		//[Authorize]
@@ -176,9 +199,48 @@ namespace Crypto.Controllers
 		[HttpPatch]
 		public async Task<IActionResult> UpdateRate([FromBody] RateDETViewModel request)
 		{
-			return Ok(await _administratorService.UpdateDETRate(request));
+			await _administratorService.UpdateDETRate(request);
+			return Ok();
+		}
+		//[Authorize]
+
+		[Route("GetCommission")]
+		[HttpGet]
+		public async Task<IActionResult> GetCommission()
+		{
+			var response = await _administratorService.GetCommission();
+			return Ok(response);
 		}
 
+		//[Authorize]
+		[Route("UpdateCommission")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateCommission([FromBody] List<CommissionViewModel> request)
+		{
+			await _administratorService.UpdateCommission(request);
+			return Ok();
+		}
+
+		//[Authorize]
+		[Route("GetProfit")]
+		[HttpGet]
+		public async Task<IActionResult> GetProfit()
+		{
+			var response = await _administratorService.GetProfit();
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("UpdateProfit")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateProfit([FromBody] List<ProfitViewModel> request)
+		{
+			await _administratorService.UpdateProfit(request);
+			return Ok();
+		}
+		#endregion
+
+		#region Dashboard
 		//[Authorize]
 		[Route("GetAddedFounds")]
 		[HttpGet]

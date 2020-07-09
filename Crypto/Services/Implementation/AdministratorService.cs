@@ -20,16 +20,43 @@ namespace Crypto.Services.Implementation
 			_mapper = mapper;
 		}
 
+		public async Task<object> GetUsersInfo()
+		{
+			return await _repository.GetUsersInfo();
+		}
+
+		#region News
+		public async Task<NewsViewModel> AddNews(AddNewsViewModel request)
+		{
+			var news = _mapper.Map<AddNewsViewModel, News>(request);
+			var response = await _repository.AddNews(news);
+			return _mapper.Map<News, NewsViewModel>(response);
+		}
+
+		public async Task<NewsViewModel> UpdateNews(UpdateNewsViewModel model, string heder)
+		{
+			var news = _mapper.Map<UpdateNewsViewModel, News>(model);
+			var response = await _repository.UpdateNews(news, heder);
+			return _mapper.Map<News, NewsViewModel>(response);
+		}
+
+		public async Task DeleteNews(string heder)
+		{
+			await _repository.DeleteNews(heder);
+		}
+
+		#endregion
+
 		#region Main Page
 		public async Task UpdateInfo(SingleTextViewModel model)
 		{
 			var MainPage = _mapper.Map<SingleTextViewModel, MainPage>(model);
 			await _repository.UpdateInfo(MainPage);
 		}
-		
+
 		public async Task UpdatePic(byte[] image, string nameFile, string Component)
 		{
-			await _repository.UpdatePic(image, nameFile, Component);	
+			await _repository.UpdatePic(image, nameFile, Component);
 		}
 
 		public async Task<Images> GetPic(string Component)
@@ -42,10 +69,10 @@ namespace Crypto.Services.Implementation
 			var response = await _repository.GetInfo(Component);
 			return _mapper.Map<MainPage, SingleTextViewModel>(response);
 		}
-        #endregion
+		#endregion
 
-        #region Get User Picture
-        public async Task<Images> GetPassportPicture(int UserId)
+		#region Get User Picture
+		public async Task<Images> GetPassportPicture(int UserId)
 		{
 			return await _repository.GetPassportPicture(UserId);
 		}
@@ -61,33 +88,46 @@ namespace Crypto.Services.Implementation
 		}
 		#endregion
 
-		#region Dasboard
-		public async Task<NewsViewModel> AddNews(AddNewsViewModel request)
+		#region Finance 
+		public async Task<RateDETViewModel> GetRate()
 		{
-			var news = _mapper.Map<AddNewsViewModel, News>(request);
-			var response = await _repository.AddNews(news);
-			return _mapper.Map<News, NewsViewModel>(response);
+			var response = await _repository.GetRate();
+			return _mapper.Map<Rate, RateDETViewModel>(response);
 		}
 
-		public async Task<NewsViewModel> UpdateNews(UpdateNewsViewModel model, string heder)
-		{
-			var news = _mapper.Map<UpdateNewsViewModel, News>(model);
-			var response = await _repository.UpdateNews(news, heder); 
-			return _mapper.Map<News, NewsViewModel>(response);
-		}
-
-		public async Task DeleteNews(string heder)
-		{
-			await _repository.DeleteNews(heder);
-		}
-
-		public async Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request)
+		public async Task UpdateDETRate(RateDETViewModel request)
 		{
 			var rate = _mapper.Map<RateDETViewModel, Rate>(request);
-			var newRate = await _repository.UpdateDETRate(rate);
-			return _mapper.Map<Rate, RateDETViewModel>(newRate);
+			await _repository.UpdateDETRate(rate);
 		}
 
+		public async Task<List<CommissionViewModel>> GetCommission()
+		{
+			var response = await _repository.GetCommission();
+			return _mapper.Map<List<TypeCommission>, List<CommissionViewModel>>(response);
+		}
+
+		public async Task UpdateCommission(List<CommissionViewModel> request)
+		{
+			var Commision = _mapper.Map<List<CommissionViewModel>, List<TypeCommission>>(request);
+			await _repository.UpdateCommission(Commision);
+		}
+
+		public async Task<List<ProfitViewModel>> GetProfit()
+		{
+			var response = await _repository.GetProfit();
+			return _mapper.Map<List<TypeInvestment>, List<ProfitViewModel>>(response);
+		}
+
+		public async Task UpdateProfit(List<ProfitViewModel> request)
+		{
+			var Profit = _mapper.Map<List<ProfitViewModel>, List<TypeInvestment>>(request);
+			await _repository.UpdateProfit(Profit);
+		}
+
+		#endregion
+
+		#region Dasboard
 		public async Task<double> GetAddedFounds()
 		{
 			return await _repository.GetAddedFounds();
