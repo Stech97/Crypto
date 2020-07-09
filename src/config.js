@@ -1,3 +1,4 @@
+import React from "react";
 import axios from "axios";
 import InDevelopment from "./InDevelopment";
 import Pages from "./pages/account/Pages";
@@ -17,6 +18,7 @@ import FAQ from "./pages/account/components/FAQ";
 import Terms from "./pages/account/components/Terms";
 import Privacy from "./pages/account/components/Privacy";
 import News from "./pages/account/components/News";
+import { Redirect } from "react-router-dom";
 
 const DOMAIN_URL_TEST = "localhost:3000";
 const DOMAIN_URL_PROD = "https://defima.io";
@@ -200,6 +202,10 @@ export const API = async (path, mode = "get", body = null) => {
   }
 };
 
+const RedirectDash = () => {
+  return <Redirect to="/pages/account/dashboard" />;
+};
+
 export const routes = [
   {
     path: "/pages",
@@ -292,5 +298,10 @@ export const routes = [
         Private: false,
       },
     ],
+  },
+  {
+    path: "/",
+    component: RedirectDash,
+    Private: true,
   },
 ];
