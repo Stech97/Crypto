@@ -28,60 +28,7 @@ export const lightBlue = '#16428d';
 export const whitebox = '#efefef';
 export const contentBack = '#f5fbff';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: contentBack,
-      contrastText: darkBlue,
-    },
-    secondary: {
-      main: whitebox,
-      contrastText: lightBlue,
-    },
-  },
-  typography: {
-    fontFamily: ['IBM Plex Sans'],
-  },
-});
-
 const useStyles = makeStyles((theme) => ({
-  h1: {
-    fontFamily: ['IBM Plex Sans'],
-    margin: 0,
-    lineHeight: 1.3,
-    letterSpacing: 'normal',
-    textAlign: 'left',
-    color: '#005c9f',
-    fontSize: '1.75rem',
-    fontWeight: 600,
-    fontStyle: 'normal',
-  },
-
-  h2: {
-    fontFamily: ['IBM Plex Sans'],
-    margin: 0,
-    lineHeight: 1.3,
-    letterSpacing: 'normal',
-    textAlign: 'left',
-    color: '#005c9f',
-    fontSize: '1.5rem',
-    fontWeight: 400,
-    fontStretch: 'normal',
-    fontStyle: 'italic',
-  },
-
-  p: {
-    fontFamily: ['IBM Plex Sans'],
-    maxWidth: '52.1875rem',
-    fontSize: '1.5625rem',
-    fontStretch: 'normal',
-    fontStyle: 'normal',
-    lineHeight: 1.32,
-    letterSpacing: 'normal',
-    textAlign: 'left',
-    color: '#838383',
-  },
-
   scheme: {
     width: '100%',
   },
