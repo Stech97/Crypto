@@ -215,13 +215,25 @@ const JoinusButtons = () => {
 class Joinus extends Component {
   render() {
     return (
-      <section className="joinus">
-        <div className="wrapper joinus-wrapper">
-          <JoinusHeader />
-          <JoinusContent />
-          <JoinusButtons />
-        </div>
-      </section>
+      <Container
+        maxWidth="xl"
+        style={{
+          backgroundColor: contentBack,
+          height: '100%',
+          borderBottomRightRadius: '9.375rem',
+          border: 'none',
+        }}
+      >
+        <Container maxWidth="lg">
+          <section className="joinus">
+            <div className="wrapper joinus-wrapper">
+              <JoinusHeader />
+              <JoinusContent />
+              <JoinusButtons />
+            </div>
+          </section>
+        </Container>
+      </Container>
     );
   }
 }

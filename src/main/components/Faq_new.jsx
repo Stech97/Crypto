@@ -188,25 +188,36 @@ class FaqTopics extends Component {
 class Faq extends Component {
   render() {
     return (
-      <section className="faq">
-        <div className="wrapper faq-wrapper">
-          <Grid container direction="row" spacing={3}>
-            <Grid item xs={12} md={6}>
+      <Container
+        maxWidth="xl"
+        style={{
+          backgroundColor: '#ffffff',
+          height: '100%',
+          border: 'none',
+        }}
+      >
+        <Container maxWidth="lg">
+          <section className="faq">
+            <div className="wrapper faq-wrapper">
               <Grid container direction="row" spacing={3}>
                 <Grid item xs={12} md={6}>
-                  <FaqHeader />
+                  <Grid container direction="row" spacing={3}>
+                    <Grid item xs={12} md={6}>
+                      <FaqHeader />
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <FaqText />
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <FaqTopics />
                 </Grid>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <FaqText />
-              </Grid>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FaqTopics />
-            </Grid>
-          </Grid>
-        </div>
-      </section>
+            </div>
+          </section>
+        </Container>
+      </Container>
     );
   }
 }
