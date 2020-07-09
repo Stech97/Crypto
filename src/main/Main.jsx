@@ -9,7 +9,7 @@ import Career from './components/Career_new';
 import DefimaToken from './components/Defimatoken_new';
 import Ourteam from './components/Ourteam_new';
 import Joinus from './components/Joinus_new';
-import Faq from './components/Faq';
+import Faq from './components/Faq_new';
 import Feedback from './components/Feedback';
 import Footer from './components/Footer';
 import { ThemeProvider } from '@material-ui/core';
