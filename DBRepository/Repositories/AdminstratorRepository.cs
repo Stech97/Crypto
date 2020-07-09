@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 
 namespace DBRepository.Repositories
@@ -11,6 +10,54 @@ namespace DBRepository.Repositories
 	public class AdminstratorRepository : BaseRepository, IAdministratorRepository
 	{
 		public AdminstratorRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
+
+		#region News
+		public async Task<News> AddNews(News news)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				context.News.Add(news);
+				await context.SaveChangesAsync();
+				return news;
+			}
+		}
+
+		public async Task<News> UpdateNews(News news, string heder)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var oldNews = await context.News.FirstOrDefaultAsync(n => n.Header == heder);
+
+				if (oldNews == null)
+					return null;
+
+				if (news.Header != null)
+					oldNews.Header = news.Header;
+				if (news.Description != null)
+					oldNews.Description = news.Description;
+				if (news.Body != null)
+					oldNews.Body = news.Body;
+				oldNews.LastChangeDate = news.LastChangeDate;
+
+				context.News.Update(oldNews);
+				await context.SaveChangesAsync();
+				return oldNews;
+			}
+		}
+
+		public async Task DeleteNews(string heder)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var news = await context.News.FirstOrDefaultAsync(n => n.Header == heder);
+				if (news != null)
+				{
+					context.News.Remove(news);
+					await context.SaveChangesAsync();
+				}
+			}
+		}
+		#endregion
 
 		#region Main Page
 		public async Task UpdateInfo(MainPage mainPage)
@@ -87,9 +134,10 @@ namespace DBRepository.Repositories
 			return response;
 		}
 
-		#endregion
+        #endregion
 
-		public async Task<Images> GetPassportPicture(int UserId)
+        #region Get Picture 
+        public async Task<Images> GetPassportPicture(int UserId)
 		{
 			Images response = null;
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
@@ -143,53 +191,9 @@ namespace DBRepository.Repositories
 			return response;
 		}
 
-		#region Dashboard
-		public async Task<News> AddNews(News news)
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				context.News.Add(news);
-				await context.SaveChangesAsync();
-				return news;
-			}
-		}
+		#endregion
 
-		public async Task<News> UpdateNews(News news, string heder)
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var oldNews = await context.News.FirstOrDefaultAsync(n => n.Header == heder);
-
-				if (oldNews == null)
-					return null;
-
-				if (news.Header != null)
-					oldNews.Header = news.Header;
-				if (news.Description != null)
-					oldNews.Description = news.Description;
-				if (news.Body != null)
-					oldNews.Body = news.Body;
-				oldNews.LastChangeDate = news.LastChangeDate;
-
-				context.News.Update(oldNews);
-				await context.SaveChangesAsync();
-				return oldNews;
-			}
-		}
-
-		public async Task DeleteNews(string heder)
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var news = await context.News.FirstOrDefaultAsync(n => n.Header == heder);
-				if (news != null)
-				{
-					context.News.Remove(news);
-					await context.SaveChangesAsync();
-				}
-			}
-		}
-
+		#region Finance
 		public async Task<Rate> UpdateDETRate(Rate rate)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
@@ -202,6 +206,17 @@ namespace DBRepository.Repositories
 			}
 		}
 
+		public async Task<List<TypeCommission>> GetCommission()
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				return await context.TypeCommissions.ToListAsync();
+			}
+		}
+
+		#endregion
+
+		#region Dashboard
 		public async Task<double> GetAddedFounds()
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))

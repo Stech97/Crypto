@@ -8,15 +8,24 @@ namespace Crypto.Services.Interfaces
 {
     public interface IAdministratorService
     {
+        #region News
         Task<NewsViewModel> AddNews(AddNewsViewModel requmodelest);
-        Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request);
         Task<NewsViewModel> UpdateNews(UpdateNewsViewModel model, string heder);
         Task DeleteNews(string heder);
+        #endregion
+
+        #region Main Page
         Task UpdateInfo(SingleTextViewModel model);
         Task UpdatePic(byte[] image, string nameFile, string Component);
         Task<Images> GetPic(string Component);
         Task<SingleTextViewModel> GetInfo(string Component);
+        #endregion
 
+        #region Finance
+        Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request);
+        Task<List<GetCommissionViewModel>> GetCommission();
+
+        #endregion
 
         #region Get User Picture
         Task<Images> GetPassportPicture(int userId);

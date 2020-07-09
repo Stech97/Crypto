@@ -20,16 +20,38 @@ namespace Crypto.Services.Implementation
 			_mapper = mapper;
 		}
 
+		#region News
+		public async Task<NewsViewModel> AddNews(AddNewsViewModel request)
+		{
+			var news = _mapper.Map<AddNewsViewModel, News>(request);
+			var response = await _repository.AddNews(news);
+			return _mapper.Map<News, NewsViewModel>(response);
+		}
+
+		public async Task<NewsViewModel> UpdateNews(UpdateNewsViewModel model, string heder)
+		{
+			var news = _mapper.Map<UpdateNewsViewModel, News>(model);
+			var response = await _repository.UpdateNews(news, heder);
+			return _mapper.Map<News, NewsViewModel>(response);
+		}
+
+		public async Task DeleteNews(string heder)
+		{
+			await _repository.DeleteNews(heder);
+		}
+
+		#endregion
+
 		#region Main Page
 		public async Task UpdateInfo(SingleTextViewModel model)
 		{
 			var MainPage = _mapper.Map<SingleTextViewModel, MainPage>(model);
 			await _repository.UpdateInfo(MainPage);
 		}
-		
+
 		public async Task UpdatePic(byte[] image, string nameFile, string Component)
 		{
-			await _repository.UpdatePic(image, nameFile, Component);	
+			await _repository.UpdatePic(image, nameFile, Component);
 		}
 
 		public async Task<Images> GetPic(string Component)
@@ -42,10 +64,10 @@ namespace Crypto.Services.Implementation
 			var response = await _repository.GetInfo(Component);
 			return _mapper.Map<MainPage, SingleTextViewModel>(response);
 		}
-        #endregion
+		#endregion
 
-        #region Get User Picture
-        public async Task<Images> GetPassportPicture(int UserId)
+		#region Get User Picture
+		public async Task<Images> GetPassportPicture(int UserId)
 		{
 			return await _repository.GetPassportPicture(UserId);
 		}
@@ -61,26 +83,7 @@ namespace Crypto.Services.Implementation
 		}
 		#endregion
 
-		#region Dasboard
-		public async Task<NewsViewModel> AddNews(AddNewsViewModel request)
-		{
-			var news = _mapper.Map<AddNewsViewModel, News>(request);
-			var response = await _repository.AddNews(news);
-			return _mapper.Map<News, NewsViewModel>(response);
-		}
-
-		public async Task<NewsViewModel> UpdateNews(UpdateNewsViewModel model, string heder)
-		{
-			var news = _mapper.Map<UpdateNewsViewModel, News>(model);
-			var response = await _repository.UpdateNews(news, heder); 
-			return _mapper.Map<News, NewsViewModel>(response);
-		}
-
-		public async Task DeleteNews(string heder)
-		{
-			await _repository.DeleteNews(heder);
-		}
-
+		#region Finance 
 		public async Task<RateDETViewModel> UpdateDETRate(RateDETViewModel request)
 		{
 			var rate = _mapper.Map<RateDETViewModel, Rate>(request);
@@ -88,6 +91,15 @@ namespace Crypto.Services.Implementation
 			return _mapper.Map<Rate, RateDETViewModel>(newRate);
 		}
 
+		public async Task<List<GetCommissionViewModel>> GetCommission()
+		{
+			var response = await _repository.GetCommission();
+			return _mapper.Map<List<TypeCommission>, List<GetCommissionViewModel>>(response);
+		}
+
+		#endregion
+
+		#region Dasboard
 		public async Task<double> GetAddedFounds()
 		{
 			return await _repository.GetAddedFounds();

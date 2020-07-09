@@ -20,6 +20,37 @@ namespace Crypto.Controllers
 			_administratorService = administratorService;
 		}
 
+		#region News
+		//[Authorize(Roles = "Client")]
+		[Route("AddNews")]
+		[HttpPost]
+		public async Task<IActionResult> AddNews([FromBody] AddNewsViewModel model)
+		{
+			var response = await _administratorService.AddNews(model);
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("UpdateNews")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateNews([FromBody] UpdateNewsViewModel model, string heder)
+		{
+			var response = await _administratorService.UpdateNews(model, heder);
+			if (response == null)
+				return BadRequest("News not found");
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("DeleteNews")]
+		[HttpDelete]
+		public async Task<IActionResult> DeleteNews(string heder)
+		{
+			await _administratorService.DeleteNews(heder);
+			return NoContent();
+		}
+		#endregion
+
 		#region Main Page
 		//[Authorize]
 		[Route("UpdateInfo")]
@@ -141,44 +172,28 @@ namespace Crypto.Controllers
 		}
 		#endregion
 
-		#region Dashboard
-		//[Authorize(Roles = "Client")]
-		[Route("AddNews")]
-		[HttpPost]
-		public async Task<IActionResult> AddNews([FromBody] AddNewsViewModel model)
-		{
-			var response = await _administratorService.AddNews(model);
-			return Ok(response);
-		}
-
-		//[Authorize]
-		[Route("UpdateNews")]
-		[HttpPatch]
-		public async Task<IActionResult> UpdateNews([FromBody] UpdateNewsViewModel model, string heder)
-		{
-			var response = await _administratorService.UpdateNews(model, heder);
-			if (response == null)
-				return BadRequest("News not found");
-			return Ok(response);
-		}
-
-		//[Authorize]
-		[Route("DeleteNews")]
-		[HttpDelete]
-		public async Task<IActionResult> DeleteNews(string heder)
-		{
-			await _administratorService.DeleteNews(heder);
-			return NoContent();
-		}
-
+		#region Finance 
 		//[Authorize]
 		[Route("UpdateRate")]
 		[HttpPatch]
 		public async Task<IActionResult> UpdateRate([FromBody] RateDETViewModel request)
 		{
-			return Ok(await _administratorService.UpdateDETRate(request));
+			var respose = await _administratorService.UpdateDETRate(request);
+			return Ok(respose);
 		}
 
+		//[Authorize]
+		[Route("GetCommission")]
+		[HttpGet]
+		public async Task<IActionResult> GetCommission()
+		{
+			var response = await _administratorService.GetCommission();
+			return Ok(response);
+		}
+
+		#endregion
+
+		#region Dashboard
 		//[Authorize]
 		[Route("GetAddedFounds")]
 		[HttpGet]

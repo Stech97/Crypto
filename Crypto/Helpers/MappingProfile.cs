@@ -83,6 +83,10 @@ namespace Crypto.Helpers
 
 			CreateMap<MainPage, SingleTextViewModel>();
 
+			CreateMap<TypeCommission, GetCommissionViewModel>()
+				.ForMember(m => m.Persent, opt => opt.MapFrom(m => m.Value))
+				.ForMember(m => m.Type, opt => opt.MapFrom(m => m.ToString()));
+
 		}
 	}
 }
