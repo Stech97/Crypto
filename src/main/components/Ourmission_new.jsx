@@ -44,36 +44,7 @@ const theme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles((theme) => ({
-  h1: {
-    fontFamily: ['IBM Plex Sans'],
-    margin: 0,
-    lineHeight: 1.3,
-    letterSpacing: 'normal',
-    textAlign: 'left',
-    color: '#005c9f',
-    fontSize: '1.75rem',
-    fontWeight: 600,
-    fontStyle: 'normal',
-  },
-
-  h2: {
-    fontFamily: ['IBM Plex Sans'],
-    margin: 0,
-    lineHeight: 1.3,
-    letterSpacing: 'normal',
-    textAlign: 'left',
-    color: '#005c9f',
-    fontSize: '1.5rem',
-    fontWeight: 400,
-    fontStretch: 'normal',
-    fontStyle: 'italic',
-  },
-
-  p: {
-    fontFamily: ['IBM Plex Sans'],
-  },
-}));
+const useStyles = makeStyles((theme) => ({}));
 
 const OurmissionHeader = () => {
   const classes = useStyles();

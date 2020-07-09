@@ -29,34 +29,7 @@ export const lightBlue = '#16428d';
 export const whitebox = '#efefef';
 export const contentBack = '#f5fbff';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: contentBack,
-      contrastText: darkBlue,
-    },
-    secondary: {
-      main: whitebox,
-      contrastText: lightBlue,
-    },
-  },
-  typography: {
-    fontFamily: ['IBM Plex Sans'],
-  },
-});
-
 const useStyles = makeStyles((theme) => ({
-  p: {
-    fontFamily: ['IBM Plex Sans'],
-    maxWidth: '52.1875rem',
-    fontSize: '1.5625rem',
-    fontStretch: 'normal',
-    fontStyle: 'normal',
-    lineHeight: 1.32,
-    letterSpacing: 'normal',
-    textAlign: 'left',
-    color: '#838383',
-  },
   get_started: {
     margin: 'auto',
     width: '12rem',
