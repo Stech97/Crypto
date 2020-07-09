@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 //import "../styles/style.scss";
 import Header from './components/Header';
-import Homescreen from './components/Homescreen';
+import Homescreen from './components/Homescreen_new';
 import Ourmission from './components/Ourmission_new';
 import Howitworks from './components/Howitworks';
 import Portfolio from './components/Portfolio';
