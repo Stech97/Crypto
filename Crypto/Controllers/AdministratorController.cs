@@ -193,6 +193,8 @@ namespace Crypto.Controllers
 			var response = await _administratorService.GetRate();
 			return Ok(response);
 		}
+        
+        
 
 		//[Authorize]
 		[Route("UpdateRate")]
@@ -202,16 +204,15 @@ namespace Crypto.Controllers
 			await _administratorService.UpdateDETRate(request);
 			return Ok();
 		}
+        
 		//[Authorize]
-
 		[Route("GetCommission")]
 		[HttpGet]
 		public async Task<IActionResult> GetCommission()
 		{
 			var response = await _administratorService.GetCommission();
-			return Ok(response);
-		}
-
+        }
+        
 		//[Authorize]
 		[Route("UpdateCommission")]
 		[HttpPatch]
