@@ -21,6 +21,7 @@ namespace DBRepository
         public DbSet<BalanceHistory> BalanceHistories { get; set; }
         public DbSet<MainPage> MainPages { get; set; }
         public DbSet<Rate> Rates { get; set; }
+        public DbSet<MarketFiles> MarketFiles { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -106,6 +107,11 @@ namespace DBRepository
             modelBuilder.Entity<Rate>().ToTable("Rate");
             modelBuilder.Entity<Rate>().Property(r => r.BTC_USD).IsRequired();
             modelBuilder.Entity<Rate>().Property(r => r.USD_DET).IsRequired();
+            #endregion
+
+            #region Market Files
+            modelBuilder.Entity<MarketFiles>().ToTable("MarketFiles");
+            modelBuilder.Entity<MarketFiles>().Property(mf => mf.Component).IsRequired();
             #endregion
         }
     }

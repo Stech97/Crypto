@@ -12,18 +12,18 @@ namespace DBRepository.Repositories
 		public AdminstratorRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
 		#region Upload Files
-		public async Task UploadFiles(byte[] image, string content, string Component)
+		public async Task UploadFiles(byte[] image, string name, string Component)
 		{
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
-				if (user != null)
+				var Market = await contex.MarketFiles.FirstOrDefaultAsync(mf => mf.Component == Component);
+				if (Market != null)
 				{
-					user.ProofPicture = image;
-					user.ProofPictureName = nameFile;
+					Market.Content = image;
+					Market.Name = name;
 				}
 
-				contex.Users.Update(user);
+				contex.MarketFiles.Update(Market);
 				await contex.SaveChangesAsync();
 			}
 		}

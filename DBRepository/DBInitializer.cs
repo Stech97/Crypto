@@ -101,7 +101,7 @@ namespace DBRepository
             }
             #endregion
 
-            #region
+            #region Rates
             var rate = await context.Rates.CountAsync().ConfigureAwait(false);
             if (rate == 0)
             {
@@ -110,6 +110,54 @@ namespace DBRepository
                     BTC_USD = 10000,
                     USD_DET = 1
                 });
+                await context.SaveChangesAsync().ConfigureAwait(false);
+            }
+            #endregion
+
+            #region Market Files 
+            var MarketCount = await context.MarketFiles.CountAsync().ConfigureAwait(false);
+            if (MarketCount == 0)
+            {
+                context.MarketFiles.Add(new MarketFiles()
+                {
+                    Component = "Presentation"
+                });
+
+                context.MarketFiles.Add(new MarketFiles()
+                {
+                    Component = "Business Presentation"
+                });
+
+                context.MarketFiles.Add(new MarketFiles()
+                {
+                    Component = "Video Presentation"
+                });
+
+                context.MarketFiles.Add(new MarketFiles()
+                {
+                    Component = "Social post"
+                });
+
+                context.MarketFiles.Add(new MarketFiles()
+                {
+                    Component = "Instagram"
+                });
+
+                context.MarketFiles.Add(new MarketFiles()
+                {
+                    Component = "Promo Picture"
+                });
+
+                context.MarketFiles.Add(new MarketFiles()
+                {
+                    Component = "Promo Video"
+                });
+
+                context.MarketFiles.Add(new MarketFiles()
+                {
+                    Component = "Platform tutorial"
+                });
+
                 await context.SaveChangesAsync().ConfigureAwait(false);
             }
             #endregion
