@@ -6,7 +6,7 @@ import Ourmission from './components/Ourmission_new';
 import Howitworks from './components/Howitworks_new';
 import Portfolio from './components/Portfolio_new';
 import Career from './components/Career_new';
-import DefimaToken from './components/Defimatoken';
+import DefimaToken from './components/Defimatoken_new';
 import Ourteam from './components/Ourteam';
 import Joinus from './components/Joinus';
 import Faq from './components/Faq';
