@@ -8,6 +8,8 @@ namespace Crypto.Services.Interfaces
 {
     public interface IAdministratorService
     {
+        Task<object> GetUsersInfo();
+
         #region News
         Task<NewsViewModel> AddNews(AddNewsViewModel requmodelest);
         Task<NewsViewModel> UpdateNews(UpdateNewsViewModel model, string heder);

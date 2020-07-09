@@ -11,6 +11,65 @@ namespace DBRepository.Repositories
 	{
 		public AdminstratorRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
+		public async Task<object> GetUsersInfo()
+		{
+			List<object> response = new List<object>();
+
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var Users = await context.Users.ToListAsync();
+				var Rates = await context.Rates.FirstOrDefaultAsync();
+
+				foreach (var user in Users)
+				{
+					var Invest = await context.Investments.FirstOrDefaultAsync(i => i.UserId == user.Id);
+					var BalanceHistory = await context.BalanceHistories.FirstOrDefaultAsync(i => i.UserId == user.Id);
+
+					if (Invest != null && BalanceHistory != null)
+					{
+						var TotalAdded = await context.Investments.Where(i => i.UserId == user.Id).SumAsync(i => i.AddCash);
+
+						var TotalCommission = (await context.Investments.FirstOrDefaultAsync(i => i.UserId == user.Id)).TotalCommission;
+
+						var TotalWitdrowed = await context.BalanceHistories
+							.Where(bh => bh.UserId == user.Id && bh.TypeHistory == EnumTypeHistory.Withdraw).SumAsync(bh => bh.Amount);
+
+						var TotalTeamCommission = await context.BalanceHistories
+							.Where(bh => bh.UserId == user.Id && bh.TypeHistory == EnumTypeHistory.Comission).SumAsync(bh => bh.Amount);
+
+						var resp = new
+						{
+							Name = user.FirstName + " " + user.LastName,
+							user.Email,
+							user.Phone,
+							TotalAdded,
+							TotalCommission,
+							TotalTeamCommission,
+							TotalWitdrowed,
+							SuperUser = user.IsSuper,
+						};
+						response.Add(resp);
+					}
+					else
+					{
+						var resp = new
+						{
+							Name = user.FirstName + " " + user.LastName,
+							user.Email,
+							user.Phone,
+							TotalAdded = 0,
+							TotalCommission = 0,
+							TotalTeamCommission = 0,
+							TotalWitdrowed = 0,
+							SuperUser = user.IsSuper,
+						};
+						response.Add(resp);
+					}
+				}
+			}
+			return response;
+		}
+
 		#region News
 		public async Task<News> AddNews(News news)
 		{

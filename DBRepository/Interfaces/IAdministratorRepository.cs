@@ -6,6 +6,7 @@ namespace DBRepository.Interfaces
 {
     public interface IAdministratorRepository
     {
+        Task<object> GetUsersInfo();
 
         #region Main Page
         Task UpdateInfo(MainPage mainPage);

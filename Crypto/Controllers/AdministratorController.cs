@@ -21,6 +21,17 @@ namespace Crypto.Controllers
 			_administratorService = administratorService;
 		}
 
+		//[Authorize]
+		[Route("GetUsersInfo")]
+		[HttpGet]
+		public async Task<IActionResult> GetUsersInfo()
+		{
+			var response = await _administratorService.GetUsersInfo();
+			if (response == null)
+				return BadRequest();
+			return Ok();
+		}
+
 		#region News
 		//[Authorize(Roles = "Client")]
 		[Route("AddNews")]
@@ -227,9 +238,6 @@ namespace Crypto.Controllers
 			await _administratorService.UpdateProfit(request);
 			return Ok();
 		}
-
-
-
 		#endregion
 
 		#region Dashboard

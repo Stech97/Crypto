@@ -20,6 +20,11 @@ namespace Crypto.Services.Implementation
 			_mapper = mapper;
 		}
 
+		public async Task<object> GetUsersInfo()
+		{
+			return await _repository.GetUsersInfo();
+		}
+
 		#region News
 		public async Task<NewsViewModel> AddNews(AddNewsViewModel request)
 		{
