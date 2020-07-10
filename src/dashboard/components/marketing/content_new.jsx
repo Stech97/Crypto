@@ -225,16 +225,18 @@ const MarketingContentFollow = ({}) => {
 export default class MarketingContent extends Component {
   render() {
     return (
-      <div className="marketing-box">
-        <Grid container spacing={3}>
-          {marketboxes.map((box, id) => (
-            <MarketingContentBox key={id} box={box} />
-          ))}
-        </Grid>
-        <Grid container spacing={1} direction="column">
-          <MarketingContentFollow />
-        </Grid>
-      </div>
+      <Container maxWidth="lg">
+        <div className="marketing-box">
+          <Grid container spacing={3}>
+            {marketboxes.map((box, id) => (
+              <MarketingContentBox key={id} box={box} />
+            ))}
+          </Grid>
+          <Grid container spacing={1} direction="column">
+            <MarketingContentFollow />
+          </Grid>
+        </div>
+      </Container>
     );
   }
 }
