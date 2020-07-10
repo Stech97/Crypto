@@ -91,27 +91,6 @@ namespace Crypto.Controllers
 		#region Main Page
 
 		//[Authorize]
-		[Route("GetTextInfo")]
-		[HttpGet]
-		public async Task<IActionResult> GetTextInfo(string Component)
-		{
-			var response = await _administratorService.GetTextInfo(Component);
-			if (response == null)
-				return BadRequest();
-			return Ok(response);
-		}
-
-		//[Authorize]
-		[Route("UpdateTextInfo")]
-		[HttpPatch]
-		public async Task<IActionResult> UpdateTextInfo([FromBody] Homescreen model)
-		{
-			await _administratorService.UpdateTextInfo(model);
-			return Ok();
-		}
-
-
-		//[Authorize]
 		[Route("GetSingleTextInfo")]
 		[HttpGet]
 		public async Task<IActionResult> GetInfo(string Component)

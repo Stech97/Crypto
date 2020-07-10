@@ -58,18 +58,6 @@ namespace Crypto.Services.Implementation
 
 		#region Main Page
 
-		public async Task<Homescreen> GetTextInfo(string Component)
-		{
-			var response = await _repository.GetInfo(Component);
-			return _mapper.Map<MainPage, Homescreen>(response);
-		}
-
-		public async Task UpdateTextInfo(Homescreen model)
-		{
-			var MainPage = _mapper.Map<Homescreen, MainPage>(model);
-			await _repository.UpdateInfo(MainPage);
-		}
-
 		public async Task<SingleTextViewModel> GetInfo(string Component)
 		{
 			var response = await _repository.GetInfo(Component);

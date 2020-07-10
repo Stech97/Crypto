@@ -139,28 +139,6 @@ namespace DBRepository.Repositories
 		#endregion
 
 		#region Main Page
-		public async Task<MainPage> GetTextInfo(string Component)
-		{
-			MainPage response = null;
-			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
-				if (main != null)
-				{
-					response = new MainPage()
-					{
-						Component = main.Component,
-						Header = main.Header,
-						SubHeader = main.SubHeader,
-						Text = main.Text
-					};
-				}
-			}
-			return response;
-		}
-
-		public async Task UpdateTextInfo(MainPage mainPage);
-
 		public async Task<MainPage> GetInfo(string Component)
 		{
 			MainPage response = null;

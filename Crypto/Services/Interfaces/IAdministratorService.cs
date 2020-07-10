@@ -23,8 +23,6 @@ namespace Crypto.Services.Interfaces
         #endregion
 
         #region Main Page
-        Task<Homescreen> GetTextInfo(string Component);
-        Task UpdateTextInfo(Homescreen model);
         Task<SingleTextViewModel> GetInfo(string Component);
         Task UpdateInfo(SingleTextViewModel model);
         Task<Images> GetPic(string Component);
