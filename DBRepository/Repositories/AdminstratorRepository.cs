@@ -179,12 +179,12 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<MainPage> GetFAQ(string Component)
+		public async Task<MainPage> GetFAQ()
 		{
 			MainPage response = null;
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
+				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == "FAQ");
 				if (main != null)
 				{
 					response = new MainPage()
@@ -236,6 +236,76 @@ namespace DBRepository.Repositories
 			}
 		}
 
+		public async Task<MainPage> GetAbout()
+		{
+			MainPage response = null;
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == "FAQ");
+				if (main != null)
+				{
+					response = new MainPage()
+					{
+						Component = main.Component,
+						Header = main.Header,
+						SubHeader = main.SubHeader,
+						Text = main.Text,
+						Name1 = main.Name1,
+						Name2 = main.Name2,
+						Name3 = main.Name3,
+						Title1 = main.Title1,
+						Title2 = main.Title2,
+						Title3 = main.Title3,
+						Link1 = main.Link1,
+						Link2 = main.Link2,
+						Link3 = main.Link3
+					};
+				}
+			}
+			return response;
+		}
+
+		public async Task UpdateAbout(MainPage mainPage)
+		{
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == mainPage.Component);
+				if (main != null)
+				{
+					if (mainPage.Header != null)
+						main.Header = mainPage.Header;
+					if (mainPage.SubHeader != null)
+						main.SubHeader = mainPage.SubHeader;
+					if (mainPage.Text != null)
+						main.Text = mainPage.Text;
+
+					if (mainPage.Name1 != null)
+						main.Name1 = mainPage.Name1;
+					if (mainPage.Name2 != null)
+						main.Name2 = mainPage.Name2;
+					if (mainPage.Name3 != null)
+						main.Name3 = mainPage.Name3;
+
+					if (mainPage.Title1 != null)
+						main.Title1 = mainPage.Title1;
+					if (mainPage.Title2 != null)
+						main.Title2 = mainPage.Title2;
+					if (mainPage.Title3 != null)
+						main.Title3 = mainPage.Title3;
+
+					if (mainPage.Link1 != null)
+						main.Link1 = mainPage.Link1;
+					if (mainPage.Link2 != null)
+						main.Link2 = mainPage.Link2;
+					if (mainPage.Link3 != null)
+						main.Link3 = mainPage.Link3;
+
+					contex.MainPages.Update(main);
+					await contex.SaveChangesAsync();
+				}
+			}
+		}
+
 		public async Task<Images> GetPic(string Component)
 		{
 			Images response = null;
@@ -269,9 +339,8 @@ namespace DBRepository.Repositories
 				await contex.SaveChangesAsync();
 			}
 		}
-
-
-        #endregion
+        
+		#endregion
 
         #region Get Picture 
         public async Task<Images> GetPassportPicture(int UserId)

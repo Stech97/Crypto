@@ -70,16 +70,28 @@ namespace Crypto.Services.Implementation
 			await _repository.UpdateInfo(MainPage);
 		}
 
-		public async Task<FAQ> GetFAQ(string Component)
+		public async Task<FAQViewModel> GetFAQ()
 		{
-			var response = await _repository.GetFAQ(Component);
-			return _mapper.Map<MainPage, FAQ>(response);
+			var response = await _repository.GetFAQ();
+			return _mapper.Map<MainPage, FAQViewModel>(response);
 		}
 
-		public async Task UpdateFAQ(FAQ model)
+		public async Task UpdateFAQ(FAQViewModel model)
 		{
-			var MainPage = _mapper.Map<FAQ, MainPage>(model);
+			var MainPage = _mapper.Map<FAQViewModel, MainPage>(model);
 			await _repository.UpdateFAQ(MainPage);
+		}
+
+		public async Task<AboutUsViewModel> GetAbout()
+		{
+			var response = await _repository.GetAbout();
+			return _mapper.Map<MainPage, AboutUsViewModel>(response);
+		}
+
+		public async Task UpdateAbout(AboutUsViewModel model)
+		{
+			var MainPage = _mapper.Map<AboutUsViewModel, MainPage>(model);
+			await _repository.UpdateAbout(MainPage);
 		}
 
 		public async Task<Images> GetPic(string Component)

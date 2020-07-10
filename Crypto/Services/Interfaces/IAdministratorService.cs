@@ -25,8 +25,13 @@ namespace Crypto.Services.Interfaces
         #region Main Page
         Task<SingleTextViewModel> GetInfo(string Component);
         Task UpdateInfo(SingleTextViewModel model);
-        Task<FAQ> GetFAQ(string Component);
-        Task UpdateFAQ(FAQ model);
+
+        Task<FAQViewModel> GetFAQ();
+        Task UpdateFAQ(FAQViewModel model);
+
+        Task<AboutUsViewModel> GetAbout();
+        Task UpdateAbout(AboutUsViewModel model);
+
         Task<Images> GetPic(string Component);
         Task UpdatePic(byte[] image, string nameFile, string Component);
 

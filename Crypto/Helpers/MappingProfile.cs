@@ -83,9 +83,13 @@ namespace Crypto.Helpers
 
 			CreateMap<MainPage, SingleTextViewModel>();
 
-			CreateMap<FAQ, MainPage>();
+			CreateMap<FAQViewModel, MainPage>();
 
-			CreateMap<MainPage, FAQ>();
+			CreateMap<MainPage, FAQViewModel>();
+
+			CreateMap<AboutUsViewModel, MainPage>();
+
+			CreateMap<MainPage, AboutUsViewModel>();
 
 			CreateMap<TypeCommission, CommissionViewModel>()
 				.ForMember(m => m.Persent, opt => opt.MapFrom(m => m.Value * 100))

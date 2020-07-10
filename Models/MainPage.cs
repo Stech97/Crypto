@@ -19,5 +19,28 @@
         public string Question3Text { get; set; }
         #endregion
 
+        #region About Us
+        public string Name1 { get; set; }
+        public string Name2 { get; set; }
+        public string Name3 { get; set; }
+
+        public string Title1 { get; set; }
+        public string Title2 { get; set; }
+        public string Title3 { get; set; }
+
+        public string Link1 { get; set; }
+        public string Link2 { get; set; }
+        public string Link3 { get; set; }
+
+        public byte[] Picture1 { get; set; }
+        public byte[] Picture2 { get; set; }
+        public byte[] Picture3 { get; set; }
+
+        public string Picture1Name { get; set; }
+        public string Picture2Name { get; set; }
+        public string Picture3Name { get; set; }
+
+        #endregion
+
     }
 }

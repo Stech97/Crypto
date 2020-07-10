@@ -1,6 +1,6 @@
 ﻿namespace Crypto.ViewModels.Administrator
 {
-    public class FAQ
+    public class FAQViewModel
     {
         public string Component { get; set; }
         public string Header { get; set; }

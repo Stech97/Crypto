@@ -113,9 +113,9 @@ namespace Crypto.Controllers
 		//[Authorize]
 		[Route("GetFAQ")]
 		[HttpGet]
-		public async Task<IActionResult> GetFAQ(string Component)
+		public async Task<IActionResult> GetFAQ()
 		{
-			var response = await _administratorService.GetFAQ(Component);
+			var response = await _administratorService.GetFAQ();
 			if (response == null)
 				return BadRequest();
 			return Ok(response);
@@ -124,9 +124,29 @@ namespace Crypto.Controllers
 		//[Authorize]
 		[Route("UpdateFAQ")]
 		[HttpPatch]
-		public async Task<IActionResult> UpdateFAQ([FromBody] FAQ model)
+		public async Task<IActionResult> UpdateFAQ([FromBody] FAQViewModel model)
 		{
 			await _administratorService.UpdateFAQ(model);
+			return Ok();
+		}
+
+		//[Authorize]
+		[Route("GetAbout")]
+		[HttpGet]
+		public async Task<IActionResult> GetAbout()
+		{
+			var response = await _administratorService.GetAbout();
+			if (response == null)
+				return BadRequest();
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("UpdateAbout")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateAbout([FromBody] AboutUsViewModel model)
+		{
+			await _administratorService.UpdateAbout(model);
 			return Ok();
 		}
 
