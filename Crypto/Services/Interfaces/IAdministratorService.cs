@@ -33,7 +33,7 @@ namespace Crypto.Services.Interfaces
         Task UpdateAbout(AboutUsViewModel model);
 
         Task<Images> GetPic(string Component);
-        Task UpdatePic(byte[] image, string nameFile, string Component);
+        Task UpdatePic(byte[] image, string nameFile, string Component, int Position);
 
         #endregion
 

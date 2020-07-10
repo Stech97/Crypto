@@ -324,15 +324,32 @@ namespace DBRepository.Repositories
 			return response;
 		}
 
-		public async Task UpdatePic(byte[] image, string nameFile, string Component)
+		public async Task UpdatePic(byte[] image, string nameFile, string Component, int Possition)
 		{
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
 				if (main != null)
 				{
-					main.Image = image;
-					main.ImageName = nameFile;
+					switch (Possition)
+					{
+						case 0 :
+							main.Image = image;
+							main.ImageName = nameFile;
+							break;
+						case 1:
+							main.Picture1 = image;
+							main.Picture1Name = nameFile;
+							break;
+						case 2:
+							main.Picture2 = image;
+							main.Picture2Name = nameFile;
+							break;
+						case 3:
+							main.Picture3 = image;
+							main.Picture3Name = nameFile;
+							break;
+					}
 				}
 
 				contex.MainPages.Update(main);

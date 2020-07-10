@@ -99,9 +99,9 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetPic(Component);
 		}
 
-		public async Task UpdatePic(byte[] image, string nameFile, string Component)
+		public async Task UpdatePic(byte[] image, string nameFile, string Component, int Possition)
 		{
-			await _repository.UpdatePic(image, nameFile, Component);
+			await _repository.UpdatePic(image, nameFile, Component, Possition);
 		}
 		#endregion
 

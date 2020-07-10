@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace Crypto.Controllers
 {
@@ -150,12 +151,16 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-
 		//[Authorize]
 		[Route("GetPic")]
 		[HttpGet]
 		public async Task<IActionResult> GetPic(string Component)
 		{
+			if (Component == "About us")
+			{
+				
+			}
+
 			var response = await _administratorService.GetPic(Component);
 			if (response != null)
 			{
@@ -178,8 +183,26 @@ namespace Crypto.Controllers
 			byte[] image = null;
 			string name = "";
 			var files = Request.Form.Files;
-			long size = files.Sum(f => f.Length);
+
+			if (Component == "About us")
+			{
+				int i = 0;
+				foreach (var file in files)
+				{
+					i++;
+					if (file.Length > 0)
+						using (var stream = new MemoryStream())
+						{
+							await file.CopyToAsync(stream);
+							image = stream.ToArray();
+							name = file.FileName;
+						}
+					await _administratorService.UpdatePic(image, name, Component, i);
+				}
+			}
+
 			foreach (var file in files)
+			{
 				if (file.Length > 0)
 					using (var stream = new MemoryStream())
 					{
@@ -187,7 +210,9 @@ namespace Crypto.Controllers
 						image = stream.ToArray();
 						name = file.FileName;
 					}
-			await _administratorService.UpdatePic(image, name, Component);
+				await _administratorService.UpdatePic(image, name, Component, 0);
+			}
+
 			return Ok();
 		}
 
