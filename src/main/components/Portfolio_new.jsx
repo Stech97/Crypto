@@ -20,6 +20,8 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+
 export const darkBlue = '#123273';
 export const gradient = 'linear-gradient(50deg, #123273 0%, #005c9f 100%)';
 export const grayText = '#838383';

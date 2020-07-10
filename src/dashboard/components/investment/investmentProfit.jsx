@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from "react";
-import Plotly from "plotly.js-basic-dist";
-import createPlotlyComponent from "react-plotly.js/factory";
-import moment from "moment";
+import React, { Component, Fragment } from 'react';
+import Plotly from 'plotly.js-basic-dist';
+import createPlotlyComponent from 'react-plotly.js/factory';
+import moment from 'moment';
 
 const Plot = createPlotlyComponent(Plotly);
 
@@ -11,7 +11,10 @@ class InvestmentPlot extends Component {
       <Plot
         data={this.props.data}
         layout={this.props.layout}
-        config={{ displayModeBar: false, useResizeHandler: true }}
+        config={{
+          displayModeBar: false,
+          useResizeHandler: true,
+        }}
         className="investment-profit-content-plot"
       />
     );
@@ -23,7 +26,7 @@ export default class InvestmentProfit extends Component {
     super(props);
     this.state = {
       investment: 1000,
-      product: "Small",
+      product: 'Small',
       AMP: 0.06,
     };
 
@@ -34,13 +37,13 @@ export default class InvestmentProfit extends Component {
     let { product, AMP } = this.state;
     let investment = event.target.value.slice(1);
     if (investment >= 100 && investment < 5000) {
-      product = "Small";
+      product = 'Small';
       AMP = 0.06;
     } else if (investment >= 5000 && investment < 10000) {
-      product = "Medium";
+      product = 'Medium';
       AMP = 0.08;
     } else if (investment >= 10000) {
-      product = "Large";
+      product = 'Large';
       AMP = 0.11;
     } else {
       product = 0;
@@ -58,10 +61,10 @@ export default class InvestmentProfit extends Component {
     const generateMonths = () => {
       const months = [];
       const dateStart = moment();
-      const dateEnd = moment().add(12, "month");
-      while (dateEnd.diff(dateStart, "months") >= 0) {
-        months.push(dateStart.format("M"));
-        dateStart.add(1, "month");
+      const dateEnd = moment().add(12, 'month');
+      while (dateEnd.diff(dateStart, 'months') >= 0) {
+        months.push(dateStart.format('M'));
+        dateStart.add(1, 'month');
       }
       return months;
     };
@@ -74,10 +77,10 @@ export default class InvestmentProfit extends Component {
     const generateTimeStamps = () => {
       const months = [];
       const dateStart = moment();
-      const dateEnd = moment().add(12, "month");
-      while (dateEnd.diff(dateStart, "months") >= 0) {
-        months.push(dateStart.format("YYYY-MM-DD"));
-        dateStart.add(1, "month");
+      const dateEnd = moment().add(12, 'month');
+      while (dateEnd.diff(dateStart, 'months') >= 0) {
+        months.push(dateStart.format('YYYY-MM-DD'));
+        dateStart.add(1, 'month');
       }
       return months;
     };
@@ -85,55 +88,55 @@ export default class InvestmentProfit extends Component {
     const TimeStampsArray = generateTimeStamps();
 
     const ValuesArray = MonthsArray.map((month, i) =>
-      profitForTime(this.state.investment, i)
+      profitForTime(this.state.investment, i),
     );
 
     const data = [
       {
         x: TimeStampsArray,
         y: ValuesArray,
-        type: "scatter",
+        type: 'scatter',
         line: {
-          shape: "spline",
-          color: "#005C9F",
+          shape: 'spline',
+          color: '#005C9F',
         },
-        mode: "lines",
+        mode: 'lines',
       },
     ];
 
     const layout = {
       autoresize: true,
       margin: {
-        l: 5 + "%",
-        r: 5 + "%",
-        b: 25 + "%",
-        t: 5 + "%",
+        l: 5 + '%',
+        r: 5 + '%',
+        b: 25 + '%',
+        t: 5 + '%',
       },
 
-      plot_bgcolor: "#EFEFEF",
+      plot_bgcolor: '#EFEFEF',
       yaxis: {
-        title: "SUM",
+        title: 'SUM',
         titlefont: {
-          family: "IBM Plex Sans, sans-serif",
-          size: 1.5 + "rem",
-          color: "#838383",
+          family: 'IBM Plex Sans, sans-serif',
+          size: 1.5 + 'rem',
+          color: '#838383',
         },
-        side: "right",
+        side: 'right',
       },
       xaxis: {
         automargin: true,
-        title: "Time",
+        title: 'Time',
         titlefont: {
-          family: "IBM Plex Sans, sans-serif",
-          size: 1.5 + "rem",
-          color: "#838383",
+          family: 'IBM Plex Sans, sans-serif',
+          size: 1.5 + 'rem',
+          color: '#838383',
         },
-        ticks: "inside",
+        ticks: 'inside',
       },
       font: {
-        family: "IBM Plex Sans",
-        size: 1 + "rem",
-        color: "#838383",
+        family: 'IBM Plex Sans',
+        size: 1 + 'rem',
+        color: '#838383',
       },
     };
 
@@ -145,7 +148,7 @@ export default class InvestmentProfit extends Component {
           <div className="investment-profit-content-box-1">
             <input
               type="text"
-              value={"$" + this.state.investment}
+              value={'$' + this.state.investment}
               onChange={this.handleChange}
               placeholder="$"
             />
@@ -171,23 +174,27 @@ export default class InvestmentProfit extends Component {
             </select>
           </div>
 
-          <InvestmentPlot data={data} layout={layout} />
+          <InvestmentPlot
+            data={data}
+            layout={layout}
+            config={{ responsive: true }}
+          />
 
           <div className="investment-profit-content-earnings">
             <h5>
               Weekly Earnings
               <br />
-              {"+" + (ValuesArray[11] / 52).toFixed(2) + " USD"}
+              {'+' + (ValuesArray[11] / 52).toFixed(2) + ' USD'}
             </h5>
             <h5>
               Montly Earnings
               <br />
-              {"+" + (ValuesArray[11] / 12).toFixed(2) + " USD"}
+              {'+' + (ValuesArray[11] / 12).toFixed(2) + ' USD'}
             </h5>
             <h5>
               Yearly Earnings
               <br />
-              {"+" + ValuesArray[11].toFixed(2) + " USD"}
+              {'+' + ValuesArray[11].toFixed(2) + ' USD'}
             </h5>
           </div>
         </div>

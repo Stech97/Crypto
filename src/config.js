@@ -11,9 +11,9 @@ import FaqsContent from './dashboard/components/FAQs/content_new';
 
 import MarketingContent from './dashboard/components/marketing/content_new';
 
-import TeamContent from './dashboard/components/team/content';
-import SettingsContent from './dashboard/components/settings/content';
-import HistoryContent from './dashboard/components/history/content';
+import TeamContent from './dashboard/components/team/content_new';
+import SettingsContent from './dashboard/components/settings/content_new';
+import HistoryContent from './dashboard/components/history/content_new';
 import waveimage from './styles/utils/img/waveimage.png';
 import stealthlogo from './styles/utils/img/stealth-logo.png';
 import worldmap2 from './styles/utils/img/worldmap2.png';

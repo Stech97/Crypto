@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 import Profit from "./Profit";
-import InvestPopupForm from "./InvestForm";
-import InvestmentTable from "./InvestmentTable";
 import Goods from "./Goods";
 import Details from "./Details";
+import InvestmentTable from "./InvestmentTable";
+import InvestPopupForm from "./InvestForm";
+import { Container } from '@material-ui/core';
 
 class InvestmentDetails extends Component {
   state = {
@@ -21,8 +22,8 @@ class InvestmentDetails extends Component {
         <div
           className={
             this.state.isOpened
-              ? "investment-details-panel"
-              : "investment-details-panel investment-details-panel-closed"
+              ? 'investment-details-panel'
+              : 'investment-details-panel investment-details-panel-closed'
           }
         >
           <div className="investment-details-panel-header">
@@ -32,7 +33,7 @@ class InvestmentDetails extends Component {
             <svg
               onClick={() => this.handleClick()}
               role="img"
-              className={"arrow" + (this.state.isOpened ? "" : "-closed")}
+              className={'arrow' + (this.state.isOpened ? '' : '-closed')}
               preserveAspectRatio="xMinYMin slice"
               viewBox="0 0 25 15"
             >
@@ -42,7 +43,7 @@ class InvestmentDetails extends Component {
         </div>
         <div
           className={
-            this.state.isOpened ? "investment-details-content" : "none"
+            this.state.isOpened ? 'investment-details-content' : 'none'
           }
         >
           <p>
@@ -72,11 +73,11 @@ class InvestmentDetails extends Component {
 
 const InvestPopup = (props) => {
   return (
-    <div className={props.isOpened ? "popup" : "none"}>
+    <div className={props.isOpened ? 'popup' : 'none'}>
       <div onClick={() => props.closeModal()} className="popup-layer"></div>
       <div className="popup-wrapper">
         <div className="popup-wrapper-header">
-          <h1>{"Buy Product " + props.type}</h1>
+          <h1>{'Buy Product ' + props.type}</h1>
         </div>
         <div className="popup-wrapper-cross">
           <img
@@ -99,10 +100,12 @@ function InvestmentContent() {
       <Helmet>
         <title>Investment</title>
       </Helmet>
+      <Container maxWidth="lg">
       <Goods />
       <Details />
       <Profit />
       <InvestmentTable />
+      </Container>
     </Fragment>
   );
 }
