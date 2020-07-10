@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 import InvestmentProfit from "./investmentProfit";
 import InvestPopupForm from "./InvestForm";
 import InvestmentTable from "./InvestmentTable";
+import Goods from "./Goods";
 
 class InvestmentDetails extends Component {
   state = {
@@ -167,20 +168,18 @@ class InvestmentGoods extends Component {
   }
 }
 
-class InvestmentContent extends Component {
-  render() {
-    return (
-      <div className="investment-box">
-        <Helmet>
-          <title>Investment</title>
-        </Helmet>
-        <InvestmentGoods />
-        <InvestmentDetails />
-        <InvestmentProfit />
-        <InvestmentTable />
-      </div>
-    );
-  }
+function InvestmentContent() {
+  return (
+    <Fragment>
+      <Helmet>
+        <title>Investment</title>
+      </Helmet>
+      <Goods />
+      <InvestmentDetails />
+      <InvestmentProfit />
+      <InvestmentTable />
+    </Fragment>
+  );
 }
 
 export default InvestmentContent;
