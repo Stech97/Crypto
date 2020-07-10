@@ -111,6 +111,27 @@ namespace Crypto.Controllers
 		}
 
 		//[Authorize]
+		[Route("GetFAQ")]
+		[HttpGet]
+		public async Task<IActionResult> GetFAQ(string Component)
+		{
+			var response = await _administratorService.GetFAQ(Component);
+			if (response == null)
+				return BadRequest();
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("UpdateFAQ")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateFAQ([FromBody] FAQ model)
+		{
+			await _administratorService.UpdateFAQ(model);
+			return Ok();
+		}
+
+
+		//[Authorize]
 		[Route("GetPic")]
 		[HttpGet]
 		public async Task<IActionResult> GetPic(string Component)

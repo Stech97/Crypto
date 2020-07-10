@@ -179,6 +179,63 @@ namespace DBRepository.Repositories
 			}
 		}
 
+		public async Task<MainPage> GetFAQ(string Component)
+		{
+			MainPage response = null;
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
+				if (main != null)
+				{
+					response = new MainPage()
+					{
+						Component = main.Component,
+						Header = main.Header,
+						Text = main.Text,
+						Question1Header = main.Question1Header,
+						Question2Header = main.Question2Header,
+						Question3Header = main.Question3Header,
+						Question1Text = main.Question1Text,
+						Question2Text = main.Question2Text,
+						Question3Text = main.Question3Text
+					};
+				}
+			}
+			return response;
+		}
+
+		public async Task UpdateFAQ(MainPage mainPage)
+		{
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == mainPage.Component);
+				if (main != null)
+				{
+					if (mainPage.Header != null)
+						main.Header = mainPage.Header;
+					if (mainPage.Text != null)
+						main.Text = mainPage.Text;
+
+					if (mainPage.Question1Header != null)
+						main.Question1Header = mainPage.Question1Header;
+					if (mainPage.Question2Header != null)
+						main.Question2Header = mainPage.Question2Header;
+					if (mainPage.Question3Header != null)
+						main.Question3Header = mainPage.Question3Header;
+
+					if (mainPage.Question1Text != null)
+						main.Question1Text = mainPage.Question1Text;
+					if (mainPage.Question2Text != null)
+						main.Question2Text = mainPage.Question2Text;
+					if (mainPage.Question3Text != null)
+						main.Question3Text = mainPage.Question3Text;
+
+					contex.MainPages.Update(main);
+					await contex.SaveChangesAsync();
+				}
+			}
+		}
+
 		public async Task<Images> GetPic(string Component)
 		{
 			Images response = null;

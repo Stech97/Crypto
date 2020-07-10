@@ -95,8 +95,59 @@ namespace DBRepository
             {
                 context.MainPages.Add(new MainPage()
                 {
-                    Component = "Our Mission"
+                    Component = "Homescreen"
                 });
+
+                context.MainPages.Add(new MainPage()
+                {
+                    Component = "Our mission"
+                });
+
+                context.MainPages.Add(new MainPage()
+                {
+                    Component = "How it works"
+                });
+
+                context.MainPages.Add(new MainPage()
+                {
+                    Component = "Portfolio"
+                });
+
+                context.MainPages.Add(new MainPage()
+                {
+                    Component = "Career Team"
+                });
+
+                context.MainPages.Add(new MainPage()
+                {
+                    Component = "Defima token"
+                });
+
+                context.MainPages.Add(new MainPage()
+                {
+                    Component = "About us"
+                });
+
+                context.MainPages.Add(new MainPage()
+                {
+                    Component = "Join us"
+                });
+
+                context.MainPages.Add(new MainPage()
+                {
+                    Component = "FAQ"
+                });
+
+                context.MainPages.Add(new MainPage()
+                {
+                    Component = "Terms"
+                });
+
+                context.MainPages.Add(new MainPage()
+                {
+                    Component = "Privacy"
+                });
+
                 await context.SaveChangesAsync().ConfigureAwait(false);
             }
             #endregion

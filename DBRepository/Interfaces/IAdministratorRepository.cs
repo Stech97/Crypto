@@ -17,6 +17,8 @@ namespace DBRepository.Interfaces
         #region Main Page
         Task<MainPage> GetInfo(string Component);
         Task UpdateInfo(MainPage mainPage);
+        Task<MainPage> GetFAQ(string Component);
+        Task UpdateFAQ(MainPage mainPage);
         Task<Images> GetPic(string Component);
         Task UpdatePic(byte[] inmage, string nameFile, string Component);
         #endregion

@@ -69,6 +69,19 @@ namespace Crypto.Services.Implementation
 			var MainPage = _mapper.Map<SingleTextViewModel, MainPage>(model);
 			await _repository.UpdateInfo(MainPage);
 		}
+
+		public async Task<FAQ> GetFAQ(string Component)
+		{
+			var response = await _repository.GetFAQ(Component);
+			return _mapper.Map<MainPage, FAQ>(response);
+		}
+
+		public async Task UpdateFAQ(FAQ model)
+		{
+			var MainPage = _mapper.Map<FAQ, MainPage>(model);
+			await _repository.UpdateFAQ(MainPage);
+		}
+
 		public async Task<Images> GetPic(string Component)
 		{
 			return await _repository.GetPic(Component);
