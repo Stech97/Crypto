@@ -57,26 +57,38 @@ namespace Crypto.Services.Implementation
 		#endregion
 
 		#region Main Page
-		public async Task UpdateInfo(SingleTextViewModel model)
+
+		public async Task<Homescreen> GetTextInfo(string Component)
 		{
-			var MainPage = _mapper.Map<SingleTextViewModel, MainPage>(model);
+			var response = await _repository.GetInfo(Component);
+			return _mapper.Map<MainPage, Homescreen>(response);
+		}
+
+		public async Task UpdateTextInfo(Homescreen model)
+		{
+			var MainPage = _mapper.Map<Homescreen, MainPage>(model);
 			await _repository.UpdateInfo(MainPage);
-		}
-
-		public async Task UpdatePic(byte[] image, string nameFile, string Component)
-		{
-			await _repository.UpdatePic(image, nameFile, Component);
-		}
-
-		public async Task<Images> GetPic(string Component)
-		{
-			return await _repository.GetPic(Component);
 		}
 
 		public async Task<SingleTextViewModel> GetInfo(string Component)
 		{
 			var response = await _repository.GetInfo(Component);
 			return _mapper.Map<MainPage, SingleTextViewModel>(response);
+		}
+
+		public async Task UpdateInfo(SingleTextViewModel model)
+		{
+			var MainPage = _mapper.Map<SingleTextViewModel, MainPage>(model);
+			await _repository.UpdateInfo(MainPage);
+		}
+		public async Task<Images> GetPic(string Component)
+		{
+			return await _repository.GetPic(Component);
+		}
+
+		public async Task UpdatePic(byte[] image, string nameFile, string Component)
+		{
+			await _repository.UpdatePic(image, nameFile, Component);
 		}
 		#endregion
 

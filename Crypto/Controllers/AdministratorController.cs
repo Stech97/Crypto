@@ -44,7 +44,6 @@ namespace Crypto.Controllers
 		}
 		#endregion
 
-
 		#region Users
 		//[Authorize]
 		[Route("GetUsersInfo")]
@@ -90,33 +89,45 @@ namespace Crypto.Controllers
 		#endregion
 
 		#region Main Page
+
 		//[Authorize]
-		[Route("UpdateInfo")]
+		[Route("GetTextInfo")]
+		[HttpGet]
+		public async Task<IActionResult> GetTextInfo(string Component)
+		{
+			var response = await _administratorService.GetTextInfo(Component);
+			if (response == null)
+				return BadRequest();
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("UpdateTextInfo")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdateTextInfo([FromBody] Homescreen model)
+		{
+			await _administratorService.UpdateTextInfo(model);
+			return Ok();
+		}
+
+
+		//[Authorize]
+		[Route("GetSingleTextInfo")]
+		[HttpGet]
+		public async Task<IActionResult> GetInfo(string Component)
+		{
+			var response = await _administratorService.GetInfo(Component);
+			if (response == null)
+				return BadRequest();
+			return Ok(response);
+		}
+
+		//[Authorize]
+		[Route("UpdateSingleTextInfo")]
 		[HttpPatch]
 		public async Task<IActionResult> UpdateInfo([FromBody] SingleTextViewModel model)
 		{
 			await _administratorService.UpdateInfo(model);
-			return Ok();
-		}
-
-		//[Authorize]
-		[Route("UpdatePic")]
-		[HttpPatch]
-		public async Task<IActionResult> UpdatePic(string Component)
-		{
-			byte[] image = null;
-			string name = "";
-			var files = Request.Form.Files;
-			long size = files.Sum(f => f.Length);
-			foreach (var file in files)
-				if (file.Length > 0)
-					using (var stream = new MemoryStream())
-					{
-						await file.CopyToAsync(stream);
-						image = stream.ToArray();
-						name = file.FileName;
-					}
-			await _administratorService.UpdatePic(image, name, Component);
 			return Ok();
 		}
 
@@ -140,15 +151,26 @@ namespace Crypto.Controllers
 		}
 
 		//[Authorize]
-		[Route("GetInfo")]
-		[HttpGet]
-		public async Task<IActionResult> GetInfo(string Component)
+		[Route("UpdatePic")]
+		[HttpPatch]
+		public async Task<IActionResult> UpdatePic(string Component)
 		{
-			var response = await _administratorService.GetInfo(Component);
-			if (response == null)
-				return BadRequest();
-			return Ok(response);
+			byte[] image = null;
+			string name = "";
+			var files = Request.Form.Files;
+			long size = files.Sum(f => f.Length);
+			foreach (var file in files)
+				if (file.Length > 0)
+					using (var stream = new MemoryStream())
+					{
+						await file.CopyToAsync(stream);
+						image = stream.ToArray();
+						name = file.FileName;
+					}
+			await _administratorService.UpdatePic(image, name, Component);
+			return Ok();
 		}
+
 		#endregion
 
 		#region Get User Picture

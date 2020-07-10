@@ -15,10 +15,10 @@ namespace DBRepository.Interfaces
         #endregion
 
         #region Main Page
-        Task UpdateInfo(MainPage mainPage);
-        Task UpdatePic(byte[] inmage, string nameFile, string Component);
-        Task<Images> GetPic(string Component);
         Task<MainPage> GetInfo(string Component);
+        Task UpdateInfo(MainPage mainPage);
+        Task<Images> GetPic(string Component);
+        Task UpdatePic(byte[] inmage, string nameFile, string Component);
         #endregion
 
         #region News

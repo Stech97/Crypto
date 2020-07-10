@@ -23,10 +23,13 @@ namespace Crypto.Services.Interfaces
         #endregion
 
         #region Main Page
-        Task UpdateInfo(SingleTextViewModel model);
-        Task UpdatePic(byte[] image, string nameFile, string Component);
-        Task<Images> GetPic(string Component);
+        Task<Homescreen> GetTextInfo(string Component);
+        Task UpdateTextInfo(Homescreen model);
         Task<SingleTextViewModel> GetInfo(string Component);
+        Task UpdateInfo(SingleTextViewModel model);
+        Task<Images> GetPic(string Component);
+        Task UpdatePic(byte[] image, string nameFile, string Component);
+
         #endregion
 
         #region Finance

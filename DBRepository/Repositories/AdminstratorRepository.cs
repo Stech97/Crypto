@@ -139,6 +139,48 @@ namespace DBRepository.Repositories
 		#endregion
 
 		#region Main Page
+		public async Task<MainPage> GetTextInfo(string Component)
+		{
+			MainPage response = null;
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
+				if (main != null)
+				{
+					response = new MainPage()
+					{
+						Component = main.Component,
+						Header = main.Header,
+						SubHeader = main.SubHeader,
+						Text = main.Text
+					};
+				}
+			}
+			return response;
+		}
+
+		public async Task UpdateTextInfo(MainPage mainPage);
+
+		public async Task<MainPage> GetInfo(string Component)
+		{
+			MainPage response = null;
+			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
+				if (main != null)
+				{
+					response = new MainPage()
+					{
+						Component = main.Component,
+						Header = main.Header,
+						SubHeader = main.SubHeader,
+						Text = main.Text
+					};
+				}
+			}
+			return response;
+		}
+
 		public async Task UpdateInfo(MainPage mainPage)
 		{
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
@@ -156,22 +198,6 @@ namespace DBRepository.Repositories
 					contex.MainPages.Update(main);
 					await contex.SaveChangesAsync();
 				}
-			}
-		}
-
-		public async Task UpdatePic(byte[] image, string nameFile, string Component)
-		{
-			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
-				if (main != null)
-				{
-					main.Image = image;
-					main.ImageName = nameFile;
-				}
-
-				contex.MainPages.Update(main);
-				await contex.SaveChangesAsync();
 			}
 		}
 
@@ -193,25 +219,22 @@ namespace DBRepository.Repositories
 			return response;
 		}
 
-		public async Task<MainPage> GetInfo(string Component)
+		public async Task UpdatePic(byte[] image, string nameFile, string Component)
 		{
-			MainPage response = null;
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
 				if (main != null)
 				{
-					response = new MainPage()
-					{
-						Component = main.Component,
-						Header = main.Header,
-						SubHeader = main.SubHeader,
-						Text = main.Text
-					};
+					main.Image = image;
+					main.ImageName = nameFile;
 				}
+
+				contex.MainPages.Update(main);
+				await contex.SaveChangesAsync();
 			}
-			return response;
 		}
+
 
         #endregion
 
@@ -460,12 +483,27 @@ namespace DBRepository.Repositories
 
 		public async Task AcceptAllWithdrawal()
 		{
-			
+			/*using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var Users = context.Users.Where(u => !u.IsKYC).ToList();
+				foreach (var user in Users)
+				{
+					user.IsKYC = true;
+					context.Users.Update(user);
+					await context.SaveChangesAsync();
+				}
+			}*/
 		}
 
 		public async Task AcceptWithdrawal(int UserId)
 		{
-			
+			/*using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = context.Users.Where(u => !u.IsKYC).FirstOrDefault(u => u.Id == UserId);
+				user.IsKYC = true;
+				context.Users.Update(user);
+				await context.SaveChangesAsync();
+			}*/
 		}
 
 		public async Task AcceptAllKYC()
