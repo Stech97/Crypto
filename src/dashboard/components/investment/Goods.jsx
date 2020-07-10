@@ -69,13 +69,17 @@ const goodStyles = makeStyles((theme) => ({
 			display: "none",
 		},
 	},
+	slide: {
+		display: "flex",
+		justifyContent: "center",
+	},
 }));
 
 function Good(props) {
 	const classes = goodStyles();
 	const { title, percent, invest, levels } = props;
 	return (
-		<Grid item xs="auto" md={3} lg={2} align="center">
+		<Grid item xs={6} md={3} lg={2} align="center">
 			<Card className={classes.box}>
 				<CardHeader title={title} className={classes.title} />
 				<CardContent className={classes.content}>
@@ -123,7 +127,14 @@ function Goods() {
 
 	return (
 		<Grid item container xs={12} spacing={2} justify="space-around">
-			<Grid item container xs={12} spacing={2} justify="space-around">
+			<Grid
+				className={classes.blocks}
+				item
+				container
+				xs={12}
+				spacing={2}
+				justify="space-between"
+			>
 				{goods.map((good, i) => (
 					<Good key={i} {...good} />
 				))}
@@ -134,7 +145,7 @@ function Goods() {
 				scrollbar={{ draggable: true }}
 			>
 				{goods.map((good, i) => (
-					<SwiperSlide key={i}>
+					<SwiperSlide key={i} className={classes.slide}>
 						<Good {...good} />
 					</SwiperSlide>
 				))}

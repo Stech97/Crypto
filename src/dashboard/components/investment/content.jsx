@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
-import InvestmentProfit from "./investmentProfit";
+import Profit from "./Profit";
 import InvestPopupForm from "./InvestForm";
 import InvestmentTable from "./InvestmentTable";
 import Goods from "./Goods";
+import Details from "./Details";
 
 class InvestmentDetails extends Component {
   state = {
@@ -92,82 +93,6 @@ const InvestPopup = (props) => {
   );
 };
 
-class InvestmentGood extends Component {
-  state = {
-    isOpened: false,
-  };
-
-  toggleModal = () => {
-    this.setState({
-      isOpened: !this.state.isOpened,
-    });
-  };
-
-  render() {
-    const {
-      good: { name, percent, invest, levels },
-    } = this.props;
-
-    return (
-      <div className="investment-goods-box">
-        <div className="investment-goods-box-header">
-          <h4>{name}</h4>
-        </div>
-        <div className="investment-goods-box-content">
-          <p>{"Monthly Profit of up to " + percent + "% month"}</p>
-          <p>{"Starting from $" + invest}</p>
-          <p>{"Career commission qualified Level 1-" + levels}</p>
-        </div>
-        <div
-          onClick={() => this.toggleModal()}
-          className="investment-goods-box-button"
-        >
-          Invest
-        </div>
-        <InvestPopup
-          closeModal={() => this.toggleModal()}
-          isOpened={this.state.isOpened}
-          type={name}
-          minamount={invest}
-        />
-      </div>
-    );
-  }
-}
-
-class InvestmentGoods extends Component {
-  render() {
-    const goods = [
-      {
-        name: "Small",
-        percent: 6,
-        invest: 100,
-        levels: 2,
-      },
-      {
-        name: "Medium",
-        percent: 8,
-        invest: 5000,
-        levels: 4,
-      },
-      {
-        name: "Large",
-        percent: 11,
-        invest: 10000,
-        levels: 7,
-      },
-    ];
-
-    return (
-      <div className="investment-goods">
-        {goods.map((good, i) => (
-          <InvestmentGood key={i} good={good} />
-        ))}
-      </div>
-    );
-  }
-}
-
 function InvestmentContent() {
   return (
     <Fragment>
@@ -175,8 +100,8 @@ function InvestmentContent() {
         <title>Investment</title>
       </Helmet>
       <Goods />
-      <InvestmentDetails />
-      <InvestmentProfit />
+      <Details />
+      <Profit />
       <InvestmentTable />
     </Fragment>
   );

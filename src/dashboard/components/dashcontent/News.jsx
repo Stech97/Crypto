@@ -73,6 +73,10 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: "1rem",
 		marginBottom: "1rem",
 	},
+	slide: {
+		display: "flex",
+		justifyContent: "center",
+	},
 }));
 
 const news = [
@@ -159,7 +163,7 @@ export default function News(props) {
 				scrollbar={{ draggable: true }}
 			>
 				{news.map((post, index) => (
-					<SwiperSlide key={index}>
+					<SwiperSlide className={classes.slide} key={index}>
 						<NewsPost {...post} />
 					</SwiperSlide>
 				))}
