@@ -306,7 +306,7 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<Images> GetPic(string Component)
+		public async Task<Images> GetPic(string Component, int Possition)
 		{
 			Images response = null;
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))

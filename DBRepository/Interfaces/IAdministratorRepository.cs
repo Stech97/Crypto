@@ -24,7 +24,7 @@ namespace DBRepository.Interfaces
         Task<MainPage> GetAbout();
         Task UpdateAbout(MainPage mainPage);
 
-        Task<Images> GetPic(string Component);
+        Task<Images> GetPic(string Component, int Possition);
         Task UpdatePic(byte[] inmage, string nameFile, string Component, int Possition);
         #endregion
 

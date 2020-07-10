@@ -158,10 +158,24 @@ namespace Crypto.Controllers
 		{
 			if (Component == "About us")
 			{
-				
+				for (int i = 1; i < 4; i++)
+				{
+					var responses = await _administratorService.GetPic(Component, i);
+					if (responses != null)
+					{
+						var type = responses.ImageName.Substring(responses.ImageName.IndexOf('.') + 1);
+						var mimeType = "application/" + type;
+
+						return new FileContentResult(responses.Image, mimeType)
+						{
+							FileDownloadName = responses.ImageName
+						};
+					}
+					return NotFound("File not found");
+				}
 			}
 
-			var response = await _administratorService.GetPic(Component);
+			var response = await _administratorService.GetPic(Component, 0);
 			if (response != null)
 			{
 				var type = response.ImageName.Substring(response.ImageName.IndexOf('.') + 1);

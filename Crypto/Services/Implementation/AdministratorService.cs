@@ -94,7 +94,7 @@ namespace Crypto.Services.Implementation
 			await _repository.UpdateAbout(MainPage);
 		}
 
-		public async Task<Images> GetPic(string Component)
+		public async Task<Images> GetPic(string Component, int Position)
 		{
 			return await _repository.GetPic(Component);
 		}
