@@ -1,22 +1,22 @@
-import axios from 'axios';
-import InDevelopment from './InDevelopment';
-import Pages from './pages/account/Pages';
-import Dashboard from './pages/account/components/Dashboard';
-import Finance from './pages/account/components/Finance';
-import Users from './pages/account/components/Users';
-import Files from './pages/account/components/Files';
-import Homescreen from './pages/account/components/Homescreen';
-import OurMission from './pages/account/components/OurMission';
-import HowItWorks from './pages/account/components/HowItWorks';
-import Portfolio from './pages/account/components/Portfolio';
-import CareerTeam from './pages/account/components/CareerTeam';
-import DefimaToken from './pages/account/components/DefimaToken';
-import AboutUs from './pages/account/components/AboutUs';
-import JoinUs from './pages/account/components/JoinUs';
-import FAQ from './pages/account/components/FAQ';
-import Terms from './pages/account/components/Terms';
-import Privacy from './pages/account/components/Privacy';
-import News from './pages/account/components/News';
+import axios from "axios";
+import InDevelopment from "./InDevelopment";
+import Pages from "./pages/account/Pages";
+import Dashboard from "./pages/account/components/Dashboard";
+import Finance from "./pages/account/components/Finance";
+import Users from "./pages/account/components/Users";
+import Files from "./pages/account/components/Files";
+import Homescreen from "./pages/account/components/Homescreen";
+import OurMission from "./pages/account/components/OurMission";
+import HowItWorks from "./pages/account/components/HowItWorks";
+import Portfolio from "./pages/account/components/Portfolio";
+import CareerTeam from "./pages/account/components/CareerTeam";
+import DefimaToken from "./pages/account/components/DefimaToken";
+import AboutUs from "./pages/account/components/AboutUs";
+import JoinUs from "./pages/account/components/JoinUs";
+import FAQ from "./pages/account/components/FAQ";
+import Terms from "./pages/account/components/Terms";
+import Privacy from "./pages/account/components/Privacy";
+import News from "./pages/account/components/News";
 
 const DOMAIN_URL_TEST = "localhost:3000";
 const DOMAIN_URL_PROD = "https://defima.io";
@@ -202,105 +202,95 @@ export const API = async (path, mode = "get", body = null) => {
 
 export const routes = [
   {
-    path: '/pages',
+    path: "/pages",
     component: Pages,
     Private: true,
     routes: [
       {
-        path: '/pages/account/dashboard',
+        path: "/pages/account/dashboard",
         component: Dashboard,
         Private: true,
       },
       {
-        path: '/pages/account/finance',
+        path: "/pages/account/finance",
         component: Finance,
         Private: true,
       },
       {
-        path: '/pages/account/users',
+        path: "/pages/account/users",
         component: Users,
         Private: true,
       },
       {
-        path: '/pages/account/files',
+        path: "/pages/account/files",
         component: Files,
         Private: true,
       },
       {
-        path: '/pages/account/homescreen',
+        path: "/pages/account/homescreen",
         component: Homescreen,
         Private: true,
       },
       {
-        path: '/pages/account/our_mission',
+        path: "/pages/account/our_mission",
         component: OurMission,
         Private: true,
       },
       {
-        path: '/pages/account/how_it_works',
+        path: "/pages/account/how_it_works",
         component: HowItWorks,
         Private: true,
       },
       {
-        path: '/pages/account/portfolio',
+        path: "/pages/account/portfolio",
         component: Portfolio,
         Private: true,
       },
       {
-        path: '/pages/account/career_team',
+        path: "/pages/account/career_team",
         component: CareerTeam,
         Private: true,
       },
       {
-        path: '/pages/account/defima_token',
+        path: "/pages/account/defima_token",
         component: DefimaToken,
         Private: true,
       },
       {
-        path: '/pages/account/about_us',
+        path: "/pages/account/about_us",
         component: AboutUs,
         Private: true,
       },
       {
-        path: '/pages/account/join_us',
+        path: "/pages/account/join_us",
         component: JoinUs,
         Private: true,
       },
       {
-        path: '/pages/account/faq',
+        path: "/pages/account/faq",
         component: FAQ,
         Private: true,
       },
       {
-        path: '/pages/account/terms',
+        path: "/pages/account/terms",
         component: Terms,
         Private: true,
       },
       {
-        path: '/pages/account/privacy',
+        path: "/pages/account/privacy",
         component: Privacy,
         Private: true,
       },
       {
-        path: '/pages/account/news',
+        path: "/pages/account/news",
         component: News,
         Private: true,
       },
+      {
+        path: "/pages/finance",
+        component: Finance,
+        Private: false,
+      },
     ],
-  },
-  {
-    path: '/main/',
-    component: InDevelopment,
-    Private: true,
-  },
-  {
-    path: '/login',
-    component: InDevelopment,
-    Private: false,
-  },
-  {
-    path: "/finance",
-    component: Finance,
-    Private: false,
   },
 ];

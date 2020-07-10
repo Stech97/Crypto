@@ -1,29 +1,29 @@
-import React, { Fragment, Component } from 'react';
-import clsx from 'clsx';
+import React, { Fragment, Component, memo } from "react";
+import clsx from "clsx";
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import RouteWithSubRoutes from '../../Routes';
-import Header from './Header';
-import Sidebar from './Sidebar';
-
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import RouteWithSubRoutes from "../../Routes";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
+import { Switch } from "react-router-dom";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
 
 const drawerWidth = 240;
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#F9A732',
+      main: "#F9A732",
     },
     secondary: {
-      main: '#0DA300',
+      main: "#0DA300",
     },
   },
 
   typography: {
-    fontFamily: ['IBM Plex Sans'],
+    fontFamily: ["IBM Plex Sans"],
   },
 });
 
@@ -32,24 +32,24 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 650,
   },
   root: {
-    display: 'flex',
+    display: "flex",
     flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
+    textAlign: "center",
   },
   appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   hide: {
-    display: 'none',
+    display: "none",
   },
   drawer: {
     width: drawerWidth,
@@ -66,21 +66,21 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundImage: 'linear-gradient(25deg, #f12711, #f5af19);',
-    color: 'counter',
+    backgroundImage: "linear-gradient(25deg, #f12711, #f5af19);",
+    color: "counter",
   },
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
     // color: 'counter',
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -99,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
 function WrapperContent({ component: Component, open, ...rest }) {
   return <Component openStatus={open} {...rest} />;
 }
+
 export default function Pages(props) {
   const classes = useStyles();
   // const theme = useTheme();
@@ -129,26 +130,23 @@ export default function Pages(props) {
           handleDrawerClose={handleDrawerClose}
           theme={theme}
         />
-        {props.routes.map((route, i) => {
-          let component = () =>
-            WrapperContent({
-              component: route.component,
-              open,
-              classes,
-              theme,
-            });
-          return (
-            <RouteWithSubRoutes
-              key={i}
-              component={component}
-              path={route.path}
-              routes={route.routes}
-              Private={route.Private}
-            />
-          );
-        })}
+        <Switch>
+          {props.routes.map((route, i) => {
+            return (
+              <RouteWithSubRoutes
+                open={open}
+                classes={classes}
+                theme={theme}
+                key={i}
+                {...route}
+              />
+            );
+          })}
+        </Switch>
       </ThemeProvider>
     </div>
   );
 }
-/**/
+/*
+
+*/

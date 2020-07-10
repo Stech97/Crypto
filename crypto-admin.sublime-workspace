@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"Page",
+				"PagesContent.jsx"
+			],
+			[
+				"co",
+				"component"
+			],
+			[
+				"Pages",
+				"PagesContent"
+			],
+			[
+				"R",
+				"RouteWithSubRoutes"
+			],
+			[
 				"Tea",
 				"TeamTable"
 			],
@@ -50,10 +66,6 @@
 			[
 				"te",
 				"testaddfunds.jsx"
-			],
-			[
-				"co",
-				"containers/"
 			],
 			[
 				"Wi",
@@ -502,23 +514,62 @@
 			[
 				"teamtable",
 				"team-table-row-plus"
-			],
-			[
-				"e",
-				"ExchangeReducer"
-			],
-			[
-				"pat",
-				"patchExchangeSuccess"
-			],
-			[
-				"Ex",
-				"ExchangeAction"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "src/pages/account/Header.jsx",
+			"settings":
+			{
+				"buffer_size": 850,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/pages/account/components/Dashboard.jsx",
+			"settings":
+			{
+				"buffer_size": 7836,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/pages/account/Pages.jsx",
+			"settings":
+			{
+				"buffer_size": 3409,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/pages/account/components/CareerTeam.jsx",
+			"settings":
+			{
+				"buffer_size": 5753,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/pages/account/components/Finance.jsx",
+			"settings":
+			{
+				"buffer_size": 10978,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/config.js",
+			"settings":
+			{
+				"buffer_size": 8854,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -560,10 +611,25 @@
 	},
 	"expanded_folders":
 	[
-		"/home/hast/workspace/crypto-admin"
+		"/home/hast/workspace/test/Crypto",
+		"/home/hast/workspace/test/Crypto/src",
+		"/home/hast/workspace/test/Crypto/src/pages",
+		"/home/hast/workspace/test/Crypto/src/pages/account",
+		"/home/hast/workspace/test/Crypto/src/pages/account/components"
 	],
 	"file_history":
 	[
+		"/home/hast/workspace/test/Crypto/src/Routes.jsx",
+		"/home/hast/workspace/test/Crypto/src/pages/account/components/Finance.jsx",
+		"/home/hast/workspace/test/Crypto/src/InDevelopment.jsx",
+		"/home/hast/workspace/test/Crypto/src/store/store.jsx",
+		"/home/hast/workspace/test/Crypto/src/pages/account/svg.jsx",
+		"/home/hast/workspace/test/Crypto/src/pages/account/Pages.jsx",
+		"/home/hast/workspace/test/Crypto/src/pages/account/Sidebar.jsx",
+		"/home/hast/workspace/test/Crypto/src/pages/account/PagesContent.jsx",
+		"/home/hast/workspace/test/Crypto/src/App.jsx",
+		"/home/hast/workspace/test/Crypto/node_modules/.bin/prettier",
+		"/home/hast/workspace/test/Crypto/src/config.js",
 		"/home/hast/workspace/Crypto/src/dashboard/components/investment/investmentProfit.jsx",
 		"/home/hast/workspace/Crypto/src/dashboard/components/team/TeamLinks.jsx",
 		"/home/hast/workspace/Crypto/src/signup/components/SignupForm.jsx",
@@ -680,28 +746,18 @@
 		"/home/hast/workspace/crypto-react/Crypto/src/App.jsx",
 		"/home/hast/workspace/crypto-react/Crypto/src/styles/common/sign/forms.scss",
 		"/home/hast/workspace/crypto-react/Crypto/src/styles/login.scss",
-		"/home/hast/workspace/crypto-react/Crypto/src/signup/actions/restorepassword.jsx",
-		"/home/hast/workspace/crypto-react/Crypto/src/signup/actions/forgotpassword.jsx",
-		"/home/hast/workspace/crypto-react/Crypto/src/signup/components/SignupForm.jsx",
-		"/home/hast/workspace/crypto-react/Crypto/src/config.js",
-		"/home/hast/workspace/crypto-react/Crypto/src/signup/components/ForgotPasswordForm.jsx",
-		"/home/hast/workspace/crypto-react/Crypto/src/signup/reducers/forgotpassword.jsx",
-		"/home/hast/workspace/crypto-react/Crypto/src/signup/ConfirmEmail.jsx",
-		"/home/hast/workspace/crypto-react/Crypto/src/signup/actions/confirmEmail.jsx",
-		"/home/hast/workspace/crypto-react/Crypto/src/signup/components/Header.jsx",
-		"/home/hast/workspace/crypto-react/Crypto/src/signup/reducers/signup.jsx",
-		"/home/hast/workspace/crypto-react/Crypto/src/styles/common/sign/signup.scss",
-		"/home/hast/workspace/crypto-react/Crypto/src/login/components/LoginForm.jsx"
+		"/home/hast/workspace/crypto-react/Crypto/src/signup/actions/restorepassword.jsx"
 	],
 	"find":
 	{
-		"height": 22.0
+		"height": 38.0
 	},
 	"find_in_files":
 	{
 		"height": 110.0,
 		"where_history":
 		[
+			"/home/hast/workspace/test/Crypto/src"
 		]
 	},
 	"find_state":
@@ -709,6 +765,11 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"NativeSelect",
+			"Button",
+			"TextField",
+			"theme",
+			"@fortawesome/free-solid-svg-icons"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -726,8 +787,658 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/pages/account/Header.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 850,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								337,
+								337
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"file": "src/pages/account/components/Dashboard.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7836,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								687,
+								687
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"open_with_edit": true,
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/pages/account/Pages.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3409,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3409,
+								3409
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/pages/account/components/CareerTeam.jsx",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 5753,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 351.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/pages/account/components/Finance.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10978,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1772,
+								1772
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+									"1":
+									[
+										1159,
+										1160
+									]
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/config.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8854,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8605,
+								8605
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										8618,
+										8619
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/double_quote.png",
+										"region.greenish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										8603,
+										8604
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3131.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -748,11 +1459,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -808,7 +1526,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
