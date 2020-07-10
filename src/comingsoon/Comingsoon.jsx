@@ -110,7 +110,7 @@ const theme = createMuiTheme({
 
 const ComingSoonLogo = () => {
   return (
-    <div className="comingsoon-logobox">
+    <div className="comingsoon-logobox" style={{ width: '100%' }}>
       <img src="img/defimaLogo.png" alt="defimaLogo" />
     </div>
   );
@@ -134,7 +134,9 @@ class ComingSoon extends Component {
             <section className="comingsoon">
               <div className="comingsoon-wrapper">
                 <div className="comingsoon-grid-container">
-                  <ComingSoonLogo />
+                  <Container>
+                    <ComingSoonLogo />
+                  </Container>
                   <Typography
                     variant="h2"
                     component="h2"
