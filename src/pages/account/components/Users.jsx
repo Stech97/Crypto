@@ -182,7 +182,7 @@ export default function Dashboard(props) {
     >
       <div className={classes.drawerHeader} />
       <Grid container spacing={3}>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           <Typography
             className={classes.title}
             variant="h5"
@@ -207,7 +207,7 @@ export default function Dashboard(props) {
             />
           </div>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           {/* <Button variant="contained" color="secondary">
             Download csv
           </Button> */}

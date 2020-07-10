@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
+import Container from '@material-ui/core/Container';
 import MenuItem from '@material-ui/core/MenuItem';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -151,232 +152,236 @@ export default function Dashboard(props) {
       })}
     >
       <div className={classes.drawerHeader} />
-      <Grid container spacing={3}>
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                Added Funds
-              </Typography>
-              <Typography variant="p" component="h2">
-                BTC 1.02
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                Invested Ammount
-              </Typography>
-              <Typography variant="p" component="h2">
-                BTC 1.02
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                Registered Users
-              </Typography>
-              <Typography variant="p" component="h2">
-                100500
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                Users with investments
-              </Typography>
-              <Typography variant="p" component="h2">
-                50250
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                Withdrawn amount
-              </Typography>
-              <Typography variant="p" component="h2">
-                BTC 0.521
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                User Balance
-              </Typography>
-              <Typography variant="p" component="h2">
-                BTC 0.521
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                Comission payed to users
-              </Typography>
-              <Typography variant="p" component="h2">
-                DET 100500
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={3}>
-          <FormControl variant="filled" className={classes.formControl}>
-            <InputLabel id="demo-simple-select-filled-label">Period</InputLabel>
-            <Select
-              labelId="demo-simple-select-filled-label"
-              id="demo-simple-select-filled"
-              value="Last Week"
-              onChange={handleChange}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Last Week</MenuItem>
-              <MenuItem value={20}>Last Month</MenuItem>
-              <MenuItem value={30}>Last 3 Month</MenuItem>
-              <MenuItem value={40}>Last 6 Month</MenuItem>
-              <MenuItem value={50}>Last Year</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="baseline"
-        >
-          <Grid item xs={3}>
-            <Typography
-              className={classes.title}
-              variant="h5"
-              component="p"
-              gutterBottom
-            >
-              Withdrawl requests
-            </Typography>
+      <Container maxWidth="lg">
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={3}>
+            <Card className={classes.root}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  variant="h5"
+                  component="p"
+                  gutterBottom
+                >
+                  Added Funds
+                </Typography>
+                <Typography variant="p" component="h2">
+                  BTC 1.02
+                </Typography>
+              </CardContent>
+            </Card>
           </Grid>
-          <Grid item xs={3}>
-            <Button variant="contained" color="secondary">
-              Bulk accept
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          direction="row"
-          justify="space-evenly"
-          alignItems="center"
-        >
-          <Grid item xs={6}>
-            <SampleGrid />
-          </Grid>
-        </Grid>
 
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="baseline"
-        >
-          <Grid item xs={3}>
-            <Typography
-              className={classes.title}
-              variant="h5"
-              component="p"
-              gutterBottom
-            >
-              KYC requests
-            </Typography>
+          <Grid item xs={12} md={3}>
+            <Card className={classes.root}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  variant="h5"
+                  component="p"
+                  gutterBottom
+                >
+                  Invested Ammount
+                </Typography>
+                <Typography variant="p" component="h2">
+                  BTC 1.02
+                </Typography>
+              </CardContent>
+            </Card>
           </Grid>
-          <Grid item xs={3}>
-            <Button variant="contained" color="secondary">
-              Bulk accept
-            </Button>
+
+          <Grid item xs={12} md={3}>
+            <Card className={classes.root}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  variant="h5"
+                  component="p"
+                  gutterBottom
+                >
+                  Registered Users
+                </Typography>
+                <Typography variant="p" component="h2">
+                  100500
+                </Typography>
+              </CardContent>
+            </Card>
           </Grid>
-          <Grid item xs={12}>
-            <TableContainer component={Paper}>
-              <Table
-                className={classes.table}
-                size="small"
-                aria-label="a dense table"
+          <Grid item xs={12} md={3}>
+            <Card className={classes.root}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  variant="h5"
+                  component="p"
+                  gutterBottom
+                >
+                  Users with investments
+                </Typography>
+                <Typography variant="p" component="h2">
+                  50250
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} md={3}>
+            <Card className={classes.root}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  variant="h5"
+                  component="p"
+                  gutterBottom
+                >
+                  Withdrawn amount
+                </Typography>
+                <Typography variant="p" component="h2">
+                  BTC 0.521
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Card className={classes.root}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  variant="h5"
+                  component="p"
+                  gutterBottom
+                >
+                  User Balance
+                </Typography>
+                <Typography variant="p" component="h2">
+                  BTC 0.521
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Card className={classes.root}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  variant="h5"
+                  component="p"
+                  gutterBottom
+                >
+                  Comission payed to users
+                </Typography>
+                <Typography variant="p" component="h2">
+                  DET 100500
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <FormControl variant="filled" className={classes.formControl}>
+              <InputLabel id="demo-simple-select-filled-label">
+                Period
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-filled-label"
+                id="demo-simple-select-filled"
+                value="Last Week"
+                onChange={handleChange}
               >
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="right">User</TableCell>
-                    <TableCell align="right">View KYC</TableCell>
-                    <TableCell align="right">Decision</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows_KYC.map((rows_KYC) => (
-                    <TableRow key={rows_KYC.name}>
-                      <TableCell align="right">{rows_KYC.user}</TableCell>
-                      <TableCell align="right">{rows_KYC.view}</TableCell>
-                      <TableCell align="right">{rows_KYC.decision}</TableCell>
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={10}>Last Week</MenuItem>
+                <MenuItem value={20}>Last Month</MenuItem>
+                <MenuItem value={30}>Last 3 Month</MenuItem>
+                <MenuItem value={40}>Last 6 Month</MenuItem>
+                <MenuItem value={50}>Last Year</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="baseline"
+          >
+            <Grid item xs={12} md={3}>
+              <Typography
+                className={classes.title}
+                variant="h5"
+                component="p"
+                gutterBottom
+              >
+                Withdrawl requests
+              </Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Button variant="contained" color="secondary">
+                Bulk accept
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            direction="row"
+            justify="space-evenly"
+            alignItems="center"
+          >
+            <Grid item xs={12} md={6}>
+              <SampleGrid />
+            </Grid>
+          </Grid>
+
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="baseline"
+          >
+            <Grid item xs={12} md={3}>
+              <Typography
+                className={classes.title}
+                variant="h5"
+                component="p"
+                gutterBottom
+              >
+                KYC requests
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <Button variant="contained" color="secondary">
+                Bulk accept
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <TableContainer component={Paper}>
+                <Table
+                  className={classes.table}
+                  size="small"
+                  aria-label="a dense table"
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="right">User</TableCell>
+                      <TableCell align="right">View KYC</TableCell>
+                      <TableCell align="right">Decision</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableHead>
+                  <TableBody>
+                    {rows_KYC.map((rows_KYC) => (
+                      <TableRow key={rows_KYC.name}>
+                        <TableCell align="right">{rows_KYC.user}</TableCell>
+                        <TableCell align="right">{rows_KYC.view}</TableCell>
+                        <TableCell align="right">{rows_KYC.decision}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </Container>
     </main>
   );
 }
