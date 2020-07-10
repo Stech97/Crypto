@@ -12,22 +12,39 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles((theme) => ({
 	header: {
 		background: "linear-gradient(83deg, #123273 0%, #005c9f 100%)",
-		color: "#fff",
-		boxShadow: "0 0 1.25rem rgba(0, 0, 0, 0.06)",
-		borderRadius: "2vw",
-		[theme.breakpoints.down("sm")]: {
-			borderRadius: "1rem",
+		"&>div": {
+			color: "#fff",
+		},
+		"& h6": {
+			color: "#fff",
 		},
 	},
-	table: {},
+	table: {
+		boxShadow: "0 0 1.25rem rgba(0, 0, 0, 0.06)",
+	},
+	container: {
+		borderRadius: "2vw",
+		[theme.breakpoints.down("sm")]: {
+			borderRadius: "1rem 1rem 0 0",
+		},
+	},
+	row: {
+		background: "#fff",
+		"&>div": {
+			border: "none",
+		},
+		"& p": {
+			color: "#838383",
+		},
+	},
 }));
 
 function CustomTable(props) {
 	const classes = useStyles();
 	const { headers, content } = props;
 	return (
-		<Grid item container xs={12} spacing={2} justify="flex-start">
-			<TableContainer component="div">
+		<Grid item container xs={12} spacing={2} justify="stretch">
+			<TableContainer component="div" className={classes.container}>
 				<Table
 					component="div"
 					className={classes.table}
@@ -41,21 +58,29 @@ function CustomTable(props) {
 									key={index}
 									align="center"
 								>
-									<Typography>{header}</Typography>
+									<Typography variant="subtitle1">
+										{header}
+									</Typography>
 								</TableCell>
 							))}
 						</TableRow>
 					</TableHead>
 					<TableBody component="div">
 						{content.map((row, i) => (
-							<TableRow component="div" key={i}>
+							<TableRow
+								component="div"
+								key={i}
+								className={classes.row}
+							>
 								{Object.keys(row).map((key, i) => (
 									<TableCell
 										key={key}
 										align="center"
 										component="div"
 									>
-										<Typography>{row[key]}</Typography>
+										<Typography variant="body1">
+											{row[key]}
+										</Typography>
 									</TableCell>
 								))}
 							</TableRow>
