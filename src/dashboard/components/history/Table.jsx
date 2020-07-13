@@ -11,9 +11,6 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
 	profit: {
-		[theme.breakpoints.down("sm")]: {
-			display: "none",
-		},
 		marginTop: "20px",
 	},
 	header: {
@@ -95,6 +92,7 @@ function CustomTable(props) {
 										key={key}
 										align="center"
 										component="div"
+										classname={classes[key]}
 									>
 										<Typography variant="body1">
 											{typeof row[key] === "string"

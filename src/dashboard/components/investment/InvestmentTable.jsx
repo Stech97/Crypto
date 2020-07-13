@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: "#ffffff",
 		border: "1px solid #efefef",
 		marginTop: "20px",
+		[theme.breakpoints.down("sm")]: {
+			display: "none",
+		},
 	},
 	table: {
 		[theme.breakpoints.down("sm")]: {

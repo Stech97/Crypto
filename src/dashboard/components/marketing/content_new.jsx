@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
 import { SvgIcon } from "@material-ui/core";
 import { Icon } from "@material-ui/core";
-import { Container } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
