@@ -8,6 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
 	profit: {
@@ -98,7 +99,12 @@ function CustomTable(props) {
 									>
 										<Typography variant="body1">
 											{typeof row[key] === "string"
-												? row[key]
+												? key === "time" ||
+												  key === "day"
+													? moment(row[key]).format(
+															"YYYY-MM-DD"
+													  )
+													: row[key]
 												: row[key].toFixed(2)}
 										</Typography>
 									</TableCell>

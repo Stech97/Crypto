@@ -41,10 +41,11 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: "flex-end",
 	},
 	graph: {
-		width: "400px",
 		height: "400px",
-		[theme.breakpoints.down("sm")]: {
-			height: "200px",
+		width: "600px",
+		[theme.breakpoints.down("lg")]: {
+			height: "300px",
+			width: "600px",
 		},
 	},
 	input: {

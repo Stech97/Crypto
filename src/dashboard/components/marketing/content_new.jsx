@@ -10,15 +10,16 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { Grid } from "@material-ui/core";
-import { SvgIcon } from "@material-ui/core";
-import { Icon } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import SvgIcon from "@material-ui/core/SvgIcon";
+import Icon from "@material-ui/core/Icon";
 import Container from "@material-ui/core/Container";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { MailIcon, TelegramIcon } from "../../svg/iconComponents";
+import Box from "@material-ui/core/Box";
 
 const marketboxes = [
   {
@@ -87,19 +88,33 @@ const headerTheme = createMuiTheme({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    width: "200px",
+    height: "200px",
     borderRadius: "2vw",
     [theme.breakpoints.down("sm")]: {
       borderRadius: "1rem",
+      width: "150px",
+      height: "150px",
     },
   },
 
   media_holder: {
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "0",
+    },
+    marginTop: "25px",
     color: "#FFF",
     height: "6rem",
   },
 
   media: {
+    [theme.breakpoints.down("sm")]: {
+      width: 50,
+      height: 50,
+    },
     margin: "auto",
     width: 75,
     height: 75,
@@ -112,6 +127,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    height: "4rem",
   },
 
   download: {
@@ -131,6 +147,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       background: orange,
     },
+    justifySelf: "flex-end",
   },
 
   marketing_follow_header: {
@@ -168,7 +185,7 @@ const useStyles = makeStyles((theme) => ({
 const MarketingContentBox = ({ box: { className, link, header, img } }) => {
   const classes = useStyles();
   return (
-    <Grid className={classes.contentbox} item xs={12} sm={6} md={3}>
+    <Grid className={classes.contentbox} item xs={6} md={3}>
       <Typography className={classes.card_header}>{header}</Typography>
       <Card className={classes.root}>
         <CardActionArea className={classes.media_holder}>

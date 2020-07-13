@@ -8,6 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
 	profit: {
@@ -91,7 +92,7 @@ function HistoryTable(props) {
 							>
 								<TableCell align="center" component="div">
 									<Typography variant="body1">
-										{row.time}
+										{moment(row.time).format("YYYY-MM-DD")}
 										<br />
 										{row.type}
 									</Typography>

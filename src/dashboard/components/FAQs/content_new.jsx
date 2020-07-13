@@ -46,13 +46,12 @@ const BlueButton = withStyles({
 const links = [
   {
     header: "Platform Tutorial",
-    Link: (className) => (
+    Link: ({ className }) => (
       <BlueButton
         className={className}
         href="/files/Business_presentation.pptx"
         download
       >
-        {" "}
         Download PDF
       </BlueButton>
     ),
@@ -60,16 +59,15 @@ const links = [
 
   {
     header: "E-Mail",
-    Link: (className) => (
+    Link: ({ className }) => (
       <BlueButton className={className} href="mailto:support@defima.io">
-        {" "}
         Contact us
       </BlueButton>
     ),
   },
   {
     header: "Defima Community",
-    Link: (className) => (
+    Link: ({ className }) => (
       <BlueButton className={className} href="https://telegram.org">
         Join Telegram
       </BlueButton>
@@ -77,7 +75,7 @@ const links = [
   },
   {
     header: "Blog/News",
-    Link: (className) => (
+    Link: ({ className }) => (
       <BlueButton className={className} href="https://medium.com">
         Open Blog
       </BlueButton>
@@ -127,9 +125,9 @@ const faq = [
 const useStyles = makeStyles((theme) => ({
   white_text: {
     margin: "auto",
-    color: "#000000",
+    color: "#fff",
     width: "100%",
-    height: "100%",
+    height: "60px",
     textTransform: "capitalize",
     "&:hover": {
       backgroundColor: "transparent",
@@ -137,6 +135,10 @@ const useStyles = makeStyles((theme) => ({
     },
     justifySelf: "center",
     backgroundImage: "linear-gradient(75deg, #16428d 0%, #005c9f 100%)",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "12px",
+      height: "41px",
+    },
   },
   faqlink: {
     height: "150px",
@@ -146,6 +148,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     fontSize: "1.2rem",
     margin: 0,
+    height: "80px",
   },
   root: {
     width: "100%",
@@ -170,8 +173,7 @@ const FaqLink = ({ id, header, Link }) => {
       justify="center"
       item
       container
-      xs={12}
-      sm={6}
+      xs={6}
       md={3}
     >
       <Grid

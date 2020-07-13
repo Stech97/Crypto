@@ -23,7 +23,6 @@ class HistoryStatisticsPlot extends Component {
         data={this.props.data}
         layout={this.props.layout}
         config={{ displayModeBar: false, useResizeHandler: true }}
-        className="history-statistics-content-plot"
       />
     );
   }
@@ -74,14 +73,7 @@ function HistoryContent(props) {
   const historyData = {
     x: table.records
       .reverse()
-      .map(
-        (record, i) =>
-          moment(record.time.slice(record.time.indexOf(" ") + 1)).format(
-            "MMM DD YYYY"
-          ) +
-          " " +
-          i
-      ),
+      .map((record, i) => moment(record.time).format("YYYY-MM-DD")),
     y: table.records.reverse().map((record, i) => record.amount),
   };
   const data = [
@@ -98,12 +90,11 @@ function HistoryContent(props) {
   ];
 
   const layout = {
-    autoresize: true,
     margin: {
-      l: 5 + "%",
-      r: 5 + "%",
-      b: 25 + "%",
-      t: 5 + "%",
+      l: 10,
+      r: 10,
+      b: 10,
+      t: 10,
     },
 
     plot_bgcolor: "#EFEFEF",
