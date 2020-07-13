@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { HistoryRecord } from "../history/content";
 import { getInvestmentTable } from "../../actions/InvestmentTable";
 import { connect } from "react-redux";
@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 		boxShadow: "0 0 20px rgba(0, 0, 0, 0.06)",
 		backgroundColor: "#ffffff",
 		border: "1px solid #efefef",
+		marginTop: "20px",
 	},
 	table: {
 		[theme.breakpoints.down("sm")]: {
@@ -33,7 +34,7 @@ function InvestmentTable(props) {
 	const headers = ["Day", "Product", "Investment", "Profit"];
 
 	return (
-		<>
+		<Fragment>
 			<CustomTable headers={headers} content={table.investments} />
 			<Grid item container xs={12} spacing={2} justify="flex-end">
 				<CsvDownload
@@ -44,7 +45,7 @@ function InvestmentTable(props) {
 					Download Statement CSV
 				</CsvDownload>
 			</Grid>
-		</>
+		</Fragment>
 	);
 }
 

@@ -1,94 +1,89 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { getMembersAmount } from '../../actions/getTeam';
-import { getTeamEarnings } from '../../actions/getTeamEarnings';
-import { RateRequest } from '../../actions/getRate';
-import TeamTable from './TeamTable';
-import TeamLinks from './TeamLinks';
-import { Container } from '@material-ui/core';
+import React, { Fragment, useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { getMembersAmount } from "../../actions/getTeam";
+import { getTeamEarnings } from "../../actions/getTeamEarnings";
+import { RateRequest } from "../../actions/getRate";
+import TeamTable from "./TeamTable";
+import Container from "@material-ui/core/Container";
+import Whitebox from "../Whitebox";
+import Links from "../Links";
+import { makeStyles } from "@material-ui/core/styles";
 
-class TeamContent extends Component {
-  state = {
-    rate: 0,
-  };
+const useStyles = makeStyles((theme) => ({
+  invested: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+}));
+
+function TeamContent(props) {
+  const [rate, setRate] = useState(0);
 
   getRate = () => {
-    RateRequest('USD', 'DET').then((res) => {
+    RateRequest("USD", "DET").then((res) => {
       if (res.ok) {
-        this.setState({
-          ...this.state,
-          rate: res.data.rate,
-        });
+        setRate(res.data.rate);
       } else if (res.error.status === 400) {
-        this.setState({
-          ...this.state,
-          rate: 0,
-        });
+        setRate(0);
       } else {
-        this.setState({
-          ...this.state,
-          rate: 0,
-        });
+        setRate(0);
       }
     });
   };
 
-  componentDidMount = () => {
-    this.props.getTotalMemAction();
-    this.props.getTeamEarningsAction();
-    this.getRate();
+  useEffect(() => {
+    return () => {
+      props.getTotalMemAction();
+      props.getTeamEarningsAction();
+      getRate();
+    };
+  }, []);
+
+  const { earnings, team } = props;
+
+  const totalInvestedSum = () => {
+    var sum = 0;
+    for (let i = 0; i < team.levels.length; i++) {
+      sum += team.levels[i].totalInvested;
+    }
+    let data = {
+      usd: sum,
+      det: sum * state.rate,
+    };
+    return data;
   };
 
-  render() {
-    const { earnings, team } = this.props;
+  const totalInvested = totalInvestedSum();
 
-    const totalInvestedSum = () => {
-      var sum = 0;
-      for (let i = 0; i < team.levels.length; i++) {
-        sum += team.levels[i].totalInvested;
-      }
-      let data = {
-        usd: sum,
-        det: sum * this.state.rate,
-      };
-      return data;
-    };
-
-    const totalInvested = totalInvestedSum();
-
-    return (
-      <Container maxWidth="lg">
-        <div className="team-box">
-          <div className="team-total">
-            <div className="team-total-members team-total-box">
-              <h5 className="team-total-box-header">TOTAL Team Members</h5>
-              <div className="team-total-box-content team-whitebox">
-                <h3 className="team-total-box-content-centered">
-                  {earnings.totalMembers.data.totalMember}
-                </h3>
-              </div>
-            </div>
-            <div className="team-total-invested team-total-box">
-              <h5 className="team-total-box-header">TOTAL Team Invested</h5>
-              <div className="team-total-box-content team-whitebox">
-                <h3>{'$' + totalInvested.usd.toFixed(2)}</h3>
-                <h5>{'DET ' + totalInvested.det.toFixed(2)}</h5>
-              </div>
-            </div>
-            <div className="team-total-earnings team-total-box">
-              <h5 className="team-total-box-header">TOTAL Team Earnings</h5>
-              <div className="team-total-box-content team-whitebox">
-                <h3>{'DET ' + earnings.teamEarnings.data.det.toFixed(2)}</h3>
-                <h5>{'$' + earnings.teamEarnings.data.usd.toFixed(2)}</h5>
-              </div>
-            </div>
-          </div>
-          <TeamLinks />
-          <TeamTable />
-        </div>
-      </Container>
-    );
-  }
+  const classes = useStyles();
+  return (
+    <Container maxWidth="lg">
+      <Whitebox
+        xs={6}
+        md={3}
+        header="TOTAL Team Members"
+        contentBlue={earnings.totalMembers.data.totalMember}
+      />
+      <Whitebox
+        xs={6}
+        md={3}
+        className={classes.invested}
+        header="TOTAL Team Invested"
+        contentBlue={"$" + totalInvested.usd.toFixed(2)}
+        contentGray={"DET " + totalInvested.det.toFixed(2)}
+      />
+      <Whitebox
+        xs={6}
+        md={6}
+        header="TOTAL Team Earnings"
+        contentBlue={"DET " + earnings.teamEarnings.data.det.toFixed(2)}
+        contentGray={"$" + earnings.teamEarnings.data.usd.toFixed(2)}
+      />
+      <Links />
+      <TeamTable />
+    </Container>
+  );
 }
 
 const mapStateToProps = (store) => ({

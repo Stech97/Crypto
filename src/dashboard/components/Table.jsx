@@ -10,6 +10,12 @@ import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
+	profit: {
+		[theme.breakpoints.down("sm")]: {
+			display: "none",
+		},
+		marginTop: "20px",
+	},
 	header: {
 		background: "linear-gradient(83deg, #123273 0%, #005c9f 100%)",
 		"&>div": {
@@ -43,7 +49,14 @@ function CustomTable(props) {
 	const classes = useStyles();
 	const { headers, content } = props;
 	return (
-		<Grid item container xs={12} spacing={2} justify="stretch">
+		<Grid
+			className={classes.profit}
+			item
+			container
+			xs={12}
+			spacing={2}
+			justify="stretch"
+		>
 			<TableContainer component="div" className={classes.container}>
 				<Table
 					component="div"
@@ -79,7 +92,9 @@ function CustomTable(props) {
 										component="div"
 									>
 										<Typography variant="body1">
-											{row[key]}
+											{typeof row[key] === "string"
+												? row[key]
+												: row[key].toFixed(2)}
 										</Typography>
 									</TableCell>
 								))}

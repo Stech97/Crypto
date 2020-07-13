@@ -97,7 +97,7 @@ const InvestPopup = (props) => {
 
 function InvestmentContent() {
   return (
-    <Fragment>
+    <Container maxWidth="lg">
       <Helmet>
         <title>Investment</title>
       </Helmet>
@@ -105,7 +105,7 @@ function InvestmentContent() {
       <Details />
       <Profit />
       <InvestmentTable />
-    </Fragment>
+    </Container>
   );
 }
 

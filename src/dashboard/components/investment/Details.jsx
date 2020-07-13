@@ -27,12 +27,22 @@ const useStyles = makeStyles((theme) => ({
 			borderRadius: "1rem",
 		},
 	},
+	container: {
+		marginTop: "20px",
+	},
 }));
 
 function Details() {
 	const classes = useStyles();
 	return (
-		<Grid item container xs={12} spacing={2} justify="space-around">
+		<Grid
+			className={classes.container}
+			item
+			container
+			xs={12}
+			spacing={2}
+			justify="center"
+		>
 			<Accordion className={clsx(classes.accordion, classes.whitebox)}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}

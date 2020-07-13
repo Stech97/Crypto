@@ -41,15 +41,23 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: "flex-end",
 	},
 	graph: {
+		width: "400px",
 		height: "400px",
+		[theme.breakpoints.down("sm")]: {
+			height: "200px",
+		},
 	},
 	input: {
 		width: "150px",
+		height: "75px",
 		backgroundImage: "linear-gradient(250deg, #005c9f 0%, #123273 100%)",
 		boxShadow: "0 0 20px rgba(0, 0, 0, 0.06)",
 		padding: "15px",
 		borderRadius: "10px",
 		color: "#fff",
+		[theme.breakpoints.down("sm")]: {
+			borderRadius: "35px",
+		},
 	},
 	textInput: {
 		"&>div": {
@@ -67,6 +75,9 @@ const useStyles = makeStyles((theme) => ({
 			stroke: "#fff",
 			color: "#fff!important",
 		},
+	},
+	container: {
+		marginTop: "20px",
 	},
 }));
 
@@ -135,7 +146,7 @@ function Profit() {
 	];
 
 	const layout = {
-		autoresize: true,
+		autosize: true,
 		margin: {
 			l: 5 + "%",
 			r: 5 + "%",
@@ -171,7 +182,14 @@ function Profit() {
 	};
 
 	return (
-		<Grid item container xs={12} spacing={2} justify="space-around">
+		<Grid
+			className={classes.container}
+			item
+			container
+			xs={12}
+			spacing={2}
+			justify="space-around"
+		>
 			<Grid item xs={12} justify="center">
 				<Typography
 					className={classes.header}
@@ -194,11 +212,12 @@ function Profit() {
 					item
 					container
 					xs={12}
-					md={6}
+					md={5}
 				>
 					<Grid
 						component={Typography}
 						align="center"
+						justify="center"
 						variant="h6"
 						xs={6}
 					>
@@ -257,13 +276,14 @@ function Profit() {
 						</NativeSelect>
 					</Grid>
 				</Grid>
-				<Grid className={classes.graph} item container xs={12} md={6}>
+				<Grid className={classes.graph} item container xs={12} md={7}>
 					<Plot
 						data={data}
 						layout={layout}
 						config={{
 							displayModeBar: false,
 							useResizeHandler: true,
+							responsive: true,
 						}}
 						className="investment-profit-content-plot"
 					/>

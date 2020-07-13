@@ -56,7 +56,7 @@ export default memo(function WhiteBox({
 }) {
 	const classes = WhiteboxStyles();
 	return (
-		<Grid container item {...rest}>
+		<Grid container item {...rest} direction="column">
 			<Typography
 				align="center"
 				variant="h5"
