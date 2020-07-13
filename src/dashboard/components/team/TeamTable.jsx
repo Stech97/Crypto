@@ -304,43 +304,6 @@ function TeamTable(props) {
 
 	const classes = useStyles();
 
-	const parseTeam = (levels) => {
-		var array = [];
-		var result = [];
-		console.log(team.levels);
-		if (levels.length < 3) {
-			for (let i = 0; i < Math.min(levels.length, 2); i++) {
-				array.push(levels[i]);
-			}
-			result.push(array);
-			console.log("levels are less than 2: ", levels.length);
-		} else if (levels.length < 6) {
-			for (let i = 0; i < Math.min(levels.length, 2); i++) {
-				array.push(levels[i]);
-			}
-			result.push(array);
-			for (let i = 2; i < Math.min(levels.length, 5); i++) {
-				array.push(levels[i]);
-			}
-			result.push(array);
-			console.log("levels are less than 5: ", levels.length);
-		} else {
-			for (let i = 0; i < Math.min(levels.length, 2); i++) {
-				array.push(levels[i]);
-			}
-			result.push(array);
-			for (let i = 2; i < Math.min(levels.length, 5); i++) {
-				array.push(levels[i]);
-			}
-			result.push(array);
-			for (let i = 5; i < levels.length; i++) {
-				array.push(levels[i]);
-			}
-			result.push(array);
-			console.log("levels are less than 8: ", levels.length);
-		}
-		return result;
-	};
 	console.log("props.team.levels");
 	const headers = [
 		"",

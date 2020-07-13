@@ -6,21 +6,15 @@ import AccountChange from "./AccountChangePassword";
 import AccountReinvest from "./AccountReinvest";
 import { getUserInfo } from "../../actions/UserInfo";
 import { connect } from "react-redux";
-
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 class SettingsContent extends Component {
 	render() {
 		return (
-			<div className="settings-box">
-				<div className="settings-left">
-					<AccountInfo />
-					<AccountVerification />
-				</div>
-				<div className="settings-right">
-					<AccountSecurity />
-					<AccountChange />
-					<AccountReinvest />
-				</div>
-			</div>
+			<Container maxWidth="lg">
+				<Grid container></Grid>
+				<Grid container></Grid>
+			</Container>
 		);
 	}
 }

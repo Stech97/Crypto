@@ -109,19 +109,12 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     position: "sticky",
-    background: "linear-gradient(83deg, #123273 0%, #005c9f 100%)",
-    "&>div": {
-      color: "#fff",
-    },
-    "& h6": {
-      color: "#fff",
-    },
   },
-  table: {
-    boxShadow: "0 0 1.25rem rgba(0, 0, 0, 0.06)",
-  },
+  table: {},
   container: {
+    boxShadow: "0 0 1.25rem rgba(0, 0, 0, 0.06)",
     borderRadius: "2vw",
+    padding: "2rem",
     [theme.breakpoints.down("sm")]: {
       borderRadius: "1rem 1rem 0 0",
     },
@@ -139,6 +132,9 @@ const useStyles = makeStyles((theme) => ({
       color: "#838383",
     },
   },
+  text: {
+    color: "#838383",
+  },
 }));
 
 function TeamPopup(props) {
@@ -149,42 +145,63 @@ function TeamPopup(props) {
 
   return (
     <Dialog
+      scroll="paper"
       maxWidth="lg"
       fullWidth
       open={props.open}
       onClose={props.handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-      className={classes.container}
+      classes={{
+        paper: classes.container,
+      }}
     >
       <DialogTitle onClose={props.handleClose} id="alert-dialog-title">
         {"Team Overview Level " + props.level}
       </DialogTitle>
       <DialogContent>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow className={classes.row}>
-                <TableCell>Username</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Invested</TableCell>
-                <TableCell>Your earnings</TableCell>
+        <TableContainer component="div">
+          <Table component="div" className={classes.table}>
+            <TableHead component="div" className={classes.header}>
+              <TableRow component="div" className={classes.row}>
+                <TableCell component="div">
+                  <Typography className={classes.text}>Username</Typography>
+                </TableCell>
+                <TableCell component="div">
+                  <Typography className={classes.text}>Email</Typography>
+                </TableCell>
+                <TableCell component="div">
+                  <Typography className={classes.text}>Invested</Typography>
+                </TableCell>
+                <TableCell component="div">
+                  <Typography className={classes.text}>
+                    Your earnings
+                  </Typography>
+                </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody className={classes.body}>
+            <TableBody component="div" className={classes.body}>
               {props.table.members.map((teammate, id) => (
-                <TableRow key={id} className={classes.row}>
-                  <TableCell>
-                    <Typography>{teammate.username}</Typography>
+                <TableRow component="div" key={id} className={classes.row}>
+                  <TableCell component="div">
+                    <Typography className={classes.text}>
+                      {teammate.username}
+                    </Typography>
                   </TableCell>
-                  <TableCell>
-                    <Typography>{teammate.email}</Typography>
+                  <TableCell component="div">
+                    <Typography className={classes.text}>
+                      {teammate.email}
+                    </Typography>
                   </TableCell>
-                  <TableCell>
-                    <Typography>{teammate.invested}</Typography>
+                  <TableCell component="div">
+                    <Typography className={classes.text}>
+                      {teammate.invested}
+                    </Typography>
                   </TableCell>
-                  <TableCell>
-                    <Typography>{teammate.earnings}</Typography>
+                  <TableCell component="div">
+                    <Typography className={classes.text}>
+                      {teammate.earnings}
+                    </Typography>
                   </TableCell>
                 </TableRow>
               ))}
