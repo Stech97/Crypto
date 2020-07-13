@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
 
 namespace Crypto.Controllers
 {
@@ -299,9 +298,7 @@ namespace Crypto.Controllers
 		{
 			var response = await _administratorService.GetRate();
 			return Ok(response);
-		}
-        
-        
+		} 
 
 		//[Authorize]
 		[Route("UpdateRate")]
