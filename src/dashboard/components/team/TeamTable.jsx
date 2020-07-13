@@ -205,7 +205,7 @@ function CustomTableRow(props) {
 					component="div"
 				>
 					<Typography align="center" variant="body1">
-						0
+						{row.members}
 					</Typography>
 				</TableCell>
 				<TableCell
@@ -213,7 +213,7 @@ function CustomTableRow(props) {
 					component="div"
 				>
 					<Typography align="center" variant="body1">
-						0
+						{row.totalInvested.toFixed(2)}
 					</Typography>
 				</TableCell>
 				<TableCell
@@ -221,7 +221,7 @@ function CustomTableRow(props) {
 					component="div"
 				>
 					<Typography align="center" variant="body1">
-						0
+						{row.profitsPaid.toFixed(2)}
 					</Typography>
 				</TableCell>
 				<TableCell
@@ -229,7 +229,7 @@ function CustomTableRow(props) {
 					component="div"
 				>
 					<Typography align="center" variant="body1">
-						0
+						{row.commission * 100 + "%"}
 					</Typography>
 				</TableCell>
 				<TableCell
@@ -237,7 +237,7 @@ function CustomTableRow(props) {
 					component="div"
 				>
 					<Typography align="center" variant="body1">
-						0
+						{row.totalEarning.toFixed(2)}
 					</Typography>
 				</TableCell>
 			</TableRow>
@@ -291,7 +291,7 @@ function TeamTable(props) {
 		}
 		return result;
 	};
-
+	console.log("props.team.levels");
 	const headers = [
 		"Level",
 		"Members",
