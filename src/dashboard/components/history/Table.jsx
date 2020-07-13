@@ -11,10 +11,13 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
 	profit: {
-		marginTop: "20px",
+		display: "none",
+		[theme.breakpoints.down("sm")]: {
+			marginTop: "20px",
+			display: "flex",
+		},
 	},
 	header: {
-		position: "sticky",
 		background: "linear-gradient(83deg, #123273 0%, #005c9f 100%)",
 		"&>div": {
 			color: "#fff",
@@ -47,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-function CustomTable(props) {
+function HistoryTable(props) {
 	const classes = useStyles();
 	const { headers, content } = props;
 	return (
@@ -67,17 +70,16 @@ function CustomTable(props) {
 				>
 					<TableHead component="div" className={classes.header}>
 						<TableRow component="div">
-							{headers.map((header, index) => (
-								<TableCell
-									component="div"
-									key={index}
-									align="center"
-								>
-									<Typography variant="subtitle1">
-										{header}
-									</Typography>
-								</TableCell>
-							))}
+							<TableCell component="div" align="center">
+								<Typography variant="subtitle1">
+									Time <br /> Type
+								</Typography>
+							</TableCell>
+							<TableCell component="div" align="center">
+								<Typography variant="subtitle1">
+									Amount (USD) <br /> Balance (USD)
+								</Typography>
+							</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody component="div" className={classes.body}>
@@ -87,20 +89,20 @@ function CustomTable(props) {
 								key={i}
 								className={classes.row}
 							>
-								{Object.keys(row).map((key, i) => (
-									<TableCell
-										key={key}
-										align="center"
-										component="div"
-										classname={classes[key]}
-									>
-										<Typography variant="body1">
-											{typeof row[key] === "string"
-												? row[key]
-												: row[key].toFixed(2)}
-										</Typography>
-									</TableCell>
-								))}
+								<TableCell align="center" component="div">
+									<Typography variant="body1">
+										{row.time}
+										<br />
+										{row.type}
+									</Typography>
+								</TableCell>
+								<TableCell align="center" component="div">
+									<Typography variant="body1">
+										{row.amount.toFixed(0)}
+										<br />
+										{row.balance.toFixed(0)}
+									</Typography>
+								</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
@@ -110,4 +112,4 @@ function CustomTable(props) {
 	);
 }
 
-export default CustomTable;
+export default HistoryTable;

@@ -9,6 +9,7 @@ import moment from "moment";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import HistoryTable from "./Table";
 
 import Container from "@material-ui/core/Container";
 import CustomTable from "../Table";
@@ -169,6 +170,7 @@ function HistoryContent(props) {
         </Grid>
       </Grid>
       <CustomTable headers={headers} content={table.records} />
+      <HistoryTable content={table.records} />
       <Grid item container xs={12} spacing={2} justify="flex-end">
         <CsvDownload
           className={classes.button}
