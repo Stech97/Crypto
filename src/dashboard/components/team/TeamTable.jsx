@@ -1,7 +1,7 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getTeamTable } from "../../actions/getTeamTable";
-import TeamPopupPlus from "./teamPopup";
+import TeamPopup from "./teamPopup";
 import clsx from "clsx";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -13,6 +13,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import moment from "moment";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
 	profit: {
@@ -30,17 +31,34 @@ const useStyles = makeStyles((theme) => ({
 		"& h6": {
 			color: "#fff",
 		},
+		"&>div>div:first-child": {
+			borderTopLeftRadius: "2vw",
+			[theme.breakpoints.down("sm")]: {
+				borderTopLeftRadius: "1rem",
+			},
+		},
+		"&>div>div:last-child": {
+			borderTopRightRadius: "2vw",
+			[theme.breakpoints.down("sm")]: {
+				borderTopRightRadius: "1rem",
+			},
+		},
 	},
 	table: {
 		boxShadow: "0 0 1.25rem rgba(0, 0, 0, 0.06)",
 		marginBottom: "30px",
 		borderRadius: "2vw",
+		background: "transparent",
+
 		[theme.breakpoints.down("sm")]: {
 			borderRadius: "1rem 1rem 0 0",
 		},
 	},
 	container: {
+		overflow: "visible",
 		borderRadius: "2vw",
+		background: "transparent",
+
 		[theme.breakpoints.down("sm")]: {
 			borderRadius: "1rem 1rem 0 0",
 		},
@@ -54,10 +72,10 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	row: {
+		position: "relative",
 		borderRadius: "2vw",
-		[theme.breakpoints.down("sm")]: {
-			borderRadius: "1rem",
-		},
+		background: "transparent",
+
 		background: "#fff",
 		"&>div": {
 			border: "none",
@@ -66,24 +84,11 @@ const useStyles = makeStyles((theme) => ({
 			color: "#838383",
 		},
 	},
-	row_start: {
-		borderRadius: "2vw",
-		[theme.breakpoints.down("sm")]: {
-			borderRadius: "1rem 1rem 0 0",
-		},
-	},
-	row_end: {
-		borderRadius: "2vw",
-		[theme.breakpoints.down("sm")]: {
-			borderRadius: "0 0 1rem 1rem",
-		},
-		marginBottom: "20px",
-	},
 	cell: {
 		width: "calc(100% / 6)",
 	},
 	cell_start: {
-		"&:first-child": {
+		"&:nth-child(2)": {
 			borderTopLeftRadius: "2vw",
 		},
 		"&:last-child": {
@@ -91,11 +96,27 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	cell_end: {
-		"&:first-child": {
+		"&:nth-child(2)": {
 			borderBottomLeftRadius: "2vw",
 		},
 		"&:last-child": {
 			borderBottomRightRadius: "2vw",
+		},
+	},
+	plus: {
+		marginLeft: "-3rem",
+		marginTop: "1rem",
+		"&>div": {
+			background: "#fff",
+			width: "2rem",
+			height: "2rem",
+			display: "grid",
+			alignItems: "center",
+			justifyItems: "center",
+			borderRadius: "5px",
+			"&>svg": {
+				fill: "#838383",
+			},
 		},
 	},
 }));
@@ -134,113 +155,142 @@ const MemberLevelRow = ({
 };
 
 function CustomTableRow(props) {
+	const [open, setOpen] = useState(false);
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
 	const { row, type, level } = props;
 	const classes = useStyles();
 	if (row === 0) {
 		return (
-			<TableRow component="div" className={classes.row}>
-				<TableCell
-					className={clsx(classes.cell, classes["cell_" + type])}
-					component="div"
-				>
-					<Typography align="center" variant="body1">
-						{"Level " + level}
-					</Typography>
-				</TableCell>
-				<TableCell
-					className={clsx(classes.cell, classes["cell_" + type])}
-					component="div"
-				>
-					<Typography align="center" variant="body1">
-						0
-					</Typography>
-				</TableCell>
-				<TableCell
-					className={clsx(classes.cell, classes["cell_" + type])}
-					component="div"
-				>
-					<Typography align="center" variant="body1">
-						0
-					</Typography>
-				</TableCell>
-				<TableCell
-					className={clsx(classes.cell, classes["cell_" + type])}
-					component="div"
-				>
-					<Typography align="center" variant="body1">
-						0
-					</Typography>
-				</TableCell>
-				<TableCell
-					className={clsx(classes.cell, classes["cell_" + type])}
-					component="div"
-				>
-					<Typography align="center" variant="body1">
-						0
-					</Typography>
-				</TableCell>
-				<TableCell
-					className={clsx(classes.cell, classes["cell_" + type])}
-					component="div"
-				>
-					<Typography align="center" variant="body1">
-						0
-					</Typography>
-				</TableCell>
-			</TableRow>
+			<Fragment>
+				<TableRow component="div" className={classes.row}>
+					<div className={classes.plus}>
+						<div>
+							<AddIcon onClick={handleClickOpen} />
+						</div>
+					</div>
+					<TableCell
+						className={clsx(classes.cell, classes["cell_" + type])}
+						component="div"
+					>
+						<Typography align="center" variant="body1">
+							{"Level " + level}
+						</Typography>
+					</TableCell>
+					<TableCell
+						className={clsx(classes.cell, classes["cell_" + type])}
+						component="div"
+					>
+						<Typography align="center" variant="body1">
+							0
+						</Typography>
+					</TableCell>
+					<TableCell
+						className={clsx(classes.cell, classes["cell_" + type])}
+						component="div"
+					>
+						<Typography align="center" variant="body1">
+							0
+						</Typography>
+					</TableCell>
+					<TableCell
+						className={clsx(classes.cell, classes["cell_" + type])}
+						component="div"
+					>
+						<Typography align="center" variant="body1">
+							0
+						</Typography>
+					</TableCell>
+					<TableCell
+						className={clsx(classes.cell, classes["cell_" + type])}
+						component="div"
+					>
+						<Typography align="center" variant="body1">
+							0
+						</Typography>
+					</TableCell>
+					<TableCell
+						className={clsx(classes.cell, classes["cell_" + type])}
+						component="div"
+					>
+						<Typography align="center" variant="body1">
+							0
+						</Typography>
+					</TableCell>
+				</TableRow>
+			</Fragment>
 		);
 	} else {
 		return (
-			<TableRow component="div" className={classes.row}>
-				<TableCell
-					className={clsx(classes.cell, classes["cell_" + type])}
-					component="div"
-				>
-					<Typography align="center" variant="body1">
-						{"Level " + level}
-					</Typography>
-				</TableCell>
-				<TableCell
-					className={clsx(classes.cell, classes["cell_" + type])}
-					component="div"
-				>
-					<Typography align="center" variant="body1">
-						{row.members}
-					</Typography>
-				</TableCell>
-				<TableCell
-					className={clsx(classes.cell, classes["cell_" + type])}
-					component="div"
-				>
-					<Typography align="center" variant="body1">
-						{row.totalInvested.toFixed(2)}
-					</Typography>
-				</TableCell>
-				<TableCell
-					className={clsx(classes.cell, classes["cell_" + type])}
-					component="div"
-				>
-					<Typography align="center" variant="body1">
-						{row.profitsPaid.toFixed(2)}
-					</Typography>
-				</TableCell>
-				<TableCell
-					className={clsx(classes.cell, classes["cell_" + type])}
-					component="div"
-				>
-					<Typography align="center" variant="body1">
-						{row.commission * 100 + "%"}
-					</Typography>
-				</TableCell>
-				<TableCell
-					className={clsx(classes.cell, classes["cell_" + type])}
-					component="div"
-				>
-					<Typography align="center" variant="body1">
-						{row.totalEarning.toFixed(2)}
-					</Typography>
-				</TableCell>
-			</TableRow>
+			<Fragment>
+				<TableRow component="div" className={classes.row}>
+					<div className={classes.plus}>
+						<div>
+							<AddIcon onClick={handleClickOpen} />
+						</div>
+					</div>
+					<TableCell
+						className={clsx(classes.cell, classes["cell_" + type])}
+						component="div"
+					>
+						<Typography align="center" variant="body1">
+							{"Level " + level}
+						</Typography>
+					</TableCell>
+					<TableCell
+						className={clsx(classes.cell, classes["cell_" + type])}
+						component="div"
+					>
+						<Typography align="center" variant="body1">
+							{row.members}
+						</Typography>
+					</TableCell>
+					<TableCell
+						className={clsx(classes.cell, classes["cell_" + type])}
+						component="div"
+					>
+						<Typography align="center" variant="body1">
+							{row.totalInvested.toFixed(2)}
+						</Typography>
+					</TableCell>
+					<TableCell
+						className={clsx(classes.cell, classes["cell_" + type])}
+						component="div"
+					>
+						<Typography align="center" variant="body1">
+							{row.profitsPaid.toFixed(2)}
+						</Typography>
+					</TableCell>
+					<TableCell
+						className={clsx(classes.cell, classes["cell_" + type])}
+						component="div"
+					>
+						<Typography align="center" variant="body1">
+							{row.commission * 100 + "%"}
+						</Typography>
+					</TableCell>
+					<TableCell
+						className={clsx(classes.cell, classes["cell_" + type])}
+						component="div"
+					>
+						<Typography align="center" variant="body1">
+							{row.totalEarning.toFixed(2)}
+						</Typography>
+					</TableCell>
+				</TableRow>
+				<TeamPopup
+					open={open}
+					handleClose={handleClose}
+					level={level}
+				/>
+			</Fragment>
 		);
 	}
 }
@@ -293,6 +343,7 @@ function TeamTable(props) {
 	};
 	console.log("props.team.levels");
 	const headers = [
+		"",
 		"Level",
 		"Members",
 		"Total Invested",
