@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
 
 const HeaderLogo = () => {
   return (
@@ -39,17 +40,14 @@ const HeaderNav = () => {
   );
 };
 
-class Header extends Component {
-  render() {
-    return (
-      <header>
-        <div className="header-grid-container">
-          <HeaderLogo />
-          <HeaderNav />
-        </div>
-      </header>
-    );
-  }
+function Header() {
+  return (
+    <Grid item container xs={12}>
+      <Grid xs={12}></Grid>
+      <HeaderLogo />
+      <HeaderNav />
+    </Grid>
+  );
 }
 
 export default Header;
