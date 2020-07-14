@@ -8,107 +8,122 @@ import {
 } from "../../../signup/components/SignupForm";
 import { connect } from "react-redux";
 import { changePassword } from "../../actions/changePassword";
+import SettingsBox from "../SettingsBox";
+import TextField from "@material-ui/core/TextField";
+import Button from "../Buttons";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 
-class AccountChange extends Component {
-	render() {
-		const submit = (values) => {
-			if (values.password !== values.password2) {
-				throw new SubmissionError({
-					password2: "Passwords must match",
-				});
-			}
-			this.props.changePasswordAction({
-				username: this.props.user.username,
-				password: values.password,
-				confirmPassword: values.password2,
+const useStyles = makeStyles((theme) => ({
+	header: {
+		color: "#123273",
+		marginBottom: "20px",
+	},
+	input: {
+		witdh: "80%",
+	},
+	form: {
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+	},
+	button: {
+		marginTop: "20px",
+	},
+}));
+
+function AccountChange(props) {
+	const classes = useStyles();
+
+	const submit = (values) => {
+		if (values.password !== values.password2) {
+			throw new SubmissionError({
+				password2: "Passwords must match",
 			});
-			reset();
-		};
+		}
+		props.changePasswordAction({
+			username: props.user.username,
+			password: values.password,
+			confirmPassword: values.password2,
+		});
+		reset();
+	};
 
-		const passField = ({
-			input,
-			id,
-			type,
-			placeholder,
-			meta: { touched, error, warning },
-		}) => {
-			return (
-				<div className="settings-change-form-input">
-					<input
-						autoComplete="off"
-						{...input}
-						type={type}
-						placeholder={placeholder}
-					/>
-					{touched &&
-						((error && <p className="error">{" " + error}</p>) ||
-							(warning && (
-								<p className="error">{" " + warning}</p>
-							)))}
-				</div>
-			);
-		};
-
-		const {
-			handleSubmit,
-			reset,
-			pristine,
-			submitting,
-			hash,
-			changePassword,
-			error,
-			invalid,
-			hasErrors,
-		} = this.props;
-
+	const passField = ({
+		input,
+		id,
+		type,
+		placeholder,
+		meta: { touched, error, warning },
+	}) => {
 		return (
-			<div className="settings-change settings-whitebox">
-				<h3 className="settings-change-header">Change Password</h3>
-				<form
-					onSubmit={handleSubmit(submit)}
-					className="settings-change-form"
-				>
-					<Field
-						component={passField}
-						name="password"
-						type="password"
-						placeholder="New Password"
-						validate={[
-							required,
-							maxLength25,
-							minLength6,
-							validatePassword,
-						]}
-					/>
-					<Field
-						component={passField}
-						name="password2"
-						type="password"
-						placeholder="Repeat New Password"
-						validate={[
-							required,
-							maxLength25,
-							minLength6,
-							validatePassword,
-						]}
-					/>
-					<button
-						type="submit"
-						className="settings-change-form-button"
-						disabled={
-							invalid || hasErrors || pristine || submitting
-						}
-					>
-						{submitting || changePassword.isFetching
-							? "Wait..."
-							: pristine && changePassword.error.type === "done"
-							? "Success"
-							: "Change Password"}
-					</button>
-				</form>
-			</div>
+			<TextField
+				autoComplete="off"
+				inputProps={input}
+				type={type}
+				placeholder={placeholder}
+				error={error && touched}
+				helperText={error}
+			/>
 		);
-	}
+	};
+
+	const {
+		handleSubmit,
+		reset,
+		pristine,
+		submitting,
+		hash,
+		changePassword,
+		error,
+		invalid,
+		hasErrors,
+	} = props;
+
+	return (
+		<SettingsBox>
+			<Typography align="center" className={classes.header}>
+				Change Password
+			</Typography>
+			<form onSubmit={handleSubmit(submit)} className={classes.form}>
+				<Field
+					component={passField}
+					name="password"
+					type="password"
+					placeholder="New Password"
+					validate={[
+						required,
+						maxLength25,
+						minLength6,
+						validatePassword,
+					]}
+				/>
+				<Field
+					component={passField}
+					name="password2"
+					type="password"
+					placeholder="Repeat New Password"
+					validate={[
+						required,
+						maxLength25,
+						minLength6,
+						validatePassword,
+					]}
+				/>
+				<Button
+					type="submit"
+					className={classes.button}
+					disabled={invalid || hasErrors || pristine || submitting}
+				>
+					{submitting || changePassword.isFetching
+						? "Wait..."
+						: pristine && changePassword.error.type === "done"
+						? "Success"
+						: "Change Password"}
+				</Button>
+			</form>
+		</SettingsBox>
+	);
 }
 
 const mapStateToProps = (store) => {

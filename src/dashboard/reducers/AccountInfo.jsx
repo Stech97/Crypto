@@ -38,7 +38,7 @@ const initialState = {
 
 	isReInvest: false,
 
-	IsShowinfo: false,
+	isShowInfo: false,
 };
 
 export const userInfoReducer = (state = initialState, action) => {

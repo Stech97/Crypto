@@ -16,5 +16,8 @@ export default withStyles({
 			color: "#fff",
 			backgroundColor: orange,
 		},
+		"&[disabled]": {
+			borderColor: "#838383",
+		},
 	},
 })(Button);

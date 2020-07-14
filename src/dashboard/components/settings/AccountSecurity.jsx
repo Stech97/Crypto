@@ -1,38 +1,54 @@
 import React, { Component, Fragment } from "react";
-import { getFormValues, reduxForm, Field } from "redux-form";
+import { reduxForm, Field } from "redux-form";
+import SettingsBox from "../SettingsBox";
+import Button from "../Buttons";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
-export default class AccountSecurity extends Component {
-	render() {
-		return (
-			<div className="settings-security">
-				<h3 className="settings-security-header">Security</h3>
-				<div className="settings-security-box settings-whitebox">
-					<div className="settings-security-box-text">
-						<p>
-							Two-Factor-Authentification
-							<br />
-							Please insert your phone number with area code and
-							verify your number.
-						</p>
-					</div>
-					<form className="settings-security-box-form">
-						<div className="settings-security-box-form-input">
-							<input type="phone" placeholder="+44 1111 22222" />
-							<p className="error">error</p>
-						</div>
-						<div className="settings-security-box-form-input">
-							<input
-								type="text"
-								placeholder="Insert the code you got"
-							/>
-							<p className="error">error</p>
-						</div>
-						<button className="settings-orange-button settings-security-box-form-button">
-							Submit
-						</button>
-					</form>
-				</div>
-			</div>
-		);
-	}
+const useStyles = makeStyles((theme) => ({
+	header: {
+		color: "#123273",
+	},
+	input: {
+		witdh: "80%",
+	},
+	form: {
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+	},
+	button: {
+		marginTop: "20px",
+	},
+}));
+
+export default function AccountSecurity(props) {
+	const classes = useStyles();
+	return (
+		<SettingsBox header="Security">
+			<Typography align="center">
+				Two-Factor-Authentification
+				<br />
+				Please insert your phone number with area code and verify your
+				number.
+			</Typography>
+			<form className={classes.form}>
+				<TextField
+					className={classes.input}
+					type="phone"
+					label="+44 1111 22222"
+				/>
+				<TextField
+					className={classes.input}
+					type="text"
+					label="Insert the code you got"
+				/>
+				<Button className={classes.button}>Submit</Button>
+			</form>
+		</SettingsBox>
+	);
 }

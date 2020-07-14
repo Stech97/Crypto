@@ -1,36 +1,25 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from "react";
 //import '../styles/tech.scss';
-import Footer from '../main/components/Footer';
-import Header from './Header.jsx';
+import Footer from "../main/components/Footer";
+import Header from "./Header.jsx";
 
-import { makeStyles } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { Grid } from '@material-ui/core';
-import { SvgIcon } from '@material-ui/core';
-import { Icon } from '@material-ui/core';
-import { Container } from '@material-ui/core';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import { makeStyles } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
 
-export const darkBlue = '#123273';
-export const gradient = 'linear-gradient(50deg, #123273 0%, #005c9f 100%)';
-export const grayText = '#838383';
-export const grayBack = '#efefef';
-export const orange = '#ed7102';
-export const lightBlue = '#16428d';
-export const whitebox = '#efefef';
-export const contentBack = '#f5fbff';
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
+
+export const darkBlue = "#123273";
+export const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
+export const grayText = "#838383";
+export const grayBack = "#efefef";
+export const orange = "#ed7102";
+export const lightBlue = "#16428d";
+export const whitebox = "#efefef";
+export const contentBack = "#f5fbff";
 
 const theme = createMuiTheme({
   palette: {
@@ -40,76 +29,76 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: darkBlue,
-      contrastText: '#ffffff',
+      contrastText: "#ffffff",
     },
     warning: {
-      main: '#fff',
+      main: "#fff",
       dark: orange,
     },
   },
   typography: {
-    fontFamily: ['IBM Plex Sans'],
+    fontFamily: ["IBM Plex Sans"],
     h1: {
       margin: 0,
       lineHeight: 1.3,
-      letterSpacing: 'normal',
-      textAlign: 'left',
-      color: '#ffffff',
-      fontSize: '2rem',
+      letterSpacing: "normal",
+      textAlign: "left",
+      color: "#ffffff",
+      fontSize: "2rem",
       fontWeight: 600,
-      fontStyle: 'normal',
+      fontStyle: "normal",
     },
 
     h2: {
       margin: 0,
       lineHeight: 1.3,
-      letterSpacing: 'normal',
-      textAlign: 'left',
-      color: '#005c9f',
-      fontSize: '1.75rem',
+      letterSpacing: "normal",
+      textAlign: "left",
+      color: "#005c9f",
+      fontSize: "1.75rem",
       fontWeight: 600,
-      fontStyle: 'normal',
+      fontStyle: "normal",
     },
 
     h3: {
       margin: 0,
       lineHeight: 1.3,
-      letterSpacing: 'normal',
-      textAlign: 'left',
-      color: '#005c9f',
-      fontSize: '1.5rem',
+      letterSpacing: "normal",
+      textAlign: "left",
+      color: "#005c9f",
+      fontSize: "1.5rem",
       fontWeight: 400,
-      fontStretch: 'normal',
-      fontStyle: 'italic',
+      fontStretch: "normal",
+      fontStyle: "italic",
     },
 
     h4: {
       margin: 0,
       lineHeight: 1.3,
-      letterSpacing: 'normal',
-      textAlign: 'left',
-      color: '#005c9f',
-      fontSize: '1.0rem',
+      letterSpacing: "normal",
+      textAlign: "left",
+      color: "#005c9f",
+      fontSize: "1.0rem",
       fontWeight: 600,
-      fontStretch: 'normal',
+      fontStretch: "normal",
     },
 
     body1: {
-      fontSize: '1.0rem',
-      fontStretch: 'normal',
-      fontStyle: 'normal',
+      fontSize: "1.0rem",
+      fontStretch: "normal",
+      fontStyle: "normal",
       lineHeight: 1.32,
-      letterSpacing: 'normal',
-      textAlign: 'left',
-      color: '#838383',
+      letterSpacing: "normal",
+      textAlign: "left",
+      color: "#838383",
     },
   },
 });
 
 const useStyles = makeStyles((theme) => ({
   scheme: {
-    width: '100%',
-    marginLeft: '-25%',
+    width: "100%",
+    marginLeft: "-25%",
   },
 }));
 
@@ -137,7 +126,7 @@ const PrivacyBlocks = () => {
           your privacy very seriously. We ask that you read this privacy policy
           (the “Policy”) carefully as it contains important information about
           what to expect when we collect personal data about you and how we will
-          use your personal data.{' '}
+          use your personal data.{" "}
         </Typography>
       </Grid>
       <Grid item xs={12}>
@@ -174,12 +163,12 @@ const PrivacyBlocks = () => {
             <li>email address and online passwords; </li>
             <li>
               records of communications with us (including but not limited to
-              voice and text messages);{' '}
+              voice and text messages);{" "}
             </li>
             <li>technical information;</li>
             <li>
               purchase and/or transaction history, including history on the
-              usage of our Services;{' '}
+              usage of our Services;{" "}
             </li>
             <li>identification and proof of address documents; and </li>
             <li>
@@ -205,12 +194,12 @@ const PrivacyBlocks = () => {
               processing, servicing or enforcing transactions and sending
               related communications, including processing and delivering
               products to you as part of the Services and facilitating product
-              collection from our stores;{' '}
+              collection from our stores;{" "}
             </li>
             <li>
               registration, identification and verification purposes in
               connection with any of the Services or products that may be
-              supplied to you;{' '}
+              supplied to you;{" "}
             </li>
             <li>responding to your queries; </li>
             <li>
@@ -218,7 +207,7 @@ const PrivacyBlocks = () => {
               providing you with information about our products and promotional
               notices and offers and sending regular newsletters, promotions,
               events or contact you about products and services that we think
-              may be of interest to you);{' '}
+              may be of interest to you);{" "}
             </li>
             <li>improving and providing the Services; </li>
             <li>
@@ -379,10 +368,10 @@ export default class Privacy extends Component {
           <Container
             maxWidth="xl"
             style={{
-              backgroundColor: '#ffffff',
-              height: '100%',
-              borderBottomRightRadius: '9.375rem',
-              border: 'none',
+              backgroundColor: "#ffffff",
+              height: "100%",
+              borderBottomRightRadius: "9.375rem",
+              border: "none",
             }}
           >
             <Container maxWidth="md">

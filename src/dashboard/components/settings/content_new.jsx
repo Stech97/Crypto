@@ -8,12 +8,29 @@ import { getUserInfo } from "../../actions/UserInfo";
 import { connect } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
+
 class SettingsContent extends Component {
 	render() {
 		return (
 			<Container maxWidth="lg">
-				<Grid container></Grid>
-				<Grid container></Grid>
+				<Grid
+					item
+					container
+					spacing={3}
+					justify="space-between"
+					item
+					xs={12}
+				>
+					<Grid container xs={12} md={6}>
+						<AccountInfo />
+						<AccountVerification />
+					</Grid>
+					<Grid container xs={12} md={4} direction="row">
+						<AccountSecurity />
+						<AccountChange />
+						<AccountReinvest />
+					</Grid>
+				</Grid>
 			</Container>
 		);
 	}
