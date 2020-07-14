@@ -3,36 +3,47 @@ import Grid from "@material-ui/core/Grid";
 import { updateReInvest, getUserInfo } from "../../actions/UserInfo";
 import { connect } from "react-redux";
 import SettingsBox from "../SettingsBox";
+import Switch from "@material-ui/core/Switch";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+	switch: {
+		alignContent: "center",
+	},
+}));
 
 function AccountReinvest(props) {
-	const handleChange = (value) => {
-		props.updateReInvestAction(value);
+	const [state, setState] = useState(false);
+
+	const handleChange = (event) => {
+		props.updateReInvestAction(event.target.checked);
 		props.getUserInfoAction();
+		setState(props.userInfo.isReInvest);
 	};
 
 	const { userInfo } = props;
+	const classes = useStyles();
 
 	return (
-		<SettingsBox>
-			<h5 className="settings-reinvest-header">Automatic Re-Invest</h5>
-			<div className="settings-reinvest-form settings-whitebox">
-				<label
-					className="settings-reinvest-form-checkbox"
-					htmlFor="reinvest"
-				>
-					<input
-						id="reinvest"
-						type="checkbox"
-						value={userInfo.isReInvest}
-						onChange={(e) => handleChange(e.target.checked)}
-					/>
-					<span className="slider round"></span>
-					<span className="settings-reinvest-form-checkbox-span">
-						Enable Auto Re-Invest
-					</span>
-				</label>
-				<div className="settings-reinvest-form-text">
-					<p>
+		<SettingsBox header="Automatic Re-Invest">
+			<Grid item container xs={12}>
+				<Grid className={classes.switch} item container xs={12}>
+					<Grid item xs={2}>
+						<Switch
+							id="reinvest"
+							checked={state}
+							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item xs={10}>
+						<Typography align="left">
+							Enable Auto Re-Invest
+						</Typography>
+					</Grid>
+				</Grid>
+				<Grid item xs={12}>
+					<Typography variant="body1">
 						When automatic re-invest ON, Defima will automatically
 						buy new products (product category the last you
 						selected) once the minimum amount for product buy is
@@ -41,9 +52,9 @@ function AccountReinvest(props) {
 						<br />
 						With this on you will profit from the compound interest
 						effect.
-					</p>
-				</div>
-			</div>
+					</Typography>
+				</Grid>
+			</Grid>
 		</SettingsBox>
 	);
 }

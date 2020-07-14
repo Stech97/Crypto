@@ -18,13 +18,16 @@ const useStyles = makeStyles((theme) => ({
 		color: "#123273",
 		height: "2rem",
 	},
+	box: {
+		marginTop: "20px",
+	},
 }));
 
 export default function SettingsBox(props) {
 	const classes = useStyles();
 	const { children, header, ...rest } = props;
 	return (
-		<Grid xs={12} item container {...rest}>
+		<Grid className={classes.box} xs={12} item container {...rest}>
 			{header && (
 				<Grid
 					className={classes.header}

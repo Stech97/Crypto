@@ -1,37 +1,65 @@
-import React, { Component, Fragment } from 'react';
+import React from "react";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import SettingsBox from "../SettingsBox";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import OrangeButton from "../Buttons";
 
-export default class AccountVerification extends Component {
-  render() {
-    return (
-      <div className="settings-verification">
-        <h3 className="settings-verification-header">
-          Account Verification (KYC)
-        </h3>
-        <div className="settings-verification-box settings-whitebox">
-          <h5 className="settings-verification-box-upload">
+const useStyles = makeStyles((theme) => ({}));
+
+const GrayButton = withStyles({
+  root: {
+    color: "#838383",
+    backgroundColor: "#fff",
+    border: "3px solid " + "#838383",
+    borderRadius: "30px",
+    paddingLeft: "1rem",
+    paddingRight: "1rem",
+    "&:hover": {
+      color: "#fff",
+      backgroundColor: "#838383",
+    },
+    "&[disabled]": {
+      borderColor: "#838383",
+    },
+  },
+})(Button);
+
+export default function AccountVerification(props) {
+  const classes = useStyles();
+  return (
+    <SettingsBox header="Account Verification (KYC)">
+      <Grid item container spacing={2} xs={12}>
+        <Grid item xs={6}>
+          <Typography align="left" className={classes.text}>
             Upload Passport or National ID
-          </h5>
-          <button className="settings-verification-box-upload-gray-button">
-            Select file
-          </button>
-          <h5 className="settings-verification-box-proof">
+          </Typography>
+        </Grid>
+        <Grid item align="center" xs={6}>
+          <GrayButton className={classes.button}>Select file</GrayButton>
+        </Grid>
+        <Grid item xs={6}>
+          <Typography align="left">
             Proof of address e.g. phone or utilities bill
-          </h5>
-          <button className="settings-verification-box-proof-gray-button">
-            Select file
-          </button>
-          <h5 className="settings-verification-box-selfie">
+          </Typography>
+        </Grid>
+        <Grid item align="center" xs={6}>
+          <GrayButton>Select file</GrayButton>
+        </Grid>
+        <Grid item xs={6}>
+          <Typography align="left">
             Selfie with passport or national ID + written letter with data of
             upload
-          </h5>
-          <button className="settings-verification-box-selfie-gray-button">
-            Select file
-          </button>
-          <button className="settings-verification-box-button settings-orange-button">
-            Save
-          </button>
-        </div>
-      </div>
-    );
-  }
+          </Typography>
+        </Grid>
+        <Grid item align="center" xs={6}>
+          <GrayButton>Select file</GrayButton>
+        </Grid>
+        <Grid item xs={12}>
+          <OrangeButton>Save</OrangeButton>
+        </Grid>
+      </Grid>
+    </SettingsBox>
+  );
 }
