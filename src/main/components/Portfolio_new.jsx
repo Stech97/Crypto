@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 
 const darkBlue = "#123273";
@@ -22,11 +23,26 @@ const useStyles = makeStyles((theme) => ({
     justifySelf: "center",
     background: "#fff",
     borderRadius: "1.25rem",
-    height: "100%",
-    width: "20.125rem",
-    justifyContent: "center",
+    height: "400px",
+    width: "100%",
+    maxWidth: "300px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignContent: "center",
   },
-
+  title: {
+    background: "linear-gradient(247deg, #005c9f 0%, #123273 100%)",
+    height: "20%",
+    display: "flex",
+    color: "#fff",
+  },
+  content: {
+    padding: "0 20%",
+  },
+  actions: {
+    padding: "0 20% 2rem 20%",
+  },
   button_invest: {
     margin: "auto",
     color: "#ffffff",
@@ -40,6 +56,14 @@ const useStyles = makeStyles((theme) => ({
       background: orange,
     },
   },
+  box: {
+    justifyContent: "space-around",
+  },
+  header: {
+    "&>*": {
+      color: "#ffffff",
+    },
+  },
 }));
 
 const PortfolioHeader = () => {
@@ -48,12 +72,12 @@ const PortfolioHeader = () => {
     <Fragment>
       <Grid className={classes.header} item xs={12}>
         <Typography variant="h2" component="h2">
-          How It Works
+          Portfolio
         </Typography>
       </Grid>
       <Grid className={classes.header} item xs={12}>
         <Typography variant="h3" component="h3">
-          Business model
+          Investments Products
         </Typography>
       </Grid>
     </Fragment>
@@ -84,27 +108,29 @@ const portfolioProducts = [
   },
 ];
 
-const Invest = (item) => {
+function Invest(props) {
+  const { item } = props;
   const classes = useStyles();
   return (
-    <Grid item md={6}>
+    <Grid item md={3} xs={12}>
       <Card className={classes.card}>
-        <CardContent>
-          <Typography variant="h3" component="h3" gutterBottom>
-            {item.header}
-          </Typography>
-          <Typography variant="body1" component="p">
-            {" "}
+        <CardHeader
+          align="center"
+          className={classes.title}
+          title={item.header}
+        />
+        <CardContent className={classes.content}>
+          <Typography paragraph variant="body1" component="p">
             Monthly Profit of up to {item.percent}% month
           </Typography>
-          <Typography variant="body1" component="p">
+          <Typography paragraph variant="body1" component="p">
             Starting from ${item.investment}
           </Typography>
-          <Typography variant="body1" component="p">
+          <Typography paragraph variant="body1" component="p">
             Career commission qualified Level 1-{item.level}
           </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions className={classes.actions}>
           <Button
             href={"/account/investment"}
             className={classes.button_invest}
@@ -115,19 +141,23 @@ const Invest = (item) => {
       </Card>
     </Grid>
   );
-};
+}
 
 function PortfolioProduct(props) {
-  const portfolioProductTemplate = props.data.map(function (item) {
-    return <Invest item={item} />;
-  });
-  return <div className="portfolio-product">{portfolioProductTemplate}</div>;
+  const Product = () =>
+    props.data.map((item) => {
+      return <Invest item={item} />;
+    });
+  return <Product />;
 }
 
 function Portfolio() {
   const classes = useStyles();
   return (
-    <FluidContainer background="#f5fbff" radius="75px 0 0 75px">
+    <FluidContainer
+      background="url(/img/worldmap2.png) left center/ auto 100% no-repeat, linear-gradient(39deg, #ed7102 0%, #ed7102 100%) left top no-repeat"
+      radius="0 0 0 75px"
+    >
       <Grid container spacing={3} xs={12}>
         <Grid
           className={classes.box}
@@ -139,7 +169,14 @@ function Portfolio() {
         >
           <PortfolioHeader />
         </Grid>
-        <Grid className={classes.box} spacing={2} item container xs={12}>
+        <Grid
+          className={classes.box}
+          justify="center"
+          spacing={2}
+          item
+          container
+          xs={12}
+        >
           <PortfolioProduct data={portfolioProducts} />
         </Grid>
       </Grid>

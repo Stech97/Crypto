@@ -4,15 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
-const darkBlue = "#123273";
-const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
-const grayText = "#838383";
-const grayBack = "#efefef";
-const orange = "#ed7102";
-const lightBlue = "#16428d";
-const whitebox = "#efefef";
-const contentBack = "#f5fbff";
-
 const useStyles = makeStyles((theme) => ({
   box: {
     alignContent: "flex-start",

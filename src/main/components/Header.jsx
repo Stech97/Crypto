@@ -97,7 +97,7 @@ function Header(props) {
 	};
 
 	return (
-		<AppBar className={classes.header} position="fixed">
+		<AppBar className={classes.header} position="static">
 			<CssBaseline />
 			<Toolbar>
 				<Grid justify="space-between" container xs={12}>
