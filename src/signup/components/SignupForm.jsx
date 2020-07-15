@@ -192,6 +192,11 @@ const useStyles = makeStyles((theme) => ({
     height: "4rem",
     alignContent: "center",
     color: "#fff",
+    [theme.breakpoints.down("sm")]: {
+      "& h6": {
+        fontSize: "10px",
+      },
+    },
   },
   text: {
     display: "flex",
@@ -360,7 +365,6 @@ function SignupForm(props) {
         <Grid item container xs={12}>
           <Grid className={classes.checkbox} item container xs={12} md={6}>
             <Field
-              className={classes.check}
               component={Checkbox}
               name="termsagree"
               label="I agree with Terms and conditions"

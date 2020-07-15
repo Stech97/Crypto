@@ -1,107 +1,74 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { Grid } from '@material-ui/core';
-import { SvgIcon } from '@material-ui/core';
-import { Icon } from '@material-ui/core';
-import { Container } from '@material-ui/core';
-import { Box } from '@material-ui/core';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import React from "react";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 
-export const darkBlue = '#123273';
-export const gradient = 'linear-gradient(50deg, #123273 0%, #005c9f 100%)';
-export const grayText = '#838383';
-export const grayBack = '#efefef';
-export const orange = '#ed7102';
-export const lightBlue = '#16428d';
-export const whitebox = '#efefef';
-export const contentBack = '#f5fbff';
+const orange = "#ed7102";
+
+const OrangeButton = withStyles({
+  root: {
+    color: "#fff",
+    backgroundColor: orange,
+    border: "3px solid " + orange,
+    borderRadius: "30px",
+    paddingLeft: "3rem",
+    paddingRight: "3rem",
+    "&:hover": {
+      color: "#fff",
+      backgroundColor: "transparent",
+    },
+    "&[disabled]": {
+      color: "#838383",
+      borderColor: "#838383",
+      backgroundColor: "transparent",
+    },
+  },
+})(Button);
 
 const useStyles = makeStyles((theme) => ({
-  get_started: {
-    margin: 'auto',
-    width: '12rem',
-    height: '2.75rem',
-    borderRadius: '1.875rem',
-    border: '.1875rem solid #ed7102',
-    backgroundColor: '#ed7102',
-    fontFamily: 'IBM Plex Sans',
-    fontSize: '1.25rem',
-    lineHeight: 1.29,
-    textAlign: 'center',
-    padding: '.8125rem 1.9375rem',
-    color: '#ffffff',
-    textTransform: 'capitalize',
-    '&:hover': {
-      backgroundColor: '#ffffff',
-      color: '#ed7102',
+  fluid: {
+    background:
+      "url(./img/waveimage.png) center center / 70% auto no-repeat, linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat",
+    borderBottomLeftRadius: "75px",
+  },
+  container: {
+    display: "flex",
+    justifyContent: "flex-start",
+    alignContent: "center",
+    minHeight: "100vh",
+    paddingTop: "150px",
+    paddingBottom: "75px",
+    "&>div": {
+      alignContent: "center",
     },
   },
 }));
 
-const HomescreenHeader = () => {
+function Homescreen() {
   const classes = useStyles();
   return (
-    // Он на месте, просто переделай в белый цвет
-    <Grid container direction="row">
-      <Grid item xs={6}>
-        <Typography variant="h1" component="h1">
-          The most profitable and secure way to get cashflow from the DeFi
-          markets.
-        </Typography>
-      </Grid>
-    </Grid>
-  );
-};
-
-const HomescreenButton = () => {
-  const classes = useStyles();
-  return (
-    <Button href={'/signup'} className={classes.get_started}>
-      Get started
-    </Button>
-  );
-
-  // <a href="#" className="button-main button-getstarted homescreen-button">Get started</a>
-};
-
-class Homescreen extends Component {
-  render() {
-    return (
-      <Container
-        maxWidth="xl"
-        style={{
-          backgroundColor: darkBlue,
-          height: '100%',
-          borderBottomLeftRadius: '9.375rem',
-          border: 'none',
-        }}
-      >
-        <Container maxWidth="lg">
-          <section className="homescreen">
-            <div className="wrapper">
-              <div className="homescreen-grid-container">
-                <HomescreenHeader />
-                <HomescreenButton />
-              </div>
-            </div>
-          </section>
-        </Container>
+    <Container className={classes.fluid} maxWidth={false}>
+      <Container className={classes.container} maxWidth="xl">
+        <Grid container spacing={3} xs={12}>
+          <Grid xs={12} item className={classes.header}>
+            <Typography variant="h1">
+              The most profitable and secure way
+              <br />
+              to get cashflow from the DeFi markets.
+            </Typography>
+          </Grid>
+          <Grid xs={12} item>
+            <OrangeButton component={Link} to="/signup">
+              Get started
+            </OrangeButton>
+          </Grid>
+        </Grid>
       </Container>
-    );
-  }
+    </Container>
+  );
 }
 
 export default Homescreen;
