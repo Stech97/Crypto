@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
 		borderBottomRightRadius: "35px",
 		height: "75px",
 		background: "#fff",
+		justifyContent: "center",
+		width: "100vw",
+		left: 0,
 	},
 	logo: {
 		justifySelf: "flex-start",
