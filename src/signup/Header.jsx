@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
 		borderBottomRightRadius: "35px",
 		height: "75px",
 		background: "#fff",
+		justifyContent: "center",
+		width: "100vw",
+		left: 0,
 	},
 	logo: {
 		justifySelf: "flex-start",
@@ -62,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
 			fontFamily: "IBM Plex Sans",
 			fontSize: "1.2rem",
 			fontWeight: "500",
+			"&:hover": {
+				color: orange,
+			},
 		},
 	},
 	button: {
@@ -140,6 +146,14 @@ function Header(props) {
 						keepMounted
 						open={Boolean(anchorEl)}
 						onClose={handleClose}
+						anchorOrigin={{
+							vertical: "top",
+							horizontal: "right",
+						}}
+						transformOrigin={{
+							vertical: "top",
+							horizontal: "right",
+						}}
 					>
 						<MenuItem>
 							<HashLink to={"/main#OurMission"}>About</HashLink>
