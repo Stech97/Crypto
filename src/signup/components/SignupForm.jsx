@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import { SubmissionError, reduxForm, Field } from "redux-form";
+import { connect } from "react-redux";
+
 import { API } from "../../config";
 import { Link } from "react-router-dom";
 import { createUserPostFetch } from "../actions/signup";
-import { connect } from "react-redux";
 import Loader from "react-loader-spinner";
-
-const SignupHeader = () => {
-  return (
-    <div className="signup-box-header">
-      <h1>Create an Account</h1>
-    </div>
-  );
-};
+import inputField from "../inputField";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Input from "@material-ui/core/Input";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import Alert from "@material-ui/lab/Alert";
 
 export const required = (value) =>
   value || typeof value === "number" ? undefined : "Required";
@@ -111,6 +113,28 @@ const asyncValidate = (values /*, dispatch*/) => {
   });
 };
 
+const orange = "#ed7102";
+
+const OrangeButton = withStyles({
+  root: {
+    color: "#fff",
+    backgroundColor: orange,
+    border: "3px solid " + orange,
+    borderRadius: "30px",
+    paddingLeft: "3rem",
+    paddingRight: "3rem",
+    "&:hover": {
+      color: "#fff",
+      backgroundColor: "transparent",
+    },
+    "&[disabled]": {
+      color: "#838383",
+      borderColor: "#838383",
+      backgroundColor: "transparent",
+    },
+  },
+})(Button);
+
 const textField = ({
   input,
   placeholder,
@@ -139,206 +163,242 @@ const textField = ({
 
 const checkField = ({
   input,
-  className,
-  type,
+  classes,
   id,
-  link,
-  linktext,
-  text,
+  label,
   meta: { touched, error },
 }) => {
   return (
-    <div className={"signup-box-" + className}>
-      <label className={"signup-form-" + className} htmlFor={id}>
-        <input {...input} type={type} id={id} />
-        <span
-          className={
-            touched && error
-              ? "checkmark-" + className + "-error"
-              : "checkmark-" + className
-          }
-        >
-          <i className="fas fa-check"></i>
-        </span>
-        <span>
-          {text}
-          {link && <Link to="/terms&conditions">{linktext}</Link>}
-        </span>
-      </label>
-    </div>
+    <Checkbox
+      label={label}
+      id={id}
+      onCheck={input.onChange}
+      checked={input.value ? true : false}
+      error={touched && error}
+    />
   );
 };
 
-class SignupForm extends Component {
-  render() {
-    const {
-      handleSubmit,
-      reset,
-      pristine,
-      submitting,
-      createUser,
-      error,
-      hasErrors,
-      invalid,
-    } = this.props;
+const useStyles = makeStyles((theme) => ({
+  input: {
+    background: "transparent",
+    height: "4rem",
+    alignContent: "center",
+    "& input": {
+      color: "#fff",
+    },
+  },
+  checkbox: {
+    height: "4rem",
+    alignContent: "center",
+    color: "#fff",
+  },
+  text: {
+    display: "flex",
+    alignItems: "center",
+    "& a": {
+      color: "#fff",
+    },
+  },
+}));
 
-    const submit = (values) => {
-      if (values.password !== values.password2) {
-        throw new SubmissionError({
-          password2: "Passwords must match",
-          _error: "Signup failed",
-        });
-      }
-      if (!values.termsagree) {
-        throw new SubmissionError({
-          termsagree: "Field reuired!",
-          _error: "Signup failed",
-        });
-      }
-      if (!values.countrycheck) {
-        throw new SubmissionError({
-          countrycheck: "Field required!",
-          _error: "Signup failed",
-        });
-      }
-      if (values.password === values.username) {
-        throw new SubmissionError({
-          password: "Username and password should mismatch!",
-          _error: "Signup failed",
-        });
-      }
-      this.props.createUserAction({ ...values, parent: this.props.parent });
-    };
+function TermsLink(props) {
+  const classes = useStyles();
+  return (
+    <Typography className={classes.text} variant="h6">
+      I agree with
+      <Link to="/terms&conditions">
+        <u>Terms and Conditions</u>
+      </Link>
+    </Typography>
+  );
+}
 
-    if (createUser.error.type === "done") {
-      return (
-        <section className="signup-wrapper">
-          <form className="signup-box">
-            <div className="signup-box-header">
-              <h2>
-                Thanks for creating your defima account, please go to your email
-                inbox and confirm your registration
-              </h2>
-            </div>
-          </form>
-        </section>
-      );
-    } else {
-      return (
-        <section className="signup-wrapper">
-          {(createUser.isFetching || submitting) && (
-            <Loader type="Rings" color="#ffffff" height={100} width={100} />
-          )}
-          <form
-            className={
-              createUser.isFetching || submitting ? "none" : "signup-box"
-            }
-            onSubmit={handleSubmit(submit)}
-          >
-            <SignupHeader />
-            {error && <p className="error">{error}</p>}
-            {createUser.error.type && (
-              <p className="error">{createUser.error.message}</p>
-            )}
+function CountryLink(props) {
+  const classes = useStyles();
+  return (
+    <Typography className={classes.text} variant="h6">
+      I am NOT an USA or Canada Citizen
+    </Typography>
+  );
+}
+
+function SignupForm(props) {
+  const {
+    handleSubmit,
+    reset,
+    pristine,
+    submitting,
+    createUser,
+    error,
+    hasErrors,
+    invalid,
+  } = props;
+
+  const classes = useStyles();
+
+  const submit = (values) => {
+    if (values.password !== values.password2) {
+      throw new SubmissionError({
+        password2: "Passwords must match",
+        _error: "Signup failed",
+      });
+    }
+    if (!values.termsagree) {
+      throw new SubmissionError({
+        termsagree: "Field reuired!",
+        _error: "Signup failed",
+      });
+    }
+    if (!values.countrycheck) {
+      throw new SubmissionError({
+        countrycheck: "Field required!",
+        _error: "Signup failed",
+      });
+    }
+    if (values.password === values.username) {
+      throw new SubmissionError({
+        password: "Username and password should mismatch!",
+        _error: "Signup failed",
+      });
+    }
+    props.createUserAction({ ...values, parent: props.parent });
+  };
+
+  if (createUser.error.type === "done") {
+    return (
+      <section className="signup-wrapper">
+        <form className="signup-box">
+          <div className="signup-box-header">
+            <h2>
+              Thanks for creating your defima account, please go to your email
+              inbox and confirm your registration
+            </h2>
+          </div>
+        </form>
+      </section>
+    );
+  } else {
+    return (
+      <Grid
+        component="form"
+        xs={12}
+        item
+        container
+        justify="center"
+        onSubmit={handleSubmit(submit)}
+      >
+        <Grid item container xs={12} spacing={2}>
+          <Grid item container xs={12} md={6}>
             <Field
-              component={textField}
+              component={inputField}
               name="firstname"
               placeholder="First Name"
-              className="firstname"
+              classes={classes}
               type="text"
               validate={[required, maxLength10, minLength2]}
               warn={alphaNumeric}
             />
+          </Grid>
+          <Grid item container xs={12} md={6}>
             <Field
-              component={textField}
+              component={inputField}
               name="lastname"
               placeholder="Last Name"
-              className="lastname"
+              classes={classes}
               type="text"
               validate={[required, maxLength25, minLength3]}
               warn={alphaNumeric}
             />
+          </Grid>
+        </Grid>
+        <Grid item container xs={12} spacing={2}>
+          <Grid item container xs={12} md={6}>
             <Field
-              component={textField}
+              component={inputField}
               name="email"
               placeholder="E-Mail"
-              className="email"
+              classes={classes}
               type="text"
               validate={[required, email]}
               warn={aol}
             />
+          </Grid>
+          <Grid item container xs={12} md={6}>
             <Field
-              component={textField}
+              component={inputField}
               name="username"
               placeholder="Username"
-              className="username"
+              classes={classes}
               type="text"
               validate={[required, maxLength25, minLength3, validateUsername]}
             />
+          </Grid>
+        </Grid>
+        <Grid item container xs={12} spacing={2}>
+          <Grid item container xs={12} md={6}>
             <Field
-              component={textField}
+              component={inputField}
               name="password"
               placeholder="Password"
-              className="password"
+              classes={classes}
               type="password"
               validate={[required, maxLength25, minLength6, validatePassword]}
             />
+          </Grid>
+          <Grid item container xs={12} md={6}>
             <Field
-              component={textField}
+              component={inputField}
               name="password2"
               placeholder="Repeat Password"
-              className="repeatpassword"
+              classes={classes}
               type="password"
               validate={[required, maxLength25, minLength6, validatePassword]}
             />
+          </Grid>
+        </Grid>
+        <Grid item container xs={12}>
+          <Grid className={classes.checkbox} item container xs={12} md={6}>
             <Field
-              component={checkField}
+              className={classes.check}
+              component={Checkbox}
               name="termsagree"
-              className="termsagree"
-              id="termsAgree"
-              type="checkbox"
-              text="I agree with "
-              link={true}
-              linktext="Terms and conditions"
+              label="I agree with Terms and conditions"
               validate={[required]}
             />
+            <TermsLink />
+          </Grid>
+          <Grid className={classes.checkbox} item container xs={12} md={6}>
             <Field
-              component={checkField}
+              component={Checkbox}
               name="countrycheck"
-              className="countrycheck"
-              id="countryCheck"
-              type="checkbox"
-              text="I am NOT the US or CANADA Citizen"
-              link={false}
-              linktext="linktext"
+              label="I am NOT an USA or Canada Citizen"
               validate={[required]}
             />
-            <div className="signup-box-bottomcontainer">
-              <div className="signup-box-bottomcontainer-button">
-                <button
-                  className="signup-form-button"
-                  type="submit"
-                  disabled={invalid || hasErrors || pristine || submitting}
-                >
-                  {createUser.isFetching || submitting
-                    ? "Loading..."
-                    : "Create an account"}
-                </button>
-              </div>
-              <div className="signup-box-bottomcontainer-signin">
-                <p>
-                  Already have an account? <Link to={"/Login"}>Sign in</Link>
-                </p>
-              </div>
-              <div className="signup-box-bottomcontainer-footer">
-                <Link to="/terms&conditions">Terms of use</Link>
-                &nbsp;<Link to="/privacy">Privacy policy</Link>
-              </div>
-            </div>
-          </form>
-        </section>
-      );
-    }
+            <CountryLink />
+          </Grid>
+        </Grid>
+
+        <OrangeButton
+          type="submit"
+          disabled={invalid || hasErrors || pristine || submitting}
+        >
+          {createUser.isFetching || submitting
+            ? "Loading..."
+            : "Create an account"}
+        </OrangeButton>
+        {createUser.error.type && (
+          <Alert variant="filled" severity="error">
+            {createUser.error.message}
+          </Alert>
+        )}
+        {error && (
+          <Alert variant="filled" severity="error">
+            {error}
+          </Alert>
+        )}
+      </Grid>
+    );
   }
 }
 

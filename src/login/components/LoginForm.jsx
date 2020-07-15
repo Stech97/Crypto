@@ -1,122 +1,137 @@
-import React, { Component, Fragment } from 'react';
-import { reduxForm, Field, SubmissionError } from 'redux-form';
-import { userPostFetch } from '../actions/signin';
-import { connect } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
-import Loader from 'react-loader-spinner';
+import React from "react";
+import { reduxForm, Field, SubmissionError } from "redux-form";
+import { userPostFetch } from "../actions/signin";
+import { connect } from "react-redux";
+import { Redirect, useHistory } from "react-router-dom";
+import Loader from "react-loader-spinner";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Alert from "@material-ui/lab/Alert";
+import inputField from "../inputField";
+
 import {
   required,
   validateUsername,
   validatePassword,
-} from '../../signup/components/SignupForm';
+} from "../../signup/components/SignupForm";
 
-const renderField = ({
-  input,
-  placeholder,
-  className,
-  type,
-  meta: { touched, error, warning },
-}) => {
+const useStyles = makeStyles((theme) => ({
+  input: {
+    background: "transparent",
+    height: "4rem",
+    alignContent: "center",
+    "& input": {
+      color: "#fff",
+    },
+  },
+}));
+
+const orange = "#ed7102";
+
+const OrangeButton = withStyles({
+  root: {
+    color: "#fff",
+    backgroundColor: orange,
+    border: "3px solid " + orange,
+    borderRadius: "30px",
+    paddingLeft: "3rem",
+    paddingRight: "3rem",
+    "&:hover": {
+      color: "#fff",
+      backgroundColor: "transparent",
+    },
+    "&[disabled]": {
+      color: "#838383",
+      borderColor: "#838383",
+      backgroundColor: "transparent",
+    },
+  },
+})(Button);
+
+function LoginForm(props) {
+  const {
+    handleSubmit,
+    reset,
+    pristine,
+    dirty,
+    submitting,
+    user,
+    error,
+    hasErrors,
+    invalid,
+  } = props;
+
+  const submit = (values) => {
+    if (values.username.length < 6) {
+      throw new SubmissionError({
+        username: "Too short username!",
+      });
+    } else if (values.username.length >= 15) {
+      throw new SubmissionError({
+        username: "Too long username!",
+      });
+    } else if (values.password.length <= 6) {
+      throw new SubmissionError({
+        password: "Too short password!",
+      });
+    } else if (values.password.length >= 15) {
+      throw new SubmissionError({
+        password: "Too long password!",
+      });
+    } else {
+      props.userPostFetch({
+        username: values.username,
+        password: values.password,
+      });
+    }
+  };
+
+  const classes = useStyles();
   return (
-    <div className={className}>
-      <input {...input} type={type} placeholder={placeholder} />
-      {touched &&
-        ((error && (
-          <p className="error">
-            <i class="fas fa-exclamation-circle"></i>
-            {' ' + error}
-          </p>
-        )) ||
-          (warning && (
-            <p className="error">
-              <i class="fas fa-exclamation-circle"></i>
-              {' ' + warning}
-            </p>
-          )))}
-    </div>
+    <Grid
+      component="form"
+      xs={12}
+      item
+      container
+      justify="center"
+      onSubmit={handleSubmit(submit)}
+    >
+      <Field
+        component={inputField}
+        name="username"
+        classes={classes}
+        type="text"
+        placeholder="Username"
+        validate={[required, validateUsername]}
+      />
+      <Field
+        component={inputField}
+        name="password"
+        classes={classes}
+        type="password"
+        placeholder="Password"
+        validate={[required, validatePassword]}
+      />
+      <OrangeButton
+        type="submit"
+        disabled={invalid || hasErrors || pristine || submitting}
+      >
+        {user.isFetching || submitting ? "Loading..." : "Login"}
+      </OrangeButton>
+      {user.error.type && (
+        <Alert variant="filled" severity="error">
+          {user.error.message}
+        </Alert>
+      )}
+      {error && (
+        <Alert variant="filled" severity="error">
+          {error}
+        </Alert>
+      )}
+    </Grid>
   );
-};
-
-class LoginForm extends Component {
-  render() {
-    const {
-      handleSubmit,
-      reset,
-      pristine,
-      dirty,
-      submitting,
-      user,
-      error,
-      hasErrors,
-      invalid,
-    } = this.props;
-
-    const submit = (values) => {
-      if (values.username.length < 6) {
-        throw new SubmissionError({
-          username: 'Too short username!',
-        });
-      } else if (values.username.length >= 15) {
-        throw new SubmissionError({
-          username: 'Too long username!',
-        });
-      } else if (values.password.length <= 6) {
-        throw new SubmissionError({
-          password: 'Too short password!',
-        });
-      } else if (values.password.length >= 15) {
-        throw new SubmissionError({
-          password: 'Too long password!',
-        });
-      } else {
-        this.props.userPostFetch({
-          username: values.username,
-          password: values.password,
-        });
-      }
-    };
-
-    return (
-      <form className="login-form" onSubmit={handleSubmit(submit)}>
-        <Field
-          component={renderField}
-          name="username"
-          className="login-form-user"
-          type="text"
-          placeholder="Username"
-          validate={[required, validateUsername]}
-        />
-        <Field
-          component={renderField}
-          name="password"
-          className="login-form-password"
-          type="password"
-          placeholder="Password"
-          validate={[required, validatePassword]}
-        />
-        <div className="login-form-button">
-          <button
-            type="submit"
-            disabled={invalid || hasErrors || pristine || submitting}
-          >
-            {user.isFetching || submitting ? 'Loading...' : 'Login'}
-          </button>
-          {user.error.type && (
-            <p className="error">
-              <i className="fas fa-exclamation-circle"></i>
-              {' ' + user.error.message}
-            </p>
-          )}
-          {error && (
-            <p className="error">
-              <i className="fas fa-exclamation-circle"></i>
-              {' ' + error}
-            </p>
-          )}
-        </div>
-      </form>
-    );
-  }
 }
 
 const mapStateToProps = (store) => {
@@ -132,5 +147,5 @@ const mapDispatchToProps = (dispatch) => ({
 LoginForm = connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 
 export default reduxForm({
-  form: 'LoginForm', // a unique identifier for this form
+  form: "LoginForm", // a unique identifier for this form
 })(LoginForm);

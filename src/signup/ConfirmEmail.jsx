@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { useParams } from "react-router-dom";
 import { API } from "../config";
-import Header from "./components/Header";
+import Header from "./Header";
 //import "../styles/login.scss";
 import { confirmEmail } from "./actions/confirmEmail";
 import { connect } from "react-redux";
