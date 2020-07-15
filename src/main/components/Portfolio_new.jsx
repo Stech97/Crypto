@@ -157,6 +157,7 @@ function Portfolio() {
     <FluidContainer
       background="url(/img/worldmap2.png) left center/ auto 100% no-repeat, linear-gradient(39deg, #ed7102 0%, #ed7102 100%) left top no-repeat"
       radius="0 0 0 75px"
+      zIndex="18"
     >
       <Grid container spacing={3} xs={12}>
         <Grid

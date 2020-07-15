@@ -6,17 +6,20 @@ function FluidContainer({
   children,
   background = "#ffffff",
   radius = "0",
+  zIndex = "0",
   ...rest
 }) {
   const useStyles = makeStyles((theme) => ({
     fluid: {
       background: background,
       borderRadius: radius,
+      position: "relative",
+      zIndex: zIndex,
     },
     container: {
       display: "flex",
       justifyContent: "center",
-      paddingTop: "75px",
+      paddingTop: "150px",
       paddingBottom: "150px",
       marginBottom: "-75px",
     },
