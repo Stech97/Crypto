@@ -1,67 +1,67 @@
-import React, { Fragment } from "react";
-import FluidContainer from "../Content";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import Button from "@material-ui/core/Button";
+import React, { Fragment } from 'react';
+import FluidContainer from '../Content';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Button from '@material-ui/core/Button';
 
-const darkBlue = "#123273";
-const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
-const grayText = "#838383";
-const grayBack = "#efefef";
-const orange = "#ed7102";
-const lightBlue = "#16428d";
-const whitebox = "#efefef";
-const contentBack = "#f5fbff";
+const darkBlue = '#123273';
+const gradient = 'linear-gradient(50deg, #123273 0%, #005c9f 100%)';
+const grayText = '#838383';
+const grayBack = '#efefef';
+const orange = '#ed7102';
+const lightBlue = '#16428d';
+const whitebox = '#efefef';
+const contentBack = '#f5fbff';
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    justifySelf: "center",
-    background: "#fff",
-    borderRadius: "1.25rem",
-    height: "400px",
-    width: "100%",
-    maxWidth: "300px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignContent: "center",
+    justifySelf: 'center',
+    background: '#fff',
+    borderRadius: '1.25rem',
+    height: '400px',
+    width: '100%',
+    maxWidth: '300px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignContent: 'center',
   },
   title: {
-    background: "linear-gradient(247deg, #005c9f 0%, #123273 100%)",
-    height: "20%",
-    display: "flex",
-    color: "#fff",
+    background: 'linear-gradient(247deg, #005c9f 0%, #123273 100%)',
+    height: '20%',
+    display: 'flex',
+    color: '#fff',
   },
   content: {
-    padding: "0 20%",
+    padding: '0 20%',
   },
   actions: {
-    padding: "0 20% 2rem 20%",
+    padding: '0 20% 2rem 20%',
   },
   button_invest: {
-    margin: "auto",
-    color: "#ffffff",
-    width: "12.9625rem",
-    height: "3.1563rem",
-    backgroundImage: "linear-gradient(77deg,#16428d 1%,#005c9f 78%)",
-    margin: "auto",
-    borderRadius: "1.5625rem",
-    textTransform: "capitalize",
-    "&:hover": {
+    margin: 'auto',
+    color: '#ffffff',
+    width: '12.9625rem',
+    height: '3.1563rem',
+    backgroundImage: 'linear-gradient(77deg,#16428d 1%,#005c9f 78%)',
+    margin: 'auto',
+    borderRadius: '1.5625rem',
+    textTransform: 'capitalize',
+    '&:hover': {
       background: orange,
     },
   },
   box: {
-    justifyContent: "space-around",
+    justifyContent: 'space-around',
   },
   header: {
-    "&>*": {
-      color: "#ffffff",
+    '&>*': {
+      color: '#ffffff',
     },
   },
 }));
@@ -87,21 +87,21 @@ const PortfolioHeader = () => {
 const portfolioProducts = [
   {
     id: 1,
-    header: "Small",
+    header: 'Small',
     percent: 6,
     investment: 100,
     level: 2,
   },
   {
     id: 2,
-    header: "Medium",
+    header: 'Medium',
     percent: 8,
     investment: 5000,
     level: 4,
   },
   {
     id: 3,
-    header: "Large",
+    header: 'Large',
     percent: 11,
     investment: 10000,
     level: 7,
@@ -132,7 +132,7 @@ function Invest(props) {
         </CardContent>
         <CardActions className={classes.actions}>
           <Button
-            href={"/account/investment"}
+            href={'/account/investment'}
             className={classes.button_invest}
           >
             Invest

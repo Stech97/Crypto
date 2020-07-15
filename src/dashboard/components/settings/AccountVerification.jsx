@@ -1,27 +1,27 @@
-import React from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import SettingsBox from "../SettingsBox";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import OrangeButton from "../Buttons";
+import React from 'react';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import SettingsBox from '../SettingsBox';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import OrangeButton from '../Buttons';
 
 const useStyles = makeStyles((theme) => ({}));
 
 const GrayButton = withStyles({
   root: {
-    color: "#838383",
-    backgroundColor: "#fff",
-    border: "3px solid " + "#838383",
-    borderRadius: "30px",
-    paddingLeft: "1rem",
-    paddingRight: "1rem",
-    "&:hover": {
-      color: "#fff",
-      backgroundColor: "#838383",
+    color: '#838383',
+    backgroundColor: '#fff',
+    border: '3px solid ' + '#838383',
+    borderRadius: '1.875rem',
+    paddingLeft: '1rem',
+    paddingRight: '1rem',
+    '&:hover': {
+      color: '#fff',
+      backgroundColor: '#838383',
     },
-    "&[disabled]": {
-      borderColor: "#838383",
+    '&[disabled]': {
+      borderColor: '#838383',
     },
   },
 })(Button);

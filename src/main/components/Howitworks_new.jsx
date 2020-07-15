@@ -1,28 +1,28 @@
-import React, { Fragment } from "react";
-import FluidContainer from "../Content";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import React, { Fragment } from 'react';
+import FluidContainer from '../Content';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
-const darkBlue = "#123273";
-const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
-const grayText = "#838383";
-const grayBack = "#efefef";
-const orange = "#ed7102";
-const lightBlue = "#16428d";
-const whitebox = "#efefef";
-const contentBack = "#f5fbff";
+const darkBlue = '#123273';
+const gradient = 'linear-gradient(50deg, #123273 0%, #005c9f 100%)';
+const grayText = '#838383';
+const grayBack = '#efefef';
+const orange = '#ed7102';
+const lightBlue = '#16428d';
+const whitebox = '#efefef';
+const contentBack = '#f5fbff';
 
 const useStyles = makeStyles((theme) => ({
   scheme: {
-    width: "100%",
+    width: '100%',
   },
   image: {
-    width: "100px",
-    height: "auto",
-    [theme.breakpoints.down("sm")]: {
-      width: "20vw",
-      height: "auto",
+    width: '100px',
+    height: 'auto',
+    [theme.breakpoints.down('sm')]: {
+      width: '20vw',
+      height: 'auto',
     },
   },
 }));
@@ -61,26 +61,26 @@ const HowitworksScheme = () => {
 const howitworksPoints = [
   {
     id: 1,
-    header: "Investor",
-    text: "The Investor deposits and buys a product.",
+    header: 'Investor',
+    text: 'The Investor deposits and buys a product.',
   },
   {
     id: 2,
-    header: "Defima Pool",
+    header: 'Defima Pool',
     text:
-      "Every Investor is a small part of the Defima pool. With this pool, we are able to get the best profits in the market.",
+      'Every Investor is a small part of the Defima pool. With this pool, we are able to get the best profits in the market.',
   },
   {
     id: 3,
-    header: "Defima Oracle",
+    header: 'Defima Oracle',
     text:
-      "Together with Artificial Intelligence, our finance experts invest in safe and highly profitable investment opportunities in the DeFi market.",
+      'Together with Artificial Intelligence, our finance experts invest in safe and highly profitable investment opportunities in the DeFi market.',
   },
   {
     id: 4,
-    header: "DeFi Markets",
+    header: 'DeFi Markets',
     text:
-      "We close the positions and collect all profits from the DeFi markets every week. We pay all our investors and keep a small amount as a backup in the Defima pool.",
+      'We close the positions and collect all profits from the DeFi markets every week. We pay all our investors and keep a small amount as a backup in the Defima pool.',
   },
 ];
 
@@ -98,8 +98,8 @@ function HowitworksPoints(props) {
         >
           <Grid item align="center" xs={6}>
             <img
-              src={"img/howitworks-icon-" + item.id + ".png"}
-              alt={"howitworks-icon-" + item.id}
+              src={'img/howitworks-icon-' + item.id + '.png'}
+              alt={'howitworks-icon-' + item.id}
               className={classes.image}
             />
           </Grid>
