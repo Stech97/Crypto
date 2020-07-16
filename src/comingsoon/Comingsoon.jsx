@@ -1,38 +1,21 @@
-import React, { Component } from 'react';
-//import '../styles/comingsoon.scss'
-import { connect } from 'react-redux';
-import ComingSoonForm from './components/ComingsoonForm';
+import React, { Component } from "react";
+import FluidContainer from "./Content";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { createMuiTheme } from "@material-ui/core/styles";
+import ThemeProvider from "@material-ui/styles/ThemeProvider";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import ComingSoonForm from "./components/ComingsoonForm";
 
-import { makeStyles } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { Grid } from '@material-ui/core';
-import { SvgIcon } from '@material-ui/core';
-import { Icon } from '@material-ui/core';
-import { Container } from '@material-ui/core';
-import { Box } from '@material-ui/core';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-export const darkBlue = '#123273';
-export const gradient = 'linear-gradient(50deg, #123273 0%, #005c9f 100%)';
-export const grayText = '#838383';
-export const grayBack = '#efefef';
-export const orange = '#ed7102';
-export const lightBlue = '#16428d';
-export const whitebox = '#efefef';
-export const contentBack = '#f5fbff';
+const darkBlue = "#123273";
+const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
+const grayText = "#838383";
+const grayBack = "#efefef";
+const orange = "#ed7102";
+const lightBlue = "#16428d";
+const whitebox = "#efefef";
+const contentBack = "#f5fbff";
 
 const theme = createMuiTheme({
   palette: {
@@ -42,151 +25,146 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: darkBlue,
-      contrastText: '#ffffff',
+      contrastText: "#ffffff",
     },
     warning: {
-      main: '#fff',
+      main: "#fff",
       dark: orange,
     },
   },
   typography: {
-    fontFamily: ['IBM Plex Sans'],
+    fontFamily: ["IBM Plex Sans"],
     h1: {
       margin: 0,
       lineHeight: 1.3,
-      letterSpacing: 'normal',
-      textAlign: 'left',
-      color: '#ffffff',
-      fontSize: '2rem',
+      letterSpacing: "normal",
+      textAlign: "left",
+      color: "#ffffff",
+      fontSize: "2rem",
       fontWeight: 600,
-      fontStyle: 'normal',
+      fontStyle: "normal",
     },
 
     h2: {
       margin: 0,
       lineHeight: 1.3,
-      letterSpacing: 'normal',
-      textAlign: 'left',
-      color: '#005c9f',
-      fontSize: '1.75rem',
+      letterSpacing: "normal",
+      textAlign: "left",
+      color: "#005c9f",
+      fontSize: "1.75rem",
       fontWeight: 600,
-      fontStyle: 'normal',
+      fontStyle: "normal",
     },
 
     h3: {
       margin: 0,
       lineHeight: 1.3,
-      letterSpacing: 'normal',
-      textAlign: 'left',
-      color: '#005c9f',
-      fontSize: '1.5rem',
+      letterSpacing: "normal",
+      textAlign: "left",
+      color: "#005c9f",
+      fontSize: "1.5rem",
       fontWeight: 400,
-      fontStretch: 'normal',
-      fontStyle: 'italic',
+      fontStretch: "normal",
+      fontStyle: "italic",
     },
 
     h4: {
       margin: 0,
       lineHeight: 1.3,
-      letterSpacing: 'normal',
-      textAlign: 'left',
-      color: '#005c9f',
-      fontSize: '1.0rem',
+      letterSpacing: "normal",
+      textAlign: "left",
+      color: "#005c9f",
+      fontSize: "1.0rem",
       fontWeight: 600,
-      fontStretch: 'normal',
+      fontStretch: "normal",
     },
 
     body1: {
-      fontSize: '1.0rem',
-      fontStretch: 'normal',
-      fontStyle: 'normal',
+      fontSize: "1.0rem",
+      fontStretch: "normal",
+      fontStyle: "normal",
       lineHeight: 1.32,
-      letterSpacing: 'normal',
-      textAlign: 'left',
-      color: '#838383',
+      letterSpacing: "normal",
+      textAlign: "left",
+      color: "#838383",
     },
   },
 });
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    justifyContent: "center",
+  },
+}));
+
 const ComingSoonLogo = () => {
   return (
-    <div className="comingsoon-logobox" style={{ width: '100%' }}>
+    <div className="comingsoon-logobox" style={{ width: "100%" }}>
       <img src="img/defimaLogo.png" alt="defimaLogo" />
     </div>
   );
 };
 
-class ComingSoon extends Component {
-  render() {
-    const { ComingSoon } = this.props;
-    return (
-      <ThemeProvider theme={theme}>
-        <Container
-          maxWidth="xl"
-          style={{
-            backgroundColor: darkBlue,
-            height: '100%',
-            borderBottomLeftRadius: '9.375rem',
-            border: 'none',
-          }}
+function ComingSoon(props) {
+  const classes = useStyles();
+  const { ComingSoon } = props;
+  return (
+    <ThemeProvider theme={theme}>
+      <FluidContainer>
+        <Grid
+          xs={12}
+          container
+          alignContent="space-around"
+          direction="row"
+          item
+          className={classes.container}
         >
-          <Container maxWidth="lg">
-            <section className="comingsoon">
-              <div className="comingsoon-wrapper">
-                <div className="comingsoon-grid-container">
-                  <Container>
-                    <ComingSoonLogo />
-                  </Container>
-                  <Typography
-                    variant="h2"
-                    component="h2"
-                    style={{ color: '#ffffff' }}
-                  >
-                    We Will Launch Soon.
-                  </Typography>
-                  <div
-                    className={
-                      ComingSoon.visibility ? 'comingsoon-h2-box' : 'none'
-                    }
-                  >
-                    <Typography
-                      variant="body1"
-                      component="p"
-                      style={{ color: '#ffffff' }}
-                    >
-                      Subscribe to get notification as soon as we launch
-                    </Typography>
-                  </div>
-                  <ComingSoonForm
-                    updateView={ComingSoon.updateView}
-                    sendError={ComingSoon.visibility}
-                    placeholder={ComingSoon.placeholder}
-                  />
-                  <div
-                    className={
-                      !ComingSoon.visibility ? 'comingsoon-thanks-box' : 'none'
-                    }
-                  >
-                    <Typography
-                      variant="body1"
-                      component="p"
-                      style={{ color: '#ffffff' }}
-                    >
-                      Thank you for your subscription.
-                    </Typography>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </Container>
-        </Container>
-      </ThemeProvider>
-    );
-  }
+          <Grid xs={12} justify="center" container item>
+            <img src="img/defimaLogo.png" alt="defimaLogo" />
+          </Grid>
+          <Grid
+            xs={12}
+            direction="column"
+            alignContent="center"
+            justify="space-around"
+            container
+            item
+          >
+            <Typography
+              align="center"
+              variant="h2"
+              component="h2"
+              style={{ color: "#ffffff" }}
+              paragraph
+            >
+              We Will Launch Soon.
+            </Typography>
+            <Typography
+              align="center"
+              variant="body1"
+              component="p"
+              style={{ color: "#ffffff" }}
+              paragraph
+            >
+              {ComingSoon.visibility
+                ? "Subscribe to get notification as soon as we launch"
+                : "Thank you for your subscription."}
+            </Typography>
+            {ComingSoon.visibility && (
+              <ComingSoonForm
+                updateView={ComingSoon.updateView}
+                sendError={ComingSoon.visibility}
+                placeholder={ComingSoon.placeholder}
+              />
+            )}
+          </Grid>
+        </Grid>
+      </FluidContainer>
+    </ThemeProvider>
+  );
 }
 
 const mapStateToProps = (store) => {
-  console.log(store);
   return {
     ComingSoon: store.ComingSoon,
   };
@@ -194,7 +172,7 @@ const mapStateToProps = (store) => {
 /*
 const mapDispatchToProps = dispatch => {
   return {
-  	updateView: email => dispatch(updateView(email)),
+    updateView: email => dispatch(updateView(email)),
   }
 }
 */

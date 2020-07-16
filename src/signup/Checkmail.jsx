@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import { createMuiTheme } from "@material-ui/core/styles";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
 const darkBlue = "#123273";
 const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
