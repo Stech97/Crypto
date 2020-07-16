@@ -7,7 +7,7 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
 	<Provider store={store}>
-		<App styles={{ minHeight: "100%" }} />
+		<App styles={{ minHeight: "100%", overflowX: "hidden" }} />
 	</Provider>,
 	document.getElementById("root")
 );

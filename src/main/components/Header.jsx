@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: "center",
 		width: "100vw",
 		left: 0,
+		overflowX: "hidden",
 	},
 	logo: {
 		justifySelf: "flex-start",

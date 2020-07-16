@@ -245,7 +245,7 @@ function FooterNav() {
 function Footer() {
 	const classes = useStyles();
 	return (
-		<FluidContainer background="#0b1f48" radius="0 0 75px 0">
+		<FluidContainer background="#0b1f48" radius="0 75px 0 0">
 			<Grid container spacing={3} xs={12}>
 				<Grid justify="center" item container xs={12} md={3}>
 					<img

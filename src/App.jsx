@@ -10,6 +10,7 @@ import { store } from "./store/configureStore";
 import RouteWithSubRoutes from "./Routes";
 import { routes } from "./config";
 import { Helmet } from "react-helmet";
+import "./styles/common/main/global.scss";
 
 // Create an enhanced history that syncs navigation events with the store
 
