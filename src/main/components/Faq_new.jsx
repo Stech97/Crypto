@@ -71,6 +71,7 @@ const OrangeButton = withStyles({
     borderRadius: "30px",
     paddingLeft: "1rem",
     paddingRight: "1rem",
+    textTransform: "none",
     "&:hover": {
       color: "#fff",
       backgroundColor: orange,

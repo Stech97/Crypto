@@ -16,6 +16,7 @@ const OrangeButton = withStyles({
     borderRadius: "30px",
     paddingLeft: "3rem",
     paddingRight: "3rem",
+    textTransform: "none",
     "&:hover": {
       color: "#fff",
       backgroundColor: "transparent",
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
     alignContent: "center",
     minHeight: "100vh",
-    paddingTop: "150px",
+    marginTop: "-75px",
     paddingBottom: "75px",
     "&>div": {
       alignContent: "center",

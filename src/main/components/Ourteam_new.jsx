@@ -11,6 +11,8 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import IconButton from "@material-ui/core/IconButton";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper.scss";
 
 const darkBlue = "#123273";
 const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
@@ -24,7 +26,7 @@ const contentBack = "#f5fbff";
 const useStyles = makeStyles((theme) => ({
   card: {
     boxShadow: "none",
-    background: "#fff",
+    background: "transparent",
     borderRadius: "1.25rem",
     height: "100%",
     width: "20.125rem",
@@ -51,6 +53,35 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    "& a": {
+      borderTop: "2px solid #ebebeb",
+    },
+  },
+  desktop: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  carousel: {
+    display: "none",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      justifyContent: "center",
+    },
+  },
+  media: {
+    [theme.breakpoints.down("sm")]: {
+      width: "33vw",
+      height: "33vw",
+      display: "flex",
+      margin: "10px auto",
+    },
+  },
+  slide: {
+    background: "transparent",
+  },
+  button: {
+    borderRadius: "0",
   },
 }));
 
@@ -120,16 +151,18 @@ function OurteamMemberCard(props) {
           align="center"
           variant="body1"
           component="p"
+          paragraph
         >
           {item.name}
         </Typography>
-        <Typography align="center" variant="body1" component="p">
+        <Typography paragraph align="center" variant="body1" component="p">
           {item.post}
         </Typography>
         <IconButton
           component="a"
           href="https://www.linkedin.com/"
           aria-label="linkedin"
+          className={classes.button}
         >
           <LinkedIcon />
         </IconButton>
@@ -139,22 +172,53 @@ function OurteamMemberCard(props) {
 }
 
 function OurteamMember(props) {
-  const Members = () =>
-    props.data.map(function (item) {
-      return <OurteamMemberCard item={item} />;
-    });
+  const classes = useStyles();
 
-  return <Members />;
+  return (
+    <Fragment>
+      <Grid
+        className={classes.desktop}
+        item
+        container
+        justify="space-around"
+        spacing={3}
+        xs={12}
+      >
+        {props.data.map((item, i) => (
+          <OurteamMemberCard key={i} item={item} />
+        ))}
+      </Grid>
+      <Swiper
+        className={classes.carousel}
+        slidesPerView={1}
+        scrollbar={{ draggable: true }}
+        slideClass={classes.slide}
+      >
+        {props.data.map((item, i) => (
+          <SwiperSlide key={i} className={classes.slide}>
+            <Grid
+              className={classes.mobile}
+              item
+              container
+              justify="space-around"
+              spacing={3}
+              xs={12}
+            >
+              <OurteamMemberCard item={item} />
+            </Grid>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </Fragment>
+  );
 }
 
 function Ourteam() {
   return (
-    <FluidContainer background="linear-gradient(0deg, #ed7102 100%, #ed7102 100%) left center/ 100% 30% no-repeat, #fff">
+    <FluidContainer background="linear-gradient(0deg, #ed7102 100%, #ed7102 100%) left center/ 100% 20% no-repeat, #fff">
       <Grid container spacing={3} xs={12}>
         <OurteamHeader />
-        <Grid item container justify="space-around" spacing={3} xs={12}>
-          <OurteamMember data={ourteamMembers} />
-        </Grid>
+        <OurteamMember data={ourteamMembers} />
       </Grid>
     </FluidContainer>
   );

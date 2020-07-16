@@ -23,6 +23,7 @@ const OrangeButton = withStyles({
 		borderRadius: "30px",
 		paddingLeft: "1rem",
 		paddingRight: "1rem",
+		textTransform: "none",
 		"&:hover": {
 			color: "#fff",
 			backgroundColor: orange,
@@ -97,7 +98,7 @@ function Header(props) {
 	};
 
 	return (
-		<AppBar className={classes.header} position="static">
+		<AppBar className={classes.header} position="relative">
 			<CssBaseline />
 			<Toolbar>
 				<Grid justify="space-between" container xs={12}>
@@ -155,16 +156,16 @@ function Header(props) {
 							horizontal: "right",
 						}}
 					>
-						<MenuItem>
+						<MenuItem className={classes.link}>
 							<HashLink to={"/main#OurMission"}>About</HashLink>
 						</MenuItem>
-						<MenuItem>
+						<MenuItem className={classes.link}>
 							<HashLink to={"/main#Team"}>Team</HashLink>
 						</MenuItem>
-						<MenuItem>
+						<MenuItem className={classes.link}>
 							<a href="https://members.com/">Blog</a>
 						</MenuItem>
-						<MenuItem>
+						<MenuItem className={classes.link}>
 							<Link to={"/login"}>Login</Link>
 						</MenuItem>
 						<MenuItem>

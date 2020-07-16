@@ -21,6 +21,7 @@ const BlueButton = withStyles({
     borderRadius: "30px",
     paddingLeft: "1rem",
     paddingRight: "1rem",
+    textTransform: "none",
     "&:hover": {
       color: orange,
       borderColor: orange,

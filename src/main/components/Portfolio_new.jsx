@@ -8,6 +8,8 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper.scss";
 
 const darkBlue = "#123273";
 const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
@@ -57,11 +59,22 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   box: {
+    display: "flex",
     justifyContent: "space-around",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
   header: {
     "&>*": {
       color: "#ffffff",
+    },
+  },
+  carousel: {
+    display: "none",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      justifyContent: "center",
     },
   },
 }));
@@ -144,11 +157,38 @@ function Invest(props) {
 }
 
 function PortfolioProduct(props) {
-  const Product = () =>
-    props.data.map((item) => {
-      return <Invest item={item} />;
-    });
-  return <Product />;
+  const classes = useStyles();
+  return (
+    <Fragment>
+      <Grid
+        className={classes.box}
+        justify="center"
+        spacing={2}
+        item
+        container
+        xs={12}
+      >
+        {props.data.map((item, i) => (
+          <Invest item={item} key={i} />
+        ))}
+      </Grid>
+      <Swiper
+        className={classes.carousel}
+        slidesPerView={1}
+        scrollbar={{ draggable: true }}
+        pagination={{
+          el: ".swiper-pagination",
+          type: "bullets",
+        }}
+      >
+        {props.data.map((item, i) => (
+          <SwiperSlide key={i} className={classes.slide}>
+            <Invest item={item} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </Fragment>
+  );
 }
 
 function Portfolio() {
@@ -170,16 +210,8 @@ function Portfolio() {
         >
           <PortfolioHeader />
         </Grid>
-        <Grid
-          className={classes.box}
-          justify="center"
-          spacing={2}
-          item
-          container
-          xs={12}
-        >
-          <PortfolioProduct data={portfolioProducts} />
-        </Grid>
+
+        <PortfolioProduct data={portfolioProducts} />
       </Grid>
     </FluidContainer>
   );

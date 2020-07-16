@@ -106,6 +106,11 @@ const useStyles = makeStyles((theme) => ({
   margins: {
     alignContent: "space-evenly",
   },
+  desktop: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
 }));
 
 const JoinusHeader = () => {
