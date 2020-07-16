@@ -1,48 +1,33 @@
-import React, { Component } from 'react';
+import React, { Fragment } from "react";
+import FluidContainer from "../Content";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 
-import { makeStyles } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { Grid } from '@material-ui/core';
-import { SvgIcon } from '@material-ui/core';
-import { Icon } from '@material-ui/core';
-import { Container } from '@material-ui/core';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-export const darkBlue = '#123273';
-export const gradient = 'linear-gradient(50deg, #123273 0%, #005c9f 100%)';
-export const grayText = '#838383';
-export const grayBack = '#efefef';
-export const orange = '#ed7102';
-export const lightBlue = '#16428d';
-export const whitebox = '#efefef';
-export const contentBack = '#f5fbff';
+const darkBlue = "#123273";
+const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
+const grayText = "#838383";
+const grayBack = "#efefef";
+const orange = "#ed7102";
+const lightBlue = "#16428d";
+const whitebox = "#efefef";
+const contentBack = "#f5fbff";
 
 const useStyles = makeStyles((theme) => ({
   scheme: {
-    width: '100%',
-    marginLeft: '-25%',
+    width: "100%",
+    marginLeft: "-25%",
   },
   defima_text: {
-    width: '74.86%',
-    fontFamily: 'IBM Plex Sans',
+    width: "74.86%",
+    fontFamily: "IBM Plex Sans",
     fontWeight: 400,
-    fontStretch: 'normal',
-    fontStyle: 'normal',
+    fontStretch: "normal",
+    fontStyle: "normal",
     lineHeight: 1.3,
-    letterSpacing: 'normal',
-    textAlign: 'left',
-    color: '#fff',
+    letterSpacing: "normal",
+    textAlign: "left",
+    color: "#fff",
   },
 }));
 
@@ -50,14 +35,12 @@ const DefimaTokenImage = () => {
   const classes = useStyles();
   return (
     <Grid item xs={12}>
-      <div className="defimatoken-image">
-        <img
-          src="img/defimacoin.png"
-          srcSet="img/defimacoin@2x.png 2x, img/defimacoin@3x.png 3x"
-          alt="defima coin"
-          className={classes.scheme}
-        />
-      </div>
+      <img
+        src="img/defimacoin.png"
+        srcSet="img/defimacoin@2x.png 2x, img/defimacoin@3x.png 3x"
+        alt="defima coin"
+        className={classes.scheme}
+      />
     </Grid>
   );
 };
@@ -66,7 +49,7 @@ const DefimaTokenHeader = () => {
   return (
     <Grid container direction="row">
       <Grid item xs={12}>
-        <Typography variant="h2" component="h2" style={{ color: '#ffffff' }}>
+        <Typography variant="h2" component="h2" style={{ color: "#ffffff" }}>
           Defima Token
         </Typography>
       </Grid>
@@ -130,41 +113,25 @@ const DefimaTokenText = () => {
   );
 };
 
-class DefimaToken extends Component {
-  render() {
-    return (
-      <Container
-        maxWidth="xl"
-        style={{
-          backgroundColor: darkBlue,
-          height: '100%',
-          borderTopRightRadius: '9.375rem',
-          border: 'none',
-        }}
-      >
-        <Container maxWidth="lg">
-          <section className="defimatoken">
-            <div className="defimatoken-wrapper">
-              <Grid container direction="row" spacing={6}>
-                <Grid item xs={12} md={6}>
-                  <DefimaTokenImage />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <Grid container direction="row" spacing={6}>
-                    <Grid item xs={12} md={6}>
-                      <DefimaTokenHeader />
-                    </Grid>
-                    <Grid item xs={12} md={6}></Grid>
-                    <DefimaTokenText />
-                  </Grid>
-                </Grid>
-              </Grid>
-            </div>
-          </section>
-        </Container>
-      </Container>
-    );
-  }
+function DefimaToken() {
+  const classes = useStyles();
+  return (
+    <FluidContainer
+      background="url(/img/worldmap2.png) center left/ 100% auto no-repeat, linear-gradient(97deg, #001029 -39%, #235fc8 76%) left top no-repeat"
+      radius="75px 0 75px 0"
+      zIndex="20"
+    >
+      <Grid container spacing={3} xs={12}>
+        <Grid className={classes.box} spacing={2} item container xs={12} sm={6}>
+          <DefimaTokenImage />
+        </Grid>
+        <Grid className={classes.box} spacing={2} item container xs={12} sm={6}>
+          <DefimaTokenHeader />
+          <DefimaTokenText />
+        </Grid>
+      </Grid>
+    </FluidContainer>
+  );
 }
 
 export default DefimaToken;

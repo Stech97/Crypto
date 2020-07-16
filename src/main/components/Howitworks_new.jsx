@@ -121,7 +121,7 @@ function HowitworksPoints(props) {
 function Howitworks() {
   const classes = useStyles();
   return (
-    <FluidContainer background="#f5fbff" radius="75px 0 75px 0" zIndex="5">
+    <FluidContainer background="#f5fbff" radius="75px 0 75px 0" zIndex="20">
       <Grid container spacing={3} xs={12}>
         <Grid className={classes.box} spacing={2} item container xs={12} sm={6}>
           <HowitworksHeader />

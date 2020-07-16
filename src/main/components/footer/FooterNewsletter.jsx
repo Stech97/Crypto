@@ -2,37 +2,42 @@ import React, { Component } from "react";
 import FooterForm from "./FooterForm";
 import { connect } from "react-redux";
 import { footerForm } from "../../actions/FooterForm";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 
-class FooterNewsletter extends Component {
-	render() {
-		const { footerForm } = this.props;
-		return (
-			<div className="footer-newsletter">
-				<div className="footer-newsletter-header">
-					<h2>Newsletter</h2>
-				</div>
-				<FooterForm
-					placeholder="maxmutter@hotmail.com"
-					visibility={footerForm.error.type === "done"}
-					data={footerForm}
-					sendAction={(email) => this.props.footerFormAction(email)}
-				/>
-				<div
-					className={
-						footerForm.error.type === "done"
-							? "footer-newsletter-thanks"
-							: "none"
-					}
-				>
-					<h3>Thank you for your subscription!</h3>
-				</div>
-			</div>
-		);
-	}
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+	header: {
+		color: "#fff",
+		fontWeight: "500",
+	},
+}));
+
+function FooterNewsletter(props) {
+	const classes = useStyles();
+	const { footerForm } = props;
+	return (
+		<Grid justify="flex-start" item container xs={12} md={3}>
+			<Typography className={classes.header} variant="h5">
+				Newsletter
+			</Typography>
+			<FooterForm
+				placeholder="maxmutter@hotmail.com"
+				visibility={footerForm.error.type === "done"}
+				data={footerForm}
+				sendAction={props.footerFormAction}
+			/>
+			{footerForm.error.type === "done" && (
+				<Typography className={classes.header} variant="h5">
+					Thank you for your subscription
+				</Typography>
+			)}
+		</Grid>
+	);
 }
 
 const mapStateToProps = (store) => {
-	console.log(store);
 	return {
 		footerForm: store.footerForm,
 	};
