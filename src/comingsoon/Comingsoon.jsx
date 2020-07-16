@@ -95,15 +95,12 @@ const useStyles = makeStyles((theme) => ({
   container: {
     justifyContent: "center",
   },
+  logo: {
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
+  },
 }));
-
-const ComingSoonLogo = () => {
-  return (
-    <div className="comingsoon-logobox" style={{ width: "100%" }}>
-      <img src="img/defimaLogo.png" alt="defimaLogo" />
-    </div>
-  );
-};
 
 function ComingSoon(props) {
   const classes = useStyles();
@@ -120,36 +117,43 @@ function ComingSoon(props) {
           className={classes.container}
         >
           <Grid xs={12} justify="center" container item>
-            <img src="img/defimaLogo.png" alt="defimaLogo" />
+            <img
+              className={classes.logo}
+              src="img/defimaLogo.png"
+              alt="defimaLogo"
+            />
           </Grid>
           <Grid
             xs={12}
-            direction="column"
-            alignContent="center"
-            justify="space-around"
+            alignContent="space-around"
+            justify="center"
             container
             item
           >
-            <Typography
-              align="center"
-              variant="h2"
-              component="h2"
-              style={{ color: "#ffffff" }}
-              paragraph
-            >
-              We Will Launch Soon.
-            </Typography>
-            <Typography
-              align="center"
-              variant="body1"
-              component="p"
-              style={{ color: "#ffffff" }}
-              paragraph
-            >
-              {ComingSoon.visibility
-                ? "Subscribe to get notification as soon as we launch"
-                : "Thank you for your subscription."}
-            </Typography>
+            <Grid xs={12} justify="center" container item>
+              <Typography
+                align="center"
+                variant="h2"
+                component="h2"
+                style={{ color: "#ffffff" }}
+                paragraph
+              >
+                We Will Launch Soon.
+              </Typography>
+            </Grid>
+            <Grid xs={12} justify="center" container item>
+              <Typography
+                align="center"
+                variant="body1"
+                component="p"
+                style={{ color: "#ffffff" }}
+                paragraph
+              >
+                {ComingSoon.visibility
+                  ? "Subscribe to get notification as soon as we launch"
+                  : "Thank you for your subscription."}
+              </Typography>
+            </Grid>
             {ComingSoon.visibility && (
               <ComingSoonForm
                 updateView={ComingSoon.updateView}
