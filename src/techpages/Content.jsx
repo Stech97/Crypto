@@ -4,14 +4,13 @@ import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
   fluid: {
-    background:
-      'url(./img/waveimage.png) center center / 70% auto no-repeat, linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat',
+    background: '#fff',
   },
   container: {
     display: 'flex',
     justifyContent: 'center',
     minHeight: '100vh',
-    paddingTop: '150px',
+    paddingTop: '100px',
     paddingBottom: '75px',
   },
 }));

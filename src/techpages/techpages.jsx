@@ -7,6 +7,7 @@ import { ThemeProvider } from '@material-ui/core';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
+import FluidContainer from './Content';
 
 export const darkBlue = '#123273';
 export const gradient = 'linear-gradient(50deg, #123273 0%, #005c9f 100%)';
@@ -97,9 +98,11 @@ class TermsAndConditions extends Component {
       <Fragment>
         <ThemeProvider theme={theme}>
           <Header />
-          <section className="terms-content">
-            <TermsAndConditionsContent />
-          </section>
+          <FluidContainer>
+            <section className="terms-content">
+              <TermsAndConditionsContent />
+            </section>
+          </FluidContainer>
           <Footer />
         </ThemeProvider>
       </Fragment>
