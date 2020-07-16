@@ -1,6 +1,23 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
+import { withStyles } from "@material-ui/core/styles";
+
+const orange = "#ed7102";
+
+const CustomField = withStyles({
+  root: {
+    "& .MuiInput-underline": {
+      color: "#fff",
+      "&:before": {
+        borderBottomColor: "#fff",
+      },
+      "&:hover:not(.Mui-disabled):before": {
+        borderBottomColor: orange,
+      },
+    },
+  },
+})(TextField);
 
 export default function inputField({
   input,
@@ -11,7 +28,7 @@ export default function inputField({
 }) {
   return (
     <Grid item xs={12} justify="center">
-      <TextField
+      <CustomField
         type={type}
         fullWidth
         className={classes.input}

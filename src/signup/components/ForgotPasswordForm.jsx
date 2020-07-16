@@ -2,6 +2,13 @@ import React, { Component, Fragment } from "react";
 import { getFormValues, reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
 import { forgotPassword } from "../actions/forgotpassword";
+import Grid from "@material-ui/core/Grid";
+import Alert from "@material-ui/lab/Alert";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import inputField from "../inputField";
+
 import {
 	aol,
 	required,
@@ -11,111 +18,110 @@ import {
 	validateUsername,
 } from "./SignupForm";
 
-const textField = ({
-	input,
-	placeholder,
-	className,
-	type,
-	meta: { touched, error, warning },
-}) => {
-	return (
-		<div className={className}>
-			<input {...input} type={type} placeholder={placeholder} />
-			{touched &&
-				((error && (
-					<p className="error">
-						<i class="fas fa-exclamation-circle"></i>
-						{" " + error}
-					</p>
-				)) ||
-					(warning && (
-						<p className="error">
-							<i class="fas fa-exclamation-circle"></i>
-							{" " + warning}
-						</p>
-					)))}
-		</div>
-	);
-};
+const orange = "#ed7102";
 
-class ForgotPasswordForm extends Component {
-	render() {
-		const {
-			handleSubmit,
-			reset,
-			pristine,
-			submitting,
-			forgot,
-			error,
-			invalid,
-			hasErrors,
-		} = this.props;
+const OrangeButton = withStyles({
+	root: {
+		color: orange,
+		backgroundColor: "#fff",
+		border: "3px solid " + orange,
+		borderRadius: "30px",
+		paddingLeft: "1rem",
+		paddingRight: "1rem",
+		"&:hover": {
+			color: "#fff",
+			backgroundColor: orange,
+		},
+		"&[disabled]": {
+			borderColor: "#838383",
+		},
+	},
+})(Button);
 
-		const submit = (values) => {
-			this.props.forgotPasswordAction({
-				username: values.username,
-				email: values.email,
-			});
-		};
+const useStyles = makeStyles((theme) => ({
+	input: {
+		background: "transparent",
+		height: "4rem",
+		alignContent: "center",
+	},
+}));
 
-		if (this.props.forgot.error.type === "done") {
-			return (
-				<h2 className="login-wrapper-header">
-					Request has been sent succesfully
-				</h2>
-			);
-		} else {
-			return (
-				<form className="login-form" onSubmit={handleSubmit(submit)}>
-					<Field
-						component={textField}
-						name="username"
-						className="login-form-user"
-						type="text"
-						placeholder="Username"
-						validate={[
-							required,
-							maxLength25,
-							minLength3,
-							validateUsername,
-						]}
-					/>
-					<Field
-						component={textField}
-						name="email"
-						className="login-form-password"
-						type="email"
-						placeholder="Email"
-						validate={[required, email]}
-						warn={aol}
-					/>
-					<div className="login-form-button">
-						<button
-							type="submit"
-							disabled={
-								(invalid, hasErrors || pristine || submitting)
-							}
-						>
-							{submitting || forgot.isFetching
-								? "Loading..."
-								: "Restore"}
-						</button>
-						{forgot.error.type && (
-							<p className="error">
-								<i class="fas fa-exclamation-circle"></i>
-								{" " + forgot.error.message}
-							</p>
-						)}
-						{error && (
-							<p className="error">
-								<i class="fas fa-exclamation-circle"></i>
-								{" " + error}
-							</p>
-						)}
-					</div>
-				</form>
-			);
-		}
+function ForgotPasswordForm(props) {
+	const classes = useStyles();
+	const {
+		handleSubmit,
+		reset,
+		pristine,
+		submitting,
+		forgot,
+		error,
+		invalid,
+		hasErrors,
+	} = props;
+
+	const submit = (values) => {
+		props.forgotPasswordAction({
+			username: values.username,
+			email: values.email,
+		});
+	};
+
+	if (props.forgot.error.type === "done") {
+		return (
+			<Typography align="center" variant="h1">
+				Request has been sent succesfully
+			</Typography>
+		);
+	} else {
+		return (
+			<Grid
+				component="form"
+				xs={12}
+				item
+				container
+				justify="center"
+				onSubmit={handleSubmit(submit)}
+			>
+				<Field
+					component={inputField}
+					name="username"
+					type="text"
+					classes={classes}
+					placeholder="Username"
+					validate={[
+						required,
+						maxLength25,
+						minLength3,
+						validateUsername,
+					]}
+				/>
+				<Field
+					component={inputField}
+					name="email"
+					type="email"
+					classes={classes}
+					placeholder="Email"
+					validate={[required, email]}
+					warn={aol}
+				/>
+				<OrangeButton
+					type="submit"
+					disabled={(invalid, hasErrors || pristine || submitting)}
+				>
+					{submitting || forgot.isFetching ? "Loading..." : "Restore"}
+				</OrangeButton>
+				{forgot.error.type && (
+					<Alert variant="filled" severity="error">
+						{forgot.error.message}
+					</Alert>
+				)}
+				{error && (
+					<Alert variant="filled" severity="error">
+						{error}
+					</Alert>
+				)}
+			</Grid>
+		);
 	}
 }
 
@@ -135,5 +141,5 @@ ForgotPasswordForm = connect(
 )(ForgotPasswordForm);
 
 export default reduxForm({
-	form: "ForgotPassword", // a unique identifier for this form
+	form: "ForgotPassword", // a unique identifier for form
 })(ForgotPasswordForm);

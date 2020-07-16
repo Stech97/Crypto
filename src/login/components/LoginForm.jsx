@@ -22,9 +22,6 @@ const useStyles = makeStyles((theme) => ({
     background: "transparent",
     height: "4rem",
     alignContent: "center",
-    "& input": {
-      color: "#fff",
-    },
   },
 }));
 

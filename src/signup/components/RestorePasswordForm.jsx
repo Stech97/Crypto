@@ -3,6 +3,12 @@ import { Redirect } from "react-router-dom";
 import { restorePassword } from "../actions/restorepassword";
 import { SubmissionError, reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
+import Grid from "@material-ui/core/Grid";
+import Alert from "@material-ui/lab/Alert";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import inputField from "../inputField";
 import {
 	required,
 	maxLength25,
@@ -10,119 +16,118 @@ import {
 	validatePassword,
 } from "./SignupForm";
 
-const textField = ({
-	input,
-	placeholder,
-	className,
-	type,
-	meta: { touched, error, warning },
-}) => {
-	return (
-		<div className={className}>
-			<input {...input} type={type} placeholder={placeholder} />
-			{touched &&
-				((error && (
-					<p className="error">
-						<i class="fas fa-exclamation-circle"></i>
-						{" " + error}
-					</p>
-				)) ||
-					(warning && (
-						<p className="error">
-							<i class="fas fa-exclamation-circle"></i>
-							{" " + warning}
-						</p>
-					)))}
-		</div>
-	);
-};
+const orange = "#ed7102";
 
-class RestorePasswordForm extends Component {
-	render() {
-		const {
-			handleSubmit,
-			reset,
-			pristine,
-			submitting,
-			hash,
-			forgot,
-			error,
-			invalid,
-			hasErrors,
-		} = this.props;
+const OrangeButton = withStyles({
+	root: {
+		color: orange,
+		backgroundColor: "#fff",
+		border: "3px solid " + orange,
+		borderRadius: "30px",
+		paddingLeft: "1rem",
+		paddingRight: "1rem",
+		"&:hover": {
+			color: "#fff",
+			backgroundColor: orange,
+		},
+		"&[disabled]": {
+			borderColor: "#838383",
+		},
+	},
+})(Button);
 
-		const submit = (values) => {
-			if (values.password !== values.password2) {
-				throw new SubmissionError({
-					password2: "Passwords must match",
-				});
-			}
+const useStyles = makeStyles((theme) => ({
+	input: {
+		background: "transparent",
+		height: "4rem",
+		alignContent: "center",
+	},
+}));
 
-			this.props.restorePasswordAction({
-				hash: hash,
-				password: values.password,
-				password2: values.password2,
+function RestorePasswordForm(props) {
+	const classes = useStyles();
+	const {
+		handleSubmit,
+		reset,
+		pristine,
+		submitting,
+		hash,
+		forgot,
+		error,
+		invalid,
+		hasErrors,
+	} = props;
+
+	const submit = (values) => {
+		if (values.password !== values.password2) {
+			throw new SubmissionError({
+				password2: "Passwords must match",
 			});
-		};
-
-		if (forgot.error.type === "done") {
-			return <Redirect to="/account/dashboard" />;
-		} else {
-			return (
-				<form className="login-form" onSubmit={handleSubmit(submit)}>
-					<Field
-						component={textField}
-						name="password"
-						className="login-form-user"
-						type="password"
-						placeholder="New Password"
-						validate={[
-							required,
-							maxLength25,
-							minLength6,
-							validatePassword,
-						]}
-					/>
-					<Field
-						component={textField}
-						name="password2"
-						className="login-form-password"
-						type="password"
-						placeholder="Repeat New Password"
-						validate={[
-							required,
-							maxLength25,
-							minLength6,
-							validatePassword,
-						]}
-					/>
-					<div className="login-form-button">
-						<button
-							type="submit"
-							disabled={
-								invalid || hasErrors || pristine || submitting
-							}
-						>
-							{submitting || forgot.isFetching
-								? "Loading..."
-								: "Restore"}
-						</button>
-						{forgot.error.type && (
-							<p className="error">
-								<i class="fas fa-exclamation-circle"></i>
-								{" " + forgot.error.message}
-							</p>
-						)}
-						{error && (
-							<p className="error">
-								<i class="fas fa-exclamation-circle"></i>
-								{" " + error}
-							</p>
-						)}
-					</div>
-				</form>
-			);
 		}
+
+		props.restorePasswordAction({
+			hash: hash,
+			password: values.password,
+			password2: values.password2,
+		});
+	};
+
+	if (forgot.error.type === "done") {
+		return <Redirect to="/account/dashboard" />;
+	} else {
+		return (
+			<Grid
+				component="form"
+				xs={12}
+				item
+				container
+				justify="center"
+				onSubmit={handleSubmit(submit)}
+			>
+				<Field
+					component={inputField}
+					name="password"
+					type="password"
+					classes={classes}
+					placeholder="New Password"
+					validate={[
+						required,
+						maxLength25,
+						minLength6,
+						validatePassword,
+					]}
+				/>
+				<Field
+					component={inputField}
+					name="password2"
+					type="password"
+					classes={classes}
+					placeholder="Repeat New Password"
+					validate={[
+						required,
+						maxLength25,
+						minLength6,
+						validatePassword,
+					]}
+				/>
+				<OrangeButton
+					type="submit"
+					disabled={(invalid, hasErrors || pristine || submitting)}
+				>
+					{submitting || forgot.isFetching ? "Loading..." : "Restore"}
+				</OrangeButton>
+				{forgot.error.type && (
+					<Alert variant="filled" severity="error">
+						{forgot.error.message}
+					</Alert>
+				)}
+				{error && (
+					<Alert variant="filled" severity="error">
+						{error}
+					</Alert>
+				)}
+			</Grid>
+		);
 	}
 }
 
@@ -142,5 +147,5 @@ RestorePasswordForm = connect(
 )(RestorePasswordForm);
 
 export default reduxForm({
-	form: "RestorePassword", // a unique identifier for this form
+	form: "RestorePassword", // a unique identifier for form
 })(RestorePasswordForm);

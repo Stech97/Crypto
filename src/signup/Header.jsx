@@ -104,8 +104,8 @@ function Header(props) {
 					<Grid className={classes.logo} item xs={10} md={2}>
 						<Link to="/main">
 							<img
-								src="./img/logo.png"
-								srcSet="./img/logo@2x.png 2x, ./img/logo@3x.png 3x"
+								src="/img/logo.png"
+								srcSet="/img/logo@2x.png 2x, /img/logo@3x.png 3x"
 								alt="Logo"
 								height="50px"
 								width="auto"

@@ -11,7 +11,6 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Input from "@material-ui/core/Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Alert from "@material-ui/lab/Alert";
@@ -135,32 +134,6 @@ const OrangeButton = withStyles({
   },
 })(Button);
 
-const textField = ({
-  input,
-  placeholder,
-  className,
-  type,
-  meta: { asyncValidating, touched, error, warning },
-}) => {
-  return (
-    <div className={"signup-box-error signup-box-" + className}>
-      <input
-        {...input}
-        className={"signup-form signup-form-" + className}
-        type={type}
-        placeholder={placeholder}
-      />
-      {asyncValidating ? (
-        <Loader type="Rings" color="#ffffff" height={50} width={50} />
-      ) : (
-        touched &&
-        ((error && <p className="error">{error}</p>) ||
-          (warning && <p className="error">{warning}</p>))
-      )}
-    </div>
-  );
-};
-
 const checkField = ({
   input,
   classes,
@@ -184,9 +157,6 @@ const useStyles = makeStyles((theme) => ({
     background: "transparent",
     height: "4rem",
     alignContent: "center",
-    "& input": {
-      color: "#fff",
-    },
   },
   checkbox: {
     height: "4rem",
