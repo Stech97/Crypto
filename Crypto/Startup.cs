@@ -1,37 +1,46 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using DBRepository.Interfaces;
-using DBRepository.Repositories;
-using Microsoft.AspNetCore.Http;
-using DBRepository;
-using AutoMapper;
+using Crypto.Helpers;
 using Crypto.Services.Interfaces;
 using Crypto.Services.Implementation;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Crypto.Helpers;
+using DBRepository;
+using DBRepository.Interfaces;
+using DBRepository.Repositories;
+using AutoMapper;
 using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Crypto
 {
     public class Startup
     {
-		public Startup(IConfiguration configuration) => Configuration = configuration;
+
+		public Startup(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
 
 		public IConfiguration Configuration { get; }
+		public IAntiforgery Antiforgery { get; }
 
-        public void ConfigureServices(IServiceCollection services)
+		public void ConfigureServices(IServiceCollection services)
         {
 			services.AddCors(options =>
 			{
-				options.AddPolicy("CorsPolicy",
-					builder => builder.AllowAnyOrigin()
-						.AllowAnyMethod()
-						.AllowAnyHeader());
+				options.AddDefaultPolicy(builder =>
+					builder.SetIsOriginAllowed(_ => true)
+					.AllowAnyMethod()
+					.AllowAnyHeader()
+					.AllowCredentials());
 			});
+
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 					.AddJwtBearer(options =>
 					{
@@ -47,6 +56,8 @@ namespace Crypto
 							ClockSkew = TimeSpan.Zero
 						};
 					});
+
+			services.AddAntiforgery(options => { options.HeaderName = "x-xsrf-token"; });
 
 			services.AddControllers();
 			services.AddAutoMapper();
@@ -85,15 +96,26 @@ namespace Crypto
             #endregion
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAntiforgery  antiforgery)
         {
 			if (env.IsDevelopment())
 				app.UseDeveloperExceptionPage();
-			/*else
+			else
 				app.UseHsts();
 
-			app.UseHttpsRedirection();*/
-			app.UseAuthentication(); 
+			app.UseHttpsRedirection();
+
+			app.UseCookiePolicy(new CookiePolicyOptions
+			{
+				MinimumSameSitePolicy = SameSiteMode.Strict,
+				HttpOnly = HttpOnlyPolicy.Always,
+				Secure = CookieSecurePolicy.Always
+			});
+
+			app.UseSecureJwt(); 
+			app.UseAuthentication();
+			app.UseXsrfProtection(antiforgery);
+
 			app.UseCors("CorsPolicy");
 			app.UseRouting();
 			app.UseAuthorization();

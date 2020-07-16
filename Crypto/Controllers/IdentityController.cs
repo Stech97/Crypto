@@ -11,6 +11,7 @@ using Crypto.Helpers;
 using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -129,13 +130,14 @@ namespace Crypto.Controllers
 				return Unauthorized();
 
 			var now = DateTime.UtcNow;
+			var timeOut = now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME));
 			// создаем JWT-токен
 			var jwt = new JwtSecurityToken(
 					issuer: AuthOptions.ISSUER,
 					audience: AuthOptions.AUDIENCE,
 					notBefore: now,
 					claims: identity.Claims,
-					expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+					expires: timeOut,
 					signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
@@ -153,12 +155,17 @@ namespace Crypto.Controllers
 			UserViewModel response = new UserViewModel
 			{
 				Id = user.Id,
-				Token = encodedJwt,
 				IsVerified = user.IsVerified,
 			};
-			var timeOut = DateTime.Now.AddMinutes(AuthOptions.LIFETIME);
+
 			Helpers.TaskScheduler.Instance.ScheduleTask
 				(timeOut.Hour, timeOut.Minute+5, timeOut.Second, timeOut.Millisecond, 0, () => { _identityService.SignOut(user.Id); });
+
+			HttpContext.Response.Cookies.Append(
+				".AspNetCore.Application.Id",
+				encodedJwt,
+				new CookieOptions { MaxAge = TimeSpan.FromMinutes(AuthOptions.LIFETIME) });
+
 			return Ok(response);
 		}
 
@@ -288,7 +295,6 @@ namespace Crypto.Controllers
 			UserViewModel response = new UserViewModel
 			{
 				Id = user.Id,
-				Token = encodedJwt,
 				IsVerified = user.IsVerified,
 			};
 			var timeOut = DateTime.Now.AddMinutes(AuthOptions.LIFETIME);
