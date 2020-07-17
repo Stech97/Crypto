@@ -26,7 +26,7 @@ const DOMAIN_URL_PROD = "https://defima.io";
 export const DOMAIN_URL = DOMAIN_URL_TEST;
 const API_URL_PROD = "https://back.defima.io/";
 const API_URL_TEST = "http://84.201.132.112/";
-export const API_URL = API_URL_TEST;
+export const API_URL = API_URL_PROD;
 
 const requestTemplate = axios.create({
   baseURL: API_URL,

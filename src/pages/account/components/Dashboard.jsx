@@ -19,6 +19,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import DashInfo from './Dashboard/DashInfo'
 
 import { DataGrid, ToolbarOptions } from 'tubular-react';
 import {
@@ -144,6 +146,7 @@ export default function Dashboard(props) {
   const handleChange = (event) => {
     setPeriod(event.target.value);
   };
+
   return (
     <main
       className={clsx(classes.content, {
@@ -152,128 +155,8 @@ export default function Dashboard(props) {
     >
       <div className={classes.drawerHeader} />
       <Grid container spacing={3}>
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                Added Funds
-              </Typography>
-              <Typography variant="p" component="h2">
-                BTC 1.02
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
+        <DashInfo />
 
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                Invested Ammount
-              </Typography>
-              <Typography variant="p" component="h2">
-                BTC 1.02
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                Registered Users
-              </Typography>
-              <Typography variant="p" component="h2">
-                100500
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                Users with investments
-              </Typography>
-              <Typography variant="p" component="h2">
-                50250
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                Withdrawn amount
-              </Typography>
-              <Typography variant="p" component="h2">
-                BTC 0.521
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                User Balance
-              </Typography>
-              <Typography variant="p" component="h2">
-                BTC 0.521
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                Comission payed to users
-              </Typography>
-              <Typography variant="p" component="h2">
-                DET 100500
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
         <Grid item xs={3}>
           <FormControl variant="filled" className={classes.formControl}>
             <InputLabel id="demo-simple-select-filled-label">Period</InputLabel>
@@ -295,44 +178,37 @@ export default function Dashboard(props) {
           </FormControl>
         </Grid>
 
-        <Grid
+        <Box my={2} component={Grid}
           container
           direction="row"
           justify="space-between"
-          alignItems="baseline"
+          alignItems="center"
         >
-          <Grid item xs={3}>
+          
+          <Box my={2} component={Grid} container item xs={3}>
             <Typography
               className={classes.title}
               variant="h5"
               component="p"
               gutterBottom
             >
-              Withdrawl requests
+              Withdraw requests
             </Typography>
-          </Grid>
-          <Grid item xs={3}>
+          </Box>
+          <Box my={2} component={Grid} container item xs={3}>
             <Button variant="contained" color="secondary">
               Bulk accept
             </Button>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          direction="row"
-          justify="space-evenly"
-          alignItems="center"
-        >
-          <Grid item xs={6}>
+          </Box>
+          <Box my={2} component={Grid} container item xs={12}>
             <SampleGrid />
-          </Grid>
-        </Grid>
-
+          </Box>
+        </Box>
         <Grid
           container
           direction="row"
           justify="space-between"
-          alignItems="baseline"
+          alignItems="center"
         >
           <Grid item xs={3}>
             <Typography
@@ -364,8 +240,8 @@ export default function Dashboard(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows_KYC.map((rows_KYC) => (
-                    <TableRow key={rows_KYC.name}>
+                  {rows_KYC.map((rows_KYC, id) => (
+                    <TableRow key={id}>
                       <TableCell align="right">{rows_KYC.user}</TableCell>
                       <TableCell align="right">{rows_KYC.view}</TableCell>
                       <TableCell align="right">{rows_KYC.decision}</TableCell>

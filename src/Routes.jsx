@@ -47,7 +47,6 @@ const PrivateRoute = ({
         <Route
             path={path}
             render={(props) => {
-                console.log("propsRoutes", props);
                 return <Component {...rest} {...props} routes={routes} />;
             }}
         />
