@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Loader from "react-loader-spinner";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -13,26 +14,37 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Whitebox(props) {
-	const {header, text, data } = props
+	const {header, text, data, isFetching } = props
 	const classes = useStyles()
 
 	return (
 		<Grid item xs={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                variant="h5"
-                component="p"
-                gutterBottom
-              >
-                {header}
-              </Typography>
-              <Typography variant="p" component="h2">
-                {text + data}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
+      <Card className={classes.root}>
+          { isFetching
+            ? <CardContent>
+                <Loader
+                  type="Rings"
+                  color="#F9A732"
+                  height={80}
+                  width={80}
+                />
+              </CardContent>
+            :
+              <CardContent>
+                <Typography
+                  variant="h5"
+                  component="p"
+                  gutterBottom
+                >
+                  {header}
+                </Typography>
+                <Typography variant="p" component="h2">
+                  {text + data}
+                </Typography>
+              </CardContent>
+          }
+      </Card>
+    </Grid>
 	)
 }
 

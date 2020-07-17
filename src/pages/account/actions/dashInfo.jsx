@@ -39,7 +39,6 @@ const DashInfoSuccess = (type, data) => ({
 })
 
 const DashInfoAction = (type, dispatch) => {
-		console.log('type', type)
 		dispatch(DashInfoRequest(type))
 		DashInfoFetch(type).then(res => {
 			if (res.ok) {
