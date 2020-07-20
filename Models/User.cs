@@ -18,6 +18,7 @@ namespace Models
 		public DateTime BDay { get; set; }
 		public string Adress { get; set; }
 		public int Zip { get; set; }
+		public string ErrorDiscard { get; set; }
         #endregion
 
         #region Bool
@@ -28,6 +29,7 @@ namespace Models
 		public bool IsSuper { get; set; }
 		public bool IsShowInfo { get; set; }
 		public bool IsKYC { get; set; }
+		public bool IsDiscard { get; set; }
         #endregion
 
         #region Picture

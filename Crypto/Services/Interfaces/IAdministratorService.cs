@@ -66,6 +66,7 @@ namespace Crypto.Services.Interfaces
         Task AcceptWithdrawal(int UserId);
         Task AcceptAllKYC();
         Task AcceptKYC(int UserId);
+        Task DiscardKYC(DiscardKYCViewModel model);
         #endregion
 
         #region Dev

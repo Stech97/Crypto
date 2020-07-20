@@ -43,22 +43,47 @@ namespace DBRepository.Repositories
 			{
 				var user = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Id);
 
-				var response = new
+				if (user.IsDiscard)
 				{
-					user.Email,
-					user.Phone,
-					user.FirstName,
-					user.LastName,
-					user.BDay,
-					user.Country,
-					user.Adress,
-					user.Zip,
-					user.IsReInvest,
-					user.IsShowInfo,
-					user.IsKYC
-				};
+					var response = new
+					{
+						user.Email,
+						user.Phone,
+						user.FirstName,
+						user.LastName,
+						user.BDay,
+						user.Country,
+						user.Adress,
+						user.Zip,
+						user.IsReInvest,
+						user.IsShowInfo,
+						user.IsKYC,
+						user.IsDiscard,
+						user.ErrorDiscard
+					}; 
+					return response;
+				}
+				else
+				{
+					var response = new
+					{
+						user.Email,
+						user.Phone,
+						user.FirstName,
+						user.LastName,
+						user.BDay,
+						user.Country,
+						user.Adress,
+						user.Zip,
+						user.IsReInvest,
+						user.IsShowInfo,
+						user.IsKYC,
+						user.IsDiscard,
+					};
+					return response;
+				}
 
-				return response;
+
 			}
 		}
 

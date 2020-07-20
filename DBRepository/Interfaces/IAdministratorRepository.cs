@@ -64,6 +64,7 @@ namespace DBRepository.Interfaces
         Task AcceptWithdrawal(int UserId);
         Task AcceptAllKYC();
         Task AcceptKYC(int UserId);
+        Task DiscardKYC(int UserId, string Error);
         #endregion
 
         #region Dev

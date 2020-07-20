@@ -477,6 +477,14 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
+		[Route("DiscardKYC")]
+		[HttpPatch]
+		public async Task<IActionResult> DiscardKYC([FromBody] DiscardKYCViewModel model)
+		{
+			await _administratorService.DiscardKYC(model);
+			return Ok();
+		}
+
 		#endregion
 
 		#region Dev

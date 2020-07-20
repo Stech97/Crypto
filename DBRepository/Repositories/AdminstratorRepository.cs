@@ -678,10 +678,25 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var user = context.Users.Where(u => !u.IsKYC).FirstOrDefault(u => u.Id == UserId);
-					user.IsKYC = true;
-					context.Users.Update(user);
-					await context.SaveChangesAsync();
+				var user = await context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+				user.IsKYC = true;
+				user.IsDiscard = false;
+				user.ErrorDiscard = null;
+				context.Users.Update(user);
+				await context.SaveChangesAsync();
+			}
+		}
+
+		public async Task DiscardKYC(int UserId, string Error)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = context.Users.FirstOrDefault(u => u.Id == UserId);
+				user.IsKYC = false;
+				user.IsDiscard = true;
+				user.ErrorDiscard = Error;
+				context.Users.Update(user);
+				await context.SaveChangesAsync();
 			}
 		}
 

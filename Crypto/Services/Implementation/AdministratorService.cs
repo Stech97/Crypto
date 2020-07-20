@@ -226,6 +226,11 @@ namespace Crypto.Services.Implementation
 		{
 			await _repository.AcceptKYC(UserId);
 		}
+		
+		public async Task DiscardKYC(DiscardKYCViewModel model)
+		{
+			await _repository.DiscardKYC(model.UserId, model.Error);
+		}
 
 		#endregion
 
