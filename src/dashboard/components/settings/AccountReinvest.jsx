@@ -1,28 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import Grid from '@material-ui/core/Grid';
-import { updateReInvest, getUserInfo } from '../../actions/UserInfo';
-import { connect } from 'react-redux';
-import SettingsBox from '../SettingsBox';
-import Switch from '@material-ui/core/Switch';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from "react";
+import Grid from "@material-ui/core/Grid";
+import { updateReInvest, getUserInfo } from "../../actions/UserInfo";
+import { connect } from "react-redux";
+import SettingsBox from "../SettingsBox";
+import Switch from "@material-ui/core/Switch";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   switch: {
-    alignContent: 'center',
+    alignContent: "center",
+  },
+  text: {
+    color: "#16428d",
+    fontWeight: "500",
+  },
+  text_gray: {
+    color: "#838383",
   },
 }));
 
 function AccountReinvest(props) {
   const [state, setState] = useState(false);
+  const { userInfo } = props;
+
+  useEffect(() => {
+    async function fetchData() {
+      props.getUserInfoAction();
+      setState(userInfo.isReInvest);
+    }
+    fetchData();
+  }, [userInfo.isReInvest]);
 
   const handleChange = (event) => {
     props.updateReInvestAction(event.target.checked);
     props.getUserInfoAction();
-    setState(props.userInfo.isReInvest);
+    setState(userInfo.isReInvest);
   };
 
-  const { userInfo } = props;
   const classes = useStyles();
 
   return (
@@ -39,13 +54,13 @@ function AccountReinvest(props) {
             <Switch id="reinvest" checked={state} onChange={handleChange} />
           </Grid>
           <Grid item xs={10}>
-            <Typography align="left" style={{ color: '#123273' }}>
+            <Typography align="left" className={classes.text}>
               Enable Auto Re-Invest
             </Typography>
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="body1">
+          <Typography variant="body1" className={classes.text_gray}>
             When automatic re-invest ON, Defima will automatically buy new
             products (product category the last you selected) once the minimum
             amount for product buy is reached on Defima Token Balance from

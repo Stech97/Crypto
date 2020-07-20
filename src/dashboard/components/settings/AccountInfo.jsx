@@ -8,13 +8,13 @@ import {
 } from "../../actions/UserInfo";
 import { CountryDropdown } from "react-country-region-selector";
 import SettingsBox from "../SettingsBox";
-import TextField from "@material-ui/core/TextField";
+import CustomField from "@material-ui/core/TextField";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Switch from "@material-ui/core/Switch";
 import Button from "../Buttons";
@@ -78,6 +78,26 @@ const zipValidate = (value) =>
     ? "Invalid ZIP"
     : undefined;
 
+const orange = "#ed7102";
+const grayText = "#838383";
+
+const TextField = withStyles({
+  root: {
+    "& .MuiInput-underline": {
+      color: grayText,
+      "&:before": {
+        borderBottom: "1px solid " + grayText,
+      },
+      "&:hover:not(.Mui-disabled):before": {
+        borderBottomColor: orange,
+      },
+      "&>input:-webkit-autofill": {
+        WebkitTextFillColor: grayText,
+      },
+    },
+  },
+})(CustomField);
+
 function infoField(props) {
   const {
     input,
@@ -98,7 +118,6 @@ function infoField(props) {
           inputProps={input}
           error={touched && error}
           type={type}
-          defaultValue={placeholder}
           placeholder={placeholder ? placeholder : "Please, fulfill this field"}
           id={id}
           disabled={id === "username"}
@@ -123,7 +142,12 @@ function CountryField({
           {label}
         </Typography>
       </ListItemText>
-      <CountryDropdown blacklist={["CA", "US"]} {...rest} {...input} />
+      <CountryDropdown
+        defaultOptionLabel={placeholder ? placeholder : "Select Country"}
+        blacklist={["CA", "US"]}
+        {...rest}
+        {...input}
+      />
       {touched &&
         ((error && <p className="error">{error}</p>) ||
           (warning && <p className="error">{warning}</p>))}
@@ -177,11 +201,10 @@ function AccountInfo(props) {
   useEffect(() => {
     async function fetchData() {
       props.getUserInfoAction();
-      setShow(props.userInfo.isShowInfo);
-      console.log("props.userInfo.isShowInfo", userInfo);
+      setShow(userInfo.isShowInfo);
     }
     fetchData();
-  }, []);
+  }, [userInfo.isShowInfo]);
 
   const classes = useStyles();
 
@@ -192,7 +215,7 @@ function AccountInfo(props) {
       label: "E-Mail",
       type: "email",
       placeholder: userInfo.email,
-      validate: [required, emailValidate],
+      validate: [emailValidate],
     },
     {
       component: infoField,
@@ -200,7 +223,6 @@ function AccountInfo(props) {
       label: "Phone Number",
       type: "tel",
       placeholder: userInfo.phone,
-      validate: [required],
     },
     {
       component: infoField,
@@ -208,7 +230,6 @@ function AccountInfo(props) {
       label: "Username",
       type: "text",
       placeholder: user.username,
-      validate: [],
     },
     {
       component: infoField,
@@ -216,7 +237,7 @@ function AccountInfo(props) {
       label: "First Name",
       type: "text",
       placeholder: userInfo.firstName,
-      validate: [required, maxLength10, minLength2, alphaNumeric],
+      validate: [maxLength10, minLength2, alphaNumeric],
     },
     {
       component: infoField,
@@ -224,7 +245,7 @@ function AccountInfo(props) {
       label: "Last Name",
       type: "text",
       placeholder: userInfo.lastName,
-      validate: [required, maxLength25, minLength3, alphaNumeric],
+      validate: [maxLength25, minLength3, alphaNumeric],
     },
     {
       component: infoField,
@@ -232,7 +253,6 @@ function AccountInfo(props) {
       label: "Date of Birth",
       type: "date",
       placeholder: userInfo.bDay,
-      validate: [required],
     },
     {
       component: infoField,
@@ -240,15 +260,15 @@ function AccountInfo(props) {
       label: "Address",
       type: "text",
       placeholder: userInfo.adress,
-      validate: [required, maxLength(30)],
+      validate: [maxLength(30)],
     },
     {
       component: infoField,
       id: "zip",
       label: "ZIP Code",
       type: "text",
-      placeholder: userInfo.zip,
-      validate: [required, zipValidate, alphaNumeric],
+      placeholder: userInfo.zip.toString(),
+      validate: [zipValidate, alphaNumeric],
     },
     {
       component: CountryField,
@@ -256,19 +276,35 @@ function AccountInfo(props) {
       label: "Country",
       type: "text",
       placeholder: userInfo.country,
-      validate: [required, alphaNumeric],
     },
   ];
 
   const submit = (values) => {
     let data = {
-      Email: values.email,
-      Phone: values.phone,
-      FirstName: values.firstName,
-      LastName: values.lastName,
-      BDay: values.bDay,
-      Adress: values.adress,
-      Zip: values.zip,
+      Email: values.email
+        ? values.email
+        : info.find((element) => element.id === "email").placeholder,
+      Phone: values.phone
+        ? values.phone
+        : info.find((element) => element.id === "phone").placeholder,
+      FirstName: values.firstName
+        ? values.firstName
+        : info.find((element) => element.id === "firstName").placeholder,
+      LastName: values.lastName
+        ? values.lastName
+        : info.find((element) => element.id === "lastName").placeholder,
+      BDay: values.bDay
+        ? values.bDay
+        : info.find((element) => element.id === "bDay").placeholder,
+      Adress: values.adress
+        ? values.adress
+        : info.find((element) => element.id === "adress").placeholder,
+      Zip: values.zip
+        ? values.zip
+        : info.find((element) => element.id === "zip").placeholder.toString(),
+      Country: values.country
+        ? values.country
+        : info.find((element) => element.id === "country").placeholder,
     };
     props.updateUserInfoAction(data);
     reset();
@@ -290,6 +326,7 @@ function AccountInfo(props) {
       </label>
     );
   };
+
   return (
     <SettingsBox header="Account Information">
       <form onSubmit={handleSubmit(submit)} className={classes.form}>
@@ -308,7 +345,7 @@ function AccountInfo(props) {
             <ListItemSecondaryAction>
               <Switch
                 id="ShowInfo"
-                defaultChecked={show}
+                checked={show}
                 checked={show}
                 onChange={handleChange}
               />

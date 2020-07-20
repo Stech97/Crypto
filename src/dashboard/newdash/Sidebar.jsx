@@ -1,60 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import { ThemeProvider } from '@material-ui/styles';
-import clsx from 'clsx';
-import { NavLink, Switch } from 'react-router-dom';
-import { API } from '../../config';
-import RouteWithSubRoutes from '../../Routes';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import React, { useState, useEffect, forwardRef, useMemo } from "react";
+import { ThemeProvider } from "@material-ui/styles";
+import clsx from "clsx";
+import { NavLink, Switch } from "react-router-dom";
+import { API } from "../../config";
+import RouteWithSubRoutes from "../../Routes";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import Box from "@material-ui/core/Box";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
 
 import {
-  UserIcon,
-  BurgerIcon,
-  InvestmentIcon,
-  MarketingIcon,
-  HistoryIcon,
-  SupportIcon,
-  TeamIcon,
-} from '../svg/iconComponents';
+	UserIcon,
+	BurgerIcon,
+	InvestmentIcon,
+	MarketingIcon,
+	HistoryIcon,
+	SupportIcon,
+	TeamIcon,
+} from "../svg/iconComponents";
 
-import {
-  List,
-  Typography,
-  IconButton,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Grid,
-} from '@material-ui/core';
-
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-export const darkBlue = '#123273';
-export const gradient = 'linear-gradient(50deg, #123273 0%, #005c9f 100%)';
-export const grayText = '#838383';
-export const grayBack = '#efefef';
-export const orange = '#ed7102';
-export const lightBlue = '#16428d';
-export const whitebox = '#efefef';
-export const contentBack = '#f5fbff';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
+export const darkBlue = "#123273";
+export const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
+export const grayText = "#838383";
+export const grayBack = "#efefef";
+export const orange = "#ed7102";
+export const lightBlue = "#16428d";
+export const whitebox = "#efefef";
+export const contentBack = "#f5fbff";
 
 const sidebarTheme = createMuiTheme({
-  palette: {
-    primary: {
-      main: contentBack,
-      contrastText: darkBlue,
-    },
-    secondary: {
-      main: darkBlue,
-      contrastText: '#ffffff',
-    },
-    warning: {
-      main: '#fff',
-      dark: orange,
-    },
-  },
-  typography: {
-    fontFamily: ['IBM Plex Sans'],
-  },
+	palette: {
+		primary: {
+			main: contentBack,
+			contrastText: darkBlue,
+		},
+		secondary: {
+			main: darkBlue,
+			contrastText: "#ffffff",
+		},
+		warning: {
+			main: "#fff",
+			dark: orange,
+		},
+	},
+	typography: {
+		fontFamily: ["IBM Plex Sans"],
+	},
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -191,102 +189,108 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Navtab(props) {
-  const { Icon, name, path, open, classes, color } = props;
+	const { Icon, name, to, open, classes, color } = props;
 
-  const CustomLink = (props) => <NavLink to={'/account/' + path} {...props} />;
+	const CustomLink = useMemo(
+		() =>
+			forwardRef((linkProps, ref) => (
+				<NavLink ref={ref} to={to} {...linkProps} />
+			)),
+		[to]
+	);
 
-  return (
-    <ListItem
-      button
-      component={CustomLink}
-      className={clsx(classes.listItem, {
-        [classes.listItemOpen]: open,
-        [classes.listItemClose]: !open,
-      })}
-    >
-      <ListItemIcon className={classes.listItemIcon}>
-        <Icon />
-      </ListItemIcon>
-      <ListItemText
-        className={clsx(classes.listItemText, {
-          [classes.listItemTextOpen]: open,
-          [classes.listItemTextClose]: !open,
-        })}
-        primary={name}
-        color={color}
-      />
+	return (
+		<ListItem
+			button
+			component={CustomLink}
+			className={clsx(classes.listItem, {
+				[classes.listItemOpen]: open,
+				[classes.listItemClose]: !open,
+			})}
+		>
+			<ListItemIcon className={classes.listItemIcon}>
+				<Icon />
+			</ListItemIcon>
+			<ListItemText
+				className={clsx(classes.listItemText, {
+					[classes.listItemTextOpen]: open,
+					[classes.listItemTextClose]: !open,
+				})}
+				primary={name}
+				color={color}
+			/>
 
-      <ListItemIcon
-        className={clsx(classes.listItemIcon, {
-          [classes.listItemIconOpen]: open,
-          [classes.listItemIconClose]: !open,
-        })}
-      >
-        <ChevronRightIcon />
-      </ListItemIcon>
-    </ListItem>
-  );
+			<ListItemIcon
+				className={clsx(classes.listItemIcon, {
+					[classes.listItemIconOpen]: open,
+					[classes.listItemIconClose]: !open,
+				})}
+			>
+				<ChevronRightIcon />
+			</ListItemIcon>
+		</ListItem>
+	);
 }
 
 function SidebarTime() {
-  const [state, setState] = useState('Connecting...');
-  async function getTime() {
-    await API('/Dashboard/GetTime')
-      .then((res) => {
-        if (res.ok) {
-          setState(res.data.time);
-        } else {
-          setState('Server Error');
-        }
-      })
-      .catch((error) => {
-        setState('Server Error');
-      });
-  }
-  useEffect(() => {
-    const interval = setInterval(() => getTime(), 1000);
-    return () => clearInterval(interval);
-  }, [useState]);
+	const [state, setState] = useState("Connecting...");
+	async function getTime() {
+		await API("/Dashboard/GetTime")
+			.then((res) => {
+				if (res.ok) {
+					setState(res.data.time);
+				} else {
+					setState("Server Error");
+				}
+			})
+			.catch((error) => {
+				setState("Server Error");
+			});
+	}
+	useEffect(() => {
+		const interval = setInterval(() => getTime(), 1000);
+		return () => clearInterval(interval);
+	}, [useState]);
 
-  return <Typography>{'Server Time: ' + state}</Typography>;
+	return <Typography>{"Server Time: " + state}</Typography>;
 }
 
 function Sidebar(props) {
-  const classes = useStyles();
-  const theme = useTheme();
-  const { open, handleDrawerToggle } = props;
-  const NavTabs = [
-    {
-      name: 'Dashboard',
-      path: 'dashboard',
-      Icon: () => UserIcon(),
-    },
-    {
-      name: 'Investment',
-      path: 'investment',
-      Icon: () => InvestmentIcon(),
-    },
-    {
-      name: 'Team',
-      path: 'team',
-      Icon: () => TeamIcon(),
-    },
-    {
-      name: 'Marketing',
-      path: 'marketing',
-      Icon: () => MarketingIcon(),
-    },
-    {
-      name: 'History',
-      path: 'history',
-      Icon: () => HistoryIcon(),
-    },
-    {
-      name: 'Support',
-      path: 'faq',
-      Icon: () => SupportIcon(),
-    },
-  ];
+	const classes = useStyles();
+	const theme = useTheme();
+	const { open, handleDrawerToggle } = props;
+	const NavTabs = [
+		{
+			name: "Dashboard",
+			to: "/account/dashboard",
+			Icon: () => UserIcon(),
+		},
+		{
+			name: "Investment",
+			to: "/account/investment",
+			Icon: () => InvestmentIcon(),
+		},
+		{
+			name: "Team",
+			to: "/account/team",
+			Icon: () => TeamIcon(),
+		},
+		{
+			name: "Marketing",
+			to: "/account/marketing",
+			Icon: () => MarketingIcon(),
+		},
+		{
+			name: "History",
+			to: "/account/history",
+			Icon: () => HistoryIcon(),
+		},
+		{
+			name: "Support",
+			to: "/account/faq",
+			Icon: () => SupportIcon(),
+		},
+	];
 
 	return (
 		<ThemeProvider theme={sidebarTheme}>
@@ -298,11 +302,11 @@ function Sidebar(props) {
 					})}
 					item
 				>
-					<div className={classes.toolbar}>
+					<Box className={classes.toolbar}>
 						<IconButton onClick={() => handleDrawerToggle(open)}>
 							<BurgerIcon />
 						</IconButton>
-					</div>
+					</Box>
 					<List className={classes.list}>
 						{NavTabs.map((tab, i) => (
 							<Navtab

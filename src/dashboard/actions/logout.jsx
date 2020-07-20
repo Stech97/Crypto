@@ -25,8 +25,7 @@ export const userLogoutGet = () => {
 		Cookies.remove("token");
 		let ID = localStorage.getItem("id");
 		localStorage.removeItem("id");
-		localStorage.removeItem("isVerified");
-		let response = API("/Identity/SignOut?Id=" + ID)
+		let response = API("/Identity/SignOut?Id=" + ID, "delete")
 			.then((response) => {
 				dispatch(getLogoutSuccess());
 			})

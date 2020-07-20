@@ -8,6 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 import Alert from "@material-ui/lab/Alert";
 import inputField from "../inputField";
 
@@ -111,22 +112,42 @@ function LoginForm(props) {
         placeholder="Password"
         validate={[required, validatePassword]}
       />
-      <OrangeButton
-        type="submit"
-        disabled={invalid || hasErrors || pristine || submitting}
+      <Grid
+        item
+        container
+        xs={12}
+        justify="center"
+        alignContent="center"
+        component={Box}
+        my={2}
       >
-        {user.isFetching || submitting ? "Loading..." : "Login"}
-      </OrangeButton>
-      {user.error.type && (
-        <Alert variant="filled" severity="error">
-          {user.error.message}
-        </Alert>
-      )}
-      {error && (
-        <Alert variant="filled" severity="error">
-          {error}
-        </Alert>
-      )}
+        <OrangeButton
+          type="submit"
+          disabled={invalid || hasErrors || pristine || submitting}
+        >
+          {user.isFetching || submitting ? "Loading..." : "Login"}
+        </OrangeButton>
+      </Grid>
+      <Grid
+        item
+        container
+        xs={12}
+        justify="center"
+        alignContent="center"
+        component={Box}
+        my={2}
+      >
+        {user.error.type && (
+          <Alert variant="filled" severity="error">
+            {user.error.message}
+          </Alert>
+        )}
+        {error && (
+          <Alert variant="filled" severity="error">
+            {error}
+          </Alert>
+        )}
+      </Grid>
     </Grid>
   );
 }

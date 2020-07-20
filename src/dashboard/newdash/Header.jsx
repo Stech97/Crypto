@@ -1,28 +1,27 @@
-import React, { memo, useState, useEffect } from "react";
+import React, { memo, useState, useEffect, forwardRef, useMemo } from "react";
 import { connect } from "react-redux";
 import { setUser } from "../actions/header";
 import { userLogoutGet } from "../actions/logout";
 import { Link, useHistory } from "react-router-dom";
 import clsx from "clsx";
 import { BurgerIcon } from "../svg/iconComponents";
-import {
-  Container,
-  AppBar,
-  Toolbar,
-  Menu,
-  MenuItem,
-  Fab,
-  Grid,
-  Typography,
-  CssBaseline,
-  Box,
-  Hidden,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  IconButton,
-} from "@material-ui/core";
+
+import Container from "@material-ui/core/Container";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Fab from "@material-ui/core/Fab";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Box from "@material-ui/core/Box";
+import Hidden from "@material-ui/core/Hidden";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import IconButton from "@material-ui/core/IconButton";
 
 import { makeStyles, useTheme, withStyles } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
@@ -121,6 +120,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     justifyContent: "space-around",
     color: grayText,
+
     "&:first-child": {
       borderBottom: "1px solid #efefef",
     },
@@ -131,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "&:hover": {
       color: orange,
-      "&+svg": {
+      "& .MuiListItemIcon-root>svg": {
         fill: orange,
         stroke: orange,
       },
@@ -171,6 +171,32 @@ const HeaderMenuItem = withStyles({
   },
 })(MenuItem);
 
+function SettingsLink(props) {
+  const classes = useStyles();
+  const { to } = props;
+
+  const CustomLink = useMemo(
+    () =>
+      forwardRef((linkProps, ref) => <Link ref={ref} to={to} {...linkProps} />),
+    [to]
+  );
+
+  return (
+    <li>
+      <ListItem
+        className={classes.headerModalItem}
+        button
+        component={CustomLink}
+      >
+        <ListItemIcon>
+          <SettingsIcon viewBox="0 0 37 37" />
+        </ListItemIcon>
+        <ListItemText variant="subtitle2" primary="Settings" />
+      </ListItem>
+    </li>
+  );
+}
+
 function Header(props) {
   const [menuStatus, setMenuStatus] = useState(null);
 
@@ -186,6 +212,7 @@ function Header(props) {
     props.getUserLogoutAction();
     history.push("/login");
   };
+
   return (
     <ThemeProvider theme={headerTheme}>
       <AppBar color="common.white" position="sticky" className={classes.header}>
@@ -242,12 +269,7 @@ function Header(props) {
             })}
           >
             <List>
-              <ListItem className={classes.headerModalItem}>
-                <ListItemIcon>
-                  <SettingsIcon viewBox="0 0 37 37" />
-                </ListItemIcon>
-                <ListItemText variant="subtitle2" primary="Settings" />
-              </ListItem>
+              <SettingsLink to="/account/settings" />
               <ListItem
                 onClick={() => clickLogout()}
                 className={classes.headerModalItem}

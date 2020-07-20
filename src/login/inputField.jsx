@@ -15,6 +15,9 @@ const CustomField = withStyles({
       "&:hover:not(.Mui-disabled):before": {
         borderBottomColor: orange,
       },
+      "&>input:-webkit-autofill": {
+        WebkitTextFillColor: "#fff",
+      },
     },
   },
 })(TextField);

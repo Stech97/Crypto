@@ -23,6 +23,8 @@ import { historyTableReducer } from "../dashboard/reducers/historyTable";
 import { teamPopupReducer } from "../dashboard/reducers/teamPopup";
 import { changePasswordReducer } from "../dashboard/reducers/changePassword";
 import { userInfoReducer } from "../dashboard/reducers/AccountInfo";
+import { KYCReducer } from "../dashboard/reducers/kyc";
+
 export const rootReducer = combineReducers({
 	form: reduxFormReducer, // mounted under "form"
 	routing: routerReducer, // routing
@@ -52,4 +54,5 @@ export const rootReducer = combineReducers({
 	investmentTable: investmentTableReducer,
 	historyTable: historyTableReducer,
 	teamPopupTable: teamPopupReducer,
+	kyc: KYCReducer,
 });
