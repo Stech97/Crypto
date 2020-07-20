@@ -149,9 +149,14 @@ export const API = async (path, mode = "get", body = null) => {
     case "patch":
       try {
         //console.log(body)
-        let bodyJson = JSON.stringify(body);
-        let request = await requestTemplate.patch(path, bodyJson);
-        return { ok: true, status: request.status, data: request.data };
+        if (body) {
+          let bodyJson = JSON.stringify(body);
+          let request = await requestTemplate.patch(path, bodyJson);
+          return { ok: true, status: request.status, data: request.data };
+        } else {
+          let request = await requestTemplate.patch(path);
+          return { ok: true, status: request.status };
+        }
       } catch (error) {
         // Error 😨
         if (error.response) {
