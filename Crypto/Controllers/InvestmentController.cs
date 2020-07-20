@@ -17,7 +17,7 @@ namespace Crypto.Controllers
 			_investmentService = investmentService;
 		}
 
-		//[Authorize]
+		//[Authorize(Roles = "Client")]
 		[Route("GetInvestments")]
 		[HttpGet]
 		public async Task<IActionResult> GetInvestments(int UserId)

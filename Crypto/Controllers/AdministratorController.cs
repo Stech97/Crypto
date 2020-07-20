@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Crypto.Services.Interfaces;
 using Crypto.ViewModels.Administrator;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +11,7 @@ namespace Crypto.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
+	//[Authorize]
 	public class AdministratorController : ControllerBase
 	{
 		private readonly IAdministratorService _administratorService;
@@ -22,7 +23,6 @@ namespace Crypto.Controllers
 		}
 
 		#region Files
-		//[Authorize]
 		[Route("UploadFiles")]
 		[HttpPatch]
 		public async Task<IActionResult> UploadFiles(string Content)
@@ -45,7 +45,6 @@ namespace Crypto.Controllers
 		#endregion
 
 		#region Users
-		//[Authorize]
 		[Route("GetUsersInfo")]
 		[HttpGet]
 		public async Task<IActionResult> GetUsersInfo()
@@ -58,7 +57,6 @@ namespace Crypto.Controllers
         #endregion
 
         #region News
-        //[Authorize(Roles = "Client")]
         [Route("AddNews")]
 		[HttpPost]
 		public async Task<IActionResult> AddNews([FromBody] AddNewsViewModel model)
@@ -66,8 +64,7 @@ namespace Crypto.Controllers
 			var response = await _administratorService.AddNews(model);
 			return Ok(response);
 		}
-
-		//[Authorize]
+		
 		[Route("UpdateNews")]
 		[HttpPatch]
 		public async Task<IActionResult> UpdateNews([FromBody] UpdateNewsViewModel model, string heder)
@@ -77,8 +74,7 @@ namespace Crypto.Controllers
 				return BadRequest("News not found");
 			return Ok(response);
 		}
-
-		//[Authorize]
+		
 		[Route("DeleteNews")]
 		[HttpDelete]
 		public async Task<IActionResult> DeleteNews(string heder)
@@ -89,8 +85,7 @@ namespace Crypto.Controllers
 		#endregion
 
 		#region Main Page
-
-		//[Authorize]
+		
 		[Route("GetSingleTextInfo")]
 		[HttpGet]
 		public async Task<IActionResult> GetInfo(string Component)
@@ -100,8 +95,7 @@ namespace Crypto.Controllers
 				return BadRequest();
 			return Ok(response);
 		}
-
-		//[Authorize]
+		
 		[Route("UpdateSingleTextInfo")]
 		[HttpPatch]
 		public async Task<IActionResult> UpdateInfo([FromBody] SingleTextViewModel model)
@@ -109,8 +103,7 @@ namespace Crypto.Controllers
 			await _administratorService.UpdateInfo(model);
 			return Ok();
 		}
-
-		//[Authorize]
+	
 		[Route("GetFAQ")]
 		[HttpGet]
 		public async Task<IActionResult> GetFAQ()
@@ -120,8 +113,7 @@ namespace Crypto.Controllers
 				return BadRequest();
 			return Ok(response);
 		}
-
-		//[Authorize]
+	
 		[Route("UpdateFAQ")]
 		[HttpPatch]
 		public async Task<IActionResult> UpdateFAQ([FromBody] FAQViewModel model)
@@ -130,7 +122,6 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-		//[Authorize]
 		[Route("GetAbout")]
 		[HttpGet]
 		public async Task<IActionResult> GetAbout()
@@ -141,7 +132,6 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
-		//[Authorize]
 		[Route("UpdateAbout")]
 		[HttpPatch]
 		public async Task<IActionResult> UpdateAbout([FromBody] AboutUsViewModel model)
@@ -150,30 +140,10 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-		//[Authorize]
 		[Route("GetPic")]
 		[HttpGet]
 		public async Task<IActionResult> GetPic(string Component)
 		{
-			if (Component == "About us")
-			{
-				for (int i = 1; i < 4; i++)
-				{
-					var responses = await _administratorService.GetPic(Component, i);
-					if (responses != null)
-					{
-						var type = responses.ImageName.Substring(responses.ImageName.IndexOf('.') + 1);
-						var mimeType = "application/" + type;
-
-						return new FileContentResult(responses.Image, mimeType)
-						{
-							FileDownloadName = responses.ImageName
-						};
-					}
-					return NotFound("File not found");
-				}
-			}
-
 			var response = await _administratorService.GetPic(Component, 0);
 			if (response != null)
 			{
@@ -188,7 +158,26 @@ namespace Crypto.Controllers
 			return NotFound("User or file not found");
 		}
 
-		//[Authorize]
+
+		[Route("GetPicAbout")]
+		[HttpGet]
+		public async Task<IActionResult> GetPicAbout(int NamePic)
+		{
+
+			var responses = await _administratorService.GetPic("About us", NamePic);
+			if (responses != null)
+			{
+				var type = responses.ImageName.Substring(responses.ImageName.IndexOf('.') + 1);
+				var mimeType = "application/" + type;
+
+				return new FileContentResult(responses.Image, mimeType)
+				{
+					FileDownloadName = responses.ImageName
+				};
+			}
+			return NotFound("File not found");
+		}
+
 		[Route("UpdatePic")]
 		[HttpPatch]
 		public async Task<IActionResult> UpdatePic(string Component)
@@ -231,8 +220,7 @@ namespace Crypto.Controllers
 
 		#endregion
 
-		#region Get User Picture
-		//[Authorize]
+		#region Get User Picture	
 		[Route("GetPassportPicture")]
 		[HttpGet]
 		public async Task<IActionResult> GetPassportPicture(int UserId)
@@ -250,8 +238,7 @@ namespace Crypto.Controllers
 			}
 			return NotFound("User or file not found");
 		}
-
-		//[Authorize]
+	
 		[Route("GetProofPicture")]
 		[HttpGet]
 		public async Task<IActionResult> GetProofPicture(int UserId)
@@ -269,8 +256,7 @@ namespace Crypto.Controllers
 			}
 			return NotFound("User or file not found");
 		}
-
-		//[Authorize]
+		
 		[Route("GetSelfiPicture")]
 		[HttpGet]
 		public async Task<IActionResult> GetSelfiPicture(int UserId)
@@ -290,8 +276,7 @@ namespace Crypto.Controllers
 		}
 		#endregion
 
-		#region Finance 
-		//[Authorize]
+		#region Finance 		
 		[Route("GetRate")]
 		[HttpGet]
 		public async Task<IActionResult> GetRate()
@@ -299,8 +284,7 @@ namespace Crypto.Controllers
 			var response = await _administratorService.GetRate();
 			return Ok(response);
 		} 
-
-		//[Authorize]
+	
 		[Route("UpdateRate")]
 		[HttpPatch]
 		public async Task<IActionResult> UpdateRate([FromBody] RateDETViewModel request)
@@ -309,7 +293,6 @@ namespace Crypto.Controllers
 			return Ok();
 		}
         
-		//[Authorize]
 		[Route("GetCommission")]
 		[HttpGet]
 		public async Task<IActionResult> GetCommission()
@@ -318,7 +301,6 @@ namespace Crypto.Controllers
 			return Ok(response);
         }
         
-		//[Authorize]
 		[Route("UpdateCommission")]
 		[HttpPatch]
 		public async Task<IActionResult> UpdateCommission([FromBody] List<CommissionViewModel> request)
@@ -327,7 +309,6 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-		//[Authorize]
 		[Route("GetProfit")]
 		[HttpGet]
 		public async Task<IActionResult> GetProfit()
@@ -336,7 +317,6 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
-		//[Authorize]
 		[Route("UpdateProfit")]
 		[HttpPatch]
 		public async Task<IActionResult> UpdateProfit([FromBody] List<ProfitViewModel> request)
@@ -347,7 +327,6 @@ namespace Crypto.Controllers
 		#endregion
 
 		#region Dashboard
-		//[Authorize]
 		[Route("GetAddedFounds")]
 		[HttpGet]
 		public async Task<IActionResult> GetAddedFounds()
@@ -362,7 +341,6 @@ namespace Crypto.Controllers
 			return Ok(responce);
 		}
 
-		//[Authorize]
 		[Route("GetInvestedAmount")]
 		[HttpGet]
 		public async Task<IActionResult> GetInvestedAmount()
@@ -381,7 +359,6 @@ namespace Crypto.Controllers
 			return Ok(resp);
 		}
 
-		//[Authorize]
 		[Route("GetCountUser")]
 		[HttpGet]
 		public async Task<IActionResult> GetCountUser()
@@ -395,7 +372,6 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
-		//[Authorize]
 		[Route("GetCountUserWithInvest")]
 		[HttpGet]
 		public async Task<IActionResult> GetCountUserWithInvest()
@@ -408,7 +384,6 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
-		//[Authorize]
 		[Route("GetWithdrawnAmount")]
 		[HttpGet]
 		public async Task<IActionResult> GetWithdrawnAmount()
@@ -421,7 +396,6 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
-		//[Authorize]
 		[Route("GetAllUsersBalance")]
 		[HttpGet]
 		public async Task<IActionResult> GetAllUsersBalance()
@@ -439,7 +413,6 @@ namespace Crypto.Controllers
 			return Ok(resp);
 		}
 
-		//[Authorize]
 		[Route("GetAllCommission")]
 		[HttpGet]
 		public async Task<IActionResult> GetAllCommission()
@@ -452,7 +425,6 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
-		//[Authorize]
 		[Route("GetWithdrawalRequest")]
 		[HttpGet]
 		public async Task<IActionResult> GetWithdrawalRequest()
@@ -462,8 +434,7 @@ namespace Crypto.Controllers
 				return NotFound("No Users");
 			return Ok(response);
 		}
-
-		//[Authorize]
+	
 		[Route("GetKYC")]
 		[HttpGet]
 		public async Task<IActionResult> GetKYC()
@@ -474,7 +445,6 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
-		//[Authorize]
 		[Route("AcceptAllWithdrawal")]
 		[HttpPatch]
 		public async Task<IActionResult> AcceptAllWithdrawal()
@@ -483,7 +453,6 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-		//[Authorize]
 		[Route("AcceptWithdrawal")]
 		[HttpPatch]
 		public async Task<IActionResult> AcceptWithdrawal(int UserId)
@@ -492,8 +461,6 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-
-		//[Authorize]
 		[Route("AcceptAllKYC")]
 		[HttpPatch]
 		public async Task<IActionResult> AcceptAllKYC()
@@ -502,7 +469,6 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-		//[Authorize]
 		[Route("AcceptKYC")]
 		[HttpPatch]
 		public async Task<IActionResult> AcceptKYC(int UserId)
@@ -514,7 +480,7 @@ namespace Crypto.Controllers
 		#endregion
 
 		#region Dev
-
+		[AllowAnonymous]
 		[Route("DelUser")]
 		[HttpGet]
 		public async Task<IActionResult> DelUser(int Id)
@@ -522,6 +488,8 @@ namespace Crypto.Controllers
 			await _administratorService.DelUser(Id);
 			return Ok();
 		}
+
+		[AllowAnonymous]
 		[Route("GetUsers")]
 		[HttpGet]
 		public async Task<IActionResult> GetUsers()
@@ -529,6 +497,7 @@ namespace Crypto.Controllers
 			return Ok(await _administratorService.GetUsers());
 		}
 
+		[AllowAnonymous]
 		[Route("Dev")]
 		[HttpGet]
 		public IActionResult Dev()
@@ -538,7 +507,6 @@ namespace Crypto.Controllers
 
 			return Ok();
 		}
-
 
 		#endregion
 	}

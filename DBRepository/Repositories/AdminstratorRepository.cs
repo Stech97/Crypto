@@ -314,11 +314,44 @@ namespace DBRepository.Repositories
 				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
 				if (main != null)
 				{
-					response = new Images()
+					if (Component == "About us")
 					{
-						Image = main.Image,
-						ImageName = main.ImageName
-					};
+						switch (Possition)
+						{
+							case 1:
+
+								response = new Images()
+								{
+									Image = main.Picture1,
+									ImageName = main.Picture1Name
+								};
+								break;
+							case 2:
+
+								response = new Images()
+								{
+									Image = main.Picture2,
+									ImageName = main.Picture2Name
+								};
+								break;
+							case 3:
+
+								response = new Images()
+								{
+									Image = main.Picture3,
+									ImageName = main.Picture3Name
+								};
+								break;
+						}
+					}
+					else
+					{
+						response = new Images()
+						{
+							Image = main.Image,
+							ImageName = main.ImageName
+						};
+					}
 				}
 			}
 			return response;
@@ -587,7 +620,9 @@ namespace DBRepository.Repositories
 
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var Users =  await contex.Users.Where(u => !u.IsKYC).ToListAsync();
+				var Users =  await contex.Users.Where(u => !u.IsKYC && (u.SelfiPicture != null && u.SelfiPictureName != null) &&
+														(u.PassportPicture != null && u.PassportPictureName != null) &&
+														(u.ProofPicture != null && u.ProofPictureName != null)).ToListAsync();
 				foreach (var user in Users)
 				{
 					var resp = new
@@ -631,13 +666,11 @@ namespace DBRepository.Repositories
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var Users = context.Users.Where(u => !u.IsKYC).ToList();
-				foreach (var user in Users)
-				{
-					user.IsKYC = true;
-					context.Users.Update(user);
-					await context.SaveChangesAsync();
-				}
+				await context.Users.Where(u => !u.IsKYC && (u.SelfiPicture != null && u.SelfiPictureName != null) &&
+														(u.PassportPicture != null && u.PassportPictureName != null) &&
+														(u.ProofPicture != null && u.ProofPictureName != null))
+														.ForEachAsync(u => { u.IsKYC = true; });
+				await context.SaveChangesAsync();
 			}
 		}
 
