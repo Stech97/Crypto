@@ -155,11 +155,12 @@ namespace Crypto.Controllers
 			UserViewModel response = new UserViewModel
 			{
 				Id = user.Id,
+				//Token = encodedJwt,
 				IsVerified = user.IsVerified,
 			};
 
-			Helpers.TaskScheduler.Instance.ScheduleTask
-				(timeOut.Hour, timeOut.Minute+5, timeOut.Second, timeOut.Millisecond, 0, () => { _identityService.SignOut(user.Id); });
+			/*Helpers.TaskScheduler.Instance.ScheduleTask
+				(timeOut.Hour, timeOut.Minute+5, timeOut.Second, timeOut.Millisecond, 0, () => { _identityService.SignOut(user.Id); });*/
 
 			HttpContext.Response.Cookies.Append(
 				".AspNetCore.Application.Id",
