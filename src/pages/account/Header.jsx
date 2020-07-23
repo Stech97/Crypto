@@ -1,32 +1,32 @@
-import React from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography, Grid } from '@material-ui/core/';
+import React from "react";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { AppBar, Toolbar, Typography, Grid } from "@material-ui/core/";
 
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import MenuIcon from '@material-ui/icons/Menu';
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
+import MenuIcon from "@material-ui/icons/Menu";
 
 const StyledMenu = withStyles({
   paper: {
-    border: '1px solid #d3d4d5',
+    border: "1px solid #d3d4d5",
   },
 })((props) => (
   <Menu
     elevation={0}
     getContentAnchorEl={null}
     anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
+      vertical: "bottom",
+      horizontal: "center",
     }}
     transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
+      vertical: "top",
+      horizontal: "center",
     }}
     {...props}
   />
@@ -34,16 +34,21 @@ const StyledMenu = withStyles({
 
 const StyledMenuItem = withStyles((theme) => ({
   root: {
-    '&:focus': {
+    "&:focus": {
       backgroundColor: theme.palette.primary.main,
-      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
         color: theme.palette.common.white,
       },
     },
   },
 }))(MenuItem);
 
-export default function Header({ className, handleDrawerOpen, iconClassName }) {
+export default function Header({
+  className,
+  handleDrawerOpen,
+  iconClassName,
+  header,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -75,7 +80,7 @@ export default function Header({ className, handleDrawerOpen, iconClassName }) {
           </Grid>
           <Grid item>
             <Typography variant="h6" noWrap>
-              Dashboard
+              {header}
             </Typography>
           </Grid>
           <Grid item>

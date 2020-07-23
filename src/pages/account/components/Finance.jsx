@@ -1,412 +1,252 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
+import React, { useEffect, Component, useState } from "react";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import clsx from "clsx";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { GetFinance, PatchFinance } from "../actions/finance";
+import { connect } from "react-redux";
 
-export default function Finance(props) {
-  const { openStatus, classes, theme } = props;
+const drawerWidth = 240;
 
-  return (
-    <main
-      className={clsx(classes.content, {
-        [classes.contentShift]: props.openStatus,
-      })}
-    >
-      <div className={classes.drawerHeader} />
-      <Grid
-        container
-        direction="row"
-        justify="flex-start"
-        alignItems="flex-start"
-      >
-        <Grid item xs={6}>
-          <Grid
-            container
-            direction="column"
-            justify="flex-start"
-            alignItems="flex-start"
-          >
-            {' '}
-            <Grid item xs={12}>
-              <Typography
-                className={classes.title}
-                variant="h4"
-                component="p"
-                gutterBottom
-              >
-                Teams Comission
-              </Typography>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid item xs={6}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  Level 1
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  defaultValue="30%"
-                />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid item xs={6}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  Level 2
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  defaultValue="20%"
-                />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid item xs={6}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  Level 3
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  defaultValue="20%"
-                />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid item xs={6}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  Level 4
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  defaultValue="10%"
-                />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid item xs={6}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  Level 5
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  defaultValue="10%"
-                />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid item xs={6}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  Level 6
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  defaultValue="5%"
-                />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid item xs={6}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  Level 7
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  defaultValue="5%"
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={6}>
-          <Grid
-            container
-            direction="column"
-            justify="flex-start"
-            alignItems="flex-start"
-          >
-            {' '}
-            <Grid item xs={12}>
-              <Typography
-                className={classes.title}
-                variant="h4"
-                component="p"
-                gutterBottom
-              >
-                Super User
-              </Typography>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid item xs={6}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  Comission
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  defaultValue="0.5%"
-                />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid item xs={6}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  Threshold
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  defaultValue="100500"
-                />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid item xs={12}>
-                <Typography
-                  className={classes.title}
-                  variant="h4"
-                  component="p"
-                  gutterBottom
-                >
-                  Weekly percent
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  Comission "Small"
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  defaultValue="1.5%"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  Comission "Medium"
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  defaultValue="1.5%"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  Comission "Large"
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  defaultValue="1.5%"
-                />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid item xs={12}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  DET to USD
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography
-                  className={classes.title}
-                  variant="h5"
-                  component="p"
-                  gutterBottom
-                >
-                  Rate
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  defaultValue="1"
-                />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="flex-start"
-            >
-              <Grid item xs={6}>
-                <Button variant="contained" color="secondary">
-                  Apply changes
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    </main>
-  );
+const useStyles = makeStyles((theme) => ({
+	table: {
+		minWidth: 650,
+	},
+	root: {
+		display: "flex",
+		flexGrow: 1,
+		"& .MuiTextField-root": {
+			margin: theme.spacing(1),
+			width: "100%",
+		},
+	},
+	paper: {
+		padding: theme.spacing(2),
+		textAlign: "center",
+		color: theme.palette.text.secondary,
+	},
+	appBar: {
+		transition: theme.transitions.create(["margin", "width"], {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen,
+		}),
+	},
+	appBarShift: {
+		width: `calc(100% - ${drawerWidth}px)`,
+		marginLeft: drawerWidth,
+		transition: theme.transitions.create(["margin", "width"], {
+			easing: theme.transitions.easing.easeOut,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+	},
+	menuButton: {
+		marginRight: theme.spacing(2),
+	},
+	hide: {
+		display: "none",
+	},
+	drawer: {
+		width: drawerWidth,
+		flexShrink: 0,
+	},
+	drawerPaper: {
+		width: drawerWidth,
+	},
+	drawerHeader: {
+		display: "flex",
+		alignItems: "center",
+		padding: theme.spacing(0, 1),
+		// necessary for content to be below app bar
+		...theme.mixins.toolbar,
+		justifyContent: "flex-end",
+	},
+	content: {
+		flexGrow: 1,
+		padding: theme.spacing(3),
+		transition: theme.transitions.create("margin", {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen,
+		}),
+		marginLeft: -drawerWidth,
+	},
+	contentShift: {
+		transition: theme.transitions.create("margin", {
+			easing: theme.transitions.easing.easeOut,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+		marginLeft: 0,
+	},
+}));
+
+function Row(props) {
+	const { id, title, defaultValue, symbol } = props;
+
+	return (
+		<Grid
+			spacing={2}
+			item
+			container
+			xs={12}
+			justify="space-around"
+			component={Box}
+			container
+			alignContent="center"
+		>
+			<Grid item container alignContent="center" xs={3}>
+				<Typography align="center" variant="subtitle1">
+					{title}
+				</Typography>
+			</Grid>
+			<Grid item container alignContent="center" xs={3}>
+				<TextField
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="start">
+								{symbol}
+							</InputAdornment>
+						),
+					}}
+					defaultValue={defaultValue}
+					id={id}
+					type="text"
+				/>
+			</Grid>
+		</Grid>
+	);
 }
+
+function FinanceContent(props) {
+	const classes = useStyles();
+	const theme = useTheme();
+
+	const { comissions, profit, rateDet } = props;
+	const levels = props.comissions;
+	const [state, setState] = useState({
+		comissions: props.comissions,
+		rateDet: props.rateDet,
+		profit: props.profit,
+	});
+
+	const handleClick = () => {};
+
+	return (
+		<main
+			className={clsx(classes.content, {
+				[classes.contentShift]: props.open,
+			})}
+		>
+			<div className={classes.drawerHeader} />
+			<Grid item container spacing={2} justify="space-around" xs={12}>
+				<Grid item container spacing={2} xs={4}>
+					<Grid spacing={2} item container xs={12}>
+						<Typography align="center" variant="h5">
+							Teams commissions
+						</Typography>
+					</Grid>
+					{levels.map((percent, id) => (
+						<Row
+							title={"Level " + (id + 1)}
+							key={id + 1}
+							defaultValue={percent}
+							id={"level" + (id + 1)}
+							symbol="%"
+						/>
+					))}
+				</Grid>
+				<Grid item container spacing={2} xs={4}>
+					<Grid item container spacing={2} xs={12}>
+						<Grid spacing={2} item container xs={12}>
+							<Typography align="center" variant="h5">
+								Super user
+							</Typography>
+						</Grid>
+						<Row
+							title={"Comission"}
+							defaultValue={comissions[7]}
+							id={"superuser"}
+							symbol="%"
+						/>
+						<Row
+							title={"Threshold"}
+							defaultValue={"100000"}
+							id={"Threshold"}
+							symbol="$"
+						/>
+					</Grid>
+					<Grid item container spacing={2} xs={12}>
+						<Grid item container xs={12}>
+							<Typography align="center" variant="h5">
+								Weekly percent
+							</Typography>
+						</Grid>
+						{profit.map((row, id) => (
+							<Row
+								title={row.type}
+								defaultValue={row.percent}
+								id={id}
+								key={id}
+								symbol="%"
+							/>
+						))}
+					</Grid>
+					<Grid item container spacing={2} xs={12}>
+						<Grid spacing={2} item container xs={12}>
+							<Typography align="center" variant="h5">
+								{"DET <-> USD"}
+							</Typography>
+						</Grid>
+						<Row
+							title={"Comission"}
+							defaultValue={props.rateDet}
+							id={"weekly"}
+							symbol=""
+						/>
+					</Grid>
+				</Grid>
+				<Grid item container justify="flex-end" xs={8}>
+					<Button onClick={props.PatchFinanceAction}>
+						Apply Changes
+					</Button>
+				</Grid>
+			</Grid>
+		</main>
+	);
+}
+
+class Finance extends Component {
+	componentDidMount = () => {
+		this.props.GetFinanceAction();
+	};
+
+	render() {
+		console.log("this.props", this.props);
+		const {
+			finance: { isFetching, comissions, profit, rateDet },
+		} = this.props;
+		return (
+			<FinanceContent
+				comissions={comissions}
+				profit={profit}
+				rateDet={rateDet}
+			/>
+		);
+	}
+}
+
+const mapStateToProps = (state) => ({
+	finance: state.finance,
+});
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		GetFinanceAction: () => dispatch(GetFinance()),
+		PatchFinanceAction: (rate, comission, profit) =>
+			dispatch(PatchFinance(rate, comission, profit)),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Finance);

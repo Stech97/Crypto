@@ -88,7 +88,7 @@ export default function Sidebar({
           {
             text: "Finance",
             Svg: FinanceIcon,
-            path: "/pages/finance",
+            path: "/pages/account/finance",
           },
           {
             text: "Users",

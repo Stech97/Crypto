@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, Fragment } from "react";
 import clsx from "clsx";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -118,7 +118,9 @@ export default function Pages(props) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Header
-          className={clsx(classes.appBar, { [classes.appBarShift]: open })}
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
           handleDrawerOpen={handleDrawerOpen}
           iconClassName={clsx(classes.menuButton, open && classes.hide)}
         />

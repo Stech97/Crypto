@@ -5,32 +5,40 @@ export const ERROR = "/error";
 export const GetKYC = "GetKYC";
 export const AcceptKYC = "AcceptKYC";
 export const AcceptAllKYC = "AcceptAllKYC";
+export const GetPassportPicture = "/GetPassportPicture";
+export const GetProofPicture = "/GetProofPicture";
+export const GetSelfiPicture = "/GetSelfiPicture";
 
 const getFile = async (type, id) => {
-	let response = await API("/Administrator/" + type + "?UserId=" + id);
+	let response = await API("Administrator" + type + "?UserId=" + id, "file");
 	return response;
 };
 
 const acceptKYCFetch = async (type, id) => {
 	let response = await API(
-		"/Administrator/" + type + "?UserId=" + id,
+		"Administrator/" + type + "?UserId=" + id,
 		"patch"
 	);
 	return response;
 };
 
 const acceptAllKYCFetch = async (type) => {
-	let response = await API("/Administrator/" + type, "patch");
+	let response = await API("Administrator/" + type, "patch");
 	return response;
 };
 
 const KYCFetch = async (type) => {
-	let response = await API("/Administrator/" + type);
+	let response = await API("Administrator/" + type);
 	return response;
 };
 
 const KYCRequest = (type) => ({
 	type: type + REQUEST,
+});
+
+const FileRequest = (type, id) => ({
+	type: type + REQUEST,
+	payload: { id },
 });
 
 const KYCError = (type, error) => ({
@@ -42,6 +50,44 @@ const KYCSuccess = (type, data) => ({
 	payload: data,
 	type: type + SUCCESS,
 });
+
+const getPicture = (type, id, dispatch) => {
+	dispatch(FileRequest(type, id));
+	getFile(type, id)
+		.then((res) => {
+			if (res.ok) {
+				var reader = new FileReader();
+				reader.readAsDataURL(res.data);
+				reader.onload = function () {
+					var imageDataUrl = reader.result;
+					dispatch(KYCSuccess(type, { id, image: imageDataUrl }));
+				};
+			} else {
+				dispatch(
+					KYCError(type, {
+						type: res.error.status,
+						message: res.error.message,
+					})
+				);
+			}
+		})
+		.catch((error) =>
+			dispatch(
+				KYCError(type, {
+					type: error.status,
+					message: error.message,
+				})
+			)
+		);
+};
+
+export const getPictures = (id) => {
+	return (dispatch) => {
+		dispatch(getPicture(GetPassportPicture, id, dispatch));
+		dispatch(getPicture(GetProofPicture, id, dispatch));
+		dispatch(getPicture(GetSelfiPicture, id, dispatch));
+	};
+};
 
 export const acceptKYC = (id) => {
 	return (dispatch) => {

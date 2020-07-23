@@ -36,9 +36,69 @@ const requestTemplate = axios.create({
   },
 });
 
+const requestTemplateFile = axios.create({
+  baseURL: API_URL,
+  responseType: "blob",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 export const API = async (path, mode = "get", body = null) => {
   //console.log(path)
   switch (mode) {
+    case "file":
+      try {
+        let request = await requestTemplateFile.get(path);
+        //console.log(request)
+        return { ok: true, status: request.status, data: request.data };
+      } catch (error) {
+        // Error 😨
+        if (error.response) {
+          /*
+           * The request was made and the server responded with a
+           * status code that falls out of the range of 2xx
+           */
+          //console.log(error.response.data);
+          //console.log(error.response.status);
+          //console.log(error.response.headers);
+          return {
+            ok: false,
+            data: error.response.data,
+            error: {
+              status: error.response.status,
+              message: error.message,
+            },
+          };
+        } else if (error.request) {
+          /*
+           * The request was made but no response was received, `error.request`
+           * is an instance of XMLHttpRequest in the browser and an instance
+           * of http.ClientRequest in Node.js
+           */
+          //console.log(error.request);
+          return {
+            ok: false,
+            data: error.response.data,
+            error: {
+              status: error.response.status,
+              message: error.message,
+            },
+          };
+        } else {
+          // Something happened in setting up the request and triggered an Error
+          //console.log('Error', error.message);
+          return {
+            ok: false,
+            data: error.response.data,
+            error: {
+              status: error.response.status,
+              message: error.message,
+            },
+          };
+        }
+        //console.log(error);
+      }
     case "get":
       try {
         let request = await requestTemplate.get(path);
@@ -91,7 +151,6 @@ export const API = async (path, mode = "get", body = null) => {
         }
         //console.log(error);
       }
-      break;
     case "post":
       try {
         //console.log(body)
@@ -221,86 +280,103 @@ export const routes = [
         path: "/pages/account/dashboard",
         component: Dashboard,
         Private: true,
+        header: "Dashboard",
       },
       {
         path: "/pages/account/finance",
         component: Finance,
         Private: true,
+        header: "Finance",
       },
       {
         path: "/pages/account/users",
         component: Users,
         Private: true,
+        header: "Users",
       },
       {
         path: "/pages/account/files",
         component: Files,
         Private: true,
+        header: "Files",
       },
       {
         path: "/pages/account/homescreen",
         component: Homescreen,
         Private: true,
+        header: "Homescreen",
       },
       {
         path: "/pages/account/our_mission",
         component: OurMission,
         Private: true,
+        header: "OurMission",
       },
       {
         path: "/pages/account/how_it_works",
         component: HowItWorks,
         Private: true,
+        header: "HowItWorks",
       },
       {
         path: "/pages/account/portfolio",
         component: Portfolio,
         Private: true,
+        header: "Portfolio",
       },
       {
         path: "/pages/account/career_team",
         component: CareerTeam,
         Private: true,
+        header: "CareerTeam",
       },
       {
         path: "/pages/account/defima_token",
         component: DefimaToken,
         Private: true,
+        header: "DefimaToken",
       },
       {
         path: "/pages/account/about_us",
         component: AboutUs,
         Private: true,
+        header: "AboutUs",
       },
       {
         path: "/pages/account/join_us",
         component: JoinUs,
         Private: true,
+        header: "JoinUs",
       },
       {
         path: "/pages/account/faq",
         component: FAQ,
         Private: true,
+        header: "FAQ",
       },
       {
         path: "/pages/account/terms",
         component: Terms,
         Private: true,
+        header: "Terms",
       },
       {
         path: "/pages/account/privacy",
         component: Privacy,
         Private: true,
+        header: "Privacy",
       },
       {
         path: "/pages/account/news",
         component: News,
         Private: true,
+        header: "News",
       },
       {
         path: "/pages/finance",
         component: Finance,
         Private: false,
+        header: "Finance",
       },
     ],
   },

@@ -52,7 +52,6 @@ function Withdraw(props) {
 
 	useEffect(() => {
 		props.getWithdrawAction();
-		console.log("props.withdraw", props.withdraw);
 	}, []);
 
 	return (
@@ -115,9 +114,7 @@ function Withdraw(props) {
 									<Typography variant="h5">User</Typography>
 								</TableCell>
 								<TableCell component={Box} align="center">
-									<Typography variant="h5">
-										View KYC
-									</Typography>
+									<Typography variant="h5">Amount</Typography>
 								</TableCell>
 								<TableCell component={Box} align="center">
 									<Typography variant="h5">
