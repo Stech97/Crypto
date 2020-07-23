@@ -1,28 +1,54 @@
-import { GET_BALANCE_REQUEST, GET_BALANCE_SUCCESS } from '../actions/getBalance'
+import {
+	Dashboard,
+	GetBalance,
+	GetRate,
+	request,
+	error,
+	success,
+} from "../actions/getBalance";
 
 const initialState = {
-	btc: "Wait...",
-	usd: "Wait...",
-	det: "Wait...",
 	isFetching: true,
-}
+	balance: {
+		btc: 0,
+		usd: 0,
+		det: 0,
+	},
+	rate: {
+		u2b: 1,
+		b2u: 1,
+		u2d: 1,
+		d2u: 1,
+	},
+};
 
 export function BalanceReducer(state = initialState, action) {
 	switch (action.type) {
-		case GET_BALANCE_REQUEST: return {
-			...state, 
-			isFetching: true,
-		}
+		case Dashboard + GetBalance + request || Dashboard + GetRate + request:
+			return {
+				...state,
+				isFetching: true,
+			};
 
-		case GET_BALANCE_SUCCESS: return {
-			...state, 
-			btc: action.payload.btc,
-			usd: action.payload.usd,
-			det: action.payload.det,
-			isFetching: false,
-		}
-
+		case Dashboard + GetBalance + error || Dashboard + GetRate + error:
+			return {
+				...state,
+				error: action.payload,
+				isFetching: false,
+			};
+		case Dashboard + GetBalance + success:
+			return {
+				...state,
+				isFetching: false,
+				balance: action.payload,
+			};
+		case Dashboard + GetRate + success:
+			return {
+				...state,
+				isFetching: false,
+				rate: action.payload,
+			};
 		default:
-			return state
+			return state;
 	}
 }

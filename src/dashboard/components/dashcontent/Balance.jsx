@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
 
@@ -12,7 +12,7 @@ import {
 	MinusIcon,
 	PlusIcon,
 } from "../../svg/iconComponents";
-
+import { getBalance, getAllRate } from "../../actions/getBalance";
 import { makeStyles } from "@material-ui/core/styles";
 
 const darkBlue = "#123273";
@@ -23,6 +23,8 @@ const orange = "#ed7102";
 const lightBlue = "#16428d";
 const whitebox = "#efefef";
 const contentBack = "#f5fbff";
+
+const fixNum = (value) => Number(Number(value).toFixed(4));
 
 const useStyles = makeStyles((theme) => ({
 	arrow: {
@@ -51,8 +53,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-function Balance() {
+function Balance(props) {
+	const { balance, rate } = props;
 	const classes = useStyles();
+	useEffect(() => {
+		props.getBalanceAction();
+	}, []);
+
 	return (
 		<Grid
 			item
@@ -62,7 +69,10 @@ function Balance() {
 			xs={12}
 			className={classes.balance}
 		>
-			<BitcoinBox contentBlue="BTC 0.658" contentGray="USD 2985" />
+			<BitcoinBox
+				contentBlue={"BTC " + fixNum(balance.btc)}
+				contentGray={"USD " + fixNum(balance.btc * rate.b2u)}
+			/>
 			<Grid className={classes.arrow} item xs={6} md="auto">
 				<ArrowLeft />
 			</Grid>
@@ -71,8 +81,11 @@ function Balance() {
 			</Grid>
 			<BalanceBox
 				header="USD Balance"
-				contentBlue="USD 2000"
-				contentGray={["BTC 0.256", "DET 2000"]}
+				contentBlue={"USD " + fixNum(balance.usd)}
+				contentGray={[
+					"BTC " + fixNum(balance.usd * rate.u2b),
+					"DET " + fixNum(balance.usd * rate.u2d),
+				]}
 				justify="center"
 			/>
 			<Grid className={classes.arrow} item xs={6} md="auto">
@@ -83,16 +96,24 @@ function Balance() {
 			</Grid>
 			<BalanceBox
 				header="DEFIMA Token Balance"
-				contentBlue="DET 2000"
-				contentGray={["DET/USD 1.0"]}
+				contentBlue={"DET " + fixNum(balance.det)}
+				contentGray={["DET/USD " + rate.d2u]}
 				justify="flex-end"
 			/>
 		</Grid>
 	);
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+	balance: state.Balance.balance,
+	rate: state.Balance.rate,
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getAllRateAction: () => dispatch(getAllRate()),
+		getBalanceAction: () => dispatch(getBalance()),
+	};
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Balance);

@@ -42,6 +42,8 @@ const requestTemplateAuthed = axios.create({
   headers: {
     "Content-Type": "application/json",
     Authorization: "Bearer " + Cookies.get("token"),
+    "Access-Control-Allow-Credentials": true,
+    crossDomain: true,
   },
 });
 
@@ -61,6 +63,11 @@ const requestTemplateFile = axios.create({
   },
 });
 
+const requestInterceptor = (request) => {
+  request.withCredentials = true;
+  return request;
+};
+
 export const API = async (path, mode = "get", body = null, authed = true) => {
   //console.log(path)
   const requestTemplate = authed
@@ -69,7 +76,9 @@ export const API = async (path, mode = "get", body = null, authed = true) => {
   switch (mode) {
     case "get":
       try {
-        let request = await requestTemplate.get(path);
+        let request = await requestTemplate.get(path, {
+          withCredentials: true,
+        });
         //console.log(request)
         return { ok: true, status: request.status, data: request.data };
       } catch (error) {
@@ -123,7 +132,9 @@ export const API = async (path, mode = "get", body = null, authed = true) => {
       try {
         //console.log(body)
         let bodyJson = JSON.stringify(body);
-        let request = await requestTemplate.post(path, bodyJson);
+        let request = await requestTemplate.post(path, bodyJson, {
+          withCredentials: true,
+        });
         return { ok: true, status: request.status, data: request.data };
       } catch (error) {
         // Error 😨
@@ -176,7 +187,9 @@ export const API = async (path, mode = "get", body = null, authed = true) => {
       try {
         //console.log(body)
         let bodyJson = JSON.stringify(body);
-        let request = await requestTemplate.patch(path, bodyJson);
+        let request = await requestTemplate.patch(path, bodyJson, {
+          withCredentials: true,
+        });
         return { ok: true, status: request.status, data: request.data };
       } catch (error) {
         // Error 😨
@@ -224,7 +237,9 @@ export const API = async (path, mode = "get", body = null, authed = true) => {
       }
     case "delete":
       try {
-        let request = await requestTemplate.delete(path);
+        let request = await requestTemplate.delete(path, {
+          withCredentials: true,
+        });
         console.log(request);
         return { ok: true, status: request.status, data: request.data };
       } catch (error) {
@@ -278,7 +293,9 @@ export const API = async (path, mode = "get", body = null, authed = true) => {
     case "put":
       try {
         //console.log(body)
-        let request = await requestTemplateFile.put(path, body);
+        let request = await requestTemplateFile.put(path, body, {
+          withCredentials: true,
+        });
         return { ok: true, status: request.status, data: request.data };
       } catch (error) {
         // Error 😨

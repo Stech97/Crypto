@@ -7,9 +7,6 @@ import { forgotPasswordReducer } from "../signup/reducers/forgotpassword";
 import { routerReducer } from "react-router-redux";
 import { dashHeaderReducer } from "../dashboard/reducers/header";
 import { BalanceReducer } from "../dashboard/reducers/contentBalance";
-import { BTCRateReducer } from "../dashboard/reducers/ContentBalanceBTC";
-import { USDRateReducer } from "../dashboard/reducers/ContentBalanceUSD";
-import { DETRateReducer } from "../dashboard/reducers/ContentBalanceDET";
 import { NewsReducer } from "../dashboard/reducers/news";
 import { loginHistoryReducer } from "../dashboard/reducers/loginHistory";
 import { ExchangeReducer } from "../dashboard/reducers/ExchangeForm";
@@ -40,10 +37,7 @@ export const rootReducer = combineReducers({
 
 	user: dashHeaderReducer,
 	userInfo: userInfoReducer,
-	ContentBalanceContainer: BalanceReducer,
-	BTCSquare: BTCRateReducer,
-	USDSquare: USDRateReducer,
-	DETSquare: DETRateReducer,
+	Balance: BalanceReducer,
 	News: NewsReducer,
 	loginHistory: loginHistoryReducer,
 	Exchange: ExchangeReducer,
