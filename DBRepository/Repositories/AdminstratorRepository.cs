@@ -1,8 +1,10 @@
 ﻿using DBRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using Remotion.Linq.Clauses.ResultOperators;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace DBRepository.Repositories
@@ -650,29 +652,51 @@ namespace DBRepository.Repositories
 			return response;
 		}
 
-		public async Task AcceptAllWithdrawal()
+		public async Task<List<string>> AcceptAllWithdrawal()
 		{
-			/*using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			List<string> response = new List<string>();
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var Users = context.Users.Where(u => !u.IsKYC).ToList();
-				foreach (var user in Users)
-				{
-					user.IsKYC = true;
-					context.Users.Update(user);
-					await context.SaveChangesAsync();
-				}
-			}*/
+				var balance = await context.Balances.Select(b => b.BitcoinWallet).ToListAsync();
+				await context.BalanceHistories.ForEachAsync(x => { x.TypeHistory = EnumTypeHistory.AcceptWithdrow; });
+
+				await context.SaveChangesAsync();
+
+				return balance;
+			}
 		}
 
-		public async Task AcceptWithdrawal(int UserId)
+		public async Task<string> AcceptWithdrawal(int UserId)
 		{
-			/*using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var user = context.Users.Where(u => !u.IsKYC).FirstOrDefault(u => u.Id == UserId);
-				user.IsKYC = true;
-				context.Users.Update(user);
+				var balance = await context.Balances.FirstOrDefaultAsync(u => u.UserId == UserId);
+				var balanceHistory = await context.BalanceHistories.FirstOrDefaultAsync(u => u.UserId == UserId);
+
+				balanceHistory.TypeHistory = EnumTypeHistory.AcceptWithdrow;
+				context.BalanceHistories.Update(balanceHistory);
 				await context.SaveChangesAsync();
-			}*/
+				
+				return balance.BitcoinWallet;
+			}
+		}
+
+		public async Task DiscardWithdraw(int UserId)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var Rates = await context.Rates.FirstOrDefaultAsync();
+				var balance = await context.Balances.FirstOrDefaultAsync(u => u.UserId == UserId);
+				var balanceHistory = await context.BalanceHistories.FirstOrDefaultAsync(u => u.UserId == UserId);
+
+				balance.BitcoinBalance = balanceHistory.Amount / Rates.BTC_USD;
+				balanceHistory.TypeHistory = EnumTypeHistory.DiscardWithdrow;
+				context.BalanceHistories.Update(balanceHistory);
+				context.Balances.Update(balance);
+
+				await context.SaveChangesAsync();
+
+			}
 		}
 
 		public async Task AcceptAllKYC()

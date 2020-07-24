@@ -63,8 +63,9 @@ namespace Crypto.Services.Interfaces
         Task<double> GetAllCommission();
         Task<List<WithdrawAll>> GetWithdrawalRequest();
         Task<List<object>> GetKYC();
-        Task AcceptAllWithdrawal();
-        Task AcceptWithdrawal(int UserId);
+        Task<List<string>> AcceptAllWithdrawal();
+        Task<string> AcceptWithdrawal(int UserId);
+        Task DiscardWithdraw(int UserId);
         Task AcceptAllKYC();
         Task AcceptKYC(int UserId);
         Task DiscardKYC(DiscardKYCViewModel model);

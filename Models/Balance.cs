@@ -8,6 +8,8 @@
         public double DefimaBalance { get; set; }
         public int UserId { get; set; }
 
+        public string BitcoinWallet { get; set; }
+
         #region Dependecy
         public User User { get; set; }
         #endregion

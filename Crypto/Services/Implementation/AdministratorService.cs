@@ -212,14 +212,19 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetKYC();
 		}
 
-		public async Task AcceptAllWithdrawal()
+		public async Task<List<string>> AcceptAllWithdrawal()
 		{
-			await _repository.AcceptAllWithdrawal();
+			return await _repository.AcceptAllWithdrawal();
 		}
 
-		public async Task AcceptWithdrawal(int UserId)
+		public async Task<string> AcceptWithdrawal(int UserId)
 		{
-			await  _repository.AcceptWithdrawal(UserId);
+			return await _repository.AcceptWithdrawal(UserId);
+		}
+
+		public async Task DiscardWithdraw(int UserId)
+		{
+			await _repository.DiscardWithdraw(UserId);
 		}
 
 		public async Task AcceptAllKYC()

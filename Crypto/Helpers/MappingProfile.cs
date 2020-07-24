@@ -22,7 +22,8 @@ namespace Crypto.Helpers
 				.ForMember(m => m.BTC, opt => opt.MapFrom(x => x.BitcoinBalance));
 
 			CreateMap<CashBTCViewModel, Balance>()
-				.ForMember(m => m.BitcoinBalance, opt => opt.MapFrom(x => x.BTC));
+				.ForMember(m => m.BitcoinBalance, opt => opt.MapFrom(x => x.BTC))
+				.ForMember(m => m.BitcoinWallet, opt => opt.MapFrom(x => x.Wallet));
 
 			CreateMap<LoginHistory, ViewModels.Dashdoard.LoginHistoryViewModel>()
 				.ForMember(m => m.LoginTime, opt => opt.MapFrom(x => x.LoginTime.ToString("dd.MM\'/'HH:mm")));

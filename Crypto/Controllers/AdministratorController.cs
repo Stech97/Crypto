@@ -461,15 +461,23 @@ namespace Crypto.Controllers
 		[HttpPatch]
 		public async Task<IActionResult> AcceptAllWithdrawal()
 		{
-			await _administratorService.AcceptAllWithdrawal();
-			return Ok();
+			var response = await _administratorService.AcceptAllWithdrawal();
+			return Ok(response);
 		}
 
 		[Route("AcceptWithdrawal")]
 		[HttpPatch]
 		public async Task<IActionResult> AcceptWithdrawal(int UserId)
 		{
-			await _administratorService.AcceptWithdrawal(UserId);
+			var response = await _administratorService.AcceptWithdrawal(UserId);
+			return Ok(response);
+		}
+
+		[Route("DiscardWithdraw")]
+		[HttpPatch]
+		public async Task<IActionResult> DiscardWithdraw(int UserId)
+		{
+			await _administratorService.DiscardWithdraw(UserId);
 			return Ok();
 		}
 

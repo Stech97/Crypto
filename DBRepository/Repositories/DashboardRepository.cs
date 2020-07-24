@@ -18,13 +18,6 @@ namespace DBRepository.Repositories
         //Bitpay parameters
         readonly Uri BitPayUri = new Uri("http://payment.defima.io/");
         static readonly Network Network = Network.Main;
-        //////////////
-
-        //RPC Testnet settings
-        static readonly string RPCAuth = "cookiefile=G:\\Bitcoin\\testnet3\\.cookie"; // or user:pwd or null for default
-        /// </summary>
-
-        static RPCClient RPC;
         Bitpay Bitpay = null;
 
 
@@ -125,15 +118,12 @@ namespace DBRepository.Repositories
 
                     var BalanceHistory = new BalanceHistory()
                     {
-                        Amount = balance.BitcoinBalance * Rates.BTC_USD,
-                        Balance = balanceOld.BitcoinBalance * Rates.BTC_USD,
                         Time = DateTime.Now,
                         UserId = UserId
                     };
 
                     if (balance.BitcoinBalance > 0)
                     {
-                        BalanceHistory.TypeHistory = EnumTypeHistory.Add;
 
                         try
                         {
@@ -154,9 +144,17 @@ namespace DBRepository.Repositories
                         });
 
                         pay = invoice.PaymentUrls.BIP21;
+
+                        BalanceHistory.TypeHistory = EnumTypeHistory.Add;
                     }
                     else
+                    {
                         BalanceHistory.TypeHistory = EnumTypeHistory.Withdraw;
+                        balanceOld.BitcoinWallet = balance.BitcoinWallet;
+                    }
+
+                    BalanceHistory.Amount = balance.BitcoinBalance * Rates.BTC_USD;
+                    BalanceHistory.Balance = balanceOld.BitcoinBalance * Rates.BTC_USD;
 
                     context.Balances.Update(balanceOld);
                     context.BalanceHistories.Add(BalanceHistory);
@@ -222,7 +220,6 @@ namespace DBRepository.Repositories
                 return RefUser;
             }
         }
-
 
         public async Task<object> GetTotalInvestment(int UserId)
         {

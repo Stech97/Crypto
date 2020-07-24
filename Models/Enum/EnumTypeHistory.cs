@@ -10,6 +10,8 @@
         Comission = 6,
         BuySmall = 7,
         BuyMedium = 8,
-        BuyLarge = 9
+        BuyLarge = 9,
+        AcceptWithdrow = 10,
+        DiscardWithdrow = 11
     }
 }
