@@ -36,7 +36,7 @@ const BalanceSuccess = (type, data) => ({
 	payload: data,
 });
 
-export const getAllRate = () => (dispatch) => {
+export const getBTCRate = () => (dispatch) => {
 	dispatch(BalanceRequest(GetRate));
 	var rate: {
 		u2b: 1,
@@ -48,8 +48,12 @@ export const getAllRate = () => (dispatch) => {
 	getRateFetch("USD", "BTC")
 		.then((res) => {
 			if (res.ok) {
-				rate.u2b = res.data.rate;
-				rate.b2u = 1 / rate.u2b;
+				dispatch(
+					BalanceSuccess(GetRate, {
+						u2b: res.data.rate,
+						b2u: 1 / res.data.rate,
+					})
+				);
 			} else {
 				dispatch(
 					BalanceError(GetRate, {
@@ -73,12 +77,18 @@ export const getAllRate = () => (dispatch) => {
 				})
 			)
 		);
-
+};
+export const getDETRate = () => (dispatch) => {
+	dispatch(BalanceRequest(GetRate));
 	getRateFetch("USD", "DET")
 		.then((res) => {
 			if (res.ok) {
-				rate.u2d = res.data.rate;
-				rate.d2u = 1 / rate.u2d;
+				dispatch(
+					BalanceSuccess(GetRate, {
+						u2d: res.data.rate,
+						d2u: 1 / res.data.rate,
+					})
+				);
 			} else {
 				dispatch(
 					BalanceError(GetRate, {
@@ -102,8 +112,6 @@ export const getAllRate = () => (dispatch) => {
 				})
 			)
 		);
-
-	dispatch(BalanceSuccess(GetRate, rate));
 };
 
 export const getBalance = () => (dispatch) => {

@@ -1,7 +1,17 @@
 import React, { Component, Fragment } from "react";
 import ExchangeForm from "./converterForm";
-import { RateRequest } from "../../../actions/getRate";
-
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import CloseIcon from "@material-ui/icons/Close";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import IconButton from "@material-ui/core/IconButton";
+import { ArrowLeft, ArrowRight } from "../../../svg/iconComponents";
 class ExchangeContainer extends Component {
 	state = {
 		[this.props.cur1]: 0,
@@ -19,39 +29,18 @@ class ExchangeContainer extends Component {
 	};
 
 	getRateForComponent = () => {
-		RateRequest(
-			this.currencyToDef(this.props.cur1),
-			this.currencyToDef(this.props.cur2)
-		).then((res) => {
-			console.log("res", res);
-			this.setState({
-				...this.state,
-				[this.props.cur1]: res.data.rate,
-			});
-		});
-		RateRequest(
-			this.currencyToDef(this.props.cur2),
-			this.currencyToDef(this.props.cur1)
-		).then((res) => {
-			console.log("res", res);
-			this.setState({
-				...this.state,
-				[this.props.cur2]: res.data.rate,
-			});
+		this.setState({
+			[this.props.cur1]: this.props.cur1rate,
+			[this.props.cur2]: this.props.cur2rate,
 		});
 	};
 
 	componentDidMount() {
-		this.interval = setInterval(() => this.getRateForComponent(), 5000);
-	}
-
-	componentWillUnmount() {
-		clearInterval(this.interval);
-		this.timer = null;
+		this.getRateForComponent();
 	}
 
 	render() {
-		const { cur1, cur2, isOpened, closeModal } = this.props;
+		const { cur1, cur2, isOpened, closeModal, classes } = this.props;
 
 		const curToString = (cur) => {
 			if (cur === "btc") {
@@ -108,43 +97,40 @@ class ExchangeContainer extends Component {
 		};
 
 		return (
-			<div className={isOpened ? "popup" : "none"}>
-				<div className="popup-layer" onClick={() => closeModal()}></div>
-				<div className="popup-wrapper">
-					<div className="popup-wrapper-header">
-						<h1>Exchange</h1>
-					</div>
-					<div className="popup-wrapper-cross">
-						<img
-							onClick={() => closeModal()}
-							src="/img/close-icon.png"
-						/>
-					</div>
-					<div className="popup-wrapper-content popup-exchange">
-						<div className="popup-exchange-header popup-exchange-bluetext">
-							{subHeader(cur1, cur2)}
-						</div>
-						<div className="popup-exchange-rate popup-exchange-greytext">
-							<h5>
-								Exchange Rate
-								<br />
-								{ExchangeRateText(cur1, cur2)}
-							</h5>
-						</div>
-						<ExchangeForm
-							cur1={{ cur: cur1, rate: this.state[cur2] }}
-							cur2={{ cur: cur2, rate: this.state[cur1] }}
-							isOpened={isOpened}
-							closeModal={closeModal}
-						/>
-					</div>
-				</div>
-			</div>
+			<Dialog
+				className={classes.dialog}
+				maxWidth="md"
+				open={isOpened}
+				onClose={this.handleClose}
+			>
+				<DialogTitle id="max-width-dialog-title">
+					<Grid justify="space-between" container xs={12}>
+						<Grid container item xs={10}>
+							<Typography variant="h4" className={classes.header}>
+								Exchange
+							</Typography>
+						</Grid>
+						<Grid container justify="flex-end" item xs={2}>
+							<IconButton onClick={closeModal}>
+								<CloseIcon />
+							</IconButton>
+						</Grid>
+					</Grid>
+				</DialogTitle>
+				<DialogContent>
+					<ExchangeForm
+						cur1={{ cur: cur1, rate: this.state[cur2] }}
+						cur2={{ cur: cur2, rate: this.state[cur1] }}
+						isOpened={isOpened}
+						closeModal={closeModal}
+					/>
+				</DialogContent>
+			</Dialog>
 		);
 	}
 }
 
-export default class ContentBalanceConverter extends Component {
+export default class BalanceConverter extends Component {
 	state = {
 		leftModal: false,
 		rightModal: false,
@@ -165,40 +151,36 @@ export default class ContentBalanceConverter extends Component {
 	};
 
 	render() {
-		const { currency1, currency2 } = this.props;
+		const { currency1, currency2, rate1, rate2, classes } = this.props;
 		return (
-			<div className={"content-balance-" + currency1 + "-" + currency2}>
-				<div
-					onClick={() => this.toggleLeft()}
-					className="content-balance-arrow-left"
-				>
-					<svg viewBox="0 0 31 56">
-						<use href="#arrow-left" />
-					</svg>
-				</div>
-				<ExchangeContainer
-					key={1}
-					closeModal={() => this.toggleLeft()}
-					isOpened={this.state.leftModal}
-					cur1={currency2}
-					cur2={currency1}
-				/>
-				<div
-					onClick={() => this.toggleRight()}
-					className="content-balance-arrow-right"
-				>
-					<svg viewBox="0 0 31 56">
-						<use href="#arrow-right" />
-					</svg>
-				</div>
-				<ExchangeContainer
-					key={2}
-					closeModal={() => this.toggleRight()}
-					isOpened={this.state.rightModal}
-					cur1={currency1}
-					cur2={currency2}
-				/>
-			</div>
+			<Fragment>
+				<Grid className={classes.arrow} item xs={6} md="auto">
+					<ArrowLeft onClick={() => this.toggleLeft()} />
+					<ExchangeContainer
+						key={1}
+						classes={classes}
+						closeModal={() => this.toggleLeft()}
+						isOpened={this.state.leftModal}
+						cur1={currency2}
+						cur2={currency1}
+						cur1rate={rate2}
+						cur2rate={rate1}
+					/>
+				</Grid>
+				<Grid className={classes.arrow} item xs={6} md="auto">
+					<ArrowRight onClick={() => this.toggleRight()} />
+					<ExchangeContainer
+						key={2}
+						classes={classes}
+						closeModal={() => this.toggleRight()}
+						isOpened={this.state.rightModal}
+						cur1={currency1}
+						cur2={currency2}
+						cur1rate={rate1}
+						cur2rate={rate2}
+					/>
+				</Grid>
+			</Fragment>
 		);
 	}
 }

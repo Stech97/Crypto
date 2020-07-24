@@ -46,7 +46,10 @@ export function BalanceReducer(state = initialState, action) {
 			return {
 				...state,
 				isFetching: false,
-				rate: action.payload,
+				rate: {
+					...state.rate,
+					...action.payload,
+				},
 			};
 		default:
 			return state;

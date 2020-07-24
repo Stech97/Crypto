@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
-
+import BalanceConverter from "./contentbalance/converter";
 import BalanceBox from "./BalanceBox";
 import BitcoinBox from "./BitcoinBox";
 
@@ -12,7 +12,7 @@ import {
 	MinusIcon,
 	PlusIcon,
 } from "../../svg/iconComponents";
-import { getBalance, getAllRate } from "../../actions/getBalance";
+import { getBalance, getBTCRate, getDETRate } from "../../actions/getBalance";
 import { makeStyles } from "@material-ui/core/styles";
 
 const darkBlue = "#123273";
@@ -73,12 +73,13 @@ function Balance(props) {
 				contentBlue={"BTC " + fixNum(balance.btc)}
 				contentGray={"USD " + fixNum(balance.btc * rate.b2u)}
 			/>
-			<Grid className={classes.arrow} item xs={6} md="auto">
-				<ArrowLeft />
-			</Grid>
-			<Grid className={classes.arrow} item xs={6} md="auto">
-				<ArrowRight />
-			</Grid>
+			<BalanceConverter
+				currency1="btc"
+				currency2="dol"
+				rate1={rate.b2u}
+				rate2={rate.u2b}
+				classes={classes}
+			/>
 			<BalanceBox
 				header="USD Balance"
 				contentBlue={"USD " + fixNum(balance.usd)}
@@ -88,12 +89,13 @@ function Balance(props) {
 				]}
 				justify="center"
 			/>
-			<Grid className={classes.arrow} item xs={6} md="auto">
-				<ArrowLeft />
-			</Grid>
-			<Grid className={classes.arrow} item xs={6} md="auto">
-				<ArrowRight />
-			</Grid>
+			<BalanceConverter
+				currency1="dol"
+				currency2="det"
+				rate1={rate.u2d}
+				rate2={rate.d2u}
+				classes={classes}
+			/>
 			<BalanceBox
 				header="DEFIMA Token Balance"
 				contentBlue={"DET " + fixNum(balance.det)}
@@ -111,7 +113,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		getAllRateAction: () => dispatch(getAllRate()),
+		getAllRateAction: () => {
+			dispatch(getBTCRate());
+			dispatch(getDETRate());
+		},
 		getBalanceAction: () => dispatch(getBalance()),
 	};
 };
