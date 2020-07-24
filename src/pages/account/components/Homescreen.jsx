@@ -1,24 +1,18 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import clsx from "clsx";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+
+import TextField from "@material-ui/core/TextField";
+import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
+import { GetBlock, UpdateBlock } from "../actions/mainpage";
+
+const required = (value) => (value ? undefined : "Required");
 
 const drawerWidth = 240;
 
@@ -27,20 +21,20 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 650,
   },
   root: {
-    display: 'flex',
+    display: "flex",
     flexGrow: 1,
-    '& .MuiTextField-root': {
+    "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      width: '100%',
+      width: "100%",
     },
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
+    textAlign: "center",
     color: theme.palette.text.secondary,
   },
   appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -48,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -57,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   hide: {
-    display: 'none',
+    display: "none",
   },
   drawer: {
     width: drawerWidth,
@@ -67,24 +61,24 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -92,10 +86,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Finance(props) {
+const renderTextField = ({
+  label,
+  input,
+  placeholder,
+  meta: { touched, invalid, error },
+  ...custom
+}) => (
+  <Grid component={Box} item container xs={12}>
+    <TextField
+      label={label}
+      placeholder={placeholder}
+      error={touched && invalid}
+      helperText={touched && error}
+      required={true}
+      {...input}
+      {...custom}
+    />
+  </Grid>
+);
+
+function Homescreen(props) {
   const classes = useStyles();
   const theme = useTheme();
-
   return (
     <main
       className={clsx(classes.content, {
@@ -113,20 +126,35 @@ export default function Finance(props) {
       >
         <Grid item xs={12}>
           <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Text editor"
+            <Field
+              component={renderTextField}
+              name="header"
+              label="Text Editor"
               multiline
               rowsMax={4}
               variant="outlined"
-              value="The most profitable and secure way to get cashflow from the DeFi markets."
+              validate={required}
             />
+            <Button variant="contained" color="secondary">
+              Apply
+            </Button>
           </form>
-          <Button variant="contained" color="secondary">
-            Apply
-          </Button>
         </Grid>
       </Grid>
     </main>
   );
 }
+
+const mapStateToProps = (state) => ({
+  homescreen: state.Mainpage,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  GetAction: () => dispatch(GetBlock("Homescreen")),
+});
+
+Homescreen = connect(mapStateToProps, mapDispatchToProps)(Homescreen);
+
+export default reduxForm({
+  form: "Homescreen",
+})(Homescreen);

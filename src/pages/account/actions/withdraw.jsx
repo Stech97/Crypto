@@ -1,25 +1,25 @@
 import { API } from "../../../config";
-export const REQUEST = "request";
-export const SUCCESS = "success";
-export const ERROR = "error";
-export const GetWithdrawalRequest = "GetWithdrawalRequest";
+export const REQUEST = "/request";
+export const SUCCESS = "/success";
+export const ERROR = "/error";
+export const GetWithdrawalRequest = "/GetWithdrawalRequest";
 
 const WithdrawFetch = async (type) => {
-	let response = await API("/Administrator/" + type);
+	let response = await API("/Administrator" + type);
 	return response;
 };
 
 const WithdrawRequest = () => ({
-	type: GetWithdrawalRequest + "/" + REQUEST,
+	type: GetWithdrawalRequest + REQUEST,
 });
 
 const WithdrawError = (error) => ({
-	type: GetWithdrawalRequest + "/" + ERROR,
+	type: GetWithdrawalRequest + ERROR,
 	payload: error,
 });
 
 const WithdrawSuccess = (data) => ({
-	type: GetWithdrawalRequest + "/" + SUCCESS,
+	type: GetWithdrawalRequest + SUCCESS,
 	payload: data,
 });
 

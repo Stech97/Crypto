@@ -1,9 +1,4 @@
-import {
-	REQUEST,
-	SUCCESS,
-	ERROR,
-	GetWithdrawalRequest,
-} from "../actions/withdraw";
+import { REQUEST, SUCCESS, ERROR, GetUsersInfo } from "../actions/users";
 
 const initialState = {
 	isFetching: false,
@@ -14,20 +9,20 @@ const initialState = {
 	data: [],
 };
 
-export const WithdrawReducer = (state = initialState, action) => {
+export const UsersReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case GetWithdrawalRequest + REQUEST:
+		case GetUsersInfo + REQUEST:
 			return {
 				...state,
 				isFetching: true,
 			};
-		case GetWithdrawalRequest + ERROR:
+		case GetUsersInfo + ERROR:
 			return {
 				...state,
 				isFetching: false,
 				error: action.payload,
 			};
-		case GetWithdrawalRequest + SUCCESS:
+		case GetUsersInfo + SUCCESS:
 			return {
 				...state,
 				isFetching: false,

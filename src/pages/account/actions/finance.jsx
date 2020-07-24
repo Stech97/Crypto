@@ -17,7 +17,7 @@ const ActionGetFetch = async (type) => {
 };
 
 const ActionPatchFetch = async (type, data) => {
-	let response = await API("/Administrator" + type, data);
+	let response = await API("/Administrator" + type, "patch", data);
 	return response;
 };
 
