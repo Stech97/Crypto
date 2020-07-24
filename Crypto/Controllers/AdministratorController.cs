@@ -52,12 +52,24 @@ namespace Crypto.Controllers
 			var response = await _administratorService.GetUsersInfo();
 			if (response == null)
 				return BadRequest();
-			return Ok();
+			return Ok(response);
 		}
-        #endregion
 
-        #region News
-        [Route("AddNews")]
+		[Route("Super")]
+		[HttpPatch]
+		public async Task<IActionResult> Super(int Id, bool Super)
+		{
+			var result = await _administratorService.Super(Id, Super);
+			var response = new
+			{
+				super = result
+			};
+			return Ok(response);
+		}
+		#endregion
+
+		#region News
+		[Route("AddNews")]
 		[HttpPost]
 		public async Task<IActionResult> AddNews([FromBody] AddNewsViewModel model)
 		{

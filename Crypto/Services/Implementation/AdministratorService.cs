@@ -32,6 +32,11 @@ namespace Crypto.Services.Implementation
 		{
 			return await _repository.GetUsersInfo();
 		}
+
+		public async Task<bool> Super(int Id, bool Super)
+		{
+			return await _repository.Super(Id, Super);
+		}
         #endregion
 
         #region News

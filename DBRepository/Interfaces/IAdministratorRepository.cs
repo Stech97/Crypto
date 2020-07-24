@@ -32,6 +32,7 @@ namespace DBRepository.Interfaces
         Task<News> AddNews(News news);
         Task<News> UpdateNews(News news, string heder);
         Task DeleteNews(string heder);
+        Task<bool> Super(int id, bool super);
 
         #endregion
 

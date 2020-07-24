@@ -5,11 +5,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NBitpayClient;
+using NBitcoin;
+using NBitcoin.Payment;
+using NBitcoin.RPC;
+using System.IO;
 
 namespace DBRepository.Repositories
 {
     public class DashboardRepository : BaseRepository, IDashboardRepository
     {
+        //Bitpay parameters
+        readonly Uri BitPayUri = new Uri("http://payment.defima.io/");
+        static readonly Network Network = Network.Main;
+        //////////////
+
+        //RPC Testnet settings
+        static readonly string RPCAuth = "cookiefile=G:\\Bitcoin\\testnet3\\.cookie"; // or user:pwd or null for default
+        /// </summary>
+
+        static RPCClient RPC;
+        Bitpay Bitpay = null;
+
+
         public DashboardRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
         public async Task<Balance> GetBalance(int Id)
@@ -92,10 +110,11 @@ namespace DBRepository.Repositories
             }
         }
 
-        public async Task<Balance> CashBTC(Balance balance, int UserId)
+        public async Task<string> CashBTC(Balance balance, int UserId)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
+                string pay = string.Empty;
                 var balanceOld = await context.Balances.FirstOrDefaultAsync(b => b.UserId == UserId);
                 if ((Math.Abs(balanceOld.BitcoinBalance) < Math.Abs(balance.BitcoinBalance)) && (balance.BitcoinBalance < 0) )
                     return null;
@@ -113,7 +132,29 @@ namespace DBRepository.Repositories
                     };
 
                     if (balance.BitcoinBalance > 0)
+                    {
                         BalanceHistory.TypeHistory = EnumTypeHistory.Add;
+
+                        try
+                        {
+                            EnsureRegisteredKey();
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+
+                        var invoice = Bitpay.CreateInvoice(new Invoice()
+                        {
+                            Price = (decimal)balance.BitcoinBalance,
+                            Currency = "BTC",
+                            PosData = "posData",
+                            OrderId = "Defima",
+                            ItemDesc = "Add cash to Defima",
+                        });
+
+                        pay = invoice.PaymentUrls.BIP21;
+                    }
                     else
                         BalanceHistory.TypeHistory = EnumTypeHistory.Withdraw;
 
@@ -121,7 +162,7 @@ namespace DBRepository.Repositories
                     context.BalanceHistories.Add(BalanceHistory);
 
                     await context.SaveChangesAsync();
-                    return balanceOld;
+                    return pay;
                 }
             }    
         }
@@ -401,6 +442,42 @@ namespace DBRepository.Repositories
                 return ProfitTeamUSD;
             }
         }
+
+        private void EnsureRegisteredKey()
+        {
+            if (!Directory.Exists(Network.Name))
+                Directory.CreateDirectory(Network.Name);
+
+            BitcoinSecret k = null;
+            var keyFile = Path.Combine(Network.Name, "key.env");
+            try
+            {
+                k = new BitcoinSecret(File.ReadAllText(keyFile), Network);
+            }
+            catch { }
+
+            if (k != null)
+            {
+                try
+                {
+
+                    Bitpay = new Bitpay(k.PrivateKey, BitPayUri);
+                    if (Bitpay.TestAccess(Facade.Merchant))
+                        return;
+                }
+                catch { }
+            }
+
+            k = k ?? new BitcoinSecret(new Key(), Network);
+            File.WriteAllText(keyFile, k.ToString());
+
+            Bitpay = new Bitpay(k.PrivateKey, BitPayUri);
+            var pairing = Bitpay.RequestClientAuthorization("Defima", Facade.PointOfSale);
+
+
+            throw new Exception("You need to approve the test key to access bitpay by going to this link " + pairing.CreateLink(Bitpay.BaseUrl).AbsoluteUri);
+        }
+
 
         #endregion
     }

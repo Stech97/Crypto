@@ -49,6 +49,7 @@ namespace Crypto.Services.Interfaces
         #region Get User Picture
         Task<Images> GetPassportPicture(int userId);
         Task<Images> GetProofPicture(int UserId);
+        Task<bool> Super(int id, bool Super);
         Task<Images> GetSelfiPicture(int UserId);
         #endregion
 

@@ -11,7 +11,7 @@ namespace Crypto.Services.Interfaces
         Task<List<LoginHistoryViewModel>> GetLoginHistory(int Id);
         Task<List<NewsViewModel>> GetNews(int Take, int Skip);
         Task<bool> ExchangeBalance(ExchangeViewModel request, int UserId);
-        Task<CashBTCViewModel> CashBTC(CashBTCViewModel request, int Id);
+        Task<string> CashBTC(CashBTCViewModel request, int Id);
         Task<double> GetRate(RateViewModel request);
         Task<RefUserViewModel> GetTeam(int Ref);
         Task<object> ProfitFromInvest(int Id);

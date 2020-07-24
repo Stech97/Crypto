@@ -36,7 +36,7 @@ namespace Crypto
 			{
 				options.AddPolicy("CorsPolicy",
 				builder => 
-					builder.WithOrigins("https://defima.io")
+					builder.WithOrigins("https://defima.io", "http://localhost:3000")
 					.AllowAnyMethod()
 					.AllowAnyHeader()
 					.AllowCredentials());

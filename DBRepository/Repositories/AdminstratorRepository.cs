@@ -88,7 +88,20 @@ namespace DBRepository.Repositories
 			}
 			return response;
 		}
-        #endregion
+        
+		public async Task<bool> Super(int Id, bool Super)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var user = await context.Users.FirstOrDefaultAsync(u => u.Id == Id);
+				user.IsSuper = Super;
+				context.Users.Update(user);
+				await context.SaveChangesAsync();
+				return user.IsSuper;
+			}
+		}
+
+		#endregion
 
         #region News
         public async Task<News> AddNews(News news)

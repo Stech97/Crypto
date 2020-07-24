@@ -50,11 +50,12 @@ namespace Crypto.Services.Implementation
             return await _repositoryDashboard.ExchangeBalance(exchange, request.Amount, UserId);
         }
 
-        public async Task<CashBTCViewModel> CashBTC(CashBTCViewModel request, int Id)
+        public async Task<string> CashBTC(CashBTCViewModel request, int Id)
         {
             var balanceOld = _mapper.Map<CashBTCViewModel, Balance>(request);
-            var balanceNew = await _repositoryDashboard.CashBTC(balanceOld, Id);
-            return _mapper.Map<Balance, CashBTCViewModel>(balanceNew);
+            /*var balanceNew = await _repositoryDashboard.CashBTC(balanceOld, Id);
+            return _mapper.Map<Balance, CashBTCViewModel>(balanceNew);*/
+            return await _repositoryDashboard.CashBTC(balanceOld, Id);
         }
         
         public async Task<double> GetRate(RateViewModel request)
