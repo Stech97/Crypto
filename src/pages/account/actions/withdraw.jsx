@@ -8,7 +8,7 @@ export const AcceptWithdrawal = "/AcceptWithdrawal";
 export const DiscardWithdraw = "/DiscardWithdraw";
 
 const GetWithdrawFetch = async (type) => {
-	let response = await API("/Administrator" + type, "patch");
+	let response = await API("/Administrator" + type);
 	return response;
 };
 

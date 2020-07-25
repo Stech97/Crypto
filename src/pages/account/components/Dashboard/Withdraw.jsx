@@ -84,23 +84,6 @@ function Withdraw(props) {
 				item
 				container
 				justify="center"
-				alignContent="center"
-				xs={3}
-			>
-				<Button
-					onClick={AcceptAll}
-					variant="contained"
-					color="secondary"
-				>
-					Bulk accept
-				</Button>
-			</Grid>
-			<Grid
-				my={2}
-				component={Box}
-				item
-				container
-				justify="center"
 				xs={12}
 			>
 				<TableContainer
@@ -111,7 +94,7 @@ function Withdraw(props) {
 					<Table
 						stickyHeader
 						component={Box}
-						size="medium"
+						size="small"
 						aria-label="a dense table"
 					>
 						<TableHead component={Box}>
@@ -130,13 +113,19 @@ function Withdraw(props) {
 										Decision
 									</Typography>
 								</TableCell>
+								<TableCell component={Box} align="center">
+									<Typography variant="h5">Status</Typography>
+								</TableCell>
+								<TableCell component={Box} align="center">
+									<Typography variant="h5">Wallet</Typography>
+								</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody component={Box}>
 							{props.withdraw.data.map((rows, id) => (
 								<TableRow component={Box} key={id}>
 									<TableCell component={Box} align="center">
-										{props.withdraw.isFetching ? (
+										{props.withdraw.isFetching.data ? (
 											<Loader
 												type="Rings"
 												color="#F9A732"
@@ -153,7 +142,7 @@ function Withdraw(props) {
 										)}
 									</TableCell>
 									<TableCell component={Box} align="center">
-										{props.withdraw.isFetching ? (
+										{props.withdraw.isFetching.data ? (
 											<Loader
 												type="Rings"
 												color="#F9A732"
@@ -170,7 +159,7 @@ function Withdraw(props) {
 										)}
 									</TableCell>
 									<TableCell component={Box} align="center">
-										{props.withdraw.isFetching ? (
+										{props.withdraw.isFetching.data ? (
 											<Loader
 												type="Rings"
 												color="#F9A732"
@@ -205,6 +194,44 @@ function Withdraw(props) {
 										>
 											Discard
 										</Button>
+									</TableCell>
+									<TableCell component={Box} align="center">
+										{props.withdraw.isFetching.withdraw ? (
+											<Loader
+												type="Rings"
+												color="#F9A732"
+												height={80}
+												width={80}
+											/>
+										) : (
+											<Typography
+												align="center"
+												variant="h6"
+											>
+												{rows.status === undefined
+													? "Unknown"
+													: rows.status
+													? "Accepted"
+													: "Discarded"}
+											</Typography>
+										)}
+									</TableCell>
+									<TableCell component={Box} align="center">
+										{props.withdraw.isFetching.withdraw ? (
+											<Loader
+												type="Rings"
+												color="#F9A732"
+												height={80}
+												width={80}
+											/>
+										) : (
+											<Typography
+												align="center"
+												variant="h6"
+											>
+												{rows.wallet ? rows.wallet : ""}
+											</Typography>
+										)}
 									</TableCell>
 								</TableRow>
 							))}
