@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import BalanceConverter from "./contentbalance/converter";
 import BalanceBox from "./BalanceBox";
 import BitcoinBox from "./BitcoinBox";
-
+import AddFunds from "./contentbalance/AddFunds";
 import { connect } from "react-redux";
 import {
 	ArrowLeft,

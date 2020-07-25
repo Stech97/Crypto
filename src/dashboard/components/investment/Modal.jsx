@@ -70,6 +70,10 @@ const CustomField = withStyles({
 				WebkitTextFillColor: "#838383",
 			},
 		},
+		"& input": {
+			padding: "10px 12px",
+		},
+		width: "60%",
 	},
 })(TextField);
 
@@ -233,7 +237,7 @@ class InvestModal extends Component {
 				</CardActions>
 				<Dialog
 					className={classes.dialog}
-					maxWidth="md"
+					maxWidth="sm"
 					open={this.state.open}
 					onClose={this.handleClose}
 				>

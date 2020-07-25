@@ -41,9 +41,8 @@ const requestTemplateAuthed = axios.create({
   responseType: "json",
   headers: {
     "Content-Type": "application/json",
-    Authorization: "Bearer " + Cookies.get("token"),
     "Access-Control-Allow-Credentials": true,
-    crossDomain: true,
+    withCredentials: true,
   },
 });
 
@@ -58,9 +57,6 @@ const requestTemplateUnauthed = axios.create({
 const requestTemplateFile = axios.create({
   baseURL: API_URL,
   responseType: "json",
-  headers: {
-    Authorization: "Bearer " + Cookies.get("token"),
-  },
 });
 
 const requestInterceptor = (request) => {

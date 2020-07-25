@@ -21,6 +21,8 @@ import { teamPopupReducer } from "../dashboard/reducers/teamPopup";
 import { changePasswordReducer } from "../dashboard/reducers/changePassword";
 import { userInfoReducer } from "../dashboard/reducers/AccountInfo";
 import { KYCReducer } from "../dashboard/reducers/kyc";
+import { AddFundsReducer } from "../dashboard/reducers/CashBTC";
+import { WithdrawReducer } from "../dashboard/reducers/withdraw";
 
 export const rootReducer = combineReducers({
 	form: reduxFormReducer, // mounted under "form"
@@ -49,4 +51,6 @@ export const rootReducer = combineReducers({
 	historyTable: historyTableReducer,
 	teamPopupTable: teamPopupReducer,
 	kyc: KYCReducer,
+	addfunds: AddFundsReducer,
+	withdraw: WithdrawReducer,
 });

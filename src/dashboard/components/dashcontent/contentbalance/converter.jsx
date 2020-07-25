@@ -7,11 +7,13 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
+
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
 import { ArrowLeft, ArrowRight } from "../../../svg/iconComponents";
+
 class ExchangeContainer extends Component {
 	state = {
 		[this.props.cur1]: 0,
@@ -99,11 +101,11 @@ class ExchangeContainer extends Component {
 		return (
 			<Dialog
 				className={classes.dialog}
-				maxWidth="md"
+				maxWidth="sm"
 				open={isOpened}
 				onClose={this.handleClose}
 			>
-				<DialogTitle id="max-width-dialog-title">
+				<DialogTitle>
 					<Grid justify="space-between" container xs={12}>
 						<Grid container item xs={10}>
 							<Typography variant="h4" className={classes.header}>
