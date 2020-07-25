@@ -3,38 +3,114 @@ export const REQUEST = "/request";
 export const SUCCESS = "/success";
 export const ERROR = "/error";
 export const GetWithdrawalRequest = "/GetWithdrawalRequest";
+export const AcceptAllWithdrawal = "/AcceptAllWithdrawal";
+export const AcceptWithdrawal = "/AcceptWithdrawal";
+export const DiscardWithdraw = "/DiscardWithdraw";
 
-const WithdrawFetch = async (type) => {
-	let response = await API("/Administrator" + type);
+const GetWithdrawFetch = async (type) => {
+	let response = await API("/Administrator" + type, "patch");
 	return response;
 };
 
-const WithdrawRequest = () => ({
-	type: GetWithdrawalRequest + REQUEST,
+const AcceptAllFetch = async (type) => {
+	let response = await API("/Administrator" + type, "patch");
+	return response;
+};
+
+const WithdrawFetch = async (type, id) => {
+	let response = await API(
+		"/Administrator" + type + "?UserId=" + id,
+		"patch"
+	);
+	return response;
+};
+
+const WithdrawRequest = (type) => ({
+	type: type + REQUEST,
 });
 
-const WithdrawError = (error) => ({
-	type: GetWithdrawalRequest + ERROR,
+const WithdrawError = (type, error) => ({
+	type: type + ERROR,
 	payload: error,
 });
 
-const WithdrawSuccess = (data) => ({
-	type: GetWithdrawalRequest + SUCCESS,
+const WithdrawSuccess = (type, data) => ({
+	type: type + SUCCESS,
 	payload: data,
 });
+
+const SendWithdraw = (type, id, dispatch) => {
+	dispatch(WithdrawRequest(type));
+
+	WithdrawFetch(type, id)
+		.then((res) => {
+			if (res.ok) {
+				dispatch(WithdrawSuccess(type, res.data));
+			} else {
+				dispatch(
+					WithdrawError(type, {
+						type: res.error.status,
+						message: res.error.message,
+					})
+				);
+			}
+		})
+		.catch((error) =>
+			dispatch(
+				WithdrawError(type, {
+					type: error.status,
+					message: error.message,
+				})
+			)
+		);
+};
+
+export const WithdrawAcceptAll = () => (dispatch) => {
+	dispatch(WithdrawRequest(AcceptAllWithdrawal));
+
+	AcceptAllFetch(AcceptAllWithdrawal)
+		.then((res) => {
+			if (res.ok) {
+				dispatch(WithdrawSuccess(AcceptAllWithdrawal, res.data));
+			} else {
+				dispatch(
+					WithdrawError(AcceptAllWithdrawal, {
+						type: res.error.status,
+						message: res.error.message,
+					})
+				);
+			}
+		})
+		.catch((error) =>
+			dispatch(
+				WithdrawError(AcceptAllWithdrawal, {
+					type: error.status,
+					message: error.message,
+				})
+			)
+		);
+};
+
+export const WithdrawAccept = (id) => (dispatch) => {
+	SendWithdraw(AcceptWithdrawal, id, dispatch);
+};
+
+export const WithdrawDiscard = (id) => (dispatch) => {
+	SendWithdraw(DiscardWithdraw, id, dispatch);
+};
 
 export const getWithdraw = () => {
 	return (dispatch) => {
 		dispatch(WithdrawRequest());
-		WithdrawFetch(GetWithdrawalRequest)
+		GetWithdrawFetch(GetWithdrawalRequest)
 			.then((res) => {
 				if (res.ok) {
-					dispatch(WithdrawSuccess(res.data));
+					dispatch(WithdrawSuccess(GetWithdrawalRequest, res.data));
 				} else if ((res.error.status = 404)) {
-					dispatch(WithdrawSuccess([]));
+					dispatch(WithdrawSuccess(GetWithdrawalRequest, []));
 				} else {
 					dispatch(
-						WithdrawError({
+						WithdrawError(GetWithdrawalRequest, {
 							type: res.error.status,
 							message: res.error.message,
 						})
@@ -43,7 +119,7 @@ export const getWithdraw = () => {
 			})
 			.catch((error) =>
 				dispatch(
-					WithdrawError({
+					WithdrawError(GetWithdrawalRequest, {
 						type: error.status,
 						message: error.message,
 					})

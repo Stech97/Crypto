@@ -3,6 +3,9 @@ import {
 	SUCCESS,
 	ERROR,
 	GetWithdrawalRequest,
+	AcceptAllWithdrawal,
+	AcceptWithdrawal,
+	DiscardWithdraw,
 } from "../actions/withdraw";
 
 const initialState = {
@@ -16,12 +19,18 @@ const initialState = {
 
 export const WithdrawReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case GetWithdrawalRequest + REQUEST:
+		case GetWithdrawalRequest + REQUEST ||
+			AcceptAllWithdrawal + REQUEST ||
+			AcceptWithdrawal + REQUEST ||
+			DiscardWithdraw + REQUEST:
 			return {
 				...state,
 				isFetching: true,
 			};
-		case GetWithdrawalRequest + ERROR:
+		case GetWithdrawalRequest + ERROR ||
+			AcceptAllWithdrawal + ERROR ||
+			AcceptWithdrawal + ERROR ||
+			DiscardWithdraw + ERROR:
 			return {
 				...state,
 				isFetching: false,

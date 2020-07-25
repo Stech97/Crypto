@@ -33,6 +33,7 @@ const requestTemplate = axios.create({
   responseType: "json",
   headers: {
     "Content-Type": "application/json",
+    withCredentials: true,
   },
 });
 
@@ -41,6 +42,7 @@ const requestTemplateFile = axios.create({
   responseType: "blob",
   headers: {
     "Content-Type": "application/json",
+    withCredentials: true,
   },
 });
 

@@ -13,7 +13,12 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import Loader from "react-loader-spinner";
-import { getWithdraw } from "../../actions/withdraw";
+import {
+	getWithdraw,
+	WithdrawAcceptAll,
+	WithdrawAccept,
+	WithdrawDiscard,
+} from "../../actions/withdraw";
 
 const useStyles = makeStyles((theme) => ({
 	table: {
@@ -49,7 +54,7 @@ const TableRow = withStyles((theme) => ({
 
 function Withdraw(props) {
 	const classes = useStyles();
-
+	const { Accept, AcceptAll, Discard } = props;
 	useEffect(() => {
 		props.getWithdrawAction();
 	}, []);
@@ -82,7 +87,11 @@ function Withdraw(props) {
 				alignContent="center"
 				xs={3}
 			>
-				<Button variant="contained" color="secondary">
+				<Button
+					onClick={AcceptAll}
+					variant="contained"
+					color="secondary"
+				>
 					Bulk accept
 				</Button>
 			</Grid>
@@ -183,6 +192,7 @@ function Withdraw(props) {
 											mx={2}
 											variant="contained"
 											color="primary"
+											onClick={() => Accept(rows.userId)}
 										>
 											Accept
 										</Button>
@@ -191,6 +201,7 @@ function Withdraw(props) {
 											mx={2}
 											variant="contained"
 											className={classes.discard}
+											onClick={() => Discard(rows.userId)}
 										>
 											Discard
 										</Button>
@@ -211,6 +222,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 	getWithdrawAction: () => dispatch(getWithdraw()),
+	Accept: (id) => dispatch(WithdrawAccept(id)),
+	Discard: (id) => dispatch(WithdrawDiscard(id)),
+	AcceptAll: () => dispatch(WithdrawAcceptAll()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Withdraw);
