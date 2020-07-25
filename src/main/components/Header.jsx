@@ -122,7 +122,7 @@ function Header(props) {
 							<HashLink to={"/main#Team"}>Team</HashLink>
 						</Grid>
 						<Grid className={classes.link} item md={2}>
-							<a href="https://members.com/">Blog</a>
+							<a href="https://medium.com/">Blog</a>
 						</Grid>
 						<Grid className={classes.link} item md={2}>
 							<Link to={"/login"}>Login</Link>

@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
   images: {
     alignContent: "flex-start",
+
     justifyContent: "space-around",
     "&>div": {
       justifyContent: "center",
@@ -19,7 +20,11 @@ const useStyles = makeStyles((theme) => ({
       height: "182px",
       [theme.breakpoints.down("sm")]: {
         width: "30vw",
-        height: "30vw",
+        height: "auto",
+      },
+      [theme.breakpoints.down("md")]: {
+        width: "20vw",
+        height: "auto",
       },
     },
   },
@@ -88,7 +93,15 @@ const OurmissionIcons = () => {
       sm={6}
     >
       <Grid className={classes.images} item container spacing={2} xs={12}>
-        <Grid justify="center" item md={4} xs={6}>
+        <Grid
+          justify="center"
+          alignContent="center"
+          container
+          item
+          md={4}
+          sm={12}
+          xs={6}
+        >
           <img
             className="ourmission-icon-image-1"
             src="img/ourmission-icon-1.png"
@@ -96,7 +109,15 @@ const OurmissionIcons = () => {
             srcSet="img/ourmission-icon-1@2x.png 2x, img/ourmission-icon-1@3x.png 3x"
           />
         </Grid>
-        <Grid justify="center" item md={4} xs={6}>
+        <Grid
+          justify="center"
+          alignContent="center"
+          container
+          item
+          md={4}
+          sm={12}
+          xs={6}
+        >
           <img
             className="ourmission-icon-image-2"
             src="img/ourmission-icon-2.png"
@@ -106,7 +127,15 @@ const OurmissionIcons = () => {
         </Grid>
       </Grid>
       <Grid className={classes.images} item container spacing={2} xs={12}>
-        <Grid justify="center" item md={4} xs={6}>
+        <Grid
+          justify="center"
+          alignContent="center"
+          container
+          item
+          md={4}
+          sm={12}
+          xs={6}
+        >
           <img
             className="ourmission-icon-image-3"
             src="img/ourmission-icon-3.png"
@@ -114,7 +143,15 @@ const OurmissionIcons = () => {
             srcSet="img/ourmission-icon-3@2x.png 2x, img/ourmission-icon-3@3x.png 3x"
           />
         </Grid>
-        <Grid justify="center" item md={4} xs={6}>
+        <Grid
+          justify="center"
+          alignContent="center"
+          container
+          item
+          md={4}
+          sm={12}
+          xs={6}
+        >
           <img
             className="ourmission-icon-image-4"
             src="img/ourmission-icon-4.png"
@@ -131,7 +168,13 @@ function Ourmission() {
   const classes = useStyles();
   return (
     <FluidContainer>
-      <Grid container spacing={3} xs={12}>
+      <Grid
+        id="OurMission"
+        justify="space-between"
+        container
+        spacing={3}
+        xs={12}
+      >
         <Grid className={classes.box} spacing={2} item container xs={12} sm={6}>
           <OurmissionHeader />
           <OurmissionText />

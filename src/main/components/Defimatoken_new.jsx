@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mobile_image: {
     width: "100%",
-    marginBottom: "-155px",
+    marginBottom: "-150px",
   },
 }));
 

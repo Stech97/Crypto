@@ -216,7 +216,7 @@ function OurteamMember(props) {
 function Ourteam() {
   return (
     <FluidContainer background="linear-gradient(0deg, #ed7102 100%, #ed7102 100%) left center/ 100% 20% no-repeat, #fff">
-      <Grid container spacing={3} xs={12}>
+      <Grid id="Team" container spacing={3} xs={12}>
         <OurteamHeader />
         <OurteamMember data={ourteamMembers} />
       </Grid>
