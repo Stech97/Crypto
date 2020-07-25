@@ -183,7 +183,91 @@ function AddFunds(props) {
 					</Grid>
 				</DialogTitle>
 				<DialogContent>
-					<Grid contaimer xs={12} spacing={2} justify="center">
+					<div>
+						<style
+							type="text/css"
+							dangerouslySetInnerHTML={{
+								__html:
+									" .btcpay-form { display: inline-flex; align-items: center; justify-content: center; } .btcpay-form--inline { flex-direction: row; } .btcpay-form--block { flex-direction: column; } .btcpay-form--inline .submit { margin-left: 15px; } .btcpay-form--block select { margin-bottom: 10px; } .btcpay-form .btcpay-custom-container{ text-align: center; }.btcpay-custom { display: flex; align-items: center; justify-content: center; } .btcpay-form .plus-minus { cursor:pointer; font-size:25px; line-height: 25px; background: #DFE0E1; height: 30px; width: 45px; border:none; border-radius: 60px; margin: auto 5px; display: inline-flex; justify-content: center; } .btcpay-form select { -moz-appearance: none; -webkit-appearance: none; appearance: none; color: currentColor; background: transparent; border:1px solid transparent; display: block; padding: 1px; margin-left: auto; margin-right: auto; font-size: 11px; cursor: pointer; } .btcpay-form select:hover { border-color: #ccc; } #btcpay-input-price { -moz-appearance: none; -webkit-appearance: none; border: none; box-shadow: none; text-align: center; font-size: 25px; margin: auto; border-radius: 5px; line-height: 35px; background: #fff; } ",
+							}}
+						/>
+						<form
+							method="POST"
+							action="https://payment.defima.io/api/v1/invoices"
+							className="btcpay-form btcpay-form--inline"
+						>
+							<input
+								type="hidden"
+								name="storeId"
+								defaultValue="7jgseRYR7n6X6bEUkEdoWgby3BP6HfoMB2VVT9C1g2tz"
+							/>
+							<input
+								type="hidden"
+								name="browserRedirect"
+								defaultValue="https://defima.io/login"
+							/>
+							<input
+								type="hidden"
+								name="buyerEmail"
+								defaultValue={props.user.id}
+							/>
+							<div className="btcpay-custom-container">
+								<div className="btcpay-custom">
+									<input
+										id="btcpay-input-price"
+										name="price"
+										type="number"
+										min={10}
+										max={200000}
+										step={1}
+										defaultValue={10}
+										style={{ width: "2em" }}
+										oninput="event.preventDefault();isNaN(event.target.value) || event.target.value <= 0 ? document.querySelector('#btcpay-input-price').value = 10 : event.target.value"
+									/>
+								</div>
+								<select name="currency">
+									<option value="USD" selected>
+										USD
+									</option>
+									<option value="GBP">GBP</option>
+									<option value="EUR">EUR</option>
+									<option value="BTC">BTC</option>
+								</select>
+							</div>
+							<input
+								type="image"
+								className="submit"
+								name="submit"
+								src="https://payment.defima.io/img/paybutton/pay.svg"
+								style={{ width: 146 }}
+								alt="Pay with BtcPay, Self-Hosted Bitcoin Payment Processor"
+							/>
+						</form>
+					</div>
+				</DialogContent>
+			</Dialog>
+		</Fragment>
+	);
+}
+
+const mapStateToProps = (state) => ({
+	addfunds: state.addfunds,
+	user: state.user.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	CashAction: (amount) => dispatch(SendCash(amount)),
+});
+
+AddFunds = connect(mapStateToProps, mapDispatchToProps)(AddFunds);
+
+export default reduxForm({
+	form: "AddFunds",
+})(AddFunds);
+
+/*
+
+<Grid contaimer xs={12} spacing={2} justify="center">
 						<Stepper activeStep={activeStep} alternativeLabel>
 							{steps.map((label) => (
 								<Step key={label}>
@@ -270,22 +354,4 @@ function AddFunds(props) {
 							</Grid>
 						)}
 					</Grid>
-				</DialogContent>
-			</Dialog>
-		</Fragment>
-	);
-}
-
-const mapStateToProps = (state) => ({
-	addfunds: state.addfunds,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	CashAction: (amount) => dispatch(SendCash(amount)),
-});
-
-AddFunds = connect(mapStateToProps, mapDispatchToProps)(AddFunds);
-
-export default reduxForm({
-	form: "AddFunds",
-})(AddFunds);
+				*/

@@ -136,13 +136,14 @@ function CountryField({
   ...rest
 }) {
   return (
-    <ListItem alignItems="center">
+    <ListItem alignItems="center" className={classes.select}>
       <ListItemText className={classes.label}>
         <Typography align="left" variant="subtitle1">
           {label}
         </Typography>
       </ListItemText>
       <CountryDropdown
+        className={classes.select}
         defaultOptionLabel={placeholder ? placeholder : "Select Country"}
         blacklist={["CA", "US"]}
         {...rest}
@@ -173,6 +174,11 @@ const useStyles = makeStyles((theme) => ({
       "& input": {
         fontSize: "10px",
       },
+    },
+  },
+  select: {
+    "& select": {
+      width: "70%",
     },
   },
 }));

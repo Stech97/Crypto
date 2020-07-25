@@ -42,8 +42,8 @@ const requestTemplateAuthed = axios.create({
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Credentials": true,
-    withCredentials: true,
   },
+  withCredentials: true,
 });
 
 const requestTemplateUnauthed = axios.create({
@@ -52,17 +52,18 @@ const requestTemplateUnauthed = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 const requestTemplateFile = axios.create({
   baseURL: API_URL,
   responseType: "json",
+  withCredentials: true,
+  headers: {
+    "Content-Type":
+      "multipart/form-data; boundary=<calculated when request is sent>",
+  },
 });
-
-const requestInterceptor = (request) => {
-  request.withCredentials = true;
-  return request;
-};
 
 export const API = async (path, mode = "get", body = null, authed = true) => {
   //console.log(path)
@@ -289,9 +290,7 @@ export const API = async (path, mode = "get", body = null, authed = true) => {
     case "put":
       try {
         //console.log(body)
-        let request = await requestTemplateFile.put(path, body, {
-          withCredentials: true,
-        });
+        let request = await requestTemplateFile.put(path, body);
         return { ok: true, status: request.status, data: request.data };
       } catch (error) {
         // Error 😨
