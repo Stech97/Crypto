@@ -268,7 +268,7 @@ function CustomTableRow(props) {
 						component={Box}
 					>
 						<Typography align="center" variant="body1">
-							{row.profitsPaid.toFixed(2)}
+							{(row.profitsPaid / 1000).toFixed(2)}
 						</Typography>
 					</TableCell>
 					<TableCell
@@ -284,7 +284,7 @@ function CustomTableRow(props) {
 						component={Box}
 					>
 						<Typography align="center" variant="body1">
-							{row.totalEarning.toFixed(2)}
+							{(row.totalEarning / 1000).toFixed(2)}
 						</Typography>
 					</TableCell>
 				</TableRow>
