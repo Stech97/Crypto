@@ -45,10 +45,10 @@
                 case EnumTypeHistory.BuyLarge:
                     ret = "Buy Large";
                     break;
-                case EnumTypeHistory.AcceptWithdrow:
+                case EnumTypeHistory.AcceptWithdraw:
                     ret = "Accept Withdraw";
                     break;
-                case EnumTypeHistory.DiscardWithdrow:
+                case EnumTypeHistory.DiscardWithdraw:
                     ret = "Discard Withdraw";
                     break;
             }
