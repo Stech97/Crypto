@@ -18,7 +18,7 @@ import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
 	profit: {
-		[theme.breakpoints.down("sm")]: {
+		[theme.breakpoints.down("md")]: {
 			display: "none",
 		},
 		marginTop: "20px",
