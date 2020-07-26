@@ -7,8 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using NBitpayClient;
 using NBitcoin;
-using NBitcoin.Payment;
-using NBitcoin.RPC;
 using System.IO;
 
 namespace DBRepository.Repositories
@@ -16,7 +14,7 @@ namespace DBRepository.Repositories
     public class DashboardRepository : BaseRepository, IDashboardRepository
     {
         //Bitpay parameters
-        readonly Uri BitPayUri = new Uri("http://payment.defima.io/");
+        readonly Uri BitPayUri = new Uri("https://payment.defima.io/");
         static readonly Network Network = Network.Main;
         Bitpay Bitpay = null;
 

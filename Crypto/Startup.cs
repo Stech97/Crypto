@@ -36,8 +36,8 @@ namespace Crypto
 			{
 				options.AddPolicy("CorsPolicy",
 				builder => 
-					builder.WithOrigins("https://defima.io", "http://localhost:3000")
-					.AllowAnyMethod()
+					builder.WithOrigins("https://defima.io", "http://localhost:3000", "https://administrator.defima.io")
+					.WithMethods("GET", "POST", "PUT", "DELETE", "PATCH")
 					.AllowAnyHeader()
 					.AllowCredentials());
 			});
@@ -105,6 +105,7 @@ namespace Crypto
 				app.UseHsts();
 
 			app.UseHttpsRedirection();
+			app.UseCors("CorsPolicy");
 
 			app.UseCookiePolicy(new CookiePolicyOptions
 			{
@@ -117,7 +118,6 @@ namespace Crypto
 			app.UseAuthentication();
 			app.UseXsrfProtection(antiforgery);
 
-			app.UseCors("CorsPolicy");
 			app.UseRouting();
 			app.UseAuthorization();
 			app.UseEndpoints(endpoints =>

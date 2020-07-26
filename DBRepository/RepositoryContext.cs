@@ -100,6 +100,7 @@ namespace DBRepository
 
             #region Main Page
             modelBuilder.Entity<MainPage>().ToTable("MainPage");
+            modelBuilder.Entity<MainPage>().HasKey(mb => mb.Component);
             modelBuilder.Entity<MainPage>().Property(mp => mp.Component).IsRequired();
             #endregion
 

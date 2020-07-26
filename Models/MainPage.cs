@@ -2,7 +2,6 @@
 {
     public class MainPage
     {
-        public int Id { get; set; }
         public string Component { get; set; }
         public string Header { get; set; }
         public string SubHeader { get; set; }
