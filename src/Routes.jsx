@@ -53,6 +53,22 @@ const PrivateRoute = ({
     );
 };
 
+const InPrivateRoute = ({
+    component: Component,
+    routes: routes,
+    path,
+    ...rest
+}) => {
+    return (
+        <Route
+            path={path}
+            render={(props) => {
+                return <Component {...rest} {...props} routes={routes} />;
+            }}
+        />
+    );
+};
+
 export default function RouteWithSubRoutes({
     Private,
     path,
@@ -63,6 +79,15 @@ export default function RouteWithSubRoutes({
     if (Private) {
         return (
             <PrivateRoute
+                path={path}
+                component={component}
+                routes={routes}
+                {...rest}
+            />
+        );
+    } else {
+        return (
+            <InPrivateRoute
                 path={path}
                 component={component}
                 routes={routes}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -52,6 +52,129 @@ const TableRow = withStyles((theme) => ({
 	},
 }))(DefaultTableRow);
 
+function Row(props) {
+	const classes = useStyles();
+	const [status, setStatus] = useState(undefined);
+	const {
+		isFetching,
+		Accept,
+		Discard,
+		userId,
+		username,
+		amount,
+		wallet,
+	} = props;
+
+	const handleAccept = () => {
+		Accept(userId);
+		setStatus(true);
+	};
+
+	const handleDiscard = () => {
+		Discard(userId);
+		setStatus(false);
+	};
+
+	return (
+		<TableRow component={Box}>
+			<TableCell component={Box} align="center">
+				{isFetching.data ? (
+					<Loader
+						type="Rings"
+						color="#F9A732"
+						height={80}
+						width={80}
+					/>
+				) : (
+					<Typography align="center" variant="h6">
+						{userId}
+					</Typography>
+				)}
+			</TableCell>
+			<TableCell component={Box} align="center">
+				{isFetching.data ? (
+					<Loader
+						type="Rings"
+						color="#F9A732"
+						height={80}
+						width={80}
+					/>
+				) : (
+					<Typography align="center" variant="h6">
+						{username}
+					</Typography>
+				)}
+			</TableCell>
+			<TableCell component={Box} align="center">
+				{isFetching.data ? (
+					<Loader
+						type="Rings"
+						color="#F9A732"
+						height={80}
+						width={80}
+					/>
+				) : (
+					<Typography align="center" variant="h6">
+						{amount}
+					</Typography>
+				)}
+			</TableCell>
+			<TableCell component={Box} align="center">
+				<Button
+					component={Box}
+					mx={2}
+					variant="contained"
+					color="secondary"
+					onClick={handleAccept}
+				>
+					Accept
+				</Button>
+				<Button
+					component={Box}
+					mx={2}
+					variant="contained"
+					className={classes.discard}
+					onClick={handleDiscard}
+				>
+					Decline
+				</Button>
+			</TableCell>
+			<TableCell component={Box} align="center">
+				{isFetching.withdraw ? (
+					<Loader
+						type="Rings"
+						color="#F9A732"
+						height={80}
+						width={80}
+					/>
+				) : (
+					<Typography align="center" variant="h6">
+						{status === undefined
+							? "Unknown"
+							: status
+							? "Accepted"
+							: "Discarded"}
+					</Typography>
+				)}
+			</TableCell>
+			<TableCell component={Box} align="center">
+				{isFetching.withdraw ? (
+					<Loader
+						type="Rings"
+						color="#F9A732"
+						height={80}
+						width={80}
+					/>
+				) : (
+					<Typography align="center" variant="h6">
+						{wallet ? wallet : ""}
+					</Typography>
+				)}
+			</TableCell>
+		</TableRow>
+	);
+}
+
 function Withdraw(props) {
 	const classes = useStyles();
 	const { Accept, AcceptAll, Discard } = props;
@@ -78,6 +201,23 @@ function Withdraw(props) {
 					Withdraw requests
 				</Typography>
 			</Grid>
+			<Box
+				my={2}
+				component={Grid}
+				item
+				container
+				justify="center"
+				alignContent="center"
+				xs={3}
+			>
+				<Button
+					onClick={props.getWithdrawAction}
+					variant="contained"
+					color="secondary"
+				>
+					Refresh
+				</Button>
+			</Box>
 			<Grid
 				my={2}
 				component={Box}
@@ -123,117 +263,13 @@ function Withdraw(props) {
 						</TableHead>
 						<TableBody component={Box}>
 							{props.withdraw.data.map((rows, id) => (
-								<TableRow component={Box} key={id}>
-									<TableCell component={Box} align="center">
-										{props.withdraw.isFetching.data ? (
-											<Loader
-												type="Rings"
-												color="#F9A732"
-												height={80}
-												width={80}
-											/>
-										) : (
-											<Typography
-												align="center"
-												variant="h6"
-											>
-												{rows.userId}
-											</Typography>
-										)}
-									</TableCell>
-									<TableCell component={Box} align="center">
-										{props.withdraw.isFetching.data ? (
-											<Loader
-												type="Rings"
-												color="#F9A732"
-												height={80}
-												width={80}
-											/>
-										) : (
-											<Typography
-												align="center"
-												variant="h6"
-											>
-												{rows.username}
-											</Typography>
-										)}
-									</TableCell>
-									<TableCell component={Box} align="center">
-										{props.withdraw.isFetching.data ? (
-											<Loader
-												type="Rings"
-												color="#F9A732"
-												height={80}
-												width={80}
-											/>
-										) : (
-											<Typography
-												align="center"
-												variant="h6"
-											>
-												{rows.amount}
-											</Typography>
-										)}
-									</TableCell>
-									<TableCell component={Box} align="center">
-										<Button
-											component={Box}
-											mx={2}
-											variant="contained"
-											color="primary"
-											onClick={() => Accept(rows.userId)}
-										>
-											Accept
-										</Button>
-										<Button
-											component={Box}
-											mx={2}
-											variant="contained"
-											className={classes.discard}
-											onClick={() => Discard(rows.userId)}
-										>
-											Discard
-										</Button>
-									</TableCell>
-									<TableCell component={Box} align="center">
-										{props.withdraw.isFetching.withdraw ? (
-											<Loader
-												type="Rings"
-												color="#F9A732"
-												height={80}
-												width={80}
-											/>
-										) : (
-											<Typography
-												align="center"
-												variant="h6"
-											>
-												{rows.status === undefined
-													? "Unknown"
-													: rows.status
-													? "Accepted"
-													: "Discarded"}
-											</Typography>
-										)}
-									</TableCell>
-									<TableCell component={Box} align="center">
-										{props.withdraw.isFetching.withdraw ? (
-											<Loader
-												type="Rings"
-												color="#F9A732"
-												height={80}
-												width={80}
-											/>
-										) : (
-											<Typography
-												align="center"
-												variant="h6"
-											>
-												{rows.wallet ? rows.wallet : ""}
-											</Typography>
-										)}
-									</TableCell>
-								</TableRow>
+								<Row
+									key={id}
+									isFetching={props.withdraw.isFetching}
+									{...rows}
+									Accept={Accept}
+									Discard={Discard}
+								/>
 							))}
 						</TableBody>
 					</Table>

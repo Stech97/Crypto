@@ -59,10 +59,7 @@ export const WithdrawReducer = (state = initialState, action) => {
 					...state.isFetching,
 					data: false,
 				},
-				data: action.payload.map((user) => ({
-					...user,
-					status: undefined,
-				})),
+				data: action.payload,
 			};
 		case AcceptWithdrawal + SUCCESS:
 			return {
@@ -71,11 +68,16 @@ export const WithdrawReducer = (state = initialState, action) => {
 					...state.isFetching,
 					withdraw: false,
 				},
-				data: {
-					...state.data,
-					wallet: action.payload,
-					status: true,
-				},
+				data: state.data.map((element) => {
+					if (element.userId === action.payload.id) {
+						return {
+							...element,
+							wallet: action.payload.data.wallet,
+						};
+					} else {
+						return element;
+					}
+				}),
 			};
 		case DiscardWithdraw + SUCCESS:
 			return {
@@ -84,11 +86,16 @@ export const WithdrawReducer = (state = initialState, action) => {
 					...state.isFetching,
 					withdraw: false,
 				},
-				data: {
-					...state.data,
-					wallet: "",
-					status: false,
-				},
+				data: state.data.map((element) => {
+					if (element.userId === action.payload.id) {
+						return {
+							...element,
+							wallet: "",
+						};
+					} else {
+						return element;
+					}
+				}),
 			};
 		default:
 			return state;

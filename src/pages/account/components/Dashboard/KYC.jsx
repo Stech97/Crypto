@@ -394,7 +394,7 @@ function KYC(props) {
 					variant="contained"
 					color="secondary"
 				>
-					Update
+					Refresh
 				</Button>
 			</Box>
 			<Box

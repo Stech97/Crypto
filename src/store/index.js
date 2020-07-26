@@ -8,10 +8,12 @@ import { FinanceReducer } from "../pages/account/reducers/finance";
 import { NewsReducer } from "../pages/account/reducers/news";
 import { MainpageReducer } from "../pages/account/reducers/mainpage";
 import { UsersReducer } from "../pages/account/reducers/users";
+import { loginReducer } from "../login/reducers/login";
 
 export const rootReducer = combineReducers({
 	form: reduxFormReducer, // mounted under "form"
 	routing: routerReducer,
+	login: loginReducer,
 	DashInfo: dashInfoReducer,
 	KYC: KYCReducer,
 	Withdraw: WithdrawReducer,

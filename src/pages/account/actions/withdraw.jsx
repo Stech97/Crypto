@@ -45,7 +45,8 @@ const SendWithdraw = (type, id, dispatch) => {
 	WithdrawFetch(type, id)
 		.then((res) => {
 			if (res.ok) {
-				dispatch(WithdrawSuccess(type, res.data));
+				console.log("res.data", res);
+				dispatch(WithdrawSuccess(type, { id, data: res.data }));
 			} else {
 				dispatch(
 					WithdrawError(type, {
