@@ -11,6 +11,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import moment from "moment";
 import AddIcon from "@material-ui/icons/Add";
@@ -25,13 +26,14 @@ const useStyles = makeStyles((theme) => ({
 	header: {
 		position: "sticky",
 		background: "linear-gradient(83deg, #123273 0%, #005c9f 100%)",
+		borderLeft: "4px solid #ffffff",
 		"&>div": {
 			color: "#fff",
 		},
 		"& h6": {
 			color: "#fff",
 		},
-		"&>div>div:first-child": {
+		"&>div>div:nth-child(2)": {
 			borderTopLeftRadius: "2vw",
 			[theme.breakpoints.down("sm")]: {
 				borderTopLeftRadius: "1rem",
@@ -76,7 +78,6 @@ const useStyles = makeStyles((theme) => ({
 		borderRadius: "2vw",
 		background: "transparent",
 
-		background: "#fff",
 		"&>div": {
 			border: "none",
 		},
@@ -106,6 +107,8 @@ const useStyles = makeStyles((theme) => ({
 	plus: {
 		marginLeft: "-3rem",
 		marginTop: "1rem",
+		background: "none",
+		borderRight: "none",
 		"&>div": {
 			background: "#fff",
 			width: "2rem",
@@ -170,7 +173,7 @@ function CustomTableRow(props) {
 	if (row === 0) {
 		return (
 			<Fragment>
-				<TableRow component="div" className={classes.row}>
+				<TableRow component={Box} className={classes.row}>
 					<div className={classes.plus}>
 						<div>
 							<AddIcon onClick={handleClickOpen} />
@@ -178,7 +181,7 @@ function CustomTableRow(props) {
 					</div>
 					<TableCell
 						className={clsx(classes.cell, classes["cell_" + type])}
-						component="div"
+						component={Box}
 					>
 						<Typography align="center" variant="body1">
 							{"Level " + level}
@@ -186,7 +189,7 @@ function CustomTableRow(props) {
 					</TableCell>
 					<TableCell
 						className={clsx(classes.cell, classes["cell_" + type])}
-						component="div"
+						component={Box}
 					>
 						<Typography align="center" variant="body1">
 							0
@@ -194,7 +197,7 @@ function CustomTableRow(props) {
 					</TableCell>
 					<TableCell
 						className={clsx(classes.cell, classes["cell_" + type])}
-						component="div"
+						component={Box}
 					>
 						<Typography align="center" variant="body1">
 							0
@@ -202,7 +205,7 @@ function CustomTableRow(props) {
 					</TableCell>
 					<TableCell
 						className={clsx(classes.cell, classes["cell_" + type])}
-						component="div"
+						component={Box}
 					>
 						<Typography align="center" variant="body1">
 							0
@@ -210,7 +213,7 @@ function CustomTableRow(props) {
 					</TableCell>
 					<TableCell
 						className={clsx(classes.cell, classes["cell_" + type])}
-						component="div"
+						component={Box}
 					>
 						<Typography align="center" variant="body1">
 							0
@@ -218,7 +221,7 @@ function CustomTableRow(props) {
 					</TableCell>
 					<TableCell
 						className={clsx(classes.cell, classes["cell_" + type])}
-						component="div"
+						component={Box}
 					>
 						<Typography align="center" variant="body1">
 							0
@@ -230,7 +233,7 @@ function CustomTableRow(props) {
 	} else {
 		return (
 			<Fragment>
-				<TableRow component="div" className={classes.row}>
+				<TableRow component={Box} className={classes.row}>
 					<div className={classes.plus}>
 						<div>
 							<AddIcon onClick={handleClickOpen} />
@@ -238,7 +241,7 @@ function CustomTableRow(props) {
 					</div>
 					<TableCell
 						className={clsx(classes.cell, classes["cell_" + type])}
-						component="div"
+						component={Box}
 					>
 						<Typography align="center" variant="body1">
 							{"Level " + level}
@@ -246,7 +249,7 @@ function CustomTableRow(props) {
 					</TableCell>
 					<TableCell
 						className={clsx(classes.cell, classes["cell_" + type])}
-						component="div"
+						component={Box}
 					>
 						<Typography align="center" variant="body1">
 							{row.members}
@@ -254,15 +257,15 @@ function CustomTableRow(props) {
 					</TableCell>
 					<TableCell
 						className={clsx(classes.cell, classes["cell_" + type])}
-						component="div"
+						component={Box}
 					>
 						<Typography align="center" variant="body1">
-							{row.totalInvested.toFixed(2)}
+							{(row.totalInvested / 1000).toFixed(3) + "k $"}
 						</Typography>
 					</TableCell>
 					<TableCell
 						className={clsx(classes.cell, classes["cell_" + type])}
-						component="div"
+						component={Box}
 					>
 						<Typography align="center" variant="body1">
 							{row.profitsPaid.toFixed(2)}
@@ -270,7 +273,7 @@ function CustomTableRow(props) {
 					</TableCell>
 					<TableCell
 						className={clsx(classes.cell, classes["cell_" + type])}
-						component="div"
+						component={Box}
 					>
 						<Typography align="center" variant="body1">
 							{row.commission * 100 + "%"}
@@ -278,7 +281,7 @@ function CustomTableRow(props) {
 					</TableCell>
 					<TableCell
 						className={clsx(classes.cell, classes["cell_" + type])}
-						component="div"
+						component={Box}
 					>
 						<Typography align="center" variant="body1">
 							{row.totalEarning.toFixed(2)}
@@ -306,7 +309,6 @@ function TeamTable(props) {
 
 	console.log("props.team.levels");
 	const headers = [
-		"",
 		"Level",
 		"Members",
 		"Total Invested",
@@ -317,17 +319,18 @@ function TeamTable(props) {
 
 	return (
 		<Grid item container xs={12}>
-			<TableContainer component="div" className={classes.container}>
+			<TableContainer component={Box} className={classes.container}>
 				<Table
-					component="div"
+					component={Box}
 					className={classes.table}
 					aria-label="customized table"
 				>
-					<TableHead component="div" className={classes.header}>
-						<TableRow component="div">
+					<TableHead component={Box} className={classes.header}>
+						<TableRow component={Box}>
+							<div className={classes.plus}></div>
 							{headers.map((header, index) => (
 								<TableCell
-									component="div"
+									component={Box}
 									key={index}
 									align="center"
 								>
@@ -338,7 +341,7 @@ function TeamTable(props) {
 							))}
 						</TableRow>
 					</TableHead>
-					<TableBody component="div" className={classes.body}>
+					<TableBody component={Box} className={classes.body}>
 						<CustomTableRow
 							level={1}
 							row={team.levels[0] ? team.levels[0] : 0}
@@ -352,13 +355,13 @@ function TeamTable(props) {
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<TableContainer component="div" className={classes.container}>
+			<TableContainer component={Box} className={classes.container}>
 				<Table
-					component="div"
+					component={Box}
 					className={classes.table}
 					aria-label="customized table"
 				>
-					<TableBody component="div" className={classes.body}>
+					<TableBody component={Box} className={classes.body}>
 						<CustomTableRow
 							level={3}
 							row={team.levels[2] ? team.levels[2] : 0}
@@ -372,13 +375,13 @@ function TeamTable(props) {
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<TableContainer component="div" className={classes.container}>
+			<TableContainer component={Box} className={classes.container}>
 				<Table
-					component="div"
+					component={Box}
 					className={classes.table}
 					aria-label="customized table"
 				>
-					<TableBody component="div" className={classes.body}>
+					<TableBody component={Box} className={classes.body}>
 						<CustomTableRow
 							level={5}
 							row={team.levels[4] ? team.levels[4] : 0}

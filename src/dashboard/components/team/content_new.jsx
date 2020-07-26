@@ -70,6 +70,7 @@ function TeamContent(props) {
           xs={12}
           sm={6}
           md={3}
+          item
           header="TOTAL Team Members"
           contentBlue={
             earnings.totalMembers.data.totalMember
@@ -81,6 +82,7 @@ function TeamContent(props) {
           xs={12}
           sm={6}
           md={3}
+          item
           className={classes.invested}
           header="TOTAL Team Invested"
           contentBlue={"$" + totalInvested.usd.toFixed(2)}
@@ -90,13 +92,16 @@ function TeamContent(props) {
           xs={12}
           sm={6}
           md={6}
+          item
           header="TOTAL Team Earnings"
           contentBlue={"DET " + earnings.teamEarnings.data.det.toFixed(2)}
           contentGray={["$" + earnings.teamEarnings.data.usd.toFixed(2)]}
         />
       </Grid>
       <Links />
-      <TeamTable />
+      <Grid item container justify="space-between" spacing={2} xs={12}>
+        <TeamTable />
+      </Grid>
     </Container>
   );
 }

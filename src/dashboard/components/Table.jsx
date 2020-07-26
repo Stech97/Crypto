@@ -1,5 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -61,19 +63,19 @@ function CustomTable(props) {
 			container
 			xs={12}
 			spacing={2}
-			justify="stretch"
+			justify="center"
 		>
-			<TableContainer component="div" className={classes.container}>
+			<TableContainer component={Box} className={classes.container}>
 				<Table
-					component="div"
+					component={Box}
 					className={classes.table}
 					aria-label="customized table"
 				>
-					<TableHead component="div" className={classes.header}>
-						<TableRow component="div">
+					<TableHead component={Box} className={classes.header}>
+						<TableRow component={Box}>
 							{headers.map((header, index) => (
 								<TableCell
-									component="div"
+									component={Box}
 									key={index}
 									align="center"
 								>
@@ -84,10 +86,10 @@ function CustomTable(props) {
 							))}
 						</TableRow>
 					</TableHead>
-					<TableBody component="div" className={classes.body}>
+					<TableBody component={Box} className={classes.body}>
 						{content.map((row, i) => (
 							<TableRow
-								component="div"
+								component={Box}
 								key={i}
 								className={classes.row}
 							>
@@ -95,7 +97,7 @@ function CustomTable(props) {
 									<TableCell
 										key={key}
 										align="center"
-										component="div"
+										component={Box}
 									>
 										<Typography variant="body1">
 											{typeof row[key] === "string"
