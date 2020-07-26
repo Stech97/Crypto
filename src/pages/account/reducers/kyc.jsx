@@ -4,6 +4,7 @@ import {
 	ERROR,
 	GetKYC,
 	AcceptKYC,
+	DiscardKYC,
 	AcceptAllKYC,
 	GetPassportPicture,
 	GetProofPicture,
@@ -11,130 +12,308 @@ import {
 } from "../actions/kyc";
 
 const initialState = {
-	isFetching: false,
+	isFetching: {
+		get: false,
+		current: false,
+		decision: false,
+		acceptAll: false,
+	},
 	error: {
-		type: "",
-		message: "",
+		get: {
+			type: "",
+			message: "",
+		},
+		current: {
+			type: "",
+			message: "",
+		},
+		decision: {
+			type: "",
+			message: "",
+		},
+		acceptAll: {
+			type: "",
+			message: "",
+		},
+	},
+	status: {
+		get: false,
+		current: false,
+		decision: false,
+		acceptAll: false,
 	},
 	data: [],
-	accept: [],
-	pictures: [],
 };
 
-export const KYCReducer = (state = initialState, action) => {
-	const types = {
-		[GetPassportPicture]: "passport",
-		[GetProofPicture]: "proof",
-		[GetSelfiPicture]: "selfie",
-	};
+const types = {
+	[GetPassportPicture]: "passport",
+	[GetProofPicture]: "proof",
+	[GetSelfiPicture]: "selfie",
+};
 
-	var arr = [];
-	var current = null;
-	switch (action.type) {
-		case GetPassportPicture + REQUEST ||
-			GetProofPicture + REQUEST ||
-			GetSelfiPicture + REQUEST:
-			arr = state.pictures;
-			current = arr.find((element) => element.id === action.payload.id);
-			if (current) {
-				arr = arr.map(
-					((element) => element.id === action.payload.id && element: {
-						...element,
-						isFetching: true,
-					})
-				);
-			} else {
-				arr.push({ id: action.payload.id, isFetching: true });
+const parseAction = (type) => (type = "/" + type.split("/")[1]);
+
+const parseStatus = (type) => (type = "/" + type.split("/")[2]);
+
+const typeConverter = (type) => types[parseAction(type)];
+
+const PictureSuccessReducer = (state, action) => {
+	return state.data.map((element) =>
+		element.id === action.payload.id
+			? {
+					...element,
+					[typeConverter(action.type)]: action.payload.image,
+			  }
+			: element
+	);
+};
+
+const DecisionSuccessReducer = (state, action) =>
+	state.data.map((element) =>
+		element.id === action.payload.id
+			? {
+					...element,
+					status: action.payload.status,
+			  }
+			: element
+	);
+
+export const KYCReducer = (state = initialState, action) => {
+	var status = parseStatus(action.type);
+	var event = parseAction(action.type);
+	switch (event) {
+		case GetPassportPicture:
+			switch (status) {
+				case REQUEST:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							current: true,
+						},
+						status: {
+							...state.status,
+							current: false,
+						},
+					};
+				case ERROR:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							current: false,
+						},
+						status: {
+							...state.status,
+							current: false,
+						},
+						error: {
+							...state.error,
+							current: action.payload,
+						},
+					};
+				case SUCCESS:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							current: false,
+						},
+						status: {
+							...state.status,
+							current: false,
+						},
+						data: PictureSuccessReducer(state, action),
+					};
 			}
-			return {
-				...state,
-				pictures: arr,
-			};
-		case GetPassportPicture + ERROR ||
-			GetProofPicture + ERROR ||
-			GetSelfiPicture + ERROR:
-			return {
-				...state,
-				isFetching: false,
-				error: action.payload,
-			};
-		case GetPassportPicture + SUCCESS ||
-			GetProofPicture + SUCCESS ||
-			GetSelfiPicture + SUCCESS:
-			arr = state.pictures;
-			current = arr.find((element) => element.id === action.payload.id);
-			if (current) {
-				arr = arr.map(
-					((element) => element.id === action.payload.id && element: {
-						...element,
-						passport: action.payload.image,
-						isFetching: false,
-					})
-				);
-			} else {
-				arr.push({
-					id: action.payload.id,
-					[types[action.type]]: action.payload.image,
-					isFetching: false,
-				});
+		case GetProofPicture:
+			switch (status) {
+				case REQUEST:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							current: true,
+						},
+						status: {
+							...state.status,
+							current: false,
+						},
+					};
+				case ERROR:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							current: false,
+						},
+						status: {
+							...state.status,
+							current: false,
+						},
+						error: {
+							...state.error,
+							current: action.payload,
+						},
+					};
+				case SUCCESS:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							current: false,
+						},
+						status: {
+							...state.status,
+							current: false,
+						},
+						data: PictureSuccessReducer(state, action),
+					};
 			}
-			return {
-				...state,
-				isFetching: false,
-				pictures: arr,
-			};
-		case GetKYC + REQUEST:
-			return {
-				...state,
-				isFetching: true,
-			};
-		case GetKYC + ERROR:
-			return {
-				...state,
-				isFetching: false,
-				error: action.payload,
-			};
-		case GetKYC + SUCCESS:
-			return {
-				...state,
-				isFetching: false,
-				data: action.payload,
-			};
-		case AcceptKYC + REQUEST:
-			return {
-				...state,
-				isFetching: true,
-			};
-		case AcceptKYC + ERROR:
-			return {
-				...state,
-				isFetching: false,
-				error: action.payload,
-			};
-		case AcceptKYC + SUCCESS:
-			arr = state.accept;
-			arr.push({ id: action.payload });
-			return {
-				...state,
-				isFetching: false,
-				accept: arr,
-			};
-		case AcceptAllKYC + REQUEST:
-			return {
-				...state,
-				isFetching: true,
-			};
-		case AcceptAllKYC + ERROR:
-			return {
-				...state,
-				isFetching: false,
-				error: action.payload,
-			};
-		case AcceptAllKYC + SUCCESS:
-			return {
-				...state,
-				isFetching: false,
-			};
+		case GetSelfiPicture:
+			switch (status) {
+				case REQUEST:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							current: true,
+						},
+						status: {
+							...state.status,
+							current: false,
+						},
+					};
+				case ERROR:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							current: false,
+						},
+						status: {
+							...state.status,
+							current: false,
+						},
+						error: {
+							...state.error,
+							current: action.payload,
+						},
+					};
+				case SUCCESS:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							current: false,
+						},
+						status: {
+							...state.status,
+							current: true,
+						},
+						data: PictureSuccessReducer(state, action),
+					};
+			}
+		case GetKYC:
+			switch (status) {
+				case REQUEST:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							get: true,
+						},
+						data: [],
+					};
+				case ERROR:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							get: false,
+						},
+						error: {
+							...state.error,
+							get: action.payload,
+						},
+					};
+				case SUCCESS:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							get: false,
+						},
+						data: action.payload,
+					};
+			}
+		case AcceptKYC || DiscardKYC:
+			switch (status) {
+				case REQUEST:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							decision: true,
+						},
+					};
+				case ERROR:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							decision: false,
+						},
+						error: {
+							...state.error,
+							decision: action.payload,
+						},
+					};
+				case SUCCESS:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							decision: false,
+						},
+						data: DecisionSuccessReducer(state, action),
+					};
+			}
+		case AcceptAllKYC:
+			switch (status) {
+				case REQUEST:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							acceptAll: true,
+						},
+					};
+				case ERROR:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							acceptAll: false,
+						},
+						error: {
+							...state.error,
+							acceptAll: action.payload,
+						},
+					};
+				case SUCCESS:
+					return {
+						...state,
+						isFetching: {
+							...state.isFetching,
+							acceptAll: false,
+						},
+						data: state.data.map((element) => ({
+							...element,
+							status: true,
+						})),
+					};
+			}
 		default:
 			return state;
 	}
