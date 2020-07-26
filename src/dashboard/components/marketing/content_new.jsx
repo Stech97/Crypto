@@ -1,73 +1,73 @@
-import React, { Component, Fragment } from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import SvgIcon from '@material-ui/core/SvgIcon';
-import Icon from '@material-ui/core/Icon';
-import Container from '@material-ui/core/Container';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import { MailIcon, TelegramIcon } from '../../svg/iconComponents';
-import Box from '@material-ui/core/Box';
+import React, { Component, Fragment } from "react";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import SvgIcon from "@material-ui/core/SvgIcon";
+import Icon from "@material-ui/core/Icon";
+import Container from "@material-ui/core/Container";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import { MailIcon, TelegramIcon } from "../../svg/iconComponents";
+import Box from "@material-ui/core/Box";
 
 const marketboxes = [
   {
-    className: 'business',
-    link: '/files/Business_presentation.pptx',
-    header: 'Business Presentation',
-    img: 'pdf-icon.png',
+    className: "business",
+    link: "/files/Business_presentation.pptx",
+    header: "Business Presentation",
+    img: "pdf-icon.png",
   },
   {
-    className: 'video',
-    link: '/files/Business_presentation.pptx',
-    header: 'Video Presentation',
-    img: 'video-icon.png',
+    className: "video",
+    link: "/files/Business_presentation.pptx",
+    header: "Video Presentation",
+    img: "video-icon.png",
   },
   {
-    className: 'facebook',
-    link: '/files/Test.zip',
-    header: 'Social Media Posts',
-    img: 'facebook-icon.png',
+    className: "facebook",
+    link: "/files/Test.zip",
+    header: "Social Media Posts",
+    img: "facebook-icon.png",
   },
   {
-    className: 'instagram',
-    link: '/files/Test.zip',
-    header: 'Instagram Stories',
-    img: 'instagram-icon.png',
+    className: "instagram",
+    link: "/files/Test.zip",
+    header: "Instagram Stories",
+    img: "instagram-icon.png",
   },
   {
-    className: 'promopictures',
-    link: '/files/Test.zip',
-    header: 'Promo Pictures',
-    img: 'pictures-folder-icon.png',
+    className: "promopictures",
+    link: "/files/Test.zip",
+    header: "Promo Pictures",
+    img: "pictures-folder-icon.png",
   },
   {
-    className: 'promovideos',
-    link: '/files/Test.zip',
-    header: 'Promo Videos',
-    img: 'videos-folder-icon.png',
+    className: "promovideos",
+    link: "/files/Test.zip",
+    header: "Promo Videos",
+    img: "videos-folder-icon.png",
   },
 ];
 
-export const darkBlue = '#123273';
-export const gradient = 'linear-gradient(50deg, #123273 0%, #005c9f 100%)';
-export const grayText = '#838383';
-export const grayBack = '#efefef';
-export const orange = '#ed7102';
-export const lightBlue = '#16428d';
-export const whitebox = '#efefef';
-export const contentBack = '#f5fbff';
+export const darkBlue = "#123273";
+export const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
+export const grayText = "#838383";
+export const grayBack = "#efefef";
+export const orange = "#ed7102";
+export const lightBlue = "#16428d";
+export const whitebox = "#efefef";
+export const contentBack = "#f5fbff";
 
 const headerTheme = createMuiTheme({
   palette: {
@@ -77,10 +77,10 @@ const headerTheme = createMuiTheme({
     },
     secondary: {
       main: darkBlue,
-      contrastText: '#ffffff',
+      contrastText: "#ffffff",
     },
     warning: {
-      main: '#fff',
+      main: "#fff",
       dark: orange,
     },
   },
@@ -88,66 +88,66 @@ const headerTheme = createMuiTheme({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    width: '200px',
-    height: '200px',
-    borderRadius: '2vw',
-    [theme.breakpoints.down('sm')]: {
-      borderRadius: '1rem',
-      width: '150px',
-      height: '150px',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    width: "200px",
+    height: "200px",
+    borderRadius: "2vw",
+    [theme.breakpoints.down("sm")]: {
+      borderRadius: "1rem",
+      width: "150px",
+      height: "150px",
     },
   },
 
   media_holder: {
-    [theme.breakpoints.down('sm')]: {
-      marginTop: '0',
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "0",
     },
-    marginTop: '25px',
-    color: '#FFF',
-    height: '6rem',
+    marginTop: "25px",
+    color: "#FFF",
+    height: "6rem",
   },
 
   media: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       width: 50,
       height: 50,
     },
-    margin: 'auto',
+    margin: "auto",
     width: 75,
     height: 75,
-    position: 'relative',
+    position: "relative",
   },
 
   card_header: {
-    fontFamily: ['IBM Plex Sans'],
+    fontFamily: ["IBM Plex Sans"],
     color: lightBlue,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '4rem',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "4rem",
   },
 
   download: {
-    margin: 'auto',
-    color: '#fff',
-    width: '100%',
-    height: '100%',
-    textTransform: 'capitalize',
-    '&:hover': {
-      backgroundColor: 'transparent',
+    margin: "auto",
+    color: "#fff",
+    width: "100%",
+    height: "100%",
+    textTransform: "capitalize",
+    "&:hover": {
+      backgroundColor: "transparent",
       // color: '#FFF',
     },
   },
 
   action_area: {
-    background: 'linear-gradient(50deg, #123273 0%, #005c9f 100%)',
-    '&:hover': {
+    background: "linear-gradient(50deg, #123273 0%, #005c9f 100%)",
+    "&:hover": {
       background: orange,
     },
-    justifySelf: 'flex-end',
+    justifySelf: "flex-end",
   },
 
   marketing_follow_header: {
@@ -157,41 +157,47 @@ const useStyles = makeStyles((theme) => ({
 
   subheading: {
     color: lightBlue,
-    textTransform: 'capitalize',
+    textTransform: "capitalize",
   },
   contentbox: {
-    marginTop: '20px',
-    marginBottom: '20px',
+    marginTop: "20px",
+    marginBottom: "20px",
   },
   iconMail: {
     fill: darkBlue,
     stroke: darkBlue,
   },
   iconTelegram: {
-    fill: '#0088cc',
-    stroke: '#0088cc',
+    fill: "#0088cc",
+    stroke: "#0088cc",
   },
   icons: {
-    width: 'auto',
-    height: '1em',
-    fontSize: '1.8rem',
+    width: "30px",
+    height: "auto",
   },
   iconBox: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
   },
 }));
 
 const MarketingContentBox = ({ box: { className, link, header, img } }) => {
   const classes = useStyles();
   return (
-    <Grid className={classes.contentbox} item xs={6} md={3}>
+    <Grid
+      className={classes.contentbox}
+      justify="center"
+      container
+      item
+      xs={6}
+      md={3}
+    >
       <Typography className={classes.card_header}>{header}</Typography>
       <Card className={classes.root}>
         <CardActionArea className={classes.media_holder}>
           <CardMedia
             className={classes.media}
-            image={'/img/' + img}
+            image={"/img/" + img}
             title={className}
           />
         </CardActionArea>
@@ -228,7 +234,12 @@ const MarketingContentFollow = ({}) => {
           </ListItem>
           <ListItem alignItems="center">
             <ListItemIcon className={classes.iconBox}>
-              <img src="/img/followus-blog-icon.png" alt="followus-blog-icon" />
+              <img
+                width="30px"
+                height="auto"
+                src="/img/followus-blog-icon.png"
+                alt="followus-blog-icon"
+              />
             </ListItemIcon>
             <ListItemText>
               <a href="https://medium.com/">Subscribe our Blog</a>

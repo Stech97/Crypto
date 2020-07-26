@@ -1,84 +1,106 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import Plotly from 'plotly.js-basic-dist';
-import createPlotlyComponent from 'react-plotly.js/factory';
-import moment from 'moment';
+import React, { useState } from "react";
+import clsx from "clsx";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import NativeSelect from "@material-ui/core/NativeSelect";
+import Plotly from "plotly.js-basic-dist";
+import createPlotlyComponent from "react-plotly.js/factory";
+import moment from "moment";
 
 const Plot = createPlotlyComponent(Plotly);
 
-const darkBlue = '#123273';
-const grayText = '#838383';
-const grayBack = '#efefef';
-const lightBlue = '#16428d';
+const darkBlue = "#123273";
+const grayText = "#838383";
+const grayBack = "#efefef";
+const lightBlue = "#16428d";
 
 const useStyles = makeStyles((theme) => ({
   whitebox: {
-    boxShadow: '0 0 1.25rem rgba(0, 0, 0, 0.06)',
-    border: '1px solid #efefef',
-    backgroundColor: '#ffffff',
-    borderRadius: '2vw',
-    [theme.breakpoints.down('sm')]: {
-      borderRadius: '1rem',
+    boxShadow: "0 0 1.25rem rgba(0, 0, 0, 0.06)",
+    border: "1px solid #efefef",
+    backgroundColor: "#ffffff",
+    borderRadius: "2vw",
+    [theme.breakpoints.down("sm")]: {
+      borderRadius: "1rem",
     },
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    '& h6': {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    "& h6": {
       color: lightBlue,
     },
   },
   header: {
     color: darkBlue,
-    fontWeight: '500',
-    whiteSpace: 'nowrap',
-    height: '3rem',
+    fontWeight: "500",
+    whiteSpace: "nowrap",
+    height: "3rem",
   },
   earnings: {
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   graph: {
-    height: '400px',
-    width: '600px',
-    [theme.breakpoints.down('lg')]: {
-      height: '300px',
-      width: '600px',
+    height: "400px",
+    width: "600px",
+    [theme.breakpoints.down("lg")]: {
+      height: "300px",
+      width: "600px",
     },
   },
   input: {
-    width: '150px',
-    height: '50px',
-    backgroundImage: 'linear-gradient(250deg, #005c9f 0%, #123273 100%)',
-    boxShadow: '0 0 20px rgba(0, 0, 0, 0.06)',
-    padding: '15px',
-    borderRadius: '10px',
-    color: '#fff',
-    [theme.breakpoints.down('sm')]: {
-      borderRadius: '35px',
+    width: "150px",
+    height: "50px",
+    backgroundImage: "linear-gradient(250deg, #005c9f 0%, #123273 100%)",
+    boxShadow: "0 0 20px rgba(0, 0, 0, 0.06)",
+    padding: "15px",
+    borderRadius: "10px",
+    color: "#fff",
+    [theme.breakpoints.down("sm")]: {
+      borderRadius: "35px",
+    },
+    "&>select": {
+      borderBottom: "none!important",
+    },
+    "&:before": {
+      borderBottom: "none!important",
+      "&:hover, &:focus, &:active": {
+        borderBottom: "none!important",
+      },
+    },
+    "&:after": {
+      borderBottom: "none!important",
+      "&:hover, &:focus, &:active": {
+        borderBottom: "none!important",
+      },
     },
   },
   textInput: {
-    '&>div': {
-      borderBottom: '2px solid #fff',
-      color: '#fff',
+    "&>div": {
+      borderBottom: "none",
+      color: "#fff",
+      "&:before": {
+        borderBottom: "none",
+      },
     },
   },
   selectInput: {
-    borderBottom: 'none!important',
-    '&:before': {
-      borderBottom: 'none',
+    borderBottom: "none!important",
+    "&:before": {
+      borderBottom: "none",
     },
-    '& svg': {
-      fill: '#fff',
-      stroke: '#fff',
-      color: '#fff!important',
+    "& svg": {
+      fill: "#fff",
+      stroke: "#fff",
+      color: "#fff!important",
     },
   },
   container: {
-    marginTop: '20px',
+    marginTop: "20px",
+  },
+  option: {
+    color: "#fff",
+    backgroundColor: "#123273!important",
   },
 }));
 
@@ -86,30 +108,30 @@ function Profit() {
   const classes = useStyles();
   const [{ investment, product, AMP }, setInvest] = useState({
     investment: 1000,
-    product: 'Small',
+    product: "Small",
     AMP: 0.06,
   });
 
   const handleChange = (event) => {
     let investment = event.target.value.slice(1);
     if (investment >= 100 && investment < 5000) {
-      setInvest({ investment, product: 'Small', AMP: 0.06 });
+      setInvest({ investment, product: "Small", AMP: 0.06 });
     } else if (investment >= 5000 && investment < 10000) {
-      setInvest({ investment, product: 'Medium', AMP: 0.08 });
+      setInvest({ investment, product: "Medium", AMP: 0.08 });
     } else if (investment >= 10000) {
-      setInvest({ investment, product: 'Large', AMP: 0.11 });
+      setInvest({ investment, product: "Large", AMP: 0.11 });
     } else {
-      setInvest({ investment, product: 'Small', AMP: 0.06 });
+      setInvest({ investment, product: "Small", AMP: 0.06 });
     }
   };
 
   const generateMonths = () => {
     const months = [];
     const dateStart = moment();
-    const dateEnd = moment().add(12, 'month');
-    while (dateEnd.diff(dateStart, 'months') >= 0) {
-      months.push(dateStart.format('M'));
-      dateStart.add(1, 'month');
+    const dateEnd = moment().add(12, "month");
+    while (dateEnd.diff(dateStart, "months") >= 0) {
+      months.push(dateStart.format("M"));
+      dateStart.add(1, "month");
     }
     return months;
   };
@@ -121,10 +143,10 @@ function Profit() {
   const generateTimeStamps = () => {
     const months = [];
     const dateStart = moment();
-    const dateEnd = moment().add(12, 'month');
-    while (dateEnd.diff(dateStart, 'months') >= 0) {
-      months.push(dateStart.format('YYYY-MM-DD'));
-      dateStart.add(1, 'month');
+    const dateEnd = moment().add(12, "month");
+    while (dateEnd.diff(dateStart, "months") >= 0) {
+      months.push(dateStart.format("YYYY-MM-DD"));
+      dateStart.add(1, "month");
     }
     return months;
   };
@@ -137,48 +159,48 @@ function Profit() {
     {
       x: TimeStampsArray,
       y: ValuesArray,
-      type: 'scatter',
+      type: "scatter",
       line: {
-        shape: 'spline',
-        color: '#005C9F',
+        shape: "spline",
+        color: "#005C9F",
       },
-      mode: 'lines',
+      mode: "lines",
     },
   ];
 
   const layout = {
     autosize: true,
     margin: {
-      l: 5 + '%',
-      r: 5 + '%',
-      b: 25 + '%',
-      t: 5 + '%',
+      l: 5 + "%",
+      r: 5 + "%",
+      b: 25 + "%",
+      t: 5 + "%",
     },
 
-    plot_bgcolor: '#EFEFEF',
+    plot_bgcolor: "#EFEFEF",
     yaxis: {
-      title: 'SUM',
+      title: "SUM",
       titlefont: {
-        family: 'IBM Plex Sans, sans-serif',
-        size: 1.5 + 'rem',
-        color: '#838383',
+        family: "IBM Plex Sans, sans-serif",
+        size: 1.5 + "rem",
+        color: "#838383",
       },
-      side: 'right',
+      side: "right",
     },
     xaxis: {
       automargin: true,
-      title: 'Time',
+      title: "Time",
       titlefont: {
-        family: 'IBM Plex Sans, sans-serif',
-        size: 1.5 + 'rem',
-        color: '#838383',
+        family: "IBM Plex Sans, sans-serif",
+        size: 1.5 + "rem",
+        color: "#838383",
       },
-      ticks: 'inside',
+      ticks: "inside",
     },
     font: {
-      family: 'IBM Plex Sans',
-      size: 1 + 'rem',
-      color: '#838383',
+      family: "IBM Plex Sans",
+      size: 1 + "rem",
+      color: "#838383",
     },
   };
 
@@ -224,7 +246,8 @@ function Profit() {
             <TextField
               className={clsx(classes.input, classes.textInput)}
               onChange={handleChange}
-              value={'$' + investment}
+              value={"$" + investment}
+              InputProps={{ disableUnderline: true }}
               id="standard-basic"
             />
           </Grid>
@@ -235,14 +258,21 @@ function Profit() {
             <NativeSelect
               className={classes.input}
               inputProps={{
-                name: 'type',
-                id: 'type-native-label-placeholder',
+                name: "type",
+                id: "type-native-label-placeholder",
               }}
+              variant="filled"
               value={product}
             >
-              <option value={'Small'}>Small</option>
-              <option value={'Medium'}>Medium</option>
-              <option value={'Large'}>Large</option>
+              <option className={classes.option} value={"Small"}>
+                Small
+              </option>
+              <option className={classes.option} value={"Medium"}>
+                Medium
+              </option>
+              <option className={classes.option} value={"Large"}>
+                Large
+              </option>
             </NativeSelect>
           </Grid>
           <Grid component={Typography} align="center" variant="h6" xs={6}>
@@ -252,14 +282,22 @@ function Profit() {
             <NativeSelect
               className={classes.input}
               inputProps={{
-                name: 'percent',
-                id: 'percent-native-label-placeholder',
+                name: "percent",
+                id: "percent-native-label-placeholder",
               }}
+              InputProps={{ disableUnderline: true }}
               value={AMP * 100}
+              variant="filled"
             >
-              <option value={'6'}>6</option>
-              <option value={'8'}>8</option>
-              <option value={'11'}>11</option>
+              <option className={classes.option} value={"6"}>
+                6
+              </option>
+              <option className={classes.option} value={"8"}>
+                8
+              </option>
+              <option className={classes.option} value={"11"}>
+                11
+              </option>
             </NativeSelect>
           </Grid>
         </Grid>
@@ -286,17 +324,17 @@ function Profit() {
           <Grid xs={4} md={2} item component={Typography} variant="subtitle1">
             Weekly Earnings
             <br />
-            {'+' + (ValuesArray[11] / 52).toFixed(2) + ' USD'}
+            {"+" + (ValuesArray[11] / 52).toFixed(2) + " USD"}
           </Grid>
           <Grid xs={4} md={2} item component={Typography} variant="subtitle1">
             Montly Earnings
             <br />
-            {'+' + (ValuesArray[11] / 12).toFixed(2) + ' USD'}
+            {"+" + (ValuesArray[11] / 12).toFixed(2) + " USD"}
           </Grid>
           <Grid xs={4} md={2} item component={Typography} variant="subtitle1">
             Yearly Earnings
             <br />
-            {'+' + ValuesArray[11].toFixed(2) + ' USD'}
+            {"+" + ValuesArray[11].toFixed(2) + " USD"}
           </Grid>
         </Grid>
       </Grid>

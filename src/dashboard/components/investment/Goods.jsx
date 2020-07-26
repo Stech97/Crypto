@@ -35,10 +35,10 @@ const BlueButton = withStyles({
 const goodStyles = makeStyles((theme) => ({
   box: {
     borderRadius: "2vw",
-    height: "300px",
+    height: "350px",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     [theme.breakpoints.down("sm")]: {
       borderRadius: "1rem",
     },
@@ -49,9 +49,11 @@ const goodStyles = makeStyles((theme) => ({
     background: "linear-gradient(247deg, #005c9f 0%, #123273 100%)",
   },
   content: {
-    justifyContent: "space-between",
+    justifyContent: "center",
+    padding: "0 25%",
     "& p": {
       color: grayText,
+      fontSize: "1rem",
     },
   },
   button: {
@@ -93,7 +95,7 @@ function Good(props) {
   const classes = goodStyles();
   const { title, percent, invest, levels } = props;
   return (
-    <Grid item xs={6} md={3} lg={2} align="center">
+    <Grid item xs={6} md={3} lg={3} align="center">
       <Card className={classes.box}>
         <CardHeader title={title} className={classes.title} />
         <CardContent className={classes.content}>

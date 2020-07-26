@@ -38,8 +38,7 @@ const BlueButton = withStyles({
 		background: "linear-gradient(77deg, #16428d 0%, #005c9f 100%)",
 		border: "none",
 		borderRadius: "30px",
-		paddingLeft: "1rem",
-		paddingRight: "1rem",
+		padding: "0.5rem 2rem",
 		"&:hover, &:focus": {
 			color: "#fff",
 			background: "linear-gradient(77deg, #ed7102 0%, #ed7102 100%)",
