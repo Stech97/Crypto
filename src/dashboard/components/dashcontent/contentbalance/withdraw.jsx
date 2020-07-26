@@ -136,7 +136,10 @@ function Withdraw(props) {
   const submit = (values) => {
     console.log("amount", Number(values.amount) * rate.b2u);
     if (Number(values.amount) * rate.b2u >= 10) {
-      props.WithdrawAction({ BTC: values.amount, Wallet: values.address });
+      props.WithdrawAction({
+        BTC: (Number(values.amount) * -1).toString(),
+        Wallet: values.address,
+      });
     } else {
       throw new SubmissionError({ amount: "Too low value" });
     }

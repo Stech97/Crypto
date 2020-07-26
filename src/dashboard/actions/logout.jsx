@@ -22,7 +22,6 @@ const getLogoutError = (error) => ({
 export const userLogoutGet = () => {
 	return (dispatch) => {
 		dispatch(getLogoutRequest());
-		Cookies.remove("token");
 		let ID = localStorage.getItem("id");
 		localStorage.removeItem("id");
 		let response = API("/Identity/SignOut?Id=" + ID, "delete")

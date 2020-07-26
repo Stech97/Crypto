@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -10,10 +10,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
+import Box from "@material-ui/core/Box";
 import CardContent from "@material-ui/core/CardContent";
-
+import { getLoginHistory } from "../../actions/loginhistory";
 import { makeStyles } from "@material-ui/core/styles";
-
+import { connect } from "react-redux";
 const darkBlue = "#123273";
 
 const useStyle = makeStyles((theme) => ({
@@ -55,7 +56,10 @@ const useStyle = makeStyles((theme) => ({
 	},
 }));
 
-function Login() {
+function Login(props) {
+	useEffect(() => {
+		props.getLogins();
+	}, []);
 	const classes = useStyle();
 	return (
 		<TableContainer component={Grid} spacing={2} xs={12} item>
@@ -71,18 +75,18 @@ function Login() {
 				xs={12}
 				aria-label="login history"
 			>
-				<TableHead className={classes.tableHead} component="div">
-					<TableRow className={classes.tableRow} component="div">
+				<TableHead className={classes.tableHead} component={Box}>
+					<TableRow className={classes.tableRow} component={Box}>
 						<TableCell
 							className={classes.tableCell}
-							component="div"
+							component={Box}
 							align="left"
 						>
 							<Typography variant="body1">Date/Time</Typography>
 						</TableCell>
 						<TableCell
 							className={classes.tableCell}
-							component="div"
+							component={Box}
 							align="left"
 						>
 							<Typography variant="body1">IP</Typography>
@@ -92,44 +96,60 @@ function Login() {
 								classes.tableCell,
 								classes.tableCellNone
 							)}
-							component="div"
+							component={Box}
 							align="left"
 						>
 							<Typography variant="body1">Country</Typography>
 						</TableCell>
 					</TableRow>
 				</TableHead>
-				<TableBody component="div">
-					<TableRow className={classes.tableRow} component="div">
-						<TableCell
-							className={classes.tableCell}
-							component="div"
-							align="left"
-						>
-							<Typography variant="body1">21.04/15:00</Typography>
-						</TableCell>
-						<TableCell
-							className={classes.tableCell}
-							component="div"
-							align="left"
-						>
-							<Typography variant="body1">12.122.21</Typography>
-						</TableCell>
-						<TableCell
-							className={clsx(
-								classes.tableCell,
-								classes.tableCellNone
-							)}
-							component="div"
-							align="left"
-						>
-							<Typography variant="body1">Germany</Typography>
-						</TableCell>
-					</TableRow>
+				<TableBody component={Box} className={classes.tableBody}>
+					{props.logins.map((row, id) => (
+						<TableRow className={classes.tableRow} component={Box}>
+							<TableCell
+								className={classes.tableCell}
+								component={Box}
+								align="left"
+							>
+								<Typography variant="body1">
+									{row.loginTime}
+								</Typography>
+							</TableCell>
+							<TableCell
+								className={classes.tableCell}
+								component={Box}
+								align="left"
+							>
+								<Typography variant="body1">
+									{row.ip}
+								</Typography>
+							</TableCell>
+							<TableCell
+								className={clsx(
+									classes.tableCell,
+									classes.tableCellNone
+								)}
+								component={Box}
+								align="left"
+							>
+								<Typography variant="body1">
+									{row.country}
+								</Typography>
+							</TableCell>
+						</TableRow>
+					))}
 				</TableBody>
 			</Table>
 		</TableContainer>
 	);
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+	logins: state.loginHistory.logins,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	getLogins: () => dispatch(getLoginHistory()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

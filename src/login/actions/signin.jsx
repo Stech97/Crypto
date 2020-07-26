@@ -48,10 +48,8 @@ export const userPostFetch = (user) => {
 						res.data.country
 					)
 						.then((res) => {
-							console.log(res);
 							if (res.ok) {
 								if (res.data.isVerified) {
-									Cookies.set("token", res.data.token);
 									localStorage.setItem("id", res.data.id);
 									dispatch(loginUserSuccess());
 									dispatch(setUser(res.data));

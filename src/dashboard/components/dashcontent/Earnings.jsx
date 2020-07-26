@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import clsx from "clsx";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,7 +8,10 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import SvgIcon from "@material-ui/core/SvgIcon";
-
+import { getTotalInvestments } from "../../actions/getTotalInvestments";
+import { getMembersAmount } from "../../actions/getTeam";
+import { getProfitFromInvest } from "../../actions/getProfitFromInvest";
+import { getTeamEarnings } from "../../actions/getTeamEarnings";
 const darkBlue = "#123273";
 const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
 const grayText = "#838383";
@@ -17,6 +20,14 @@ const orange = "#ed7102";
 const lightBlue = "#16428d";
 const whitebox = "#efefef";
 const contentBack = "#f5fbff";
+
+const rounded = function (number, digits) {
+	return Number(Number(number).toFixed(digits));
+};
+
+const rounded4 = (number) => rounded(number, 4);
+
+const rounded2 = (number) => rounded(number, 2);
 
 const WhiteboxStyles = makeStyles((theme) => ({
 	whitebox: {
@@ -69,7 +80,7 @@ const WhiteboxStyles = makeStyles((theme) => ({
 	},
 }));
 
-function Graph({ height, ...rest }) {
+function Graph({ height, text, ...rest }) {
 	const classes = WhiteboxStyles();
 	return (
 		<Grid container item {...rest} direction="column">
@@ -80,7 +91,7 @@ function Graph({ height, ...rest }) {
 				align="center"
 				className={classes.header}
 			>
-				300 %
+				{rounded2(text) + "% profit reached"}
 			</Typography>
 			<div className={classes.svgGraph}>
 				<SvgIcon
@@ -165,7 +176,50 @@ function TotalProfits({
 	);
 }
 
-export default function Earnings() {
+function Earnings(props) {
+	useEffect(() => {
+		props.getTotalInvAction();
+		props.getTotalMemAction();
+		props.getProfitFromInvestAction();
+		props.getTeamEarningsAction();
+	}, []);
+
+	const { earnings } = props;
+
+	const {
+		totalInvestment,
+		totalMembers,
+		profitFromInvest,
+		teamEarnings,
+		lastWeekProfits,
+	} = earnings;
+
+	const earningsData = {
+		totalProfit: {
+			det: rounded2(profitFromInvest.data.det + teamEarnings.data.det),
+			usd: rounded2(profitFromInvest.data.usd + teamEarnings.data.usd),
+		},
+		Graph: {
+			height: Math.min(
+				300,
+				Math.max(
+					15,
+					rounded(
+						totalInvestment.data.usd
+							? (profitFromInvest.data.usd /
+									totalInvestment.data.usd) *
+									100
+							: 0,
+						2
+					)
+				)
+			),
+			text: totalInvestment.data.usd
+				? (profitFromInvest.data.usd / totalInvestment.data.usd) * 100
+				: 0,
+		},
+	};
+
 	return (
 		<Grid item container justify="space-between" spacing={2} xs={12}>
 			<Grid
@@ -181,8 +235,8 @@ export default function Earnings() {
 					xs={12}
 					sm={6}
 					header="Total Investments"
-					contentBlue="BTC 1.023"
-					contentGray={["USD 7,012"]}
+					contentBlue={"BTC " + rounded4(totalInvestment.data.btc)}
+					contentGray={["USD " + rounded2(totalInvestment.data.usd)]}
 				/>
 				<WhiteBox
 					direction="column"
@@ -190,8 +244,8 @@ export default function Earnings() {
 					sm={6}
 					justify="space-between"
 					header="Profit from Invest"
-					contentBlue="DET 423"
-					contentGray={["USD 423"]}
+					contentBlue={"DET " + rounded2(profitFromInvest.data.det)}
+					contentGray={["USD " + rounded2(profitFromInvest.data.usd)]}
 				/>
 				<WhiteBox
 					direction="column"
@@ -199,7 +253,7 @@ export default function Earnings() {
 					sm={6}
 					justify="space-between"
 					header="Total Team Members"
-					contentBlue="300 Members"
+					contentBlue={totalMembers.data.totalMember + " Members"}
 				/>
 				<WhiteBox
 					direction="column"
@@ -207,8 +261,8 @@ export default function Earnings() {
 					sm={6}
 					justify="space-between"
 					header="Total Team Earnings"
-					contentBlue="DET 423"
-					contentGray={["USD 423"]}
+					contentBlue={"DET " + rounded2(teamEarnings.data.det)}
+					contentGray={["USD " + rounded2(teamEarnings.data.usd)]}
 				/>
 			</Grid>
 			<Grid
@@ -220,15 +274,36 @@ export default function Earnings() {
 				spacing={2}
 			>
 				<TotalProfits
-					totalProfitBlue="BTC 1.023"
-					totalProfitGray="USD 7012"
-					last24Blue="BTC 1.023"
-					last24Gray="USD 7012"
+					totalProfitBlue={"DET " + earningsData.totalProfit.det}
+					totalProfitGray={"USD " + earningsData.totalProfit.usd}
+					last24Blue={"DET " + lastWeekProfits.data.det}
+					last24Gray={"USD " + lastWeekProfits.data.usd}
 					xs={12}
 					sm={6}
 				/>
-				<Graph xs={12} sm={6} height={50} />
+				<Graph
+					xs={12}
+					sm={6}
+					height={50}
+					height={earningsData.Graph.height}
+					text={earningsData.Graph.text}
+				/>
 			</Grid>
 		</Grid>
 	);
 }
+
+const mapStateToProps = (store) => ({
+	earnings: store.Earnings,
+});
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getTotalInvAction: () => dispatch(getTotalInvestments()),
+		getTotalMemAction: () => dispatch(getMembersAmount()),
+		getProfitFromInvestAction: () => dispatch(getProfitFromInvest()),
+		getTeamEarningsAction: () => dispatch(getTeamEarnings()),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Earnings);

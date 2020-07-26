@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import Balance from "./Balance";
 import Earnings from "./Earnings";
-import Links from "./Links";
+import Links from "../Links";
 import News from "./News";
 import Login from "./Login";
 import Grid from "@material-ui/core/Grid";

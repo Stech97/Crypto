@@ -31,11 +31,12 @@ const patchFile = async (type, file) => {
 };
 
 const uploadFile = (type, dispatch, file) => {
-	dispatch(requestAction(UploadPassport));
+	dispatch(requestAction(type));
 
 	patchFile(type, file)
 		.then((res) => {
 			console.log("res", res);
+			console.log("type", type);
 			if (res.ok) {
 				dispatch(successAction(type));
 			} else {

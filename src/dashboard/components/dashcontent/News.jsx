@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { useEffect, memo } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "../Buttons";
 import clsx from "clsx";
@@ -9,6 +9,9 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import Typography from "@material-ui/core/Typography";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { getNews } from "../../actions/getNews";
+import { connect } from "react-redux";
+
 import "swiper/swiper.scss";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -123,11 +126,11 @@ const NewsPost = memo(function NewsPost(props) {
 			align="flex-start"
 		>
 			<Card>
-				<CardHeader title={props.title} className={classes.title} />
+				<CardHeader title={props.header} className={classes.title} />
 				<Collapse in={expanded} timeout="auto" collapsedHeight="100px">
 					<CardContent>
 						<Typography className={classes.text}>
-							{props.text}
+							{expanded ? props.body : props.description}
 						</Typography>
 					</CardContent>
 				</Collapse>
@@ -145,15 +148,20 @@ const NewsPost = memo(function NewsPost(props) {
 	);
 });
 
-export default function News(props) {
+function News(props) {
 	const classes = useStyles();
+
+	useEffect(() => {
+		props.getNews();
+	}, []);
+
 	return (
 		<Grid item container xs={12} spacing={2}>
 			<Typography variant="h5" className={classes.header}>
 				News
 			</Typography>
 			<Grid item md={12} className={classes.whitebox} align="center">
-				{news.map((post, index) => (
+				{props.news.map((post, index) => (
 					<NewsPost key={index} {...post} />
 				))}
 			</Grid>
@@ -162,7 +170,7 @@ export default function News(props) {
 				slidesPerView={1}
 				scrollbar={{ draggable: true }}
 			>
-				{news.map((post, index) => (
+				{props.news.map((post, index) => (
 					<SwiperSlide className={classes.slide} key={index}>
 						<NewsPost {...post} />
 					</SwiperSlide>
@@ -171,3 +179,13 @@ export default function News(props) {
 		</Grid>
 	);
 }
+
+const mapStateToProps = (state) => ({
+	news: state.News.news,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	getNews: () => dispatch(getNews()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(News);

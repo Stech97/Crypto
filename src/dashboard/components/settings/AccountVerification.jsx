@@ -140,7 +140,7 @@ function AccountVerification(props) {
             disabled={!state.passport && !state.selfie && !state.proof}
             onClick={() => props.uploadAction(state)}
           >
-            {!props.kyc.isFetching ? "Save" : "Loading..."}
+            {props.kyc.isFetching ? "Loading..." : "Save"}
           </OrangeButton>
           {props.kyc.isFetching && (
             <Loader type="Rings" color="#F9A732" height={34} width={34} />

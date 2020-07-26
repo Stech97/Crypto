@@ -45,25 +45,28 @@ function Links(props) {
 
 	const classes = WhiteboxStyles();
 	return (
-		<Grid
-			xs={12}
-			item
-			container
-			justify="center"
-			spacing={2}
-			direction="row"
-			className={classes.whitebox}
-		>
-			<Grid item xs={12} md={6} className={classes.row}>
-				<Typography variant="h6" align="center">
-					{"REF Link https://defima.io/referal/" + Refs.refs.refId}
-				</Typography>
-			</Grid>
-			<Grid item xs={12} md={6} className={classes.row}>
-				<Typography variant="h6" align="center">
-					{"REF Link https://defima.io/referal/" +
-						Refs.refs.refString}
-				</Typography>
+		<Grid xs={12} item container spacing={2} justify="center">
+			<Grid
+				xs={12}
+				item
+				container
+				justify="center"
+				spacing={2}
+				direction="row"
+				className={classes.whitebox}
+			>
+				<Grid item xs={12} md={6} className={classes.row}>
+					<Typography variant="h6" align="center">
+						{"REF Link https://defima.io/referal/" +
+							Refs.refs.refId}
+					</Typography>
+				</Grid>
+				<Grid item xs={12} md={6} className={classes.row}>
+					<Typography variant="h6" align="center">
+						{"REF Link https://defima.io/referal/" +
+							Refs.refs.refString}
+					</Typography>
+				</Grid>
 			</Grid>
 		</Grid>
 	);
