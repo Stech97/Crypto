@@ -46,10 +46,10 @@
                     ret = "Buy Large";
                     break;
                 case EnumTypeHistory.AcceptWithdrow:
-                    ret = "AcceptWithdrow";
+                    ret = "Accept Withdraw";
                     break;
                 case EnumTypeHistory.DiscardWithdrow:
-                    ret = "DiscardWithdrow";
+                    ret = "Discard Withdraw";
                     break;
             }
             return ret;

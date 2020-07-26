@@ -11,7 +11,7 @@
         BuySmall = 7,
         BuyMedium = 8,
         BuyLarge = 9,
-        AcceptWithdrow = 10,
-        DiscardWithdrow = 11
+        AcceptWithdraw = 10,
+        DiscardWithdraw = 11
     }
 }

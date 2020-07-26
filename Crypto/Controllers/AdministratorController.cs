@@ -14,7 +14,6 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace Crypto.Controllers
 {
@@ -54,7 +53,7 @@ namespace Crypto.Controllers
 		#endregion
 
 		#region Users
-		
+		[Authorize(Roles = "Administrator")]
 		[Route("GetUsersInfo")]
 		[HttpGet]
 		public async Task<IActionResult> GetUsersInfo()

@@ -1,12 +1,14 @@
 ﻿using System.Threading.Tasks;
 using Crypto.Services.Interfaces;
 using Crypto.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crypto.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [AllowAnonymous]
     public class EmailController : Controller
     {
         readonly IEmailService _email;

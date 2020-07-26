@@ -8,6 +8,7 @@ namespace Crypto.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class DashboardController : Controller
     {
         readonly IDashboardService _dashboardService;
@@ -16,7 +17,6 @@ namespace Crypto.Controllers
             _dashboardService = dashboardService;
         }
 
-        //[Authorize]
         [Route("GetBalance")]
         [HttpGet]
         public async Task<IActionResult> GetBalance(int Id)
@@ -27,6 +27,7 @@ namespace Crypto.Controllers
             return BadRequest("No Balance");
         }
 
+        [AllowAnonymous]
         [Route("GetTime")]
         [HttpGet]
         public IActionResult GetServerTime()
@@ -39,7 +40,6 @@ namespace Crypto.Controllers
             return Ok(time);
         }
 
-        //[Authorize]
         [Route("GetLoginHistory")]
         [HttpGet]
         public async Task<IActionResult> GetLoginHistory(int Id)
@@ -50,7 +50,6 @@ namespace Crypto.Controllers
             return BadRequest("No login");
         }
 
-        //[Authorize]
         [Route("GetRefLink")]
         [HttpGet]
         public async Task<IActionResult> GetRefLink(int Id)
@@ -59,7 +58,6 @@ namespace Crypto.Controllers
             return Ok(RefLink);
         }
 
-        //[Authorize]
         [Route("GetNews")]
         [HttpGet]
         public async Task<IActionResult> GetNews(int Take, int Skip)
@@ -70,7 +68,6 @@ namespace Crypto.Controllers
             return BadRequest("No News");
         }
 
-        //[Authorize]
         [Route("Exchange")]
         [HttpPatch]
         public async Task<IActionResult> Exchange([FromBody] ExchangeViewModel request, int Id)
@@ -82,7 +79,6 @@ namespace Crypto.Controllers
 
         }
 
-        //[Authorize]
         [Route("GetRate")]
         [HttpPost]
         public async Task<IActionResult> GetRate([FromBody] RateViewModel request)
@@ -97,7 +93,6 @@ namespace Crypto.Controllers
         }
 
         #region Fake
-        //[Authorize]
         [Route("CashBTC")]
         [HttpPatch]
         public async Task<IActionResult> CashBTC([FromBody] CashBTCViewModel request, int Id)
@@ -110,7 +105,6 @@ namespace Crypto.Controllers
 
         #endregion
 
-        //[Authorize]
         [Route("GetTeam")]
         [HttpGet]
         public async Task<IActionResult> GetTeam(int Ref)
@@ -122,7 +116,6 @@ namespace Crypto.Controllers
         }
 
         #region Earnings
-        //[Authorize]
         [Route("GetTotalInvestment")]
         [HttpGet]
         public async Task<IActionResult> GetTotalInvestment(int Id)
@@ -133,7 +126,6 @@ namespace Crypto.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
         [Route("ProfitFromInvest")]
         [HttpGet]
         public async Task<IActionResult> ProfitFromInvest(int Id)
@@ -144,7 +136,6 @@ namespace Crypto.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
         [Route("GetTotalMembers")]
         [HttpGet]
         public async Task<IActionResult> GetTotalMembers(int Id)
@@ -156,7 +147,6 @@ namespace Crypto.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
         [Route("GetEarningsTeam")]
         [HttpGet]
         public async Task<IActionResult> GetEarningsTeam(int Id)
@@ -167,7 +157,6 @@ namespace Crypto.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
         [Route("GetTotalProfit")]
         [HttpGet]
         public async Task<IActionResult> GetTotalProfit(int Id)
@@ -178,7 +167,6 @@ namespace Crypto.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
         [Route("GetLastWeekProfit")]
         [HttpGet]
         public async Task<IActionResult> GetLastWeekProfit(int Id) 

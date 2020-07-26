@@ -9,6 +9,7 @@ namespace Crypto.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
+	[Authorize]
 	public class InvestmentController : Controller
 	{
 		private readonly IInvestmentService _investmentService;
@@ -17,7 +18,6 @@ namespace Crypto.Controllers
 			_investmentService = investmentService;
 		}
 
-		//[Authorize(Roles = "Client")]
 		[Route("GetInvestments")]
 		[HttpGet]
 		public async Task<IActionResult> GetInvestments(int UserId)
@@ -25,7 +25,7 @@ namespace Crypto.Controllers
 			return Ok(await _investmentService.GetInvestments(UserId));
 		}
 
-		//[Authorize]
+
 		[Route("BuyInvestment")]
 		[HttpPost]
 		public async Task<IActionResult> BuyInvestment([FromBody] BuyInvestmentViewModel request, int Id)
@@ -36,7 +36,6 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
-		//[Authorize]
 		[Route("GetTeamPop")]
 		[HttpGet]
 		public async Task<IActionResult> GetTeamPop(int UserId, int Level)
@@ -47,7 +46,6 @@ namespace Crypto.Controllers
 			return Ok(result);
 		}
 
-		//[Authorize]
 		[Route("GetTeamLevel")]
 		[HttpGet]
 		public async Task<IActionResult> GetTeamLevel(int UserId)
@@ -58,7 +56,6 @@ namespace Crypto.Controllers
 			return Ok(result);
 		}
 
-		//[Authorize]
 		[Route("GetBalanceHistory")]
 		[HttpGet]
 		public async Task<IActionResult> GetBalanceHistory(int UserId)

@@ -665,7 +665,7 @@ namespace DBRepository.Repositories
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var balance = await context.Balances.Select(b => b.BitcoinWallet).Where(b => b != null).ToListAsync();
-				await context.BalanceHistories.ForEachAsync(x => { x.TypeHistory = EnumTypeHistory.AcceptWithdrow; });
+				await context.BalanceHistories.ForEachAsync(x => { x.TypeHistory = EnumTypeHistory.AcceptWithdraw; });
 
 				await context.SaveChangesAsync();
 
@@ -682,7 +682,7 @@ namespace DBRepository.Repositories
 				if (balance != null)
 				{
 
-					balanceHistory.TypeHistory = EnumTypeHistory.AcceptWithdrow;
+					balanceHistory.TypeHistory = EnumTypeHistory.AcceptWithdraw;
 					context.BalanceHistories.Update(balanceHistory);
 					await context.SaveChangesAsync();
 
@@ -701,7 +701,7 @@ namespace DBRepository.Repositories
 				var balanceHistory = await context.BalanceHistories.FirstOrDefaultAsync(u => u.UserId == UserId);
 
 				balance.BitcoinBalance = balanceHistory.Amount / Rates.BTC_USD;
-				balanceHistory.TypeHistory = EnumTypeHistory.DiscardWithdrow;
+				balanceHistory.TypeHistory = EnumTypeHistory.DiscardWithdraw;
 				context.BalanceHistories.Update(balanceHistory);
 				context.Balances.Update(balance);
 

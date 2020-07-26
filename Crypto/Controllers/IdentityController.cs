@@ -19,6 +19,7 @@ namespace Crypto.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
+	[Authorize]
 	public class IdentityController : Controller
 	{
 		private readonly IIdentityService _identityService;
@@ -33,6 +34,7 @@ namespace Crypto.Controllers
 		#region Confirm
 		[Route("ConfirmEmail")]
 		[HttpGet]
+		[AllowAnonymous]
 		public async Task<IActionResult> ConfirmEmail(string Id)
 		{
 			var response = await _identityService.ConfirmEmail(Id);
@@ -52,6 +54,7 @@ namespace Crypto.Controllers
 
 		[Route("ForgotPassword")]
 		[HttpPost]
+		[AllowAnonymous]
 		public async Task<IActionResult> ForgotPassword(CheckViewModel request)
 		{
 			var response = await _identityService.FogotPassword(request);
@@ -71,6 +74,7 @@ namespace Crypto.Controllers
 
 		[Route("AcceptForgot")]
 		[HttpGet]
+		[AllowAnonymous]
 		public async Task<IActionResult> AcceptForgot(string Id)
 		{
 			var response = await _identityService.AcceptFogot(Id);
@@ -88,6 +92,7 @@ namespace Crypto.Controllers
 
 		[Route("RecoveryPassword")]
 		[HttpPost]
+		[AllowAnonymous]
 		public async Task<IActionResult> RecoveryPassword([FromBody] ChangePasswordViewModel request, int Id)
 		{
 			using (SHA256Managed sha256 = new SHA256Managed())
@@ -101,6 +106,7 @@ namespace Crypto.Controllers
 
 		[Route("token")]
 		[HttpPost]
+		[AllowAnonymous]
 		public async Task<IActionResult> Token([FromBody] IdentityViewModel model)
 		{
 			ClaimsIdentity identity = null;
@@ -172,6 +178,7 @@ namespace Crypto.Controllers
 
 		[Route("CreateLogin")]
 		[HttpPost]
+		[AllowAnonymous]
 		public async Task<IActionResult> CreateLogin([FromBody] LoginViewModel login)
 		{
 			using (SHA256Managed sha256 = new SHA256Managed())
@@ -198,6 +205,7 @@ namespace Crypto.Controllers
 		//Проверка на наличие в БД Username и Email
 		[Route("CheckInfo")]
 		[HttpPost]
+		[AllowAnonymous]
 		public async Task<IActionResult> CheckInfo([FromBody] CheckViewModel request)
 		{
 			var result = await _identityService.CheckInfo(request);
@@ -211,7 +219,6 @@ namespace Crypto.Controllers
 
 		#region Authorize
 
-		//[Authorize]
 		[Route("GetUser")]
 		[HttpGet]
 		public async Task<IActionResult> GetUser(int Id)
@@ -222,7 +229,6 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
-		//[Authorize]
 		[Route("GetUserInfo")]
 		[HttpGet]
 		public async Task<IActionResult> GetUserInfo(int Id)
@@ -233,7 +239,6 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
-		//[Authorize]
 		[Route("SignOut")]
 		[HttpDelete]
 		public async Task<IActionResult> SignOut(int Id)
@@ -244,7 +249,6 @@ namespace Crypto.Controllers
 
 		#region Patch User
 
-		//[Authorize]
 		[Route("ChangePassword")]
 		[HttpPatch]
 		public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel request, int Id)
@@ -257,7 +261,6 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-		//[Authorize]
 		[Route("UpdateInfo")]
 		[HttpPatch]
 		public async Task<IActionResult> UpdateInfo([FromBody] UpdateInfoViewModel request, int Id)
@@ -266,7 +269,6 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-		//[Authorize]
 		[Route("ReLogin")]
 		[HttpGet]
 		public async Task<IActionResult> ReLogin([FromHeader] string Token)
@@ -310,7 +312,7 @@ namespace Crypto.Controllers
 		#endregion
 
 		#region Patch bool
-		//[Authorize]
+
 		[Route("ReInvest")]
 		[HttpPatch]
 		public async Task<IActionResult> ReInvest(int Id, bool ReInvest)
@@ -323,7 +325,6 @@ namespace Crypto.Controllers
 			return Ok(response);				
 		}
 
-		//[Authorize]
 		[Route("ShowInfo")]
 		[HttpPatch]
 		public async Task<IActionResult> ShowInfo(int Id, bool ShowInfo)
@@ -338,7 +339,7 @@ namespace Crypto.Controllers
 		#endregion
 
 		#region Upload Picture
-		//[Authorize]
+
 		[Route("UploadPassport")]
 		[HttpPut]
 		public async Task<IActionResult> UploadPassport(int UserId)
@@ -359,7 +360,6 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-		//[Authorize]
 		[Route("UploadProof")]
 		[HttpPut]
 		public async Task<IActionResult> UploadProof(int UserId)
@@ -380,7 +380,6 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
-		//[Authorize]
 		[Route("UploadSelfi")]
 		[HttpPut]
 		public async Task<IActionResult> UploadSelfi(int UserId)
