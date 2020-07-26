@@ -6,12 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using System;
+using Crypto.Helpers;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Crypto.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	//[Authorize]
+	//[Authorize(Roles = "Administrator")]
 	public class AdministratorController : ControllerBase
 	{
 		private readonly IAdministratorService _administratorService;
@@ -45,6 +54,7 @@ namespace Crypto.Controllers
 		#endregion
 
 		#region Users
+		
 		[Route("GetUsersInfo")]
 		[HttpGet]
 		public async Task<IActionResult> GetUsersInfo()
@@ -66,6 +76,59 @@ namespace Crypto.Controllers
 			};
 			return Ok(response);
 		}
+
+		[AllowAnonymous]
+		[Route("tokenAdmin")]
+		[HttpPost]
+		public async Task<IActionResult> Token([FromBody] AdministratorIdentityViewModel model)
+		{
+			ClaimsIdentity identity = null;
+			var user = await _administratorService.GetUser(model.Username);
+			if (user != null)
+			{
+				if ( (user.IsFogotPassword && user.IsBlock) || !user.IsAdmin)
+					return Forbid();
+				else
+				{
+					var sha256 = new SHA256Managed();
+					var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(model.Password)));
+					var passwordUser = user.Password;
+					var username = user.Username;
+					if (passwordHash == passwordUser)
+					{
+						var claims = new List<Claim>
+						{
+							new Claim(ClaimsIdentity.DefaultNameClaimType, username),
+							new Claim(ClaimsIdentity.DefaultRoleClaimType, "Administrator")
+						};
+						identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+					}
+				}
+			}
+			if (identity == null)
+				return Unauthorized();
+
+			var now = DateTime.UtcNow;
+			var timeOut = now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME));
+			// создаем JWT-токен
+			var jwt = new JwtSecurityToken(
+					issuer: AuthOptions.ISSUER,
+					audience: AuthOptions.AUDIENCE,
+					notBefore: now,
+					claims: identity.Claims,
+					expires: timeOut,
+					signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+			HttpContext.Response.Cookies.Append(
+				".AspNetCore.Application.Id",
+				encodedJwt,
+				new CookieOptions { MaxAge = TimeSpan.FromMinutes(AuthOptions.LIFETIME) });
+
+			return Ok();
+		}
+
+
 		#endregion
 
 		#region News
@@ -462,7 +525,18 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> AcceptAllWithdrawal()
 		{
 			var response = await _administratorService.AcceptAllWithdrawal();
-			return Ok(response);
+			if (response.Count == 0)
+				return BadRequest();
+
+			List<object> returns = new List<object>();
+			foreach (var resp in response)
+			{
+				var ret = new { wallet = resp };
+				returns.Add(ret);
+			}
+
+			
+			return Ok(returns);
 		}
 
 		[Route("AcceptWithdrawal")]
@@ -470,7 +544,11 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> AcceptWithdrawal(int UserId)
 		{
 			var response = await _administratorService.AcceptWithdrawal(UserId);
-			return Ok(response);
+			if (response == null)
+				return BadRequest();
+
+			var ret = new { wallet = response };
+			return Ok(ret);
 		}
 
 		[Route("DiscardWithdraw")]

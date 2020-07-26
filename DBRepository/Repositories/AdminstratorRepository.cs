@@ -103,10 +103,18 @@ namespace DBRepository.Repositories
 			}
 		}
 
+		public async Task<User> GetUser(string userName)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				return await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == userName);
+			}
+		}
+
 		#endregion
 
-        #region News
-        public async Task<News> AddNews(News news)
+		#region News
+		public async Task<News> AddNews(News news)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -654,10 +662,9 @@ namespace DBRepository.Repositories
 
 		public async Task<List<string>> AcceptAllWithdrawal()
 		{
-			List<string> response = new List<string>();
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var balance = await context.Balances.Select(b => b.BitcoinWallet).ToListAsync();
+				var balance = await context.Balances.Select(b => b.BitcoinWallet).Where(b => b != null).ToListAsync();
 				await context.BalanceHistories.ForEachAsync(x => { x.TypeHistory = EnumTypeHistory.AcceptWithdrow; });
 
 				await context.SaveChangesAsync();
@@ -672,12 +679,16 @@ namespace DBRepository.Repositories
 			{
 				var balance = await context.Balances.FirstOrDefaultAsync(u => u.UserId == UserId);
 				var balanceHistory = await context.BalanceHistories.FirstOrDefaultAsync(u => u.UserId == UserId);
+				if (balance != null)
+				{
 
-				balanceHistory.TypeHistory = EnumTypeHistory.AcceptWithdrow;
-				context.BalanceHistories.Update(balanceHistory);
-				await context.SaveChangesAsync();
-				
-				return balance.BitcoinWallet;
+					balanceHistory.TypeHistory = EnumTypeHistory.AcceptWithdrow;
+					context.BalanceHistories.Update(balanceHistory);
+					await context.SaveChangesAsync();
+
+					return balance.BitcoinWallet;
+				}
+				return null;
 			}
 		}
 

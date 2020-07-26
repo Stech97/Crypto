@@ -37,10 +37,16 @@ namespace Crypto.Services.Implementation
 		{
 			return await _repository.Super(Id, Super);
 		}
-        #endregion
 
-        #region News
-        public async Task<NewsViewModel> AddNews(AddNewsViewModel request)
+		public async Task<User> GetUser(string userName)
+		{
+			return await _repository.GetUser(userName);
+		}
+
+		#endregion
+
+		#region News
+		public async Task<NewsViewModel> AddNews(AddNewsViewModel request)
 		{
 			var news = _mapper.Map<AddNewsViewModel, News>(request);
 			var response = await _repository.AddNews(news);

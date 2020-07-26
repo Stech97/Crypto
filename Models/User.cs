@@ -30,6 +30,7 @@ namespace Models
 		public bool IsShowInfo { get; set; }
 		public bool IsKYC { get; set; }
 		public bool IsDiscard { get; set; }
+		public bool IsAdmin { get; set; }
         #endregion
 
         #region Picture

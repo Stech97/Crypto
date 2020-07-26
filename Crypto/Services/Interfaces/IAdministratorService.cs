@@ -14,8 +14,11 @@ namespace Crypto.Services.Interfaces
 
         #region Users
         Task<object> GetUsersInfo();
+        Task<bool> Super(int id, bool Super);
+        Task<User> GetUser(string userName);
+
         #endregion
-        
+
         #region News
         Task<NewsViewModel> AddNews(AddNewsViewModel requmodelest);
         Task<NewsViewModel> UpdateNews(UpdateNewsViewModel model, string heder);
@@ -49,7 +52,6 @@ namespace Crypto.Services.Interfaces
         #region Get User Picture
         Task<Images> GetPassportPicture(int userId);
         Task<Images> GetProofPicture(int UserId);
-        Task<bool> Super(int id, bool Super);
         Task<Images> GetSelfiPicture(int UserId);
         #endregion
 
