@@ -13,9 +13,15 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Chip from "@material-ui/core/Chip";
 import Divider from "@material-ui/core/Divider";
 import { Field, reduxForm } from "redux-form";
-import { GetNewsAction, PatchNewsAction } from "../../actions/news";
+import {
+	GetNewsAction,
+	PatchNewsAction,
+	DeleteNewsAction,
+} from "../../actions/news";
 import { connect } from "react-redux";
 import Typography from "@material-ui/core/Typography";
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
 
 const drawerWidth = 240;
 
@@ -105,6 +111,13 @@ function Post(props) {
 					<Grid container xs={12}>
 						<Typography>{body}</Typography>
 					</Grid>
+					<Grid container xs={12}>
+						<IconButton aria-label="delete">
+							<DeleteIcon
+								onClick={() => props.DeleteAction(header)}
+							/>
+						</IconButton>
+					</Grid>
 				</AccordionSummary>
 				<AccordionDetails className={classes.details}>
 					<Grid component={Box} item container xs={12}>
@@ -174,6 +187,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
 	UpdateAction: (data) => dispatch(PatchNewsAction(data)),
 	GetAction: () => dispatch(GetNewsAction()),
+	DeleteAction: (data) => dispatch(DeleteNewsAction(data)),
 });
 
 Post = connect(mapStateToProps, mapDispatchToProps)(Post);

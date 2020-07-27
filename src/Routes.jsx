@@ -7,63 +7,56 @@ import {
 } from "react-router-dom";
 import { API } from "./config";
 
-/*
 const getUserInfo = async () => {
     let response = await API(
         "/Identity/GetUser?Id=" + localStorage.getItem("id")
     );
     return response;
 };
-*/
+
 function isAuthenticated() {
-    return /*localStorage.getItem("token") && */ true;
+    return localStorage.getItem("id") && true;
 }
 
-/*async function isVerified() {
-    if (isAuthenticated()) {
-        await getUserInfo()
-            .then((res) => {
-                if (res.ok || res.error.status === 404) {
-                    return res.data.isVerified;
-                } else {
-                    return false;
-                }
-            })
-            .catch((error) => {
-                return false;
-            });
-    } else {
-        return false;
-    }
-}*/
-
-const PrivateRoute = ({
-    component: Component,
-    routes: routes,
-    path,
-    ...rest
-}) => {
+const PrivateRoute = ({ component: Component, routes: routes, ...rest }) => {
     return (
         <Route
-            path={path}
+            {...rest}
             render={(props) => {
-                return <Component {...rest} {...props} routes={routes} />;
+                if (isAuthenticated()) {
+                    return <Component {...rest} {...props} routes={routes} />;
+                } else {
+                    return (
+                        <Redirect
+                            to={{
+                                pathname: "/login",
+                                state: { from: props.location },
+                            }}
+                        />
+                    );
+                }
             }}
         />
     );
 };
 
-const InPrivateRoute = ({
-    component: Component,
-    routes: routes,
-    path,
-    ...rest
-}) => {
+const InprivateRoute = ({ component: Component, routes: routes, ...rest }) => {
     return (
         <Route
-            path={path}
+            {...rest}
             render={(props) => {
-                return <Component {...rest} {...props} routes={routes} />;
+                if (isAuthenticated()) {
+                    return (
+                        <Redirect
+                            to={{
+                                pathname: "/pages/account/dashboard",
+                                state: { from: props.location },
+                            }}
+                        />
+                    );
+                } else {
+                    return <Component {...rest} {...props} routes={routes} />;
+                }
             }}
         />
     );
@@ -87,7 +80,7 @@ export default function RouteWithSubRoutes({
         );
     } else {
         return (
-            <InPrivateRoute
+            <InprivateRoute
                 path={path}
                 component={component}
                 routes={routes}

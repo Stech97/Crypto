@@ -80,6 +80,7 @@ const getPicture = (type, id, dispatch) => {
 				let image = await convertImage(res.data);
 				dispatch(KYCSuccess(type, { id, image }));
 			} else {
+				console.log("res", res);
 				dispatch(
 					KYCError(type, {
 						type: res.error.status,
@@ -88,14 +89,15 @@ const getPicture = (type, id, dispatch) => {
 				);
 			}
 		})
-		.catch((error) =>
+		.catch((error) => {
+			console.log("error", error);
 			dispatch(
 				KYCError(type, {
 					type: error.status,
 					message: error.message,
 				})
-			)
-		);
+			);
+		});
 };
 export const getPassport = (id) => {
 	return (dispatch) => {
@@ -126,7 +128,7 @@ export const DecisionKYC = (id, decision, message = undefined) => {
 		decisionFetch(type, id)
 			.then((res) => {
 				if (res.ok) {
-					dispatch(KYCSuccess(type, id));
+					dispatch(KYCSuccess(type, { id, status: true }));
 				} else {
 					dispatch(
 						KYCError(type, {

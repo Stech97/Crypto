@@ -198,7 +198,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  DeleteAction: (data) => dispatch(DeleteNewsAction(data)),
   AddAction: (data) => dispatch(AddNewsAction(data)),
   UpdateAction: (data) => dispatch(PatchNewsAction(data)),
   GetAction: () => dispatch(GetNewsAction()),

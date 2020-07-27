@@ -202,9 +202,6 @@ function Users(props) {
           </div>
         </Grid>
         <Grid item xs={3}>
-          {/* <Button variant="contained" color="secondary">
-            Download csv
-          </Button> */}
           <CsvDownload
             data={rows_users}
             filename="users.csv"
@@ -230,31 +227,33 @@ function Users(props) {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell align="right">Name</TableCell>
-                  <TableCell align="right">E-mail</TableCell>
-                  <TableCell align="right">Phone</TableCell>
-                  <TableCell align="right">Total added</TableCell>
-                  <TableCell align="right">Total comissions</TableCell>
-                  <TableCell align="right">Total team comissions</TableCell>
-                  <TableCell align="right">Withdrawn</TableCell>
-                  <TableCell align="right">Super User</TableCell>
+                  <TableCell align="center">Name</TableCell>
+                  <TableCell align="center">E-mail</TableCell>
+                  <TableCell align="center">Phone</TableCell>
+                  <TableCell align="center">Total added</TableCell>
+                  <TableCell align="center">Total comissions</TableCell>
+                  <TableCell align="center">Total team comissions</TableCell>
+                  <TableCell align="center">Withdrawn</TableCell>
+                  <TableCell align="center">Super User</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows_users.map((rows_users) => (
                   <TableRow key={rows_users.name}>
-                    <TableCell align="right">{rows_users.name}</TableCell>
-                    <TableCell align="right">{rows_users.email}</TableCell>
-                    <TableCell align="right">{rows_users.phone}</TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">{rows_users.name}</TableCell>
+                    <TableCell align="center">{rows_users.email}</TableCell>
+                    <TableCell align="center">{rows_users.phone}</TableCell>
+                    <TableCell align="center">
                       {rows_users.total_added}
                     </TableCell>
-                    <TableCell align="right">{rows_users.total_com}</TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">{rows_users.total_com}</TableCell>
+                    <TableCell align="center">
                       {rows_users.total_team_com}
                     </TableCell>
-                    <TableCell align="right">{rows_users.withdrawn}</TableCell>
-                    <TableCell align="right">{rows_users.super_user}</TableCell>
+                    <TableCell align="center">{rows_users.withdrawn}</TableCell>
+                    <TableCell align="center">
+                      {rows_users.super_user}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

@@ -22,7 +22,7 @@ class DashInfo extends Component {
 				<Whitebox
 					header="Invested Amount"
 					text="USD "
-					data={dashInfo.investedAmount.usd}
+					data={Number(dashInfo.investedAmount.usd).toFixed(2)}
 					isFetching={dashInfo.investedAmount.isFetching}
 				/>
 				<Whitebox
@@ -40,19 +40,19 @@ class DashInfo extends Component {
 				<Whitebox
 					header="Withdrawn amount"
 					text="BTC "
-					data={dashInfo.withdrawnAmount.data}
+					data={Number(dashInfo.withdrawnAmount.data).toFixed(2)}
 					isFetching={dashInfo.withdrawnAmount.isFetching}
 				/>
 				<Whitebox
 					header="User Balance"
 					text="USD "
-					data={dashInfo.userBalance.usd}
+					data={Number(dashInfo.userBalance.usd).toFixed(2)}
 					isFetching={dashInfo.userBalance.isFetching}
 				/>
 				<Whitebox
 					header="Commission payed to users"
 					text="DET "
-					data={dashInfo.allCommission.data}
+					data={Number(dashInfo.allCommission.data).toFixed(2)}
 					isFetching={dashInfo.allCommission.isFetching}
 				/>
 			</Fragment>

@@ -1,7 +1,7 @@
 import { API } from "../../../config";
-export const REQUEST = "request";
-export const SUCCESS = "success";
-export const ERROR = "error";
+export const REQUEST = "/request";
+export const SUCCESS = "/success";
+export const ERROR = "/error";
 export const GetUsersInfo = "/GetUsersInfo";
 
 const ActionRequest = (type) => ({

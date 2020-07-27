@@ -115,6 +115,60 @@ export const API = async (path, mode = "get", body = null, authed = true) => {
         }
         //console.log(error);
       }
+    case "file":
+      try {
+        let request = await requestTemplateFile.get(path, {
+          withCredentials: true,
+        });
+        //console.log(request)
+        return { ok: true, status: request.status, data: request.data };
+      } catch (error) {
+        // Error 😨
+        if (error.response) {
+          /*
+           * The request was made and the server responded with a
+           * status code that falls out of the range of 2xx
+           */
+          //console.log(error.response.data);
+          //console.log(error.response.status);
+          //console.log(error.response.headers);
+          return {
+            ok: false,
+            data: error.response.data,
+            error: {
+              status: error.response.status,
+              message: error.message,
+            },
+          };
+        } else if (error.request) {
+          /*
+           * The request was made but no response was received, `error.request`
+           * is an instance of XMLHttpRequest in the browser and an instance
+           * of http.ClientRequest in Node.js
+           */
+          //console.log(error.request);
+          return {
+            ok: false,
+            data: error.response.data,
+            error: {
+              status: error.response.status,
+              message: error.message,
+            },
+          };
+        } else {
+          // Something happened in setting up the request and triggered an Error
+          //console.log('Error', error.message);
+          return {
+            ok: false,
+            data: error.response.data,
+            error: {
+              status: error.response.status,
+              message: error.message,
+            },
+          };
+        }
+        //console.log(error);
+      }
     case "post":
       try {
         //console.log(body)
@@ -457,6 +511,6 @@ export const routes = [
   {
     path: "/",
     component: RedirectDash,
-    Private: true,
+    Private: false,
   },
 ];

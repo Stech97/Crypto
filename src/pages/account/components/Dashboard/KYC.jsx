@@ -117,7 +117,13 @@ function Image(props) {
 						</IconButton>
 					</Toolbar>
 				</AppBar>
-				<Grid container justify="center" alignContent="center" xs={12}>
+				<Grid
+					container
+					item
+					justify="center"
+					alignContent="center"
+					xs={12}
+				>
 					<img className={classes.modal} alt={alt} src={`${data}`} />
 				</Grid>
 			</Dialog>

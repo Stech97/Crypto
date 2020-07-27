@@ -9,9 +9,9 @@ export const UpdateNews = "/UpdateNews";
 export const AddNews = "/AddNews";
 export const DeleteNews = "/DeleteNews";
 
-const DeleteNewsFetch = async (data) => {
+const DeleteNewsFetch = async (header) => {
 	let response = await API(
-		"/Administrator/DeleteNews?heder=" + data.header,
+		"/Administrator/DeleteNews?heder=" + header,
 		"delete"
 	);
 	return response;
@@ -128,10 +128,10 @@ export const AddNewsAction = (data) => (dispatch) => {
 		});
 };
 
-export const DeleteNewsAction = () => (dispatch) => {
+export const DeleteNewsAction = (header) => (dispatch) => {
 	dispatch(ActionRequest(DeleteNews));
 
-	DeleteNewsFetch()
+	DeleteNewsFetch(header)
 		.then((res) => {
 			if (res.ok) {
 				dispatch(ActionSuccess(DeleteNews, null));
