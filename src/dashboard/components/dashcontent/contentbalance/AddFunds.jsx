@@ -193,8 +193,9 @@ function AddFunds(props) {
 						/>
 						<form
 							method="POST"
+							onsubmit="onBTCPayFormSubmit(event);return false"
 							action="https://payment.defima.io/api/v1/invoices"
-							className="btcpay-form btcpay-form--inline"
+							className="btcpay-form btcpay-form--block"
 						>
 							<input
 								type="hidden"
@@ -203,13 +204,13 @@ function AddFunds(props) {
 							/>
 							<input
 								type="hidden"
-								name="browserRedirect"
-								defaultValue="https://defima.io/login"
+								name="jsonResponse"
+								defaultValue="true"
 							/>
 							<input
 								type="hidden"
-								name="buyerEmail"
-								defaultValue={props.user.id}
+								name="browserRedirect"
+								defaultValue="https://defima.io/account/dashboard"
 							/>
 							<div className="btcpay-custom-container">
 								<div className="btcpay-custom">
@@ -217,31 +218,52 @@ function AddFunds(props) {
 										id="btcpay-input-price"
 										name="price"
 										type="number"
-										min={10}
-										max={200000}
-										step={1}
+										min="0.00000001"
+										max={10}
+										step="0.00000001"
 										defaultValue={10}
-										style={{ width: "2em" }}
+										style={{ width: "7em" }}
 										oninput="event.preventDefault();isNaN(event.target.value) || event.target.value <= 0 ? document.querySelector('#btcpay-input-price').value = 10 : event.target.value"
 									/>
 								</div>
-								<select name="currency">
-									<option value="USD" selected>
-										USD
-									</option>
-									<option value="GBP">GBP</option>
-									<option value="EUR">EUR</option>
-									<option value="BTC">BTC</option>
-								</select>
 							</div>
 							<input
-								type="image"
-								className="submit"
-								name="submit"
-								src="https://payment.defima.io/img/paybutton/pay.svg"
-								style={{ width: 146 }}
-								alt="Pay with BtcPay, Self-Hosted Bitcoin Payment Processor"
+								type="hidden"
+								name="currency"
+								defaultValue="BTC"
 							/>
+							<p>
+								<button
+									type="submit"
+									className="submit"
+									name="submit"
+									style={{
+										minWidth: 209,
+										minHeight: 57,
+										borderRadius: 4,
+										borderStyle: "none",
+										backgroundColor: "#F9A732",
+									}}
+									alt="Buy BTC"
+								>
+									<span
+										style={{
+											color: "#000000",
+											padding: "15px 0 5% 1px",
+										}}
+									>
+										Buy BTC
+									</span>
+									<img
+										src="https://defima.io/logo.png"
+										style={{
+											height: 50,
+											display: "inline-block",
+											padding: "5% 0 5% 5px",
+										}}
+									/>
+								</button>
+							</p>
 						</form>
 					</div>
 				</DialogContent>

@@ -170,11 +170,12 @@ function News(props) {
 				slidesPerView={1}
 				scrollbar={{ draggable: true }}
 			>
-				{props.news.map((post, index) => (
-					<SwiperSlide className={classes.slide} key={index}>
-						<NewsPost {...post} />
-					</SwiperSlide>
-				))}
+				{props.news !== null &&
+					props.news.map((post, index) => (
+						<SwiperSlide className={classes.slide} key={index}>
+							<NewsPost {...post} />
+						</SwiperSlide>
+					))}
 			</Swiper>
 		</Grid>
 	);

@@ -57,14 +57,14 @@ function Links(props) {
 			>
 				<Grid item xs={12} md={6} className={classes.row}>
 					<Typography variant="h6" align="center">
-						{"REF Link https://defima.io/referal/" +
-							Refs.refs.refId}
+						{"REF Link https://defima.io/referal/" + Refs.refs !==
+							null && Refs.refs.refId}
 					</Typography>
 				</Grid>
 				<Grid item xs={12} md={6} className={classes.row}>
 					<Typography variant="h6" align="center">
-						{"REF Link https://defima.io/referal/" +
-							Refs.refs.refString}
+						{"REF Link https://defima.io/referal/" + Refs.refs !==
+							null && Refs.refs.refString}
 					</Typography>
 				</Grid>
 			</Grid>
