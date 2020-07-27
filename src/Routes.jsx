@@ -12,13 +12,8 @@ const getUserInfo = async () => {
     return response;
 };
 
-async function isAuthenticated() {
-    let res = await getUserInfo();
-    if (res.ok) {
-        return true;
-    } else {
-        return false;
-    }
+function isAuthenticated() {
+    return localStorage.getItem("id") && true;
 }
 
 const PrivateRoute = ({ component: Component, routes: routes, ...rest }) => {
