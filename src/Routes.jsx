@@ -12,8 +12,13 @@ const getUserInfo = async () => {
     return response;
 };
 
-function isAuthenticated() {
-    return Cookies.get("token") && true;
+async function isAuthenticated() {
+    let res = await getUserInfo();
+    if (res.ok) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 const PrivateRoute = ({ component: Component, routes: routes, ...rest }) => {
