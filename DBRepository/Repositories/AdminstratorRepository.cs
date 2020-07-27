@@ -3,26 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.DTO;
 using Models.Enum;
-using NBitcoin;
 using NBitpayClient;
-using NBitpayClient.Extensions;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace DBRepository.Repositories
 {
 	public class AdminstratorRepository : BaseRepository, IAdministratorRepository
 	{
-		//Bitpay parameters
-		readonly Uri BitPayUri = new Uri("https://payment.defima.io/");
-		static readonly Network Network = Network.Main;
-		Bitpay Bitpay = null;
-
 		public AdminstratorRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
 		#region Upload Files
@@ -753,7 +743,11 @@ namespace DBRepository.Repositories
 				var Rate = await context.Rates.AsNoTracking().FirstOrDefaultAsync();
 
 				var Withdraws = await context.BalanceHistories.AsNoTracking()
-					.Where(bh => bh.TypeHistory == EnumTypeHistory.Withdraw).ToListAsync();
+					.Where(bh => 
+						   bh.TypeHistory == EnumTypeHistory.Withdraw ||
+						   bh.TypeHistory == EnumTypeHistory.AcceptWithdraw ||
+						   bh.TypeHistory == EnumTypeHistory.DiscardWithdraw)
+					.ToListAsync();
 				
 				foreach (var Withdraw in Withdraws)
 				{
@@ -767,6 +761,20 @@ namespace DBRepository.Repositories
 							Username = Username.Username,
 							UserId = Withdraw.UserId
 						};
+
+						switch (Withdraw.TypeHistory)
+						{
+							case EnumTypeHistory.AcceptWithdraw:
+								resp.Status = EnumWithDraw.Accept;
+								break;
+							case EnumTypeHistory.DiscardWithdraw:
+								resp.Status = EnumWithDraw.Discard;
+								break;
+							case EnumTypeHistory.Withdraw:
+								resp.Status = EnumWithDraw.Withdraw;
+								break;
+						}
+
 						response.Add(resp);
 					}
 				}
@@ -781,15 +789,16 @@ namespace DBRepository.Repositories
 
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var Users =  await contex.Users.Where(u => !u.IsKYC && (u.SelfiPicture != null && u.SelfiPictureName != null) &&
-														(u.PassportPicture != null && u.PassportPictureName != null) &&
-														(u.ProofPicture != null && u.ProofPictureName != null)).ToListAsync();
+				var Users =  await contex.Users.Where(u => (u.SelfiPicture != null && u.SelfiPictureName != null) &&
+														   (u.PassportPicture != null && u.PassportPictureName != null) &&
+														   (u.ProofPicture != null && u.ProofPictureName != null)).ToListAsync();
 				foreach (var user in Users)
 				{
 					var resp = new
 					{
 						user.Id,
-						user.Username
+						user.Username,
+						user.IsKYC
 					};
 					response.Add(resp);
 				}
@@ -818,12 +827,10 @@ namespace DBRepository.Repositories
 				var balance = await context.Balances.FirstOrDefaultAsync(u => u.UserId == UserId);
 				var balanceHistory = await context.BalanceHistories
 						.Where(bh => bh.TypeHistory == EnumTypeHistory.Withdraw).LastOrDefaultAsync(u => u.UserId == UserId);
+				
 				if (balance != null && balanceHistory != null)
 				{
 					var Rate = await context.Rates.FirstOrDefaultAsync();
-					var amount = balanceHistory.Amount / Rate.BTC_USD;
-					EnsureRegisteredKey();
-					Payouts(amount.ToString(), balance.BitcoinWallet);
 
 					balanceHistory.TypeHistory = EnumTypeHistory.AcceptWithdraw;
 					context.BalanceHistories.Update(balanceHistory);
@@ -840,7 +847,8 @@ namespace DBRepository.Repositories
 			{
 				var Rates = await context.Rates.FirstOrDefaultAsync();
 				var balance = await context.Balances.FirstOrDefaultAsync(u => u.UserId == UserId);
-				var balanceHistory = await context.BalanceHistories.FirstOrDefaultAsync(u => u.UserId == UserId);
+				var balanceHistory = await context.BalanceHistories.Where(bh => bh.TypeHistory == EnumTypeHistory.Withdraw)
+					.LastOrDefaultAsync(u => u.UserId == UserId);
 
 				balance.BitcoinBalance = balanceHistory.Amount / Rates.BTC_USD;
 				balanceHistory.TypeHistory = EnumTypeHistory.DiscardWithdraw;
@@ -946,91 +954,5 @@ namespace DBRepository.Repositories
 
 		}
 		#endregion
-
-		#region Private Methods
-
-		private void EnsureRegisteredKey()
-		{
-			if (!Directory.Exists(Network.Name))
-				Directory.CreateDirectory(Network.Name);
-
-			BitcoinSecret k = null;
-			var keyFile = Path.Combine(Network.Name, "key.env");
-			try
-			{
-				k = new BitcoinSecret(File.ReadAllText(keyFile), Network);
-			}
-			catch { }
-
-			if (k != null)
-			{
-				try
-				{
-
-					Bitpay = new Bitpay(k.PrivateKey, BitPayUri);
-					if (Bitpay.TestAccess(Facade.Merchant))
-						return;
-				}
-				catch { }
-			}
-
-			k = k ?? new BitcoinSecret(new Key(), Network);
-			File.WriteAllText(keyFile, k.ToString());
-
-			Bitpay = new Bitpay(k.PrivateKey, BitPayUri);
-			var pairing = Bitpay.RequestClientAuthorization("Defima", Facade.PointOfSale);
-
-
-			throw new Exception("You need to approve the test key to access bitpay by going to this link " + pairing.CreateLink(Bitpay.BaseUrl).AbsoluteUri);
-		}
-
-		private void Payouts(string Amount, string BTCAdress)
-		{
-            var inst = new List<Instruction>
-            {
-                new Instruction() { Amount = Amount, Address = BTCAdress }
-            };
-
-            var payoutJson = new PayoutJson()
-			{
-				Amount = Amount,
-				Currency = "BTC",
-				EffectiveDate = DateTime.UtcNow.ToString("o"),
-				Instructions = inst,
-				Token = "C8bSRpdqf3reupZxHLcdbuZeAKWuxfFU3NWzMQSsymCE"
-			};
-
-			var json = JsonConvert.SerializeObject(payoutJson);
-
-			var key = new Key();
-			string uri = "https://payment.defima.io/payouts";
-			var sig = key.GetBitIDSignature(uri, json);
-
-			var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
-			httpWebRequest.Headers.Add("x-accept-version", "2.0.0");
-			httpWebRequest.Headers.Add("x-identity", key.PubKey.ToHex());
-			httpWebRequest.Headers.Add("x-signature", sig);
-			httpWebRequest.Headers.Add("Authorization", "Basic SHB5ZE8wN3ZPV1FQTGQ3RE03RWRNaTdHaFY3dmhMaEhpb0M3N1BIWXBEZA==");
-			httpWebRequest.ContentType = "application/json";
-			httpWebRequest.Method = "POST";
-
-			using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-			{
-				streamWriter.Write(json);
-				streamWriter.Flush();
-				streamWriter.Close();
-			}
-
-			var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-			using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-			{
-				var result = streamReader.ReadToEnd();
-			}
-		}
-        
-
-		
-		#endregion
-
     }
 }

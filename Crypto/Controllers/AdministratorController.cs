@@ -20,7 +20,7 @@ namespace Crypto.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	//[Authorize(Roles = "Administrator")]
+	[Authorize(Roles = "Administrator")]
 	public class AdministratorController : ControllerBase
 	{
 		private readonly IAdministratorService _administratorService;
@@ -512,6 +512,7 @@ namespace Crypto.Controllers
 			var response = await _administratorService.GetWithdrawalRequest();
 			if (response.Count == 0)
 				return NotFound("No Users");
+			
 			return Ok(response);
 		}
 	

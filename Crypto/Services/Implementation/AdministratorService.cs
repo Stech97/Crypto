@@ -4,6 +4,7 @@ using Crypto.ViewModels.Administrator;
 using Crypto.ViewModels.Dashdoard;
 using DBRepository.Interfaces;
 using Models;
+using Models.DTO;
 using Models.Enum;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -213,9 +214,10 @@ namespace Crypto.Services.Implementation
 
 		#endregion
 
-		public async Task<List<WithdrawAll>> GetWithdrawalRequest()
+		public async Task<List<WithDraw>> GetWithdrawalRequest()
 		{
-			return await _repository.GetWithdrawalRequest();
+			var withdraw = await _repository.GetWithdrawalRequest();
+			return _mapper.Map<List<WithdrawAll>, List<WithDraw>>(withdraw);
 		}
 
 		public async Task<List<object>> GetKYC()

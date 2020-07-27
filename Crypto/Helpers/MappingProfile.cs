@@ -6,6 +6,8 @@ using Crypto.ViewModels.Identity;
 using Crypto.ViewModels.Dashdoard;
 using Crypto.ViewModels.Administrator;
 using Crypto.ViewModels.Investment;
+using Models.DTO;
+using System.Collections.Generic;
 
 namespace Crypto.Helpers
 {
@@ -108,6 +110,9 @@ namespace Crypto.Helpers
 			CreateMap<ProfitViewModel, TypeInvestment>()
 				.ForMember(m => m.Persent, opt => opt.MapFrom(m => m.Percent))
 				.ForMember(m => m.Type, opt => opt.MapFrom(m => m.ConvertType()));
+
+			CreateMap<WithdrawAll, WithDraw>()
+				.ForMember(m => m.Status, opt => opt.MapFrom(m => m.ToString()));
 
 		}
 	}

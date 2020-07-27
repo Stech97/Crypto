@@ -68,7 +68,7 @@ namespace Crypto.Services.Interfaces
         Task<double> GetAllCommission(EnumTypePeriod Period);
             #endregion
 
-        Task<List<WithdrawAll>> GetWithdrawalRequest();
+        Task<List<WithDraw>> GetWithdrawalRequest();
         Task<List<object>> GetKYC();
         Task<List<string>> AcceptAllWithdrawal();
         Task<string> AcceptWithdrawal(int UserId);
