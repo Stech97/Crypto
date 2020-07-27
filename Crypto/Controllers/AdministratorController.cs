@@ -14,6 +14,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 using System.Text;
+using Models.Enum;
 
 namespace Crypto.Controllers
 {
@@ -398,14 +399,17 @@ namespace Crypto.Controllers
 			await _administratorService.UpdateProfit(request);
 			return Ok();
 		}
-		#endregion
+        #endregion
 
-		#region Dashboard
-		[Route("GetAddedFounds")]
+        #region Dashboard
+
+        #region For period
+
+        [Route("GetAddedFounds")]
 		[HttpGet]
-		public async Task<IActionResult> GetAddedFounds()
+		public async Task<IActionResult> GetAddedFounds(EnumTypePeriod Period)
 		{
-			var resp = await _administratorService.GetAddedFounds();
+			var resp = await _administratorService.GetAddedFounds(Period);
 
 			var responce = new
 			{
@@ -417,9 +421,9 @@ namespace Crypto.Controllers
 
 		[Route("GetInvestedAmount")]
 		[HttpGet]
-		public async Task<IActionResult> GetInvestedAmount()
+		public async Task<IActionResult> GetInvestedAmount(EnumTypePeriod Period)
 		{
-			var resp = await _administratorService.GetInvestedAmount();
+			var resp = await _administratorService.GetInvestedAmount(Period);
 			if (resp == null)
 			{
 				var response = new
@@ -435,9 +439,9 @@ namespace Crypto.Controllers
 
 		[Route("GetCountUser")]
 		[HttpGet]
-		public async Task<IActionResult> GetCountUser()
+		public async Task<IActionResult> GetCountUser(EnumTypePeriod Period)
 		{
-			var resp = await _administratorService.GetCountUser();
+			var resp = await _administratorService.GetCountUser(Period);
 			var response = new
 			{
 				CountUser = resp
@@ -460,9 +464,9 @@ namespace Crypto.Controllers
 
 		[Route("GetWithdrawnAmount")]
 		[HttpGet]
-		public async Task<IActionResult> GetWithdrawnAmount()
+		public async Task<IActionResult> GetWithdrawnAmount(EnumTypePeriod Period)
 		{
-			var resp = await _administratorService.GetWithdrawnAmount();
+			var resp = await _administratorService.GetWithdrawnAmount(Period);
 			var response = new
 			{
 				WithdrawnAmount = resp
@@ -489,9 +493,9 @@ namespace Crypto.Controllers
 
 		[Route("GetAllCommission")]
 		[HttpGet]
-		public async Task<IActionResult> GetAllCommission()
+		public async Task<IActionResult> GetAllCommission(EnumTypePeriod Period)
 		{
-			var resp = await _administratorService.GetAllCommission();
+			var resp = await _administratorService.GetAllCommission(Period);
 			var response = new
 			{
 				AllCommission = resp
@@ -499,7 +503,9 @@ namespace Crypto.Controllers
 			return Ok(response);
 		}
 
-		[Route("GetWithdrawalRequest")]
+        #endregion
+
+        [Route("GetWithdrawalRequest")]
 		[HttpGet]
 		public async Task<IActionResult> GetWithdrawalRequest()
 		{

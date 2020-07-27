@@ -4,6 +4,7 @@ using Crypto.ViewModels.Administrator;
 using Crypto.ViewModels.Dashdoard;
 using DBRepository.Interfaces;
 using Models;
+using Models.Enum;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -170,22 +171,24 @@ namespace Crypto.Services.Implementation
 			await _repository.UpdateProfit(Profit);
 		}
 
-		#endregion
+        #endregion
 
-		#region Dasboard
-		public async Task<double> GetAddedFounds()
+        #region Dasboard
+
+        #region Period
+        public async Task<double> GetAddedFounds(EnumTypePeriod Period)
 		{
-			return await _repository.GetAddedFounds();
+			return await _repository.GetAddedFounds(Period);
 		}
 
-		public async Task<object> GetInvestedAmount()
+		public async Task<object> GetInvestedAmount(EnumTypePeriod Period)
 		{
-			return await _repository.GetInvestedAmount();
+			return await _repository.GetInvestedAmount(Period);
 		}
 
-		public async Task<int> GetCountUser()
+		public async Task<int> GetCountUser(EnumTypePeriod Period)
 		{
-			return await _repository.GetCountUser();
+			return await _repository.GetCountUser(Period);
 		}
 
 		public async Task<int> GetCountUserWithInvest()
@@ -193,9 +196,9 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetCountUserWithInvest();
 		}
 
-		public async Task<double> GetWithdrawnAmount()
+        public async Task<double> GetWithdrawnAmount(EnumTypePeriod Period)
 		{
-			return await _repository.GetWithdrawnAmount();
+			return await _repository.GetWithdrawnAmount(Period);
 		}
 
 		public async Task<object> GetAllUsersBalance()
@@ -203,10 +206,12 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetAllUsersBalance();
 		}
 
-		public async Task<double> GetAllCommission()
+		public async Task<double> GetAllCommission(EnumTypePeriod Period)
 		{
-			return await _repository.GetAllCommission();
+			return await _repository.GetAllCommission(Period);
 		}
+
+		#endregion
 
 		public async Task<List<WithdrawAll>> GetWithdrawalRequest()
 		{

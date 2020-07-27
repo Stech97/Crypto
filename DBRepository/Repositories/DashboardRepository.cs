@@ -5,20 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NBitpayClient;
-using NBitcoin;
-using System.IO;
+using Models.Enum;
 
 namespace DBRepository.Repositories
 {
     public class DashboardRepository : BaseRepository, IDashboardRepository
     {
-        //Bitpay parameters
-        readonly Uri BitPayUri = new Uri("https://payment.defima.io/");
-        static readonly Network Network = Network.Main;
-        Bitpay Bitpay = null;
-
-
         public DashboardRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
         public async Task<Balance> GetBalance(int Id)
@@ -101,55 +93,32 @@ namespace DBRepository.Repositories
             }
         }
 
-        public async Task<string> CashBTC(Balance balance, int UserId)
+        public async Task<Balance> CashBTC(Balance balance, int UserId)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                string pay = string.Empty;
                 var balanceOld = await context.Balances.FirstOrDefaultAsync(b => b.UserId == UserId);
-                if ((Math.Abs(balanceOld.BitcoinBalance) < Math.Abs(balance.BitcoinBalance)) && (balance.BitcoinBalance < 0) )
-                    return null;
-                else
+                if (Math.Abs(balanceOld.BitcoinBalance) >= Math.Abs(balance.BitcoinBalance) || balance.BitcoinBalance >= 0)
                 {
                     var Rates = await context.Rates.FirstOrDefaultAsync();
                     balanceOld.BitcoinBalance += balance.BitcoinBalance;
 
                     var BalanceHistory = new BalanceHistory()
                     {
+                        Amount = balance.BitcoinBalance * Rates.BTC_USD,
+                        Balance = balanceOld.BitcoinBalance * Rates.BTC_USD,
                         Time = DateTime.Now,
                         UserId = UserId
                     };
 
-                    if (balance.BitcoinBalance > 0)
-                    {
 
-                        try
-                        {
-                            EnsureRegisteredKey();
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-
-                        var invoice = Bitpay.CreateInvoice(new Invoice()
-                        {
-                            Price = (decimal)balance.BitcoinBalance,
-                            Currency = "BTC",
-                            PosData = "posData",
-                            OrderId = "Defima",
-                            ItemDesc = "Add cash to Defima",
-                        });
-
-                        pay = invoice.PaymentUrls.BIP21;
-
-                        BalanceHistory.TypeHistory = EnumTypeHistory.Add;
-                    }
-                    else
+                    if (balance.BitcoinBalance <= 0)
                     {
                         BalanceHistory.TypeHistory = EnumTypeHistory.Withdraw;
                         balanceOld.BitcoinWallet = balance.BitcoinWallet;
                     }
+                    else
+                        BalanceHistory.TypeHistory = EnumTypeHistory.Add;
 
                     BalanceHistory.Amount = balance.BitcoinBalance * Rates.BTC_USD;
                     BalanceHistory.Balance = balanceOld.BitcoinBalance * Rates.BTC_USD;
@@ -158,8 +127,10 @@ namespace DBRepository.Repositories
                     context.BalanceHistories.Add(BalanceHistory);
 
                     await context.SaveChangesAsync();
-                    return pay;
+                    return balanceOld;
                 }
+                else
+                    return null;
             }    
         }
         
@@ -358,6 +329,7 @@ namespace DBRepository.Repositories
         }
 
         #region Private
+
         private IEnumerable<User> GetChildrenByParentIdTeam(int parentId, ref int countLevel)
         {
             var children = new List<User>();
@@ -411,6 +383,7 @@ namespace DBRepository.Repositories
                 }
             }
         }
+        
         private async Task<double> GetEarningTeam(int Id)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
@@ -437,42 +410,6 @@ namespace DBRepository.Repositories
                 return ProfitTeamUSD;
             }
         }
-
-        private void EnsureRegisteredKey()
-        {
-            if (!Directory.Exists(Network.Name))
-                Directory.CreateDirectory(Network.Name);
-
-            BitcoinSecret k = null;
-            var keyFile = Path.Combine(Network.Name, "key.env");
-            try
-            {
-                k = new BitcoinSecret(File.ReadAllText(keyFile), Network);
-            }
-            catch { }
-
-            if (k != null)
-            {
-                try
-                {
-
-                    Bitpay = new Bitpay(k.PrivateKey, BitPayUri);
-                    if (Bitpay.TestAccess(Facade.Merchant))
-                        return;
-                }
-                catch { }
-            }
-
-            k = k ?? new BitcoinSecret(new Key(), Network);
-            File.WriteAllText(keyFile, k.ToString());
-
-            Bitpay = new Bitpay(k.PrivateKey, BitPayUri);
-            var pairing = Bitpay.RequestClientAuthorization("Defima", Facade.PointOfSale);
-
-
-            throw new Exception("You need to approve the test key to access bitpay by going to this link " + pairing.CreateLink(Bitpay.BaseUrl).AbsoluteUri);
-        }
-
 
         #endregion
     }

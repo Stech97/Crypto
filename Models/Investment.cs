@@ -1,4 +1,6 @@
-﻿namespace Models
+﻿using Models.Enum;
+
+namespace Models
 {
 	public class Investment
 	{

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Models;
+using Models.Enum;
 using System.Threading.Tasks;
 
 namespace DBRepository

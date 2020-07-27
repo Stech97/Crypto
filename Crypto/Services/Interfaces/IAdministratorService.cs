@@ -1,6 +1,7 @@
 ﻿using Crypto.ViewModels.Administrator;
 using Crypto.ViewModels.Dashdoard;
 using Models;
+using Models.Enum;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -56,13 +57,17 @@ namespace Crypto.Services.Interfaces
         #endregion
 
         #region Dashboard
-        Task<double> GetAddedFounds();
-        Task<object> GetInvestedAmount();
-        Task<int> GetCountUser();
+
+        #region Period
+        Task<double> GetAddedFounds(EnumTypePeriod Period);
+        Task<object> GetInvestedAmount(EnumTypePeriod Period);
+        Task<int> GetCountUser(EnumTypePeriod Period);
         Task<int> GetCountUserWithInvest();
-        Task<double> GetWithdrawnAmount();
+        Task<double> GetWithdrawnAmount(EnumTypePeriod Period);
         Task<object> GetAllUsersBalance();
-        Task<double> GetAllCommission();
+        Task<double> GetAllCommission(EnumTypePeriod Period);
+            #endregion
+
         Task<List<WithdrawAll>> GetWithdrawalRequest();
         Task<List<object>> GetKYC();
         Task<List<string>> AcceptAllWithdrawal();

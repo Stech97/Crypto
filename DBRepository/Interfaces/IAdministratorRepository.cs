@@ -1,4 +1,5 @@
 ﻿using Models;
+using Models.Enum;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -54,13 +55,19 @@ namespace DBRepository.Interfaces
         #endregion
 
         #region Dashboard
-        Task<double> GetAddedFounds();
-        Task<object> GetInvestedAmount();
-        Task<int> GetCountUser();
+
+        #region Period
+
+        Task<double> GetAddedFounds(EnumTypePeriod period);
+        Task<object> GetInvestedAmount(EnumTypePeriod period);
+        Task<int> GetCountUser(EnumTypePeriod period);
         Task<int> GetCountUserWithInvest();
-        Task<double> GetWithdrawnAmount();
+        Task<double> GetWithdrawnAmount(EnumTypePeriod period);
         Task<object> GetAllUsersBalance();
-        Task<double> GetAllCommission();
+        Task<double> GetAllCommission(EnumTypePeriod period);
+
+        #endregion
+
         Task<List<WithdrawAll>> GetWithdrawalRequest();
         Task<List<object>> GetKYC();
         Task<List<string>> AcceptAllWithdrawal();

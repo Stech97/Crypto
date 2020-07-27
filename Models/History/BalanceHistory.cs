@@ -1,10 +1,13 @@
-﻿namespace Models
+﻿using Models.Enum;
+
+namespace Models
 {
     public class BalanceHistory
     {
         public int Id { get; set; }
         public System.DateTime Time { get; set; }
         public EnumTypeHistory TypeHistory { get; set; }
+        public System.DateTime DateTransaction { get; set; }
         public double Amount { get; set; }
         public double Balance { get; set; }
         public int UserId { get; set; }

@@ -1,16 +1,28 @@
 ﻿using DBRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Models;
-using Remotion.Linq.Clauses.ResultOperators;
+using Models.DTO;
+using Models.Enum;
+using NBitcoin;
+using NBitpayClient;
+using NBitpayClient.Extensions;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace DBRepository.Repositories
 {
 	public class AdminstratorRepository : BaseRepository, IAdministratorRepository
 	{
+		//Bitpay parameters
+		readonly Uri BitPayUri = new Uri("https://payment.defima.io/");
+		static readonly Network Network = Network.Main;
+		Bitpay Bitpay = null;
+
 		public AdminstratorRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
 		#region Upload Files
@@ -473,7 +485,7 @@ namespace DBRepository.Repositories
 		#endregion
 
 		#region Finance
-		public async Task<Rate> GetRate()
+		public async Task<Models.Rate> GetRate()
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -481,7 +493,7 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task UpdateDETRate(Rate rate)
+		public async Task UpdateDETRate(Models.Rate rate)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -526,23 +538,74 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		#endregion
+        #endregion
 
-		#region Dashboard
-		public async Task<double> GetAddedFounds()
+        #region Dashboard
+
+        #region Period
+
+        public async Task<double> GetAddedFounds(EnumTypePeriod Period)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
+				DateTime timePeriod = DateTime.Now;
+
+				switch (Period)
+				{
+					case EnumTypePeriod.None:
+						timePeriod = DateTime.MinValue;
+						break;
+					case EnumTypePeriod.Week:
+						timePeriod = timePeriod.AddDays(-7);
+						break;
+					case EnumTypePeriod.Month:
+						timePeriod = timePeriod.AddMonths(-1);
+						break;
+					case EnumTypePeriod.Month3:
+						timePeriod = timePeriod.AddMonths(-3);
+						break;
+					case EnumTypePeriod.Month6:
+						timePeriod = timePeriod.AddMonths(-6);
+						break;
+					case EnumTypePeriod.Year:
+						timePeriod = timePeriod.AddYears(-1);
+						break;
+				}
+
 				return await context.BalanceHistories.AsNoTracking()
-					.Where(bh => bh.TypeHistory == EnumTypeHistory.Add).SumAsync(bh => bh.Amount);
+					.Where(bh => bh.TypeHistory == EnumTypeHistory.Add && bh.DateTransaction >= timePeriod).SumAsync(bh => bh.Amount);
 			}
 		}
 
-		public async Task<object> GetInvestedAmount()
+		public async Task<object> GetInvestedAmount(EnumTypePeriod Period)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var Invest = await context.Investments.AsNoTracking().SumAsync(i => i.AddCash);
+				DateTime timePeriod = DateTime.Now;
+
+				switch (Period)
+				{
+					case EnumTypePeriod.None:
+						timePeriod = DateTime.MinValue;
+						break;
+					case EnumTypePeriod.Week:
+						timePeriod = timePeriod.AddDays(-7);
+						break;
+					case EnumTypePeriod.Month:
+						timePeriod = timePeriod.AddMonths(-1);
+						break;
+					case EnumTypePeriod.Month3:
+						timePeriod = timePeriod.AddMonths(-3);
+						break;
+					case EnumTypePeriod.Month6:
+						timePeriod = timePeriod.AddMonths(-6);
+						break;
+					case EnumTypePeriod.Year:
+						timePeriod = timePeriod.AddYears(-1);
+						break;
+				}
+
+				var Invest = await context.Investments.AsNoTracking().Where(i => i.DateInvestment >= timePeriod).SumAsync(i => i.AddCash);
 				var Rate = await context.Rates.AsNoTracking().FirstOrDefaultAsync();
 
 				var response = new
@@ -555,11 +618,36 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<int> GetCountUser()
+		//ДИЧЬ но решается через новое поле в БД
+		public async Task<int> GetCountUser(EnumTypePeriod Period)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				return await context.Users.AsNoTracking().CountAsync();
+				DateTime timePeriod = DateTime.Now;
+
+				switch (Period)
+				{
+					case EnumTypePeriod.None:
+						timePeriod = DateTime.MinValue;
+						break;
+					case EnumTypePeriod.Week:
+						timePeriod = timePeriod.AddDays(-7);
+						break;
+					case EnumTypePeriod.Month:
+						timePeriod = timePeriod.AddMonths(-1);
+						break;
+					case EnumTypePeriod.Month3:
+						timePeriod = timePeriod.AddMonths(-3);
+						break;
+					case EnumTypePeriod.Month6:
+						timePeriod = timePeriod.AddMonths(-6);
+						break;
+					case EnumTypePeriod.Year:
+						timePeriod = timePeriod.AddYears(-1);
+						break;
+				}
+
+				return await context.Users.AsNoTracking().Where(u => u.DateCreate >= timePeriod).CountAsync();
 			}
 		}
 
@@ -573,12 +661,36 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<double> GetWithdrawnAmount()
+		public async Task<double> GetWithdrawnAmount(EnumTypePeriod Period)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
+				DateTime timePeriod = DateTime.Now;
+
+				switch (Period)
+				{
+					case EnumTypePeriod.None:
+						timePeriod = DateTime.MinValue;
+						break;
+					case EnumTypePeriod.Week:
+						timePeriod = timePeriod.AddDays(-7);
+						break;
+					case EnumTypePeriod.Month:
+						timePeriod = timePeriod.AddMonths(-1);
+						break;
+					case EnumTypePeriod.Month3:
+						timePeriod = timePeriod.AddMonths(-3);
+						break;
+					case EnumTypePeriod.Month6:
+						timePeriod = timePeriod.AddMonths(-6);
+						break;
+					case EnumTypePeriod.Year:
+						timePeriod = timePeriod.AddYears(-1);
+						break;
+				}
+
 				return await context.BalanceHistories.AsNoTracking()
-					.Where(bh => bh.TypeHistory == EnumTypeHistory.Withdraw).SumAsync(bh => bh.Amount);
+					.Where(bh => bh.TypeHistory == EnumTypeHistory.Withdraw && bh.DateTransaction >= timePeriod).SumAsync(bh => bh.Amount);
 			}
 		}
 
@@ -598,15 +710,41 @@ namespace DBRepository.Repositories
 			}
 		}
 
-		public async Task<double> GetAllCommission()
+		public async Task<double> GetAllCommission(EnumTypePeriod Period)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				return await context.Investments.SumAsync(i => i.TotalCommission);
+				DateTime timePeriod = DateTime.Now;
+
+				switch (Period)
+				{
+					case EnumTypePeriod.None:
+						timePeriod = DateTime.MinValue;
+						break;
+					case EnumTypePeriod.Week:
+						timePeriod = timePeriod.AddDays(-7);
+						break;
+					case EnumTypePeriod.Month:
+						timePeriod = timePeriod.AddMonths(-1);
+						break;
+					case EnumTypePeriod.Month3:
+						timePeriod = timePeriod.AddMonths(-3);
+						break;
+					case EnumTypePeriod.Month6:
+						timePeriod = timePeriod.AddMonths(-6);
+						break;
+					case EnumTypePeriod.Year:
+						timePeriod = timePeriod.AddYears(-1);
+						break;
+				}
+
+				return await context.Investments.Where(i => i.DateInvestment >= timePeriod).SumAsync(i => i.TotalCommission);
 			}
 		}
 
-		public async Task<List<WithdrawAll>> GetWithdrawalRequest()
+        #endregion
+
+        public async Task<List<WithdrawAll>> GetWithdrawalRequest()
 		{
 			var response = new List<WithdrawAll>(); 
 
@@ -678,15 +816,19 @@ namespace DBRepository.Repositories
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
 				var balance = await context.Balances.FirstOrDefaultAsync(u => u.UserId == UserId);
-				var balanceHistory = await context.BalanceHistories.FirstOrDefaultAsync(u => u.UserId == UserId);
-				if (balance != null)
+				var balanceHistory = await context.BalanceHistories
+						.Where(bh => bh.TypeHistory == EnumTypeHistory.Withdraw).LastOrDefaultAsync(u => u.UserId == UserId);
+				if (balance != null && balanceHistory != null)
 				{
+					var Rate = await context.Rates.FirstOrDefaultAsync();
+					var amount = balanceHistory.Amount / Rate.BTC_USD;
+					EnsureRegisteredKey();
+					Payouts(amount.ToString(), balance.BitcoinWallet);
 
 					balanceHistory.TypeHistory = EnumTypeHistory.AcceptWithdraw;
 					context.BalanceHistories.Update(balanceHistory);
+;
 					await context.SaveChangesAsync();
-
-					return balance.BitcoinWallet;
 				}
 				return null;
 			}
@@ -803,7 +945,92 @@ namespace DBRepository.Repositories
 			}
 
 		}
-        #endregion
+		#endregion
+
+		#region Private Methods
+
+		private void EnsureRegisteredKey()
+		{
+			if (!Directory.Exists(Network.Name))
+				Directory.CreateDirectory(Network.Name);
+
+			BitcoinSecret k = null;
+			var keyFile = Path.Combine(Network.Name, "key.env");
+			try
+			{
+				k = new BitcoinSecret(File.ReadAllText(keyFile), Network);
+			}
+			catch { }
+
+			if (k != null)
+			{
+				try
+				{
+
+					Bitpay = new Bitpay(k.PrivateKey, BitPayUri);
+					if (Bitpay.TestAccess(Facade.Merchant))
+						return;
+				}
+				catch { }
+			}
+
+			k = k ?? new BitcoinSecret(new Key(), Network);
+			File.WriteAllText(keyFile, k.ToString());
+
+			Bitpay = new Bitpay(k.PrivateKey, BitPayUri);
+			var pairing = Bitpay.RequestClientAuthorization("Defima", Facade.PointOfSale);
+
+
+			throw new Exception("You need to approve the test key to access bitpay by going to this link " + pairing.CreateLink(Bitpay.BaseUrl).AbsoluteUri);
+		}
+
+		private void Payouts(string Amount, string BTCAdress)
+		{
+            var inst = new List<Instruction>
+            {
+                new Instruction() { Amount = Amount, Address = BTCAdress }
+            };
+
+            var payoutJson = new PayoutJson()
+			{
+				Amount = Amount,
+				Currency = "BTC",
+				EffectiveDate = DateTime.UtcNow.ToString("o"),
+				Instructions = inst,
+				Token = "C8bSRpdqf3reupZxHLcdbuZeAKWuxfFU3NWzMQSsymCE"
+			};
+
+			var json = JsonConvert.SerializeObject(payoutJson);
+
+			var key = new Key();
+			string uri = "https://payment.defima.io/payouts";
+			var sig = key.GetBitIDSignature(uri, json);
+
+			var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
+			httpWebRequest.Headers.Add("x-accept-version", "2.0.0");
+			httpWebRequest.Headers.Add("x-identity", key.PubKey.ToHex());
+			httpWebRequest.Headers.Add("x-signature", sig);
+			httpWebRequest.Headers.Add("Authorization", "Basic SHB5ZE8wN3ZPV1FQTGQ3RE03RWRNaTdHaFY3dmhMaEhpb0M3N1BIWXBEZA==");
+			httpWebRequest.ContentType = "application/json";
+			httpWebRequest.Method = "POST";
+
+			using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+			{
+				streamWriter.Write(json);
+				streamWriter.Flush();
+				streamWriter.Close();
+			}
+
+			var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+			using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+			{
+				var result = streamReader.ReadToEnd();
+			}
+		}
+        
+
+		
+		#endregion
 
     }
 }
