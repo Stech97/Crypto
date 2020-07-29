@@ -58,7 +58,6 @@ const CustomField = withStyles({
 	root: {
 		"& .MuiInput-root": {
 			color: "#fff",
-			height: "1rem",
 			"&:before": {
 				borderBottomColor: "#fff",
 			},

@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     color: "#123273",
     fontWeight: "500",
+    margin: "auto 0",
   },
   text: {
     color: "#838383",
@@ -160,7 +161,7 @@ function Withdraw(props) {
           <Grid justify="space-between" container xs={12}>
             <Grid container item xs={10}>
               <Typography variant="h4" className={classes.header}>
-                Withdraw funds
+                Withdraw Bitcoin
               </Typography>
             </Grid>
             <Grid container justify="flex-end" item xs={2}>
@@ -188,7 +189,24 @@ function Withdraw(props) {
               </Typography>
             </Grid>
 
-            <Grid component={Box} my={2} item container xs={12}>
+            <Grid
+              component={Box}
+              my={2}
+              spacing={2}
+              justify="flex-start"
+              alignContent="center"
+              item
+              container
+              xs={12}
+            >
+              <Box mx={3}>
+                <img
+                  src="/img/add-funds-icon.png"
+                  alt="coins"
+                  height="100%"
+                  width="auto"
+                />
+              </Box>
               <Typography className={classes.header}>
                 Min. withdraw $10
               </Typography>

@@ -6,8 +6,9 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 
 const CustomField = withStyles({
   root: {
-    "& .MuiInput-underline": {
+    "& .MuiInput-root": {
       color: "#fff",
+      height: "1rem",
       "&:before": {
         borderBottomColor: "#fff",
       },
@@ -17,6 +18,9 @@ const CustomField = withStyles({
       "&>input:-webkit-autofill": {
         WebkitTextFillColor: "#fff",
       },
+    },
+    "& input": {
+      padding: "10px 12px",
     },
   },
 })(TextField);
