@@ -125,7 +125,7 @@ export const DecisionKYC = (id, decision, message = undefined) => {
 			? (type, id, message) => acceptKYCFetch(type, id)
 			: (type, id, message) => discardKYCFetch(type, id, message);
 		dispatch(KYCRequest(type));
-		decisionFetch(type, id)
+		decisionFetch(type, id, message)
 			.then((res) => {
 				if (res.ok) {
 					dispatch(KYCSuccess(type, { id, status: true }));

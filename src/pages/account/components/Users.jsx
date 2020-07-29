@@ -25,6 +25,7 @@ import InputBase from "@material-ui/core/InputBase";
 import CsvDownload from "react-json-to-csv";
 import { GetUsers } from "../actions/users";
 import { connect } from "react-redux";
+import MaterialTable from "material-table";
 
 const drawerWidth = 240;
 
@@ -131,6 +132,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function SuperUser(props) {
+  const [checked, setChecked] = useState(props.superuser);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+
+  return (
+    <Checkbox
+      checked={checked}
+      onChange={(event) => handleChange(event)}
+      inputProps={{ "aria-label": "primary checkbox" }}
+    />
+  );
+}
+
 function createData_users(
   { name, email, phone, total_added, total_com, total_team_com, withdrawn },
   super_user
@@ -155,17 +172,43 @@ function Users(props) {
     props.GetUsersAction();
   }, []);
 
-  const [checked, setChecked] = useState(true);
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
+  const columns = [
+    {
+      title: "Name",
+      field: "name",
+    },
+    {
+      title: "E-mail",
+      field: "email",
+    },
+    {
+      title: "Phone",
+      field: "phone",
+    },
+    {
+      title: "Total added",
+      field: "total_added",
+    },
+    {
+      title: "Total commissions",
+      field: "total_com",
+    },
+    {
+      title: "Total commissions",
+      field: "total_team_com",
+    },
+    {
+      title: "Withdraw amount",
+      field: "withdrawn",
+    },
+    {
+      title: "Super User",
+      field: "super_user",
+    },
+  ];
 
   const rows_users = props.users.data.map((user) =>
-    createData_users(
-      user,
-      <Checkbox inputProps={{ "aria-label": "primary checkbox" }} />
-    )
+    createData_users(user, <SuperUser superuser={user.superUser} />)
   );
 
   return (
@@ -175,7 +218,30 @@ function Users(props) {
       })}
     >
       <div className={classes.drawerHeader} />
-      <Grid container spacing={3}>
+      <MaterialTable
+        title="Users overview"
+        columns={columns}
+        data={rows_users}
+        options={{
+          filtering: true,
+        }}
+      />
+    </main>
+  );
+}
+
+const mapStateToProps = (state) => ({
+  users: state.users,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  GetUsersAction: () => dispatch(GetUsers()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Users);
+
+/*
+<Grid container spacing={3}>
         <Grid item xs={3}>
           <Typography
             className={classes.title}
@@ -261,16 +327,4 @@ function Users(props) {
           </TableContainer>
         </Grid>
       </Grid>
-    </main>
-  );
-}
-
-const mapStateToProps = (state) => ({
-  users: state.users,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  GetUsersAction: () => dispatch(GetUsers()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+    */

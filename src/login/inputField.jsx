@@ -17,6 +17,12 @@ const CustomField = withStyles({
       },
       "&>input:-webkit-autofill": {
         WebkitTextFillColor: "#fff",
+        transition: "background-color 5000s",
+        WebkitTextFillColor: "#fff !important",
+        "&:hover, &:focus, &:active": {
+          transition: "background-color 5000s",
+          WebkitTextFillColor: "#fff !important",
+        },
       },
     },
   },

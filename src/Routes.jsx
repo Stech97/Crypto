@@ -41,6 +41,7 @@ const PrivateRoute = ({ component: Component, routes: routes, ...rest }) => {
 };
 
 const InprivateRoute = ({ component: Component, routes: routes, ...rest }) => {
+    console.log("isAuthenticated()", isAuthenticated());
     return (
         <Route
             {...rest}

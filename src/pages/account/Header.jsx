@@ -11,6 +11,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import MenuIcon from "@material-ui/icons/Menu";
+import { userLogoutGet } from "./actions/users";
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const StyledMenu = withStyles({
   paper: {
@@ -43,14 +46,9 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export default function Header({
-  className,
-  handleDrawerOpen,
-  iconClassName,
-  header,
-}) {
+function Header(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const { className, handleDrawerOpen, iconClassName, header } = props;
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -58,6 +56,13 @@ export default function Header({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  let history = useHistory();
+  const handleLogout = () => {
+    props.getUserLogoutAction();
+    history.push("/login");
+  };
+
   return (
     <AppBar position="fixed" className={className}>
       <Toolbar>
@@ -101,7 +106,7 @@ export default function Header({
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <StyledMenuItem>
+              <StyledMenuItem onClick={handleLogout}>
                 <ListItemIcon>
                   <ExitToAppIcon fontSize="small" />
                 </ListItemIcon>
@@ -114,3 +119,13 @@ export default function Header({
     </AppBar>
   );
 }
+
+const mapStateToProps = (store) => {};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUserLogoutAction: () => dispatch(userLogoutGet()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

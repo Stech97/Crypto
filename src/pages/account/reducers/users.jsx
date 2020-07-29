@@ -1,4 +1,10 @@
-import { REQUEST, SUCCESS, ERROR, GetUsersInfo } from "../actions/users";
+import {
+	REQUEST,
+	SUCCESS,
+	ERROR,
+	GetUsersInfo,
+	SignOut,
+} from "../actions/users";
 
 const initialState = {
 	isFetching: false,
@@ -27,6 +33,26 @@ export const UsersReducer = (state = initialState, action) => {
 				...state,
 				isFetching: false,
 				data: action.payload,
+			};
+		case SignOut + REQUEST:
+			return {
+				...state,
+				isFetching: true,
+			};
+		case SignOut + ERROR:
+			return {
+				...state,
+				isFetching: false,
+				error: action.payload,
+			};
+		case SignOut + SUCCESS:
+			return {
+				...state,
+				isFetching: false,
+				error: {
+					type: "",
+					message: "",
+				},
 			};
 		default:
 			return state;

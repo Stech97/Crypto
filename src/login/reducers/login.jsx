@@ -3,11 +3,6 @@ import {
 	USER_LOGIN_SUCCESS,
 	USER_LOGIN_ERROR,
 } from "../actions/signin";
-import {
-	GET_LOGOUT_REQUEST,
-	GET_LOGOUT_SUCCESS,
-	GET_LOGOUT_ERROR,
-} from "../../pages/account/actions/logout";
 
 const initialState = {
 	isFetching: false,
@@ -30,7 +25,7 @@ export const loginReducer = (state = initialState, action) => {
 				...state,
 				isFetching: false,
 				error: {
-					type: "done",
+					type: "",
 					message: "",
 				},
 			};
@@ -40,22 +35,6 @@ export const loginReducer = (state = initialState, action) => {
 				...state,
 				error: action.payload,
 				isFetching: false,
-			};
-
-		case GET_LOGOUT_REQUEST:
-			return {
-				...state,
-				isFetching: true,
-			};
-
-		case GET_LOGOUT_SUCCESS:
-			return {
-				...state,
-				isFetching: false,
-				error: {
-					type: "",
-					message: "",
-				},
 			};
 		default:
 			return state;

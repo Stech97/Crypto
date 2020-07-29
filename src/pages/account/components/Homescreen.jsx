@@ -109,6 +109,9 @@ const renderTextField = ({
 function Homescreen(props) {
   const classes = useStyles();
   const theme = useTheme();
+
+  const { homescreen } = props;
+
   return (
     <main
       className={clsx(classes.content, {
@@ -146,7 +149,7 @@ function Homescreen(props) {
 }
 
 const mapStateToProps = (state) => ({
-  homescreen: state.Mainpage,
+  homescreen: state.Mainpage.Homescreen,
 });
 
 const mapDispatchToProps = (dispatch) => ({

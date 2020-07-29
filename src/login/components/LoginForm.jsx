@@ -67,6 +67,8 @@ function LoginForm(props) {
     invalid,
   } = props;
 
+  let history = useHistory();
+
   const submit = (values) => {
     if (values.username.length < 6) {
       throw new SubmissionError({
@@ -89,6 +91,7 @@ function LoginForm(props) {
         username: values.username,
         password: values.password,
       });
+      history.push("/pages/account/dashboard");
     }
   };
 

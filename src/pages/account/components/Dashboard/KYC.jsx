@@ -2,10 +2,10 @@ import React, { Fragment, Component, useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
-import DefaultTableCell from "@material-ui/core/TableCell";
+import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
-import DefaultTableRow from "@material-ui/core/TableRow";
+import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -18,6 +18,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import MaterialTable from "material-table";
 
 import {
 	getKYC,
@@ -29,21 +30,6 @@ import {
 } from "../../actions/kyc";
 import { connect } from "react-redux";
 import Loader from "react-loader-spinner";
-
-const TableCell = withStyles((theme) => ({
-	head: {
-		backgroundColor: theme.palette.primary.main,
-		color: theme.palette.common.black,
-	},
-}))(DefaultTableCell);
-
-const TableRow = withStyles((theme) => ({
-	root: {
-		"&:nth-of-type(odd)": {
-			backgroundColor: theme.palette.action.hover,
-		},
-	},
-}))(DefaultTableRow);
 
 const useStyles = makeStyles((theme) => ({
 	table: {
@@ -131,6 +117,10 @@ function Image(props) {
 	);
 }
 
+function TestRow(props) {
+	return <TableRow>{props.rowData}</TableRow>;
+}
+
 function Row(props) {
 	const classes = useStyles();
 
@@ -138,27 +128,24 @@ function Row(props) {
 		kyc,
 		id,
 		username,
+		isKYC,
 		getPassportAction,
 		getProofAction,
 		getSelfiAction,
 		pictures,
 		Accept,
 		Discard,
-		getKYC,
-		decisionDefault,
+		getKYCAction,
 	} = props;
 
-	const [open, setOpen] = useState(false);
-	const [decision, setDecision] = useState(decisionDefault);
-
 	const handleAccept = (id) => {
-		setDecision(true);
 		Accept(id);
+		getKYCAction();
 	};
 
 	const handleDiscard = (id) => {
-		setDecision(false);
 		Discard(id);
+		getKYCAction();
 	};
 
 	const [files, setFiles] = useState({
@@ -169,175 +156,77 @@ function Row(props) {
 
 	const currentPictures = () => pictures.find((element) => element.id === id);
 
-	const handleClick = (id) => {
-		if (!open) {
-			getPassportAction(id);
-			getProofAction(id);
-			getSelfiAction(id);
-		}
-		setOpen(!open);
-	};
-	console.log("currentPictures()", currentPictures());
+	useEffect(() => {
+		getPassportAction(id);
+		getProofAction(id);
+		getSelfiAction(id);
+	}, []);
+
 	return (
-		<Fragment>
-			<TableRow>
-				<TableCell align="center">
-					{kyc.isFetching.get ? (
-						<Loader
-							type="Rings"
-							color="#F9A732"
-							height={80}
-							width={80}
-						/>
-					) : (
-						<Typography align="center" variant="h6">
-							{id}
-						</Typography>
-					)}
-				</TableCell>
-				<TableCell align="center">
-					{kyc.isFetching.get ? (
-						<Loader
-							type="Rings"
-							color="#F9A732"
-							height={80}
-							width={80}
-						/>
-					) : (
-						<Typography align="center" variant="h6">
-							{username}
-						</Typography>
-					)}
-				</TableCell>
-				<TableCell align="center">
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={() => handleClick(id)}
-					>
-						{open ? "Hide" : "View"}
-					</Button>
-				</TableCell>
-				<TableCell align="center">
-					{decision === undefined ? (
-						<Fragment>
-							<Button
-								component={Box}
-								mx={2}
-								variant="contained"
-								color="secondary"
-								onClick={() => handleAccept(id)}
-							>
-								Accept
-							</Button>
-							<Button
-								component={Box}
-								mx={2}
-								variant="contained"
-								className={classes.discard}
-								onClick={() => handleDiscard(id)}
-							>
-								Decline
-							</Button>
-						</Fragment>
-					) : decision ? (
-						<Typography color="secondary">Accepted</Typography>
-					) : (
-						<Typography color="error">Declined</Typography>
-					)}
-				</TableCell>
-			</TableRow>
-			<TableRow>
-				<TableCell
-					style={{ paddingBottom: 0, paddingTop: 0 }}
-					colSpan={6}
-				>
-					<Collapse in={open} style={{ width: "100%" }}>
-						<Table size="small" aria-label="purchases">
-							<TableHead>
-								<TableRow>
-									<TableCell align="center">
-										<Typography align="center">
-											Passport
-										</Typography>
-									</TableCell>
-									<TableCell align="center">
-										<Typography align="center">
-											Proof
-										</Typography>
-									</TableCell>
-									<TableCell align="center">
-										<Typography align="center">
-											Selfie
-										</Typography>
-									</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								<TableRow>
-									<TableCell
-										style={{ width: "33%" }}
-										align="center"
-									>
-										{kyc.isFetching.current ? (
-											<Loader
-												type="Rings"
-												color="#F9A732"
-												height={80}
-												width={80}
-											/>
-										) : (
-											<Image
-												data={
-													currentPictures().passport
-												}
-												alt={"passport-" + id}
-											/>
-										)}
-									</TableCell>
-									<TableCell
-										style={{ width: "33%" }}
-										align="center"
-									>
-										{kyc.isFetching.current ? (
-											<Loader
-												type="Rings"
-												color="#F9A732"
-												height={80}
-												width={80}
-											/>
-										) : (
-											<Image
-												data={currentPictures().proof}
-												alt={"proof-" + id}
-											/>
-										)}
-									</TableCell>
-									<TableCell
-										style={{ width: "33%" }}
-										align="center"
-									>
-										{kyc.isFetching.current ? (
-											<Loader
-												type="Rings"
-												color="#F9A732"
-												height={80}
-												width={80}
-											/>
-										) : (
-											<Image
-												data={currentPictures().selfie}
-												alt={"selfie-" + id}
-											/>
-										)}
-									</TableCell>
-								</TableRow>
-							</TableBody>
-						</Table>
-					</Collapse>
-				</TableCell>
-			</TableRow>
-		</Fragment>
+		<Table size="small" aria-label="purchases">
+			<TableHead>
+				<TableRow>
+					<TableCell align="center">
+						<Typography align="center">Passport</Typography>
+					</TableCell>
+					<TableCell align="center">
+						<Typography align="center">Proof</Typography>
+					</TableCell>
+					<TableCell align="center">
+						<Typography align="center">Selfie</Typography>
+					</TableCell>
+				</TableRow>
+			</TableHead>
+			<TableBody>
+				<TableRow>
+					<TableCell style={{ width: "33%" }} align="center">
+						{kyc.isFetching.current ? (
+							<Loader
+								type="Rings"
+								color="#F9A732"
+								height={80}
+								width={80}
+							/>
+						) : (
+							<Image
+								data={currentPictures().passport}
+								alt={"passport-" + id}
+							/>
+						)}
+					</TableCell>
+					<TableCell style={{ width: "33%" }} align="center">
+						{kyc.isFetching.current ? (
+							<Loader
+								type="Rings"
+								color="#F9A732"
+								height={80}
+								width={80}
+							/>
+						) : (
+							<Image
+								data={currentPictures().proof}
+								alt={"proof-" + id}
+							/>
+						)}
+					</TableCell>
+					<TableCell style={{ width: "33%" }} align="center">
+						{kyc.isFetching.current ? (
+							<Loader
+								type="Rings"
+								color="#F9A732"
+								height={80}
+								width={80}
+							/>
+						) : (
+							<Image
+								data={currentPictures().selfie}
+								alt={"selfie-" + id}
+							/>
+						)}
+					</TableCell>
+				</TableRow>
+			</TableBody>
+		</Table>
 	);
 }
 
@@ -347,6 +236,7 @@ Row = connect(
 		kyc: state.KYC,
 	}),
 	(dispatch) => ({
+		getKYCAction: () => dispatch(getKYC()),
 		getPassportAction: (id) => dispatch(getPassport(id)),
 		getProofAction: (id) => dispatch(getProof(id)),
 		getSelfiAction: (id) => dispatch(getSelfi(id)),
@@ -359,14 +249,58 @@ Row = connect(
 function KYC(props) {
 	const classes = useStyles();
 
+	const { Accept, Discard, getKYCAction, acceptAll } = props;
+
 	useEffect(() => {
-		props.getKYCAction();
+		getKYCAction();
 	}, []);
 
 	const handleAllAccept = () => {
-		props.acceptAll();
-		props.getKYCAction();
+		acceptAll();
+		getKYCAction();
 	};
+
+	const handleAccept = (data) => {
+		console.log("data", data);
+		Accept(data);
+	};
+
+	const handleDiscard = (data) => {
+		Discard(data);
+	};
+
+	const columns = [
+		{
+			name: "ID",
+			title: "ID",
+			field: "id",
+			type: "numeric",
+		},
+		{
+			title: "Username",
+			name: "Username",
+			field: "username",
+		},
+		{
+			title: "Status",
+			name: "Status",
+			field: "isKYC",
+			lookup: { true: "Accepted", false: "Declined" },
+		},
+	];
+
+	const actions = [
+		{
+			icon: "done",
+			tooltip: "Accept",
+			onClick: (event, data) => handleAccept(data.id),
+		},
+		{
+			icon: "block",
+			tooltip: "Decline",
+			onClick: (event, data) => handleDiscard(data.id),
+		},
+	];
 
 	return (
 		<Grid
@@ -376,6 +310,42 @@ function KYC(props) {
 			justify="space-between"
 			alignItems="center"
 		>
+			<MaterialTable
+				title="KYC requests"
+				columns={columns}
+				data={props.kyc.data}
+				actions={actions}
+				options={{
+					filtering: true,
+				}}
+				style={{ width: "100%" }}
+				detailPanel={(rowData) => {
+					return <Row {...rowData} />;
+				}}
+				onRowClick={(event, rowData, togglePanel) => togglePanel()}
+			/>
+		</Grid>
+	);
+}
+
+const mapStateToProps = (state) => ({
+	kyc: state.KYC,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	getKYCAction: () => dispatch(getKYC()),
+	getPassportAction: (id) => dispatch(getPassport(id)),
+	getProofAction: (id) => dispatch(getProof(id)),
+	getSelfiAction: (id) => dispatch(getSelfi(id)),
+	Accept: (id) => dispatch(DecisionKYC(id, true)),
+	Discard: (id) =>
+		dispatch(DecisionKYC(id, false, "Please, resend your KYC")),
+	acceptAll: () => dispatch(acceptAllKYC()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(KYC);
+
+/*
 			<Box my={2} component={Grid} item xs={3}>
 				<Typography
 					align="center"
@@ -452,31 +422,102 @@ function KYC(props) {
 										Decision
 									</Typography>
 								</TableCell>
+								<TableCell align="center">
+									<Typography variant="h5">Status</Typography>
+								</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
 							{props.kyc.data.map((rows_KYC) => (
-								<Row
-									id={rows_KYC.id}
-									username={rows_KYC.username}
-									key={rows_KYC.id}
-								/>
+								<Row {...rows_KYC} key={rows_KYC.id} />
 							))}
 						</TableBody>
 					</Table>
 				</TableContainer>
 			</Box>
-		</Grid>
-	);
-}
 
-const mapStateToProps = (state) => ({
-	kyc: state.KYC,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	getKYCAction: () => dispatch(getKYC()),
-	acceptAll: () => dispatch(acceptAllKYC()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(KYC);
+					<Fragment>
+			<TableRow>
+				<TableCell align="center">
+					{kyc.isFetching.get ? (
+						<Loader
+							type="Rings"
+							color="#F9A732"
+							height={80}
+							width={80}
+						/>
+					) : (
+						<Typography align="center" variant="h6">
+							{data.id}
+						</Typography>
+					)}
+				</TableCell>
+				<TableCell align="center">
+					{kyc.isFetching.get ? (
+						<Loader
+							type="Rings"
+							color="#F9A732"
+							height={80}
+							width={80}
+						/>
+					) : (
+						<Typography align="center" variant="h6">
+							{data.username}
+						</Typography>
+					)}
+				</TableCell>
+				<TableCell align="center">
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={() => handleClick(data.id)}
+					>
+						{open ? "Hide" : "View"}
+					</Button>
+				</TableCell>
+				<TableCell align="center">
+					<Button
+						component={Box}
+						mx={2}
+						variant="contained"
+						color="secondary"
+						onClick={() => handleAccept(data.id)}
+					>
+						Accept
+					</Button>
+					<Button
+						component={Box}
+						mx={2}
+						variant="contained"
+						className={classes.discard}
+						onClick={() => handleDiscard(data.id)}
+					>
+						Decline
+					</Button>
+				</TableCell>
+				<TableCell align="center">
+					{data.isKYC ? (
+						<Typography
+							align="center"
+							variant="h6"
+							color="secondary"
+						>
+							Accepted
+						</Typography>
+					) : (
+						<Typography align="center" variant="h6" color="error">
+							Declined
+						</Typography>
+					)}
+				</TableCell>
+			</TableRow>
+			<TableRow>
+				<TableCell
+					style={{ paddingBottom: 0, paddingTop: 0 }}
+					colSpan={6}
+				>
+					
+				</TableCell>
+			</TableRow>
+		</Fragment>
+*/

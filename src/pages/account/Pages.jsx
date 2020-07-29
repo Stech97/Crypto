@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexGrow: 1,
+    backgroundColor: theme.palette.primary.main,
   },
   paper: {
     padding: theme.spacing(2),

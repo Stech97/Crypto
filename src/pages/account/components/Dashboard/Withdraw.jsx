@@ -19,6 +19,7 @@ import {
 	WithdrawAccept,
 	WithdrawDiscard,
 } from "../../actions/withdraw";
+import MaterialTable from "material-table";
 
 const useStyles = makeStyles((theme) => ({
 	table: {
@@ -37,144 +38,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const TableCell = withStyles((theme) => ({
-	head: {
-		backgroundColor: theme.palette.primary.main,
-		color: theme.palette.common.black,
-	},
-}))(DefaultTableCell);
-
-const TableRow = withStyles((theme) => ({
-	root: {
-		"&:nth-of-type(odd)": {
-			backgroundColor: theme.palette.action.hover,
-		},
-	},
-}))(DefaultTableRow);
-
-function Row(props) {
-	const classes = useStyles();
-	const [status, setStatus] = useState(undefined);
-	const {
-		isFetching,
-		Accept,
-		Discard,
-		userId,
-		username,
-		amount,
-		wallet,
-	} = props;
-
-	const handleAccept = () => {
-		Accept(userId);
-		setStatus(true);
-	};
-
-	const handleDiscard = () => {
-		Discard(userId);
-		setStatus(false);
-	};
-
-	return (
-		<TableRow component={Box}>
-			<TableCell component={Box} align="center">
-				{isFetching.data ? (
-					<Loader
-						type="Rings"
-						color="#F9A732"
-						height={80}
-						width={80}
-					/>
-				) : (
-					<Typography align="center" variant="h6">
-						{userId}
-					</Typography>
-				)}
-			</TableCell>
-			<TableCell component={Box} align="center">
-				{isFetching.data ? (
-					<Loader
-						type="Rings"
-						color="#F9A732"
-						height={80}
-						width={80}
-					/>
-				) : (
-					<Typography align="center" variant="h6">
-						{username}
-					</Typography>
-				)}
-			</TableCell>
-			<TableCell component={Box} align="center">
-				{isFetching.data ? (
-					<Loader
-						type="Rings"
-						color="#F9A732"
-						height={80}
-						width={80}
-					/>
-				) : (
-					<Typography align="center" variant="h6">
-						{amount}
-					</Typography>
-				)}
-			</TableCell>
-			<TableCell component={Box} align="center">
-				<Button
-					component={Box}
-					mx={2}
-					variant="contained"
-					color="secondary"
-					onClick={handleAccept}
-				>
-					Accept
-				</Button>
-				<Button
-					component={Box}
-					mx={2}
-					variant="contained"
-					className={classes.discard}
-					onClick={handleDiscard}
-				>
-					Decline
-				</Button>
-			</TableCell>
-			<TableCell component={Box} align="center">
-				{isFetching.withdraw ? (
-					<Loader
-						type="Rings"
-						color="#F9A732"
-						height={80}
-						width={80}
-					/>
-				) : (
-					<Typography align="center" variant="h6">
-						{status === undefined
-							? "Unknown"
-							: status
-							? "Accepted"
-							: "Discarded"}
-					</Typography>
-				)}
-			</TableCell>
-			<TableCell component={Box} align="center">
-				{isFetching.withdraw ? (
-					<Loader
-						type="Rings"
-						color="#F9A732"
-						height={80}
-						width={80}
-					/>
-				) : (
-					<Typography align="center" variant="h6">
-						{wallet ? wallet : ""}
-					</Typography>
-				)}
-			</TableCell>
-		</TableRow>
-	);
-}
-
 function Withdraw(props) {
 	const classes = useStyles();
 	const { Accept, AcceptAll, Discard } = props;
@@ -182,99 +45,63 @@ function Withdraw(props) {
 		props.getWithdrawAction();
 	}, []);
 
+	const columns = [
+		{
+			name: "ID",
+			title: "ID",
+			field: "userId",
+			type: "numeric",
+		},
+		{
+			title: "Username",
+			name: "Username",
+			field: "username",
+		},
+		{
+			title: "Amount",
+			name: "Amount",
+			field: "amount",
+			type: "numeric",
+		},
+		{
+			title: "Status",
+			name: "Status",
+			field: "status",
+		},
+		{
+			title: "Wallet",
+			name: "Wallet",
+			field: "wallet",
+			sorting: false,
+		},
+	];
+
+	const actions = [
+		{
+			icon: "done",
+			tooltip: "Accept",
+			onClick: (event, rowData) => {
+				Accept(rowData.userId);
+			},
+			//disabled: (rowData) => rowData.status !== "Withdraw",
+		},
+		{
+			icon: "block",
+			tooltip: "Decline",
+			onClick: (event, rowData) => Discard(rowData.userId),
+			disabled: (rowData) => rowData.status !== "Withdraw",
+		},
+	];
+
 	return (
-		<Grid
-			container
-			component={Box}
-			my={2}
-			direction="row"
-			justify="space-between"
-			alignItems="center"
-		>
-			<Grid my={2} component={Box} item xs={3}>
-				<Typography
-					align="center"
-					variant="h5"
-					component="p"
-					gutterBottom
-				>
-					Withdraw requests
-				</Typography>
-			</Grid>
-			<Box
-				my={2}
-				component={Grid}
-				item
-				container
-				justify="center"
-				alignContent="center"
-				xs={3}
-			>
-				<Button
-					onClick={props.getWithdrawAction}
-					variant="contained"
-					color="secondary"
-				>
-					Refresh
-				</Button>
-			</Box>
-			<Grid
-				my={2}
-				component={Box}
-				item
-				container
-				justify="center"
-				xs={12}
-			>
-				<TableContainer
-					component={Box}
-					className={classes.table}
-					component={Paper}
-				>
-					<Table
-						stickyHeader
-						component={Box}
-						size="small"
-						aria-label="a dense table"
-					>
-						<TableHead component={Box}>
-							<TableRow component={Box}>
-								<TableCell component={Box} align="center">
-									<Typography variant="h5">ID</Typography>
-								</TableCell>
-								<TableCell component={Box} align="center">
-									<Typography variant="h5">User</Typography>
-								</TableCell>
-								<TableCell component={Box} align="center">
-									<Typography variant="h5">Amount</Typography>
-								</TableCell>
-								<TableCell component={Box} align="center">
-									<Typography variant="h5">
-										Decision
-									</Typography>
-								</TableCell>
-								<TableCell component={Box} align="center">
-									<Typography variant="h5">Status</Typography>
-								</TableCell>
-								<TableCell component={Box} align="center">
-									<Typography variant="h5">Wallet</Typography>
-								</TableCell>
-							</TableRow>
-						</TableHead>
-						<TableBody component={Box}>
-							{props.withdraw.data.map((rows, id) => (
-								<Row
-									key={id}
-									isFetching={props.withdraw.isFetching}
-									{...rows}
-									Accept={Accept}
-									Discard={Discard}
-								/>
-							))}
-						</TableBody>
-					</Table>
-				</TableContainer>
-			</Grid>
+		<Grid container item xs={12} component={Box} my={2}>
+			<MaterialTable
+				title="Withdraw requests"
+				columns={columns}
+				data={props.withdraw.data}
+				actions={actions}
+				style={{ width: "100%" }}
+			/>
 		</Grid>
 	);
 }

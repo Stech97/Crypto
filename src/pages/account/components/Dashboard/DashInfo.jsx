@@ -5,7 +5,7 @@ import { getDashInfo } from "../../actions/dashInfo";
 
 class DashInfo extends Component {
 	componentDidMount = () => {
-		this.props.DashInfoAction();
+		this.props.DashInfoAction(this.props.period);
 	};
 
 	render() {
@@ -66,7 +66,7 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		DashInfoAction: () => dispatch(getDashInfo()),
+		DashInfoAction: (period) => dispatch(getDashInfo(period)),
 	};
 };
 

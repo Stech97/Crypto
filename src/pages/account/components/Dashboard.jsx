@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -23,13 +23,41 @@ import Box from "@material-ui/core/Box";
 import DashInfo from "./Dashboard/DashInfo";
 import KYC from "./Dashboard/KYC";
 import Withdraw from "./Dashboard/Withdraw";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+
+function TabPanel(props) {
+  const { period, index, ...other } = props;
+
+  return (
+    <Fragment>
+      {period === index && (
+        <DashInfo
+          period={period}
+          role="tabpanel"
+          hidden={period !== index}
+          id={`simple-tabpanel-${index}`}
+          aria-labelledby={`simple-tab-${index}`}
+          {...other}
+        />
+      )}
+    </Fragment>
+  );
+}
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
 
 export default function Dashboard(props) {
   const { openStatus, classes, theme } = props;
-  const [age, setPeriod] = React.useState("");
+  const [period, setPeriod] = useState(0);
 
-  const handleChange = (event) => {
-    setPeriod(event.target.value);
+  const handleChange = (event, newValue) => {
+    setPeriod(newValue);
   };
 
   return (
@@ -40,27 +68,27 @@ export default function Dashboard(props) {
     >
       <div className={classes.drawerHeader} />
       <Grid container spacing={3}>
-        <DashInfo />
-
-        <Grid item xs={3}>
-          <FormControl variant="filled" className={classes.formControl}>
-            <InputLabel id="demo-simple-select-filled-label">Period</InputLabel>
-            <Select
-              labelId="demo-simple-select-filled-label"
-              id="demo-simple-select-filled"
-              value="Last Week"
-              onChange={handleChange}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Last Week</MenuItem>
-              <MenuItem value={20}>Last Month</MenuItem>
-              <MenuItem value={30}>Last 3 Month</MenuItem>
-              <MenuItem value={40}>Last 6 Month</MenuItem>
-              <MenuItem value={50}>Last Year</MenuItem>
-            </Select>
-          </FormControl>
+        <Grid item container xs={12}>
+          <Tabs
+            value={period}
+            onChange={handleChange}
+            aria-label="simple tabs example"
+          >
+            <Tab label="All" {...a11yProps(0)} />
+            <Tab label="Last Week" {...a11yProps(1)} />
+            <Tab label="Last Month" {...a11yProps(2)} />
+            <Tab label="Last 3 Month" {...a11yProps(3)} />
+            <Tab label="Last 6 Months" {...a11yProps(4)} />
+            <Tab label="Last Year" {...a11yProps(5)} />
+          </Tabs>
+        </Grid>
+        <Grid item container spacing={3} xs={12}>
+          <TabPanel period={period} index={0} />
+          <TabPanel period={period} index={1} />
+          <TabPanel period={period} index={2} />
+          <TabPanel period={period} index={3} />
+          <TabPanel period={period} index={4} />
+          <TabPanel period={period} index={5} />
         </Grid>
         <KYC />
         <Withdraw />

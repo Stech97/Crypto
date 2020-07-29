@@ -44,6 +44,7 @@ const requestTemplateUnauthed = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 const requestTemplateFile = axios.create({
