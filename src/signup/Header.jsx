@@ -23,6 +23,7 @@ const OrangeButton = withStyles({
 		borderRadius: "30px",
 		paddingLeft: "1rem",
 		paddingRight: "1rem",
+		textTransform: "none",
 		"&:hover": {
 			color: "#fff",
 			backgroundColor: orange,
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: "center",
 		width: "100vw",
 		left: 0,
+		overflowX: "hidden",
 	},
 	logo: {
 		justifySelf: "flex-start",
@@ -97,15 +99,15 @@ function Header(props) {
 	};
 
 	return (
-		<AppBar className={classes.header} position="fixed">
+		<AppBar className={classes.header} position="relative">
 			<CssBaseline />
 			<Toolbar>
 				<Grid justify="space-between" container xs={12}>
 					<Grid className={classes.logo} item xs={10} md={2}>
 						<Link to="/main">
 							<img
-								src="/img/logo.png"
-								srcSet="/img/logo@2x.png 2x, /img/logo@3x.png 3x"
+								src="./img/logo.png"
+								srcSet="./img/logo@2x.png 2x, ./img/logo@3x.png 3x"
 								alt="Logo"
 								height="50px"
 								width="auto"
@@ -155,16 +157,16 @@ function Header(props) {
 							horizontal: "right",
 						}}
 					>
-						<MenuItem>
+						<MenuItem className={classes.link}>
 							<HashLink to={"/main#OurMission"}>About</HashLink>
 						</MenuItem>
-						<MenuItem>
+						<MenuItem className={classes.link}>
 							<HashLink to={"/main#Team"}>Team</HashLink>
 						</MenuItem>
-						<MenuItem>
+						<MenuItem className={classes.link}>
 							<a href="https://members.com/">Blog</a>
 						</MenuItem>
-						<MenuItem>
+						<MenuItem className={classes.link}>
 							<Link to={"/login"}>Login</Link>
 						</MenuItem>
 						<MenuItem>

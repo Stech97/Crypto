@@ -123,10 +123,11 @@ export default function SignupPage(props) {
 			<FluidContainer>
 				<Grid
 					xs={12}
-					md={6}
+					md={8}
 					container
 					item
 					className={classes.container}
+					spacing={4}
 				>
 					<Grid xs={12} item>
 						<Typography variant="h1" align="center">
@@ -148,8 +149,14 @@ export default function SignupPage(props) {
 							</Link>
 						</Typography>
 					</Grid>
-					<Grid container direction="row" justifyItems="center">
-						<Grid item xs={6}>
+					<Grid
+						xs={12}
+						container
+						spacing={2}
+						item
+						justify="space-around"
+					>
+						<Grid container justify="center" item xs={6} md={4}>
 							<Link to="/terms&conditions">
 								<Typography
 									className={classes.link}
@@ -160,7 +167,7 @@ export default function SignupPage(props) {
 								</Typography>
 							</Link>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid container justify="center" item xs={6} md={4}>
 							<Link to="/privacy">
 								<Typography
 									className={classes.link}

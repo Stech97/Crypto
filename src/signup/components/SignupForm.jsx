@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { SubmissionError, reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
 
@@ -180,12 +180,16 @@ const useStyles = makeStyles((theme) => ({
 function TermsLink(props) {
   const classes = useStyles();
   return (
-    <Typography className={classes.text} variant="h6">
-      I agree with
-      <Link to="/terms&conditions">
-        <u>Terms and Conditions</u>
-      </Link>
-    </Typography>
+    <Fragment>
+      <Typography className={classes.text} variant="h6">
+        I agree with{" "}
+      </Typography>
+      <Typography className={classes.text} variant="h6">
+        <Link to="/terms&conditions">
+          <u>Terms and Conditions</u>
+        </Link>
+      </Typography>
+    </Fragment>
   );
 }
 
@@ -262,9 +266,10 @@ function SignupForm(props) {
         container
         justify="center"
         onSubmit={handleSubmit(submit)}
+        spacing={4}
       >
-        <Grid item container xs={12} spacing={2}>
-          <Grid item container xs={12} md={6}>
+        <Grid item container justify="space-around" xs={12} spacing={4}>
+          <Grid item container xs={12} md={5}>
             <Field
               component={inputField}
               name="firstname"
@@ -275,7 +280,7 @@ function SignupForm(props) {
               warn={alphaNumeric}
             />
           </Grid>
-          <Grid item container xs={12} md={6}>
+          <Grid item container xs={12} md={5}>
             <Field
               component={inputField}
               name="lastname"
@@ -287,8 +292,8 @@ function SignupForm(props) {
             />
           </Grid>
         </Grid>
-        <Grid item container xs={12} spacing={2}>
-          <Grid item container xs={12} md={6}>
+        <Grid item container justify="space-around" xs={12} spacing={4}>
+          <Grid item container xs={12} md={5}>
             <Field
               component={inputField}
               name="email"
@@ -299,7 +304,7 @@ function SignupForm(props) {
               warn={aol}
             />
           </Grid>
-          <Grid item container xs={12} md={6}>
+          <Grid item container xs={12} md={5}>
             <Field
               component={inputField}
               name="username"
@@ -310,8 +315,8 @@ function SignupForm(props) {
             />
           </Grid>
         </Grid>
-        <Grid item container xs={12} spacing={2}>
-          <Grid item container xs={12} md={6}>
+        <Grid item container justify="space-around" xs={12} spacing={4}>
+          <Grid item container xs={12} md={5}>
             <Field
               component={inputField}
               name="password"
@@ -321,7 +326,7 @@ function SignupForm(props) {
               validate={[required, maxLength25, minLength6, validatePassword]}
             />
           </Grid>
-          <Grid item container xs={12} md={6}>
+          <Grid item container xs={12} md={5}>
             <Field
               component={inputField}
               name="password2"
@@ -332,8 +337,15 @@ function SignupForm(props) {
             />
           </Grid>
         </Grid>
-        <Grid item container xs={12}>
-          <Grid className={classes.checkbox} item container xs={12} md={6}>
+        <Grid item container justify="space-around" xs={12}>
+          <Grid
+            className={classes.checkbox}
+            justify="flex-start"
+            item
+            container
+            xs={12}
+            md={5}
+          >
             <Field
               component={Checkbox}
               name="termsagree"
@@ -342,7 +354,14 @@ function SignupForm(props) {
             />
             <TermsLink />
           </Grid>
-          <Grid className={classes.checkbox} item container xs={12} md={6}>
+          <Grid
+            className={classes.checkbox}
+            justify="flex-start"
+            item
+            container
+            xs={12}
+            md={5}
+          >
             <Field
               component={Checkbox}
               name="countrycheck"
@@ -359,6 +378,8 @@ function SignupForm(props) {
         >
           {createUser.isFetching || submitting
             ? "Loading..."
+            : createUser.error.type
+            ? "Success"
             : "Create an account"}
         </OrangeButton>
         {createUser.error.type && (

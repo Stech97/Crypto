@@ -114,11 +114,6 @@ const ourteamMembers = [
     name: "Scarlett",
     post: "CEO & Founder",
   },
-  {
-    id: 3,
-    name: "Cagdas",
-    post: "Brand Ambassador",
-  },
 ];
 
 function LinkedIcon() {

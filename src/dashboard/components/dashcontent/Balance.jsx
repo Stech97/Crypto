@@ -27,6 +27,12 @@ const contentBack = "#f5fbff";
 const fixNum = (value) => Number(Number(value).toFixed(4));
 
 const useStyles = makeStyles((theme) => ({
+	dialog: {
+		"&>div>.MuiPaper-root": {
+			borderRadius: "40px",
+			padding: "20px",
+		},
+	},
 	arrow: {
 		alignSelf: "center",
 		display: "grid",

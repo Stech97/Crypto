@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import HistoryTable from "./Table";
+import { getBalance, getBTCRate, getDETRate } from "../../actions/getBalance";
 
 import Container from "@material-ui/core/Container";
 import CustomTable from "../Table";
@@ -23,6 +24,8 @@ class HistoryStatisticsPlot extends Component {
         data={this.props.data}
         layout={this.props.layout}
         config={{ displayModeBar: false, useResizeHandler: true }}
+        useResizeHandler={true}
+        style={{ width: "100%", height: "300px" }}
       />
     );
   }
@@ -66,15 +69,17 @@ const useStyles = makeStyles((theme) => ({
 function HistoryContent(props) {
   useEffect(() => {
     props.getHistoryTableAction();
+    props.getBalanceAction();
+    props.getAllRateAction();
   }, []);
 
-  const { table } = props;
+  const { table, balance } = props;
 
   const historyData = {
     x: table.records
       .reverse()
       .map((record, i) => moment(record.time).format("YYYY-MM-DD")),
-    y: table.records.reverse().map((record, i) => record.amount),
+    y: table.records.reverse().map((record, i) => record.balance),
   };
   const data = [
     {
@@ -153,7 +158,12 @@ function HistoryContent(props) {
           >
             Active Balance:
             <br />
-            USD 2.201
+            {"USD " +
+              (
+                Number(balance.balance.usd) +
+                Number(balance.balance.btc) * Number(balance.rate.b2u) +
+                Number(balance.balance.det) * Number(balance.rate.d2u)
+              ).toFixed(2)}
           </Grid>
           <Grid item xs={12} md={9}>
             <HistoryStatisticsPlot data={data} layout={layout} />
@@ -176,11 +186,17 @@ function HistoryContent(props) {
 }
 
 const mapStateToProps = (store) => ({
+  balance: store.Balance,
   table: store.historyTable,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getHistoryTableAction: () => dispatch(getHistoryTable()),
+  getBalanceAction: () => dispatch(getBalance()),
+  getAllRateAction: () => {
+    dispatch(getBTCRate());
+    dispatch(getDETRate());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HistoryContent);

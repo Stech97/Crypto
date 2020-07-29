@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -53,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     height: "50px",
     backgroundImage: "linear-gradient(250deg, #005c9f 0%, #123273 100%)",
     boxShadow: "0 0 20px rgba(0, 0, 0, 0.06)",
-    padding: "15px",
+    padding: "10px 15px",
     borderRadius: "10px",
     color: "#fff",
     [theme.breakpoints.down("sm")]: {
@@ -223,26 +224,35 @@ function Profit() {
         item
         container
         xs={12}
+        spacing={4}
         alignContent="space-around"
       >
         <Grid
           alignContent="space-around"
-          spacing={2}
+          spacing={4}
           item
           container
           xs={12}
           md={5}
         >
           <Grid
-            component={Typography}
-            align="center"
+            component={Box}
+            my={2}
             justify="center"
-            variant="h6"
+            alignContent="center"
             xs={6}
           >
-            Investment
+            <Typography align="center" variant="h6">
+              Investment
+            </Typography>
           </Grid>
-          <Grid xs={6}>
+          <Grid
+            component={Box}
+            my={2}
+            justify="center"
+            alignContent="center"
+            xs={6}
+          >
             <TextField
               className={clsx(classes.input, classes.textInput)}
               onChange={handleChange}
@@ -251,10 +261,24 @@ function Profit() {
               id="standard-basic"
             />
           </Grid>
-          <Grid component={Typography} align="center" variant="h6" xs={6}>
-            Product
+          <Grid
+            component={Box}
+            my={2}
+            justify="center"
+            alignContent="center"
+            xs={6}
+          >
+            <Typography align="center" variant="h6">
+              Product
+            </Typography>
           </Grid>
-          <Grid xs={6}>
+          <Grid
+            component={Box}
+            my={2}
+            justify="center"
+            alignContent="center"
+            xs={6}
+          >
             <NativeSelect
               className={classes.input}
               inputProps={{
@@ -275,10 +299,24 @@ function Profit() {
               </option>
             </NativeSelect>
           </Grid>
-          <Grid component={Typography} align="center" variant="h6" xs={6}>
-            Average Monthly Profit
+          <Grid
+            component={Box}
+            my={2}
+            justify="center"
+            alignContent="center"
+            xs={6}
+          >
+            <Typography align="center" variant="h6">
+              Average Monthly Profit
+            </Typography>
           </Grid>
-          <Grid xs={6}>
+          <Grid
+            component={Box}
+            my={2}
+            justify="center"
+            alignContent="center"
+            xs={6}
+          >
             <NativeSelect
               className={classes.input}
               inputProps={{
@@ -308,9 +346,9 @@ function Profit() {
             config={{
               displayModeBar: false,
               useResizeHandler: true,
-              responsive: true,
             }}
-            className="investment-profit-content-plot"
+            useResizeHandler={true}
+            style={{ width: "100%", height: "300px" }}
           />
         </Grid>
         <Grid

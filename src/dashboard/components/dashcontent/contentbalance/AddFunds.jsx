@@ -40,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
 		"&>div>.MuiPaper-root": {
 			borderRadius: "40px",
 			padding: "20px",
+			height: "50vh",
+			width: "50vw",
 		},
 	},
 	btcPlus: {
@@ -77,7 +79,7 @@ const CustomField = withStyles({
 			color: "#fff",
 			height: "1rem",
 			"&:before": {
-				borderBottomColor: "#fff",
+				borderBottomColor: "#123273",
 			},
 			"&:hover:not(.Mui-disabled):before": {
 				borderBottom: "none",
@@ -164,7 +166,6 @@ function AddFunds(props) {
 			</Button>
 			<Dialog
 				className={classes.dialog}
-				maxWidth="sm"
 				open={open}
 				onClose={handleClose}
 			>
@@ -172,7 +173,7 @@ function AddFunds(props) {
 					<Grid justify="space-between" container xs={12}>
 						<Grid container item xs={10}>
 							<Typography variant="h4" className={classes.header}>
-								AddFunds
+								Add Funds
 							</Typography>
 						</Grid>
 						<Grid container justify="flex-end" item xs={2}>
@@ -183,19 +184,18 @@ function AddFunds(props) {
 					</Grid>
 				</DialogTitle>
 				<DialogContent>
-					<div>
-						<style
-							type="text/css"
-							dangerouslySetInnerHTML={{
-								__html:
-									" .btcpay-form { display: inline-flex; align-items: center; justify-content: center; } .btcpay-form--inline { flex-direction: row; } .btcpay-form--block { flex-direction: column; } .btcpay-form--inline .submit { margin-left: 15px; } .btcpay-form--block select { margin-bottom: 10px; } .btcpay-form .btcpay-custom-container{ text-align: center; }.btcpay-custom { display: flex; align-items: center; justify-content: center; } .btcpay-form .plus-minus { cursor:pointer; font-size:25px; line-height: 25px; background: #DFE0E1; height: 30px; width: 45px; border:none; border-radius: 60px; margin: auto 5px; display: inline-flex; justify-content: center; } .btcpay-form select { -moz-appearance: none; -webkit-appearance: none; appearance: none; color: currentColor; background: transparent; border:1px solid transparent; display: block; padding: 1px; margin-left: auto; margin-right: auto; font-size: 11px; cursor: pointer; } .btcpay-form select:hover { border-color: #ccc; } #btcpay-input-price { -moz-appearance: none; -webkit-appearance: none; border: none; box-shadow: none; text-align: center; font-size: 25px; margin: auto; border-radius: 5px; line-height: 35px; background: #fff; } ",
-							}}
-						/>
-						<form
+					<Grid justify="center" container xs={12}>
+						<Grid
+							component="form"
+							xs={12}
+							container
+							justify="center"
+							alignContent="space-around"
+							item
+							spacing={3}
 							method="POST"
 							onsubmit="onBTCPayFormSubmit(event);return false"
 							action="https://payment.defima.io/api/v1/invoices"
-							className="btcpay-form btcpay-form--block"
 						>
 							<input
 								type="hidden"
@@ -212,28 +212,26 @@ function AddFunds(props) {
 								name="browserRedirect"
 								defaultValue="https://defima.io/account/dashboard"
 							/>
-							<div className="btcpay-custom-container">
-								<div className="btcpay-custom">
-									<input
-										id="btcpay-input-price"
-										name="price"
-										type="number"
-										min="0.00000001"
-										max={10}
-										step="0.00000001"
-										defaultValue={10}
-										style={{ width: "7em" }}
-										oninput="event.preventDefault();isNaN(event.target.value) || event.target.value <= 0 ? document.querySelector('#btcpay-input-price').value = 10 : event.target.value"
-									/>
-								</div>
-							</div>
+							<Grid item container xs={12} md={4}>
+								<TextField
+									id="btcpay-input-price"
+									name="price"
+									type="number"
+									min="0.00000001"
+									max={10}
+									step="0.00000001"
+									defaultValue={10}
+									style={{ width: "7em" }}
+									oninput="event.preventDefault();isNaN(event.target.value) || event.target.value <= 0 ? document.querySelector('#btcpay-input-price').value = 10 : event.target.value"
+								/>
+							</Grid>
 							<input
 								type="hidden"
 								name="currency"
 								defaultValue="BTC"
 							/>
-							<p>
-								<button
+							<Grid item container xs={12} md={4}>
+								<Button
 									type="submit"
 									className="submit"
 									name="submit"
@@ -254,18 +252,10 @@ function AddFunds(props) {
 									>
 										Buy BTC
 									</span>
-									<img
-										src="https://defima.io/logo.png"
-										style={{
-											height: 50,
-											display: "inline-block",
-											padding: "5% 0 5% 5px",
-										}}
-									/>
-								</button>
-							</p>
-						</form>
-					</div>
+								</Button>
+							</Grid>
+						</Grid>
+					</Grid>
 				</DialogContent>
 			</Dialog>
 		</Fragment>

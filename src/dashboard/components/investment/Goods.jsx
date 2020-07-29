@@ -44,7 +44,8 @@ const goodStyles = makeStyles((theme) => ({
     },
   },
   title: {
-    justifySelf: "flex-start",
+    justifySelf: "center",
+    textAlign: "center",
     color: "#fff",
     background: "linear-gradient(247deg, #005c9f 0%, #123273 100%)",
   },
@@ -95,11 +96,20 @@ function Good(props) {
   const classes = goodStyles();
   const { title, percent, invest, levels } = props;
   return (
-    <Grid item xs={6} md={3} lg={3} align="center">
+    <Grid
+      item
+      container
+      xs={10}
+      sm={6}
+      md={3}
+      lg={3}
+      justify="center"
+      alignContent="center"
+    >
       <Card className={classes.box}>
         <CardHeader title={title} className={classes.title} />
         <CardContent className={classes.content}>
-          <Typography variant="body1">
+          <Typography align="center" variant="body1">
             {"Monthly Profit of up to " + percent + "% month"}
           </Typography>
           <Typography variant="body1">{"Starting  from $" + invest}</Typography>
