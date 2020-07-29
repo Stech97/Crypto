@@ -37,7 +37,7 @@ export default function inputField({
         error={touched && error}
         placeholder={placeholder}
         inputProps={{ ...input, disableUnderline: true }}
-        helperText={touched && error ? error : ""}
+        helperText={touched && (error ? error : "")}
       />
     </Grid>
   );

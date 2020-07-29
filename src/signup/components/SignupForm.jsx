@@ -225,7 +225,7 @@ function SignupForm(props) {
     }
     if (!values.termsagree) {
       throw new SubmissionError({
-        termsagree: "Field reuired!",
+        termsagree: "Field reqired!",
         _error: "Signup failed",
       });
     }
@@ -350,7 +350,6 @@ function SignupForm(props) {
               component={Checkbox}
               name="termsagree"
               label="I agree with Terms and conditions"
-              validate={[required]}
             />
             <TermsLink />
           </Grid>
@@ -366,7 +365,6 @@ function SignupForm(props) {
               component={Checkbox}
               name="countrycheck"
               label="I am NOT an USA or Canada Citizen"
-              validate={[required]}
             />
             <CountryLink />
           </Grid>
@@ -374,7 +372,7 @@ function SignupForm(props) {
 
         <OrangeButton
           type="submit"
-          disabled={invalid || hasErrors || pristine || submitting}
+          disabled={hasErrors || invalid || pristine || submitting}
         >
           {createUser.isFetching || submitting
             ? "Loading..."
