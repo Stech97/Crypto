@@ -40,9 +40,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Withdraw(props) {
 	const classes = useStyles();
-	const { Accept, AcceptAll, Discard } = props;
+	const { Accept, AcceptAll, Discard, getWithdrawAction } = props;
 	useEffect(() => {
-		props.getWithdrawAction();
+		getWithdrawAction();
 	}, []);
 
 	const columns = [
@@ -82,13 +82,17 @@ function Withdraw(props) {
 			tooltip: "Accept",
 			onClick: (event, rowData) => {
 				Accept(rowData.userId);
+				getWithdrawAction();
 			},
-			//disabled: (rowData) => rowData.status !== "Withdraw",
+			disabled: (rowData) => rowData.status !== "Withdraw",
 		},
 		{
 			icon: "block",
 			tooltip: "Decline",
-			onClick: (event, rowData) => Discard(rowData.userId),
+			onClick: (event, rowData) => {
+				Discard(rowData.userId);
+				getWithdrawAction();
+			},
 			disabled: (rowData) => rowData.status !== "Withdraw",
 		},
 	];

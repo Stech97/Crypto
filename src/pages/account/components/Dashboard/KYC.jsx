@@ -338,9 +338,14 @@ const mapDispatchToProps = (dispatch) => ({
 	getProofAction: (id) => dispatch(getProof(id)),
 	getSelfiAction: (id) => dispatch(getSelfi(id)),
 	Accept: (id) => dispatch(DecisionKYC(id, true)),
-	Discard: (id) =>
-		dispatch(DecisionKYC(id, false, "Please, resend your KYC")),
-	acceptAll: () => dispatch(acceptAllKYC()),
+	Discard: (id) => {
+		dispatch(DecisionKYC(id, false, "Please, resend your KYC"));
+		dispatch(getKYC());
+	},
+	acceptAll: () => {
+		dispatch(acceptAllKYC());
+		dispatch(getKYC());
+	},
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(KYC);
