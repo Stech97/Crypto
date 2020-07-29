@@ -46,6 +46,9 @@ const WhiteboxStyles = makeStyles((theme) => ({
 			color: grayText,
 		},
 	},
+	box: {
+		marginBottom: "30px",
+	},
 }));
 
 export default memo(function WhiteBox({
@@ -56,7 +59,13 @@ export default memo(function WhiteBox({
 }) {
 	const classes = WhiteboxStyles();
 	return (
-		<Grid container item {...rest} direction="column">
+		<Grid
+			container
+			item
+			{...rest}
+			className={classes.box}
+			direction="column"
+		>
 			<Typography
 				align="center"
 				variant="h5"

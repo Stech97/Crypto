@@ -63,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
 
 		[theme.breakpoints.down("sm")]: {
 			borderRadius: "1rem 1rem 0 0",
+			display: "none",
 		},
 	},
 	body: {

@@ -33,6 +33,9 @@ const WhiteboxStyles = makeStyles((theme) => ({
 			},
 		},
 	},
+	box: {
+		marginBottom: "30px",
+	},
 }));
 
 function Links(props) {
@@ -45,7 +48,14 @@ function Links(props) {
 
 	const classes = WhiteboxStyles();
 	return (
-		<Grid xs={12} item container spacing={2} justify="center">
+		<Grid
+			xs={12}
+			item
+			container
+			className={classes.box}
+			spacing={2}
+			justify="center"
+		>
 			<Grid
 				xs={12}
 				item
