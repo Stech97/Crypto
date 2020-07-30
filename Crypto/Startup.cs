@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Crypto
 {
@@ -57,6 +58,12 @@ namespace Crypto
 							ClockSkew = TimeSpan.Zero
 						};
 					});
+
+			services.AddAuthorization(options =>
+			{
+				options.DefaultPolicy = new AuthorizationPolicyBuilder(
+					JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
+			});
 
 			services.AddAntiforgery(options => { options.HeaderName = "x-xsrf-token"; });
 

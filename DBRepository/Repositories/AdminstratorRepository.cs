@@ -62,6 +62,7 @@ namespace DBRepository.Repositories
 
 						var resp = new
 						{
+							user.Id,
 							Name = user.FirstName + " " + user.LastName,
 							user.Email,
 							user.Phone,
@@ -77,6 +78,7 @@ namespace DBRepository.Repositories
 					{
 						var resp = new
 						{
+							user.Id,
 							Name = user.FirstName + " " + user.LastName,
 							user.Email,
 							user.Phone,
@@ -752,6 +754,7 @@ namespace DBRepository.Repositories
 				foreach (var Withdraw in Withdraws)
 				{
 					var Username = await context.Users.FirstOrDefaultAsync(u => u.Id == Withdraw.UserId);
+					var Balance = await context.Balances.FirstOrDefaultAsync(b => b.UserId == Withdraw.UserId);
 
 					if (Username.IsKYC)
 					{
@@ -759,7 +762,8 @@ namespace DBRepository.Repositories
 						{
 							Amount = Withdraw.Amount / Rate.BTC_USD,
 							Username = Username.Username,
-							UserId = Withdraw.UserId
+							UserId = Withdraw.UserId,
+							Wallet = Balance.BitcoinWallet
 						};
 
 						switch (Withdraw.TypeHistory)
