@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.DTO;
 using Models.Enum;
-using NBitpayClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,19 +17,17 @@ namespace DBRepository.Repositories
 		#region Upload Files
 		public async Task UploadFiles(byte[] image, string name, string Component)
 		{
-			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var Market = await contex.MarketFiles.FirstOrDefaultAsync(mf => mf.Component == Component);
-				if (Market != null)
-				{
-					Market.Content = image;
-					Market.Name = name;
-				}
+            using var contex = ContextFactory.CreateDbContext(ConnectionString);
+            var Market = await contex.MarketFiles.FirstOrDefaultAsync(mf => mf.Component == Component);
+            if (Market != null)
+            {
+                Market.Content = image;
+                Market.Name = name;
+            }
 
-				contex.MarketFiles.Update(Market);
-				await contex.SaveChangesAsync();
-			}
-		}
+            contex.MarketFiles.Update(Market);
+            await contex.SaveChangesAsync();
+        }
 		#endregion
 
 		#region Users

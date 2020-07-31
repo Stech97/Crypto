@@ -114,22 +114,22 @@ namespace DBRepository.Repositories
 					double CurrentCommission = 0;
 					var TypeInvest = Invest.TypeInvest;
 					int MaxLevel = 0;
-					switch (TypeInvest)
-					{
-						case EnumTypeInvestment.Small:
-							MaxLevel = 2;
-							break;
-						case EnumTypeInvestment.Medium:
-							MaxLevel = 4;
-							break;
-						case EnumTypeInvestment.Large:
-							MaxLevel = 7;
-							break;
-						default:
-							MaxLevel = 0;
-							break;
-					}
-					GetChildren(Invest.UserId, level, MaxLevel, ref CurrentCommission);
+                    switch (TypeInvest)
+                    {
+                        case EnumTypeInvestment.Small:
+                            MaxLevel = 2;
+                            break;
+                        case EnumTypeInvestment.Medium:
+                            MaxLevel = 4;
+                            break;
+                        case EnumTypeInvestment.Large:
+                            MaxLevel = 7;
+                            break;
+                        case EnumTypeInvestment.None:
+                            MaxLevel = 0;
+                            break;
+                    }
+                    GetChildren(Invest.UserId, level, MaxLevel, ref CurrentCommission);
 
 					Invest.LastCommission = Invest.CurrentCommission;
 					Invest.CurrentCommission = CurrentCommission;
@@ -150,12 +150,12 @@ namespace DBRepository.Repositories
 					context.BalanceHistories.Add(BalanceHistory);
 					context.Investments.Update(Invest);
 					await context.SaveChangesAsync();
-				}
-			}
-		}
+                }
+            }
+        }
 
-		#region Private Methods
-		private void GetChildren(int parentId, int level, int MaxLevel, ref double CurrentCommission)
+        #region Private Methods
+        private void GetChildren(int parentId, int level, int MaxLevel, ref double CurrentCommission)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
 			{
@@ -213,7 +213,7 @@ namespace DBRepository.Repositories
 			return children;
 		}
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

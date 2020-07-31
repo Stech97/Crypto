@@ -35,7 +35,7 @@ namespace Crypto
 						await DbInitializer.Initialize(context);
 					}
 				}
-				catch (System.Data.SqlClient.SqlException e)
+				catch (Exception e)
 				{
 					Console.Beep();
 					Console.WriteLine(e.Message);

@@ -68,7 +68,7 @@ namespace Crypto
 			services.AddAntiforgery(options => { options.HeaderName = "x-xsrf-token"; });
 
 			services.AddControllers();
-			services.AddAutoMapper();
+			services.AddAutoMapper(typeof(MappingProfile));
 
             #region Repository
             services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();

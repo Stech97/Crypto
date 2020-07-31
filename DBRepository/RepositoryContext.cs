@@ -40,6 +40,7 @@ namespace DBRepository
 
             #region Email
             modelBuilder.Entity<EmailAddres>().ToTable("Email");
+            modelBuilder.Entity<EmailAddres>().HasKey(e => e.Email);
 			modelBuilder.Entity<EmailAddres>().Property(e => e.Email).IsRequired();
             #endregion
 

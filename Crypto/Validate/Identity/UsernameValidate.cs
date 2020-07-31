@@ -5,7 +5,7 @@ namespace Crypto.Validate
 {
     public class UsernameValidateAttribute : ValidationAttribute
     {
-        private string[] usernames;
+        private readonly string[] usernames;
         public UsernameValidateAttribute(string[] names)
         {
             usernames = names;

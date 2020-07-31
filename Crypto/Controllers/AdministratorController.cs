@@ -10,11 +10,11 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System;
 using Crypto.Helpers;
-using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 using System.Text;
 using Models.Enum;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Crypto.Controllers
 {

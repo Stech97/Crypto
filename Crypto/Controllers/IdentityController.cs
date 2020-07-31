@@ -273,7 +273,7 @@ namespace Crypto.Controllers
 						encodedJwt,
 						new CookieOptions { MaxAge = TimeSpan.FromMinutes(AuthOptions.LIFETIME) });
 
-					return Ok("ReAuth");
+					return Ok(response);
 				default:
 					return BadRequest();
 			}
