@@ -1,4 +1,5 @@
 using Models;
+using Models.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,8 +22,6 @@ namespace DBRepository.Interfaces
 
         #region Patch User
         Task UpdateInfo(User user, int Id);
-        Task<User> ReLogin(string token);
-        Task UpdateToken(string Token, int id);
         Task ChangePassword(User user, int Id);
         #endregion
 
@@ -35,6 +34,7 @@ namespace DBRepository.Interfaces
         Task UploadPassport(byte[] image, string nameFile, int UserId);
         Task UploadProof(byte[] image, string nameFile, int UserId);
         Task UploadSelfi(byte[] image, string nameFile, int UserId);
+        Task<ReAuth> ReAuth(int userId);
         #endregion
     }
 }

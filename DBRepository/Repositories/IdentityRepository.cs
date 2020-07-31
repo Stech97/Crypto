@@ -6,6 +6,9 @@ using Models;
 using System.Security.Cryptography;
 using System.Text;
 using System.Collections.Generic;
+using Models.DTO;
+using System;
+using Models.Enum;
 
 namespace DBRepository.Repositories
 {
@@ -233,7 +236,6 @@ namespace DBRepository.Repositories
 						{
 							Id = confirmUserId,
 							confirmUser.Username,
-							currentSession.Token,
 							IsVerification = confirmUser.IsVerified,
 						};
 						response.Add("Ok", confirmEmail);
@@ -408,6 +410,7 @@ namespace DBRepository.Repositories
 				return response;
 			}
 		}
+		
 		public async Task RecoveryPassword(User user, int Id)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
@@ -420,6 +423,50 @@ namespace DBRepository.Repositories
 				context.ForgotPasswords.Remove(forgotPassword);
 				context.Users.Update(newPassword);
 				await context.SaveChangesAsync();
+			}
+		}
+
+		public async Task<ReAuth> ReAuth(int UserId)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var CurrentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == UserId);
+				if (CurrentSession == null)
+					return null;
+
+				ReAuth reAuth = null;
+				var DifTime = CurrentSession.LoginTime.AddMinutes(60) - DateTime.Now;
+
+				if (DifTime.Minutes > 5)
+					reAuth = new ReAuth() { Status = EnumTypeAuth.TimeOk };
+
+				if (DifTime.Minutes > 0 && DifTime.Minutes <= 5)
+				{
+					var Users = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == UserId);
+					
+					reAuth = new ReAuth()
+					{
+						Username = Users.Username,
+						IsVerified = Users.IsVerified,
+						IsFogotPassword = Users.IsFogotPassword,
+						IsBlock = Users.IsBlock,
+						Status = EnumTypeAuth.EndTime
+					};
+
+					CurrentSession.LoginTime = DateTime.Now;
+					context.Update(CurrentSession);
+					await context.SaveChangesAsync();
+				}
+
+				if (DifTime.Minutes <= 0)
+				{
+					reAuth = new ReAuth() {	Status = EnumTypeAuth.NoAuth };
+
+					context.Remove(CurrentSession);
+					await context.SaveChangesAsync();
+				}
+
+				return reAuth;
 			}
 		}
 
@@ -441,6 +488,7 @@ namespace DBRepository.Repositories
 				await context.SaveChangesAsync();
 			}
 		}
+		
 		public async Task ChangePassword(User user, int Id)
 		{
 			using (var context = ContextFactory.CreateDbContext(ConnectionString))
@@ -451,34 +499,7 @@ namespace DBRepository.Repositories
 				await context.SaveChangesAsync();
 			}
 		}
-		public async Task<User> ReLogin(string token)
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var CurrentSession = await context.CurrentSessions.AsNoTracking().FirstOrDefaultAsync(cs => cs.Token == token);
-				if (CurrentSession == null)
-					return null;
 
-				var User = context.Users.AsNoTracking().Select(u => new User()
-				{
-					Id = u.Id,
-					Username = u.Username,
-					IsVerified = u.IsVerified
-				}).Where(u => u.Id == CurrentSession.UserId).FirstOrDefault();
-
-				return User;
-			}
-		}
-		public async Task UpdateToken(string Token, int UserId)
-		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var CurrentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == UserId);
-				CurrentSession.Token = Token;
-				context.CurrentSessions.Update(CurrentSession);
-				await context.SaveChangesAsync();
-			}
-		}
         #endregion
 
         #region Patch bool
@@ -505,6 +526,7 @@ namespace DBRepository.Repositories
 				return user.IsShowInfo;
 			}
 		}
+
         #endregion
 
         #region Upload Picture

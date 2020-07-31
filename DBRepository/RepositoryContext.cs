@@ -56,7 +56,6 @@ namespace DBRepository
             #region Current Session
             modelBuilder.Entity<CurrentSession>().ToTable("CurrentSession");
 			modelBuilder.Entity<CurrentSession>().Property(cs => cs.LoginTime).IsRequired();
-			modelBuilder.Entity<CurrentSession>().Property(cs => cs.Token).IsRequired();
             #endregion
 
             #region News

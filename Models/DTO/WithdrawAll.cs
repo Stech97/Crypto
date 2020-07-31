@@ -8,20 +8,20 @@ namespace Models.DTO
         public double Amount { get; set; }
         public int UserId { get; set; }
         public string Wallet { get; set; }
-        public EnumWithDraw Status { get; set; }
+        public EnumTypeWithdraw Status { get; set; }
 
         public override string ToString()
         {
             string ret = string.Empty;
             switch (Status)
             {
-                case EnumWithDraw.Accept:
+                case EnumTypeWithdraw.Accept:
                     ret = "Accept";
                     break;
-                case EnumWithDraw.Discard:
+                case EnumTypeWithdraw.Discard:
                     ret = "Discard";
                     break;
-                case EnumWithDraw.Withdraw:
+                case EnumTypeWithdraw.Withdraw:
                     ret = "Withdraw";
                     break;
             }

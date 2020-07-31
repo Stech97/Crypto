@@ -1,5 +1,6 @@
 using Crypto.ViewModels.Identity;
 using Models;
+using Models.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,7 +11,6 @@ namespace Crypto.Services.Interfaces
 		Task<User> GetUser(string userName);
 		Task<object> GetUser(int Id);
 		Task<object> GetUserInfo(int Id);
-		Task UpdateToken(string Token, int id);
 		Task<string> AddUser(LoginViewModel request);
 		Task SetLoginHistory(LoginHistoryViewModel request);
 		Task SignOut(int Id);
@@ -19,11 +19,11 @@ namespace Crypto.Services.Interfaces
 		Task<Dictionary<string, object>> ConfirmEmail(string Id);
 		Task<Dictionary<string, object>> FogotPassword(CheckViewModel request);
 		Task<Dictionary<string, object>> AcceptFogot(string Id);
-        
+		Task<ReAuth> ReAuth(int userId);
+
 		#region Patch User
-        Task UpdateInfo(UpdateInfoViewModel request, int Id);
+		Task UpdateInfo(UpdateInfoViewModel request, int Id);
 		Task ChangePassword(ChangePasswordViewModel request, int Id);
-		Task<User> ReLogin(string Token);
 		#endregion
 
 		#region Patch bool
@@ -35,6 +35,6 @@ namespace Crypto.Services.Interfaces
         Task UploadPassport(byte[] image, string name, int UserId);
         Task UploadProof(byte[] image, string name, int UserId);
         Task UploadSelfi(byte[] image, string name, int UserId);
-        #endregion 
+        #endregion
     }
 }

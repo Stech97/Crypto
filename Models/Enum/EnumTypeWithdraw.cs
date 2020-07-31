@@ -1,6 +1,6 @@
 ﻿namespace Models.Enum
 {
-    public enum EnumWithDraw
+    public enum EnumTypeWithdraw
     {
         Accept = 0,
         Discard = 1,

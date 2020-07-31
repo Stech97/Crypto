@@ -6,6 +6,7 @@ using Crypto.ViewModels.Identity;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Models.DTO;
 
 namespace Crypto.Services.Implementation
 {
@@ -86,6 +87,11 @@ namespace Crypto.Services.Implementation
 			await _repository.RecoveryPassword(newPassword, Id);
 		}
 
+		public async Task<ReAuth> ReAuth(int UserId)
+        {
+			return await _repository.ReAuth(UserId);
+        }
+
         #region Patch User
         public async Task UpdateInfo(UpdateInfoViewModel request, int Id)
 		{
@@ -93,21 +99,12 @@ namespace Crypto.Services.Implementation
 			await _repository.UpdateInfo(update, Id);
 		}
 
-		public async Task<User> ReLogin(string Token)
-		{
-			return await _repository.ReLogin(Token);
-		}
-
-		public async Task UpdateToken(string Token, int id)
-		{
-			await _repository.UpdateToken(Token, id);
-		}
-
 		public async Task ChangePassword(ChangePasswordViewModel request, int Id)
 		{
 			var newPassword = _mapper.Map<ChangePasswordViewModel, User>(request);
 			await _repository.ChangePassword(newPassword, Id);
 		}
+
 		#endregion
 
 		#region Patch bool
@@ -120,6 +117,7 @@ namespace Crypto.Services.Implementation
 		{
 			return await _repository.ShowInfo(Id, ShowInfo);
         }
+
 		#endregion
 
 		#region Upload Picture
@@ -137,6 +135,7 @@ namespace Crypto.Services.Implementation
 		{
 			await _repository.UploadSelfi(image, nameFile, UserId);
 		}
+
 		#endregion
 	}
 }

@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Models.Enum;
 
 namespace Crypto.Controllers
 {
@@ -161,7 +162,6 @@ namespace Crypto.Controllers
 			UserViewModel response = new UserViewModel
 			{
 				Id = user.Id,
-				//Token = encodedJwt,
 				IsVerified = user.IsVerified,
 			};
 
@@ -218,6 +218,68 @@ namespace Crypto.Controllers
 		#endregion
 
 		#region Authorize
+		[AllowAnonymous]
+		[Route("ReAuth")]
+		[HttpGet]
+		public async Task<IActionResult> ReAuth(int UserId)
+		{
+			var ret = await _identityService.ReAuth(UserId);
+			
+			if (ret == null)
+				return Unauthorized();
+
+			switch (ret.Status)
+			{
+				case EnumTypeAuth.TimeOk:
+					return Ok();
+				case EnumTypeAuth.NoAuth:
+					return Unauthorized();
+				case EnumTypeAuth.EndTime:
+                    ClaimsIdentity identity;
+                    if (ret.IsFogotPassword && ret.IsBlock)
+						return Forbid();
+					else
+					{
+						var claims = new List<Claim>
+						{
+							new Claim(ClaimsIdentity.DefaultNameClaimType, ret.Username),
+							new Claim(ClaimsIdentity.DefaultRoleClaimType, "Client")
+						};
+						identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+					}
+					if (identity == null)
+						return Unauthorized();
+
+					var now = DateTime.UtcNow;
+					var timeOut = now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME));
+					// создаем JWT-токен
+					var jwt = new JwtSecurityToken(
+							issuer: AuthOptions.ISSUER,
+							audience: AuthOptions.AUDIENCE,
+							notBefore: now,
+							claims: identity.Claims,
+							expires: timeOut,
+							signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+					var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+
+					UserViewModel response = new UserViewModel
+					{
+						Id = UserId,
+						IsVerified = ret.IsVerified,
+					};
+					HttpContext.Response.Cookies.Append(
+						".AspNetCore.Application.Id",
+						encodedJwt,
+						new CookieOptions { MaxAge = TimeSpan.FromMinutes(AuthOptions.LIFETIME) });
+
+					return Ok("ReAuth");
+				default:
+					return BadRequest();
+			}
+		}
+
+
 
 		[Route("GetUser")]
 		[HttpGet]
@@ -267,46 +329,6 @@ namespace Crypto.Controllers
 		{
 			await _identityService.UpdateInfo(request, Id);
 			return Ok();
-		}
-
-		[Route("ReLogin")]
-		[HttpGet]
-		public async Task<IActionResult> ReLogin([FromHeader] string Token)
-		{
-			var user = await _identityService.ReLogin(Token);
-			if (user == null)
-				return NotFound("Token not found");
-
-			var claims = new List<Claim>
-						{
-							new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
-							new Claim(ClaimsIdentity.DefaultRoleClaimType, "Client")
-						};
-			ClaimsIdentity identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-
-			var now = DateTime.UtcNow;
-			// создаем JWT-токен
-			var jwt = new JwtSecurityToken(
-					issuer: AuthOptions.ISSUER,
-					audience: AuthOptions.AUDIENCE,
-					notBefore: now,
-					claims: identity.Claims,
-					expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-					signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-			UserViewModel response = new UserViewModel
-			{
-				Id = user.Id,
-				IsVerified = user.IsVerified,
-			};
-			var timeOut = DateTime.Now.AddMinutes(AuthOptions.LIFETIME);
-			Helpers.TaskScheduler.Instance.ScheduleTask
-				(timeOut.Hour, timeOut.Minute + 5, timeOut.Second, timeOut.Millisecond, 0, () => { _identityService.SignOut(user.Id); });
-
-			await _identityService.UpdateToken(encodedJwt, user.Id);
-
-			return Ok(response);
 		}
 		
 		#endregion
@@ -404,4 +426,5 @@ namespace Crypto.Controllers
 
 		#endregion
 	}
+
 }

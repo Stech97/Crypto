@@ -769,13 +769,13 @@ namespace DBRepository.Repositories
 						switch (Withdraw.TypeHistory)
 						{
 							case EnumTypeHistory.AcceptWithdraw:
-								resp.Status = EnumWithDraw.Accept;
+								resp.Status = EnumTypeWithdraw.Accept;
 								break;
 							case EnumTypeHistory.DiscardWithdraw:
-								resp.Status = EnumWithDraw.Discard;
+								resp.Status = EnumTypeWithdraw.Discard;
 								break;
 							case EnumTypeHistory.Withdraw:
-								resp.Status = EnumWithDraw.Withdraw;
+								resp.Status = EnumTypeWithdraw.Withdraw;
 								break;
 						}
 
@@ -923,9 +923,6 @@ namespace DBRepository.Repositories
 				var Users = await context.Users.AsNoTracking().ToListAsync();
 				foreach (var user in Users)
 				{
-					var token = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == user.Id);
-					if (token != null)
-					{
 						var Res = new
 						{
 							user.Id,
@@ -934,24 +931,8 @@ namespace DBRepository.Repositories
 							user.LastName,
 							user.Email,
 							user.IsVerified,
-							token.Token
 						};
 						response.Add(Res);
-					}
-					else
-					{
-						var Res = new
-						{
-							user.Id,
-							user.Username,
-							user.FirstName,
-							user.LastName,
-							user.Email,
-							user.IsVerified,
-							token = ""
-						};
-						response.Add(Res);
-					}
 				}
 				return response;
 			}
