@@ -42,6 +42,7 @@ namespace DBRepository.Interfaces
 
         #region Get User Picture
         Task<Images> GetPassportPicture(int UserId);
+        Task<ReAuth> ReAuth(int userId);
         Task<Images> GetProofPicture(int UserId);
         Task<Images> GetSelfiPicture(int UserId);
         #endregion

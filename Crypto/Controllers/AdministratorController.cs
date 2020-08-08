@@ -51,10 +51,10 @@ namespace Crypto.Controllers
 			await _administratorService.UploadFiles(image, name, Content);
 			return Ok();
 		}
+		
 		#endregion
 
 		#region Users
-		[Authorize(Roles = "Administrator")]
 		[Route("GetUsersInfo")]
 		[HttpGet]
 		public async Task<IActionResult> GetUsersInfo()
@@ -128,6 +128,72 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
+		[AllowAnonymous]
+		[Route("ReAuth")]
+		[HttpGet]
+		public async Task<IActionResult> ReAuth(int UserId)
+		{
+			var ret = await _administratorService.ReAuth(UserId);
+
+			if (ret == null)
+				return Unauthorized();
+
+			if (ret.IsAdmin)
+			{
+				switch (ret.Status)
+				{
+					case EnumTypeAuth.TimeOk:
+						return Ok();
+					case EnumTypeAuth.NoAuth:
+						return Unauthorized();
+					case EnumTypeAuth.EndTime:
+						ClaimsIdentity identity;
+						if (ret.IsFogotPassword && ret.IsBlock)
+							return Forbid();
+						else
+						{
+							var claims = new List<Claim>
+							{
+								new Claim(ClaimsIdentity.DefaultNameClaimType, ret.Username),
+								new Claim(ClaimsIdentity.DefaultRoleClaimType, "Administrator")
+							};
+							identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+						}
+						if (identity == null)
+							return Unauthorized();
+
+						var now = DateTime.UtcNow;
+						var timeOut = now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME));
+						// создаем JWT-токен
+						var jwt = new JwtSecurityToken(
+								issuer: AuthOptions.ISSUER,
+								audience: AuthOptions.AUDIENCE,
+								notBefore: now,
+								claims: identity.Claims,
+								expires: timeOut,
+								signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+						var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+
+						UserViewModel response = new UserViewModel
+						{
+							Id = UserId,
+							IsVerified = ret.IsVerified,
+						};
+
+						HttpContext.Response.Cookies.Append(
+							".AspNetCore.Application.Id",
+							encodedJwt,
+							new CookieOptions { MaxAge = TimeSpan.FromMinutes(AuthOptions.LIFETIME) });
+
+						return Ok(response);
+					default:
+						return BadRequest();
+				}
+			}
+			else
+				return Forbid();
+		}
 
 		#endregion
 

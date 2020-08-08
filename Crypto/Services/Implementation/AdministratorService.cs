@@ -45,6 +45,11 @@ namespace Crypto.Services.Implementation
 			return await _repository.GetUser(userName);
 		}
 
+		public async Task<ReAuth> ReAuth(int UserId)
+		{
+			return await _repository.ReAuth(UserId);
+		}
+
 		#endregion
 
 		#region News

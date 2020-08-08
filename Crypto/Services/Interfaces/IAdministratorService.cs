@@ -1,6 +1,7 @@
 ﻿using Crypto.ViewModels.Administrator;
 using Crypto.ViewModels.Dashdoard;
 using Models;
+using Models.DTO;
 using Models.Enum;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -81,6 +82,7 @@ namespace Crypto.Services.Interfaces
         #region Dev
         Task DelUser(int Id);
         Task<List<UserViewModel>> GetUsers();
+        Task<ReAuth> ReAuth(int userId);
         #endregion
     }
 }

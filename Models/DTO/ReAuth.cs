@@ -8,6 +8,7 @@ namespace Models.DTO
         public bool IsVerified { get; set; }
         public bool IsFogotPassword { get; set; }
         public bool IsBlock { get; set; }
+        public bool IsAdmin { get; set; }
         public EnumTypeAuth Status { get; set; }
     }
 }

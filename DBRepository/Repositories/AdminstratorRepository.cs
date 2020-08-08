@@ -112,6 +112,51 @@ namespace DBRepository.Repositories
 			}
 		}
 
+		public async Task<ReAuth> ReAuth(int UserId)
+		{
+			using (var context = ContextFactory.CreateDbContext(ConnectionString))
+			{
+				var CurrentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == UserId);
+				if (CurrentSession == null)
+					return null;
+
+				ReAuth reAuth = null;
+				var DifTime = CurrentSession.LoginTime.AddMinutes(60) - DateTime.Now;
+
+				if (DifTime.Minutes > 5)
+					reAuth = new ReAuth() { Status = EnumTypeAuth.TimeOk };
+
+				if (DifTime.Minutes > 0 && DifTime.Minutes <= 5)
+				{
+					var Users = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == UserId);
+
+					reAuth = new ReAuth()
+					{
+						Username = Users.Username,
+						IsVerified = Users.IsVerified,
+						IsFogotPassword = Users.IsFogotPassword,
+						IsBlock = Users.IsBlock,
+						IsAdmin = Users.IsAdmin,
+						Status = EnumTypeAuth.EndTime
+					};
+
+					CurrentSession.LoginTime = DateTime.Now;
+					context.Update(CurrentSession);
+					await context.SaveChangesAsync();
+				}
+
+				if (DifTime.Minutes <= 0)
+				{
+					reAuth = new ReAuth() { Status = EnumTypeAuth.NoAuth };
+
+					context.Remove(CurrentSession);
+					await context.SaveChangesAsync();
+				}
+
+				return reAuth;
+			}
+		}
+
 		#endregion
 
 		#region News
