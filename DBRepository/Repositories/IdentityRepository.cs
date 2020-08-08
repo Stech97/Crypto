@@ -111,7 +111,7 @@ namespace DBRepository.Repositories
 					context.Users.Add(user);
 					await context.SaveChangesAsync();
 
-					var newUser = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == user.Username);
+					var newUser = await context.Users.FirstOrDefaultAsync(u => u.Username == user.Username);
 					
 					var newWallet = new Balance
 					{
@@ -121,8 +121,6 @@ namespace DBRepository.Repositories
 						User = newUser,
 						UserId = newUser.Id
 					};
-					context.Balances.Add(newWallet);
-					await context.SaveChangesAsync();
 
 					ConfirmEmail confirmEmail = new ConfirmEmail
 					{
@@ -130,6 +128,8 @@ namespace DBRepository.Repositories
 						User = newUser,
 						UserId = newUser.Id
 					};
+
+					context.Balances.Add(newWallet);
 					context.ConfirmEmails.Add(confirmEmail);
 					await context.SaveChangesAsync();
 
