@@ -18,158 +18,142 @@ namespace DBRepository.Repositories
 
 		public async Task<User> GetUser(string userName)
 		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				return await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == userName);
-			}
-		}
+            using var context = ContextFactory.CreateDbContext(ConnectionString);
+            return await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == userName);
+        }
 
 		public async Task<object> GetUser(int Id)
 		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var user = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Id);
+            using var context = ContextFactory.CreateDbContext(ConnectionString);
+            var user = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Id);
 
-				var response = new
-				{
-					user.Id,
-					user.Username
-				};
+            var response = new
+            {
+                user.Id,
+                user.Username
+            };
 
-				return response;
-			}
-		}
+            return response;
+        }
 
 		public async Task<object> GetUserInfo(int Id)
 		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var user = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Id);
+            using var context = ContextFactory.CreateDbContext(ConnectionString);
+            var user = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == Id);
 
-				if (user.IsDiscard)
-				{
-					var response = new
-					{
-						user.Email,
-						user.Phone,
-						user.FirstName,
-						user.LastName,
-						user.BDay,
-						user.Country,
-						user.Adress,
-						user.Zip,
-						user.IsReInvest,
-						user.IsShowInfo,
-						user.IsKYC,
-						user.IsDiscard,
-						user.ErrorDiscard
-					}; 
-					return response;
-				}
-				else
-				{
-					var response = new
-					{
-						user.Email,
-						user.Phone,
-						user.FirstName,
-						user.LastName,
-						user.BDay,
-						user.Country,
-						user.Adress,
-						user.Zip,
-						user.IsReInvest,
-						user.IsShowInfo,
-						user.IsKYC,
-						user.IsDiscard,
-					};
-					return response;
-				}
-
-
-			}
-		}
+            if (user.IsDiscard)
+            {
+                var response = new
+                {
+                    user.Email,
+                    user.Phone,
+                    user.FirstName,
+                    user.LastName,
+                    user.BDay,
+                    user.Country,
+                    user.Adress,
+                    user.Zip,
+                    user.IsReInvest,
+                    user.IsShowInfo,
+                    user.IsKYC,
+                    user.IsDiscard,
+                    user.ErrorDiscard
+                };
+                return response;
+            }
+            else
+            {
+                var response = new
+                {
+                    user.Email,
+                    user.Phone,
+                    user.FirstName,
+                    user.LastName,
+                    user.BDay,
+                    user.Country,
+                    user.Adress,
+                    user.Zip,
+                    user.IsReInvest,
+                    user.IsShowInfo,
+                    user.IsKYC,
+                    user.IsDiscard,
+                };
+                return response;
+            }
+        }
 
 		public async Task<string> AddUser(User user, string Parent)
 		{
 			var check = await CheckInfo(user);
 			if (check == null)
 			{
-				using (var context = ContextFactory.CreateDbContext(ConnectionString))
-				{
-                    var IsParsed = int.TryParse(Parent, out int ParentId);
-                    if (!IsParsed)
-					{
-						var ParentUser = await GetUser(Parent);
-						if (ParentUser != null)
-							ParentId = (await GetUser(Parent)).Id;
-					}
+                using var context = ContextFactory.CreateDbContext(ConnectionString);
+                var IsParsed = int.TryParse(Parent, out int ParentId);
+                if (!IsParsed)
+                {
+                    var ParentUser = await GetUser(Parent);
+                    if (ParentUser != null)
+                        ParentId = (await GetUser(Parent)).Id;
+                }
 
-					if (ParentId != 0)
-						user.ParentId = ParentId;
-                   
-					context.Users.Add(user);
-					await context.SaveChangesAsync();
+                if (ParentId != 0)
+                    user.ParentId = ParentId;
 
-					var newUser = await context.Users.FirstOrDefaultAsync(u => u.Username == user.Username);
-					
-					var newWallet = new Balance
-					{
-						USDBalance = 0,
-						BitcoinBalance = 0,
-						DefimaBalance = 0,
-						User = newUser,
-						UserId = newUser.Id
-					};
+                context.Users.Add(user);
+                await context.SaveChangesAsync();
 
-					ConfirmEmail confirmEmail = new ConfirmEmail
-					{
-						TimeConfirm = System.DateTime.UtcNow,
-						User = newUser,
-						UserId = newUser.Id
-					};
+                var newUser = await context.Users.FirstOrDefaultAsync(u => u.Username == user.Username);
 
-					context.Balances.Add(newWallet);
-					context.ConfirmEmails.Add(confirmEmail);
-					await context.SaveChangesAsync();
+                var newWallet = new Balance
+                {
+                    USDBalance = 0,
+                    BitcoinBalance = 0,
+                    DefimaBalance = 0,
+                    User = newUser,
+                    UserId = newUser.Id
+                };
 
-					string hash = "";
-					using (MD5 md5Hash = MD5.Create())
-						hash = GetMd5Hash(md5Hash, confirmEmail.TimeConfirm.ToString());
-					return hash;
-				}
-			}
+                ConfirmEmail confirmEmail = new ConfirmEmail
+                {
+                    TimeConfirm = System.DateTime.UtcNow,
+                    User = newUser,
+                    UserId = newUser.Id
+                };
+
+                context.Balances.Add(newWallet);
+                context.ConfirmEmails.Add(confirmEmail);
+                await context.SaveChangesAsync();
+
+                string hash = "";
+                using (MD5 md5Hash = MD5.Create())
+                    hash = GetMd5Hash(md5Hash, confirmEmail.TimeConfirm.ToString());
+                return hash;
+            }
 			else
 				return null;
 		}
 
 		public async Task SetLoginHistory(LoginHistory loginHistory)
 		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				context.LoginHistories.Add(loginHistory);
-				await context.SaveChangesAsync();
-			}
-		}
+            using var context = ContextFactory.CreateDbContext(ConnectionString);
+            context.LoginHistories.Add(loginHistory);
+            await context.SaveChangesAsync();
+        }
 
 		public async Task SetCurrentSession(CurrentSession currentSession)
 		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				context.CurrentSessions.Add(currentSession);
-				await context.SaveChangesAsync();
-			}
-		}
+            using var context = ContextFactory.CreateDbContext(ConnectionString);
+            context.CurrentSessions.Add(currentSession);
+            await context.SaveChangesAsync();
+        }
 
 		public async Task SignOut(int Id)
 		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var currentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == Id);
-				context.CurrentSessions.Remove(currentSession);
-				await context.SaveChangesAsync();
-			}
-		}
+            using var context = ContextFactory.CreateDbContext(ConnectionString);
+            var currentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == Id);
+            context.CurrentSessions.Remove(currentSession);
+            await context.SaveChangesAsync();
+        }
 
 		public async Task<User> CheckInfo(User user)
 		{
@@ -208,18 +192,16 @@ namespace DBRepository.Repositories
 				var Emails = await context.ConfirmEmails.AsNoTracking().ToListAsync();
 				foreach (var email in Emails)
 				{
-					using (MD5 md5Hash = MD5.Create())
-					{
-						var tempEmail = GetMd5Hash(md5Hash, email.TimeConfirm.ToString());
-						if (tempEmail == Id)
-						{
-							confirmUserId = email.UserId;
-							context.ConfirmEmails.Remove(email);
-							await context.SaveChangesAsync();
-							break;
-						}
-					}
-				}
+                    using MD5 md5Hash = MD5.Create();
+                    var tempEmail = GetMd5Hash(md5Hash, email.TimeConfirm.ToString());
+                    if (tempEmail == Id)
+                    {
+                        confirmUserId = email.UserId;
+                        context.ConfirmEmails.Remove(email);
+                        await context.SaveChangesAsync();
+                        break;
+                    }
+                }
 
 				if (confirmUserId != 0)
 				{
@@ -374,158 +356,144 @@ namespace DBRepository.Repositories
 		{
 			Dictionary<string, object> response = new Dictionary<string, object>(1);
 
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var forgotPassword = await context.ForgotPasswords.AsNoTracking().ToListAsync();
+            using var context = ContextFactory.CreateDbContext(ConnectionString);
+            var forgotPassword = await context.ForgotPasswords.AsNoTracking().ToListAsync();
 
-				if (forgotPassword.Count != 0)
-				{
-					foreach (var fogotUser in forgotPassword)
-					{
-						var fogot = fogotUser.Username + " " + fogotUser.Email + " " + fogotUser.TimeForgot.ToString();
-						string hash = "";
-						using (MD5 md5Hash = MD5.Create())
-							hash = GetMd5Hash(md5Hash, fogot);
-						if (hash == Id)
-						{
-							var ConfirmFogot = new
-							{
-								Id = fogotUser.UserId,
-								fogotUser.Username
-							};
-							response.Add("Ok", ConfirmFogot);
-							return response;
-						}
-					}
-				}
-				else
-				{
-					var ConfirmFogot = new
-					{
-						Id = 0,
-						Username = ""
-					};
-					response.Add("No found", ConfirmFogot);
-				}
-				return response;
-			}
-		}
+            if (forgotPassword.Count != 0)
+            {
+                foreach (var fogotUser in forgotPassword)
+                {
+                    var fogot = fogotUser.Username + " " + fogotUser.Email + " " + fogotUser.TimeForgot.ToString();
+                    string hash = "";
+                    using (MD5 md5Hash = MD5.Create())
+                        hash = GetMd5Hash(md5Hash, fogot);
+                    if (hash == Id)
+                    {
+                        var ConfirmFogot = new
+                        {
+                            Id = fogotUser.UserId,
+                            fogotUser.Username
+                        };
+                        response.Add("Ok", ConfirmFogot);
+                        return response;
+                    }
+                }
+            }
+            else
+            {
+                var ConfirmFogot = new
+                {
+                    Id = 0,
+                    Username = ""
+                };
+                response.Add("No found", ConfirmFogot);
+            }
+            return response;
+        }
 		
 		public async Task RecoveryPassword(User user, int Id)
 		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var newPassword = await context.Users.FirstOrDefaultAsync(u => u.Id == Id);
-				newPassword.Username = user.Username;
-				newPassword.Password = user.Password;
-				newPassword.IsFogotPassword = false;
-				var forgotPassword = await context.ForgotPasswords.FirstOrDefaultAsync(fp => fp.UserId == Id);
-				context.ForgotPasswords.Remove(forgotPassword);
-				context.Users.Update(newPassword);
-				await context.SaveChangesAsync();
-			}
-		}
+            using var context = ContextFactory.CreateDbContext(ConnectionString);
+            var newPassword = await context.Users.FirstOrDefaultAsync(u => u.Id == Id);
+            newPassword.Username = user.Username;
+            newPassword.Password = user.Password;
+            newPassword.IsFogotPassword = false;
+            var forgotPassword = await context.ForgotPasswords.FirstOrDefaultAsync(fp => fp.UserId == Id);
+            context.ForgotPasswords.Remove(forgotPassword);
+            context.Users.Update(newPassword);
+            await context.SaveChangesAsync();
+        }
 
 		public async Task<ReAuth> ReAuth(int UserId)
 		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var CurrentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == UserId);
-				if (CurrentSession == null)
-					return null;
+            using var context = ContextFactory.CreateDbContext(ConnectionString);
+            var CurrentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == UserId);
+            if (CurrentSession == null)
+                return null;
 
-				ReAuth reAuth = null;
-				var DifTime = CurrentSession.LoginTime.AddMinutes(60) - DateTime.Now;
+            ReAuth reAuth = null;
+            var DifTime = CurrentSession.LoginTime.AddMinutes(60) - DateTime.Now;
 
-				if (DifTime.Minutes > 5)
-					reAuth = new ReAuth() { Status = EnumTypeAuth.TimeOk };
+            if (DifTime.Minutes > 5)
+                reAuth = new ReAuth() { Status = EnumTypeAuth.TimeOk };
 
-				if (DifTime.Minutes > 0 && DifTime.Minutes <= 5)
-				{
-					var Users = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == UserId);
-					
-					reAuth = new ReAuth()
-					{
-						Username = Users.Username,
-						IsVerified = Users.IsVerified,
-						IsFogotPassword = Users.IsFogotPassword,
-						IsBlock = Users.IsBlock,
-						Status = EnumTypeAuth.EndTime
-					};
+            if (DifTime.Minutes > 0 && DifTime.Minutes <= 5)
+            {
+                var Users = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == UserId);
 
-					CurrentSession.LoginTime = DateTime.Now;
-					context.Update(CurrentSession);
-					await context.SaveChangesAsync();
-				}
+                reAuth = new ReAuth()
+                {
+                    Username = Users.Username,
+                    IsVerified = Users.IsVerified,
+                    IsFogotPassword = Users.IsFogotPassword,
+                    IsBlock = Users.IsBlock,
+                    Status = EnumTypeAuth.EndTime
+                };
 
-				if (DifTime.Minutes <= 0)
-				{
-					reAuth = new ReAuth() {	Status = EnumTypeAuth.NoAuth };
+                CurrentSession.LoginTime = DateTime.Now;
+                context.Update(CurrentSession);
+                await context.SaveChangesAsync();
+            }
 
-					context.Remove(CurrentSession);
-					await context.SaveChangesAsync();
-				}
+            if (DifTime.Minutes <= 0)
+            {
+                reAuth = new ReAuth() { Status = EnumTypeAuth.NoAuth };
 
-				return reAuth;
-			}
-		}
+                context.Remove(CurrentSession);
+                await context.SaveChangesAsync();
+            }
+
+            return reAuth;
+        }
 
         #region Patch User
         public async Task UpdateInfo(User user, int Id)
 		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var updateUser = await context.Users.FirstOrDefaultAsync(u => u.Id == Id);
-				updateUser.Email = user.Email;
-				updateUser.Phone = user.Phone;
-				updateUser.FirstName = user.FirstName;
-				updateUser.LastName = user.LastName;
-				updateUser.Country = user.Country;
-				updateUser.Adress = user.Adress;
-				updateUser.Zip = user.Zip;
-				updateUser.BDay = user.BDay;
-				context.Users.Update(updateUser);
-				await context.SaveChangesAsync();
-			}
-		}
+            using var context = ContextFactory.CreateDbContext(ConnectionString);
+            var updateUser = await context.Users.FirstOrDefaultAsync(u => u.Id == Id);
+            updateUser.Email = user.Email;
+            updateUser.Phone = user.Phone;
+            updateUser.FirstName = user.FirstName;
+            updateUser.LastName = user.LastName;
+            updateUser.Country = user.Country;
+            updateUser.Adress = user.Adress;
+            updateUser.Zip = user.Zip;
+            updateUser.BDay = user.BDay;
+            context.Users.Update(updateUser);
+            await context.SaveChangesAsync();
+        }
 		
 		public async Task ChangePassword(User user, int Id)
 		{
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var newPassword = await context.Users.FirstOrDefaultAsync(u => u.Id == Id && u.Username == user.Username);
-				newPassword.Password = user.Password;
-				context.Users.Update(newPassword);
-				await context.SaveChangesAsync();
-			}
-		}
+            using var context = ContextFactory.CreateDbContext(ConnectionString);
+            var newPassword = await context.Users.FirstOrDefaultAsync(u => u.Id == Id && u.Username == user.Username);
+            newPassword.Password = user.Password;
+            context.Users.Update(newPassword);
+            await context.SaveChangesAsync();
+        }
 
         #endregion
 
         #region Patch bool
         public async Task<bool> ReInvest(int Id, bool ReInvest)
 		{
-			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == Id);
-				user.IsReInvest = ReInvest;
-				contex.Users.Update(user);
-				await contex.SaveChangesAsync();
-				return user.IsReInvest;
-			}
-		}
+            using var contex = ContextFactory.CreateDbContext(ConnectionString);
+            var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == Id);
+            user.IsReInvest = ReInvest;
+            contex.Users.Update(user);
+            await contex.SaveChangesAsync();
+            return user.IsReInvest;
+        }
 
 		public async Task<bool> ShowInfo(int Id, bool ShowInfo)
 		{
-			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == Id);
-				user.IsShowInfo = ShowInfo;
-				contex.Users.Update(user);
-				await contex.SaveChangesAsync();
-				return user.IsShowInfo;
-			}
-		}
+            using var contex = ContextFactory.CreateDbContext(ConnectionString);
+            var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == Id);
+            user.IsShowInfo = ShowInfo;
+            contex.Users.Update(user);
+            await contex.SaveChangesAsync();
+            return user.IsShowInfo;
+        }
 
         #endregion
 
@@ -533,49 +501,43 @@ namespace DBRepository.Repositories
 
         public async Task UploadPassport(byte[] image, string nameFile, int UserId)
 		{
-			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
-				if (user != null)
-				{
-					user.PassportPicture = image;
-					user.PassportPictureName = nameFile;
-				}
+            using var contex = ContextFactory.CreateDbContext(ConnectionString);
+            var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+            if (user != null)
+            {
+                user.PassportPicture = image;
+                user.PassportPictureName = nameFile;
+            }
 
-				contex.Users.Update(user);
-				await contex.SaveChangesAsync();
-			}
-		}
+            contex.Users.Update(user);
+            await contex.SaveChangesAsync();
+        }
 		public async Task UploadProof(byte[] image, string nameFile, int UserId)
 		{
-			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
-				if (user != null)
-				{
-					user.ProofPicture = image;
-					user.ProofPictureName = nameFile;
-				}
+            using var contex = ContextFactory.CreateDbContext(ConnectionString);
+            var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+            if (user != null)
+            {
+                user.ProofPicture = image;
+                user.ProofPictureName = nameFile;
+            }
 
-				contex.Users.Update(user);
-				await contex.SaveChangesAsync();
-			}
-		}
+            contex.Users.Update(user);
+            await contex.SaveChangesAsync();
+        }
 		public async Task UploadSelfi(byte[] image, string nameFile, int UserId)
 		{
-			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
-				if (user != null)
-				{
-					user.SelfiPicture = image;
-					user.SelfiPictureName = nameFile;
-				}
+            using var contex = ContextFactory.CreateDbContext(ConnectionString);
+            var user = await contex.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+            if (user != null)
+            {
+                user.SelfiPicture = image;
+                user.SelfiPictureName = nameFile;
+            }
 
-				contex.Users.Update(user);
-				await contex.SaveChangesAsync();
-			}
-		}
+            contex.Users.Update(user);
+            await contex.SaveChangesAsync();
+        }
 
 		#endregion
 

@@ -268,3 +268,7 @@ Crypto/Properties/
 Crypto/appsettings.json
 
 Crypto/web.config
+
+Crypto/credentials.json
+
+Crypto/token/

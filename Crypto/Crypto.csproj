@@ -7,6 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="token\**" />
+    <Content Remove="token\**" />
+    <EmbeddedResource Remove="token\**" />
+    <None Remove="token\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="credentials.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="credentials.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
