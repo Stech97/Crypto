@@ -14,7 +14,7 @@ namespace DBRepository.Repositories
 	{
 		public AdminstratorRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
-		#region Upload Files
+		#region Files Market
 		public async Task UploadFiles(byte[] image, string name, string Component)
 		{
             using var contex = ContextFactory.CreateDbContext(ConnectionString);
@@ -28,6 +28,19 @@ namespace DBRepository.Repositories
             contex.MarketFiles.Update(Market);
             await contex.SaveChangesAsync();
         }
+
+		public async Task<Market> DowloadFiles(string Component)
+		{
+			using var contex = ContextFactory.CreateDbContext(ConnectionString);
+			var Market = await contex.MarketFiles.FirstOrDefaultAsync(mf => mf.Component == Component);
+			var MarketOut = new Market()
+			{
+				Content = Market.Content,
+				Name = Market.Name
+			};
+			return MarketOut;
+		}
+
 		#endregion
 
 		#region Users

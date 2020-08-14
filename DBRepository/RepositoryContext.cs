@@ -112,6 +112,7 @@ namespace DBRepository
 
             #region Market Files
             modelBuilder.Entity<MarketFiles>().ToTable("MarketFiles");
+            modelBuilder.Entity<MarketFiles>().HasKey(mf => mf.Component);
             modelBuilder.Entity<MarketFiles>().Property(mf => mf.Component).IsRequired();
             #endregion
         }

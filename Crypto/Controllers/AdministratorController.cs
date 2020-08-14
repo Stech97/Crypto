@@ -31,7 +31,7 @@ namespace Crypto.Controllers
 			_administratorService = administratorService;
 		}
 
-		#region Files
+		#region Market Files
 		[Route("UploadFiles")]
 		[HttpPatch]
 		public async Task<IActionResult> UploadFiles(string Content)
@@ -51,7 +51,27 @@ namespace Crypto.Controllers
 			await _administratorService.UploadFiles(image, name, Content);
 			return Ok();
 		}
-		
+
+		[Route("DownloadFiles")]
+		[HttpGet]
+		public async Task<IActionResult> DowloadFiles(string Content)
+		{
+			{
+				var response = await _administratorService.DowloadFiles(Content);
+				if (response != null)
+				{
+					var type = response.Name.Substring(response.Name.IndexOf('.') + 1);
+					var mimeType = "application/" + type;
+
+					return new FileContentResult(response.Content, mimeType)
+					{
+						FileDownloadName = response.Name
+					};
+				}
+				return NotFound("User or file not found");
+			}
+		}
+
 		#endregion
 
 		#region Users

@@ -1,8 +1,7 @@
-﻿namespace Models
+﻿namespace Models.DTO
 {
-    public class MarketFiles
+    public class Market
     {
-        public string Component { get; set; }
         public byte[] Content { get; set; }
         public string Name { get; set; }
     }

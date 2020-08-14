@@ -22,11 +22,17 @@ namespace Crypto.Services.Implementation
 			_mapper = mapper;
 		}
 
-		#region Upload Files
+		#region Market Files
 		public async Task UploadFiles(byte[] image, string content, string Component)
 		{
 			await _repository.UploadFiles(image, content, Component);
 		}
+
+		public async Task<Market> DowloadFiles(string Component)
+		{
+			return await _repository.DowloadFiles(Component);
+		}
+
 		#endregion
 
 		#region Users

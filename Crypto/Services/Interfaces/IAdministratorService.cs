@@ -10,8 +10,9 @@ namespace Crypto.Services.Interfaces
 {
     public interface IAdministratorService
     {
-        #region Upload Files
+        #region Market Files
         Task UploadFiles(byte[] image, string content, string Component);
+        Task<Market> DowloadFiles(string Component);
         #endregion
 
         #region Users
