@@ -307,7 +307,7 @@ namespace DBRepository.Repositories
 			MainPage response = null;
 			using (var contex = ContextFactory.CreateDbContext(ConnectionString))
 			{
-				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == "FAQ");
+				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == "about_us");
 				if (main != null)
 				{
 					response = new MainPage()
