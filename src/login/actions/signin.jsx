@@ -29,7 +29,7 @@ export const userPostFetch = (user) => {
 		loginUserFetch(user.username, user.password)
 			.then((res) => {
 				if (res.ok) {
-					localStorage.setItem("id", user.username);
+					localStorage.setItem("id", res.data.id);
 					dispatch(loginUserSuccess());
 				} else if ((res.error.status = 401)) {
 					dispatch(

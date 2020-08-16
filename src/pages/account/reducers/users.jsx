@@ -4,6 +4,7 @@ import {
 	ERROR,
 	GetUsersInfo,
 	SignOut,
+	Super,
 } from "../actions/users";
 
 const initialState = {
@@ -46,6 +47,26 @@ export const UsersReducer = (state = initialState, action) => {
 				error: action.payload,
 			};
 		case SignOut + SUCCESS:
+			return {
+				...state,
+				isFetching: false,
+				error: {
+					type: "",
+					message: "",
+				},
+			};
+		case Super + REQUEST:
+			return {
+				...state,
+				isFetching: true,
+			};
+		case Super + ERROR:
+			return {
+				...state,
+				isFetching: false,
+				error: action.payload,
+			};
+		case Super + SUCCESS:
 			return {
 				...state,
 				isFetching: false,

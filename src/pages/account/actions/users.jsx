@@ -8,7 +8,8 @@ export const SignOut = "/SignOut";
 
 const SuperUserFetch = async (type, id, status) => {
 	let response = await API(
-		"/Administrator/" + Super + "?Id=" + id + "&Super=" + status
+		"/Administrator" + Super + "?Id=" + id + "&Super=" + status,
+		"patch"
 	);
 	return response;
 };
@@ -30,26 +31,6 @@ const ActionSuccess = (type, data) => ({
 const GetUsersFetch = async () => {
 	let response = await API("/Administrator/GetUsersInfo");
 	return response;
-};
-
-export const userLogoutGet = () => {
-	return (dispatch) => {
-		dispatch(ActionRequest(SignOut));
-		let ID = localStorage.getItem("id");
-		localStorage.removeItem("id");
-		let response = API("/Identity" + SignOut + "?Id=" + ID, "delete")
-			.then((response) => {
-				dispatch(ActionSuccess(SignOut, false));
-			})
-			.catch((error) =>
-				dispatch(
-					ActionError(SignOut, {
-						type: error.status,
-						message: error.message,
-					})
-				)
-			);
-	};
 };
 
 export const GetUsers = () => (dispatch) => {

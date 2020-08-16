@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { reduxForm, Field, SubmissionError } from "redux-form";
 import { userPostFetch } from "../actions/signin";
 import { connect } from "react-redux";
@@ -91,74 +91,77 @@ function LoginForm(props) {
         username: values.username,
         password: values.password,
       });
-      history.push("/pages/account/dashboard");
     }
   };
 
   const classes = useStyles();
-  return (
-    <Grid
-      component="form"
-      xs={12}
-      item
-      container
-      justify="center"
-      onSubmit={handleSubmit(submit)}
-    >
-      <Field
-        component={inputField}
-        name="username"
-        classes={classes}
-        type="text"
-        placeholder="Username"
-        validate={[required, validateUsername]}
-      />
-      <Field
-        component={inputField}
-        name="password"
-        classes={classes}
-        type="password"
-        placeholder="Password"
-        validate={[required, validatePassword]}
-      />
+  if (props.user.error.type === "done") {
+    return <Redirect to="/pages/account/dashboard" />;
+  } else {
+    return (
       <Grid
+        component="form"
+        xs={12}
         item
         container
-        xs={12}
         justify="center"
-        alignContent="center"
-        component={Box}
-        my={2}
+        onSubmit={handleSubmit(submit)}
       >
-        <OrangeButton
-          type="submit"
-          disabled={invalid || hasErrors || pristine || submitting}
+        <Field
+          component={inputField}
+          name="username"
+          classes={classes}
+          type="text"
+          placeholder="Username"
+          validate={[required, validateUsername]}
+        />
+        <Field
+          component={inputField}
+          name="password"
+          classes={classes}
+          type="password"
+          placeholder="Password"
+          validate={[required, validatePassword]}
+        />
+        <Grid
+          item
+          container
+          xs={12}
+          justify="center"
+          alignContent="center"
+          component={Box}
+          my={2}
         >
-          {user.isFetching || submitting ? "Loading..." : "Login"}
-        </OrangeButton>
+          <OrangeButton
+            type="submit"
+            disabled={invalid || hasErrors || pristine || submitting}
+          >
+            {user.isFetching || submitting ? "Loading..." : "Login"}
+          </OrangeButton>
+        </Grid>
+        <Grid
+          item
+          container
+          xs={12}
+          justify="center"
+          alignContent="center"
+          component={Box}
+          my={2}
+        >
+          {user.error.type && (
+            <Alert variant="filled" severity="error">
+              {user.error.message}
+            </Alert>
+          )}
+          {error && (
+            <Alert variant="filled" severity="error">
+              {error}
+            </Alert>
+          )}
+        </Grid>
       </Grid>
-      <Grid
-        item
-        container
-        xs={12}
-        justify="center"
-        alignContent="center"
-        component={Box}
-        my={2}
-      >
-        {user.error.type && (
-          <Alert variant="filled" severity="error">
-            {user.error.message}
-          </Alert>
-        )}
-        {error && (
-          <Alert variant="filled" severity="error">
-            {error}
-          </Alert>
-        )}
-      </Grid>
-    </Grid>
-  );
+    );
+  }
 }
 
 const mapStateToProps = (store) => {

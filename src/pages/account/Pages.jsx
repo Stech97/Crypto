@@ -1,4 +1,4 @@
-import React, { memo, Fragment } from "react";
+import React, { memo, Fragment, useState, useEffect } from "react";
 import clsx from "clsx";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -9,6 +9,8 @@ import Sidebar from "./Sidebar";
 import { Switch } from "react-router-dom";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
+import { connect } from "react-redux";
+import { relogUser } from "./actions/logout";
 
 const drawerWidth = 240;
 
@@ -34,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexGrow: 1,
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: "#F9A732",
   },
   paper: {
     padding: theme.spacing(2),
@@ -101,10 +103,17 @@ function WrapperContent({ component: Component, open, ...rest }) {
   return <Component openStatus={open} {...rest} />;
 }
 
-export default function Pages(props) {
+function Pages(props) {
   const classes = useStyles();
   // const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      props.relogAction();
+    }, 200000);
+    return () => clearInterval(interval);
+  }, [useState]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -150,6 +159,9 @@ export default function Pages(props) {
     </div>
   );
 }
-/*
 
-*/
+const mapDispatchToProps = (dispatch) => ({
+  relogAction: () => dispatch(relogUser()),
+});
+
+export default connect(null, mapDispatchToProps)(Pages);

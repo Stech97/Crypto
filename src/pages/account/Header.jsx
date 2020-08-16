@@ -11,7 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import MenuIcon from "@material-ui/icons/Menu";
-import { userLogoutGet } from "./actions/users";
+import { userLogoutGet } from "./actions/logout";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 

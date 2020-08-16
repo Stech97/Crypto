@@ -9,7 +9,7 @@ import { NewsReducer } from "../pages/account/reducers/news";
 import { MainpageReducer } from "../pages/account/reducers/mainpage";
 import { UsersReducer } from "../pages/account/reducers/users";
 import { loginReducer } from "../login/reducers/login";
-
+import { FileReducer } from "../pages/account/reducers/files";
 export const rootReducer = combineReducers({
 	form: reduxFormReducer, // mounted under "form"
 	routing: routerReducer,
@@ -21,4 +21,5 @@ export const rootReducer = combineReducers({
 	News: NewsReducer,
 	Mainpage: MainpageReducer,
 	users: UsersReducer,
+	files: FileReducer,
 });

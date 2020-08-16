@@ -42,7 +42,7 @@ const theme = createMuiTheme({
 			lineHeight: 1.3,
 			letterSpacing: "normal",
 			textAlign: "left",
-			color: "#ffffff",
+			color: darkBlue,
 			fontSize: "3rem",
 			fontWeight: 600,
 			fontStyle: "normal",
@@ -96,9 +96,9 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles((theme) => ({
 	link: {
-		color: "#fff",
+		color: darkBlue,
 		"& a": {
-			color: "#fff",
+			color: darkBlue,
 		},
 	},
 	restore: {
@@ -142,7 +142,7 @@ function LoginPage() {
 							</Link>
 						</Typography>
 					</Grid>
-					<Grid container direction="row" justifyItems="center">
+					<Grid container direction="row" justify="center">
 						<Grid item xs={6}>
 							<Link to="/terms&conditions">
 								<Typography

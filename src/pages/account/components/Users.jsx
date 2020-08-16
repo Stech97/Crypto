@@ -23,7 +23,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import AppBar from "@material-ui/core/AppBar";
 import InputBase from "@material-ui/core/InputBase";
 import CsvDownload from "react-json-to-csv";
-import { GetUsers } from "../actions/users";
+import { GetUsers, SetSuperUser } from "../actions/users";
 import { connect } from "react-redux";
 import MaterialTable from "material-table";
 
@@ -137,6 +137,7 @@ function SuperUser(props) {
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
+    props.SetSuperAction(props.id, event.target.checked);
   };
 
   return (
@@ -148,11 +149,19 @@ function SuperUser(props) {
   );
 }
 
+SuperUser = connect(
+  (state) => ({ users: state.users }),
+  (dispatch) => ({
+    SetSuperAction: (id, status) => dispatch(SetSuperUser(id, status)),
+  })
+)(SuperUser);
+
 function createData_users(
-  { name, email, phone, total_added, total_com, total_team_com, withdrawn },
+  { id, name, email, phone, total_added, total_com, total_team_com, withdrawn },
   super_user
 ) {
   return {
+    id,
     name,
     email,
     phone,
@@ -173,6 +182,10 @@ function Users(props) {
   }, []);
 
   const columns = [
+    {
+      title: "ID",
+      field: "id",
+    },
     {
       title: "Name",
       field: "name",
@@ -208,7 +221,10 @@ function Users(props) {
   ];
 
   const rows_users = props.users.data.map((user) =>
-    createData_users(user, <SuperUser superuser={user.superUser} />)
+    createData_users(
+      user,
+      <SuperUser id={user.id} superuser={user.superUser} />
+    )
   );
 
   return (

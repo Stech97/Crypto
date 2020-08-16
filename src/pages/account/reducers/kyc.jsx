@@ -125,6 +125,8 @@ export const KYCReducer = (state = initialState, action) => {
 						},
 						data: PictureSuccessReducer(state, action),
 					};
+				default:
+					return state;
 			}
 		case GetProofPicture:
 			switch (status) {
@@ -169,6 +171,8 @@ export const KYCReducer = (state = initialState, action) => {
 						},
 						data: PictureSuccessReducer(state, action),
 					};
+				default:
+					return state;
 			}
 		case GetSelfiPicture:
 			switch (status) {
@@ -213,6 +217,8 @@ export const KYCReducer = (state = initialState, action) => {
 						},
 						data: PictureSuccessReducer(state, action),
 					};
+				default:
+					return state;
 			}
 		case GetKYC:
 			switch (status) {
@@ -246,6 +252,8 @@ export const KYCReducer = (state = initialState, action) => {
 						},
 						data: action.payload,
 					};
+				default:
+					return state;
 			}
 		case AcceptKYC || DiscardKYC:
 			switch (status) {
@@ -278,6 +286,8 @@ export const KYCReducer = (state = initialState, action) => {
 						},
 						data: DecisionSuccessReducer(state, action),
 					};
+				default:
+					return state;
 			}
 		case AcceptAllKYC:
 			switch (status) {
@@ -313,6 +323,8 @@ export const KYCReducer = (state = initialState, action) => {
 							status: true,
 						})),
 					};
+				default:
+					return state;
 			}
 		default:
 			return state;

@@ -90,7 +90,6 @@ const getPicture = (type, id, dispatch) => {
 			}
 		})
 		.catch((error) => {
-			console.log("error", error);
 			dispatch(
 				KYCError(type, {
 					type: error.status,

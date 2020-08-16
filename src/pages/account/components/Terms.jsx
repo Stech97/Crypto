@@ -1,90 +1,36 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
+import React, { useEffect } from "react";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
+import TermsForm from "./Main/TermsForm";
+import { connect } from "react-redux";
+import { GetBlock } from "../actions/mainpage";
+import Loader from "react-loader-spinner";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  table: {
-    minWidth: 650,
-  },
-  root: {
-    display: 'flex',
-    flexGrow: 1,
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '100%',
-    },
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   content: {
+    background: "#FFF",
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -92,10 +38,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Finance(props) {
+function Terms(props) {
   const classes = useStyles();
-  const theme = useTheme();
 
+  useEffect(() => {
+    props.GetAction();
+  }, []);
+
+  const ParseData = () => {
+    if (props.terms.data.header) {
+      let data = { header: props.terms.data.header };
+      let titles = props.terms.data.subHeader.split("/");
+      let paragraphs = props.terms.data.text.split("/");
+      for (var i = 1; i < 7; i++) {
+        data = {
+          ...data,
+          ["title-" + i]: titles[i - 1],
+          ["paragraph-" + i]: paragraphs[i - 1],
+        };
+      }
+      return data;
+    } else {
+      return null;
+    }
+  };
   return (
     <main
       className={clsx(classes.content, {
@@ -103,6 +69,16 @@ export default function Finance(props) {
       })}
     >
       <div className={classes.drawerHeader} />
+      <Grid item xs={12}>
+        <Typography
+          align="center"
+          className={classes.title}
+          variant="h3"
+          gutterBottom
+        >
+          Terms & Conditions
+        </Typography>
+      </Grid>
       <Grid
         container
         spacing={3}
@@ -111,52 +87,25 @@ export default function Finance(props) {
         justify="flex-start"
         alignItems="flex-start"
       >
-        <Grid item xs={12}>
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Header editor"
-              multiline
-              rowsMax={4}
-              variant="outlined"
-              value="Our goal is to find..."
-            />
-          </form>
-          <Button variant="contained" color="secondary">
-            Apply
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Sub-Header editor"
-              multiline
-              rowsMax={4}
-              variant="outlined"
-              value="The world of financial..."
-            />
-          </form>
-          <Button variant="contained" color="secondary">
-            Apply
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Text editor"
-              multiline
-              rowsMax={4}
-              variant="outlined"
-              value="Our goal is to find..."
-            />
-          </form>
-          <Button variant="contained" color="secondary">
-            Apply
-          </Button>
-        </Grid>
+        {props.terms.isFetching ? (
+          <Loader type="Rings" color="#F9A732" height={80} width={80} />
+        ) : (
+          <TermsForm initialValues={ParseData()} data={props.terms.data} />
+        )}
       </Grid>
     </main>
   );
 }
+
+const mapStateToProps = (state, props) => ({
+  terms: state.Mainpage["terms"],
+});
+
+const mapDispatchToProps = (dispatch, state) => {
+  let GetAction = () => dispatch(GetBlock("terms"));
+  return {
+    GetAction,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Terms);

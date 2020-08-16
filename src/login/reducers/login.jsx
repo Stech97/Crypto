@@ -25,7 +25,7 @@ export const loginReducer = (state = initialState, action) => {
 				...state,
 				isFetching: false,
 				error: {
-					type: "",
+					type: "done",
 					message: "",
 				},
 			};

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 
@@ -23,10 +23,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexGrow: 1,
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "100%",
-    },
   },
   paper: {
     padding: theme.spacing(2),
@@ -93,7 +89,7 @@ const renderTextField = ({
   meta: { touched, invalid, error },
   ...custom
 }) => (
-  <Grid component={Box} item container xs={12}>
+  <Grid component={Box} my={2} item container xs={10}>
     <TextField
       label={label}
       placeholder={placeholder}
@@ -110,7 +106,21 @@ function Homescreen(props) {
   const classes = useStyles();
   const theme = useTheme();
 
-  const { homescreen } = props;
+  const { data, handleSubmit, load, pristine, reset, submitting } = props;
+
+  useEffect(() => {
+    props.GetAction("homescreen");
+  }, []);
+
+  const submit = (values) => {
+    let data = {
+      component: "homescreen",
+      header: values.header,
+      subHeader: values.subHeader,
+      text: values.text,
+    };
+    props.UpdateAction(data);
+  };
 
   return (
     <main
@@ -127,21 +137,63 @@ function Homescreen(props) {
         justify="flex-start"
         alignItems="flex-start"
       >
-        <Grid item xs={12}>
-          <form className={classes.root} noValidate autoComplete="off">
+        <Grid item container xs={12}>
+          <Grid
+            component="form"
+            onSubmit={handleSubmit(submit)}
+            item
+            container
+            xs={12}
+            justify="center"
+            className={classes.root}
+            noValidate
+            autoComplete="off"
+          >
             <Field
               component={renderTextField}
               name="header"
-              label="Text Editor"
+              label="Header"
               multiline
               rowsMax={4}
               variant="outlined"
               validate={required}
             />
-            <Button variant="contained" color="secondary">
+            <Field
+              component={renderTextField}
+              name="subHeader"
+              label="SubHeader"
+              multiline
+              rowsMax={4}
+              variant="outlined"
+              validate={required}
+            />
+            <Field
+              component={renderTextField}
+              name="text"
+              label="Text"
+              multiline
+              rowsMax={4}
+              variant="outlined"
+              validate={required}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={pristine || submitting}
+              color="secondary"
+            >
               Apply
             </Button>
-          </form>
+            <Button
+              type="button"
+              variant="contained"
+              disabled={pristine || submitting}
+              color="warn"
+              onClick={reset}
+            >
+              Reset
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
     </main>
@@ -149,15 +201,26 @@ function Homescreen(props) {
 }
 
 const mapStateToProps = (state) => ({
-  homescreen: state.Mainpage.Homescreen,
+  data: state.Mainpage.homescreen,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  GetAction: () => dispatch(GetBlock("Homescreen")),
+  UpdateAction: (data) => dispatch(UpdateBlock(data)),
 });
 
 Homescreen = connect(mapStateToProps, mapDispatchToProps)(Homescreen);
 
-export default reduxForm({
+Homescreen = reduxForm({
   form: "Homescreen",
 })(Homescreen);
+
+Homescreen = connect(
+  (state) => ({
+    initialValues: state.data.homescreen,
+  }),
+  (dispatch) => ({
+    GetAction: (block) => dispatch(GetBlock(block)),
+  })
+)(Homescreen);
+
+export default Homescreen;

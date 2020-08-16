@@ -1,18 +1,18 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme) => ({
   fluid: {
     background:
-      'url(./img/waveimage.png) center center / 70% auto no-repeat, linear-gradient(61deg, #001029 4%, #235fc8 98%) left top no-repeat',
+      "url(./img/waveimage.png) center center / 70% auto no-repeat, linear-gradient(52deg, rgba(255,213,153,1) 0%, rgba(249,167,50,1) 50%, rgba(144,85,0,1) 95%) left top no-repeat",
   },
   container: {
-    display: 'flex',
-    justifyContent: 'center',
-    minHeight: '100vh',
-    paddingTop: '150px',
-    paddingBottom: '75px',
+    display: "flex",
+    justifyContent: "center",
+    minHeight: "100vh",
+    paddingTop: "150px",
+    paddingBottom: "75px",
   },
 }));
 

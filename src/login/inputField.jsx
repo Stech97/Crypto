@@ -4,24 +4,24 @@ import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 
 const orange = "#ed7102";
+const darkBlue = "#123273";
 
 const CustomField = withStyles({
   root: {
     "& .MuiInput-underline": {
-      color: "#fff",
+      color: darkBlue,
       "&:before": {
-        borderBottomColor: "#fff",
+        borderBottomColor: darkBlue,
       },
       "&:hover:not(.Mui-disabled):before": {
         borderBottomColor: orange,
       },
       "&>input:-webkit-autofill": {
-        WebkitTextFillColor: "#fff",
         transition: "background-color 5000s",
-        WebkitTextFillColor: "#fff !important",
+        WebkitTextFillColor: darkBlue + " !important",
         "&:hover, &:focus, &:active": {
           transition: "background-color 5000s",
-          WebkitTextFillColor: "#fff !important",
+          WebkitTextFillColor: darkBlue + " !important",
         },
       },
     },
