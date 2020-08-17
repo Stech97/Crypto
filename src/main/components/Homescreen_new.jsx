@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import { connect } from "react-redux";
+import { GetBlock } from "../actions/mainpage";
 
 const orange = "#ed7102";
 
@@ -48,18 +50,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Homescreen() {
+function Homescreen(props) {
   const classes = useStyles();
+  const { data, block } = props;
+  useEffect(() => {
+    props.GetAction();
+  }, [data.data.upload]);
+
   return (
     <Container className={classes.fluid} maxWidth={false}>
       <Container className={classes.container} maxWidth="xl">
         <Grid container spacing={3} xs={12}>
           <Grid xs={12} item className={classes.header}>
-            <Typography variant="h1">
-              The most profitable and secure way
-              <br />
-              to get cashflow from the DeFi markets.
-            </Typography>
+            <Typography variant="h1">{data.data.header}</Typography>
           </Grid>
           <Grid xs={12} item>
             <OrangeButton component={Link} to="/signup">
@@ -72,4 +75,15 @@ function Homescreen() {
   );
 }
 
-export default Homescreen;
+const mapStateToProps = (state, props) => ({
+  data: state.Mainpage[props.block],
+});
+
+const mapDispatchToProps = (dispatch, state) => {
+  let GetAction = () => dispatch(GetBlock(state.block));
+  return {
+    GetAction,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homescreen);

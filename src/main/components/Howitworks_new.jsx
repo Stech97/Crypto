@@ -1,8 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import FluidContainer from "../Content";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import { connect } from "react-redux";
+import { GetBlock, getPicture } from "../actions/mainpage";
 
 const darkBlue = "#123273";
 const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
@@ -31,30 +33,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HowitworksHeader = () => {
+const HowitworksHeader = ({ header, subHeader }) => {
   const classes = useStyles();
   return (
     <Fragment>
       <Grid className={classes.header} item xs={12}>
         <Typography variant="h2" component="h2">
-          How It Works
+          {header}
         </Typography>
       </Grid>
       <Grid className={classes.header} item xs={12}>
         <Typography variant="h3" component="h3">
-          Business model
+          {subHeader}
         </Typography>
       </Grid>
     </Fragment>
   );
 };
 
-const HowitworksScheme = () => {
+const HowitworksScheme = (props) => {
   const classes = useStyles();
   return (
     <Grid item xs={12}>
       <img
-        src="img/howitworks_scheme.png"
+        src={`${props.data}`}
         alt="howitworks_scheme"
         className={classes.scheme}
       />
@@ -123,14 +125,23 @@ function HowitworksPoints(props) {
   return <Point />;
 }
 
-function Howitworks() {
+function Howitworks(props) {
   const classes = useStyles();
+  const { data, block } = props;
+
+  useEffect(() => {
+    props.GetAction();
+  }, [data.data.upload]);
+
   return (
     <FluidContainer background="#f5fbff" radius="75px 0 75px 0" zIndex="20">
       <Grid container spacing={3} xs={12}>
         <Grid className={classes.box} spacing={2} item container xs={12} sm={6}>
-          <HowitworksHeader />
-          <HowitworksScheme />
+          <HowitworksHeader
+            header={data.data.header}
+            subHeader={data.data.subHeader}
+          />
+          <HowitworksScheme data={data.image.image} />
         </Grid>
         <Grid className={classes.box} spacing={3} item container xs={12} sm={6}>
           <HowitworksPoints data={howitworksPoints} />
@@ -140,4 +151,18 @@ function Howitworks() {
   );
 }
 
-export default Howitworks;
+const mapStateToProps = (state, props) => ({
+  data: state.Mainpage[props.block],
+});
+
+const mapDispatchToProps = (dispatch, state) => {
+  let GetAction = () => dispatch(GetBlock(state.block));
+  let GetPicture = () => dispatch(getPicture(state.block));
+  GetPicture();
+  return {
+    GetAction,
+    GetPicture,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Howitworks);

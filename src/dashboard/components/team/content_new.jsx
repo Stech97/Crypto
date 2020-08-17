@@ -9,6 +9,7 @@ import Whitebox from "../Whitebox";
 import Links from "../Links";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import { Helmet } from "react-helmet";
 
 const useStyles = makeStyles((theme) => ({
   invested: {
@@ -57,6 +58,9 @@ function TeamContent(props) {
   const classes = useStyles();
   return (
     <Container maxWidth="lg">
+      <Helmet>
+        <title>Team</title>
+      </Helmet>
       <Grid
         item
         container

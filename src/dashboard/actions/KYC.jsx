@@ -35,12 +35,9 @@ const uploadFile = (type, dispatch, file) => {
 
 	patchFile(type, file)
 		.then((res) => {
-			console.log("res", res);
-			console.log("type", type);
 			if (res.ok) {
 				dispatch(successAction(type));
 			} else {
-				console.log("error", res.error);
 				dispatch(
 					errorAction(type, {
 						type: res.error.status,

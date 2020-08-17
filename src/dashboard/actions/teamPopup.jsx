@@ -22,7 +22,7 @@ const getTeamPopupFetch = async (level) => {
 		"https://back.defima.io/Investment/GetTeamPop?UserId=" +
 			localStorage.getItem("id") +
 			"&Level=" +
-			(level - 1)
+			level
 	);
 	return response;
 };

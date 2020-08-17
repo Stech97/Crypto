@@ -10,7 +10,7 @@ const initialState = {
 		type: "",
 		message: "",
 	},
-	members: [],
+	members: []
 };
 
 export const teamPopupReducer = (state = initialState, action) => {

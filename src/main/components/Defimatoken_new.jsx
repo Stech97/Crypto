@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import FluidContainer from "../Content";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -6,6 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import Collapse from "@material-ui/core/Collapse";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
+import { connect } from "react-redux";
+import { GetBlock, getPicture } from "../actions/mainpage";
 
 const darkBlue = "#123273";
 const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
@@ -74,91 +76,61 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DefimaTokenImage = () => {
+const DefimaTokenImage = ({ data }) => {
   const classes = useStyles();
   return (
     <Grid item xs={12}>
-      <img
-        src="img/defimacoin.png"
-        srcSet="img/defimacoin@2x.png 2x, img/defimacoin@3x.png 3x"
-        alt="defima coin"
-        className={classes.scheme}
-      />
+      <img src={`${data}`} alt="defima coin" className={classes.scheme} />
     </Grid>
   );
 };
 
-const DefimaTokenHeader = () => {
+const DefimaTokenHeader = ({ header }) => {
   return (
     <Grid container direction="row">
       <Grid item xs={12}>
         <Typography variant="h2" component="h2" style={{ color: "#ffffff" }}>
-          Defima Token
+          {header}
         </Typography>
       </Grid>
     </Grid>
   );
 };
 
-const DefimaTokenText = () => {
+const DefimaTokenText = ({ text }) => {
   const classes = useStyles();
   return (
     <Grid container="row" spacing={3}>
       <Grid item xs={12}>
-        <Typography
-          variant="body1"
-          component="p"
-          className={classes.defima_text}
-          paragraph
-        >
-          Defima Token is a cryptocurrency token and operates on the Ethereum
-          platform. We developed the token in order to get more financial power
-          to build the platform.
-        </Typography>
-        <Typography
-          variant="body1"
-          component="p"
-          className={classes.defima_text}
-          paragraph
-        >
-          All profits and commission earnings will be paid out in our
-          defimatoken. You can, of course, always exchange the token to Bitcoin
-          or USD, and withdraw the money.
-        </Typography>
-        <Typography
-          variant="body1"
-          component="p"
-          className={classes.defima_text}
-          paragraph
-        >
-          For now, the token is only reserved for all Defima investors, and you
-          can only get defimatoken by profits or commissions from Defima
-          products. One token is currently worth 1 USD.
-        </Typography>
-        <Typography
-          variant="body1"
-          component="p"
-          className={classes.defima_text}
-          paragraph
-        >
-          As part of its strategy plan, Defima plans to make a public sale (ICO)
-          in the near future. When this happens, we expect that the token will
-          double or triple its price. We recommend all Defima investors to hold
-          as many defimatoken as possible in order to benefit from the public
-          sale.
-        </Typography>
+        {text &&
+          text.split("\n").map((block, i) => (
+            <Typography
+              variant="body1"
+              component="p"
+              className={classes.defima_text}
+              paragraph
+              key={i}
+            >
+              {block}
+            </Typography>
+          ))}
       </Grid>
     </Grid>
   );
 };
 
-function DefimaToken() {
+function DefimaToken(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const { block, data } = props;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  useEffect(() => {
+    props.GetAction();
+  }, [data.data.upload]);
 
   return (
     <FluidContainer
@@ -175,16 +147,16 @@ function DefimaToken() {
           xs={12}
           sm={6}
         >
-          <DefimaTokenImage />
+          <DefimaTokenImage data={data.image.image} />
         </Grid>
         <Grid className={classes.box} spacing={2} item container xs={12} sm={6}>
-          <DefimaTokenHeader />
+          <DefimaTokenHeader header={data.data.header} />
           <Grid spacing={2} item container xs={12} className={classes.text}>
-            <DefimaTokenText />
+            <DefimaTokenText text={data.data.text} />
           </Grid>
           <Grid spacing={2} item container xs={12} className={classes.mobile}>
             <Collapse collapsedHeight="11rem" in={expanded}>
-              <DefimaTokenText />
+              <DefimaTokenText text={data.data.text} />
             </Collapse>
             <Box my={2}>
               <OrangeButton onClick={handleExpandClick}>
@@ -205,4 +177,18 @@ function DefimaToken() {
   );
 }
 
-export default DefimaToken;
+const mapStateToProps = (state, props) => ({
+  data: state.Mainpage[props.block],
+});
+
+const mapDispatchToProps = (dispatch, state) => {
+  let GetAction = () => dispatch(GetBlock(state.block));
+  let GetPicture = () => dispatch(getPicture(state.block));
+  GetPicture();
+  return {
+    GetAction,
+    GetPicture,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DefimaToken);

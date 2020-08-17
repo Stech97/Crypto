@@ -141,7 +141,8 @@ function TeamPopup(props) {
   const classes = useStyles();
   useEffect(() => {
     props.getTeamPopupAction(props.level);
-  }, []);
+    console.log('props.level', props.level)
+  }, [props.open]);
 
   return (
     <Dialog
@@ -195,12 +196,12 @@ function TeamPopup(props) {
                   </TableCell>
                   <TableCell component="div">
                     <Typography className={classes.text}>
-                      {teammate.invested}
+                      {teammate.totalInvestments}
                     </Typography>
                   </TableCell>
                   <TableCell component="div">
                     <Typography className={classes.text}>
-                      {teammate.earnings}
+                      {teammate.totalEarning}
                     </Typography>
                   </TableCell>
                 </TableRow>

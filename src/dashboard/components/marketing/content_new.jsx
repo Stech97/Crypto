@@ -20,6 +20,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { MailIcon, TelegramIcon } from "../../svg/iconComponents";
 import Box from "@material-ui/core/Box";
+import { Helmet } from "react-helmet";
 
 const marketboxes = [
   {
@@ -265,6 +266,9 @@ export default class MarketingContent extends Component {
   render() {
     return (
       <Container maxWidth="lg">
+        <Helmet>
+          <title>Marketing</title>
+        </Helmet>
         <Grid container spacing={2}>
           <MarketingContentBox key={0} box={marketboxes[0]} />
           <MarketingContentBox key={1} box={marketboxes[1]} />

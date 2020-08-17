@@ -250,7 +250,7 @@ function SidebarTime() {
 	useEffect(() => {
 		const interval = setInterval(() => getTime(), 1000);
 		return () => clearInterval(interval);
-	}, [useState]);
+	}, []);
 
 	return <Typography>{"Server Time: " + state}</Typography>;
 }

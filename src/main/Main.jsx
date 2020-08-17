@@ -17,6 +17,16 @@ import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 
+export const homescreen = "homescreen";
+export const career = "career";
+export const defima_token = "defima_token";
+export const how_it_works = "how_it_works";
+export const join_us = "join_us";
+export const our_mission = "our_mission";
+export const portfolio = "portfolio";
+export const about_us = "about_us";
+export const faq = "faq";
+
 export const darkBlue = "#123273";
 export const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
 export const grayText = "#838383";
@@ -117,19 +127,17 @@ class MainPage extends Component {
           </svg>
 
           <Header />
-          {/* <Container maxWidth="lg"> */}
-          <Homescreen />
-          <Ourmission />
-          <Howitworks />
-          <Portfolio />
-          <Career />
-          <DefimaToken />
-          <Ourteam />
-          <Joinus />
-          <Faq />
+          <Homescreen block={homescreen} />
+          <Ourmission block={our_mission} />
+          <Howitworks block={how_it_works} />
+          <Portfolio block={portfolio} />
+          <Career block={career} />
+          <DefimaToken block={defima_token} />
+          <Ourteam block={about_us} />
+          <Joinus block={join_us} />
+          <Faq block={faq} />
           <Feedback />
           <Footer />
-          {/* </Container> */}
         </ThemeProvider>
       </Fragment>
     );

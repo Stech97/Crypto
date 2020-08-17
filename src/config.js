@@ -41,7 +41,6 @@ const requestTemplateAuthed = axios.create({
   responseType: "json",
   headers: {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Credentials": true,
   },
   withCredentials: true,
 });
@@ -55,7 +54,13 @@ const requestTemplateUnauthed = axios.create({
   withCredentials: true,
 });
 
-const requestTemplateFile = axios.create({
+const requestTemplateFileGet = axios.create({
+  baseURL: API_URL,
+  responseType: "blob",
+  withCredentials: true,
+});
+
+const requestTemplateFilePatch = axios.create({
   baseURL: API_URL,
   responseType: "json",
   withCredentials: true,
@@ -66,7 +71,6 @@ const requestTemplateFile = axios.create({
 });
 
 export const API = async (path, mode = "get", body = null, authed = true) => {
-  //console.log(path)
   const requestTemplate = authed
     ? requestTemplateAuthed
     : requestTemplateUnauthed;
@@ -76,7 +80,59 @@ export const API = async (path, mode = "get", body = null, authed = true) => {
         let request = await requestTemplate.get(path, {
           withCredentials: true,
         });
-        //console.log(request)
+        return { ok: true, status: request.status, data: request.data };
+      } catch (error) {
+        // Error 😨
+        if (error.response) {
+          /*
+           * The request was made and the server responded with a
+           * status code that falls out of the range of 2xx
+           */
+          //console.log(error.response.data);
+          //console.log(error.response.status);
+          //console.log(error.response.headers);
+          return {
+            ok: false,
+            data: error.response.data,
+            error: {
+              status: error.response.status,
+              message: error.message,
+            },
+          };
+        } else if (error.request) {
+          /*
+           * The request was made but no response was received, `error.request`
+           * is an instance of XMLHttpRequest in the browser and an instance
+           * of http.ClientRequest in Node.js
+           */
+          //console.log(error.request);
+          return {
+            ok: false,
+            data: error.response.data,
+            error: {
+              status: error.response.status,
+              message: error.message,
+            },
+          };
+        } else {
+          // Something happened in setting up the request and triggered an Error
+          //console.log('Error', error.message);
+          return {
+            ok: false,
+            data: error.response.data,
+            error: {
+              status: error.response.status,
+              message: error.message,
+            },
+          };
+        }
+        //console.log(error);
+      }
+    case "file":
+      try {
+        let request = await requestTemplateFileGet.get(path, {
+          withCredentials: true,
+        });
         return { ok: true, status: request.status, data: request.data };
       } catch (error) {
         // Error 😨
@@ -183,10 +239,16 @@ export const API = async (path, mode = "get", body = null, authed = true) => {
     case "patch":
       try {
         //console.log(body)
-        let bodyJson = JSON.stringify(body);
-        let request = await requestTemplate.patch(path, bodyJson, {
-          withCredentials: true,
-        });
+        if (body) {
+          let bodyJson = JSON.stringify(body);
+          var request = await requestTemplate.patch(path, bodyJson, {
+            withCredentials: true,
+          });
+        } else {
+          request = await requestTemplate.patch(path, {
+            withCredentials: true,
+          });
+        }
         return { ok: true, status: request.status, data: request.data };
       } catch (error) {
         // Error 😨
@@ -290,7 +352,7 @@ export const API = async (path, mode = "get", body = null, authed = true) => {
     case "put":
       try {
         //console.log(body)
-        let request = await requestTemplateFile.put(path, body);
+        let request = await requestTemplateFilePatch.patch(path, body);
         return { ok: true, status: request.status, data: request.data };
       } catch (error) {
         // Error 😨

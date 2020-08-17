@@ -1,8 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import FluidContainer from "../Content";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import { connect } from "react-redux";
+import { GetBlock } from "../actions/mainpage";
 
 const useStyles = makeStyles((theme) => ({
   box: {
@@ -30,52 +32,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const OurmissionHeader = () => {
+const OurmissionHeader = ({ header, subHeader }) => {
   const classes = useStyles();
   return (
     <Fragment>
       <Grid className={classes.header} item xs={12}>
         <Typography variant="h2" component="h2">
-          Our Mission
+          {header}
         </Typography>
       </Grid>
       <Grid className={classes.header} item xs={12}>
         <Typography variant="h3" component="h3">
-          The World Of Financial Freedom
+          {subHeader}
         </Typography>
       </Grid>
     </Fragment>
   );
 };
 
-const OurmissionText = () => {
+const OurmissionText = (props) => {
   const classes = useStyles();
+  const { text } = props;
+
   return (
     <Grid item xs={12}>
-      <Typography paragraph variant="body1" component="p">
-        Our goal is to find the most profitable and secure way to participate in
-        the DeFi markets. In order to get the most profit out of all
-        possibilities of decentralized finance, it is of utmost importance to
-        have huge investments and useful knowledge.
-      </Typography>
-      <Typography paragraph variant="body1" component="p">
-        So, the reason why we developed the DEFIMA platform is to give investors
-        an easy accessibility to invest in DeFi products without having a lot of
-        knowledge nor a big budget.
-      </Typography>
-      <Typography paragraph variant="body1" component="p">
-        All of the investor’s money will be bundled in a big pool. With this
-        pool, we can reach higher profits, better security and long-term
-        investments.
-      </Typography>
-      <Typography paragraph variant="body1" component="p">
-        With this advantage, we can reach up to 11% on your investment each
-        month. This wouldn’t be possible, if everyone is on his own.
-      </Typography>
-      <Typography paragraph variant="body1" component="p">
-        Our mission is to give everyone an easy way to join the very profitable
-        DeFi lending market.
-      </Typography>
+      {text &&
+        text.split("\n").map((block, i) => (
+          <Typography key={i} paragraph variant="body1" component="p">
+            {block}
+          </Typography>
+        ))}
     </Grid>
   );
 };
@@ -164,8 +150,14 @@ const OurmissionIcons = () => {
   );
 };
 
-function Ourmission() {
+function Ourmission(props) {
   const classes = useStyles();
+  const { data, block } = props;
+
+  useEffect(() => {
+    props.GetAction();
+  }, [data.data.upload]);
+
   return (
     <FluidContainer>
       <Grid
@@ -176,8 +168,11 @@ function Ourmission() {
         xs={12}
       >
         <Grid className={classes.box} spacing={2} item container xs={12} sm={6}>
-          <OurmissionHeader />
-          <OurmissionText />
+          <OurmissionHeader
+            header={data.data.header}
+            subHeader={data.data.subHeader}
+          />
+          <OurmissionText text={data.data.text} />
         </Grid>
         <OurmissionIcons />
       </Grid>
@@ -185,4 +180,15 @@ function Ourmission() {
   );
 }
 
-export default Ourmission;
+const mapStateToProps = (state, props) => ({
+  data: state.Mainpage[props.block],
+});
+
+const mapDispatchToProps = (dispatch, state) => {
+  let GetAction = () => dispatch(GetBlock(state.block));
+  return {
+    GetAction,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Ourmission);

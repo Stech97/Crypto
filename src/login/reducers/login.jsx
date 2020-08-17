@@ -4,9 +4,12 @@ import {
 	USER_LOGIN_ERROR,
 } from "../actions/signin";
 import {
-	GET_LOGOUT_REQUEST,
-	GET_LOGOUT_SUCCESS,
-	GET_LOGOUT_ERROR,
+	REQUEST,
+	SUCCESS,
+	ERROR,
+	SignOut,
+	Identity,
+	ReAuth,
 } from "../../dashboard/actions/logout";
 import {
 	CONFIRM_EMAIL_REQUEST,
@@ -41,19 +44,49 @@ export const loginReducer = (state = initialState, action) => {
 			};
 
 		case USER_LOGIN_ERROR:
+			localStorage.removeItem("id");
 			return {
 				...state,
 				error: action.payload,
 				isFetching: false,
 			};
 
-		case GET_LOGOUT_REQUEST:
+		case Identity + SignOut + REQUEST:
 			return {
 				...state,
 				isFetching: true,
 			};
 
-		case GET_LOGOUT_SUCCESS:
+		case Identity + SignOut + ERROR:
+			return {
+				...state,
+				isFetching: false,
+				error: action.payload,
+			};
+
+		case Identity + SignOut + SUCCESS:
+			return {
+				...state,
+				isFetching: false,
+				error: {
+					type: "",
+					message: "",
+				},
+			};
+		case Identity + ReAuth + REQUEST:
+			return {
+				...state,
+				isFetching: true,
+			};
+
+		case Identity + ReAuth + ERROR:
+			return {
+				...state,
+				isFetching: false,
+				error: action.payload,
+			};
+
+		case Identity + ReAuth + SUCCESS:
 			return {
 				...state,
 				isFetching: false,

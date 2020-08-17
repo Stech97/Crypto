@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import FluidContainer from "../Content";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -6,6 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import { connect } from "react-redux";
+import { GetBlock, getPicture } from "../actions/mainpage";
 
 const darkBlue = "#123273";
 const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
@@ -113,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const JoinusHeader = () => {
+const JoinusHeader = ({ header }) => {
   const classes = useStyles();
   return (
     <Grid item xs={12}>
@@ -192,8 +194,14 @@ const JoinusButtons = () => {
   );
 };
 
-function Joinus() {
+function Joinus(props) {
   const classes = useStyles();
+  const { block, data } = props;
+
+  useEffect(() => {
+    props.GetAction();
+  }, [data.data.upload]);
+
   return (
     <FluidContainer background="#f5fbff" radius="75px 0 75px 0" zIndex="20">
       <Grid
@@ -211,16 +219,34 @@ function Joinus() {
           xs={12}
           md={6}
         >
-          <JoinusHeader />
+          <JoinusHeader header={data.data.header} />
           <JoinusContent />
           <JoinusButtons />
         </Grid>
         <Grid spacing={2} item container xs={12} md={6}>
-          <img className={classes.image} src="/img/joinus.png" alt="joinus" />
+          <img
+            className={classes.image}
+            src={`${data.image.image}`}
+            alt="joinus"
+          />
         </Grid>
       </Grid>
     </FluidContainer>
   );
 }
 
-export default Joinus;
+const mapStateToProps = (state, props) => ({
+  data: state.Mainpage[props.block],
+});
+
+const mapDispatchToProps = (dispatch, state) => {
+  let GetAction = () => dispatch(GetBlock(state.block));
+  let GetPicture = () => dispatch(getPicture(state.block));
+  GetPicture();
+  return {
+    GetAction,
+    GetPicture,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Joinus);

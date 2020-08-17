@@ -24,26 +24,19 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: "20px",
 	},
 	header: {
-		position: "sticky",
-		background: "linear-gradient(83deg, #123273 0%, #005c9f 100%)",
-		borderLeft: "4px solid #ffffff",
+		background: 'none',
 		"&>div": {
 			color: "#fff",
+			backgroundColor: '#123273',
 		},
 		"& h6": {
 			color: "#fff",
 		},
-		"&>div>div:nth-child(2)": {
+		"&:nth-child(2)": {
 			borderTopLeftRadius: "2vw",
-			[theme.breakpoints.down("sm")]: {
-				borderTopLeftRadius: "1rem",
-			},
 		},
-		"&>div>div:last-child": {
+		"&:last-child": {
 			borderTopRightRadius: "2vw",
-			[theme.breakpoints.down("sm")]: {
-				borderTopRightRadius: "1rem",
-			},
 		},
 	},
 	table: {
@@ -77,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 	row: {
 		position: "relative",
 		borderRadius: "2vw",
-		background: "transparent",
+		background: 'none',
 
 		"&>div": {
 			border: "none",
@@ -123,6 +116,11 @@ const useStyles = makeStyles((theme) => ({
 			},
 		},
 	},
+	plus_fake: {
+		border: 'none',
+		width: 0,
+		height: 0,
+	}
 }));
 
 const MemberLevelRow = ({
@@ -308,7 +306,6 @@ function TeamTable(props) {
 
 	const classes = useStyles();
 
-	console.log("props.team.levels");
 	const headers = [
 		"Level",
 		"Members",
@@ -326,14 +323,15 @@ function TeamTable(props) {
 					className={classes.table}
 					aria-label="customized table"
 				>
-					<TableHead component={Box} className={classes.header}>
-						<TableRow component={Box}>
-							<div className={classes.plus}></div>
+					<TableBody component={Box} className={classes.body}>
+						<TableRow className={classes.header} component={Box}>
+							<div className={classes.plus_fake}></div>
 							{headers.map((header, index) => (
 								<TableCell
 									component={Box}
 									key={index}
 									align="center"
+									className={classes.cell_start}
 								>
 									<Typography variant="subtitle1">
 										{header}
@@ -341,8 +339,6 @@ function TeamTable(props) {
 								</TableCell>
 							))}
 						</TableRow>
-					</TableHead>
-					<TableBody component={Box} className={classes.body}>
 						<CustomTableRow
 							level={1}
 							row={team.levels[0] ? team.levels[0] : 0}

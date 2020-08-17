@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import FluidContainer from "../Content";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -9,6 +9,8 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Box from "@material-ui/core/Box";
+import { GetFAQBlock, UpdateFAQBlock } from "../actions/mainpage";
+import { connect } from "react-redux";
 
 const darkBlue = "#123273";
 const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
@@ -93,12 +95,10 @@ const FaqHeader = () => {
   );
 };
 
-const FaqText = () => {
+const FaqText = ({ text }) => {
   return (
     <Typography paragraph variant="body1" component="p">
-      Here you’ll find answers to the most common questions our customers ask.
-      If you can’t find your answer here, please email us at{" "}
-      <b>contact@defima.io</b> or hit us up on <b>telegram @defimasupport</b>
+      {text}
     </Typography>
   );
 };
@@ -114,39 +114,61 @@ const FaqAccordion = (props) => {
           id={"panel" + props.id}
         >
           <Typography className={classes.heading}>
-            {props.topic.question}
+            {props.data.question}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>{props.topic.text}</Typography>
+          <Typography>{props.data.text}</Typography>
         </AccordionDetails>
       </Accordion>
     </Box>
   );
 };
 
-function FaqTopics() {
-  const initialState = {
-    topic: [
-      {
-        opened: false,
-        question: "Who is behind DEFIMA and is DEFIMA trustworthy?",
-        text: "Lorem ipsum tvou mamu",
-      },
-      {
-        opened: false,
-        question: "How does DEFIMA protect customer’s assets?",
-        text: "Lorem ipsum tvou mamu",
-      },
-      {
-        opened: true,
-        question: "Who can participate?",
-        text:
-          "Anyone can participate, as long as you have an internet connection (to use our website) and access to a bitcoin wallet (to deposit and Withdraw your money). Also, please note we don’t accept people from the USA and Canada.",
-      },
-    ],
-    openedAll: false,
-  };
+function FaqTopics(props) {
+  const { data } = props;
+  const initialState = data.header
+    ? {
+        topic: [
+          {
+            opened: false,
+            question: data.question1Header,
+            text: data.question1Text,
+          },
+          {
+            opened: false,
+            question: data.question2Header,
+            text: data.question2Text,
+          },
+          {
+            opened: true,
+            question: data.question3Header,
+            text: data.question3Text,
+          },
+        ],
+        openedAll: false,
+      }
+    : {
+        topic: [
+          {
+            opened: false,
+            question: "Who is behind DEFIMA and is DEFIMA trustworthy?",
+            text: "Lorem ipsum tvou mamu",
+          },
+          {
+            opened: false,
+            question: "How does DEFIMA protect customer’s assets?",
+            text: "Lorem ipsum tvou mamu",
+          },
+          {
+            opened: true,
+            question: "Who can participate?",
+            text:
+              "Anyone can participate, as long as you have an internet connection (to use our website) and access to a bitcoin wallet (to deposit and Withdraw your money). Also, please note we don’t accept people from the USA and Canada.",
+          },
+        ],
+        openedAll: false,
+      };
 
   const [state, setState] = useState(initialState);
 
@@ -175,6 +197,10 @@ function FaqTopics() {
           key={id}
           id={id}
           topic={item}
+          data={{
+            question: data[`question${id + 1}Header`],
+            text: data[`question${id + 1}Text`],
+          }}
           toggleTopic={() => toggleTopic(id)}
         />
       ))}
@@ -185,20 +211,37 @@ function FaqTopics() {
   );
 }
 
-function Faq() {
+function Faq(props) {
+  const { data, block } = props;
+
+  useEffect(() => {
+    props.GetAction();
+  }, [data.data.upload]);
+
   return (
     <FluidContainer zIndex="10" background="#fff" radius="0 0 0 75px">
       <Grid container justify="space-between" spacing={3} xs={12}>
         <Grid item container justify="flex-start" spacing={3} xs={12} md={3}>
-          <FaqHeader />
-          <FaqText />
+          <FaqHeader header={data.data.header} />
+          <FaqText text={data.data.text} />
         </Grid>
         <Grid item container justify="flex-end" spacing={3} xs={12} md={6}>
-          <FaqTopics />
+          <FaqTopics data={data.data} />
         </Grid>
       </Grid>
     </FluidContainer>
   );
 }
 
-export default Faq;
+const mapStateToProps = (state, props) => ({
+  data: state.Mainpage.faq,
+});
+
+const mapDispatchToProps = (dispatch, state) => {
+  let GetAction = () => dispatch(GetFAQBlock());
+  return {
+    GetAction,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Faq);

@@ -397,7 +397,7 @@ function SignupForm(props) {
                     type="submit"
                     disabled={hasErrors || invalid || pristine || submitting}
                 >
-                    {createUser.isFetching || submitting
+                    {createUser.isFetching
                         ? "Loading..."
                         : createUser.error.type
                         ? "Success"

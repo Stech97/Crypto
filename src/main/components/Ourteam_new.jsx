@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import FluidContainer from "../Content";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -12,6 +12,9 @@ import Button from "@material-ui/core/Button";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import IconButton from "@material-ui/core/IconButton";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { connect } from "react-redux";
+import { GetPictureAbout, GetAboutBlock } from "../actions/mainpage";
+
 import "swiper/swiper.scss";
 
 const darkBlue = "#123273";
@@ -85,36 +88,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const OurteamHeader = () => {
+const OurteamHeader = ({ header, subHeader }) => {
   const classes = useStyles();
   return (
     <Fragment>
       <Grid item xs={12}>
         <Typography variant="h2" component="h2">
-          About Us
+          {header}
         </Typography>
       </Grid>
       <Grid item xs={12}>
         <Typography variant="h3" component="h3">
-          Employee Spotlight
+          {subHeader}
         </Typography>
       </Grid>
     </Fragment>
   );
 };
-
-const ourteamMembers = [
-  {
-    id: 1,
-    name: "Thomas",
-    post: "CEO & Founder",
-  },
-  {
-    id: 2,
-    name: "Scarlett",
-    post: "CEO & Founder",
-  },
-];
 
 function LinkedIcon() {
   return (
@@ -137,7 +127,7 @@ function OurteamMemberCard(props) {
       <CardMedia
         component="img"
         className={classes.media}
-        image={"/img/member-photo-" + item.id + ".png"}
+        image={item.image}
         title={"member-photo-" + item.id}
       />
       <CardContent className={classes.content}>
@@ -155,7 +145,7 @@ function OurteamMemberCard(props) {
         </Typography>
         <IconButton
           component="a"
-          href="https://www.linkedin.com/"
+          href={item.link}
           aria-label="linkedin"
           className={classes.button}
         >
@@ -208,15 +198,55 @@ function OurteamMember(props) {
   );
 }
 
-function Ourteam() {
+function Ourteam(props) {
+  const { data, block } = props;
+  useEffect(() => {
+    props.GetAction();
+    props.GetPicture(1);
+    props.GetPicture(2);
+  }, []);
+
   return (
     <FluidContainer background="linear-gradient(0deg, #ed7102 100%, #ed7102 100%) left center/ 100% 20% no-repeat, #fff">
       <Grid id="Team" container spacing={3} xs={12}>
-        <OurteamHeader />
-        <OurteamMember data={ourteamMembers} />
+        <OurteamHeader
+          header={data.data.header}
+          subHeader={data.data.subHeader}
+        />
+        <OurteamMember
+          data={[
+            {
+              id: 1,
+              name: data.data.name1,
+              post: data.data.title1,
+              link: data.data.link1,
+              image: data.images.image1,
+            },
+            {
+              id: 2,
+              name: data.data.name2,
+              post: data.data.title2,
+              link: data.data.link2,
+              image: data.images.image2,
+            },
+          ]}
+        />
       </Grid>
     </FluidContainer>
   );
 }
 
-export default Ourteam;
+const mapStateToProps = (state, props) => ({
+  data: state.Mainpage.about_us,
+});
+
+const mapDispatchToProps = (dispatch, state) => {
+  let GetAction = () => dispatch(GetAboutBlock());
+  let GetPicture = (index) => dispatch(GetPictureAbout(index));
+  return {
+    GetAction,
+    GetPicture,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Ourteam);

@@ -22,7 +22,7 @@ const PrivateRoute = ({ component: Component, routes: routes, ...rest }) => {
             {...rest}
             render={(props) => {
                 if (isAuthenticated()) {
-                    return <Component {...props} routes={routes} />;
+                    return <Component {...rest} {...props} routes={routes} />;
                 } else {
                     return (
                         <Redirect
@@ -53,7 +53,7 @@ const InprivateRoute = ({ component: Component, routes: routes, ...rest }) => {
                         />
                     );
                 } else {
-                    return <Component {...props} routes={routes} />;
+                    return <Component {...rest} {...props} routes={routes} />;
                 }
             }}
         />
