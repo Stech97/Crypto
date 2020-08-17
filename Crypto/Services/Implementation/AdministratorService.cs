@@ -56,6 +56,12 @@ namespace Crypto.Services.Implementation
 			return await _repository.ReAuth(UserId);
 		}
 
+		public async Task SetLoginHistory(ViewModels.Administrator.LoginHistoryViewModel request)
+		{
+			var currentSession = _mapper.Map<ViewModels.Administrator.LoginHistoryViewModel, CurrentSession>(request);
+			await _repository.SetCurrentSession(currentSession);
+		}
+
 		#endregion
 
 		#region News

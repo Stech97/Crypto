@@ -164,6 +164,13 @@ namespace DBRepository.Repositories
 				return reAuth;
 		}
 
+		public async Task SetCurrentSession(CurrentSession currentSession)
+		{
+			using var context = ContextFactory.CreateDbContext(ConnectionString);
+			context.CurrentSessions.Add(currentSession);
+			await context.SaveChangesAsync();
+		}
+
 		#endregion
 
 		#region News
@@ -378,7 +385,7 @@ namespace DBRepository.Repositories
 				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
 				if (main != null)
 				{
-					if (Component == "About us")
+					if (Component == "about_us")
 					{
 						switch (Possition)
 						{

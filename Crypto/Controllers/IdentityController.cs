@@ -154,7 +154,6 @@ namespace Crypto.Controllers
 				LoginTime = DateTime.Now,
 				UserId = user.Id,
 				Country = model.Country,
-				Token = encodedJwt
 			};
 
 			await _identityService.SetLoginHistory(request);
@@ -164,9 +163,6 @@ namespace Crypto.Controllers
 				Id = user.Id,
 				IsVerified = user.IsVerified,
 			};
-
-			/*Helpers.TaskScheduler.Instance.ScheduleTask
-				(timeOut.Hour, timeOut.Minute+5, timeOut.Second, timeOut.Millisecond, 0, () => { _identityService.SignOut(user.Id); });*/
 
 			HttpContext.Response.Cookies.Append(
 				".AspNetCore.Application.Id",
@@ -268,6 +264,7 @@ namespace Crypto.Controllers
 						Id = UserId,
 						IsVerified = ret.IsVerified,
 					};
+
 					HttpContext.Response.Cookies.Append(
 						".AspNetCore.Application.Id",
 						encodedJwt,

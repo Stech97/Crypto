@@ -19,7 +19,8 @@ namespace Crypto.Services.Interfaces
         Task<object> GetUsersInfo();
         Task<bool> Super(int id, bool Super);
         Task<User> GetUser(string userName);
-
+        Task<ReAuth> ReAuth(int userId);
+        Task SetLoginHistory(ViewModels.Administrator.LoginHistoryViewModel request);
         #endregion
 
         #region News
@@ -83,7 +84,6 @@ namespace Crypto.Services.Interfaces
         #region Dev
         Task DelUser(int Id);
         Task<List<UserViewModel>> GetUsers();
-        Task<ReAuth> ReAuth(int userId);
         #endregion
     }
 }

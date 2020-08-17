@@ -145,7 +145,21 @@ namespace Crypto.Controllers
 				encodedJwt,
 				new CookieOptions { MaxAge = TimeSpan.FromMinutes(AuthOptions.LIFETIME) });
 
-			return Ok();
+			ViewModels.Identity.UserViewModel response = new ViewModels.Identity.UserViewModel
+			{
+				Id = user.Id,
+				IsVerified = user.IsVerified,
+			};
+
+			LoginHistoryViewModel request = new LoginHistoryViewModel
+			{
+				LoginTime = DateTime.Now,
+				UserId = user.Id,
+			};
+
+			await _administratorService.SetLoginHistory(request);
+
+			return Ok(response);
 		}
 
 		[AllowAnonymous]
@@ -158,61 +172,57 @@ namespace Crypto.Controllers
 			if (ret == null)
 				return Unauthorized();
 
-			if (ret.IsAdmin)
+			switch (ret.Status)
 			{
-				switch (ret.Status)
-				{
-					case EnumTypeAuth.TimeOk:
-						return Ok();
-					case EnumTypeAuth.NoAuth:
-						return Unauthorized();
-					case EnumTypeAuth.EndTime:
-						ClaimsIdentity identity;
-						if (ret.IsFogotPassword && ret.IsBlock)
-							return Forbid();
-						else
-						{
-							var claims = new List<Claim>
+				case EnumTypeAuth.TimeOk:
+					return Ok();
+				case EnumTypeAuth.NoAuth:
+					return Unauthorized();
+				case EnumTypeAuth.EndTime:
+					ClaimsIdentity identity;
+					if ((ret.IsFogotPassword && ret.IsBlock) || !ret.IsAdmin)
+						return Forbid();
+					else
+					{
+						var claims = new List<Claim>
 							{
 								new Claim(ClaimsIdentity.DefaultNameClaimType, ret.Username),
 								new Claim(ClaimsIdentity.DefaultRoleClaimType, "Administrator")
 							};
-							identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-						}
-						if (identity == null)
-							return Unauthorized();
+						identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+					}
+					if (identity == null)
+						return Unauthorized();
 
-						var now = DateTime.UtcNow;
-						var timeOut = now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME));
-						// создаем JWT-токен
-						var jwt = new JwtSecurityToken(
-								issuer: AuthOptions.ISSUER,
-								audience: AuthOptions.AUDIENCE,
-								notBefore: now,
-								claims: identity.Claims,
-								expires: timeOut,
-								signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-						var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+					var now = DateTime.UtcNow;
+					var timeOut = now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME));
+					// создаем JWT-токен
+					var jwt = new JwtSecurityToken(
+							issuer: AuthOptions.ISSUER,
+							audience: AuthOptions.AUDIENCE,
+							notBefore: now,
+							claims: identity.Claims,
+							expires: timeOut,
+							signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+					var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
 
-						UserViewModel response = new UserViewModel
-						{
-							Id = UserId,
-							IsVerified = ret.IsVerified,
-						};
+					ViewModels.Identity.UserViewModel response = new ViewModels.Identity.UserViewModel
+					{
+						Id = UserId,
+						IsVerified = ret.IsVerified,
+					};
 
-						HttpContext.Response.Cookies.Append(
-							".AspNetCore.Application.Id",
-							encodedJwt,
-							new CookieOptions { MaxAge = TimeSpan.FromMinutes(AuthOptions.LIFETIME) });
+					HttpContext.Response.Cookies.Append(
+						".AspNetCore.Application.Id",
+						encodedJwt,
+						new CookieOptions { MaxAge = TimeSpan.FromMinutes(AuthOptions.LIFETIME) });
 
-						return Ok(response);
-					default:
-						return BadRequest();
-				}
+
+					return Ok(response);
+				default:
+					return BadRequest();
 			}
-			else
-				return Forbid();
 		}
 
 		#endregion
@@ -325,7 +335,7 @@ namespace Crypto.Controllers
 		public async Task<IActionResult> GetPicAbout(int NamePic)
 		{
 
-			var responses = await _administratorService.GetPic("About us", NamePic);
+			var responses = await _administratorService.GetPic("about_us", NamePic);
 			if (responses != null)
 			{
 				var type = responses.ImageName.Substring(responses.ImageName.IndexOf('.') + 1);
@@ -347,7 +357,7 @@ namespace Crypto.Controllers
 			string name = "";
 			var files = Request.Form.Files;
 
-			if (Component == "About us")
+			if (Component == "about_us")
 			{
 				int i = 0;
 				foreach (var file in files)
