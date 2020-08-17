@@ -40,15 +40,15 @@ function FileRow(props) {
 		e.preventDefault();
 		// Update the state
 		let reader = new FileReader();
-		let file = e.target.files[0];
+		let uploadFile = e.target.files[0];
 		let id = e.target.id;
 		const formData = new FormData();
-		formData.append(id, file);
-		setFile(formData);
+		formData.append(id, uploadFile);
+		setFile({ [name]: formData });
 	};
 
 	const FileUpload = () => {
-		props.UpdateAction(file);
+		props.UpdateAction(file[name]);
 		props.GetAction();
 	};
 
@@ -87,11 +87,11 @@ function FileRow(props) {
 				)}
 			</Grid>
 			<Grid item xs={3}>
-				<label htmlFor="contained-button-file">
+				<label htmlFor={name}>
 					<input
 						accept="*"
 						className={classes.input}
-						id="contained-button-file"
+						id={name}
 						multiple
 						type="file"
 						onChange={onFileChange}
@@ -103,7 +103,7 @@ function FileRow(props) {
 			</Grid>
 			<Grid item xs={3}>
 				<Button
-					disabled={file === null}
+					disabled={file === null || file.name === null}
 					variant="contained"
 					color="secondary"
 					onClick={FileUpload}

@@ -122,6 +122,4 @@ const mapDispatchToProps = (dispatch, state) => {
   };
 };
 
-FAQ = connect(mapStateToProps, mapDispatchToProps)(FAQ);
-
-export default FAQ;
+export default connect(mapStateToProps, mapDispatchToProps)(FAQ);
