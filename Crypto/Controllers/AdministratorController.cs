@@ -256,7 +256,8 @@ namespace Crypto.Controllers
 		#endregion
 
 		#region Main Page
-		
+
+		[AllowAnonymous]
 		[Route("GetSingleTextInfo")]
 		[HttpGet]
 		public async Task<IActionResult> GetInfo(string Component)
@@ -274,7 +275,8 @@ namespace Crypto.Controllers
 			await _administratorService.UpdateInfo(model);
 			return Ok();
 		}
-	
+
+		[AllowAnonymous]
 		[Route("GetFAQ")]
 		[HttpGet]
 		public async Task<IActionResult> GetFAQ()
@@ -293,6 +295,7 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
+		[AllowAnonymous]
 		[Route("GetAbout")]
 		[HttpGet]
 		public async Task<IActionResult> GetAbout()
@@ -311,6 +314,7 @@ namespace Crypto.Controllers
 			return Ok();
 		}
 
+		[AllowAnonymous]
 		[Route("GetPic")]
 		[HttpGet]
 		public async Task<IActionResult> GetPic(string Component)
@@ -329,7 +333,7 @@ namespace Crypto.Controllers
 			return NotFound("User or file not found");
 		}
 
-
+		[AllowAnonymous]
 		[Route("GetPicAbout")]
 		[HttpGet]
 		public async Task<IActionResult> GetPicAbout(int NamePic)
