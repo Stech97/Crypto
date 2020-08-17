@@ -3,6 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
 import { getRefs } from "../../actions/getRefs";
+import { fileNames, GetFile } from "../../actions/files";
+
 import { makeStyles } from "@material-ui/core/styles";
 
 const lightBlue = "#16428d";
@@ -33,15 +35,22 @@ const WhiteboxStyles = makeStyles((theme) => ({
 			},
 		},
 	},
+	link: {
+		textDecoration: "none",
+		color: "#16428d",
+	},
 }));
 
 function Links(props) {
 	const [state, setState] = useState({ refId: "", refString: "" });
-	const { Refs } = props;
+	const { Refs, files } = props;
 
 	useEffect(() => {
 		props.getRefsAction();
-	}, []);
+		props.GetAction(fileNames[1]);
+		props.GetAction(fileNames[6]);
+		props.GetAction(fileNames[7]);
+	}, [files[fileNames[1]].file === null]);
 
 	const classes = WhiteboxStyles();
 	return (
@@ -77,20 +86,86 @@ function Links(props) {
 				direction="row"
 				className={classes.whitebox}
 			>
-				<Grid item xs={12} md={4} className={classes.row}>
-					<Typography variant="h6" align="center">
-						Business Presentation PDF
-					</Typography>
+				<Grid
+					container
+					justify="center"
+					item
+					xs={12}
+					md={4}
+					className={classes.row}
+				>
+					{files[fileNames[1]].file === null ? (
+						<Typography variant="h6" align="center">
+							Business Presentation PDF
+						</Typography>
+					) : (
+						<Typography
+							className={classes.link}
+							component="a"
+							href={URL.createObjectURL(files[fileNames[1]].file)}
+							download={`${fileNames[1]}.${
+								files[fileNames[1]].file.type
+							}`}
+							variant="h6"
+							align="center"
+						>
+							Business Presentation PDF
+						</Typography>
+					)}
 				</Grid>
-				<Grid item xs={12} md={4} className={classes.row}>
-					<Typography variant="h6" align="center">
-						Image Video
-					</Typography>
+				<Grid
+					container
+					justify="center"
+					item
+					xs={12}
+					md={4}
+					className={classes.row}
+				>
+					{files[fileNames[6]].file === null ? (
+						<Typography variant="h6" align="center">
+							Image Video
+						</Typography>
+					) : (
+						<Typography
+							className={classes.link}
+							component="a"
+							href={URL.createObjectURL(files[fileNames[6]].file)}
+							download={`${fileNames[6]}.${
+								files[fileNames[6]].file.type
+							}`}
+							variant="h6"
+							align="center"
+						>
+							Image Video
+						</Typography>
+					)}
 				</Grid>
-				<Grid item xs={12} md={4} className={classes.row}>
-					<Typography variant="h6" align="center">
-						Tutorial PDF
-					</Typography>
+				<Grid
+					container
+					justify="center"
+					item
+					xs={12}
+					md={4}
+					className={classes.row}
+				>
+					{files[fileNames[7]].file === null ? (
+						<Typography variant="h6" align="center">
+							Tutorial PDF
+						</Typography>
+					) : (
+						<Typography
+							className={classes.link}
+							component="a"
+							href={URL.createObjectURL(files[fileNames[7]].file)}
+							download={`${fileNames[7]}.${
+								files[fileNames[7]].file.type
+							}`}
+							variant="h6"
+							align="center"
+						>
+							Tutorial PDF
+						</Typography>
+					)}
 				</Grid>
 			</Grid>
 		</Grid>
@@ -100,12 +175,14 @@ function Links(props) {
 const mapStateToProps = (store) => {
 	return {
 		Refs: store.Refs,
+		files: store.files,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		getRefsAction: () => dispatch(getRefs()),
+		GetAction: (name) => dispatch(GetFile(name)),
 	};
 };
 
