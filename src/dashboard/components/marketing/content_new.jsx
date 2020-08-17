@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
@@ -21,6 +21,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { MailIcon, TelegramIcon } from "../../svg/iconComponents";
 import Box from "@material-ui/core/Box";
 import { Helmet } from "react-helmet";
+import { connect } from "react-redux";
+import { fileNames, GetFile } from "../../actions/files";
 
 const marketboxes = [
   {
@@ -182,35 +184,89 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MarketingContentBox = ({ box: { className, link, header, img } }) => {
+function MarketingContentBox(props) {
+  const {
+    box: { className, link, header, img },
+    name,
+    data,
+  } = props;
   const classes = useStyles();
-  return (
-    <Grid
-      className={classes.contentbox}
-      justify="center"
-      container
-      item
-      xs={6}
-      md={3}
-    >
-      <Typography className={classes.card_header}>{header}</Typography>
-      <Card className={classes.root}>
-        <CardActionArea className={classes.media_holder}>
-          <CardMedia
-            className={classes.media}
-            image={"/img/" + img}
-            title={className}
-          />
-        </CardActionArea>
-        <CardActions className={classes.action_area}>
-          <Button size="large" className={classes.download} href={link}>
-            Download
-          </Button>
-        </CardActions>
-      </Card>
-    </Grid>
-  );
-};
+
+  useEffect(() => {
+    props.GetAction();
+  }, [data.file === null]);
+
+  if (data.file === null) {
+    return (
+      <Grid
+        className={classes.contentbox}
+        justify="center"
+        container
+        item
+        xs={6}
+        md={3}
+      >
+        <Typography className={classes.card_header}>{header}</Typography>
+        <Card className={classes.root}>
+          <CardActionArea className={classes.media_holder}>
+            <CardMedia
+              className={classes.media}
+              image={"/img/" + img}
+              title={className}
+            />
+          </CardActionArea>
+          <CardActions className={classes.action_area}>
+            <Button component="a" size="large" className={classes.download}>
+              Download
+            </Button>
+          </CardActions>
+        </Card>
+      </Grid>
+    );
+  } else {
+    return (
+      <Grid
+        className={classes.contentbox}
+        justify="center"
+        container
+        item
+        xs={6}
+        md={3}
+      >
+        <Typography className={classes.card_header}>{header}</Typography>
+        <Card className={classes.root}>
+          <CardActionArea className={classes.media_holder}>
+            <CardMedia
+              className={classes.media}
+              image={"/img/" + img}
+              title={className}
+            />
+          </CardActionArea>
+          <CardActions className={classes.action_area}>
+            <Button
+              component="a"
+              size="large"
+              className={classes.download}
+              href={URL.createObjectURL(data.file)}
+              download={`${name}.${data.file.type}`}
+            >
+              Download
+            </Button>
+          </CardActions>
+        </Card>
+      </Grid>
+    );
+  }
+}
+
+MarketingContentBox = connect(
+  (state, props) => ({
+    data: state.files[props.name],
+  }),
+  (dispatch, state) => ({
+    GetAction: () => dispatch(GetFile(state.name)),
+  })
+)(MarketingContentBox);
 
 const MarketingContentFollow = ({}) => {
   const classes = useStyles();
@@ -270,13 +326,37 @@ export default class MarketingContent extends Component {
           <title>Marketing</title>
         </Helmet>
         <Grid container spacing={2}>
-          <MarketingContentBox key={0} box={marketboxes[0]} />
-          <MarketingContentBox key={1} box={marketboxes[1]} />
+          <MarketingContentBox
+            key={0}
+            name={fileNames[1]}
+            box={marketboxes[0]}
+          />
+          <MarketingContentBox
+            key={1}
+            name={fileNames[2]}
+            box={marketboxes[1]}
+          />
           <MarketingContentFollow />
-          <MarketingContentBox key={2} box={marketboxes[2]} />
-          <MarketingContentBox key={3} box={marketboxes[3]} />
-          <MarketingContentBox key={4} box={marketboxes[4]} />
-          <MarketingContentBox key={5} box={marketboxes[5]} />
+          <MarketingContentBox
+            key={2}
+            name={fileNames[3]}
+            box={marketboxes[2]}
+          />
+          <MarketingContentBox
+            key={3}
+            name={fileNames[4]}
+            box={marketboxes[3]}
+          />
+          <MarketingContentBox
+            key={4}
+            name={fileNames[5]}
+            box={marketboxes[4]}
+          />
+          <MarketingContentBox
+            key={5}
+            name={fileNames[6]}
+            box={marketboxes[5]}
+          />
         </Grid>
       </Container>
     );

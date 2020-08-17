@@ -24,6 +24,7 @@ import { KYCReducer } from "../dashboard/reducers/kyc";
 import { AddFundsReducer } from "../dashboard/reducers/CashBTC";
 import { WithdrawReducer } from "../dashboard/reducers/withdraw";
 import { MainpageReducer } from "../main/reducers/mainpage";
+import { FileReducer } from "../dashboard/reducers/files";
 
 export const rootReducer = combineReducers({
 	form: reduxFormReducer, // mounted under "form"
@@ -55,4 +56,5 @@ export const rootReducer = combineReducers({
 	addfunds: AddFundsReducer,
 	withdraw: WithdrawReducer,
 	Mainpage: MainpageReducer,
+	files: FileReducer,
 });
