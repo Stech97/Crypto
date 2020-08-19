@@ -66,9 +66,9 @@ function NewDash(props) {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			props.relogAction();
-		}, 300000);
+		}, 10000);
 		return () => clearInterval(interval);
-	}, [useState]);
+	}, []);
 
 	const handleDrawerToggle = (open) => {
 		setOpen(!open);

@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "-84px",
     [theme.breakpoints.down("sm")]: {
       width: "100vw",
-      height: "auto",
+      height: "100%",
       marginLeft: "-84px",
     },
   },

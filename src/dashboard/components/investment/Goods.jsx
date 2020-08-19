@@ -94,7 +94,7 @@ const goodStyles = makeStyles((theme) => ({
 
 function Good(props) {
   const classes = goodStyles();
-  const { title, percent, invest, levels } = props;
+  const { title, percent, invest, maxAmount, levels } = props;
   return (
     <Grid
       item
@@ -109,15 +109,22 @@ function Good(props) {
       <Card className={classes.box}>
         <CardHeader title={title} className={classes.title} />
         <CardContent className={classes.content}>
-          <Typography align="center" variant="body1">
+          <Typography align="center" variant="body1" paragraph>
             {"Monthly Profit of up to " + percent + "% month"}
           </Typography>
-          <Typography variant="body1">{"Starting  from $" + invest}</Typography>
-          <Typography variant="body1">
+          <Typography variant="body1" align="center" paragraph>
+            {"Starting  from $" + invest}
+          </Typography>
+          <Typography variant="body1" align="center" paragraph>
             {"Career commission qualified Level 1-" + levels}
           </Typography>
         </CardContent>
-        <InvestModal minAmount={invest} type={title} classes={classes} />
+        <InvestModal
+          minAmount={invest}
+          maxAmount={maxAmount}
+          type={title}
+          classes={classes}
+        />
       </Card>
     </Grid>
   );
@@ -130,18 +137,21 @@ function Goods() {
       percent: 6,
       invest: 100,
       levels: 2,
+      maxAmount: 5000,
     },
     {
       title: "Medium",
       percent: 8,
       invest: 5000,
       levels: 4,
+      maxAmount: 10000,
     },
     {
       title: "Large",
       percent: 11,
       invest: 10000,
       levels: 7,
+      maxAmount: 2000000,
     },
   ];
 

@@ -14,10 +14,12 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Switch from "@material-ui/core/Switch";
 import Button from "../Buttons";
+import Alert from "@material-ui/lab/Alert";
 
 const required = (value) =>
   value || typeof value === "number" ? undefined : "Required";
@@ -366,16 +368,24 @@ function AccountInfo(props) {
               </Typography>
             </ListItemText>
           </ListItem>
-          <Button
-            type="submit"
-            disabled={invalid || hasErrors || pristine || submitting}
-          >
-            {userInfo.isFetching || submitting
-              ? "Wait..."
-              : userInfo.error.type === "info updated"
-              ? "Success"
-              : "Save"}
-          </Button>
+          <Grid item container justify="space-between">
+            <Button
+              type="submit"
+              disabled={invalid || hasErrors || pristine || submitting}
+            >
+              {userInfo.isFetching || submitting ? "Wait..." : "Save"}
+            </Button>
+            {userInfo.error.message && (
+              <Alert variant="filled" severity="error">
+                {"Error!"}
+              </Alert>
+            )}
+            {userInfo.error.type === "info updated" && (
+              <Alert variant="filled" severity="success">
+                {"Success!"}
+              </Alert>
+            )}
+          </Grid>
         </List>
       </form>
     </SettingsBox>

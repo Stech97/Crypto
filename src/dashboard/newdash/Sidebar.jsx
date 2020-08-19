@@ -53,6 +53,11 @@ const sidebarTheme = createMuiTheme({
 	typography: {
 		fontFamily: ["IBM Plex Sans"],
 	},
+	props: {
+		MuiSelect: {
+			disableUnderline: true,
+		},
+	},
 });
 
 const useStyles = makeStyles((theme) => ({

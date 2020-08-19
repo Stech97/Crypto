@@ -8,10 +8,15 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.scss";
 import { connect } from "react-redux";
 import { GetBlock, getPicture } from "../actions/mainpage";
+import "swiper/components/navigation/navigation.scss";
+import "swiper/components/pagination/pagination.scss";
+
+SwiperCore.use([Navigation, Pagination]);
 
 const darkBlue = "#123273";
 const gradient = "linear-gradient(50deg, #123273 0%, #005c9f 100%)";
@@ -79,6 +84,11 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "center",
     },
   },
+  slide: {
+    overflow: "visible",
+    display: "flex",
+    justifyContent: "center",
+  },
 }));
 
 const PortfolioHeader = ({ header, subHeader }) => {
@@ -127,7 +137,7 @@ function Invest(props) {
   const { item } = props;
   const classes = useStyles();
   return (
-    <Grid item md={3} xs={12}>
+    <Grid item md={3} xs={6}>
       <Card className={classes.card}>
         <CardHeader
           align="center"
@@ -178,10 +188,8 @@ function PortfolioProduct(props) {
         className={classes.carousel}
         slidesPerView={1}
         scrollbar={{ draggable: true }}
-        pagination={{
-          el: ".swiper-pagination",
-          type: "bullets",
-        }}
+        navigation
+        pagination={{ clickable: true }}
       >
         {props.data.map((item, i) => (
           <SwiperSlide key={i} className={classes.slide}>
@@ -201,7 +209,7 @@ function Portfolio(props) {
   }, [data.data.upload]);
   return (
     <FluidContainer
-      background="url(/img/worldmap2.png) left center/ auto 100% no-repeat, linear-gradient(39deg, #ed7102 0%, #ed7102 100%) left top no-repeat"
+      background="url(/img/worldmap2.png) left center/ 100vw auto no-repeat, linear-gradient(39deg, #ed7102 0%, #ed7102 100%) left top no-repeat"
       radius="0 0 0 75px"
       zIndex="18"
     >

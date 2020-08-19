@@ -134,7 +134,13 @@ class ExchangeForm extends Component {
 				xs={12}
 			>
 				<Grid component={Box} item container xs={12}>
-					<Typography>
+					<Typography
+						style={{
+							color: "#123273",
+							fontWeight: "500",
+							margin: "auto 0",
+						}}
+					>
 						{"Insert " + curToString(cur1.cur) + " Amount"}
 					</Typography>
 				</Grid>
@@ -147,11 +153,19 @@ class ExchangeForm extends Component {
 					}
 					normalize={validateFloat}
 				/>
-				<Grid component={Box} item container xs={12}>
+				<Grid component={Box} item container justify="center" xs={12}>
 					<img src="/img/exchange-icon.png" />
 				</Grid>
 				<Grid component={Box} item container xs={12}>
-					{curToString(cur2.cur) + " Amount"}
+					<Typography
+						style={{
+							color: "#123273",
+							fontWeight: "500",
+							margin: "auto 0",
+						}}
+					>
+						{curToString(cur2.cur) + " Amount"}
+					</Typography>
 				</Grid>
 				<Field
 					component={renderField}

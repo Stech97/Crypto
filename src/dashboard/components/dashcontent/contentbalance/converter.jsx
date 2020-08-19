@@ -108,7 +108,14 @@ class ExchangeContainer extends Component {
 				<DialogTitle>
 					<Grid justify="space-between" container xs={12}>
 						<Grid container item xs={10}>
-							<Typography variant="h4" className={classes.header}>
+							<Typography
+								variant="h4"
+								style={{
+									color: "#123273",
+									fontWeight: "500",
+									margin: "auto 0",
+								}}
+							>
 								Exchange
 							</Typography>
 						</Grid>

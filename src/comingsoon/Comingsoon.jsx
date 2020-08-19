@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     [theme.breakpoints.down("sm")]: {
       width: "100%",
-      height: "auto",
+      height: "100%",
     },
   },
 }));

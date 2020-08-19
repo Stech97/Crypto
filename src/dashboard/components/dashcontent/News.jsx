@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 		display: "none",
 		[theme.breakpoints.down("sm")]: {
 			display: "flex",
+			width: "100%",
 			"&>*": {
 				justifyContent: "center",
 			},
@@ -165,18 +166,20 @@ function News(props) {
 					<NewsPost key={index} {...post} />
 				))}
 			</Grid>
-			<Swiper
-				className={classes.carousel}
-				slidesPerView={1}
-				scrollbar={{ draggable: true }}
-			>
-				{props.news !== null &&
-					props.news.map((post, index) => (
-						<SwiperSlide className={classes.slide} key={index}>
-							<NewsPost {...post} />
-						</SwiperSlide>
-					))}
-			</Swiper>
+			<Grid item container xs={12}>
+				<Swiper
+					className={classes.carousel}
+					slidesPerView={1}
+					scrollbar={{ draggable: true }}
+				>
+					{props.news !== null &&
+						props.news.map((post, index) => (
+							<SwiperSlide className={classes.slide} key={index}>
+								<NewsPost {...post} />
+							</SwiperSlide>
+						))}
+				</Swiper>
+			</Grid>
 		</Grid>
 	);
 }

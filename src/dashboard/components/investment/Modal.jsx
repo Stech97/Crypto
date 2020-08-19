@@ -98,15 +98,23 @@ const SelectField = withStyles({
 		backgroundImage:
 			"linear-gradient(254deg, rgba(6, 77, 143, 0.98) 0%, #16428d 67%, #032748 100%)",
 		color: "#fff",
-		height: "1rem",
+		padding: "20px",
 		fontSize: "1rem",
+		borderBottom: "none!important",
 		"&:focus": {
 			backgroundImage:
 				"linear-gradient(254deg, rgba(6, 77, 143, 0.98) 0%, #16428d 67%, #032748 100%)",
 			borderRadius: "10px",
 		},
 		"&:before": {
-			border: "none",
+			borderBottom: "none!important",
+			"&:hover, &:focus, &:active": {
+				borderBottom: "none!important",
+			},
+		},
+		"&>option": {
+			color: "#fff",
+			backgroundColor: "#123273!important",
 		},
 	},
 })(Select);
@@ -167,6 +175,7 @@ class InvestModal extends Component {
 		const {
 			classes,
 			minAmount,
+			maxAmount,
 			type,
 			balance,
 			rate,
@@ -208,9 +217,11 @@ class InvestModal extends Component {
 			} else {
 				var rate = 1;
 			}
-			console.log("wallet.toLowerCase()", rate);
 			if (Number(amount) <= balance[wallet.toLowerCase()]) {
-				if (Number(amount) * rate >= Number(minAmount)) {
+				if (
+					Number(amount) * rate >= Number(minAmount) &&
+					Number(amount) <= maxAmount
+				) {
 					this.props.buyInvestAction(amount, wallet, typeNum());
 					this.props.getInvestmentTableAction();
 					this.props.reset();

@@ -22,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
       height: "182px",
       [theme.breakpoints.down("sm")]: {
         width: "30vw",
-        height: "auto",
+        height: "100%",
       },
       [theme.breakpoints.down("md")]: {
         width: "20vw",
-        height: "auto",
+        height: "100%",
       },
     },
   },
@@ -89,7 +89,6 @@ const OurmissionIcons = () => {
           xs={6}
         >
           <img
-            className="ourmission-icon-image-1"
             src="img/ourmission-icon-1.png"
             alt="ourmission-icon-1"
             srcSet="img/ourmission-icon-1@2x.png 2x, img/ourmission-icon-1@3x.png 3x"
@@ -105,7 +104,6 @@ const OurmissionIcons = () => {
           xs={6}
         >
           <img
-            className="ourmission-icon-image-2"
             src="img/ourmission-icon-2.png"
             alt="ourmission-icon-2"
             srcSet="img/ourmission-icon-2@2x.png 2x, img/ourmission-icon-2@3x.png 3x"
@@ -123,7 +121,6 @@ const OurmissionIcons = () => {
           xs={6}
         >
           <img
-            className="ourmission-icon-image-3"
             src="img/ourmission-icon-3.png"
             alt="ourmission-icon-3"
             srcSet="img/ourmission-icon-3@2x.png 2x, img/ourmission-icon-3@3x.png 3x"
@@ -139,7 +136,6 @@ const OurmissionIcons = () => {
           xs={6}
         >
           <img
-            className="ourmission-icon-image-4"
             src="img/ourmission-icon-4.png"
             alt="ourmission-icon-4"
             srcSet="img/ourmission-icon-4@2x.png 2x, img/ourmission-icon-4@3x.png 3x"

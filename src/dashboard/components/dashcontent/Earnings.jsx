@@ -60,6 +60,7 @@ const WhiteboxStyles = makeStyles((theme) => ({
 		},
 	},
 	svgGraph: {
+		position: "relative",
 		display: "flex",
 		boxShadow: "0 0 1.25rem rgba(0, 0, 0, 0.06)",
 		border: "1px solid #efefef",
@@ -78,6 +79,22 @@ const WhiteboxStyles = makeStyles((theme) => ({
 			},
 		},
 	},
+	reachborder: {
+		position: "absolute",
+		top: 0,
+		left: 0,
+		border: "none",
+		borderBottom: "2px dashed #123273",
+		height: "20%",
+		width: "100%",
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	rule: {
+		color: "#123273",
+		height: "1.25rem",
+	},
 }));
 
 function Graph({ height, text, ...rest }) {
@@ -94,6 +111,15 @@ function Graph({ height, text, ...rest }) {
 				{rounded2(text) + "% profit reached"}
 			</Typography>
 			<div className={classes.svgGraph}>
+				<div className={classes.reachborder}>
+					<Typography
+						variant="h6"
+						align="center"
+						className={classes.rule}
+					>
+						300% Rule
+					</Typography>
+				</div>
 				<SvgIcon
 					viewBox="0 0 170 106"
 					preserveAspectRatio="xMidYMin slice"
