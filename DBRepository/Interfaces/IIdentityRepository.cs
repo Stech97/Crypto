@@ -15,9 +15,9 @@ namespace DBRepository.Interfaces
         Task SetCurrentSession(CurrentSession currentSession);
         Task SignOut(int Id);
         Task<User> CheckInfo(User user);
-        Task<Dictionary<string, object>> ConfirmEmail(string Id);
-        Task<Dictionary<string, object>> ForgotPassword(User user);
-        Task<Dictionary<string, object>> AcceptForgot(string Id);
+        Task<Comfirm> ConfirmEmail(string Id);
+        Task<Forgot> ForgotPassword(User user);
+        Task<Accept> AcceptForgot(string Id);
         Task RecoveryPassword(User user, int Id);
 
         #region Patch User

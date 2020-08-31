@@ -29,6 +29,8 @@ namespace DBRepository.Repositories
 
             foreach (var Invest in Invests)
             {
+                var BalanceHistory = new BalanceHistory();
+
                 var Balance = await context.Balances.FirstOrDefaultAsync(b => b.UserId == Invest.UserId);
 
                 var Persent = await context.TypeInvestments.AsNoTracking()
@@ -38,7 +40,8 @@ namespace DBRepository.Repositories
                 {
                     var Profit = Invest.AddCash * Persent / 100;
                     Invest.Profit = Profit;
-                    Balance.DefimaBalance += Profit;
+                    Balance.DefimaBalance += Profit; 
+                    BalanceHistory.Amount = Profit;
                 }
                 else
                 {
@@ -53,6 +56,7 @@ namespace DBRepository.Repositories
                             Invest.TypeInvest = EnumTypeInvestment.None;
                         }
                         Balance.DefimaBalance += Profit;
+                        BalanceHistory.Amount = Profit;
                     }
                     else
                     {
@@ -69,13 +73,10 @@ namespace DBRepository.Repositories
                     }
                 }
 
-                var BalanceHistory = new BalanceHistory()
-                {
-                    Amount = Invest.Profit,
-                    Balance = Balance.DefimaBalance / Rates.USD_DET,
-                    Time = System.DateTime.Now,
-                    UserId = Invest.UserId
-                };
+                BalanceHistory.Balance = Balance.DefimaBalance / Rates.USD_DET;
+                BalanceHistory.Time = System.DateTime.Now;
+                BalanceHistory.UserId = Invest.UserId;
+
                 switch (Invest.TypeInvest)
                 {
                     case EnumTypeInvestment.Small:

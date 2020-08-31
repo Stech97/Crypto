@@ -64,18 +64,18 @@ namespace Crypto.Services.Implementation
 			return _mapper.Map<User, CheckViewModel>(result);
 		}
 
-		public async Task<Dictionary<string, object>> ConfirmEmail(string Id)
+		public async Task<Comfirm> ConfirmEmail(string Id)
 		{
 			return await _repository.ConfirmEmail(Id);
 		}
 
-		public async Task<Dictionary<string, object>> FogotPassword([FromBody] CheckViewModel request)
+		public async Task<Forgot> FogotPassword([FromBody] CheckViewModel request)
 		{
 			var fogotPassword = _mapper.Map<CheckViewModel, User>(request);
 			return await _repository.ForgotPassword(fogotPassword);
 		}
 
-		public async Task<Dictionary<string, object>> AcceptFogot(string Id)
+		public async Task<Accept> AcceptFogot(string Id)
 		{
 			return await _repository.AcceptForgot(Id);
 		}

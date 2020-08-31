@@ -44,6 +44,8 @@ namespace Crypto.Helpers
 
 			CreateMap<ViewModels.Identity.LoginHistoryViewModel, CurrentSession>();
 
+			CreateMap<ViewModels.Administrator.LoginHistoryViewModel, CurrentSession>();
+
 			CreateMap<ChangePasswordViewModel, User>();
 
 			CreateMap<CheckViewModel, User>();

@@ -261,14 +261,9 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-/Crypto/wwwroot/assets
 
-Crypto/Properties/
+Crypto/token/
 
 Crypto/appsettings.json
 
-Crypto/web.config
-
 Crypto/credentials.json
-
-Crypto/token/

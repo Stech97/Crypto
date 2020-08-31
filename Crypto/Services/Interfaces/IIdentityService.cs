@@ -16,9 +16,9 @@ namespace Crypto.Services.Interfaces
 		Task SignOut(int Id);
 		Task RecoveryPassword(ChangePasswordViewModel request, int Id);
 		Task<CheckViewModel> CheckInfo(CheckViewModel request);
-		Task<Dictionary<string, object>> ConfirmEmail(string Id);
-		Task<Dictionary<string, object>> FogotPassword(CheckViewModel request);
-		Task<Dictionary<string, object>> AcceptFogot(string Id);
+		Task<Comfirm> ConfirmEmail(string Id);
+		Task<Forgot> FogotPassword(CheckViewModel request);
+		Task<Accept> AcceptFogot(string Id);
 		Task<ReAuth> ReAuth(int userId);
 
 		#region Patch User

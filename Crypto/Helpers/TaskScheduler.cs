@@ -28,6 +28,7 @@ namespace Crypto.Helpers
 
             timers.Add(timer);
         }
+
         //по часам с добавлением часов, минут, секунд и милисекунд
         public void ScheduleTask(int hour, int min, int sec, int milsec, int intervalInHour, Action task)
         {
@@ -42,6 +43,7 @@ namespace Crypto.Helpers
 
             timers.Add(timer);
         }
+
         //по секундам с добавлением секунд 
         public void ScheduleTask(int sec, int intervalInSeconds, Action task)
         {

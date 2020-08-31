@@ -17,7 +17,8 @@ namespace DBRepository.Interfaces
         Task<object> GetUsersInfo();
         Task<bool> Super(int id, bool super);
         Task<User> GetUser(string userName);
-
+        Task<ReAuth> ReAuth(int userId);
+        Task SetCurrentSession(CurrentSession currentSession);
         #endregion
 
         #region Main Page
@@ -43,7 +44,6 @@ namespace DBRepository.Interfaces
 
         #region Get User Picture
         Task<Images> GetPassportPicture(int UserId);
-        Task<ReAuth> ReAuth(int userId);
         Task<Images> GetProofPicture(int UserId);
         Task<Images> GetSelfiPicture(int UserId);
         #endregion

@@ -4,18 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>7.2</LangVersion>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="token\**" />
-    <Content Remove="token\**" />
-    <EmbeddedResource Remove="token\**" />
-    <None Remove="token\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="credentials.json" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="credentials.json">
@@ -40,6 +30,10 @@
   <ItemGroup>
     <ProjectReference Include="..\DBRepository\DBRepository.csproj" />
     <ProjectReference Include="..\Models\Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 

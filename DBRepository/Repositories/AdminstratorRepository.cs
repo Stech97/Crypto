@@ -124,44 +124,60 @@ namespace DBRepository.Repositories
 		public async Task<ReAuth> ReAuth(int UserId)
 		{
 			using var context = ContextFactory.CreateDbContext(ConnectionString);
-				var CurrentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == UserId);
-				if (CurrentSession == null)
-					return null;
+			var CurrentSession = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == UserId);
+			if (CurrentSession == null)
+				return null;
 
-				ReAuth reAuth = null;
-				var DifTime = CurrentSession.LoginTime.AddMinutes(60) - DateTime.Now;
+			ReAuth reAuth = null;
+			var DifTime = CurrentSession.LoginTime.AddMinutes(60) - DateTime.Now;
 
-				if (DifTime.Minutes > 5)
-					reAuth = new ReAuth() { Status = EnumTypeAuth.TimeOk };
+			if (DifTime.Minutes > 5)
+				reAuth = new ReAuth() { Status = EnumTypeAuth.TimeOk };
 
-				if (DifTime.Minutes > 0 && DifTime.Minutes <= 5)
+			if (DifTime.Minutes > 0 && DifTime.Minutes <= 5)
+			{
+				var Users = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == UserId);
+
+				reAuth = new ReAuth()
 				{
-					var Users = await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == UserId);
+					Username = Users.Username,
+					IsVerified = Users.IsVerified,
+					IsFogotPassword = Users.IsFogotPassword,
+					IsBlock = Users.IsBlock,
+					IsAdmin = Users.IsAdmin,
+					Status = EnumTypeAuth.EndTime
+				};
 
-					reAuth = new ReAuth()
-					{
-						Username = Users.Username,
-						IsVerified = Users.IsVerified,
-						IsFogotPassword = Users.IsFogotPassword,
-						IsBlock = Users.IsBlock,
-						IsAdmin = Users.IsAdmin,
-						Status = EnumTypeAuth.EndTime
-					};
+				CurrentSession.LoginTime = DateTime.Now;
+				context.Update(CurrentSession);
+				await context.SaveChangesAsync();
+			}
 
-					CurrentSession.LoginTime = DateTime.Now;
-					context.Update(CurrentSession);
-					await context.SaveChangesAsync();
-				}
+			if (DifTime.Minutes <= 0)
+			{
+				reAuth = new ReAuth() { Status = EnumTypeAuth.NoAuth };
 
-				if (DifTime.Minutes <= 0)
-				{
-					reAuth = new ReAuth() { Status = EnumTypeAuth.NoAuth };
+				context.Remove(CurrentSession);
+				await context.SaveChangesAsync();
+			}
 
-					context.Remove(CurrentSession);
-					await context.SaveChangesAsync();
-				}
+			return reAuth;
+		}
 
-				return reAuth;
+		public async Task SetCurrentSession(CurrentSession currentSession)
+		{
+			using var context = ContextFactory.CreateDbContext(ConnectionString);
+			var current = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == currentSession.UserId);
+
+			if (current != null)
+			{
+				current.LoginTime = currentSession.LoginTime;
+				context.CurrentSessions.Update(current);
+			}
+			else
+				context.CurrentSessions.Add(currentSession);
+
+			await context.SaveChangesAsync();
 		}
 
 		#endregion
@@ -378,7 +394,7 @@ namespace DBRepository.Repositories
 				var main = await contex.MainPages.FirstOrDefaultAsync(mp => mp.Component == Component);
 				if (main != null)
 				{
-					if (Component == "About us")
+					if (Component == "about_us")
 					{
 						switch (Possition)
 						{

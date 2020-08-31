@@ -140,11 +140,22 @@ namespace DBRepository.Repositories
             await context.SaveChangesAsync();
         }
 
-		public async Task SetCurrentSession(CurrentSession currentSession)
-		{
+        public async Task SetCurrentSession(CurrentSession currentSession)
+        {
             using var context = ContextFactory.CreateDbContext(ConnectionString);
-            context.CurrentSessions.Add(currentSession);
+
+            var current = await context.CurrentSessions.FirstOrDefaultAsync(cs => cs.UserId == currentSession.UserId);
+           
+            if (current != null)
+            {
+                current.LoginTime = currentSession.LoginTime;
+                context.CurrentSessions.Update(current);
+            }
+            else
+                context.CurrentSessions.Add(currentSession);
+            
             await context.SaveChangesAsync();
+
         }
 
 		public async Task SignOut(int Id)
@@ -181,181 +192,180 @@ namespace DBRepository.Repositories
 			return outUser;
 		}
 
-		public async Task<Dictionary<string, object>> ConfirmEmail(string Id)
+		public async Task<Comfirm> ConfirmEmail(string Id)
 		{
-			Dictionary<string, object> response = new Dictionary<string, object>(1);
+            using var context = ContextFactory.CreateDbContext(ConnectionString);
+            int confirmUserId = 0;
 
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				int confirmUserId = 0;
+            var Emails = await context.ConfirmEmails.AsNoTracking().ToListAsync();
+            foreach (var email in Emails)
+            {
+                using MD5 md5Hash = MD5.Create();
+                var tempEmail = GetMd5Hash(md5Hash, email.TimeConfirm.ToString());
+                if (tempEmail == Id)
+                {
+                    confirmUserId = email.UserId;
+                    context.ConfirmEmails.Remove(email);
+                    await context.SaveChangesAsync();
+                    break;
+                }
+            }
 
-				var Emails = await context.ConfirmEmails.AsNoTracking().ToListAsync();
-				foreach (var email in Emails)
-				{
-                    using MD5 md5Hash = MD5.Create();
-                    var tempEmail = GetMd5Hash(md5Hash, email.TimeConfirm.ToString());
-                    if (tempEmail == Id)
+            if (confirmUserId != 0)
+            {
+                var confirmUser = await context.Users.FirstOrDefaultAsync(u => u.Id == confirmUserId);
+                confirmUser.IsVerified = true;
+                context.Users.Update(confirmUser);
+                await context.SaveChangesAsync();
+
+
+                var currentSession = await context.CurrentSessions.AsNoTracking().FirstOrDefaultAsync(cs => cs.UserId == confirmUserId);
+                if (currentSession != null)
+                {
+                    var response = new Comfirm()
                     {
-                        confirmUserId = email.UserId;
-                        context.ConfirmEmails.Remove(email);
+                        Id = confirmUserId,
+                        Username = confirmUser.Username,
+                        IsVerified = confirmUser.IsVerified,
+                        TypeComfirmEmail = EnumTypeComfirm.Ok
+                    };
+                    return response;
+                }
+                else
+                {
+                    var response = new Comfirm()
+                    {
+                        Id = confirmUserId,
+                        Username = confirmUser.Username,
+                        IsVerified = confirmUser.IsVerified,
+                        TypeComfirmEmail = EnumTypeComfirm.NoLogin
+                    };
+                    return response;
+                }
+            }
+            else
+            {
+                var response = new Comfirm()
+                {
+                    Id = null,
+                    Username = null,
+                    IsVerified = null,
+                    TypeComfirmEmail = EnumTypeComfirm.NoUser
+                };
+                return response;
+            }
+        }
+
+		public async Task<Forgot> ForgotPassword(User user)
+		{
+            using var context = ContextFactory.CreateDbContext(ConnectionString);
+            var findUser = await context.Users.FirstOrDefaultAsync(u => u.Username == user.Username && u.Email == user.Email);
+
+            if (findUser != null)
+            {
+                if (!findUser.IsFogotPassword)
+                {
+                    findUser.IsFogotPassword = true;
+                    ForgotPassword forgotPassword = new ForgotPassword()
+                    {
+                        TimeForgot = System.DateTime.Now,
+                        Username = findUser.Username,
+                        Email = findUser.Email,
+                        CountAttempt = 1,
+                        User = findUser,
+                        UserId = findUser.Id
+                    };
+                    context.ForgotPasswords.Add(forgotPassword);
+                    context.Users.Update(findUser);
+                    await context.SaveChangesAsync();
+
+                    var fogot = forgotPassword.Username + " " + forgotPassword.Email + " "
+                        + forgotPassword.CountAttempt.ToString() + " " + forgotPassword.TimeForgot.ToString();
+
+                    string hash = "";
+                    using (MD5 md5Hash = MD5.Create())
+                        hash = GetMd5Hash(md5Hash, fogot);
+
+                    var response = new Forgot()
+                    {
+                        Hash = hash,
+                        Email = findUser.Email,
+                        Username = findUser.Username,
+                        CountAttempt = 1,
+                        TypeForgotPassword = EnumTypeForgot.Ok
+                    };
+
+                    return response;
+                }
+                else
+                {
+                    findUser.IsFogotPassword = true;
+                    var forgotPassword = await context.ForgotPasswords.FirstOrDefaultAsync(fa => fa.UserId == findUser.Id);
+
+                    if (forgotPassword.CountAttempt < 5)
+                    {
+                        forgotPassword.CountAttempt++;
+
+                        context.ForgotPasswords.Update(forgotPassword);
+                        context.Users.Update(findUser);
                         await context.SaveChangesAsync();
-                        break;
+
+                        var fogot = forgotPassword.Username + " " + forgotPassword.Email + " "
+                        + forgotPassword.CountAttempt.ToString() + " " + forgotPassword.TimeForgot.ToString();
+
+                        string hash = "";
+                        using (MD5 md5Hash = MD5.Create())
+                            hash = GetMd5Hash(md5Hash, fogot);
+
+                        var response = new Forgot()
+                        {
+                            Hash = hash,
+                            Email = findUser.Email,
+                            Username = findUser.Username,
+                            CountAttempt = forgotPassword.CountAttempt,
+                            TypeForgotPassword = EnumTypeForgot.Ok
+                        };
+
+                        return response;
+                    }
+                    else
+                    {
+                        forgotPassword.CountAttempt++;
+                        findUser.IsFogotPassword = true;
+                        findUser.IsBlock = true;
+                        context.Users.Update(findUser);
+                        await context.SaveChangesAsync();
+
+                        var response = new Forgot()
+                        {
+                            Hash = null,
+                            Email = findUser.Email,
+                            Username = findUser.Username,
+                            CountAttempt = forgotPassword.CountAttempt,
+                            TypeForgotPassword = EnumTypeForgot.Blocked
+                        };
+
+                        return response;
                     }
                 }
+            }
+            else
+            {
+                var response = new Forgot()
+                {
+                    Hash = null,
+                    Email = user.Email,
+                    Username = user.Username,
+                    CountAttempt = null,
+                    TypeForgotPassword = EnumTypeForgot.NotFound
+                };
 
-				if (confirmUserId != 0)
-				{
-					var confirmUser = await context.Users.FirstOrDefaultAsync(u => u.Id == confirmUserId);
-					confirmUser.IsVerified = true;
-					context.Users.Update(confirmUser);
-					await context.SaveChangesAsync();
+                return response;
+            }
+        }
 
-
-					var currentSession = await context.CurrentSessions.AsNoTracking().FirstOrDefaultAsync(cs => cs.UserId == confirmUserId);
-					if (currentSession != null)
-					{
-						var confirmEmail = new
-						{
-							Id = confirmUserId,
-							confirmUser.Username,
-							IsVerification = confirmUser.IsVerified,
-						};
-						response.Add("Ok", confirmEmail);
-					}
-					else
-					{
-						var confirmEmail = new
-						{
-							Id = confirmUserId,
-							confirmUser.Username,
-							Token = "No login",
-							IsVerification = confirmUser.IsVerified,
-						};
-						response.Add("No login", confirmEmail);
-					}
-				}
-				else
-				{
-					var confirmEmail = new
-					{
-						Id = "",
-						Username = "",
-						Token = "",
-						IsVerification = "",
-					};
-					response.Add("No user", confirmEmail);
-				}
-			}
-
-			return response;
-		}
-
-		public async Task<Dictionary<string, object>> ForgotPassword(User user)
+        public async Task<Accept> AcceptForgot(string Id)
 		{
-			Dictionary<string, object> response = new Dictionary<string, object>(1);
-			using (var context = ContextFactory.CreateDbContext(ConnectionString))
-			{
-				var findUser = await context.Users.FirstOrDefaultAsync(u => u.Username == user.Username && u.Email == user.Email);
-
-				if (findUser != null)
-				{
-					if (!findUser.IsFogotPassword)
-					{
-						findUser.IsFogotPassword = true;
-						ForgotPassword forgotPassword = new ForgotPassword()
-						{
-							TimeForgot = System.DateTime.Now,
-							Username = findUser.Username,
-							Email = findUser.Email,
-							CountAttempt = 1,
-							User = findUser,
-							UserId = findUser.Id
-						};
-						context.ForgotPasswords.Add(forgotPassword);
-						context.Users.Update(findUser);
-						await context.SaveChangesAsync();
-
-						var fogot = forgotPassword.Username + " " + forgotPassword.Email + " " 
-							+ forgotPassword.CountAttempt.ToString() + " " + forgotPassword.TimeForgot.ToString();
-
-						string hash = "";
-						using (MD5 md5Hash = MD5.Create())
-							hash = GetMd5Hash(md5Hash, fogot);
-
-						var fogotPassword = new
-						{
-							Hash = hash,
-							findUser.Email,
-							findUser.Username,
-							CountAttempt = 1
-						};
-						response.Add("Ok", fogotPassword);
-					}
-					else
-					{
-						findUser.IsFogotPassword = true;
-						var forgotPassword = await context.ForgotPasswords.FirstOrDefaultAsync(fa => fa.UserId == findUser.Id);
-
-						if (forgotPassword.CountAttempt < 5)
-						{
-							forgotPassword.CountAttempt++;
-
-							context.ForgotPasswords.Update(forgotPassword);
-							context.Users.Update(findUser);
-							await context.SaveChangesAsync();
-
-							var fogot = forgotPassword.Username + " " + forgotPassword.Email + " "
-							+ forgotPassword.CountAttempt.ToString() + " " + forgotPassword.TimeForgot.ToString();
-
-							string hash = "";
-							using (MD5 md5Hash = MD5.Create())
-								hash = GetMd5Hash(md5Hash, fogot);
-
-							var fogotPassword = new
-							{
-								Hash = hash,
-								findUser.Email,
-								findUser.Username,
-								forgotPassword.CountAttempt
-							};
-							response.Add("Ok", fogotPassword);
-						}
-						else
-						{
-							forgotPassword.CountAttempt++;
-							findUser.IsFogotPassword = true;
-							findUser.IsBlock = true;
-							context.Users.Update(findUser);
-							await context.SaveChangesAsync();
-							
-							var fogotPassword = new
-							{
-								findUser.Email,
-								findUser.Username,
-								forgotPassword.CountAttempt
-							};
-							response.Add("Blocked", fogotPassword);
-						}
-					}
-				}
-				else
-				{
-					var fogotPassword = new
-					{
-						Hash = "Not found",
-                        user.Email,
-						user.Username
-					};
-					response.Add("Not found", fogotPassword);
-				}
-			}
-			return response;
-		}
-
-        public async Task<Dictionary<string, object>> AcceptForgot(string Id)
-		{
-			Dictionary<string, object> response = new Dictionary<string, object>(1);
-
             using var context = ContextFactory.CreateDbContext(ConnectionString);
             var forgotPassword = await context.ForgotPasswords.AsNoTracking().ToListAsync();
 
@@ -369,26 +379,28 @@ namespace DBRepository.Repositories
                         hash = GetMd5Hash(md5Hash, fogot);
                     if (hash == Id)
                     {
-                        var ConfirmFogot = new
+                        var response = new Accept()
                         {
                             Id = fogotUser.UserId,
-                            fogotUser.Username
+                            Username = fogotUser.Username,
+                            IsOk = true
                         };
-                        response.Add("Ok", ConfirmFogot);
                         return response;
                     }
                 }
             }
             else
             {
-                var ConfirmFogot = new
+                var response = new Accept()
                 {
-                    Id = 0,
-                    Username = ""
+                    Id = null,
+                    Username = null,
+                    IsOk = false
                 };
-                response.Add("No found", ConfirmFogot);
+                return response;
             }
-            return response;
+
+            return null;
         }
 		
 		public async Task RecoveryPassword(User user, int Id)
