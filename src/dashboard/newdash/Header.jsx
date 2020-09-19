@@ -1,7 +1,7 @@
 import React, { memo, useState, useEffect, forwardRef, useMemo } from "react";
 import { connect } from "react-redux";
 import { setUser } from "../actions/header";
-import { userLogoutGet } from "../actions/logout";
+import { userLogoutGet, relogUser } from "../actions/logout";
 import { Link, useHistory } from "react-router-dom";
 import clsx from "clsx";
 import { BurgerIcon } from "../svg/iconComponents";
@@ -287,10 +287,11 @@ function Header(props) {
   );
 }
 
-function HeaderUserName({ user, setUserAction, ...rest }) {
+function HeaderUserName({ user, setUserAction, relogAction, ...rest }) {
   useEffect(() => {
     if (user.user.username === "") {
       setUserAction();
+      relogAction();
     }
   });
 
@@ -311,6 +312,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setUserAction: (username) => dispatch(setUser(username)),
     getUserLogoutAction: () => dispatch(userLogoutGet()),
+    relogAction: () => dispatch(relogUser()),
   };
 };
 

@@ -116,6 +116,7 @@ function inputField({
         disableUnderline
         InputProps={{ ...input, ...custom, disableUnderline: true }}
         helperText={touched && error ? error : ""}
+        {...custom}
       />
     </Grid>
   );
@@ -135,7 +136,6 @@ function Withdraw(props) {
   const handleClose = () => setOpen(false);
 
   const submit = (values) => {
-    console.log("amount", Number(values.amount) * rate.b2u);
     if (Number(values.amount) * rate.b2u >= 10) {
       props.WithdrawAction({
         BTC: (Number(values.amount) * -1).toString(),
@@ -221,6 +221,7 @@ function Withdraw(props) {
             <Field
               type="number"
               step="any"
+              min="0"
               name="amount"
               classes={classes}
               label="Insert Withdraw amount"

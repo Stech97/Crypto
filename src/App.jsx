@@ -8,7 +8,7 @@ import {
 import { connect } from "react-redux";
 import { store } from "./store/configureStore";
 import RouteWithSubRoutes from "./Routes";
-import { routes } from "./config";
+import { routes, API } from "./config";
 import { Helmet } from "react-helmet";
 import "./styles/common/main/global.scss";
 import ErrorPage from "./signup/ErrorPage";
@@ -23,11 +23,31 @@ const getIpFetch = () =>
 const getCountryFetch = (ip) =>
     axios.get("https://ipinfo.io/" + ip + "/?token=7a04a322ea8440");
 
+const getUserInfoFetch = async () => {
+    let response = await API(
+        "/Identity/GetUser?Id=" + localStorage.getItem("id")
+    );
+    return response;
+};
+
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = { status: false, loading: true };
     }
+
+    RelogCheck = async () => {
+        let id = localStorage.getItem("id");
+        if (id) {
+            getUserInfoFetch()
+                .then((res) => {
+                    if (res.status !== 200) {
+                        localStorage.removeItem("id");
+                    }
+                })
+                .catch((error) => localStorage.removeItem("id"));
+        }
+    };
 
     CountryAllowed = async () => {
         getIpFetch()
@@ -43,14 +63,12 @@ class App extends Component {
                                 status: true,
                                 loading: false,
                             });
-                            console.log("1", this.state);
                         } else {
                             this.setState({
                                 ...this.state,
                                 status: false,
                                 loading: false,
                             });
-                            console.log("2", this.state);
                         }
                     })
                     .catch((error) => {
@@ -59,17 +77,16 @@ class App extends Component {
                             status: true,
                             loading: false,
                         });
-                        console.log("3", this.state);
                     });
             })
             .catch((error) => {
                 this.setState({ ...this.state, status: true, loading: false });
-                console.log("4", this.state);
             });
     };
 
     componentDidMount = async () => {
         this.CountryAllowed();
+        this.RelogCheck();
         this.forceUpdate();
     };
 

@@ -1,6 +1,6 @@
 import { API } from "../../config";
 export const Dashboard = "/Dashboard";
-
+export const Invoice = "/Invoice";
 export const Withdraw = "/Withdraw";
 export const CashBTC = "/CashBTC";
 export const REQUEST = "/request";
@@ -30,6 +30,16 @@ const ActionSuccess = (type, data) => ({
 	payload: data,
 });
 
+/*
+export const InvoiceAction = (price) => dispatch => {
+	dispatch(ActionRequest(Invoice));
+	InvoiceFetch(price).then(res => {
+		if (res.ok) {
+			dispatch(Action)
+		}
+	})
+}
+*/
 export const WithdrawCash = (data) => (dispatch) => {
 	dispatch(ActionRequest(Withdraw));
 	CashFetch(data)

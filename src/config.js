@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 
 import ComingSoon from "./comingsoon/Comingsoon";
 import MainPage from "./main/Main";
@@ -216,9 +215,9 @@ export const API = async (path, mode = "get", body = null, authed = true) => {
           //console.log(error.request);
           return {
             ok: false,
-            data: error.response.data,
+            data: error.response,
             error: {
-              status: error.response.status,
+              status: error.response,
               message: error.message,
             },
           };

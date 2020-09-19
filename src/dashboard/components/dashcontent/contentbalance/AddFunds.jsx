@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from "react";
+import Helmet from "react-helmet";
+import axios from "axios";
 import {
 	Field,
 	formValueSelector,
@@ -97,7 +99,7 @@ const CustomField = withStyles({
 
 function inputField({ input, placeholder, meta: { touched, error, warning } }) {
 	return (
-		<Grid item container xs={12} justify="center">
+		<Grid item container xs={12} justify="start">
 			<CustomField
 				type="number"
 				step="any"
@@ -107,6 +109,7 @@ function inputField({ input, placeholder, meta: { touched, error, warning } }) {
 				placeholder={placeholder}
 				InputProps={{ ...input, disableUnderline: true }}
 				helperText={touched && error ? error : ""}
+				oninput="event.preventDefault();isNaN(event.target.value) || event.target.value <= 0 ? document.querySelector('#btcpay-input-price').value = 10 : event.target.value"
 			/>
 		</Grid>
 	);
@@ -138,29 +141,42 @@ function AddFunds(props) {
 	const handleClose = () => {
 		setOpen(false);
 	};
+	const axiosInvoice = axios.create({
+		baseURL: "https://payment.defima.io/api/v1",
+		timeout: 5000,
+		responseType: "json",
+		headers: {
+			"Content-Type": "application/json",
+			//			Authorization: "781ebc3eff657922fed2604a82da5bfc68856696",
+		},
+	});
 
-	const [activeStep, setActiveStep] = React.useState(0);
-	const steps = getSteps();
-
-	const handleNext = () => {
-		setActiveStep((prevActiveStep) => prevActiveStep + 1);
+	const InvoiceFetch = async (price) => {
+		const invoiceCreation = {
+			price: Number(price),
+			currency: "BTC",
+			storeID: "7jgseRYR7n6X6bEUkEdoWgby3BP6HfoMB2VVT9C1g2tz",
+			redirectURL: "https://defima.io/account/dashboard",
+			jsonResponse: true,
+		};
+		let response = await axiosInvoice.post("/invoices", invoiceCreation);
+		return response;
 	};
-
-	const handleBack = () => {
-		setActiveStep((prevActiveStep) => prevActiveStep - 1);
-	};
-
-	const handleReset = () => {
-		setActiveStep(0);
-	};
-
-	const submit = (values) => {
+	const submit = async (values) => {
 		props.CashAction(values.amount);
-		handleNext();
+		InvoiceFetch(values.amount).then((res) => {
+			if (res.ok) {
+				window.btcpay.showInvoice(res.data.data.id);
+			}
+		});
 	};
 
 	return (
 		<Fragment>
+			<Helmet
+				script={[{ src: "https://payment.defima.io/modal/btcpay.js" }]}
+				// Helmet doesn't support `onload` in script objects so we have to hack in our own
+			/>
 			<Button onClick={handleClickOpen} className={classes.btcPlus}>
 				<PlusIcon />
 			</Button>
@@ -185,7 +201,95 @@ function AddFunds(props) {
 				</DialogTitle>
 				<DialogContent>
 					<Grid justify="center" container xs={12}>
-						<Grid
+						<Grid container xs={12} spacing={2} justify="center">
+							<Grid container item xs={12} justify="center">
+								<Grid
+									component="form"
+									spacing={2}
+									justify="center"
+									item
+									container
+									xs={12}
+									method="POST"
+									onSubmit="onBTCPayFormSubmit(event);return false"
+									action="https://payment.defima.io/api/v1/invoices"
+								>
+									<input
+										type="hidden"
+										name="storeId"
+										defaultValue="7jgseRYR7n6X6bEUkEdoWgby3BP6HfoMB2VVT9C1g2tz"
+									/>
+									<input
+										type="hidden"
+										name="jsonResponse"
+										defaultValue="false"
+									/>
+									<input
+										type="hidden"
+										name="browserRedirect"
+										defaultValue="https://defima.io/account/dashboard"
+									/>
+									<input
+										type="hidden"
+										name="currency"
+										defaultValue="BTC"
+									/>
+									<Grid
+										container
+										item
+										xs={12}
+										justify="start"
+									>
+										<Typography
+											align="center"
+											variant="body1"
+										>
+											Enter amount of funds you want to
+											add
+										</Typography>
+									</Grid>
+									<Field
+										id="btcpay-input-price"
+										name="price"
+										component={inputField}
+									/>
+									<Grid
+										component={Box}
+										justify="space-between"
+										item
+										container
+										xs={12}
+									>
+										<OrangeButton type="submit">
+											Confirm
+										</OrangeButton>
+									</Grid>
+								</Grid>
+							</Grid>
+						</Grid>
+					</Grid>
+				</DialogContent>
+			</Dialog>
+		</Fragment>
+	);
+}
+
+const mapStateToProps = (state) => ({
+	addfunds: state.addfunds,
+	user: state.user.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	CashAction: (amount) => dispatch(SendCash(amount)),
+});
+
+AddFunds = connect(mapStateToProps, mapDispatchToProps)(AddFunds);
+
+export default reduxForm({
+	form: "AddFunds",
+})(AddFunds);
+/*
+<Grid
 							component="form"
 							xs={12}
 							container
@@ -217,9 +321,9 @@ function AddFunds(props) {
 									id="btcpay-input-price"
 									name="price"
 									type="number"
-									min="0.00000001"
+									min="0"
 									max={10}
-									step="0.00000001"
+									step="any"
 									defaultValue={10}
 									style={{ width: "7em" }}
 									oninput="event.preventDefault();isNaN(event.target.value) || event.target.value <= 0 ? document.querySelector('#btcpay-input-price').value = 10 : event.target.value"
@@ -250,120 +354,13 @@ function AddFunds(props) {
 											padding: "15px 0 5% 1px",
 										}}
 									>
-										Buy BTC
+										Confirm
 									</span>
 								</Button>
 							</Grid>
 						</Grid>
-					</Grid>
-				</DialogContent>
-			</Dialog>
-		</Fragment>
-	);
-}
-
-const mapStateToProps = (state) => ({
-	addfunds: state.addfunds,
-	user: state.user.user,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	CashAction: (amount) => dispatch(SendCash(amount)),
-});
-
-AddFunds = connect(mapStateToProps, mapDispatchToProps)(AddFunds);
-
-export default reduxForm({
-	form: "AddFunds",
-})(AddFunds);
-
+*/
 /*
 
-<Grid contaimer xs={12} spacing={2} justify="center">
-						<Stepper activeStep={activeStep} alternativeLabel>
-							{steps.map((label) => (
-								<Step key={label}>
-									<StepLabel className={classes.header}>
-										{label}
-									</StepLabel>
-								</Step>
-							))}
-						</Stepper>
-						{activeStep === 0 ? (
-							<Grid contaimer item xs={12} justify="center">
-								<Grid contaimer item xs={12} justify="center">
-									<Typography align="center" variant="body1">
-										Enter amount of funds you want to add
-									</Typography>
-								</Grid>
-								<Grid
-									onSubmit={handleSubmit(submit)}
-									component="form"
-									spacing={2}
-									justify="center"
-									item
-									container
-									xs={12}
-								>
-									<Field
-										name="amount"
-										component={inputField}
-									/>
-									<Grid
-										component={Box}
-										justify="space-between"
-										item
-										container
-										xs={12}
-									>
-										<OrangeButton
-											disabled={activeStep === 0}
-											onClick={handleBack}
-										>
-											Back
-										</OrangeButton>
-										<OrangeButton type="submit">
-											Next
-										</OrangeButton>
-									</Grid>
-								</Grid>
-							</Grid>
-						) : (
-							<Grid
-								contaimer
-								item
-								xs={12}
-								spacing={2}
-								justify="flex-start"
-							>
-								<Grid contaimer item xs={12} justify="center">
-									<Typography>
-										To deposit bitcoin to this wallet,
-										please send any amount to the wallet
-										below. the money will appear in Bitcoin
-										balance after 1 confirmation.
-									</Typography>
-								</Grid>
-								<Grid spacing={2} item container xs={12}>
-									<Typography>{addfunds.adress}</Typography>
-								</Grid>
-								<Grid
-									justify="space-between"
-									item
-									container
-									xs={12}
-								>
-									<OrangeButton
-										disabled={activeStep === 0}
-										onClick={handleBack}
-									>
-										Back
-									</OrangeButton>
-									<OrangeButton onClick={handleClose}>
-										Close
-									</OrangeButton>
-								</Grid>
-							</Grid>
-						)}
-					</Grid>
+
 				*/

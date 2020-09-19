@@ -34,6 +34,7 @@ export const setUser = () => {
 				if (res.ok) {
 					dispatch(getUserInfoSuccess(res.data));
 				} else {
+					localStorage.removeItem("id");
 					dispatch(
 						getUserInfoError({
 							type: "server",
@@ -43,6 +44,7 @@ export const setUser = () => {
 				}
 			})
 			.catch((error) => {
+				localStorage.removeItem("id");
 				dispatch(
 					getUserInfoError({
 						type: error.status,
