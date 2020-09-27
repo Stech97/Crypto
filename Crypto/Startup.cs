@@ -72,7 +72,7 @@ namespace Crypto
 			.AddCookie("Cookies", options => 
 			{
 				options.Cookie.Name = "auth_cookie";
-				options.Cookie.SameSite = SameSiteMode.None;
+				options.Cookie.SameSite = SameSiteMode.Strict;
 				options.Events = new CookieAuthenticationEvents
 				{
 					OnRedirectToLogin = redirectContext =>
@@ -141,7 +141,7 @@ namespace Crypto
 
 			app.UseCookiePolicy(new CookiePolicyOptions
 			{
-				MinimumSameSitePolicy = SameSiteMode.None,
+				MinimumSameSitePolicy = SameSiteMode.Strict,
 				HttpOnly = HttpOnlyPolicy.Always,
 				Secure = CookieSecurePolicy.Always
 			});

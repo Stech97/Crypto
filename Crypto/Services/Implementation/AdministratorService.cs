@@ -278,7 +278,7 @@ namespace Crypto.Services.Implementation
 		public async Task<List<UserViewModel>> GetUsers()
 		{
 			var response = await _repository.GetUsers();
-			return _mapper.Map<List<object>, List<UserViewModel>>(response);
+			return _mapper.Map<List<UserInfoDTO>, List<UserViewModel>>(response);
 		}
 		public async Task DelUser(int Id)
 		{

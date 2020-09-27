@@ -5,8 +5,10 @@
     <LangVersion>7.2</LangVersion>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+	<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+	<IncludeSymbolsInSingleFile>true</IncludeSymbolsInSingleFile>
+	<UserSecretsId>b1c2ca43-8f6b-4c4a-88ed-afbc64c11e31</UserSecretsId>
   </PropertyGroup>
-
   <ItemGroup>
     <None Include="credentials.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

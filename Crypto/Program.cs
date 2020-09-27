@@ -49,7 +49,7 @@ namespace Crypto
 
 			ITrigger TriggerBTC = TriggerBuilder.Create()
 				.WithIdentity("TriggerBTC", "GroupBTC")
-				.WithCronSchedule("* * * ? * * *")
+				.WithCronSchedule("*/5 * * ? * * *")
 				.ForJob("UpdateBTCJob", "GroupBTC")
 				.Build();
 			await scheduler.ScheduleJob(UpdateBTCJob, TriggerBTC);

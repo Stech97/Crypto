@@ -924,21 +924,21 @@ namespace DBRepository.Repositories
             await context.SaveChangesAsync();
         }
 
-		public async Task<List<object>> GetUsers()
+		public async Task<List<UserInfoDTO>> GetUsers()
 		{
-			List<object> response = new List<object>();
+			List<UserInfoDTO> response = new List<UserInfoDTO>();
             using var context = ContextFactory.CreateDbContext(ConnectionString);
             var Users = await context.Users.AsNoTracking().ToListAsync();
             foreach (var user in Users)
             {
-                var Res = new
+                var Res = new UserInfoDTO()
                 {
-                    user.Id,
-                    user.Username,
-                    user.FirstName,
-                    user.LastName,
-                    user.Email,
-                    user.IsVerified,
+                    Id = user.Id,
+                    Username = user.Username,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    IsVerified = user.IsVerified,
                 };
                 response.Add(Res);
             }

@@ -83,7 +83,7 @@ namespace DBRepository.Interfaces
 
         #region Dev
         Task DelUser(int Id);
-        Task<List<object>> GetUsers();
+        Task<List<UserInfoDTO>> GetUsers();
         #endregion
     }
 }

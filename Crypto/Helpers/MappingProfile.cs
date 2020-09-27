@@ -7,7 +7,6 @@ using Crypto.ViewModels.Dashdoard;
 using Crypto.ViewModels.Administrator;
 using Crypto.ViewModels.Investment;
 using Models.DTO;
-using System.Collections.Generic;
 
 namespace Crypto.Helpers
 {
@@ -115,6 +114,8 @@ namespace Crypto.Helpers
 
 			CreateMap<WithdrawAll, WithDraw>()
 				.ForMember(m => m.Status, opt => opt.MapFrom(m => m.ToString()));
+			
+			CreateMap<UserInfoDTO, ViewModels.Administrator.UserViewModel>();
 
 		}
 	}

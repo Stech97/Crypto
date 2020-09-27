@@ -1,6 +1,6 @@
-﻿namespace Crypto.ViewModels.Administrator
+﻿namespace Models.DTO
 {
-    public class UserViewModel
+    public class UserInfoDTO
     {
         public int Id { get; set; }
         public string Username { get; set; }
