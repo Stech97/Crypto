@@ -5,6 +5,7 @@ using Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Crypto.Services.Implementation
 {
@@ -19,17 +20,17 @@ namespace Crypto.Services.Implementation
 			_mapper = mapper;
 		}
 
-		public async void AddProfit()
+		public async Task AddProfit()
 		{
 			await _repository.AddProfit();
 		}
 
-		public async void AddCommission()
+		public async Task AddCommission()
 		{
 			await _repository.AddCommission();
 		}
 
-		public async void UpdateBTCRate()
+		public async Task UpdateBTCRate()
 		{
 			var uri = "https://api.kraken.com/0/public/Ticker?pair=XXBTZUSD";
 

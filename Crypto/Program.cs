@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Quartz;
+using Quartz.Impl;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -14,10 +16,81 @@ namespace Crypto
 {
 	public class Program
     {
-        public static async Task Main(string[] args)
-        {
+		public static async Task Main(string[] args)
+		{
 			var host = BuildWebHost(args);
+			await InitService.GetSystemService(host);
 
+			#region Scheduler 
+
+			StdSchedulerFactory factory = new StdSchedulerFactory();
+			IScheduler scheduler = await factory.GetScheduler();
+			await scheduler.Start();
+
+			#region Scheduler Calculate Money
+			IJobDetail CalcMoneyJob = JobBuilder.Create<CalcMoney>()
+				.WithIdentity("CalcMoneyJob", "GroupCalc")
+				.Build();
+
+			ITrigger TriggerCalc = TriggerBuilder.Create()
+				.WithIdentity("TriggerCalc", "GroupCalc")
+				.WithCronSchedule("0 58 17 ? * FRI *")
+				.ForJob("CalcMoneyJob", "GroupCalc")
+				.Build();
+			await scheduler.ScheduleJob(CalcMoneyJob, TriggerCalc);
+
+			#endregion
+
+			#region Scheduler Update BTC
+
+			IJobDetail UpdateBTCJob = JobBuilder.Create<UpdateBTC>()
+				.WithIdentity("UpdateBTCJob", "GroupBTC")
+				.Build();
+
+			ITrigger TriggerBTC = TriggerBuilder.Create()
+				.WithIdentity("TriggerBTC", "GroupBTC")
+				.WithCronSchedule("* * * ? * * *")
+				.ForJob("UpdateBTCJob", "GroupBTC")
+				.Build();
+			await scheduler.ScheduleJob(UpdateBTCJob, TriggerBTC);
+            
+			#endregion
+            
+			#endregion
+
+            host.Run();
+		}
+
+		public static IWebHost BuildWebHost(string[] args) =>
+			WebHost.CreateDefaultBuilder(args)
+				.UseStartup<Startup>()
+				.Build();
+	}
+
+	public class CalcMoney : IJob
+	{
+		public async Task Execute(IJobExecutionContext context)
+		{
+			var system = InitService.service;
+			await system.AddCommission();
+			await system.AddProfit();
+		}
+	}
+
+	public class UpdateBTC : IJob
+	{
+		public async Task Execute(IJobExecutionContext context)
+		{
+			var system = InitService.service;
+			await system.UpdateBTCRate();
+		}
+	}
+
+	static class InitService
+	{
+		public static ISystemService service;
+		public static async Task GetSystemService(IWebHost host)
+		{
 			var builder = new ConfigurationBuilder()
 				.SetBasePath(Directory.GetCurrentDirectory())
 				.AddJsonFile("appsettings.json");
@@ -43,36 +116,9 @@ namespace Crypto
 					Environment.Exit(-1);
 				}
 
-				var systemService = services.GetRequiredService<ISystemService>();
-				Helpers.TaskScheduler.Instance.ScheduleTask(0, 5, () => { systemService.UpdateBTCRate(); });
-
-				int Day = 0;
-				if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
-					Day = 6;
-				else
-				{
-					if (DateTime.Now.DayOfWeek == DayOfWeek.Friday)
-						Day = 0;
-					else
-						Day = DayOfWeek.Friday - DateTime.Now.DayOfWeek;
-				}
-				int Hour = 17 - DateTime.Now.Hour;
-				int AddHour = (Day * 24) + Hour;
-				int AddMinute = 59 - DateTime.Now.Minute;
-				if (AddHour < 0)
-					AddHour += 168;
-
-
-				Helpers.TaskScheduler.Instance.ScheduleTask(AddHour, AddMinute, 168, () => { systemService.AddCommission(); });
-				Helpers.TaskScheduler.Instance.ScheduleTask(AddHour, AddMinute, 168, () => { systemService.AddProfit(); });
+				service = services.GetRequiredService<ISystemService>();
 			}
-
-			host.Run();
 		}
-
-		public static IWebHost BuildWebHost(string[] args) =>
-			WebHost.CreateDefaultBuilder(args)
-				.UseStartup<Startup>()
-				.Build();
 	}
+
 }

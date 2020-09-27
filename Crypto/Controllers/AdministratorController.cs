@@ -131,7 +131,7 @@ namespace Crypto.Controllers
 
 			var now = DateTime.UtcNow;
 			var timeOut = now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME));
-			// создаем JWT-токен
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ JWT-пїЅпїЅпїЅпїЅпїЅ
 			var jwt = new JwtSecurityToken(
 					issuer: AuthOptions.ISSUER,
 					audience: AuthOptions.AUDIENCE,
@@ -197,7 +197,7 @@ namespace Crypto.Controllers
 
 					var now = DateTime.UtcNow;
 					var timeOut = now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME));
-					// создаем JWT-токен
+					// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ JWT-пїЅпїЅпїЅпїЅпїЅ
 					var jwt = new JwtSecurityToken(
 							issuer: AuthOptions.ISSUER,
 							audience: AuthOptions.AUDIENCE,

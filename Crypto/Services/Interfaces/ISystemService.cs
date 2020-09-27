@@ -1,9 +1,11 @@
-﻿namespace Crypto.Services.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace Crypto.Services.Interfaces
 {
     public interface ISystemService
     {
-        void UpdateBTCRate();
-        void AddProfit();
-        void AddCommission();
+        Task UpdateBTCRate();
+        Task AddProfit();
+        Task AddCommission();
     }
 }
