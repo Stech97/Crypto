@@ -21,7 +21,7 @@ namespace Crypto.Controllers
 	[ApiController]
 	[Route("[controller]")]
 	[Authorize(Roles = "Administrator")]
-	public class AdministratorController : ControllerBase
+	public class AdministratorController : Controller
 	{
 		private readonly IAdministratorService _administratorService;
 		private readonly ISystemService _systemService;
@@ -119,10 +119,10 @@ namespace Crypto.Controllers
 					{
 						var claims = new List<Claim>
 						{
-							new Claim(ClaimsIdentity.DefaultNameClaimType, username),
-							new Claim(ClaimsIdentity.DefaultRoleClaimType, "Administrator")
+							new Claim(ClaimTypes.Name, username),
+							new Claim(ClaimTypes.Role, "Administrator")
 						};
-						identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+						identity = new ClaimsIdentity(claims, "Cookies", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 					}
 				}
 			}
@@ -131,7 +131,7 @@ namespace Crypto.Controllers
 
 			var now = DateTime.UtcNow;
 			var timeOut = now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME));
-			// ������� JWT-�����
+
 			var jwt = new JwtSecurityToken(
 					issuer: AuthOptions.ISSUER,
 					audience: AuthOptions.AUDIENCE,
@@ -186,18 +186,18 @@ namespace Crypto.Controllers
 					else
 					{
 						var claims = new List<Claim>
-							{
-								new Claim(ClaimsIdentity.DefaultNameClaimType, ret.Username),
-								new Claim(ClaimsIdentity.DefaultRoleClaimType, "Administrator")
-							};
-						identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+						{
+							new Claim(ClaimTypes.Name, ret.Username),
+							new Claim(ClaimTypes.Role, "Administrator")
+						};
+						identity = new ClaimsIdentity(claims, "Cookies", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 					}
 					if (identity == null)
 						return Unauthorized();
 
 					var now = DateTime.UtcNow;
 					var timeOut = now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME));
-					// ������� JWT-�����
+
 					var jwt = new JwtSecurityToken(
 							issuer: AuthOptions.ISSUER,
 							audience: AuthOptions.AUDIENCE,

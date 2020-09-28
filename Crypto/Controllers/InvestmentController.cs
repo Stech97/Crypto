@@ -9,7 +9,7 @@ namespace Crypto.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	[Authorize]
+	[Authorize(Roles = "Client")]
 	public class InvestmentController : Controller
 	{
 		private readonly IInvestmentService _investmentService;

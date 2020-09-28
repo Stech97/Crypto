@@ -20,7 +20,7 @@ namespace Crypto.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	[Authorize]
+	[Authorize(Roles = "Client")]
 	public class IdentityController : Controller
 	{
 		private readonly IIdentityService _identityService;
@@ -118,10 +118,10 @@ namespace Crypto.Controllers
                     {
                         var claims = new List<Claim>
                         {
-                            new Claim(ClaimsIdentity.DefaultNameClaimType, username),
-                            new Claim(ClaimsIdentity.DefaultRoleClaimType, "Client")
+                            new Claim(ClaimTypes.Name, username),
+                            new Claim(ClaimTypes.Role, "Client")
                         };
-                        identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                        identity = new ClaimsIdentity(claims, "Cookies", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                     }
                 }
             }
@@ -230,10 +230,10 @@ namespace Crypto.Controllers
 					{
 						var claims = new List<Claim>
 						{
-							new Claim(ClaimsIdentity.DefaultNameClaimType, ret.Username),
-							new Claim(ClaimsIdentity.DefaultRoleClaimType, "Client")
+							new Claim(ClaimTypes.Name, ret.Username),
+							new Claim(ClaimTypes.Role, "Client")
 						};
-						identity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+						identity = new ClaimsIdentity(claims, "Cookies", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 					}
 					if (identity == null)
 						return Unauthorized();

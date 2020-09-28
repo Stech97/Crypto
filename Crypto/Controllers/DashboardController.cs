@@ -8,7 +8,7 @@ namespace Crypto.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    [Authorize(Roles = "Client")]
     public class DashboardController : Controller
     {
         readonly IDashboardService _dashboardService;

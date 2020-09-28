@@ -49,21 +49,25 @@ namespace Crypto
 					.AllowCredentials());
 			});
 
-			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-					.AddJwtBearer(options =>
-					{
-						options.RequireHttpsMetadata = false;
-						options.SaveToken = true;
-						options.TokenValidationParameters = new TokenValidationParameters
-						{
-							ValidIssuer = AuthOptions.ISSUER,
-							ValidAudience = AuthOptions.AUDIENCE,
-							IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-							ValidateLifetime = true,
-							ValidateIssuerSigningKey = true,
-							ClockSkew = TimeSpan.Zero
-						};
-					});
+			services.AddAuthentication(opt =>
+			{
+				opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			}) 
+			.AddJwtBearer(options =>
+			{
+				options.RequireHttpsMetadata = false;
+				options.SaveToken = true;
+				options.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidIssuer = AuthOptions.ISSUER,
+					ValidAudience = AuthOptions.AUDIENCE,
+					IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+					ValidateLifetime = true,
+					ValidateIssuerSigningKey = true,
+					ClockSkew = TimeSpan.Zero
+				};
+			});
 
 			services.AddAuthentication(options => 
 			{
@@ -71,7 +75,7 @@ namespace Crypto
 			})
 			.AddCookie("Cookies", options => 
 			{
-				options.Cookie.Name = "auth_cookie";
+				options.Cookie.Name = ".AspNetCore.Application.Id";
 				options.Cookie.SameSite = SameSiteMode.Strict;
 				options.Events = new CookieAuthenticationEvents
 				{
