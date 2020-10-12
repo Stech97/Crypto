@@ -24,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: "20px",
 	},
 	header: {
-		background: 'none',
+		background: "none",
 		"&>div": {
 			color: "#fff",
-			backgroundColor: '#123273',
+			backgroundColor: "#123273",
 		},
 		"& h6": {
 			color: "#fff",
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 	row: {
 		position: "relative",
 		borderRadius: "2vw",
-		background: 'none',
+		background: "none",
 
 		"&>div": {
 			border: "none",
@@ -117,10 +117,10 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	plus_fake: {
-		border: 'none',
+		border: "none",
 		width: 0,
 		height: 0,
-	}
+	},
 }));
 
 const MemberLevelRow = ({
@@ -141,7 +141,7 @@ const MemberLevelRow = ({
 			</h5>
 			<h5 className="team-table-content-row-m gray-text">{members}</h5>
 			<h5 className="team-table-content-row-i gray-text">
-				{(totalInvested / 1000).toFixed(3) + "k $"}
+				{totalInvested.toFixed(3) + " $"}
 			</h5>
 			<h5 className="team-table-content-row-p gray-text">
 				{(profitsPaid / 1000).toFixed(3) + "k"}
@@ -150,7 +150,7 @@ const MemberLevelRow = ({
 				{commission * 100 + "%"}
 			</h5>
 			<h5 className="team-table-content-row-e gray-text">
-				{(totalEarning / 1000).toFixed(3) + "k USD"}
+				{totalEarning.toFixed(2) + " USD"}
 			</h5>
 		</div>
 	);
@@ -267,7 +267,7 @@ function CustomTableRow(props) {
 						component={Box}
 					>
 						<Typography align="center" variant="body1">
-							{(row.profitsPaid / 1000).toFixed(2) + "k"}
+							{row.profitsPaid.toFixed(2) + " USD"}
 						</Typography>
 					</TableCell>
 					<TableCell
@@ -283,7 +283,7 @@ function CustomTableRow(props) {
 						component={Box}
 					>
 						<Typography align="center" variant="body1">
-							{(row.totalEarning / 1000).toFixed(2) + "k USD"}
+							{row.totalEarning.toFixed(2) + " USD"}
 						</Typography>
 					</TableCell>
 				</TableRow>

@@ -14,7 +14,6 @@ function InvestmentContent() {
         <title>Investment</title>
       </Helmet>
       <Goods />
-      <Details />
       <Profit />
       <InvestmentTable />
     </Container>

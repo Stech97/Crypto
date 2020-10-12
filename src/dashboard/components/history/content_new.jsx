@@ -19,7 +19,6 @@ const Plot = createPlotlyComponent(Plotly);
 
 class HistoryStatisticsPlot extends Component {
   render() {
-    console.log("this.props.data", this.props.data);
     return (
       <Plot
         data={this.props.data}

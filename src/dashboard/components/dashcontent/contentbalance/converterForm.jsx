@@ -11,7 +11,8 @@ import OrangeButton from "../../Buttons";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
-const validateFloat = (value) => (value ? parseFloat(value).toString() : "0");
+const validateFloat = (value) =>
+	value && /^[0-9]*([.][0-9]*)?$/.test(value) ? value.toString() : "0";
 
 const CustomField = withStyles({
 	root: {
@@ -44,7 +45,6 @@ const renderField = ({
 		<Grid item xs={12} justify="center">
 			<CustomField
 				type="text"
-				min="0"
 				variant="filled"
 				error={touched && error}
 				placeholder={placeholder}
@@ -57,8 +57,28 @@ const renderField = ({
 
 class ExchangeForm extends Component {
 	handleChange = (currentCurrency, targetCurrency, amount) => {
-		amount = Number(validateFloat(amount));
-		this.props.change(currentCurrency.cur, amount * currentCurrency.rate);
+		amount = Number(amount);
+		let currentRate = "";
+		if (currentCurrency.cur === "btc") {
+			currentRate = "b";
+		} else if (currentCurrency.cur === "dol") {
+			currentRate = "u";
+		} else {
+			currentRate = "d";
+		}
+		currentRate = currentRate + "2";
+		if (targetCurrency.cur === "btc") {
+			currentRate = currentRate + "b";
+		} else if (targetCurrency.cur === "dol") {
+			currentRate = currentRate + "u";
+		} else {
+			currentRate = currentRate + "d";
+		}
+
+		this.props.change(
+			currentCurrency.cur,
+			amount * this.props.rate[currentRate]
+		);
 	};
 
 	render() {
@@ -73,6 +93,7 @@ class ExchangeForm extends Component {
 			balance,
 			error,
 			pristine,
+			rate,
 		} = this.props;
 
 		const curToString = (cur) => {
@@ -199,6 +220,7 @@ class ExchangeForm extends Component {
 const mapStateToProps = (store) => {
 	return {
 		balance: store.Balance.balance,
+		rate: store.Balance.rate,
 		exchange: store.Exchange,
 	};
 };

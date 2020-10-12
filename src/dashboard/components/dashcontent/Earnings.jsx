@@ -108,7 +108,7 @@ function Graph({ height, text, ...rest }) {
 				align="center"
 				className={classes.header}
 			>
-				{rounded2(text) + "% profit reached"}
+				{rounded2(text) + "% Profit Reached"}
 			</Typography>
 			<div className={classes.svgGraph}>
 				<div className={classes.reachborder}>
@@ -260,7 +260,7 @@ function Earnings(props) {
 					direction="column"
 					xs={12}
 					sm={6}
-					header="Total Investments"
+					header="Total Investment"
 					contentBlue={"BTC " + rounded4(totalInvestment.data.btc)}
 					contentGray={["USD " + rounded2(totalInvestment.data.usd)]}
 				/>
@@ -269,7 +269,7 @@ function Earnings(props) {
 					xs={12}
 					sm={6}
 					justify="space-between"
-					header="Profit from Invest"
+					header="Profit from Investment"
 					contentBlue={"DET " + rounded2(profitFromInvest.data.det)}
 					contentGray={["USD " + rounded2(profitFromInvest.data.usd)]}
 				/>

@@ -91,7 +91,7 @@ function Links(props) {
 					justify="center"
 					item
 					xs={12}
-					md={4}
+					md={6}
 					className={classes.row}
 				>
 					{files[fileNames[1]].file === null ? (
@@ -118,7 +118,7 @@ function Links(props) {
 					justify="center"
 					item
 					xs={12}
-					md={4}
+					md={6}
 					className={classes.row}
 				>
 					{files[fileNames[6]].file === null ? (
@@ -137,33 +137,6 @@ function Links(props) {
 							align="center"
 						>
 							Image Video
-						</Typography>
-					)}
-				</Grid>
-				<Grid
-					container
-					justify="center"
-					item
-					xs={12}
-					md={4}
-					className={classes.row}
-				>
-					{files[fileNames[7]].file === null ? (
-						<Typography variant="h6" align="center">
-							Tutorial PDF
-						</Typography>
-					) : (
-						<Typography
-							className={classes.link}
-							component="a"
-							href={URL.createObjectURL(files[fileNames[7]].file)}
-							download={`${fileNames[7]}.${
-								files[fileNames[7]].file.type
-							}`}
-							variant="h6"
-							align="center"
-						>
-							Tutorial PDF
 						</Typography>
 					)}
 				</Grid>
