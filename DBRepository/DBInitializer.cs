@@ -18,7 +18,8 @@ namespace DBRepository
                 context.Users.Add(new User()
                 {
                     Username = "admin",
-                    Password = "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg="
+                    Password = "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=",
+                    Email = "admin@admin.admin"
                 });
 
                 await context.SaveChangesAsync().ConfigureAwait(false);
